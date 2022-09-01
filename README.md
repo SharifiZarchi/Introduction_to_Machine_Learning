@@ -1,3 +1,8 @@
 # Introduction to Machine Learning
-Introduction to Machine Learning, for B.Sc. Students, Computer Engineering Department, Sharif University of Technology
-CoInstructors: Behrooz Azarkhalili, Ali Sharifi-Zarchi
+A course for B.Sc. students, Computer Engineering Department, Sharif University of Technology.
+
+The course is instructed in Persian (Farsi) language. 
+
+All course materials (Slides, Jupyter Notebooks, Theory and Practical Assignments, Projects, etc.) are freely available under Creative Commons BY license.
+
+Co-instructors: Behrooz Azarkhalili, Ali Sharifi-Zarchi
