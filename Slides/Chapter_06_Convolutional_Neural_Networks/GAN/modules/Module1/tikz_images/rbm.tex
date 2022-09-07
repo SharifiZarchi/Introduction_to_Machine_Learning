@@ -1,0 +1,46 @@
+\centering
+\vspace{0.5cm}
+\tikzstyle{neuronv}=[circle,minimum size=20pt,inner sep=0pt, thick, fill=orange!30, draw=red!50]
+\tikzstyle{neuronh}=[circle,minimum size=20pt,inner sep=0pt, thick, fill=blue!20, draw=blue!60]
+\tikzstyle{stateTransition}=[thick]
+\tikzstyle{learned}=[text=black]
+\begin{tikzpicture}[scale=1.9]
+    % \draw ;
+    \draw[rounded corners=0.5cm, draw=red!60, thick] (-0.4, -0.25) rectangle (2.5, 0.25) {};
+    \draw[rounded corners=0.5cm, draw=red!60, thick] (-0.4, 1.25) rectangle (2.5, 1.75) {};
+
+    \node (v1)[neuronv] at (0, 0) {$v_1$};
+    \node (v2)[neuronv] at (0.7, 0) {$v_2$};
+    \node (v3)[] at (1.4, 0) {$\cdots$};
+    \node (v4)[neuronv] at (2.1, 0) {$v_m$};
+    \node[below=0.5cm of v2] (v) {$V \in \{0, 1\}^m$};
+    \node[learned,below=0.1cm of v1] (bv1) {$b_1$};
+    \node[learned,below=0.1cm of v2] (bv2) {$b_2$};
+    % \node[learned,below=0.1cm of v3, scale=0.7] (bv3) {$b_{v_3}$};
+    \node[learned,below=0.1cm of v4] (bv4) {$b_m$};
+
+    \node (h1)[neuronh] at (0, 1.5) {$h_1$};
+    \node (h2)[neuronh] at (0.7, 1.5) {$h_2$};
+    \node (h3)[] at (1.4, 1.5) {$\cdots$};
+    \node (h4)[neuronh] at (2.1, 1.5) {$h_n$};
+    \node[above=0.5cm of h2] (h) {$H \in \{0, 1\}^n$};
+    \node[learned,above=0.1cm of h1] (bv1) {$c_1$};
+    \node[learned,above=0.1cm of h2] (bv2) {$c_2$};
+    % \node[learned,below=0.1cm of v3, scale=0.7] (bv3) {$b_{v_3}$};
+    \node[learned,above=0.1cm of h4] (bv4) {$c_n$};
+
+    \node[learned, scale=0.7] (W) at (2.5, 0.75) {$W \in \mathbb{R}^{m \times n}$};
+
+    \draw[learned,stateTransition] (0,0.17) -- (0,1.33) node [midway,left=-0.1cm] {$w_{1,1}$};
+    \draw[stateTransition] (0,0.17) -- (0.7,1.33) node [midway,above=-0.06cm,sloped] {};
+    \draw[stateTransition] (0,0.17) -- (2.1,1.33) node [midway,above=-0.06cm,sloped] {};
+
+    \draw[stateTransition] (0.7,0.17) -- (0,1.33) node [midway,above=-0.06cm,sloped] {};
+    \draw[stateTransition] (0.7,0.17) -- (0.7,1.33) node [midway,above=-0.06cm,sloped] {};
+    \draw[stateTransition] (0.7,0.17) -- (2.1,1.33) node [midway,above=-0.06cm,sloped] {};
+
+    \draw[stateTransition] (2.1,0.17) -- (0,1.33) node [midway,above=-0.06cm,sloped] {};
+    \draw[stateTransition] (2.1,0.17) -- (0.7,1.33) node [midway,above=-0.06cm,sloped] {};
+    \draw[learned,stateTransition] (2.1,0.17) -- (2.1,1.33) node [midway,left=-0.1cm] {$w_{m,n}$};
+
+\end{tikzpicture}

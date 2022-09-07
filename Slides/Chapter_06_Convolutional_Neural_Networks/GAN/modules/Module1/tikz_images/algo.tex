@@ -1,0 +1,42 @@
+% \documentclass{article}
+% \usepackage{amsmath}
+% \usepackage{algorithm}
+% \usepackage{algorithmicx}
+% \usepackage{algpseudocode}
+% \def\BState{\State\hskip-\ALG@thistlm}
+
+% \makeatletter
+% \makeatother
+
+% \begin{document}
+\begin{algorithm}[H]
+	% \caption{GAN Training}\label{euclid}
+	\begin{algorithmic}[1]
+		\Procedure{GAN Training}{}
+			\visible<2->{\For{number of training iterations}
+					\visible<3->{\For{k steps}
+							\color{red}
+							\visible<4->{\State $\bullet$ Sample minibatch of $m$ noise samples $\{\mathbf{z}^{(1)},..,\mathbf{z}^{(m)}\}$ from noise prior $p_g(\mathbf{z})$}
+							\visible<5->{\State $\bullet$ Sample minibatch of $m$ examples $\{\mathbf{x}^{(1)},..,\mathbf{x}^{(m)}\}$ from data generating distribution $p_{data}(\mathbf{x})$}
+							\visible<6->{\State $\bullet$ Update the discriminator by ascending its stochastic gradient:
+								\begin{align*}
+									~~~~~~~~~~~\nabla_{\theta} \frac{1}{m} \sum_{i=1}^m \left[ 
+																\log D_{\theta}\left(x^{(i)}\right) + 
+																\log\left(1-D_{\theta}\left(G_{\phi}\left(z^{(i)}\right)\right)\right) \right]
+								\end{align*}
+							}\color{black}
+						\EndFor}
+					\color{blue}
+					\visible<7->{\State $\bullet$ Sample minibatch of $m$ noise samples $\{\mathbf{z}^{(1)},..,\mathbf{z}^{(m)}\}$ from noise prior $p_g(\mathbf{z})$}
+							% \Statex \qquad \qquad prior $p_g(\mathbf{z})$
+					\visible<8->{\State $\bullet$ Update the generator by ascending its stochastic gradient
+							\begin{align*}
+								~~~~~~~~~~~\nabla_{\phi} \frac{1}{m} \sum_{i=1}^m \left[ 
+															\log\left(D_{\theta}\left(G_{\phi}\left(z^{(i)}\right)\right)\right) \right]
+							\end{align*}
+						}\color{black}
+				\EndFor}
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+% \end{document} 
