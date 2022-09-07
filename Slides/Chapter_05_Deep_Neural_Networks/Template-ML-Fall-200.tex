@@ -119,10 +119,12 @@
 \usepackage{hyperref}
 \hypersetup{colorlinks,linkcolor=blue,citecolor=redorange,urlcolor=darkred}
 \usepackage{multirow}
-\usepackage[font={scriptsize}]{caption}
+\usepackage[justification=centering,font={scriptsize}]{caption}
 \usepackage{pgf}
 \usepackage{fontspec}
 \usepackage{import}
+\usepackage{textpos}
+\usepackage{bm}
 %\setsansfont[Scale=MatchLowercase, BoldFont = * Bold, ItalicFont = * Italic]{Caladea}
 
 %\usepackage{enumitem,xcolor}
@@ -166,6 +168,19 @@
 
 %\usepackage{smartdiagram}
 %\usesmartdiagramlibrary{additions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% new commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\placetextbox}[4]{
+	\setlength{\TPHorizModule}{\textwidth}
+	\setlength{\TPVertModule}{\textwidth}
+	\begin{textblock}{#1}(#2,#3)
+		#4
+	\end{textblock}
+}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title Page Info %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -201,6 +216,8 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{}
+
 \frame{
 \frametitle{Final Notes}
 \centering
@@ -210,5 +227,10 @@
 \vspace{50pt}
 \textbf{\Large Any Question?}
 }
+
+\begin{frame}{References}
+\bibliographystyle{ieeetr}%{IEEEtrans}%{latex8}%
+\bibliography{references}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
