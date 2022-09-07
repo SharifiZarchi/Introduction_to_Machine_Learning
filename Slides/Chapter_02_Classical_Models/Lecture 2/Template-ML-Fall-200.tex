@@ -106,7 +106,7 @@
 %\setbeamertemplate{navigation symbols}{}
 
 \title{Lecture 2: Introduction to ML and Classical Models}
-\author{ML Instruction Team, Fall 2022 \newline Special Thanks To Sina Mazaheri}
+\author{ML Instruction Team, Fall 2022}
 \institute[]{CE Department \newline  Sharif University of Technology \newline \newline}
 \date[\today]{}
 %\titlegraphic{\includegraphics[scale=.35]{example-image}}
@@ -131,8 +131,9 @@
 \usepackage[font={scriptsize}]{caption}
 \usepackage{pgf}
 \usepackage{fontspec}
-
+\usepackage{subcaption}
 \usepackage[export]{adjustbox}
+\usepackage{caption}
 %\setsansfont[Scale=MatchLowercase, BoldFont = * Bold, ItalicFont = * Italic]{Caladea}
 \graphicspath{ {./Pictures/} }
 %\usepackage{enumitem,xcolor}
@@ -229,32 +230,39 @@ What is Machine Learning?
 \item The main motivation which we develop (computer) programs is to automate various
 kinds of (often tedious) processes.
 \item So far, we have learned to program the computers. the analogy that we have been using is something similar to this:\\
+
+\begin{center}
 \begin{figure}
-\center \includegraphics[scale=0.5]{1}
+\includegraphics[scale=0.5]{1}
+\caption{classical programming paradigm. \href{https://sebastianraschka.com/faq/docs/datascience-ml.html}{source}}
 \end{figure}
+\end{center}
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}{Machine Learning: An Overview}
 \begin{itemize}
-\item The preceding traditional programming paradigm has several disadvantages, as an example:
+\item The preceding traditional programming paradigm has several disadvantages:
 	\begin{itemize}
 	\item what if we don't know waht program should we write for the given data (inputs) ?
 	\item what if the inputs change dynamically over the time? should we write another program? 
 	\end{itemize}
 \item In order to resolve such problems, we should replace the need of developing computer programs "manually"
 \item In other words, we would like to automate the process of creating programs by informing the computer, the inputs and outputs that it needs:
+\begin{center}
 \begin{figure}
-\center \includegraphics[scale=0.5]{2}
+\includegraphics[scale=0.5]{2}
+\center \caption{ML paradigm. \href{https://sebastianraschka.com/faq/docs/datascience-ml.html}{source}}
 \end{figure}
+\end{center}
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Machine Learning: An Overview}
 \begin{itemize}
 \item The preceding model was the main function of Machine Learning paradigm, In fact ML systems use both inputs and outputs to discover the \textbf{Rules and Patterns} behind the data 
-\item= Now that we are fimiliar with ML paradigm, we would like to define it formally:
+\item Now that we are fimiliar with ML paradigm, we would like to define it formally:
 \begin{center}\textit{A computer program is said to learn from experience E with respect to some
 class of tasks T and performance measure P, if its performance at tasks in T, as
 measured by P, improves with experience E.}
@@ -270,28 +278,43 @@ measured by P, improves with experience E.}
 %%%%%%%%%%%%%
 
 
-\begin{frame}{Machine Learning: }
+\begin{frame}{Categories of Machine Learning}
 \begin{itemize}
-\item \textbf{Important Note}: 
-\item \textbf{Important Note}:
-\item \textbf{Important Note}:  
-\item \textbf{Important Note}: 
+\item The three broad categories of ML are summerized in:
+\begin{itemize}
+\item \textbf{Supervised Learning}
+\item \textbf{Unsupervised Learning}  
+\item \textbf{Reinforcement Learning} 
 \end{itemize}
+\end{itemize}
+\begin{figure}
+\includegraphics[scale=0.5, right]{3}
+\caption{Categories of ML (source: Raschka and Mirjalili: Python Machine Learning,
+3rd Ed.)}
+\end{figure}
 \end{frame}
 
 
-\begin{frame}{Machine Learning: General Goals}
+\begin{frame}{Introduction to Supervised Learning}
 \begin{itemize}
-\item When we are applying machine learning to real-world
-problem solving, we need to define the overall objective first and then choose the right tool
-for the task.
-\item Goals in ML are mainly classified into two important categories:
-\begin{itemize}
-\item \textbf{Using for Prediction}: to be able to predict what the responses are going to be to future input variables.
-\item \textbf{Extracting Information}: to extract some information about how nature is associating the response variables to the input variables.
+\item Supervised learning is the subcategory of machine learning that focuses on learning a \textbf{Classification} (Figure left), or \textbf{Regression} model (Figure right), that is, learning from labeled training data (i.e., inputs that also contain the desired outputs or targets; basically, "examples" of what we want to predict).
 \end{itemize}
-\item \textbf{Important Note}: recall the data set $ \mathcal{D} = (\mathbf{X_{\mathnormal n \times \mathnormal m}} , \mathbf{y}) $, when our goal is extracting the information behind the data, we are only dealing with $ \mathbf{X_{\mathnormal n \times \mathnormal m}} $ to recognize the pattern behind the data but in case of using prediction, we are dealing with $ (\mathbf{X_{\mathnormal n \times \mathnormal m}} , \mathbf{y}) $
-\end{itemize}
+\begin{columns}
+\begin{column}{0.4\textwidth}
+\begin{figure}
+ \centering
+ \includegraphics[scale=0.5]{10}  
+ \caption{Illustration of a binary classication problem.}
+\end{figure}
+\end{column}
+\begin{column}{0.4\textwidth}
+\begin{figure}
+ \centering
+ \includegraphics[scale=0.5]{11}  
+ \caption{Illustration of a linear regression model.}
+\end{figure}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Machine Learning: General Goals}
