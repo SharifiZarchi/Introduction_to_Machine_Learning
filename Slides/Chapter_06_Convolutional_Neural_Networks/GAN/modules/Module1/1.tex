@@ -1,0 +1,281 @@
+\frame{\frametitle{The intuition}
+	\myheading{Module 23.1: Generative Adversarial Networks - The intuition}
+
+
+
+\begin{frame}
+	\begin{columns}
+		\column{0.5\textwidth}
+		\begin{overlayarea}{\textwidth}{1\textheight}
+		\vspace*{0mm}
+			\begin{center}
+			\onslide<2->{\scalebox{0.35}{\input{modules/Module1/tikz_images/rbm.tex}}}
+			\onslide<2->{\scalebox{0.35}{\input{modules/Module1/tikz_images/vae.tex}}}\\
+			\onslide<2->{\vspace*{5mm} \scalebox{0.45}{\input{modules/Module1/tikz_images/nade.tex}}}
+			\end{center}
+		\end{overlayarea}
+
+		\column{0.5\textwidth}
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\begin{itemize}[<+->]\justifying
+				\item<1-> So far we have looked at generative models which explicitly model the joint probability distribution or conditional probability distribution 
+				\item<2-> For example, in RBMs we learn $P(X,H)$, in VAEs we learn $P(z|X)$ and $P(X|z)$ whereas in AR models we learn $P(X)$
+     		\item<3-> What if we are only interested in sampling from the distribution and don't really care about explicit density function $P(X)$?
+				\item<4-> What does this mean? \onslide<5->Let us see
+
+			\end{itemize}
+		\end{overlayarea}
+	\end{columns}
+\end{frame}
+
+
+
+\begin{frame}
+
+	\begin{columns}
+
+		\column{1\textwidth}
+		\begin{center}
+			\begin{figure}
+				\includegraphics[scale=0.3]{images/mnist_ground.png}
+			\end{figure}
+		\end{center}
+		
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\begin{itemize}[<+->]\justifying
+			\item As usual we are given some training data (say, MNIST images) which obviously comes from some underlying distribution
+			\item Our goal is to generate more images from this distribution (\textit{i.e.}, create images which look similar to the images from the training data)
+			\item In other words, we want to sample from a complex high dimensional distribution which is intractable (recall RBMs, VAEs and AR models deal with this intractability in their own way)
+
+			\end{itemize}
+		\end{overlayarea}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+		\begin{overlayarea}{\textwidth}{\textheight}
+		\vspace*{5mm}
+		\begin{center}
+			\input{modules/Module1/tikz_images/mnist_transformation.tex}		
+		\end{center}
+
+			\begin{itemize}[<+->]\justifying
+			\item GANs take a different approach to this problem where the idea is to sample from a simple tractable distribution (say, $z \sim N(0, I)$) and then learn a complex transformation from this to the training distribution
+			\item In other words, we will take a $z \sim N(0,I)$, learn to make a series of complex transformations on it so that the output looks as if it came from our training distribution 
+			
+			\end{itemize}		
+		\end{overlayarea}			
+\end{frame}
+\begin{frame}
+	\begin{columns}
+		\column{0.45\textwidth}
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\vspace*{10mm}
+			\begin{center}
+				\input{modules/Module1/tikz_images/gen_disc.tex}		
+			\end{center}		
+		\end{overlayarea}
+
+		\column{0.55\textwidth}
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\begin{itemize}[<+->]\justifying
+				\item What can we use for such a complex transformation? \onslide<2-> \alert<2> {A Neural Network}
+				\item<3-> How do you train such a neural network? \onslide<4-> \alert<4>{Using a two player game} 
+				\item<5-> There are two players in the game: \onslide<6-> \alert<6>{a generator} \onslide<7-> and \alert<7>{a discriminator}
+				\item<8-> The job of the generator is to produce images which look so natural that the discriminator thinks that the images came from the real data distribution
+				\item<9-> The job of the discriminator is to get better and better at distinguishing between true images and generated (fake) images
+			\end{itemize}
+		\end{overlayarea}
+	\end{columns}
+\end{frame}
+
+
+\begin{frame}
+	\begin{columns}
+		\column{0.45\textwidth}
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\vspace*{10mm}
+			\begin{center}
+				\input{modules/Module1/tikz_images/gen_disc_noanim.tex}		
+			\end{center}		
+		\end{overlayarea}
+
+		\column{0.55\textwidth}
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\begin{itemize}[<+->]\justifying
+				\item So let's look at the full picture
+				\item Let $G_\phi$ be the generator and $D_\theta$ be the discriminator ($\phi$ and $\theta$ are the parameters of $G$ and $D$, respectively)
+				\item We have a neural network based generator which takes as input a noise vector $z \sim N(0, I)$ and produces $G_\phi(z) = X$
+				\item We have a neural network based discriminator which could take as input a real $X$ or a generated $X = G_\phi(z)$ and classify the input as real/fake
+			\end{itemize}
+		\end{overlayarea}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\column{0.45\textwidth}
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\vspace*{10mm}
+			\begin{center}
+				\input{modules/Module1/tikz_images/gen_disc_noanim.tex}		
+			\end{center}		
+		\end{overlayarea}
+
+		\column{0.55\textwidth}
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\begin{itemize}[<+->]\justifying
+				\item What should be the objective function of the overall network?
+				\item Let's look at the objective function of the generator first 
+				\item Given an image generated by the generator as $G_\phi(z)$ the discriminator assigns a score $D_\theta(G_\phi(z))$ to it 
+				\item This score will be between $0$ and $1$ and will tell us the probability of the image being real or fake 
+				\item For a given $z$, the generator would want to maximize  $\log D_\theta(G_\phi(z))$ (log likelihood) or minimize $\log (1 - D_\theta(G_\phi(z)))$
+			\end{itemize}
+			\vspace{10mm}
+			
+		\end{overlayarea}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\column{0.45\textwidth}
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\vspace*{10mm}
+			\begin{center}
+				\input{modules/Module1/tikz_images/gen_disc_noanim.tex}		
+			\end{center}		
+		\end{overlayarea}
+
+		\column{0.55\textwidth}
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\begin{itemize}[<+->]\justifying
+				\item This is just for a single $z$ and the generator would like to do this for all possible values of $z$,
+				\item For example, if $z$ was discrete and drawn from a uniform distribution (\textit{i.e.}, $p(z) = \frac{1}{N} ~ \forall z$) then the generator's objective function would be 
+
+				$$ \min\limits_{\phi}  \sum_{i=1}^{N} \frac{1}{N} \log (1 - D_{\theta}(G_{\phi}(z))) $$
+
+				\item However, in our case, z is continuous and not uniform ($z \sim N(0, I)$) so the equivalent objective function would be 
+
+				$$\min \limits_{\phi} \int p(z) \log(1 - D_{\theta}(G_{\phi}(z)))$$
+				$$\min \limits_{\phi}  E_{_{z \sim p(z)}} [\log (1 - D_{\theta}(G_{\phi}(z)))] $$
+
+			\end{itemize}
+		\end{overlayarea}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\column{0.45\textwidth}
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\vspace*{10mm}
+			\begin{center}
+				\input{modules/Module1/tikz_images/gen_disc_noanim.tex}		
+			\end{center}		
+		\end{overlayarea}
+
+		\column{0.55\textwidth}
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\begin{itemize}[<+->]\justifying
+				\item Now let's look at the discriminator
+				\item The task of the discriminator is to assign a high score to real images and a low score to fake images
+				\item And it should do this for all possible real images and all possible fake images
+				\item In other words, it should try to maximize the following objective function
+				$$ \max_{\theta} E_{_{x \sim p_{data}}} [\log D_{\theta}(x)] + E_{z \sim p(z)} [\log (1 - D_{\theta}(G_{\phi}(z)))]$$
+			\end{itemize}
+		\end{overlayarea}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\column{0.45\textwidth}
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\vspace*{10mm}
+			\begin{center}
+				\input{modules/Module1/tikz_images/gen_disc_noanim.tex}		
+			\end{center}		
+		\end{overlayarea}
+
+		\column{0.55\textwidth}
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\begin{itemize}[<+->]\justifying
+				\item<1-> If we put the objectives of the generator and discriminator together we get a minimax game
+				\begin{align*}
+				 \min\limits_{\phi}\hspace*{2mm} \max\limits_{\theta} \hspace*{4mm} [&\mathbb{E}_{x \sim p_{data}} \log D_{\theta}(x) \\
+				 & ~~~+ \mathbb{E}_{z \sim p(z)} \log(1- D_{\theta}(G_{\phi}(z)) ) ] 
+				\end{align*}
+				\item<2-> The first term in the objective is only w.r.t. the parameters of the discriminator ($\theta$)
+
+				\item<3-> The second term in the objective is w.r.t. the parameters of the generator ($\phi$) as well as the discriminator ($\theta$)
+				\item<4-> The discriminator wants to maximize the second term whereas the generator wants to minimize it (hence it is a two-player game)
+			\end{itemize}
+		\end{overlayarea}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\column{0.45\textwidth}
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\vspace*{10mm}
+			\begin{center}
+				\input{modules/Module1/tikz_images/gen_disc_noanim.tex}		
+			\end{center}		
+		\end{overlayarea}
+
+		\column{0.55\textwidth}
+		\begin{overlayarea}{\textwidth}{\textheight}
+		
+			\begin{itemize}[<+->]\justifying
+			\item So the overall training proceeds by alternating between these two step
+			
+			\item \textbf{Step 1:} Gradient Ascent on Discriminator 
+				$$ \max\limits_{\theta}\hspace*{2mm} [\mathbb{E}_{x \sim p_{data}} \log D_{\theta}(x) + \mathbb{E}_{z \sim p(z)} \log(1- D_{\theta}(G_{\phi}(z)) ) ]$$
+
+			\item \textbf{Step 2:} Gradient Descent on Generator
+				$$   \min\limits_{\phi}\hspace*{2mm} \mathbb{E}_{z \sim p(z)} \log(1- D_{\theta}(G_{\phi}(z)) )$$
+			
+			\item In practice, the above generator objective does not work well and we use a slightly modified objective
+			\item Let us see why
+			\end{itemize}
+		\end{overlayarea}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+	\begin{columns}
+		\column{0.4\textwidth}
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\vspace*{10mm}
+			\begin{center}
+				{\scalebox{0.7}{%
+				\input{modules/Module1/tikz_images/gradient1.tex}}}
+				% \only<2>{\scalebox{0.7}{%
+				% \input{modules/Module1/tikz_images/gradient1.tex}}}
+				% \only<3->{\scalebox{0.7}{%
+				% \input{modules/Module1/tikz_images/gradient2.tex}}}
+			% LHS: <Show figure from Slide 111>
+			\end{center}
+
+		\end{overlayarea}
+		\column{0.6\textwidth}
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\begin{itemize}[<+->]\justifying
+				\item When the sample is likely fake, we want to give a feedback to the generator (using gradients)
+				\item However, in this region where $D(G(z))$ is close to 0, the curve of the loss function is very flat and the gradient would be close to $0$
+				\item Trick: Instead of minimizing the likelihood of the discriminator being correct, maximize the likelihood of the discriminator being wrong 
+				\item In effect, the objective remains the same but the gradient signal becomes better
+			\end{itemize}
+		\end{overlayarea}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[shrink=25]
+	\begin{overlayarea}{\textwidth}{\textheight}
+		\vspace{2mm}
+		\scalebox{1.2}{With that we are now ready to see the full algorithm for training GANs}
+		\input{modules/Module1/tikz_images/algo.tex}
+	\end{overlayarea}
+\end{frame}

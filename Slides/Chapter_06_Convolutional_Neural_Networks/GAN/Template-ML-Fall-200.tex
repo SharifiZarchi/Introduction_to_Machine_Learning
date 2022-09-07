@@ -105,6 +105,14 @@
 
 %\setbeamertemplate{navigation symbols}{}
 
+\title{Generative Adversarial Networks (GANs)}
+\author{ML Instruction Team, Fall 2022}
+\institute[]{CE Department \newline  Sharif University of Technology \newline \newline}
+\date[\today]{}
+%\titlegraphic{\includegraphics[scale=.35]{example-image}}
+
+
+
 %Write \usepackage{etex} just after the \documentclass line (it should be the first loaded package).
 \usepackage{etex}
 \usepackage{subcaption}
@@ -119,12 +127,9 @@
 \usepackage{hyperref}
 \hypersetup{colorlinks,linkcolor=blue,citecolor=redorange,urlcolor=darkred}
 \usepackage{multirow}
-\usepackage[justification=centering,font={scriptsize}]{caption}
+\usepackage[font={scriptsize}]{caption}
 \usepackage{pgf}
 \usepackage{fontspec}
-\usepackage{import}
-\usepackage{textpos}
-\usepackage{bm}
 %\setsansfont[Scale=MatchLowercase, BoldFont = * Bold, ItalicFont = * Italic]{Caladea}
 
 %\usepackage{enumitem,xcolor}
@@ -168,69 +173,98 @@
 
 %\usepackage{smartdiagram}
 %\usesmartdiagramlibrary{additions}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% new commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\placetextbox}[4]{
-	\setlength{\TPHorizModule}{\textwidth}
-	\setlength{\TPVertModule}{\textwidth}
-	\begin{textblock}{#1}(#2,#3)
-		#4
-	\end{textblock}
-}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title Page Info %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\title{Introduction to Neural Networks}
-\author{ML Instruction Team, Fall 2022}
-\institute[]{CE Department \newline  Sharif University of Technology}
-\date[\today]{}
-\titlegraphic{\includegraphics[scale=.2]{Images/intro.png}}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Begin Your Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
-	
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\fontsize{9}{9}
+	\fontsize{9}{9}
 \begin{frame}[noframenumbering, plain]
 	\titlepage
 \end{frame}
+\include{modules/Module1/1}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Single Layer Perceptron}
-\import{Sections/}{section1.tex}
-\section{Multi Layer Perceptron}
-\import{Sections/}{section2.tex}
-\section{Stochastic Gradient Descent}
-\import{Sections/}{section3.tex}
-\section{Training MLPs}
-\import{Sections/}{section3-1.tex}
-\import{Sections/}{section4.tex}
-\import{Sections/}{section5.tex}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
+\frame{\frametitle{Test}
+	
+	
+\begin{itemize}
+	\item One
+	\begin{itemize}
+		\item One
+		\item Two
+		\item Three
+	\end{itemize}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{}
-
-\frame{
-\frametitle{Final Notes}
-\centering
-\vspace{30 pt}
-\textbf{\Huge Thank You!}
-
-\vspace{50pt}
-\textbf{\Large Any Question?}
+	\item 
+	For two-dimensional tensors, we have a corresponding sum with indices $(a, b)$ for $f$ and $(i-a, j-b)$ for $g$, respectively:
+	$$
+	(f * g)(i, j)=\sum_a \sum_b f(a, b) g(i-a, j-b)
+	$$
+	
+	\item 
+	
+	It is given by,
+	$$
+	\left.w_{t+1}=w_t-\left(\alpha_t / \sqrt{\left(v_t\right.}\right)+e\right) *\left(\delta L / \delta w_t\right)
+	$$
+	where,
+	$$
+	v_t=\beta * v_t+(1-\beta) *\left(\delta L / \delta w_t\right)^2
+	$$
+\end{itemize}	
+	
 }
 
-\begin{frame}{References}
-\bibliographystyle{ieeetr}%{IEEEtrans}%{latex8}%
-\bibliography{references}
-\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Test}
+	
+	
+\begin{itemize}
+	\item One
+	\begin{itemize}
+		\item One
+		\item Two
+		\item Three
+	\end{itemize}
+
+	\item 
+	For two-dimensional tensors, we have a corresponding sum with indices $(a, b)$ for $f$ and $(i-a, j-b)$ for $g$, respectively:
+	$$
+	(f * g)(i, j)=\sum_a \sum_b f(a, b) g(i-a, j-b)
+	$$
+	
+	\item 
+	
+	It is given by,
+	$$
+	\left.w_{t+1}=w_t-\left(\alpha_t / \sqrt{\left(v_t\right.}\right)+e\right) *\left(\delta L / \delta w_t\right)
+	$$
+	where,
+	$$
+	v_t=\beta * v_t+(1-\beta) *\left(\delta L / \delta w_t\right)^2
+	$$
+\end{itemize}	
+	
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\frametitle{Final Notes}
+\centering
+\vspace{50 pt}
+\textbf{Thank You!}
+\vspace{50pt}
+
+\textbf{Any Question?}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}

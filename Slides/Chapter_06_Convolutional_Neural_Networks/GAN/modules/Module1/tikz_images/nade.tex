@@ -1,0 +1,63 @@
+\tikzstyle{neuron}=[circle,draw=red!50,fill=red!50,thick,minimum size=6mm]
+\tikzstyle{neuron_red}=[circle,draw=red!50,fill=red!50,thick,minimum size=6mm]
+\tikzstyle{neuron_green}=[circle,draw=green!50,fill=green!50,thick,minimum size=6mm]
+\tikzstyle{neuron_blue}=[circle,draw=blue!50,fill=blue!50,thick,minimum size=6mm]
+\tikzstyle{neuron_brown}=[circle,draw=brown!50,fill=brown!50,thick,minimum size=6mm]
+\tikzstyle{neuron_gray}=[circle,draw=gray!20,fill=gray!20,thick,minimum size=6mm]
+
+\tikzstyle{hidden_neuron}=[circle,draw=blue!50,fill=cyan!10,thick,minimum size=4mm]
+\tikzstyle{output_neuron}=[circle,draw=green!50,fill=green!10,thick,minimum size=6mm]
+
+\hspace*{-1cm}\begin{tikzpicture}
+  %%%% Neurons
+  \node [neuron_red]   (neuron1) at (0.0,0) {\small $x_1$};
+  \node [neuron_green] (neuron2) at (1.5,0) {\small $x_2$};
+  \node [neuron_blue]  (neuron3) at (3.0,0) {\small $x_3$};
+  \node [neuron_brown]  (neuron4) at (4.5,0) {\small $x_4$};
+
+  \node [neuron_red] (oneuron1) at (0.0,6) {};
+  \node [neuron_green] (oneuron2) at (1.5,6) {};
+  \node [neuron_blue] (oneuron3) at (3.0,6) {};
+  \node [neuron_brown] (oneuron4) at (4.5,6) {};
+
+  \node [rotate=30, text width=1.5](oneuron1l) at (0.0-0.5,6.6) {\small $p(x_1)$};
+  \node [rotate=30, text width=1.5](oneuron2l) at (1.5-0.5,6.6) {\small $p(x_2|x_1)$};
+  \node [rotate=30, text width=1.5](oneuron3l) at (3.0-0.5,6.6) {\small $p(x_3|x_1,x_2)$};
+  \node [rotate=30, text width=1.5](oneuron4l) at (4.5-0.5,6.6) {\small $p(x_4|x_1,x_2,x_3)$};
+
+  \def\HIDDEN{$h_1$,$h_2$,$h_3$,$h_4$}
+  \newcommand*{\xpos}{0}
+  \newcommand*{\rectstarty}{1.3}
+  \newcommand*{\rectendy}{4.7}
+  \foreach \x [count=\xi] in \HIDDEN
+  {
+	\renewcommand*{\xpos}{-2+\xi*1.5}
+	\draw[rounded corners,fill=cyan!20] (\xpos-0.4, \rectstarty) rectangle (\xpos+0.4, \rectendy) {};
+  	\node (N) at (\xpos,4.1) {\x};
+  	\node[hidden_neuron] (N\xi1) at (\xpos,1+1*0.65) {};
+  	\node[hidden_neuron] (N\xi2) at (\xpos,1+2*0.65) {};
+  	\node[hidden_neuron] (N\xi3) at (\xpos,1+3*0.65) {};
+  	\node[hidden_neuron] (N\xi4) at (\xpos,1+4*0.65) {};
+  }
+
+  %%%% Labels
+  \node (V) at (-0-0.7,\rectendy+0.4) {\scalebox{1.1}{$V$}};
+  \node (W) at (-0-0.7,\rectstarty-0.4) {\scalebox{1.1}{$W$}};
+
+  %%%% Edges
+  \draw[->,thick,red] (neuron1) -- (-2+2*1.5-0.2,\rectstarty);
+  \draw[->,thick,red] (neuron1) -- (-2+3*1.5-0.2,\rectstarty);
+  \draw[->,thick,red] (neuron1) -- (-2+4*1.5-0.2,\rectstarty);
+
+  \draw[->,thick,green] (neuron2) -- (-2+3*1.5,\rectstarty);
+  \draw[->,thick,green] (neuron2) -- (-2+4*1.5,\rectstarty);
+
+  \draw[->,thick,blue] (neuron3) -- (-2+4*1.5+0.2,\rectstarty);
+
+  \draw[->,thick,red!70] (-2+1*1.5,\rectendy)--(oneuron1);
+  \draw[->,thick,green!70] (-2+2*1.5,\rectendy)--(oneuron2);
+  \draw[->,thick,blue!70] (-2+3*1.5,\rectendy)--(oneuron3);
+  \draw[->,thick,brown!70] (-2+4*1.5,\rectendy)--(oneuron4);
+
+
+\end{tikzpicture}
