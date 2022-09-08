@@ -59,11 +59,11 @@
 
 %show the page numbers in footnote
 %\addtobeamertemplate{navigation symbols}{}{%
-%	\usebeamerfont{footline}%
-%	\usebeamercolor[fg]{footline}%
-%	\hspace{1em}%
-%	\insertframenumber/\inserttotalframenumber
-%}
+	%	\usebeamerfont{footline}%
+	%	\usebeamercolor[fg]{footline}%
+	%	\hspace{1em}%
+	%	\insertframenumber/\inserttotalframenumber
+	%}
 
 \setbeamercolor{footline}{fg=purpleish}
 \setbeamerfont{footline}{series=\bfseries}
@@ -154,33 +154,20 @@
 
 \usepackage{fontspec,unicode-math}
 \setmainfont{Consolas}[
-    Scale=0.9,
-    Path=./Fonts/,
-    Extension = .ttf,
+Scale=0.9,
+Path=./Fonts/,
+Extension = .ttf,
 ]
 \setmonofont{Monaco}[
-    Scale=0.9,
-    Path=./Fonts/,
-    Extension = .ttf,
+Scale=0.9,
+Path=./Fonts/,
+Extension = .ttf,
 ]
 
 \setsansfont[Scale=1]{Times New Roman}
 
 %\usepackage{smartdiagram}
 %\usesmartdiagramlibrary{additions}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% new commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\placetextbox}[4]{
-	\setlength{\TPHorizModule}{\textwidth}
-	\setlength{\TPVertModule}{\textwidth}
-	\begin{textblock}{#1}(#2,#3)
-		#4
-	\end{textblock}
-}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title Page Info %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -188,49 +175,49 @@
 \author{ML Instruction Team, Fall 2022}
 \institute[]{CE Department \newline  Sharif University of Technology}
 \date[\today]{}
-\titlegraphic{\includegraphics[scale=.2]{Images/intro.png}}
+\titlegraphic{\includegraphics[scale=.3]{Images/intro.png}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Begin Your Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 	
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\fontsize{9}{9}
-\begin{frame}[noframenumbering, plain]
-	\titlepage
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Single Layer Perceptron}
-\import{Sections/}{section1.tex}
-\section{Multi Layer Perceptron}
-\import{Sections/}{section2.tex}
-\section{Stochastic Gradient Descent}
-\import{Sections/}{section3.tex}
-\section{Training MLPs}
-\import{Sections/}{section3-1.tex}
-\import{Sections/}{section4.tex}
-\import{Sections/}{section5.tex}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{}
-
-\frame{
-\frametitle{Final Notes}
-\centering
-\vspace{30 pt}
-\textbf{\Huge Thank You!}
-
-\vspace{50pt}
-\textbf{\Large Any Question?}
-}
-
-\begin{frame}{References}
-\bibliographystyle{ieeetr}%{IEEEtrans}%{latex8}%
-\bibliography{references}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\fontsize{9}{9}
+	\begin{frame}[noframenumbering, plain]
+		\titlepage
+	\end{frame}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{Single Layer Perceptron}
+	\import{Sections/}{section1.tex}
+	\section{Multi Layer Perceptron}
+	\import{Sections/}{section2.tex}
+	\section{Stochastic Gradient Descent}
+	\import{Sections/}{section3.tex}
+	\section{Training MLPs}
+	\import{Sections/}{section3-1.tex}
+	\import{Sections/}{section4.tex}
+	\import{Sections/}{section5.tex}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\section{}
+	
+	\frame{
+		\frametitle{Final Notes}
+		\centering
+		\vspace{30 pt}
+		\textbf{\Huge Thank You!}
+		
+		\vspace{50pt}
+		\textbf{\Large Any Question?}
+	}
+	
+	\begin{frame}{References}
+		\bibliographystyle{ieeetr}%{IEEEtrans}%{latex8}%
+		\bibliography{references}
+	\end{frame}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
