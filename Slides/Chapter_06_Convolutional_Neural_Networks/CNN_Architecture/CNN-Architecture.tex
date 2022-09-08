@@ -481,12 +481,141 @@ N = 7, F = 3 =>
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Strides}
+\begin{center}
+    \LARGE{Do you see any problems?}
+\end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Strides}
+\begin{center}
+    \begin{itemize}
+        \item\color{red}\Large{1. Borders don't get enough attention.}
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includesvg[width=0.9\columnwidth]{images/padding1.svg}
+        \caption{\hyperlink{https://d2l.ai/chapter_convolutional-neural-networks/padding-and-strides.html#img-conv-reuse}{Dive into Deep Learning, Fig. 7.3.1: }Pixel utilization for convolutions of size $1 \times 1$, $2 \times 2$, and $3 \times 3$ respectively.}
+        % \label{fig:my_label}
+    \end{figure}
+\end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Strides}
+\begin{center}
+    \begin{itemize}
+        \item\Large{1. Borders don't get enough attention.}
+        \item\color{red}\Large{2. Outputs shrink!}
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includesvg[width=0.9\columnwidth]{images/Padding2.svg}
+        \caption{32x32 input shrinks to 28x28 output. (information loss)}
+        % \label{fig:my_label}
+    \end{figure}
+\end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Strides}
+\begin{center}
+    \LARGE{What is the solution?}
+\end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Padding}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Padding}
+\begin{center}
+    \LARGE{Enters Padding}
+\end{center}
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Padding}
+\begin{center}
+    \begin{itemize}
+        \item\large{We can use Padding to preserve the dimensionality}
+        \item\large{It ensures that all pixels are used equally frequently}
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\columnwidth]{images/Padding3.png}
+        \caption{\hyperlink{https://datahacker.rs/what-is-padding-cnn/}{DataHacker.rs: CNN Padding - }Applying padding of 1 before convolving with $3 \times 3$ filter}
+        % \label{fig:my_label}
+    \end{figure}
+\end{center}
+}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Padding}
+\begin{center}
+    \begin{itemize}
+        \item\color{red}\large{It is common to use $P = (F - 1) / 2$ with stride 1 to preserve the input size.}
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includesvg[width=0.4\columnwidth]{images/Padding4.svg}
+        \caption{Applying zero-padding to a 7x7 input with padding 1}
+        % \label{fig:my_label}
+    \end{figure}
+\end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Padding}
+\begin{center}
+    \begin{itemize}
+        \item\large{It is common to use $P = (F - 1) / 2$ with stride 1 to preserve the input size.}
+        \item\color{red}\large{$OutputSize = (N + 2P - F) / Stride + 1$}
+        \end{itemize}
+    \begin{figure}
+        \centering
+        \includesvg[width=0.4\columnwidth]{images/Padding4.svg}
+        \caption{Applying zero-padding to a 7x7 input with padding 1}
+        % \label{fig:my_label}
+    \end{figure}
+\end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Padding}
+\begin{center}
+    \begin{itemize}
+        \item\large{It is common to use $P = (F - 1) / 2$ with stride 1 to preserve the input size.}
+        \item\large{$OutputSize = (N + 2P - F) / Stride + 1$}
+        \newline
+    \end{itemize}
+    \begin{minipage}{0.5\textwidth}
+        \begin{figure}
+            \centering
+            \includesvg[width=0.7\columnwidth]{images/Padding4.svg}
+            \caption{Applying zero-padding to a 7x7 input with padding 1}
+        \end{figure}
+
+    \end{minipage} \hfill
+    \begin{minipage}{0.45\textwidth}
+        \large{\color{red}7x7 input, stride 1, P to preserve the dimentions?}
+        \begin{itemize}
+            \item $F = 3 --> P = 1$
+            \item $F = 5 --> P = 2$
+            \item $F = 7 --> P = 3$
+        \end{itemize}
+    \end{minipage}
+    
+\end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Channels, etc.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Channels, etc.}
+\begin{center}
+    \LARGE{HI :))}
+\end{center}
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Final Notes}
 \centering
