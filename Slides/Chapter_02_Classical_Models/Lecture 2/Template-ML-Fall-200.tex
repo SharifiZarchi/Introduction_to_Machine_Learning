@@ -231,12 +231,12 @@ What is Machine Learning?
 \begin{itemize}
 \item The main motivation which we develop (computer) programs is to automate various
 kinds of (often tedious) processes.
-\item So far, we have learned to program the computers. the analogy that we have been using is something similar to this:\\
+\item So far, we have learned to program the computers. the analogy that we are using, is something similar to this:\\
 
 \begin{center}
 \begin{figure}
 \includegraphics[scale=0.5]{1}
-\caption{classical programming paradigm [1].}
+\caption{Classical Programming Paradigm [1].}
 \end{figure}
 \end{center}
 \end{itemize}
@@ -255,24 +255,11 @@ kinds of (often tedious) processes.
 \begin{center}
 \begin{figure}
 \includegraphics[scale=0.5]{2}
-\center \caption{ML paradigm [1].}
+\center \caption{ML Paradigm [1].}
 \end{figure}
 \end{center}
 \end{itemize}
 \end{frame}
-
-\begin{frame}{Machine Learning: An Overview}
-\begin{itemize}
-\item The preceding model was the main function of Machine Learning paradigm, In fact ML systems use both inputs and outputs to discover the \textbf{Rules and Patterns} behind the data 
-\item Now that we are fimiliar with ML paradigm, we would like to define it formally:
-\begin{center}\textit{A computer program is said to learn from experience E with respect to some
-class of tasks T and performance measure P, if its performance at tasks in T, as
-measured by P, improves with experience E.}
-\end{center}
-\item Here, inputs and outputs would be the experience (\textit{E}), the main problem(s) that the computer wants to solve, is the class of tasks (\textit{T}) and finally the performance measure shows how computer succeeded in performing (\textit{P})
-\end{itemize}
-\end{frame}
-
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -291,28 +278,32 @@ measured by P, improves with experience E.}
 \end{itemize}
 \begin{figure}
 \includegraphics[scale=0.5, right]{3}
-\caption{Categories of ML [2]}
+\caption{Categories of ML [2].}
 \end{figure}
 \end{frame}
 
 
 \begin{frame}{Introduction to Supervised Learning}
 \begin{itemize}
-\item Supervised learning is the subcategory of machine learning that focuses on learning a \textbf{Classification} (Figure left), or \textbf{Regression} model (Figure right), that is, learning from labeled training data (i.e., inputs that also contain the desired outputs or targets; basically, "examples" of what we want to predict).
+\item Supervised learning is the subcategory of machine learning that focuses on learning from labeled training data, our main goal in supervised learning is summerized in one of these categories:
+\begin{itemize}
+\item \textbf{Classification}: predicting the discrete values such as male/female, etc.
+\item \textbf{Regression}: predicting the continuous values such as price, age, etc.
+\end{itemize}
 \end{itemize}
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{figure}
  \centering
  \includegraphics[scale=0.5]{10}  
- \caption{Illustration of classification problem [2].}
+ \caption{Illustration of Classification Problem [2].}
 \end{figure}
 \end{column}
 \begin{column}{0.5\textwidth}
 \begin{figure}
  \centering
  \includegraphics[scale=0.5]{11}  
- \caption{Illustration of a linear regression model [2].}
+ \caption{Illustration of Regression Model [2].}
 \end{figure}
 \end{column}
 \end{columns}
@@ -339,14 +330,14 @@ $$  \begin{cases}
 \begin{figure}
  \centering
  \includegraphics[scale=0.25]{14}  
- \caption{Illustration of Clustering [3].}
+ \caption{Illustration of Clustering [2].}
 \end{figure}
 \end{column}
 \begin{column}{0.6\textwidth}
 \begin{figure}
  \centering
  \includegraphics[scale=0.25]{16}  
- \caption{Illustration of Dimensionality Reduction [4].}
+ \caption{Illustration of Dimensionality Reduction [3].}
 \end{figure}
 \end{column}
 \end{columns}
@@ -375,6 +366,52 @@ $$  \begin{cases}
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Classes of Machine Learning Algorithms}
+\begin{figure}
+	\begin{subfigure}{0.16\textwidth}
+\centering
+ \includegraphics[scale=0.25]{24}  
+ \caption{Ensemble Learning [4].}
+	\end{subfigure}
+          \hfill
+	\begin{subfigure}{0.16\textwidth}
+\centering
+ \includegraphics[scale=0.25]{20}  
+ \caption{Support Vector Machine [7].}
+	\end{subfigure}
+	\hfill
+\begin{subfigure}{0.16\textwidth}
+\centering
+ \includegraphics[scale=0.25]{21}  
+ \caption{Decision Tree [6].}
+	\end{subfigure}
+	\hfill
+\begin{subfigure}{0.16\textwidth}
+\centering
+ \includegraphics[scale=0.25]{25}  
+ \caption{Graphical Models [8].}
+	\end{subfigure}
+	\vfill
+\begin{subfigure}{0.16\textwidth}
+\centering
+ \includegraphics[scale=0.25]{22}  
+ \caption{Neural Networks [9].}
+	\end{subfigure}
+	\hfill
+\begin{subfigure}{0.16\textwidth}
+\centering
+ \includegraphics[scale=0.25]{23}  
+ \caption{K-Nearest Neighbors [12].}
+	\end{subfigure}
+	\hfill
+\begin{subfigure}{0.16\textwidth}
+\centering
+ \includegraphics[scale=0.25]{19}  
+ \caption{Generalized Linear Models [5].}
+	\end{subfigure}
+\end{figure}
+\end{frame}
+
 
 \begin{frame}{Algorithm Categorization Schemes}
 \begin{itemize}
@@ -398,7 +435,7 @@ $$  \begin{cases}
 \begin{figure}
  \centering
  \includegraphics[scale=0.6]{13}  
- \caption{Learning Process [3].}
+ \caption{Learning Process [2].}
 \end{figure}
 \end{frame}
 
@@ -416,7 +453,6 @@ $$  \begin{cases}
 
 
 \begin{frame}{Optimization Methods}
-\begin{itemize}
 \begin{columns}
 \begin{column}{0.5\textwidth}
 \begin{itemize}
@@ -424,58 +460,84 @@ $$  \begin{cases}
 \item Unconstrained convex optimization (e.g., logistic regression);
 \item Constrained convex optimization (e.g., SVM);
 \item Nonconvex optimization, here: using backpropagation, chain rule, reverse autodi. (e.g., neural networks).
-\item Constrained nonconvex optimization (semi-adversarial networks9, not covered in this course)
+\item Constrained nonconvex optimization (semi-adversarial networks, not covered in this course)
 \end{itemize}
+\end{column}
+\begin{column}{0.5\textwidth}
+\begin{figure}
+\centering
+\includegraphics[scale=0.35]{17}  
+ \caption{Gradient Descent [10].}
+\end{figure}
+\begin{figure}
+\centering
+\includegraphics[scale=0.35]{26}  
+ \caption{Hill Climbing [11].}
+\end{figure}
 \end{column}
 \end{columns}
 \end{frame}
 
+\begin{frame}{Evaluation}
+\begin{itemize}
+\item There are several different evaluation metric to assess the performance of a
+model, some of them are:
+	\begin{itemize}
+		\item Accuracy (1-Error)
+                   \item ROC AUC
+                   \item Precision
+                   \item Recall
+                    \item (Cross) Entropy
+                   \item Likelihood
+                    \item Mean Squared Error (MSE)
+		\item Mean Absolute Error (MAE)
+                    \item L-norms
+                   \item ...
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Glossary}
 \begin{itemize}
-\item \textbf{Training example}: A row in the table representing the dataset. Synonymous to an observation, training record, training instance, training sample (in some contexts, sample refers to a collection of training examples).
+\item \textbf{Training example}: A row in the table representing the dataset.
 \item \textbf{Training}: Model fitting, for parametric models similar to parameter estimation.
-\item \textbf{Feature, $x$}: A column in the table representing the dataset. Synonymous to predictor, variable, input, attribute, independent variable, and covariate.
-\item \textbf{Target}: Synonymous to outcome, output, response variable, dependent variable, (class) label, ground truth.
+\item \textbf{Feature, $x$}: A column in the table representing the dataset.
 \item \textbf{Predicted output, $\hat{y}$}: Use this to distinguish from targets; here, means output from the model.
-\item \textbf{Loss function}: Often used synonymously with cost function; sometimes also called error function. In some contexts the loss for a single data point, whereas the cost func- tion refers to the overall (average or summed) loss over the entire dataset. Sometimes also called empirical risk.
-
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Glossary}
-\begin{itemize}
-\item \textbf{Hypothesis:}: A hypothesis is a certain function that we believe (or hope) is similar to the true function, the target function that we want to model. In context of \textit{spam} classification, it would be a classification rule we came up with that allows us to separate spam from non-spam emails.
-
+\item \textbf{Loss function}: Often used synonymously with cost function.
+\item \textbf{Hypothesis:}: A hypothesis is a certain function that we believe (or hope) is similar to the true function.
+\item \textbf{Classifier}: A classifier is a special case of a hypothesis (nowadays, often learned by a machine learning algorithm). A classifier is a hypothesis or discrete-valued function that is used to assign (categorical) class labels to particular data points. 
+\item \textbf{Hyperparameters}: Hyperparameters are the \textit{tuning parameters} of a machine learning algorithm.
 \item \textbf{Model}: In the machine learning field, the terms \textit{hypothesis} and \textit{model} are often used interchangeably. In other sciences, they can have different meanings: A hypothesis could be the "educated guess" by the scientist, and the model would be the manifestation of this guess to test this hypothesis.
-
-\item \textbf{Learning algorithm}: Again, our goal is to find or approximate the target function, and the learning algorithm is a set of instructions that tries to model the target function using our training dataset. A learning algorithm comes with a hypothesis space, the set of possible hypothesis it explores to model the unknown target function by formulating the final hypothesis.
-
+\item \textbf{Learning algorithm}: Again, our goal is to find or approximate the target function, and the learning algorithm is a set of instructions that tries to model the target function using our training dataset.
 \end{itemize}
 \end{frame}
-
-
-
-\begin{frame}{Glossary}
-\begin{itemize}
-
-\item \textbf{Classifier}: A classifier is a special case of a hypothesis (nowadays, often learned by a machine learning algorithm). A classifier is a hypothesis or discrete-valued function that is used to assign (categorical) class labels to particular data points. In an email classification example, this classifier could be a hypothesis for labeling emails as spam or non-spam. Yet, a hypothesis must not necessarily be synonymous to the term \textit{classifier}. In a different application, our hypothesis could be a function for mapping study time and educational backgrounds of students to their future, continuous-valued, SAT scores - a continuous target variable, suited for regression analysis.
-\item \textbf{Hyperparameters}: Hyperparameters are the \textit{tuning parameters} of a machine learning algorithm - for example, the regularization strength of an L2 penalty in the mean squared error cost function of linear regression, or a value for setting the maximum depth of a decision tree. In contrast, model parameters are the parameters that a learning algorithm fits to the training data - the parameters of the model itself. For example, the weight coeffcients (or slope) of a linear regression line and its bias (or y-axis intercept) term are \textit{model parameters}.
-\end{itemize}
-\end{frame}
-
 
 
 \begin{frame}{References}
 \begin{itemize}
-\item Eager vs Lazy
-\item Single-Task vs Multi-Task
-\item Generative vs Discriminant
-\item Instance-based vs Model-Based
-\item Parametric vs Non-Parametric
-\item Batch vs Online
+\item{} \textbf{[1]}. Raschka, Sebastian. “What Are Data Science and Machine Learning?” Dr. Sebastian Raschka, 3 Sept. 2022, sebastianraschka.com/faq/docs/datascience-ml.html.
+\item{} \textbf{[2]}. Raschka, Sebastian, and Vahid Mirjalili. Python Machine Learning: Machine Learning and Deep Learning With Python, Scikit-learn, and TensorFlow 2, 3rd Edition. 3rd ed., Packt Publishing, 2019.
+\item{} \textbf{[3]}. Peluffo, Diego. Dimensionality Reduction Effect Over an Artificial (3-dimensional) Spherical Shell Manifold. Resultant Embedded (2-dimensional) Data Is an Attempt to Unfolding the Original Data. Feb. 2017, www.researchgate.net/publication 313787026-Interactive-Data-Visualization-Using-Dimensionality-Reduction-and-Similarity-Based-Representations.
+\item{} \textbf{[4]}. Kumar, Ajitesh. “5 Common Ensemble Methods in Machine Learning.” Data Analytics, 16 Aug. 2022, vitalflux.com/5-common-ensemble-methods-in-machine-learning.
+\item{} \textbf{[5]}. http://strijov.com/sources/demo-GLM.php
+\item{} \textbf{[6]}. www.researchgate.net/figure/Schematic-of-a-Decision-Tree-The-figure-shows-an-example-of-a-decision-tree-with-3-fig1-348456545. Accessed 8 Sept. 2022.
 \end{itemize}
 \end{frame}
+
+
+\begin{frame}{References}
+\begin{itemize}
+\item{} \textbf{[7]}. Wikipedia contributors. “Support-vector Machine.” Wikipedia, 1 Sept. 2022, en.wikipedia.org/wiki/Support-vector-machine.
+\item{} \textbf{[8]}. www.researchgate.net/figure/Simple-directed-graphical-model-with-three-variables-To-illustrate-how-graphical-models-fig6-262407302. Accessed 8 Sept. 2022.
+\item{} \textbf{[9]}. Ashtari, Hossein. “What Is a Neural Network? Definition, Working, Types, and Applications in 2022.” Spiceworks, 3 Aug. 2022, www.spiceworks.com/tech/artificial-intelligence/articles/what-is-a-neural-network.
+\item{} \textbf{[10]}. Balaouras, Georgios. “Optimization Algorithms.” Georgios Balaouras, 21 Apr. 2022, mpalaourg.me/project/optimization-algorithms.
+\item{} \textbf{[11]}. GeeksforGeeks. “Introduction to Hill Climbing | Artificial Intelligence.” GeeksforGeeks, 23 Aug. 2022, www.geeksforgeeks.org/introduction-hill-climbing-artificial-intelligence.
+\item{} \textbf{[12]}. Agrawal, Sanidhya. “What Is Instance-Based Learning? - Sanidhya Agrawal.” Medium, 14 Dec. 2021, medium.com/@sanidhyaagrawal08/what-is-instance-based-learning-a9b06079e836.
+\end{itemize}
+\end{frame}
+
 
 \frametitle{Final Notes}
 \centering
