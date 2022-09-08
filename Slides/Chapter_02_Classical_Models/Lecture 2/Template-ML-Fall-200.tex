@@ -120,7 +120,8 @@
 \usepackage{physics, amsmath}
 \usepackage{epsfig}
 \usepackage{graphicx}
-
+\usepackage{amsfonts}
+\usepackage{amssymb}
 \usepackage[all,knot]{xy}
 \xyoption{arc}
 \usepackage{url}
@@ -142,7 +143,7 @@
 %\newcommand{\labelitemiii}{$\square$}
 %\newcommand{\labelitemiv}{$\ast$}
 %\setbeamercolor*{item}{fg=red}
-
+\usepackage{bm}
 
 \usefonttheme{professionalfonts} 
 \setbeamertemplate{itemize item}{\color{skyblue}$\blacksquare$}
@@ -165,6 +166,7 @@
 \setmainfont[Scale=0.9]{Consolas}
 \setmonofont[Scale=0.9]{Monaco}
 \setsansfont[Scale=1]{Times New Roman}
+\newcommand{\vect}[1]{\boldsymbol{#1}}
 
 
 %\usepackage{smartdiagram}
@@ -234,7 +236,7 @@ kinds of (often tedious) processes.
 \begin{center}
 \begin{figure}
 \includegraphics[scale=0.5]{1}
-\caption{classical programming paradigm. \href{https://sebastianraschka.com/faq/docs/datascience-ml.html}{source}}
+\caption{classical programming paradigm [1].}
 \end{figure}
 \end{center}
 \end{itemize}
@@ -253,7 +255,7 @@ kinds of (often tedious) processes.
 \begin{center}
 \begin{figure}
 \includegraphics[scale=0.5]{2}
-\center \caption{ML paradigm. \href{https://sebastianraschka.com/faq/docs/datascience-ml.html}{source}}
+\center \caption{ML paradigm [1].}
 \end{figure}
 \end{center}
 \end{itemize}
@@ -289,8 +291,7 @@ measured by P, improves with experience E.}
 \end{itemize}
 \begin{figure}
 \includegraphics[scale=0.5, right]{3}
-\caption{Categories of ML (source: Raschka and Mirjalili: Python Machine Learning,
-3rd Ed.)}
+\caption{Categories of ML [2]}
 \end{figure}
 \end{frame}
 
@@ -300,52 +301,134 @@ measured by P, improves with experience E.}
 \item Supervised learning is the subcategory of machine learning that focuses on learning a \textbf{Classification} (Figure left), or \textbf{Regression} model (Figure right), that is, learning from labeled training data (i.e., inputs that also contain the desired outputs or targets; basically, "examples" of what we want to predict).
 \end{itemize}
 \begin{columns}
-\begin{column}{0.4\textwidth}
+\begin{column}{0.5\textwidth}
 \begin{figure}
  \centering
  \includegraphics[scale=0.5]{10}  
- \caption{Illustration of a binary classication problem.}
+ \caption{Illustration of classification problem [2].}
 \end{figure}
 \end{column}
-\begin{column}{0.4\textwidth}
+\begin{column}{0.5\textwidth}
 \begin{figure}
  \centering
  \includegraphics[scale=0.5]{11}  
- \caption{Illustration of a linear regression model.}
+ \caption{Illustration of a linear regression model [2].}
 \end{figure}
 \end{column}
 \end{columns}
 \end{frame}
 
-\begin{frame}{Machine Learning: General Goals}
+\begin{frame}{Supervised Learning}
 \begin{itemize}
-\item When we are applying machine learning to real-world
-problem solving, we need to define the overall objective first and then choose the right tool
-for the task.
-\item Goals in ML are mainly classified into two important categories:
-\begin{itemize}
-\item \textbf{Using for Prediction}: to be able to predict what the responses are going to be to future input variables.
-\item \textbf{Extracting Information}: to extract some information about how nature is associating the response variables to the input variables.
+\item Given a data set $ \mathcal{D} = \{ \langle \mathbf{x_{\mathnormal 1}} , y_{1} \rangle, \langle \mathbf{x_{\mathnormal 2}} , y_{2} \rangle, \dots, \langle \mathbf{x_{\mathnormal n}} , y_{n} \rangle\} $, there exists an unkown function called $ f $ which:
+$$ y = f(\mathbf{x})$$
+\item The supervised learning final goal is to \textbf{Approximate} this unkown function. we call our discovery function a \textit{hypothesis} and we define it:
+$$  \begin{cases}
+       h: \mathbb{R^{\mathnormal m}} \rightarrow \mathbb{R} \\
+       h(\mathbf{x}) = y  
+  \end{cases} $$
 \end{itemize}
-\item \textbf{Important Note}: recall the data set $ \mathcal{D} = (\mathbf{X_{\mathnormal n \times \mathnormal m}} , \mathbf{y}) $, when our goal is extracting the information behind the data, we are only dealing with $ \mathbf{X_{\mathnormal n \times \mathnormal m}} $ to recognize the pattern behind the data but in case of using prediction, we are dealing with $ (\mathbf{X_{\mathnormal n \times \mathnormal m}} , \mathbf{y}) $
+\end{frame}
+
+\begin{frame}{Unsupervised Learning}
+\begin{itemize}
+\item In contrast to supervised learning, unsupervised learning is a branch of machine learning that is concerned with unlabeled data. Common tasks in unsupervised learning are \textbf{Clustering} analysis and \textbf{Dimensionality Reduction}.
+\end{itemize}
+\begin{columns}
+\begin{column}{0.4\textwidth}
+\begin{figure}
+ \centering
+ \includegraphics[scale=0.25]{14}  
+ \caption{Illustration of Clustering [3].}
+\end{figure}
+\end{column}
+\begin{column}{0.6\textwidth}
+\begin{figure}
+ \centering
+ \includegraphics[scale=0.25]{16}  
+ \caption{Illustration of Dimensionality Reduction [4].}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Reinforcement Learning}
+\begin{itemize}
+\item Reinforcement is the process of learning from rewards while performing a series of actions.
+\end{itemize}
+\begin{figure}
+ \centering
+ \includegraphics[scale=0.75]{15}  
+ \caption{Illustration of Reinforcement Learning [2].}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Classes of Machine Learning Algorithms}
+\begin{itemize}
+\item Generalized linear models (e.g., logistic regression)
+\item Support vector machines (e.g., linear SVM, RBF-kernel SVM)
+\item Artificial neural networks (e.g., multi-layer perceptrons)
+\item Tree- or rule-based models (e.g., decision trees)
+\item Graphical models (e.g., Bayesian networks)
+\item Ensembles (e.g., Random Forest)
+\item Instance-based learners (e.g., K-nearest neighbors)
 \end{itemize}
 \end{frame}
 
 
-\begin{frame}{Machine Learning: General Goals}
+\begin{frame}{Algorithm Categorization Schemes}
 \begin{itemize}
-\item When we are applying machine learning to real-world
-problem solving, we need to define the overall objective first and then choose the right tool
-for the task.
-\item Goals in ML are mainly classified into two important categories:
-\begin{itemize}
-\item \textbf{Using for Prediction}: to be able to predict what the responses are going to be to future input variables.
-\item \textbf{Extracting Information}: to extract some information about how nature is associating the response variables to the input variables.
-\end{itemize}
-\item[$\blacksquare$] \textbf{Important Note}: recall the data set $ \mathcal{D} = (\mathbf{X_{\mathnormal n \times \mathnormal m}} , \mathbf{y}) $, when our goal is extracting the information behind the data, we are only dealing with $ \mathbf{X_{\mathnormal n \times \mathnormal m}} $ to recognize the pattern behind the data but in case of using prediction, we are dealing with $ (\mathbf{X_{\mathnormal n \times \mathnormal m}} , \mathbf{y}) $
+\item Eager vs Lazy
+\item Single-Task vs Multi-Task
+\item Generative vs Discriminant
+\item Instance-based vs Model-Based
+\item Parametric vs Non-Parametric
+\item Batch vs Online
 \end{itemize}
 \end{frame}
 
+\begin{frame}{5 Steps To Solve A Machine Learning Problem}
+\begin{itemize}
+\item 1. Define the problem to be solved.
+\item 2. Collect (labeled) data.
+\item 3. Choose an algorithm class.
+\item 4. Choose an optimization metric for learning the model.
+\item 5. Choose a metric for evaluating the model.
+\end{itemize}
+\begin{figure}
+ \centering
+ \includegraphics[scale=0.6]{13}  
+ \caption{Learning Process [3].}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Objective Functions}
+\begin{itemize}
+\item Maximize the posterior probabilities (e.g., naive Bayes)
+\item Maximize a fitness function (genetic programming)
+\item Maximize the total reward/value function (reinforcement learning)
+\item Maximize information gain/minimize child node impurities (CART decision tree classification)
+\item Minimize a mean squared error cost (or loss) function (CART, decision tree regression, linear regression, adaptive linear neurons, ...)
+\item Maximize log-likelihood or minimize cross-entropy loss (or cost) function
+\item Minimize hinge loss (support vector machine)
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Optimization Methods}
+\begin{itemize}
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\begin{itemize}
+\item Combinatorial search, greedy search (e.g., decision trees over, not within nodes);
+\item Unconstrained convex optimization (e.g., logistic regression);
+\item Constrained convex optimization (e.g., SVM);
+\item Nonconvex optimization, here: using backpropagation, chain rule, reverse autodi. (e.g., neural networks).
+\item Constrained nonconvex optimization (semi-adversarial networks9, not covered in this course)
+\end{itemize}
+\end{column}
+\end{columns}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Glossary}
@@ -381,6 +464,18 @@ for the task.
 \end{itemize}
 \end{frame}
 
+
+
+\begin{frame}{References}
+\begin{itemize}
+\item Eager vs Lazy
+\item Single-Task vs Multi-Task
+\item Generative vs Discriminant
+\item Instance-based vs Model-Based
+\item Parametric vs Non-Parametric
+\item Batch vs Online
+\end{itemize}
+\end{frame}
 
 \frametitle{Final Notes}
 \centering
