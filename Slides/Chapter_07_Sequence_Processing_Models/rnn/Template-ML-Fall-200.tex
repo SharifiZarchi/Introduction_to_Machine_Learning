@@ -193,7 +193,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Recurrent Neural Networks}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Backpropagation through time (BPTT)}
+\frame{\frametitle{Backpropagation Through Time (BPTT)}
 	
 \begin{figure}[!h]
 \includegraphics[width=10cm]{Figs/BPTT.png}
@@ -206,7 +206,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Backpropagation through time (BPTT)}
+\frame{\frametitle{Backpropagation Through Time (BPTT)}
 
 \begin{itemize}
     \item
@@ -230,7 +230,7 @@
 \end{itemize}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
-\frame{\frametitle{Backpropagation through time (BPTT)}
+\frame{\frametitle{Backpropagation Through Time (BPTT)}
 
 \begin{itemize}
     \item
@@ -257,7 +257,7 @@
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
-\frame{\frametitle{Backpropagation through time (BPTT)}
+\frame{\frametitle{Backpropagation Through Time (BPTT)}
 
 \begin{itemize}
     \item Cont.
@@ -284,7 +284,7 @@
 \end{itemize}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Backpropagation through time (BPTT)}
+\frame{\frametitle{Backpropagation Through Time (BPTT)}
 
 \begin{itemize}
     \item Cont.
@@ -308,7 +308,7 @@
 \end{itemize}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Backpropagation through time (BPTT)}
+\frame{\frametitle{Backpropagation Through Time (BPTT)}
 
 \begin{itemize}
     \item Cont.
@@ -327,7 +327,7 @@
 \end{itemize}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Backpropagation through time (BPTT)}
+\frame{\frametitle{Backpropagation Through Time (BPTT)}
 
 \begin{figure}[!h]
 \includegraphics[width=8cm]{Figs/gradient_flow_rnn.png}
@@ -352,7 +352,7 @@
 \end{itemize}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Truncated Backpropagation through time (TBPTT)}
+\frame{\frametitle{Truncated Backpropagation Through Time (TBPTT)}
 \begin{figure}[!h]
 \includegraphics[width=8cm]{Figs/tbptt.png}
 \caption{TBPTT for $k_1 = k_2 = 4$, \href{https://www.programmersought.com/article/77613555017/} 
@@ -722,23 +722,117 @@ $$
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{An application: Automatic Speech Recognition}
+\frame{\frametitle{Encoder-Decoder}
+
+\begin{itemize}
+\item If we want an output of variable length with respect to the
+input(e.g. Machine Translation), what should we do?
+\item Can we use RNN for tasks where we have a sequence as input and
+we want another sequence as output? Alignment problem.
+\end{itemize}
+\begin{center}
+    Encoder-Decoder architecture could be a solution.
+\end{center}
+
+\begin{figure}[!h]
+\includegraphics[width=7cm]{Figs/encoder-decoder.eps}
+\caption{Encoder-Decoder Architecture, \href{https://d2l.ai/chapter_recurrent-modern/encoder-decoder.html} 
+        {source}}
+\end{figure}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Encoder-Decoder}
+
+\begin{figure}[!h]
+\includegraphics[width=8cm]{Figs/encoder.png}
+\caption{Encoder, \href{https://yjjo.tistory.com/35} 
+        {source}}
+\end{figure}
+
+\begin{itemize}
+        \item \textbf{Encoder:} Encoder processes the input sequence and compresses the information into a fixed length vector, known as the context vector. 
+\end{itemize}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Encoder-Decoder}
+
+\begin{figure}[!h]
+\includegraphics[width=8cm]{Figs/encoder-decoder-example.png}
+\caption{Context Vector, \href{https://lilianweng.github.io/posts/2018-06-24-attention/} 
+        {source}}
+\end{figure}
+
+\begin{itemize}
+        \item \textbf{Context Vector:} This representation is expected to be a good summary of the meaning of the whole source sequence. (The early work only used the last state of the encoder network as the context vector.)
+\end{itemize}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Encoder-Decoder}
+
+\begin{figure}[!h]
+\includegraphics[width=8cm]{Figs/decoder.png}
+\caption{Decoder, \href{https://yjjo.tistory.com/35} 
+        {source}}
+\end{figure}
+
+\begin{itemize}
+        \item \textbf{Decoder:} Decoder is initialized with the context vector to output the desired target sequence.
+\end{itemize}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Encoder-Decoder Limitations}
+
+\begin{itemize}
+        \item Slow convergence in training. How to solve it? Teacher Forcing.
+\end{itemize}
+
+\begin{figure}[!h]
+\includegraphics[width=10cm]{Figs/tf_ende.eps}
+        \caption{Teacher Forcing In Decoder Side, \href{https://towardsdatascience.com/what-is-teacher-forcing-3da6217fed1c} 
+        {source}}
+\end{figure}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Encoder-Decoder Limitations}
+\begin{figure}[!h]
+\includegraphics[width=8cm]{Figs/bottleneck.png}
+        \caption{Bottleneck Phenomenon, \href{https://towardsdatascience.com/attention-and-its-different-forms-7fc3674d14dc} 
+        {source}}
+\end{figure}
+
+\begin{itemize}
+        \item The context vector is bottleneck. 
+        By increasing the length of the input sequence, the model captures the essential information roughly. How to solve it? Attention! Define and use the the context vector better.
+\end{itemize}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Case Study: Automatic Speech Recognition}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%
+
+\frame{\frametitle{References}
 
 \begin{itemize}
 
-\item The problem with RNNs is that we need previous time step output as input for next time step.
+\item https://lilianweng.github.io/posts/2018-06-24-attention/
 
-\item This technique allows us to prevent backpropagation through time which was complex and time-consuming.
+\item https://mmuratarat.github.io/2019-02-07/bptt-of-rnn
 
-\item With teacher forcing the model will be trained faster.
+\item https://d2l.ai/chapter\_recurrent-modern/encoder-decoder.html
 
-\item During inference, since there is usually no ground truth available, the RNN model will need to feed its own previous prediction back to itself for the next prediction.
+\item https://d2l.ai/chapter\_recurrent-modern/seq2seq.html
 
 \end{itemize}
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%
 
 \frametitle{Final Notes}
 \centering
