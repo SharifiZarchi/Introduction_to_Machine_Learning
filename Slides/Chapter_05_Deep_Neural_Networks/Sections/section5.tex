@@ -128,9 +128,9 @@
 		\end{cases}
 		\]
 	\end{block}
-	\hspace*{2em}
-	\pause
 	\begin{itemize}
+		\item[]
+		\item[]
 		\item Simple but perform very poorly. (why?)
 		\pause
 		\item Zero initialization will lead each neuron to learn the same feature
@@ -145,8 +145,8 @@
 		\includegraphics[width=0.65\textwidth]{Images/zero-init.png}
 		\caption{As we can see network has failed to break symmetry. There has been no improvement in weights after about 600 epochs of training \cite{katanforoosh-kunin}.}
 	\end{figure}
-	\hspace*{2em}
 	\begin{itemize}
+		\item[]
 		\item We need to break symmetry. How? using randomness.
 	\end{itemize}
 \end{frame}
@@ -160,9 +160,10 @@
 		\end{cases}
 		\]
 	\end{block}
-	\hspace*{2em}
 	\pause
 	\begin{itemize}
+		\item[]
+		\item[]
 		\item It depends on standard deviation ($\sigma$) value
 		\item If it choose carefully, will perform well for small networks
 		\item One can use $\sigma = 0.01$ as a best practice.
@@ -212,8 +213,8 @@
 
 \begin{frame}{Weight Initialization}
 	\begin{itemize}
-		\item We discussed weight initialization on previous slides.
-		\item A god initialization will help model on vanishing/exploding gradient problem.
+		\item We discussed weight initialization in previous slides.
+		\item A good initialization will help the model with the vanishing/exploding gradient problem.
 		\item Xavier method works well with $\tanh$ activation function.
 		\begin{itemize}
 			\item If you use $ReLU$ activation use He initialization:
@@ -233,5 +234,110 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Various GD types}
-    
+    \begin{itemize}
+    	\item So far you got familiar with gradient-based optimization
+    	\item If $\symbfit{g}$ is the gradient of cost w.r.t parameters $\symbfit{\theta}$, then we will update parameters with this simple rule:
+    	\[
+    	\symbfit{\theta} \gets \symbfit{\theta} - \alpha\symbfit{g}
+    	\]
+    	\item[]
+    	\item But there is one question here, how to compute $\symbfit{g}$?
+    	\item Based on how we calculate $\symbfit{g}$ we will have different types of gradient descent:
+    	\begin{itemize}
+    		\item Batch Gradient Descent
+    		\item Stochastic Gradient Descent
+    		\item Mini-Batch Gradient Descent
+    	\end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Various GD types}
+	\begin{block}{Review before continue:}
+		Training cost function ($\mathcal{J}$) over a dataset usually is the average of loss function ($\mathcal{L}$) on entire training set, so for a dataset $\mathcal{D}=\{d_i\}_{i=1}^n$ we have:
+		\[
+		\mathcal{J}(\mathcal{D}) = \frac{1}{n} \sum_{i=1}^{n} \mathcal{L}(d_i; \symbfit{\theta})
+		\] 
+	\end{block}
+\end{frame}
+
+\begin{frame}{Various GD types: Batch Gradient Descent}
+	\begin{itemize}
+		\item In this type we use {\color{newcolor}entire training set} to calculate gradient
+		\begin{block}{Batch Gradient Descent:}
+			\[
+			\symbfit{g} = \frac{1}{n}\sum_{i=1}^n \nabla_{\symbfit{\theta}} \mathcal{L}(d_i, \symbfit{\theta})
+			\]
+		\end{block}
+		\item[]
+		\item This really needs huge computation and so is slow for large training sets.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Various GD types: Batch Gradient Descent}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{Images/bgd.png}
+		\caption{Optimization of parameters using BGD. Movement is very smooth \cite{katanforoosh-kunin-opt}.}
+	\end{figure} 
+\end{frame}
+
+\begin{frame}{Various GD types: Stochastic Gradient Descent}
+	\begin{itemize}
+		\item Instead of calculating exact gradient, we can estimate it using our data
+		\item This is exactly what SGD does, it estimates gradient using {\color{newcolor}only single data point}
+		\begin{block}{Stochastic Gradient Descent:}
+			\[
+			\hat{\symbfit{g}} = \nabla_{\symbfit{\theta}} \mathcal{L}(d_i, \symbfit{\theta})
+			\]
+		\end{block}
+		\item[]
+		\item As we use an approximation of gradient, instead of gently decreasing, the cost function will bounce up and down and decrease only on average.
+		\item This method is really computationally efficient cause we only need to calculate gradient for one point per iteration. 
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Various GD types: Stochastic Gradient Descent}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{Images/sgd.png}
+		\caption{Optimization of parameters using SGD. As we expect, the movement is not that smooth \cite{katanforoosh-kunin-opt}.}
+	\end{figure} 
+\end{frame}
+
+\begin{frame}{Various GD types: Mini-Batch Gradient Descent}
+	\begin{itemize}
+		\item In this method we still use estimation idea But use {\color{newcolor}a batch of data} instead of one point.
+		\begin{block}{Mini-Batch Gradient Descent:}
+			\[
+			\hat{\symbfit{g}} = \frac{1}{|\mathcal{B}|} \sum_{d\in\mathcal{B}} \nabla_{\symbfit{\theta}} \mathcal{L}(d, \symbfit{\theta}), \quad \mathcal{B} \subset \mathcal{D}
+			\]
+		\end{block}
+		\item[]
+		\item A better estimation than SGD
+		\item With this way we can get a performance boost from hardware optimization, especially when using GPUs.
+		\item Batch size ($|\mathcal{B}|$) is a hyperparameter you need to tune.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Various GD types: Mini-Batch Gradient Descent}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{Images/mbgd.png}
+		\caption{Optimization of parameters using MBGD. The movement is much smother than SGD and behave like BGD \cite{katanforoosh-kunin-opt}.}
+	\end{figure} 
+\end{frame}
+
+\begin{frame}{Various GD types}
+	\begin{itemize}
+		\item So we got familiar with different types of GD.
+		\begin{itemize}
+			\item[\color{darkgreen}$\checkmark$] Batch Gradient Descent (BGD)
+			\item[\color{darkgreen}$\checkmark$] Stochastic Gradient Descent (SGD)
+			\item[\color{darkgreen}$\checkmark$] Mini-Batch Gradient Descent (MBGD)
+		\end{itemize}
+		\item[]
+		\item[]
+		\item The most recommended one is MBGD, because it is computational efficient.
+		\item Choosing the right batch size is important to ensure convergence of the cost function and parameter values, and to the generalization of your model.
+	\end{itemize}
 \end{frame}
