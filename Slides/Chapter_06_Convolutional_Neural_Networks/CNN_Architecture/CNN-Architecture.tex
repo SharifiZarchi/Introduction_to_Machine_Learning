@@ -111,7 +111,7 @@
             Ali Sharifi-Zarchi \newline
             Behrooz Azarkhalili \newline
             Arian Amani \newline
-            Hamidreza Yaghobi}
+            Hamidreza Yaghoubi}
 \date[\today]{}
 %\titlegraphic{\includegraphics[scale=.35]{example-image}}
 
@@ -524,6 +524,7 @@ N = 7, F = 3 =>
     \LARGE{What is the solution?}
 \end{center}
 }
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Padding}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -607,6 +608,114 @@ N = 7, F = 3 =>
     
 \end{center}
 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pooling}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Pooling}
+\begin{itemize}
+        \item{Pooling is performed in neural networks to reduce variance and computation complexity}
+\end{itemize}
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.4\columnwidth]{images/Pooling_1.png}
+        \caption{Pooling Layer}
+        % \label{fig:testtt}
+    \end{figure}
+\end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Pooling: How It Works}
+\begin{itemize}
+    \item Polling layers aggregate the
+inputs using an aggregation function such as the max or mean.
+\end{itemize}
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\columnwidth]{images/Pooling_2.png}
+        \caption{Max pooling layer (2 × 2 pooling kernel, stride 2, no padding)}
+        % \label{fig:testtt}
+    \end{figure}
+\end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Pooling: Benefits}
+\begin{itemize}
+        \item{Polling layers goal is to subsample the input on order to Reduce:}
+        \begin{itemize}
+            \item The computational load
+            \item The memory usage
+            \item The number of parameters
+            \item Limiting the risk of overfitting
+        \end{itemize}
+\end{itemize}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Pooling: Types}
+\begin{itemize}
+    \item Max Pooling: give a better result when the background is white and the object is dark
+    \item Min Pooling: give a better result when the background is dark and the object is white
+    \item Average Pooling: smoothes the picture
+\end{itemize}
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\columnwidth]{images/Pooling_3.png}
+        \caption{Different effects of different pooling layers}
+        % \label{fig:testtt}
+    \end{figure}
+\end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Pooling: Max Pooling}
+\begin{itemize}
+    \item Most common type of pooling layer
+    \item Invariance to small translations
+\end{itemize}
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.9\columnwidth]{images/Pooling_4.png}
+        \caption{Invariance to small translations}
+        % \label{fig:testtt}
+    \end{figure}
+\end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Dilation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Dilation}
+\begin{itemize}
+        \item{It is a technique that expands the kernel (input) by inserting holes between its consecutive elements}
+\end{itemize}
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.25\columnwidth]{images/Dilated_1.png}
+        % \caption{Standard Convolution (l=1)}
+        \includegraphics[width=0.27\columnwidth]{images/Dilated_2.png}
+        \caption{Dilated Convolution \((l=2)\) vs. Standard Convolution \((l=1)\)}
+        % \label{fig:testtt}
+    \end{figure}
+\end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Dilation: Benefits}
+\begin{itemize}
+        \item Since dilated convolutions support exponential expansion in the context of the receptive field, there is no loss of resolution.
+        \item Dilated convolutions use 'l' as the parameter for the dilation rate. As we increase the value of 'l' it allows one to have a larger receptive field which is really helpful as we are able to view more data points thus saving computation and memory costs
+\end{itemize}
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\columnwidth]{images/Dilated_3.png}
+        \caption{Image - FCN-8s - DeepLab - DilatedNet - Ground Truth}
+        % \label{fig:testtt}
+    \end{figure}
+\end{center}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Channels, etc.}
@@ -617,6 +726,272 @@ N = 7, F = 3 =>
 \end{center}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Arithmetic of CNNs}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \frame{\frametitle{Arithmetic of CNNs}
+We will focus on the following simplified setting:
+\begin{itemize}
+        \item 2-D discrete convolutions \((N = 2)\)
+        \item Square inputs \((i_1 = i_2 = i)\)
+        \item Square kernel size \((k_1 = k_2 = k)\)
+        \item Same strides along both axes \((s_1 = s_2 = s)\)
+        \item Same zero padding along both axes \((p_1 = p_2 = p)\)
+\end{itemize}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Arithmetic of CNNs: No zero padding, unit strides}
+\begin{itemize}
+        \item For any \(i\) and \(k\), and for \(s = 1\) and \(p = 0\):
+\end{itemize}
+
+\begin{center}
+\begin{equation}
+\begin{split}
+o = (i - k) + 1 
+\end{split}
+\end{equation}
+\end{center}
+
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\columnwidth]{images/Arithmetic_1.png}
+        \caption{Convolving a 3 × 3 kernel over a 4 × 4
+input using unit strides (i.e., i = 4, k = 3, s = 1 and p = 0)}
+    \end{figure}
+\end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Arithmetic of CNNs: Zero padding, unit strides}
+\begin{itemize}
+        \item For any \(i\), \(k\) and \(p\), and for \(s = 1\):
+\end{itemize}
+
+\begin{center}
+\begin{equation}
+\begin{split}
+o = (i - k) + 2p + 1  \\
+\end{split}
+\end{equation}
+\end{center}
+
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\columnwidth]{images/Arithmetic_2.png}
+        \caption{Convolving a 4 × 4 kernel over a
+5 × 5 input padded with a 2 × 2 border of zeros using unit strides (i.e., i = 5,
+k = 4, s = 1 and p = 2)}
+    \end{figure}
+\end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Arithmetic of CNNs: Half (same) padding}
+\begin{itemize}
+        \item For any \(i\) and for\(k\) odd (\(k = 2n + 1, n \in \mathbb{N}\)), \(s=1\) and \(p = ⌊k/2⌋ = n\):
+\end{itemize}
+
+\begin{center}
+\begin{equation}
+\begin{split}
+o & =  i + 2⌊k/2⌋ - (k-1) \\
+& = i + 2n - 2n \\
+& = i
+\end{split}
+\end{equation}
+\end{center}
+
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\columnwidth]{images/Arithmetic_3.png}
+        \caption{Convolving a 3 × 3 kernel over a 5 × 5
+input using half padding and unit strides (i.e., i = 5, k = 3, s = 1 and p = 1)}
+    \end{figure}
+\end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Arithmetic of CNNs: Full padding}
+\begin{itemize}
+        \item For any \(i\) and \(k\), and for \(p = k − 1\) and \(s = 1\):
+\end{itemize}
+
+\begin{center}
+\begin{equation}
+\begin{split}
+o & = i + 2(k-1) - (k-1) \\
+& = i + 2(k-1
+\end{split}
+\end{equation}
+\end{center}
+
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\columnwidth]{images/Arithmetic_4.png}
+        \caption{Convolving a 3 × 3 kernel over a 5 × 5
+input using full padding and unit strides (i.e., i = 5, k = 3, s = 1 and p = 2)}
+    \end{figure}
+\end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Arithmetic of CNNs: No zero padding, non-unit strides}
+\begin{itemize}
+        \item For any \(i\), \(k\) and \(s\), and for \(p = 0\):
+\end{itemize}
+
+\begin{center}
+\begin{equation}
+\begin{split}
+o= ⌊\frac{i-k} {s}⌋ + 1
+\end{split}
+\end{equation}
+\end{center}
+
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\columnwidth]{images/Arithmetic_5.png}
+        \caption{Convolving a 3 × 3 kernel over
+a 5 × 5 input using 2 × 2 strides (i.e., i = 5, k = 3, s = 2 and p = 0)}
+    \end{figure}
+\end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Arithmetic of CNNs: Zero padding, non-unit strides}
+\begin{itemize}
+        \item For any \(i\), \(k\) and \(s\), and for \(p = 0\):
+\end{itemize}
+
+\begin{center}
+\begin{equation}
+\begin{split}
+o= ⌊\frac{i+2p-k} {s}⌋ + 1
+\end{split}
+\end{equation}
+\end{center}
+
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\columnwidth]{images/Arithmetic_6.png}
+        \caption{Convolving a 3 × 3 kernel over a
+6 × 6 input padded with a 1 × 1 border of zeros using 2 × 2 strides (i.e., i = 6,
+k = 3, s = 2 and p = 1). In this case, the bottom row and right column of the
+zero padded input are not covered by the kernel}
+    \end{figure}
+\end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Upsample CNN}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Upsample CNN}
+\begin{itemize}
+        \item Resizing feature maps is a common operation in many neural networks, especially those that perform some kind of image segmentation task
+        \item This kind of architecture is famously known as the Encoder-Decoder network
+\end{itemize}
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\columnwidth]{images/Upsamlpe_0.png}
+        \caption{Schematic of the Downsampling and Upsampling}
+    \end{figure}
+\end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Upsample CNN: Techniques}
+\begin{itemize}
+        \item 1- Nearest Neighbors: In Nearest Neighbors, as the name suggests we take an input pixel value and copy it to the K-Nearest Neighbors where K depends on the expected output
+\end{itemize}
+
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.4\columnwidth]{images/Upsamlpe_1.png}
+        \caption{Nearest Neighbors Upsampling}
+    \end{figure}
+\end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Upsample CNN: Techniques}
+\begin{itemize}
+        \item 2- Bi-Linear Interpolation: In Bi-Linear Interpolation, we take the 4 nearest pixel value of the input pixel and perform a weighted average based on the distance of the four nearest cells smoothing the output
+\end{itemize}
+
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.4\columnwidth]{images/Upsamlpe_2.png}
+        \caption{Bi-Linear Interpolation}
+    \end{figure}
+\end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Upsample CNN: Techniques}
+\begin{itemize}
+        \item 3- Bed Of Nails: In Bed of Nails, we copy the value of the input pixel at the corresponding position in the output image and filling zeros in the remaining positions.
+\end{itemize}
+
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.4\columnwidth]{images/Upsamlpe_3.png}
+        \caption{Bed of Nails Upsampling}
+    \end{figure}
+\end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Upsample CNN: Techniques}
+\begin{itemize}
+        \item 4- Max-Unpooling: To perform max-unpooling, first, the index of the maximum value is saved for every max-pooling layer during the encoding step. The saved index is then used during the Decoding step where the input pixel is mapped to the saved index, filling zeros everywhere else
+\end{itemize}
+
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\columnwidth]{images/Upsamlpe_4.png}
+        \caption{Max-Unpooling Upsampling}
+    \end{figure}
+\end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Transposed CNN}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Transposed CNN}
+\begin{itemize}
+        \item Transposed Convolutions are used to upsample the input feature map to a desired output feature map using some learnable parameters
+        \item They are the backbone of the modern segmentation and super-resolution algorithms
+        \item They provide the best and most generalized upsampling of abstract representations
+\end{itemize}
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\columnwidth]{images/Transposed_1.png}
+        \caption{Transposed convolution with a \(2 \times 2\)  kernel. The shaded portions are a portion of an intermediate tensor as well as the input and kernel tensor elements used for the computation.}
+    \end{figure}
+\end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Transposed CNN: Problem}
+\begin{itemize}
+        \item Transposed convolutions suffer from chequered board effects as shown below. The main cause of this is uneven overlap at some parts of the image causing artifacts. This can be fixed or reduced by using kernel-size divisible by the stride, for e.g taking a kernel size of \(2 \times 2\) or \(4 \times 4\) when having a stride of 2.
+
+\end{itemize}
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\columnwidth]{images/Transposed_2.png}
+        \caption{Checkerboard artifacts effect}
+    \end{figure}
+\end{center}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Final Notes}
 \centering
 \vspace{50 pt}
@@ -624,6 +999,17 @@ N = 7, F = 3 =>
 \vspace{50pt}
 
 \textbf{Any Question?}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Refrences}
+\begin{itemize}
+    \item Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow - Aurélien Géron - 2019 - \hyperlink{https://www.amazon.de/-/en/Aurélien-Géron/dp/1492032646}{Link}
+    \item Deep Learning for Vision Systems - Mohamed Elgendy - 2020 - \hyperlink{https://www.oreilly.com/library/view/deep-learning-for/9781617296192/}{Link}
+    \item Dense semantic labeling of sub-decimeter resolution
+images with convolutional neural networks - Michele Volpi, Devis Tuia - 2016 - \hyperlink{https://arxiv.org/abs/1608.00775}{Link}
+    \item Fully Convolutional Networks for Semantic Segmentation - Jonathan Longm, Evan Shelhamer, Trevor Darrell - 2015 - \hyperlink{https://arxiv.org/abs/1411.4038}{Link}
+    \item Deconvolution and Checkerboard Artifacts - Augustus Odena, Vincent Dumoulin, Chris Olah - 2016 - \hyperlink{https://distill.pub/2016/deconv-checkerboard/}{Link} 
+\end{itemize}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
