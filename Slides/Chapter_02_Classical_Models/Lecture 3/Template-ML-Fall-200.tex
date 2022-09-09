@@ -255,16 +255,16 @@ $$ J := \displaystyle\sum_{n=1}^{N} \displaystyle\sum_{k=1}^{K} r_{nk} \| \mathb
 
 \begin{frame}{Hard Partitional Clustering: $K$-Means}
 \begin{itemize}
-\item To minimize $ J $ through iterating, we have to do the following algorithm :
+\item To minimize $ J $ through iterating, we have to do the following algorithm:
 	\begin{enumerate}
-		\item \textbf{Initialize} $ \mathbf{c_{k}} $ with \textbf{Random Value} for all $ k = 1, 2, \dots, K$, It could be chosen from data values either.
-		\item Minimize $ J $ with respect to $ r_{nk} $, keeping the $ c_{k} $ fixed. because $ J $ is a linear function of $ r_{nk} $ this optmization can be performed easily to give a closed form solution:
+		\item \textbf{Initialize} $ \mathbf{c_{\mathnormal k}} $ with \textbf{Random Value} for all $ k = 1, 2, \dots, K$, It could be chosen from data values either.
+		\item Minimize $ J $ with respect to $ r_{nk} $, keeping the $ \mathbf{c_{\mathnormal k}} $ fixed. because $ J $ is a linear function of $ r_{nk} $ this optmization can be performed easily to give a closed form solution:
 				$$ r_{nk} = \begin{cases}
     1      & \quad \text{if } k =  \argmin_{j} \| \mathbf{x_{\mathnormal n}} -  \mathbf{c_{\mathnormal j}} \| ^ {2}\\
-    0  & \quad \text{otherwise}
+   0  & \quad \text{otherwise}
   \end{cases} $$
-		\item Minimize $ J $ with respect to $ \mathbf{c_{k}} $, keeping the $ r_{nk} $ fixed. if the assignment is fixed, it is easy to show that the optimal choice of the center positions is given by:
-			$$ \mathbf{c_{k}} =  \frac{\sum_{n} r_{nk}\mathbf x_{\mathnormal n}}{\sum_{n} r_{nk}}$$
+		\item Minimize $ J $ with respect to $ \mathbf{c_{\mathnormal k}} $, keeping the $ r_{nk} $ fixed. if the assignment is fixed, it is easy to show that the optimal choice of the center positions is given by:
+			$$ \mathbf{c_{\mathnormal k}} =  \frac{\sum_{n} r_{nk}\mathbf x_{\mathnormal n}}{\sum_{n} r_{nk}}$$
 		\item Check the convergence criteria, otherwise go to step 2.	
 	\end{enumerate}
 \end{itemize}
@@ -288,24 +288,91 @@ $$ J := \displaystyle\sum_{n=1}^{N} \displaystyle\sum_{k=1}^{K} r_{nk} \| \mathb
 \end{frame}
 
 
+\begin{frame}{Soft Partitional Clustering: Gaussian Mixture Model (GMM)}
+\begin{itemize}
+\item The $K$-means algorithm is a very simple method with sharp boundaries between the clusters, and no particular characterization of the shape of individual clusters.
+\item In a more refined algorithm, one might want to model each cluster with a Gaussian, capturing the shape of the clusters.
+\item \textbf{This leads naturally to a probabilistic interpretation} of the data as a superposition of Gaussian probability distributions.
+\end{itemize}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{figure}
+			 \centering
+			 \includegraphics[scale=0.15]{9} 
+			 \caption{$1D$ Gaussian Mixture Model .}
+		\end{figure}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{figure}
+			 \centering
+			 \includegraphics[scale=0.15]{10}  
+			 \caption{$2D$ Gaussian Mixture Model .}
+		\end{figure}
+	\end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Soft Partitional Clustering: Gaussian Mixture Model (GMM)}
+\begin{itemize}
+\item Recall the probability, we assume that  the probability density function (pdf) of cluster $k$ can be written as:
+$$ \mathcal{N}(\mathbf{x} \mid \mathbf{c_{\mathnormal k}}, \Sigma_{k}) = \frac{1}{(2\pi)^{D/2}}\frac{1}{(\det(\Sigma_{k}))^{1/2}}\exp(-\frac{1}{2}(\mathbf{x} - \mathbf{c_{\mathnormal k}})^{T}\Sigma_{k}^{-1}(\mathbf{x} - \mathbf{c_{\mathnormal k}}))$$
+\item Here $ \mathbf{c_{\mathnormal k}}, \Sigma_{k} $ are the mean and covariance matrix of the given $ k $ cluster respectively. There is also a prior probability $P(k) = \pi_{k} $ that a data point belongs to a particular cluster $k$. \textbf{The overall pdf for the data is} then given by the total probability:
+$$ p(\mathbf{x}) = \displaystyle\sum_{k=1}^{K} P(k) p(\mathbf{x} \mid k) = \displaystyle\sum_{k=1}^{K} \pi_{k} \mathcal{N}(\mathbf{x} \mid \mathbf{c_{\mathnormal k}}, \Sigma_{k}) $$
+$$ \text{where} \quad 0 \leq \pi_{k} \leq 1 \text{ , }\displaystyle\sum_{k=1}^{K} \pi_{k} = 1 $$
+\end{itemize}
+\end{frame}
 
 
 
-%\begin{frame}{Machine Learning: An Overview}
-%\begin{itemize}
-%\item[$\blacksquare$] Among these quotions that we have discussed, one seems more interesting and important:\\
-%\begin{center} \textit{"Machine learning is the field of study that gives computers the ability to
-%learn without being explicitly programmed”} \\ 
-%— Arthur L. Samuel, AI pioneer, 1959 \end{center}
-%\item[$\blacksquare$] But why does it seem important? why should computers be able to learn? waht do they really learn? \\
-%\item[$\blacksquare$] We shall answer these questions through this lecture
-%\end{itemize}
-%\end{frame}
+\begin{frame}{Soft Partitional Clustering: Gaussian Mixture Model (GMM)}
+\begin{itemize}
+\item The problem now is that we do not know the parameters of the model, i.e. the values of the centers $ \{ \mathbf{c_{\mathnormal k}} \} $ 
+and the covariance matrices $\{ \Sigma_{k} \} $ of the Gaussians and the probabilities $\{\pi_{k}\}$ for the clusters.
+\item The simple idea is to choose the parameters such, that the \textbf{probability density of the data is maximized}. In other words we want to choose the model such that the data becomes most probable. This is referred to as \textbf{Maximum Likelihood Estimation}
+\item We know that our data points were drawn indepenedently, assume that we put these $\{\mathbf{x_{\mathnormal n}}\}$ into the rows of the $\mathbf{X_{\mathnormal n \times \mathnormal d}}$, so as a result the likelihood function would be:
+$$ L\Big(\{ (\mathbf{c_{\mathnormal k}},  \Sigma_{k}, \pi_{k})\}\Big) =  ln\Big(p(\mathbf{X} \mid \{ (\mathbf{c_{\mathnormal k}},  \Sigma_{k}, \pi_{k})\})\Big) = \displaystyle\sum_{n=1}^{N}ln\Big(\displaystyle\sum_{k=1}^{K} \pi_{k} \mathcal{N}(\mathbf{x_{\mathnormal n}} \mid \mathbf{c_{\mathnormal k}}, \Sigma_{k})\Big)$$
+\end{itemize}
+\end{frame}
 
+\begin{frame}{Soft Partitional Clustering: Gaussian Mixture Model (GMM)}
+\begin{itemize}
+\item Unfortunately, the \textbf{Maximum Likelihood Estimation} has not a closed form solution. because the parameters on the left-hand side will occur implicitely also on the right-hand side.
+\item Beside of the lackness of a closed form solution, Maximum Likelihood Estimation would probably have singularity and identifiability problems. 
+\item However, one can start with some initial parameter values and then \textbf{iterate} through these equations to improve the estimate.
+\item One can actually show that the likelihood increases with each iteration, if a change occurs. This iterative scheme is referred to as the \textbf{expectation-maximization algorithm}, or simply EM algorithm
+\end{itemize}
+\end{frame}
 
+\begin{frame}{Soft Partitional Clustering: Gaussian Mixture Model (GMM)}
+\begin{itemize}
+\item To maximize Likelihood function through EM , we have to do the following algorithm:
+	\begin{enumerate}
+		\item \textbf{Initialize} $ \{\mathbf{c_{\mathnormal k}} \}$, $\{\Sigma_{k}\}$ and $\{ \pi_{k}\}$ with \textbf{Random Value} for all $ k = 1, 2, \dots, K$ and evaluate the initial value of log-likelihood.
+		\item \textbf{E step.}: Evaluate the responsibilities using the current parameter values:
+				$$ \gama(z_{nk}) = \frac{\pi_{k} \mathcal{N}(\mathbf{x_{\mathnormal n}} \mid \mathbf{c_{\mathnormal k}}, \Sigma_{k})}{\displaystyle\sum_{j=1}^{K} \pi_{k} \mathcal{N}(\mathbf{x_{\mathnormal n}} \mid \mathbf{c_{\mathnormal k}}, \Sigma_{k})}$$
+		\item Minimize $ J $ with respect to $ \mathbf{c_{\mathnormal k}} $, keeping the $ r_{nk} $ fixed. if the assignment is fixed, it is easy to show that the optimal choice of the center positions is given by:
+			$$ \mathbf{c_{\mathnormal k}} =  \frac{\sum_{n} r_{nk}\mathbf x_{\mathnormal n}}{\sum_{n} r_{nk}}$$
+		\item Check the convergence criteria, otherwise go to step 2.	
+	\end{enumerate}
+\end{itemize}
+\end{frame}
 
+\begin{frame}{Hard Partitional Clustering: $K$-Means}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{8}
+	\caption{Illustration of $K$-Means with $K = 2$}
+\end{figure}
+\end{frame}
 
-
+\begin{frame}{Soft Partitional Clustering: Gaussian Mixture Model (GMM)}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.3]{11}
+	\caption{Illustration of EM using $K = 2$}
+\end{figure}
+\end{frame}
 %\begin{frame}{Machine Learning: An Overview}
 %\begin{itemize}
 %\item The preceding traditional programming paradigm has several disadvantages:
