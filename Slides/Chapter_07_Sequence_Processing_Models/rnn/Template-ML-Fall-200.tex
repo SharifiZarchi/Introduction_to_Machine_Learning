@@ -736,7 +736,7 @@ we want another sequence as output? Alignment problem.
 
 \begin{figure}[!h]
 \includegraphics[width=7cm]{Figs/encoder-decoder.eps}
-\caption{Encoder-Decoder Architecture, \href{https://d2l.ai/chapter_recurrent-modern/encoder-decoder.html} 
+\caption{Encoder-Decoder Architecture, \href{https://d2l.ai/chapter\_recurrent-modern/encoder-decoder.html} 
         {source}}
 \end{figure}
 
@@ -811,7 +811,125 @@ we want another sequence as output? Alignment problem.
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Case Study: Automatic Speech Recognition}
+\frame{\frametitle{Review: Machine Translation}
+\begin{figure}[!h]
+\includegraphics[width=8cm]{Figs/machine_translation.eps}
+        \caption{Simple Machine Translation Model, \href{https://www.guru99.com/seq2seq-model.html} 
+        {source}}
+\end{figure}
+
+\begin{itemize}
+        \item We have discussed about Machine Translation models. We are familiar with some of their elements, namely, word embedding, encoder, decoder, S (context vector), and softmax. But, there is a missing part! The search strategy for inference.
+        $$
+        \Hat{y_T}, \Hat{y_{T-1}}, ..., \Hat{y_1} = \underset{\Tilde{y_T}, \Tilde{y_{T-1}}, ..., \Tilde{y_1}}{\mathbin{argmax}} P(\Tilde{y_T}, \Tilde{y_{T-1}}, ..., \Tilde{y_1}|S)
+        $$
+        \textbf{Notice:} $y_t$ is the corresponding word to time step t. 
+\end{itemize}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Search Strategy}
+
+\begin{itemize}
+        \item \textbf{Exhaustive Search (Brute-force search)}
+        \\
+        Iterate over all possible combinations of $\Hat{y_t}, \Hat{y_{t-1}}, ..., \Hat{y_1}$.
+        \begin{itemize}
+            \item T: Total Time Step (the number of decoder units)
+            \item V: Vocabulary Size (the number of possible words)
+            \item Time complexity: $O(V^T)$
+            \item So, it's not feasible.
+        \end{itemize}
+\end{itemize}
+
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Search Strategy}
+\begin{itemize}
+        \item \textbf{Greedy Search}
+        $$
+        \mathbin{max} \, P(\Tilde{y_T}, \Tilde{y_{T-1}}, ..., \Tilde{y_1}|S) = 
+        \mathbin{max} \prod_{t=1}^T P(y_t|y_{t-1}, y_{t-2}, ..., y_1, S)
+        $$
+        $$
+        \mathbin{max} \prod_{t=1}^T P(y_t|y_{t-1}, y_{t-2}, ..., y_1, S) 
+        \approx \prod_{t=1}^T \mathbin{max}\,P(y_t|y_{t-1}, y_{t-2}, ..., y_1, S) 
+        $$
+\end{itemize}
+
+\begin{figure}[!h]
+\includegraphics[width=4cm]{Figs/greedy2.eps}
+        \caption{Greedy Search Example, \href{https://d2l.ai/chapter\_recurrent-modern/beam-search.html} 
+        {source}}
+\end{figure}
+$$
+P((A, B, C, eos)|S) = P(A|(), S) P(B|(A), S) P(C|(A, B), S) P(eos|(A, B, C), S)
+$$ $$= 0.048$$
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Search Strategy}
+\begin{itemize}
+        \item \textbf{Greedy Search}
+        \begin{itemize}
+            \item Advantages
+            \begin{enumerate}
+                \item Time complexity: $O(TV)$
+                \item Sometimes it's a good approximation
+            \end{enumerate}
+            \item Disadvantages
+            \begin{enumerate}
+                \item It is somehow too naive. 
+                \item It can be very inaccurate.
+            \end{enumerate}
+
+        \end{itemize}
+\end{itemize}
+
+\begin{figure}[!h]
+\includegraphics[width=4cm]{Figs/greedy.eps}
+        \caption{Greedy Search Example, \href{https://d2l.ai/chapter\_recurrent-modern/beam-search.html} 
+        {source}}
+\end{figure}
+$$
+P((A, C, B, eos)|S) = P(A|(), S) P(C|(A), S) P(B|(A, C), S) P(eos|(A, C, B), S) 
+$$ $$= 0.054$$
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Beam Search}
+\begin{itemize}
+        \item \textbf{Beam Search}
+        \\ It's something between the two previous methods.
+        \begin{itemize}
+            \item Keeping a number of candidates (beam width) instead of one in Greedy Search and all of the combinations in Exhaustive Search. 
+        \end{itemize}
+\end{itemize}
+
+\begin{figure}[!h]
+\includegraphics[width=7cm]{Figs/beam-search.eps}
+        \caption{A Beam Search example in which beam width equals 2, \href{https://d2l.ai/chapter\_recurrent-modern/beam-search.html} 
+        {source}}
+\end{figure}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Beam Search}
+\begin{itemize}
+        \item \textbf{Beam Search}
+        \\ It's something between the two previous methods.
+        \begin{itemize}
+            \item k: Beam width 
+            \item Time complexity: $O(\mathbin{log(k)kVT})$ (By using max heap in each time step)
+        \end{itemize}
+\end{itemize}
+
+\begin{figure}[!h]
+\includegraphics[width=7cm]{Figs/beam-search2.png}
+        \caption{Another Beam Search example in which beam width equals 2, \href{https://towardsdatascience.com/foundations-of-nlp-explained-visually-beam-search-how-it-works-1586b9849a24} 
+        {source}}
+\end{figure}
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -828,6 +946,8 @@ we want another sequence as output? Alignment problem.
 \item https://d2l.ai/chapter\_recurrent-modern/encoder-decoder.html
 
 \item https://d2l.ai/chapter\_recurrent-modern/seq2seq.html
+
+\item https://d2l.ai/chapter\_recurrent-modern/beam-search.html
 
 \end{itemize}
 
