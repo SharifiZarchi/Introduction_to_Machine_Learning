@@ -105,7 +105,7 @@
 
 %\setbeamertemplate{navigation symbols}{}
 
-\title{Lecture 3: Unsupervised Learning}
+\title{Unsupervised Learning: Clustering}
 \author{ML Instruction Team, Fall 2022}
 \institute[]{CE Department \newline  Sharif University of Technology \newline \newline}
 \date[\today]{}
@@ -157,7 +157,7 @@
 \usetikzlibrary{calc,trees,positioning,arrows,chains,shapes.geometric,decorations.pathreplacing,decorations.pathmorphing,shapes,matrix,shapes.symbols}
 
 
-
+\DeclareMathOperator*{\argmin}{argmin}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{assumption}[theorem]{Assumption}
@@ -190,30 +190,106 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
-\frame{\frametitle{Machine Learning: An Overview}
-\begin{center}
-What is Machine Learning?
-\end{center}
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Machine Learning: An Overview}
+\begin{frame}{Clustering: An Overview}
 \begin{itemize}
-\item Let's review some inspirational quotions ... \\
+\item Clustering algorithms can be classified into different categories, based on the following criteria:
+	\begin{itemize}
+		\item Whether each point is assigned to exactly one cluster or several clusters with certain probabilites that add up to 1:
+			\begin{itemize}
+				\item \textbf{Hard}
+				\item \textbf{Soft}
+			\end{itemize}
+		\item Whether all clusters are on the same level or several clusters are built in a hierarchical way:
+			\begin{itemize}
+				\item \textbf{Partitional}
+				\item \textbf{Hierarchical}
+			\end{itemize}
+	\end{itemize}
+\end{itemize}
+\begin{columns}
+	\begin{column}{0.5\textwidth}
+		\begin{figure}
+			 \centering
+			 \includegraphics[scale=0.45]{3} 
+			 \caption{Hard vs Soft [1].}
+		\end{figure}
+	\end{column}
+	\begin{column}{0.5\textwidth}
+		\begin{figure}
+			 \centering
+			 \includegraphics[scale=0.45]{1}  
+ 			 \caption{Partitional vs Heirarchical [2].}
+		\end{figure}
+	\end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Clustering: An Overview}
 \begin{itemize}
-	\item \textit{“Machine learning is the hot new thing”} \\ \begin{center}
-— John L. Hennessy, President of Stanford (2000–2016) \end{center}
-	\item\textit{ “A breakthrough in machine learning would be worth ten Microsofts” }\\ \begin{center}
-— Bill Gates, Microsoft Co-Founder  \end{center}
-	\item \textit{“Computers are able to see, hear and learn.  Welcome to the future.” }\\ \begin{center}
-— Dave Waters, Professor at University of Oxford \end{center}
-	\item \textit{“If software ate the world, models will run it”}
-\\ \begin{center}
-— Steven A. Cohen and Matthew W. Granade, The Wallstreet Journal, 2018\end{center}
-	\item ...
-\end{itemize}	
+\item Hierarchical clustering is usually done in two different ways:
+	\begin{itemize}
+		\item \textbf{Agglomerative}: This is a "bottom-up" approach, Each observation starts in its own cluster, and pairs of clusters are merged as one moves up the hierarchy.
+		\item \textbf{Divisive}: This is a "top-down" approach, All observations start in one cluster, and splits are performed recursively as one moves down the hierarchy.
+	\end{itemize}
+\end{itemize}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.35]{2}
+	\caption{Agglomerative vs Divisive [3].}
+\end{figure}
+\end{frame}
+
+
+\begin{frame}{Hard Partitional Clustering: $K$-Means}
+\begin{itemize}
+\item A particularly simple method for clustering is $K$-means, The idea is \textbf{to represent each cluster $ k $ by a center point $\mathbf{c_{\mathnormal k}} $ and assign each data point $ \mathbf{x_{\mathnormal n}}$ to one of the clusters $ k $} which can be written in terms of index sets $\mathcal{C_{k}}$
+\item The center points and the assignment are then chosen such that the mean squared distance between data points and center points \textbf{is minimized}:
+$$ J := \displaystyle\sum_{n=1}^{N} \displaystyle\sum_{k=1}^{K} r_{nk} \| \mathbf{x_{\mathnormal n}} -  \mathbf{c_{\mathnormal k}} \| ^ {2} $$
+\item Here we introduced a corresponding binary indicator variable $ r_{nk} \in \{0, 1\} $ where $ k = 1, 2, \dots, K $ describing which of the $ K $ clusters the data point $ \mathbf{x_{n}} $ is assigned to, so that if data point  $ \mathbf{x_{n}} $ is assigned to cluster $ k $ then $ r_{nk} = 1$, and $ r_{nj} = 0 $ for $ j \neq k $
+\item Now, Our goal is to find values for the $\{r_{nk}\}$ and the $ \{\mathbf c_{k}\}$ so as to minimize $ J $. we can do this through an \textbf{Iterative Procedure}
 \end{itemize}
 \end{frame}
+
+
+\begin{frame}{Hard Partitional Clustering: $K$-Means}
+\begin{itemize}
+\item To minimize $ J $ through iterating, we have to do the following algorithm :
+	\begin{enumerate}
+		\item \textbf{Initialize} $ \mathbf{c_{k}} $ with \textbf{Random Value} for all $ k = 1, 2, \dots, K$, It could be chosen from data values either.
+		\item Minimize $ J $ with respect to $ r_{nk} $, keeping the $ c_{k} $ fixed. because $ J $ is a linear function of $ r_{nk} $ this optmization can be performed easily to give a closed form solution:
+				$$ r_{nk} = \begin{cases}
+    1      & \quad \text{if } k =  \argmin_{j} \| \mathbf{x_{\mathnormal n}} -  \mathbf{c_{\mathnormal j}} \| ^ {2}\\
+    0  & \quad \text{otherwise}
+  \end{cases} $$
+		\item Minimize $ J $ with respect to $ \mathbf{c_{k}} $, keeping the $ r_{nk} $ fixed. if the assignment is fixed, it is easy to show that the optimal choice of the center positions is given by:
+			$$ \mathbf{c_{k}} =  \frac{\sum_{n} r_{nk}\mathbf x_{\mathnormal n}}{\sum_{n} r_{nk}}$$
+		\item Check the convergence criteria, otherwise go to step 2.	
+	\end{enumerate}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Hard Partitional Clustering: $K$-Means}
+\begin{figure}
+	\centering
+	\includegraphics[scale=0.5]{8}
+	\caption{Illustration of $K$-Means with $K = 2$}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Hard Partitional Clustering: $K$-Means}
+\begin{itemize}
+\item Note that the result of the algorithm is \textbf{not necessarily a global optimum} of the objective function $ J $
+\item It is therefore advisable to \textbf{run the algorithm several times} with different initial center locations and \textbf{pick the best result}.
+\item A drawback of this and many other clustering algorithms is that \textbf{the number of clusters is not determined}.
+\item One has to decide on a proper $K$ in advance, or one simply runs the algorithm with several different $K$-values and picks the best according to some criterion.
+\end{itemize}
+\end{frame}
+
+
+
+
 
 %\begin{frame}{Machine Learning: An Overview}
 %\begin{itemize}
@@ -227,39 +303,26 @@ What is Machine Learning?
 %\end{frame}
 
 
-\begin{frame}{Machine Learning: An Overview}
-\begin{itemize}
-\item The main motivation which we develop (computer) programs is to automate various
-kinds of (often tedious) processes.
-\item So far, we have learned to program the computers. the analogy that we are using, is something similar to this:\\
-
-\begin{center}
-\begin{figure}
-\includegraphics[scale=0.5]{1}
-\caption{Classical Programming Paradigm [1].}
-\end{figure}
-\end{center}
-\end{itemize}
-\end{frame}
 
 
-\begin{frame}{Machine Learning: An Overview}
-\begin{itemize}
-\item The preceding traditional programming paradigm has several disadvantages:
-	\begin{itemize}
-	\item what if we don't know waht program should we write for the given data (inputs) ?
-	\item what if the inputs change dynamically over the time? should we write another program? 
-	\end{itemize}
-\item In order to resolve such problems, we should replace the need of developing computer programs "manually"
-\item In other words, we would like to automate the process of creating programs by informing the computer, the inputs and outputs that it needs:
-\begin{center}
-\begin{figure}
-\includegraphics[scale=0.5]{2}
-\center \caption{ML Paradigm [1].}
-\end{figure}
-\end{center}
-\end{itemize}
-\end{frame}
+
+%\begin{frame}{Machine Learning: An Overview}
+%\begin{itemize}
+%\item The preceding traditional programming paradigm has several disadvantages:
+%	\begin{itemize}
+%	\item what if we don't know waht program should we write for the given data (inputs) ?
+%	\item what if the inputs change dynamically over the time? should we write another program? 
+%	\end{itemize}
+%\item In order to resolve such problems, we should replace the need of developing computer programs "manually"
+%\item In other words, we would like to automate the process of creating programs by informing the computer, the inputs and outputs that it needs:
+%\begin{center}
+%\begin{figure}
+%\includegraphics[scale=0.5]{2}
+%\center \caption{ML Paradigm [1].}
+%\end{figure}
+%\end{center}
+%\end{itemize}
+%\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -267,252 +330,93 @@ kinds of (often tedious) processes.
 %%%%%%%%%%%%%
 
 
-\begin{frame}{Categories of Machine Learning}
-\begin{itemize}
-\item The three broad categories of ML are summerized in:
-\begin{itemize}
-\item \textbf{Supervised Learning}
-\item \textbf{Unsupervised Learning}  
-\item \textbf{Reinforcement Learning} 
-\end{itemize}
-\end{itemize}
-\begin{figure}
-\includegraphics[scale=0.5, right]{3}
-\caption{Categories of ML [2].}
-\end{figure}
-\end{frame}
+%\begin{frame}{Categories of Machine Learning}
+%\begin{itemize}
+%\item The three broad categories of ML are summerized in:
+%\begin{itemize}
+%\item \textbf{Supervised Learning}
+%\item \textbf{Unsupervised Learning}  
+%\item \textbf{Reinforcement Learning} 
+%\end{itemize}
+%\end{itemize}
+%\begin{figure}
+%\includegraphics[scale=0.5, right]{3}
+%\caption{Categories of ML [2].}
+%\end{figure}
+%\end{frame}
 
 
-\begin{frame}{Introduction to Supervised Learning}
-\begin{itemize}
-\item Supervised learning is the subcategory of machine learning that focuses on learning from labeled training data, our main goal in supervised learning is summerized in one of these categories:
-\begin{itemize}
-\item \textbf{Classification}: predicting the discrete values such as male/female, etc.
-\item \textbf{Regression}: predicting the continuous values such as price, age, etc.
-\end{itemize}
-\end{itemize}
-\begin{columns}
-\begin{column}{0.5\textwidth}
-\begin{figure}
- \centering
- \includegraphics[scale=0.5]{10}  
- \caption{Illustration of Classification Problem [2].}
-\end{figure}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{figure}
- \centering
- \includegraphics[scale=0.5]{11}  
- \caption{Illustration of Regression Model [2].}
-\end{figure}
-\end{column}
-\end{columns}
-\end{frame}
 
-\begin{frame}{Supervised Learning}
-\begin{itemize}
-\item Given a data set $ \mathcal{D} = \{ \langle \mathbf{x_{\mathnormal 1}} , y_{1} \rangle, \langle \mathbf{x_{\mathnormal 2}} , y_{2} \rangle, \dots, \langle \mathbf{x_{\mathnormal n}} , y_{n} \rangle\} $, there exists an unkown function called $ f $ which:
-$$ y = f(\mathbf{x})$$
-\item The supervised learning final goal is to \textbf{Approximate} this unkown function. we call our discovery function a \textit{hypothesis} and we define it:
-$$  \begin{cases}
-       h: \mathbb{R^{\mathnormal m}} \rightarrow \mathbb{R} \\
-       h(\mathbf{x}) = y  
-  \end{cases} $$
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Unsupervised Learning}
-\begin{itemize}
-\item In contrast to supervised learning, unsupervised learning is a branch of machine learning that is concerned with unlabeled data. Common tasks in unsupervised learning are \textbf{Clustering} analysis and \textbf{Dimensionality Reduction}.
-\end{itemize}
-\begin{columns}
-\begin{column}{0.4\textwidth}
-\begin{figure}
- \centering
- \includegraphics[scale=0.25]{14}  
- \caption{Illustration of Clustering [2].}
-\end{figure}
-\end{column}
-\begin{column}{0.6\textwidth}
-\begin{figure}
- \centering
- \includegraphics[scale=0.25]{16}  
- \caption{Illustration of Dimensionality Reduction [3].}
-\end{figure}
-\end{column}
-\end{columns}
-\end{frame}
-
-\begin{frame}{Reinforcement Learning}
-\begin{itemize}
-\item Reinforcement is the process of learning from rewards while performing a series of actions.
-\end{itemize}
-\begin{figure}
- \centering
- \includegraphics[scale=0.75]{15}  
- \caption{Illustration of Reinforcement Learning [2].}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Classes of Machine Learning Algorithms}
-\begin{itemize}
-\item Generalized linear models (e.g., logistic regression)
-\item Support vector machines (e.g., linear SVM, RBF-kernel SVM)
-\item Artificial neural networks (e.g., multi-layer perceptrons)
-\item Tree- or rule-based models (e.g., decision trees)
-\item Graphical models (e.g., Bayesian networks)
-\item Ensembles (e.g., Random Forest)
-\item Instance-based learners (e.g., K-nearest neighbors)
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Classes of Machine Learning Algorithms}
-\begin{figure}
-	\begin{subfigure}{0.16\textwidth}
-\centering
- \includegraphics[scale=0.25]{24}  
- \caption{Ensemble Learning [4].}
-	\end{subfigure}
-          \hfill
-	\begin{subfigure}{0.16\textwidth}
-\centering
- \includegraphics[scale=0.25]{20}  
- \caption{Support Vector Machine [7].}
-	\end{subfigure}
-	\hfill
-\begin{subfigure}{0.16\textwidth}
-\centering
- \includegraphics[scale=0.25]{21}  
- \caption{Decision Tree [6].}
-	\end{subfigure}
-	\hfill
-\begin{subfigure}{0.16\textwidth}
-\centering
- \includegraphics[scale=0.25]{25}  
- \caption{Graphical Models [8].}
-	\end{subfigure}
-	\vfill
-\begin{subfigure}{0.16\textwidth}
-\centering
- \includegraphics[scale=0.25]{22}  
- \caption{Neural Networks [9].}
-	\end{subfigure}
-	\hfill
-\begin{subfigure}{0.16\textwidth}
-\centering
- \includegraphics[scale=0.25]{23}  
- \caption{K-Nearest Neighbors [12].}
-	\end{subfigure}
-	\hfill
-\begin{subfigure}{0.16\textwidth}
-\centering
- \includegraphics[scale=0.25]{19}  
- \caption{Generalized Linear Models [5].}
-	\end{subfigure}
-\end{figure}
-\end{frame}
+%\begin{frame}{Unsupervised Learning}
+%\begin{itemize}
+%\item In contrast to supervised learning, unsupervised learning is a branch of machine learning that is concerned with unlabeled data. Common tasks in unsupervised learning are \textbf{Clustering} analysis and \textbf{Dimensionality Reduction}.
+%\end{itemize}
+%\begin{columns}
+%\begin{column}{0.4\textwidth}
+%\begin{figure}
+% \centering
+% \includegraphics[scale=0.25]{14}  
+% \caption{Illustration of Clustering [2].}
+%\end{figure}
+%\end{column}
+%\begin{column}{0.6\textwidth}
+%\begin{figure}
+% \centering
+% \includegraphics[scale=0.25]{16}  
+ %\caption{Illustration of Dimensionality Reduction [3].}
+%\end{figure}
+%\end{column}
+%\end{columns}
+%\end{frame}
 
 
-\begin{frame}{Algorithm Categorization Schemes}
-\begin{itemize}
-\item Eager vs Lazy
-\item Single-Task vs Multi-Task
-\item Generative vs Discriminant
-\item Instance-based vs Model-Based
-\item Parametric vs Non-Parametric
-\item Batch vs Online
-\end{itemize}
-\end{frame}
 
-\begin{frame}{5 Steps To Solve A Machine Learning Problem}
-\begin{itemize}
-\item 1. Define the problem to be solved.
-\item 2. Collect (labeled) data.
-\item 3. Choose an algorithm class.
-\item 4. Choose an optimization metric for learning the model.
-\item 5. Choose a metric for evaluating the model.
-\end{itemize}
-\begin{figure}
- \centering
- \includegraphics[scale=0.6]{13}  
- \caption{Learning Process [2].}
-\end{figure}
-\end{frame}
-
-\begin{frame}{Objective Functions}
-\begin{itemize}
-\item Maximize the posterior probabilities (e.g., naive Bayes)
-\item Maximize a fitness function (genetic programming)
-\item Maximize the total reward/value function (reinforcement learning)
-\item Maximize information gain/minimize child node impurities (CART decision tree classification)
-\item Minimize a mean squared error cost (or loss) function (CART, decision tree regression, linear regression, adaptive linear neurons, ...)
-\item Maximize log-likelihood or minimize cross-entropy loss (or cost) function
-\item Minimize hinge loss (support vector machine)
-\end{itemize}
-\end{frame}
+%\begin{frame}{5 Steps To Solve A Machine Learning Problem}
+%\begin{itemize}
+%\item 1. Define the problem to be solved.
+%\item 2. Collect (labeled) data.
+%\item 3. Choose an algorithm class.
+%\item 4. Choose an optimization metric for learning the model.
+%\item 5. Choose a metric for evaluating the model.
+%\end{itemize}
+%\begin{figure}
+ %\centering
+% \includegraphics[scale=0.6]{13}  
+% \caption{Learning Process [2].}
+%\end{figure}
+%\end{frame}
 
 
-\begin{frame}{Optimization Methods}
-\begin{columns}
-\begin{column}{0.5\textwidth}
-\begin{itemize}
-\item Combinatorial search, greedy search (e.g., decision trees over, not within nodes);
-\item Unconstrained convex optimization (e.g., logistic regression);
-\item Constrained convex optimization (e.g., SVM);
-\item Nonconvex optimization, here: using backpropagation, chain rule, reverse autodi. (e.g., neural networks).
-\item Constrained nonconvex optimization (semi-adversarial networks, not covered in this course)
-\end{itemize}
-\end{column}
-\begin{column}{0.5\textwidth}
-\begin{figure}
-\centering
-\includegraphics[scale=0.35]{17}  
- \caption{Gradient Descent [10].}
-\end{figure}
-\begin{figure}
-\centering
-\includegraphics[scale=0.35]{26}  
- \caption{Hill Climbing [11].}
-\end{figure}
-\end{column}
-\end{columns}
-\end{frame}
+%\begin{frame}{Optimization Methods}
+%\begin{columns}
+%\begin{column}{0.5\textwidth}
+%\begin{itemize}
+%\item Combinatorial search, greedy search (e.g., decision trees over, not within nodes);
+%\item Unconstrained convex optimization (e.g., logistic regression);
+%\item Constrained convex optimization (e.g., SVM);
+%\item Nonconvex optimization, here: using backpropagation, chain rule, reverse autodi. (e.g., neural networks).
+%\item Constrained nonconvex optimization (semi-adversarial networks, not covered in this course)
+%\end{itemize}
+%\end{column}
+%\begin{column}{0.5\textwidth}
+%\begin{figure}
+%\centering
+%\includegraphics[scale=0.35]{17}  
+ %\caption{Gradient Descent [10].}
+%\end{figure}
+%\begin{figure}
+%\centering
+%\includegraphics[scale=0.35]{26}  
+% \caption{Hill Climbing [11].}
+%\end{figure}
+%\end{column}
+%\end{columns}
+%\end{frame}
 
-\begin{frame}{Evaluation}
-\begin{itemize}
-\item There are several different evaluation metric to assess the performance of a
-model, some of them are:
-	\begin{itemize}
-		\item Accuracy (1-Error)
-                   \item ROC AUC
-                   \item Precision
-                   \item Recall
-                    \item (Cross) Entropy
-                   \item Likelihood
-                    \item Mean Squared Error (MSE)
-		\item Mean Absolute Error (MAE)
-                    \item L-norms
-                   \item ...
-	\end{itemize}
-\end{itemize}
-\end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Glossary}
-\begin{itemize}
-\item \textbf{Training example}: A row in the table representing the dataset.
-\item \textbf{Training}: Model fitting, for parametric models similar to parameter estimation.
-\item \textbf{Feature, $x$}: A column in the table representing the dataset.
-\item \textbf{Predicted output, $\hat{y}$}: Use this to distinguish from targets; here, means output from the model.
-\item \textbf{Loss function}: Often used synonymously with cost function.
-\item \textbf{Hypothesis:}: A hypothesis is a certain function that we believe (or hope) is similar to the true function.
-\item \textbf{Classifier}: A classifier is a special case of a hypothesis (nowadays, often learned by a machine learning algorithm). A classifier is a hypothesis or discrete-valued function that is used to assign (categorical) class labels to particular data points. 
-\item \textbf{Hyperparameters}: Hyperparameters are the \textit{tuning parameters} of a machine learning algorithm.
-\item \textbf{Model}: In the machine learning field, the terms \textit{hypothesis} and \textit{model} are often used interchangeably. In other sciences, they can have different meanings: A hypothesis could be the "educated guess" by the scientist, and the model would be the manifestation of this guess to test this hypothesis.
-\item \textbf{Learning algorithm}: Again, our goal is to find or approximate the target function, and the learning algorithm is a set of instructions that tries to model the target function using our training dataset.
-\end{itemize}
-\end{frame}
+
 
 
 \begin{frame}{References}
