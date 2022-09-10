@@ -213,14 +213,14 @@
 		\begin{figure}
 			 \centering
 			 \includegraphics[scale=0.45]{3} 
-			 \caption{Hard vs Soft [1].}
+			 \caption{Hard vs Soft \href{https://www.researchgate.net/figure/Hard-vs-Soft-Clustering_fig1_341874469}{source}.}
 		\end{figure}
 	\end{column}
 	\begin{column}{0.5\textwidth}
 		\begin{figure}
 			 \centering
 			 \includegraphics[scale=0.45]{1}  
- 			 \caption{Partitional vs Heirarchical [2].}
+ 			 \caption{Partitional vs Heirarchical \href{https://quantdare.com/hierarchical-clustering/}{source}.}
 		\end{figure}
 	\end{column}
 \end{columns}
@@ -237,7 +237,7 @@
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.35]{2}
-	\caption{Agglomerative vs Divisive [3].}
+	\caption{Agglomerative vs Divisive \href{https://quantdare.com/hierarchical-clustering/}{source}.}
 \end{figure}
 \end{frame}
 
@@ -274,7 +274,7 @@ $$ J := \displaystyle\sum_{n=1}^{N} \displaystyle\sum_{k=1}^{K} r_{nk} \| \mathb
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.5]{8}
-	\caption{Illustration of $K$-Means with $K = 2$}
+	\caption{Illustration of $K$-Means with $K = 2$ [1].}
 \end{figure}
 \end{frame}
 
@@ -299,14 +299,14 @@ $$ J := \displaystyle\sum_{n=1}^{N} \displaystyle\sum_{k=1}^{K} r_{nk} \| \mathb
 		\begin{figure}
 			 \centering
 			 \includegraphics[scale=0.15]{9} 
-			 \caption{$1D$ Gaussian Mixture Model .}
+			 \caption{$1D$ Gaussian Mixture Model \href{https://towardsdatascience.com/gaussian-mixture-models-explained-6986aaf5a95}{source}.}
 		\end{figure}
 	\end{column}
 	\begin{column}{0.5\textwidth}
 		\begin{figure}
 			 \centering
 			 \includegraphics[scale=0.15]{10}  
-			 \caption{$2D$ Gaussian Mixture Model .}
+			 \caption{$2D$ Gaussian Mixture Model \href{http://pypr.sourceforge.net/mog.html}{source}.}
 		\end{figure}
 	\end{column}
 \end{columns}
@@ -348,29 +348,28 @@ $$ L\Big(\{ (\mathbf{c_{\mathnormal k}},  \Sigma_{k}, \pi_{k})\}\Big) =  ln\Big(
 \begin{itemize}
 \item To maximize Likelihood function through EM , we have to do the following algorithm:
 	\begin{enumerate}
-		\item \textbf{Initialize} $ \{\mathbf{c_{\mathnormal k}} \}$, $\{\Sigma_{k}\}$ and $\{ \pi_{k}\}$ with \textbf{Random Value} for all $ k = 1, 2, \dots, K$ and evaluate the initial value of log-likelihood.
-		\item \textbf{E step.}: Evaluate the responsibilities using the current parameter values:
-				$$ \gama(z_{nk}) = \frac{\pi_{k} \mathcal{N}(\mathbf{x_{\mathnormal n}} \mid \mathbf{c_{\mathnormal k}}, \Sigma_{k})}{\displaystyle\sum_{j=1}^{K} \pi_{k} \mathcal{N}(\mathbf{x_{\mathnormal n}} \mid \mathbf{c_{\mathnormal k}}, \Sigma_{k})}$$
-		\item Minimize $ J $ with respect to $ \mathbf{c_{\mathnormal k}} $, keeping the $ r_{nk} $ fixed. if the assignment is fixed, it is easy to show that the optimal choice of the center positions is given by:
-			$$ \mathbf{c_{\mathnormal k}} =  \frac{\sum_{n} r_{nk}\mathbf x_{\mathnormal n}}{\sum_{n} r_{nk}}$$
+		\item Initialize $ \{\mathbf{c_{\mathnormal k}} \}$, $\{\Sigma_{k}\}$ and $\{ \pi_{k}\}$ with Random Value and evaluate the initial value of log-likelihood.
+		\item Evaluate the responsibilities using the current parameter values:
+				$${\scriptstyle \gamma(z_{nk}) = \frac{\pi_{k} \mathcal{N}(\mathbf{x_{\mathnormal n}} \mid \mathbf{c_{\mathnormal k}}, \Sigma_{k})}{\scriptstyle\sum_{j=1}^{K} \pi_{j} \mathcal{N}(\mathbf{x_{\mathnormal n}} \mid \mathbf{c_{\mathnormal j}}, \Sigma_{j})}}$$
+		\item Re-Estimate the parameters using the current responsibilities:
+			$$\scriptstyle\mathbf{c_{\mathnormal k}^{\mathnormal {new}}} = \frac{1}{N_{k}} \scriptstyle\sum_{n=1}^{N} \gamma(z_{nk}) \mathbf{x_{\mathnormal n}}$$
+			$$\scriptstyle\Sigma_{k}^{new} =  \frac{1}{N_{k}} \scriptstyle\sum_{n=1}^{N} \gamma(z_{nk}) (\mathbf{x_{\mathnormal n}} - \mathbf{c_{\mathnormal k}^{\mathnormal {new}}})(\mathbf{x_{\mathnormal n}} - \mathbf{c_{\mathnormal k}^{\mathnormal {new}}})^{T}$$
+			$$\scriptstyle \pi_{k}^{new} =  \frac{N_{k}}{N} \quad \text{where} \quad N_{k} = \scriptstyle\sum_{n=1}^{N} \gamma(z_{nk})$$
+		\item Evaluate the log-likelihood:
+				$$\scriptstyle ln\Big(p(\mathbf{X} \mid \{ (\mathbf{c_{\mathnormal k}},  \Sigma_{k}, \pi_{k})\})\Big) = \scriptstyle\sum_{n=1}^{N}ln\Big(\scriptstyle\sum_{k=1}^{K} \pi_{k} \mathcal{N}(\mathbf{x_{\mathnormal n}} \mid \mathbf{c_{\mathnormal k}}, \Sigma_{k})\Big)$$
 		\item Check the convergence criteria, otherwise go to step 2.	
 	\end{enumerate}
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Hard Partitional Clustering: $K$-Means}
-\begin{figure}
-	\centering
-	\includegraphics[scale=0.5]{8}
-	\caption{Illustration of $K$-Means with $K = 2$}
-\end{figure}
-\end{frame}
+
+
 
 \begin{frame}{Soft Partitional Clustering: Gaussian Mixture Model (GMM)}
 \begin{figure}
 	\centering
 	\includegraphics[scale=0.3]{11}
-	\caption{Illustration of EM using $K = 2$}
+	\caption{Illustration of EM using $K = 2$ [1].}
 \end{figure}
 \end{frame}
 %\begin{frame}{Machine Learning: An Overview}
@@ -488,26 +487,10 @@ $$ L\Big(\{ (\mathbf{c_{\mathnormal k}},  \Sigma_{k}, \pi_{k})\}\Big) =  ln\Big(
 
 \begin{frame}{References}
 \begin{itemize}
-\item{} \textbf{[1]}. Raschka, Sebastian. “What Are Data Science and Machine Learning?” Dr. Sebastian Raschka, 3 Sept. 2022, sebastianraschka.com/faq/docs/datascience-ml.html.
-\item{} \textbf{[2]}. Raschka, Sebastian, and Vahid Mirjalili. Python Machine Learning: Machine Learning and Deep Learning With Python, Scikit-learn, and TensorFlow 2, 3rd Edition. 3rd ed., Packt Publishing, 2019.
-\item{} \textbf{[3]}. Peluffo, Diego. Dimensionality Reduction Effect Over an Artificial (3-dimensional) Spherical Shell Manifold. Resultant Embedded (2-dimensional) Data Is an Attempt to Unfolding the Original Data. Feb. 2017, www.researchgate.net/publication 313787026-Interactive-Data-Visualization-Using-Dimensionality-Reduction-and-Similarity-Based-Representations.
-\item{} \textbf{[4]}. Kumar, Ajitesh. “5 Common Ensemble Methods in Machine Learning.” Data Analytics, 16 Aug. 2022, vitalflux.com/5-common-ensemble-methods-in-machine-learning.
-\item{} \textbf{[5]}. http://strijov.com/sources/demo-GLM.php
-\item{} \textbf{[6]}. www.researchgate.net/figure/Schematic-of-a-Decision-Tree-The-figure-shows-an-example-of-a-decision-tree-with-3-fig1-348456545. Accessed 8 Sept. 2022.
+\item{} \textbf{[1]}. Bishop, Christopher. Pattern Recognition and Machine Learning (Information Science and Statistics). 2018.
 \end{itemize}
 \end{frame}
 
-
-\begin{frame}{References}
-\begin{itemize}
-\item{} \textbf{[7]}. Wikipedia contributors. “Support-vector Machine.” Wikipedia, 1 Sept. 2022, en.wikipedia.org/wiki/Support-vector-machine.
-\item{} \textbf{[8]}. www.researchgate.net/figure/Simple-directed-graphical-model-with-three-variables-To-illustrate-how-graphical-models-fig6-262407302. Accessed 8 Sept. 2022.
-\item{} \textbf{[9]}. Ashtari, Hossein. “What Is a Neural Network? Definition, Working, Types, and Applications in 2022.” Spiceworks, 3 Aug. 2022, www.spiceworks.com/tech/artificial-intelligence/articles/what-is-a-neural-network.
-\item{} \textbf{[10]}. Balaouras, Georgios. “Optimization Algorithms.” Georgios Balaouras, 21 Apr. 2022, mpalaourg.me/project/optimization-algorithms.
-\item{} \textbf{[11]}. GeeksforGeeks. “Introduction to Hill Climbing | Artificial Intelligence.” GeeksforGeeks, 23 Aug. 2022, www.geeksforgeeks.org/introduction-hill-climbing-artificial-intelligence.
-\item{} \textbf{[12]}. Agrawal, Sanidhya. “What Is Instance-Based Learning? - Sanidhya Agrawal.” Medium, 14 Dec. 2021, medium.com/@sanidhyaagrawal08/what-is-instance-based-learning-a9b06079e836.
-\end{itemize}
-\end{frame}
 
 
 \frametitle{Final Notes}
