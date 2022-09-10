@@ -234,17 +234,19 @@
 		\begin{itemize}
 	
 			\begin{figure}
+				\href{https://hastie.su.domains/ISLR2/ISLRv2_website.pdf}{
 				\centering
-				\includegraphics[scale=0.35]{images/possible_hyperplanes.png}
+				\includegraphics[scale=0.38]{images/possible_hyperplanes.png}}
 			\end{figure}
 		
-			\item \textbf{Maximal(Optimal) Separating  Hyperplane}: The separating hyperplane with the biggest margin between the classes.
+			\item \textbf{Maximal(Optimal) Separating  Hyperplane}: 
+			The separating hyperplane with the biggest margin between the classes.
 			
 			\begin{equation}
 				\begin{aligned}
-					\max_{\beta_0, \beta_1,...,\beta_p,‌M} & M\\
-					\textrm{s.t.} \quad & \sum_{j=1}^{p} \beta_j ^2 = 1\\
-					 & y^{(i)}(\beta^T x^{(i)} + \beta_0) > M \quad \forall i\in \{1,2,...,N\}\\
+					\max_{\beta_0,\beta,M} \quad & M\\
+					\textrm{s.t.} \quad & \sum_{j=1}^{p}{\beta_j^2}\\
+					&y^{(i)}(\beta^T x^{(i)} + \beta_0) \geq M \quad \forall i \in \{1,2,...,N\}   \\
 				\end{aligned}
 			\end{equation}
 			
@@ -272,14 +274,13 @@
 					\textrm{s.t.} \quad & y^{(i)}(\beta^T x^{(i)} + \beta_0) \geq 1 \quad \forall i \in {1,2,...,N}\\
 				\end{aligned}
 			\end{equation}
-			\qquad
-			\includegraphics[scale=0.4]{images/maximal_hyperplane.png}
+		
+			\begin{figure}
+				\href{https://commons.wikimedia.org/wiki/File:SVM_margin.png}{
+					\centering
+					\includegraphics[scale=0.05]{images/maximal_hyperplane1.png}}
+			\end{figure}
 			
-			
-			%\begin{figure}
-				%\centering
-				%\includegraphics[scale=0.35]{images/maximal_hyperplane.png}
-			%\end{figure}
 		\end{itemize}	
 		
 	}
@@ -287,15 +288,16 @@
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{Support Vector Classifier}
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\frame{\frametitle{Non-linear Separable Data}
+	\frame{\frametitle{Non-linearly Separable Data}
 		
 		\begin{itemize}
 			
 			\item In most cases however, the data are not linearly separable unless $N < p$ .
 			\newline
 			\begin{figure}
+				\href{https://hastie.su.domains/ISLR2/ISLRv2_website.pdf}{
 				\centering
-				\includegraphics[scale=0.5]{images/non_separable.png}
+				\includegraphics[scale=0.5]{images/non_separable.png}}
 			\end{figure}
 			
 		\end{itemize}	
@@ -308,11 +310,13 @@
 			
 			\item Sometimes the data are linearly separable, but noisy. This can lead to a poor solution for the maximal margin classifier. Also, hard-margin classifier is sensitive to outliers.
 			\begin{figure}
+				\href{https://hastie.su.domains/ISLR2/ISLRv2_website.pdf}{
 				\centering
 				\includegraphics[scale=0.5]{images/noisy_data.png}
+			}
 			\end{figure}
 		
-			\item The \textcolor{Blue}{\textit {support vector classifier}} maximizes a \textcolor{Blue}{\textit {soft}} margin.
+			\item The \textcolor{Blue}{\textit {support vector classifier} (SVC)} maximizes a \textcolor{Blue}{\textit {soft}} margin.
 			
 		\end{itemize}	
 		
@@ -323,10 +327,11 @@
 		
 		\begin{itemize}
 			
-			\item Allowing some samples to violate the margin, with \textit {slack variables}, in a controlled manner.
+			\item Allowing some samples to violate the margin, with \textit {slack variables}, in a controlled manner:
 			\begin{figure}
+				\href{https://hastie.su.domains/ISLR2/ISLRv2_website.pdf}{
 				\centering
-				\includegraphics[scale=0.5]{images/support_vector_classifier.png}
+				\includegraphics[scale=0.5]{images/support_vector_classifier.png}}
 			\end{figure}
 			
 			\begin{equation}
@@ -348,16 +353,16 @@
 			
 			\item \textit C is a regularization parameter that controls the bias-variance trade-off of the support vector classifier.
 			\begin{figure}
+				\href{https://hastie.su.domains/ISLR2/ISLRv2_website.pdf}{
 				\centering
-				\includegraphics[scale=0.45]{images/regularization_parameter.png}
+				\includegraphics[scale=0.45]{images/regularization_parameter.png}}
 			\end{figure}
 			
 		\end{itemize}	
 		
 	}
 
-	\section{Support Vector Machines}
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\frame{\frametitle{The Need for Non-Linear Boundary}
 		
 		\begin{itemize}
@@ -365,17 +370,267 @@
 			\item Linear boundary can fail in many cases, regardless of the value of C.
 			\newline
 			\begin{figure}
+				\href{https://hastie.su.domains/ISLR2/ISLRv2_website.pdf}{
 				\centering
-				\includegraphics[scale=0.45]{images/non_linear_separable.png}
+				\includegraphics[scale=0.45]{images/non_linear_separable.png}}
+			\end{figure}
+			
+		\end{itemize}	
+		
+	}
+	
+	
+	\frame{\frametitle{Feature Expansion}
+		
+		\begin{itemize}
+			
+			\item Enlarge the space of features by including transformations;
+			e.g. $X_1^2 , X_1^3, X_1X_2, X_1X_2^2,...$ . Hence increasing the dimension of the original \textit p-dimensional input space.
+			\newline
+			\item Then we can fit a support vector classifier in the enlarged space.
+			\newline
+			\item This results in non-linear decision boundaries in the original feature space.
+		
+			\begin{figure}
+				\href{https://miro.medium.com/max/875/1*zWzeMGyCc7KvGD9X8lwlnQ.png}{
+				\centering
+				\includegraphics[scale=0.25]{images/feature_expansion.png}
+			}
 			\end{figure}
 			
 		\end{itemize}	
 		
 	}
 
+
+	\frame{\frametitle{Dual Problem of SVC}
 		
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\section{Conclusion}
+		\begin{itemize}
+			
+			\item \textbf {Primal problem}:
+			\begin{equation*}
+				\begin{aligned}
+					\min_{\beta,\beta_0,\xi} \quad & \frac{1}{2}||\beta||_2 ^2+C\sum_{i=1}^{N}{\xi_{i}}\\
+					\textrm{s.t.} \quad & y^{(i)}(\beta^T x^{(i)} + \beta_0) \geq 1-\xi_{i}\\
+					&\xi_i\geq0 \quad \forall i \in \{1,2,...,N\}   \\
+				\end{aligned}
+			\end{equation*}
+			\newline
+			
+			\item \textbf {Dual problem} (using the lagrangian):
+			\begin{equation}
+				\begin{aligned}
+					\max_{\alpha_i} \quad & \sum_{i=1}^{N}{\alpha_i} - \frac{1}{2} \sum_{i=1}^{N}{\sum_{j=1}^{N} {\alpha_i \alpha_j y^{(i)} y^{(j)} \textcolor{Blue}{x^{{(i)}^T} x^{(j)}}}} \\
+					\textrm{s.t.} \quad & \sum_{i=1}^{N} \alpha_i y^{(i)} = 0\\
+					&0 \leq \alpha_i \leq C \quad \forall i \in \{1,2,...,N\}
+					\\
+				\end{aligned}
+			\end{equation}
+		
+			%\item We only need inner products!
+			
+		\end{itemize}	
+		
+	}
+
+
+	\frame{\frametitle{KKT Conditions}
+		
+		\begin{itemize}
+			
+			\item From Karush-Kuhn-Tucker (KKT) conditions and complementary slackness we have:
+			\begin{equation*}
+				\begin{aligned}
+					\alpha_i (1-\xi_i-y^{(i)}(\beta^Tx^{(i)} + \beta_0)) = 0\\
+					(C - \alpha_i)\xi_i = 0\\
+				\end{aligned}
+			\end{equation*}
+			\newline
+			
+			\item There can be 3 cases:
+			\newline\\
+			\begin{cases}
+			$$\textcolor{Blue}{\alpha_i = 0} \rightarrow \textcolor{Red}{\xi_i = 0} \Rightarrow \textcolor{newcolor2}{1-y^{(i)}(\beta^T x^{(i)} + \beta_0) < 0} $$ : \qquad \text{Non-Support} \\
+			 
+			\newline\\
+			$$\textcolor{Blue}{0 < \alpha_i < C} \rightarrow \textcolor{Red}{\xi_i = 0} \Rightarrow \textcolor{newcolor2}{1-y^{(i)}(\beta^T x^{(i)} + \beta_0) = 0} $$ : \quad \text{Support} \\
+			
+		    \newline\\
+			$$\textcolor{Blue}{\alpha_i = C} \rightarrow \textcolor{Red}{\xi_i > 0} \Rightarrow \textcolor{newcolor2}{1- \xi_i - y^{(i)}(\beta^T x^{(i)} + \beta_0) = 0} $$ : \quad \text{Support} \\ 
+			\end{cases}
+			
+		\end{itemize}	
+		
+	}
+
+	\frame{\frametitle{Classification Function}
+		
+		\begin{itemize}
+			
+			\item $f(x) = \beta^T x + \beta_0$
+			\newline
+			\item Also, when minimizing the conjugate function of primal problem, we get: $$\beta = \sum_{i=1}^{N}{\alpha_i y^{(i)}x^{(i)}}$$
+			
+			\item This results in the following classification function for SVC:
+			\begin{equation}
+					f(x) = \beta_0 + \sum_{i=1}^{N} \alpha_i y^{(i)} \textcolor{Blue}{x^T x^{(i)}} = \beta_0 + \sum_{i=1}^{N} \alpha_i y^{(i)} \textcolor{Blue}{\langle x, x^{(i)} \rangle}
+			\end{equation}
+			
+			\item It turns out that most of the $\hat{\alpha}_i$ can be zero:
+			\begin{equation}
+				f(x) = \beta_0 + \sum_{i \in \mathcal{S}} \hat{\alpha}_i y^{(i)} \textcolor{Blue}{\langle x, x^{(i)} \rangle}
+			\end{equation}
+			where $\mathcal{S}$ is the \textit{\textcolor{Green}{support set}} of indices $i$ such that $\hat{\alpha}_i > 0$. \newline \newline
+			So, all we need is \textcolor{Blue}{inner products}!
+			
+		\end{itemize}	
+		
+	}
+
+
+	\section{Support Vector Machines}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\frame{\frametitle{Kernels and SVMs}
+		
+		\begin{itemize}
+			
+			\item Consider the feature mapping $T: x \rightarrow \phi(x)$, we define the corresponding \textit{kernel} to be 
+			$$ K(x, x') = \langle \phi(x),\phi(x') \rangle .$$
+			
+			Now we can simply replace all inner products by $ K(x, x')$, and our algorithm would now be learning using the features $\phi$. \newline \newline
+			
+			\item Kernel matrix: $K_{i,j} = K(x^{(i)}, x^{(j)})$
+			
+			A valid kernel function is the one that results in a symmetric positive semi-definite kernel matrix for any set of samples. (Necessary and sufficient: Mercer theorem) \newline \newline
+			
+			\item Calculating kernel matrix may be very inexpensive, even though $\phi(x)$ itself may be very expensive to calculate(perhaps because it is an extremely high dimensional vector).\newline \newline
+			
+			\item The classification function solution has the form
+			\begin{equation}
+				f(x) = \beta_0 + \sum_{i \in \mathcal{S}} \hat{\alpha}_i y^{(i)} \textcolor{Blue}{K(x,x^{(i)})}
+			\end{equation}
+			
+		\end{itemize}	
+		
+	}
+
+	\frame{\frametitle{Polynomial Kernels}
+		
+		\begin{equation}
+			K(x,y) = (1+\langle x,y \rangle)^d
+		\end{equation}
+	
+		\begin{itemize}
+			
+			\item e.g. Feature transformation from 2D kernels:
+				$$K(x,y) = (1+\langle x,y \rangle)^2 \Rightarrow \phi(x) = (1, \sqrt{2}x_1, \sqrt{2}x_2, x_1^2, x_2^2)$$
+		
+			\item e.g. Polynomial kernel of degree 3:
+			\begin{figure}
+				\href{https://hastie.su.domains/ISLR2/ISLRv2_website.pdf}{
+					\centering
+					\includegraphics[scale=0.5]{images/polynomial3_kernel.png}
+				}
+			\end{figure}
+			
+			
+		\end{itemize}	
+		
+	}
+	
+	\frame{\frametitle{Radial Basis Kernels}
+		
+		\begin{equation}
+			K(x,y) = \exp(-\gamma \lVert x-y \rVert_2 ^2)
+		\end{equation}
+		
+		\begin{itemize}
+		
+			\item $\gamma$ is the hyperparameter to be chosen to control the bias-variance trade-off.\newline
+			
+			\item e.g. Radial basis functions (RBF) kernel:
+			\begin{figure}
+				\href{https://hastie.su.domains/ISLR2/ISLRv2_website.pdf}{
+					\centering
+					\includegraphics[scale=0.55]{images/rbf_kernel.png}
+				}
+			\end{figure}
+			
+		\end{itemize}	
+		
+	}
+
+	\frame{\frametitle{Multi-class SVM}
+		
+		\begin{itemize}
+			
+			\item \textcolor{Blue}{\textbf{One-vs-All}}: Fit all $K$ different 2-class SVM classifiers $\hat{f}_{k}(x), \forall k\in{1,2,...,K}$; each class versus the rest. Classify $x^*$ to the class for which $\hat{f}_{k}(x)$ is the largest. \newline
+			
+			\item \textcolor{Blue}{\textbf{One-vs-One}}: Fit all ${K \choose 2}$ pairwise classifiers $\hat{f}_{kl}(x)$. Classify $x^*$ to the class that wins the most pairwise competitions. \newline
+			
+			\begin{figure}
+				\href{https://www.baeldung.com/cs/svm-multiclass-classification}{
+					\centering
+					\subfloat[\centering One-vs-All]{{\includegraphics[scale=0.4]{images/ova.png} }}%
+					\qquad
+					\subfloat[\centering One-vs-One]{{\includegraphics[scale=0.4]{images/ovo.png} }}}
+			\end{figure}
+			
+			
+		\end{itemize}	
+		
+	}
+
+	\frame{\frametitle{Support Vector Regression}
+		
+		\begin{itemize}
+			
+			\begin{figure}
+				\href{https://www.saedsayad.com/support_vector_machine_reg.htm}{
+					\centering
+					\includegraphics[scale=0.5]{images/svr.png}
+				}
+			\end{figure}
+		
+			\begin{equation}
+				\begin{aligned}
+					\min_{\beta,\beta_0} \quad & \frac{1}{2} ||\beta||_2 ^2\\
+					\textrm{s.t.} \quad & |y^{(i)} - (\beta^T x^{(i)} + \beta_0)|_2 \leq \epsilon \quad \forall i \in \{1,2,...,N\}\\
+				\end{aligned}
+			\end{equation}
+			
+			
+		\end{itemize}	
+		
+	}
+
+
+	\frame{\frametitle{Soft Support Vector Regression}
+		
+		\begin{itemize}
+			
+			\begin{figure}
+				\href{https://www.saedsayad.com/support_vector_machine_reg.htm}{
+					\centering
+					\includegraphics[scale=0.5]{images/soft_svr.png}
+				}
+			\end{figure}
+			
+			\begin{equation}
+				\begin{aligned}
+					\min_{\beta,\beta_0} \quad & \frac{1}{2} ||\beta||_2 ^2 + C\sum_{i=1}^{N}{\xi_i}\\
+					\textrm{s.t.} \quad & |y^{(i)} - (\beta^T x^{(i)} + \beta_0)|_2 \leq \epsilon + \xi_i \\
+					&\xi_i \geq 0 \quad \forall i \in \{1,2,...,N\}\\
+				\end{aligned}
+			\end{equation}
+			
+			
+		\end{itemize}	
+		
+	}
+
+	
+	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\frame{\frametitle{Final Notes}
 			\centering
