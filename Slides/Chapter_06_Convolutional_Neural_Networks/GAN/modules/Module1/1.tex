@@ -36,9 +36,11 @@
 
 		\column{1\textwidth}
 		\begin{center}
+          \hyperlink{miteshk}{
 			\begin{figure}
 				\includegraphics[scale=0.3]{images/mnist_ground.png}
 			\end{figure}
+           }
 		\end{center}
 		
 		\begin{overlayarea}{\textwidth}{\textheight}
@@ -246,30 +248,28 @@
 	\end{columns}
 \end{frame}
 
-% \begin{frame}
-% 	\begin{columns}
-% 		\column{0.45\textwidth}
-% 		\begin{overlayarea}{\textwidth}{\textheight}
-% 			\vspace*{10mm}
-% 			\begin{center}
-% 				{\scalebox{0.45}{%
-% 				\input{modules/Module1/tikz_images/gradient1.tex}}}
-% 				% \only<2>{\scalebox{0.7}{%
-% 				% \input{modules/Module1/tikz_images/gradient1.tex}}}
-% 				% \only<3->{\scalebox{0.7}{%
-% 				% \input{modules/Module1/tikz_images/gradient2.tex}}}
-% 			% LHS: <Show figure from Slide 111>
-% 			\end{center}
+\begin{frame}
+	\begin{columns}
+		\column{0.45\textwidth}
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\vspace*{10mm}
+			\begin{center}
+				\hyperlink{miteshk}{
+			     \begin{figure}
+				  \includegraphics[scale=0.3]{images/chart.png}
+		         \end{figure}
+                }
+			\end{center}
 
-% 		\end{overlayarea}
-% 		\column{0.55\textwidth}
-% 		\begin{overlayarea}{\textwidth}{\textheight}
-% 			\begin{itemize}[<+->]
-% 				\item When the sample is likely fake, we want to give a feedback to the generator (using gradients)
-% 				\item However, in this region where $D(G(z))$ is close to 0, the curve of the loss function is very flat and the gradient would be close to $0$
-% 				\item Trick: Instead of minimizing the likelihood of the discriminator being correct, maximize the likelihood of the discriminator being wrong 
-% 				\item In effect, the objective remains the same but the gradient signal becomes better
-% 			\end{itemize}
-% 		\end{overlayarea}
-% 	\end{columns}
-% \end{frame}
+		\end{overlayarea}
+		\column{0.55\textwidth}
+		\begin{overlayarea}{\textwidth}{\textheight}
+			\begin{itemize}[<+->]
+				\item When the sample is likely fake, we want to give a feedback to the generator (using gradients)
+				\item However, in this region where $D(G(z))$ is close to 0, the curve of the loss function is very flat and the gradient would be close to $0$
+				\item Trick: Instead of minimizing the likelihood of the discriminator being correct, maximize the likelihood of the discriminator being wrong 
+				\item In effect, the objective remains the same but the gradient signal becomes better
+			\end{itemize}
+		\end{overlayarea}
+	\end{columns}
+\end{frame}

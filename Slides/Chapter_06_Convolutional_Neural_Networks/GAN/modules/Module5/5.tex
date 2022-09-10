@@ -7,11 +7,10 @@
 
 \begin{frame}
     \begin{figure}[h!]
-		%\vspace*{-1mm}
-        {\includegraphics[scale=0.40]{images/stylegan_example1.png}
+        \hyperlink{StyleGAN}{
+        \includegraphics[scale=0.40]{images/stylegan_example1.png}
         \caption{Example of One Set of Generated Faces (Left) Adopting the Coarse Style of Another Set of Generated Faces (Top) Taken from: A Style-Based Generator Architecture for Generative Adversarial Networks.}
         }
-		%\vspace*{-1mm}
 	\end{figure}
 	\begin{itemize}
 		\item<1-> GAN: Lacking Control Over Synthesized Images
@@ -22,12 +21,12 @@
 \end{frame}
 
 \begin{frame}
-    \title{StyleGAN Model Architecture}
-	\begin{figure}[h!]
-		%\vspace*{-1mm}
-		\includegraphics[scale=0.40]{images/StyleGan_Architecture.png}
-		%\vspace*{-4mm}
-	\end{figure}
+    \frametitle{StyleGAN Model Architecture}
+    \hyperlink{StyleGAN}{
+    	\begin{figure}[h!]
+    		\includegraphics[scale=0.40]{images/StyleGan_Architecture.png}
+    	\end{figure}
+     }
     \textbf{The StyleGAN is described as a progressive growing GAN architecture with five modifications, each of which was added and evaluated incrementally in an ablative study.
     The incremental list of changes to the generator are:}
     \begin{itemize}
@@ -42,13 +41,13 @@
 \end{frame}
 
 \begin{frame}
-    \title{CycleGAN}
+    \frametitle{CycleGAN}
     \textbf{Style transfer problem: change the style of an image while preserving the content.}
-	\begin{figure}[h!]
-		%\vspace*{-1mm}
-		\includegraphics[scale=0.40]{images/cyclegan1.png}
-		%\vspace*{-4mm}
-	\end{figure}
+    \hyperlink{CycleGAN}{
+    	\begin{figure}[h!]
+    		\includegraphics[scale=0.40]{images/cyclegan1.png}
+    	\end{figure}
+     }
     \textbf{Data: Two unrelated collections of images, one for each style}
 \end{frame}
 
@@ -67,29 +66,29 @@
 
 \begin{frame}
     \title{CycleGAN}
-	\begin{figure}[h!]
-		%\vspace*{-1mm}
-		\includegraphics[scale=0.40]{images/cyclegan2.png}
-		%\vspace*{-4mm}
-	\end{figure}
+    \hyperlink{CycleGAN}{
+    	\begin{figure}[h!]
+    		\includegraphics[scale=0.40]{images/cyclegan2.png}
+    	\end{figure}
+     }
 \end{frame}
 
 \begin{frame}
     \title{CycleGAN}
     \textbf{Style transfer between aerial photos and maps:}
-	\begin{figure}[h!]
-		%\vspace*{-1mm}
-		\includegraphics[scale=0.40]{images/cyclegan3.png}
-		%\vspace*{-4mm}
-	\end{figure}
+    \hyperlink{CycleGAN}{
+    	\begin{figure}[h!]
+    		\includegraphics[scale=0.40]{images/cyclegan3.png}
+    	\end{figure}
+    }
 \end{frame}
 
 \begin{frame}
     \title{CycleGAN}
     \textbf{Style transfer between road scenes and semantic segmentations (labels of every pixel in an image by object category):}
-	\begin{figure}[h!]
-		%\vspace*{-1mm}
-		\includegraphics[scale=0.40]{images/cyclegan4.png}
-		%\vspace*{-4mm}
-	\end{figure}
+    \hyperlink{CycleGAN}{
+    	\begin{figure}[h!]
+    		\includegraphics[scale=0.40]{images/cyclegan4.png}
+    	\end{figure}
+    }
 \end{frame}
