@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2022.8.26)  10 SEP 2022 13:07
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2022.8.26)  11 SEP 2022 08:35
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1456,12 +1456,20 @@ Overfull \vbox (2.56502pt too high) detected at line 240
 ]
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
 (Font)              scaled to size 10.0pt on input line 258.
+
+
+LaTeX Warning: File `Figs/3.png' not found on input line 258.
+
+! Unable to load picture or PDF file 'Figs/3.png'.
+<to be read again> 
+                   }
+l.258 \end{frame}
+                 
+The requested image couldn't be read because
+it was not a recognized image format.
+
 File: Figs/3.png Graphic file (type bmp)
 <Figs/3.png>
-
-Overfull \vbox (1.73288pt too high) detected at line 258
- []
-
 [4
 
 ]
@@ -1519,10 +1527,10 @@ Package rerunfilecheck Info: File `Sec2-2.out' has not changed.
 (rerunfilecheck)             Checksum: 93F2A61979BCE5D1D52252937227A140;153.
  ) 
 Here is how much of TeX's memory you used:
- 35656 strings out of 479819
- 728632 string characters out of 5895846
- 1098477 words of memory out of 5000000
- 51974 multiletter control sequences out of 15000+600000
+ 35702 strings out of 479819
+ 729096 string characters out of 5895846
+ 1098459 words of memory out of 5000000
+ 52001 multiletter control sequences out of 15000+600000
  546545 words of font info for 98 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  58i,22n,89p,792b,1284s stack positions out of 5000i,500n,10000p,200000b,80000s
