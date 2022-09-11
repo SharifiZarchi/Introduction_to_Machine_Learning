@@ -187,15 +187,39 @@
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{Introduction}
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
-	\frame{\frametitle{Intuition: Margins}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\frame{\frametitle{Hyperplane}
 		
+		
+		\begin{itemize}
+			\item \textbf {Hyperplane}: A hyperplane in \textit p dimensions is an affine subspace of dimension \textit {p-1}:
+			
+			$$\beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p = 0$$ 
+			\begin{figure}
+				\href{https://www.ai-summary.com/summary-hyperplane/}{
+				\centering
+				\includegraphics[scale=0.15]{images/hyperplane.png}}
+			\end{figure}
+			
+			\item The vector $\beta = (\beta_1, \beta_2, ..., \beta_p)$ is called the normal vector -- it points in a direction orthogonal to the surface of the defined hyperplane. \newline 
+			
+			\item If $f(X) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p = \beta^T X + \beta_0$, then $f(X)$ divides the \textit p-dimensional feature space into two half-spaces ($f(X) > 0$ for one side and $f(X) < 0$ for the other side). \newline \newline
+			
+			\item So if we code $Y^{(i)} \in \{\pm 1\}$, then $\forall i: \quad Y^{(i)}f(X^{(i)}) > 0$
+		\end{itemize}	
+		
+	}
+
+
+	\frame{\frametitle{Intuition: Margins}
 		
 		\begin{itemize}
 			\item Separating Hyperplane
 			\begin{figure}
+				\href{http://cs229.stanford.edu/lectures-spring2022/main_notes.pdf}{
 				\centering
-				\includegraphics[scale=0.4]{images/separating_hyperplane.png}
+				\includegraphics[scale=0.4]{images/separating_hyperplane.png}}
 			\end{figure}
 			
 			\item 
@@ -207,25 +231,7 @@
 		
 	}
 	
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\frame{\frametitle{Hyperplane}
-		
-		
-		\begin{itemize}
-			\item \textbf {Hyperplane}: A hyperplane in \textit p dimensions is a flat affine subspace of dimension \textit {p-1}: \newline
-			
-			$$\beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p = 0$$ \newline
-			
-			\item The vector $\beta = (\beta_1, \beta_2, ..., \beta_p)$ is called the normal vector -- it points in a direction orthogonal to the surface of the defined hyperplane. \newline 
-			
-			
-			\item If $f(X) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p = \beta^T X + \beta_0$, then $f(X)$ divides the \textit p-dimensional feature space into two half-spaces ($f(X) > 0$ for one side and $f(X) < 0$ for the other side). \newline \newline
-			
-			\item So if we code $Y^{(i)} \in \{\pm 1\}$, then $\forall i$
-			 $$Y^{(i)}f(X^{(i)}) > 0$$
-		\end{itemize}	
-		
-	}
+	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{Maximal Margin Classifier}
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -234,18 +240,18 @@
 		\begin{itemize}
 	
 			\begin{figure}
-				\href{https://hastie.su.domains/ISLR2/ISLRv2_website.pdf}{
+				\href{https://miro.medium.com/max/875/1*06GSco3ItM3gwW2scY6Tmg.png}{
 				\centering
-				\includegraphics[scale=0.38]{images/possible_hyperplanes.png}}
+				\includegraphics[scale=0.45]{images/optimal_hyperplane.png}}
 			\end{figure}
 		
-			\item \textbf{Maximal(Optimal) Separating  Hyperplane}: 
-			The separating hyperplane with the biggest margin between the classes.
+			\item \textbf{Maximal (Optimal) Separating  Hyperplane}: 
+			The separating hyperplane with the largest margin between the classes.
 			
 			\begin{equation}
 				\begin{aligned}
 					\max_{\beta_0,\beta,M} \quad & M\\
-					\textrm{s.t.} \quad & \sum_{j=1}^{p}{\beta_j^2}\\
+					\textrm{s.t.} \quad & \sum_{j=1}^{p}{\beta_j^2 = 1}\\
 					&y^{(i)}(\beta^T x^{(i)} + \beta_0) \geq M \quad \forall i \in \{1,2,...,N\}   \\
 				\end{aligned}
 			\end{equation}
@@ -327,7 +333,7 @@
 		
 		\begin{itemize}
 			
-			\item Allowing some samples to violate the margin, with \textit {slack variables}, in a controlled manner:
+			\item Allowing some samples to violate the margin, with \textit {slack variables} ($\xi$), in a controlled manner:
 			\begin{figure}
 				\href{https://hastie.su.domains/ISLR2/ISLRv2_website.pdf}{
 				\centering
@@ -353,9 +359,9 @@
 			
 			\item \textit C is a regularization parameter that controls the bias-variance trade-off of the support vector classifier.
 			\begin{figure}
-				\href{https://hastie.su.domains/ISLR2/ISLRv2_website.pdf}{
+				\href{https://dinhanhthi.com/img/post/ML/support-vector-machine/svm-7.jpg}{
 				\centering
-				\includegraphics[scale=0.45]{images/regularization_parameter.png}}
+				\includegraphics[scale=0.3]{images/regularization_parameter1.png}}
 			\end{figure}
 			
 		\end{itemize}	
@@ -501,7 +507,7 @@
 			
 			\item Kernel matrix: $K_{i,j} = K(x^{(i)}, x^{(j)})$
 			
-			A valid kernel function is the one that results in a symmetric positive semi-definite kernel matrix for any set of samples. (Necessary and sufficient: Mercer theorem) \newline \newline
+			A valid kernel function is the one that results in a \textcolor{Blue}{symmetric positive semi-definite} kernel matrix for any set of samples. (\textit{Mercer theorem}: necessary and sufficient condition) \newline \newline
 			
 			\item Calculating kernel matrix may be very inexpensive, even though $\phi(x)$ itself may be very expensive to calculate(perhaps because it is an extremely high dimensional vector).\newline \newline
 			
@@ -529,7 +535,7 @@
 			\begin{figure}
 				\href{https://hastie.su.domains/ISLR2/ISLRv2_website.pdf}{
 					\centering
-					\includegraphics[scale=0.5]{images/polynomial3_kernel.png}
+					\includegraphics[scale=0.35]{images/poly3_kernel_svm.png}
 				}
 			\end{figure}
 			
@@ -552,7 +558,7 @@
 			\begin{figure}
 				\href{https://hastie.su.domains/ISLR2/ISLRv2_website.pdf}{
 					\centering
-					\includegraphics[scale=0.55]{images/rbf_kernel.png}
+					\includegraphics[scale=0.5]{images/rbf_kernel_svm.png}
 				}
 			\end{figure}
 			
