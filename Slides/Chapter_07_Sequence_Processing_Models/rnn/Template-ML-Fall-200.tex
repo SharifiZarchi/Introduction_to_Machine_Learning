@@ -191,7 +191,7 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Recurrent Neural Networks}
+\section{Backpropagation Through Time}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Backpropagation Through Time (BPTT)}
 	
@@ -405,6 +405,7 @@ $$
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{LSTM-GRU}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
 \frame{\frametitle{Gated Recurrent Unit (GRU)}
 	
@@ -640,6 +641,7 @@ $$
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Bidirectional RNN}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
 \frame{\frametitle{Bidirectional RNN}
 \begin{itemize}
@@ -690,15 +692,16 @@ $$
 \end{figure}
 
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Encoder-Decoder}
+%%%%%
 \frame{\frametitle{Encoder-Decoder}
 
 \begin{itemize}
-\item If we want an output of variable length with respect to the
-input(e.g. Machine Translation), what should we do?
+\item If we want an output with a different length from the
+input (e.g. Machine Translation), what should we do?
 \vspace{3mm}
-\item Can we use RNN for tasks where we have a sequence as input and
-we want another sequence as output? Alignment problem.
+\item Can we use RNN for seq2seq processing? one of the major problems is the alignment problem.
 \end{itemize}
 \begin{center}
     Encoder-Decoder architecture could be a solution.
@@ -721,7 +724,7 @@ we want another sequence as output? Alignment problem.
 \end{figure}
 
 \begin{itemize}
-        \item \textbf{Encoder:} Encoder processes the input sequence and compresses the information into a fixed length vector, known as the context vector. 
+        \item \textbf{Encoder:} The encoder processes the input sequence and compresses the information into a fixed length vector, known as the context vector. 
 \end{itemize}
 
 }
@@ -735,7 +738,7 @@ we want another sequence as output? Alignment problem.
 \end{figure}
 
 \begin{itemize}
-        \item \textbf{Context Vector:} This representation is expected to be a good summary of the meaning of the whole source sequence. (The early work only used the last state of the encoder network as the context vector.)
+        \item \textbf{Context Vector:} This vector is expected to convey the meaning of the whole source sequence from the encoder to the decoder. (The early work considered the last state of the encoder network as the context vector.)
 \end{itemize}
 
 }
@@ -749,7 +752,7 @@ we want another sequence as output? Alignment problem.
 \end{figure}
 
 \begin{itemize}
-        \item \textbf{Decoder:} Decoder is initialized with the context vector to output the desired target sequence.
+        \item \textbf{Decoder:} The decoder uses the context vector to output the desired target sequence.
 \end{itemize}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -767,6 +770,7 @@ we want another sequence as output? Alignment problem.
 
 }
 %%%%%
+\section{Teacher Forcing}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
 \frame{\frametitle{Teacher Forcing}
 
@@ -826,21 +830,23 @@ we want another sequence as output? Alignment problem.
 \end{figure}
 
 \begin{itemize}
-        \item We have discussed about Machine Translation models. We are familiar with some of their elements, namely, word embedding, encoder, decoder, S (context vector), and softmax. But, there is a missing part! The search strategy for inference.
+        \item We have discussed Machine Translation models. We are familiar with some of their elements, namely, word embedding, encoder, decoder, S (context vector), and softmax. But, there is a missing part! The search strategy for inference.
         $$
         \Hat{y_T}, \Hat{y_{T-1}}, ..., \Hat{y_1} = \underset{\Tilde{y_T}, \Tilde{y_{T-1}}, ..., \Tilde{y_1}}{\mathbin{argmax}} P(\Tilde{y_T}, \Tilde{y_{T-1}}, ..., \Tilde{y_1}|S)
         $$
-        \textbf{Notice:} $y_t$ is the corresponding word to time step t. 
+        \textbf{Notice:} $\Tilde{y_t}$ is the corresponding word to time step t. 
 \end{itemize}
 
 }
+%%%%%%%%%%%%%%%%%%%%
+\section{Beam Search}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Search Strategy}
 
 \begin{itemize}
         \item \textbf{Exhaustive Search (Brute-force search)}
         \\
-        Iterate over all possible combinations of $\Hat{y_t}, \Hat{y_{t-1}}, ..., \Hat{y_1}$.
+        Iterate over all possible combinations of $\Tilde{y_t}, \Tilde{y_{t-1}}, ..., \Tilde{y_1}$.
         \vspace{3mm}
         \begin{itemize}
             \item T: Total Time Step (the number of decoder units)
@@ -860,7 +866,7 @@ we want another sequence as output? Alignment problem.
 \begin{itemize}
         \item \textbf{Greedy Search}
         $$
-        \mathbin{max} \, P(\Tilde{y_T}, \Tilde{y_{T-1}}, ..., \Tilde{y_1}|S) = 
+        \mathbin{max} \, P(y_T, y_{T-1}, ..., y_1|S) = 
         \mathbin{max} \prod_{t=1}^T P(y_t|y_{t-1}, y_{t-2}, ..., y_1, S)
         $$
         $$
@@ -870,7 +876,7 @@ we want another sequence as output? Alignment problem.
 \end{itemize}
 
 \begin{figure}[!h]
-\includegraphics[width=4cm]{Figs/greedy2.eps}
+\includegraphics[width=3.5cm]{Figs/greedy2.eps}
         \caption{Greedy Search Example, \href{https://d2l.ai/chapter\_recurrent-modern/beam-search.html} 
         {source}}
 \end{figure}
@@ -901,7 +907,7 @@ $$ $$= 0.048$$
 \end{itemize}
 
 \begin{figure}[!h]
-\includegraphics[width=4cm]{Figs/greedy.eps}
+\includegraphics[width=3.5cm]{Figs/greedy.eps}
         \caption{Greedy Search Example, \href{https://d2l.ai/chapter\_recurrent-modern/beam-search.html} 
         {source}}
 \end{figure}
