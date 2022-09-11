@@ -136,6 +136,7 @@
 \usepackage{fontspec}
 \usepackage[clean]{svg}
 \usepackage{xcolor}
+\usepackage{animate}
 
 
 %\setsansfont[Scale=MatchLowercase, BoldFont = * Bold, ItalicFont = * Italic]{Caladea}
@@ -199,47 +200,28 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
-\frame{\frametitle{Convolutional Neural Networks: History}
-\Large{Biological Inspiration of Convolutional Neural Networks}
-\newline \newline
-\large{\textbf{Hubel and Wiesel}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{itemize}
-	\item 1959
-	\item 1961
-	\item 1968
+\frame{\frametitle{CNNs}
 
-\end{itemize}	
-	
+\Large{What we've been using:}
+\newline\newline
+\large{- Fully Connected Layers}
+\newline
+\begin{figure}
+    \centering
+    \includesvg[width=1\columnwidth]{images/nn.svg}
+\end{figure}
 }
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Kernels}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{CNNs}
 
-\Large{What we've been using:}
-\newline
-\large{Fully Connected Layers}
-\newline
-\begin{figure}
-    \centering
-    \includesvg[width=1\columnwidth]{images/nn.svg}
-\end{figure}
-
-
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{CNNs}
-
 \Large{What we're going to learn:}
-\newline
-\large{Convolutional Layer}
+\newline\newline
+\large{- Convolutional Layer}
 \newline
 \begin{figure}
     \centering
@@ -247,6 +229,7 @@
 \end{figure}
 
 }
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{CNNs}
@@ -265,11 +248,88 @@
 \end{figure}
 
 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\frame{\frametitle{What is Convolution and how does it work?}
+\normalsize
+\begin{itemize}
+    \item \color{red}We apply the same filter on different regions of the input
+\end{itemize}
+\begin{figure}
+    \centering
+    \includesvg[width=0.6\columnwidth]{images/kernel2.svg}
+\end{figure}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{What is Convolution and how does it work?}
+\normalsize
+
+\begin{itemize}
+    \item We apply the same filter on different regions of the input
+    \item \color{red} Convolutional filters learn to make decisions based on local spatial input which is an important attribute working with images
+\end{itemize}
+\begin{figure}
+    \centering
+    \includesvg[width=0.6\columnwidth]{images/kernel3.svg}
+\end{figure}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{What is Convolution and how does it work?}
+\normalsize
+
+\begin{itemize}
+    \item We apply the same filter on different regions of the input
+    \item Convolutional filters learn to make decisions based on local spatial input which is an important attribute working with images.
+    \item \color{red} Uses a lot fewer parameters compared to Fully Connected Layers.
+\end{itemize}
+\begin{figure}
+    \centering
+    \includesvg[width=0.6\columnwidth]{images/kernel4.svg}
+\end{figure}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{What is Convolution and how does it work?}
+\normalsize
+Consider this, the filter we are going to use:
+\begin{figure}
+    \centering
+    \includesvg[width=0.45\columnwidth]{images/kernel5.svg}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\foreach \i in {0,...,8}
+{
+    \frame{\frametitle{What is Convolution and how does it work?}
+    \normalsize
+    This is how we calculate the convolutional layer's output:
+    \small
+    \begin{equation*}
+        Convolved Feature(i, j) = (I * K)(i, j) = \sum_{a=0}^{k_h - 1}\sum_{b=0}^{k_w - 1} I(i+a, j+b) K(a, b)
+    \end{equation*}
+        I: Input Image\newline
+        K: Our Kernel\newline
+        $k_h$ and $k_w$: The height and width of the Kernel
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.4\columnwidth]{images/kernel-frame-\i.png}
+        \caption{Convoluting a 5x5x1 image with a 3x3x1 kernel to get a 3x3x1 convolved feature, \href{https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53}{Source}}
+    \end{figure}
+    }
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Strides}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \frame{\frametitle{What is a Stride}
 
 \Large{The amount of movement between applications of the filter to the input image is referred to as the stride, and it is almost always symmetrical in height and width dimensions.}
@@ -368,7 +428,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Stride}
+\frame{\frametitle{Strides}
 
 \newline
 \newline
@@ -387,7 +447,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Stride}
+\frame{\frametitle{Strides}
 
 \newline
 \newline
@@ -405,7 +465,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Stride}
+\frame{\frametitle{Strides}
 
 \newline
 \newline
@@ -424,7 +484,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Stride}
+\frame{\frametitle{Strides}
 
 \newline
 \newline
@@ -443,7 +503,7 @@
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Stride}
+\frame{\frametitle{Strides}
 
 \newline
 \newline
@@ -462,7 +522,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Stride}
+\frame{\frametitle{Strides}
 
 \newline
 \newline
@@ -721,8 +781,105 @@ inputs using an aggregation function such as the max or mean.
 \section{Channels, etc.}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Channels, etc.}
+By now, we talked about 2D inputs, but images are 3D:
+\begin{itemize}
+    \item They consist of 3 channels: Red, Green and Blue (RGB images)
+    \item Shape: (height x width x 3)
+\end{itemize}
 \begin{center}
-    \LARGE{HI :))}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\columnwidth]{images/channels1.jpeg}
+        \caption{RGB Image, \href{https://dev.to/sandeepbalachandran/machine-learning-going-furthur-with-cnn-part-2-41km}{Source}}
+    \end{figure}
+\end{center}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Channels, etc.}
+By now, we talked about 2D inputs, but images are 3D:
+\begin{itemize}
+    \item They consist of 3 channels: Red, Green and Blue (RGB images)
+    \item Shape: (height x width x 3)
+\end{itemize}
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\columnwidth]{images/channels2.jpeg}
+        \caption{RGB Image, \href{https://dev.to/sandeepbalachandran/machine-learning-going-furthur-with-cnn-part-2-41km}{Source}}
+    \end{figure}
+\end{center}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Channels, etc.}
+By now, we talked about 2D inputs, but images are 3D:
+\begin{itemize}
+    \item They consist of 3 channels: Red, Green and Blue (RGB images)
+    \item Shape: (height x width x 3)
+\end{itemize}
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\columnwidth]{images/channels3.jpeg}
+        \caption{RGB Image, \href{https://dev.to/sandeepbalachandran/machine-learning-going-furthur-with-cnn-part-2-41km}{Source}}
+    \end{figure}
+\end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Channels, etc.}
+- As said before: "Filters always extend the full depth of the input volume. (\#Input channels == \#Filter Channels)"
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\columnwidth]{images/channels4.png}
+        \caption{The total number of multiplications to calculate the result is (4 x 4) x (3 x 3 x 3) = 432, \href{https://indoml.com/2018/03/07/student-notes-convolutional-neural-networks-cnn-introduction/}{Source}}
+    \end{figure}
+\end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Channels, etc.}
+- As said before: "Filters always extend the full depth of the input volume. (\#Input channels == \#Filter Channels)"
+\newline
+\color{red}- Each filter results in one output channel, we can apply multiple different filters to get multiple output channels. Each channel can learn something different.
+
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\columnwidth]{images/channels5.png}
+        \caption{The total number of multiplications to calculate the result is (4 x 4 x 2) x (3 x 3 x 3) = 864, \href{https://indoml.com/2018/03/07/student-notes-convolutional-neural-networks-cnn-introduction/}{Source}}
+    \end{figure}
+\end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Channels, etc.}
+\color{red}- We apply several filters and stack the output together to get a multilayer output, with each layer representing something it learnt.
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\columnwidth]{images/channels6.png}
+        \caption{\href{http://cs231n.stanford.edu/slides/2022/lecture_5_ruohan.pdf}{Slide from CS231n}}
+    \end{figure}
+\end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Channels, etc.}
+- We apply several filters and stack the output together to get a multilayer output, with each layer representing something it learnt.
+\newline
+\color{red}- Some kernels learning to recognize vertical lines, some circles, and some, specific objects:
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\columnwidth]{images/channels7.jpg}
+        \caption{Each kernel learning something different, \href{https://www.researchgate.net/publication/318967374_En_ny_aera_for_uthenting_av_informasjon_fra_satellittbilder_ved_hjelp_av_maskinlaering_Mathilde_Orstavik_og_Terje_Midtbo_Mathilde_Orstavik_and_Terje_Midtbo_A_New_Era_for_Feature_Extraction_in_Remotely}{Source}}
+    \end{figure}
 \end{center}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
