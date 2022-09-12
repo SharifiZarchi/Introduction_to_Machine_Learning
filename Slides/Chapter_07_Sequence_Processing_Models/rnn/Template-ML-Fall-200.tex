@@ -105,7 +105,7 @@
 
 %\setbeamertemplate{navigation symbols}{}
 
-\title{Recurrent Neural Networks}
+\title{Linear regression}
 \author{ML Instruction Team, Fall 2022}
 \institute[]{CE Department \newline  Sharif University of Technology \newline \newline}
 \date[\today]{}
@@ -121,7 +121,6 @@
 \usepackage{epsfig}
 \usepackage{graphicx}
 \usepackage[all,knot]{xy}
-\newcommand{\cev}[1]{\reflectbox{\ensuremath{\vec{\reflectbox{\ensuremath{#1}}}}}}
 \xyoption{arc}
 \usepackage{url}
 \usepackage{multimedia}
@@ -158,19 +157,22 @@
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{assumption}[theorem]{Assumption}
 
-\usepackage{fontspec,unicode-math}
-\setmainfont{Consolas}[
-    Scale=0.9,
-    Path=./Fonts/,
-    Extension = .ttf,
-]
-\setmonofont{Monaco}[
-    Scale=0.9,
-    Path=./Fonts/,
-    Extension = .ttf,
-]
+\usepackage{xcolor}
+\newcommand{\tc}[2]{
+	\textcolor{#1}{#2}
+}
 
+%\usepackage{fontspec, unicode-math}
+%\setmainfont[Scale=0.9]{Nimbus Roman No9 L}
+%\setmonofont[Scale=0.9]{Monaco}
 \setsansfont[Scale=1]{Times New Roman}
+
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+
+\definecolor{strings}{rgb}{.624,.251,.259}
+\definecolor{keywords}{rgb}{.224,.451,.686}
+\definecolor{comment}{rgb}{.322,.451,.322}
+
 
 %\usepackage{smartdiagram}
 %\usesmartdiagramlibrary{additions}
@@ -179,6 +181,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Begin Your Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Begin Your Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -191,7 +196,7 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Recurrent Neural Networks}
+\section{Backpropagation Through Time}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Backpropagation Through Time (BPTT)}
 	
@@ -234,7 +239,7 @@
 
 \begin{itemize}
     \item
-    Now, we are going to calculate derivation of $L$ w.r.t $W_{yh}, W_{hh}, W_{xh}, b_y, b_h$
+    Now, we are going to calculate derivative of $L$ w.r.t $W_{yh}, W_{hh}, W_{xh}, b_y, b_h$
     \begin{itemize}
         \item Part I: The Straight Ones
         $$
@@ -330,7 +335,7 @@
 \frame{\frametitle{Backpropagation Through Time (BPTT)}
 
 \begin{figure}[!h]
-\includegraphics[width=8cm]{Figs/gradient_flow_rnn.png}
+\includegraphics[width=12cm]{Figs/gradient_flow_rnn.png}
 \caption{Vanilla RNN Gradient Flow, \href{https://kharshit.github.io/blog/2019/01/04/the-gradient-problem-in-rnn} 
         {source}}
 
@@ -342,11 +347,11 @@
     \begin{itemize}
         \item Computing gradient of $h_0$ involves many factors of $W$ (and repeated 
         $\mathbin{tanh}$)
-            \\ What can we do to solve the problem? TBPTT
+            \\ What can we do to solve the problem? 
         \vspace{3mm}
         \item Vanishing $\&$ Exploding gradients
-            \\ What can we do to solve exploding? gradient clipping
-            \\ What can we do to solve vanishing? changing the structure
+            \\ What can we do to solve exploding? 
+            \\ What can we do to solve vanishing?
 
     \end{itemize}
     
@@ -378,10 +383,12 @@
 \end{itemize}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{LSTM-GRU}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{RNN Unit}
 	
 \begin{figure}[!h]
-\includegraphics[width=6cm]{Figs/description-block-rnn-ltr.eps}
+\includegraphics[width=8cm]{Figs/description-block-rnn-ltr.png}
 \caption{RNN Unit, \href{https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks} 
         {source}}
 
@@ -409,7 +416,7 @@ $$
 \frame{\frametitle{Gated Recurrent Unit (GRU)}
 	
 \begin{figure}[!h]
-\includegraphics[width=5cm]{Figs/gru-ltr.eps}
+\includegraphics[width=5cm]{Figs/gru-ltr.png}
 \caption{GRU Unit, \href{https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks} 
         {source}}
 \centering
@@ -438,7 +445,7 @@ $$
 \frame{\frametitle{Long Short-Term Memory (LSTM)}
 	
 \begin{figure}[!h]
-\includegraphics[width=4cm]{Figs/lstm-ltr.eps}
+\includegraphics[width=4cm]{Figs/lstm-ltr.png}
 \caption{LSTM Unit, \href{https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks} 
         {source}}
 \end{figure}
@@ -502,7 +509,7 @@ $$
     \item The first step in our LSTM is to decide what information we’re going to throw away from the cell state.
 \end{itemize}
 \begin{figure}[!h]
-\centering \includegraphics[width=6cm]{Figs/LSTM3-focus-f.eps}
+\centering \includegraphics[width=6cm]{Figs/LSTM3-focus-f.png}
 \caption{Forget Gate Layer, \href{https://colah.github.io/posts/2015-08-Understanding-LSTMs/}
         {source}}
 \end{figure}
@@ -517,7 +524,7 @@ $$
     \item The next step is to decide what new information we’re going to store in the cell state.
 \end{itemize}
 \begin{figure}[!h]
-\centering \includegraphics[width=6cm]{Figs/LSTM3-focus-i.eps}
+\centering \includegraphics[width=6cm]{Figs/LSTM3-focus-i.png}
 \caption{Input Gate Layer, \href{https://colah.github.io/posts/2015-08-Understanding-LSTMs/}
         {source}}
 \end{figure}	
@@ -533,7 +540,7 @@ $$
     \item It’s now time to update the old cell state, Ct−1, into the new cell state Ct.
 \end{itemize}
 \begin{figure}[!h]
-\centering \includegraphics[width=6cm]{Figs/LSTM3-focus-C.eps}
+\centering \includegraphics[width=6cm]{Figs/LSTM3-focus-C.png}
 \caption{Update Cell State, \href{https://colah.github.io/posts/2015-08-Understanding-LSTMs/}
         {source}}
 \end{figure}	
@@ -547,7 +554,7 @@ $$
     \item Finally, we need to decide what we’re going to output. This output will be based on our cell state
 \end{itemize}
 \begin{figure}[!h]
-\centering \includegraphics[width=6cm]{Figs/LSTM3-focus-o.eps}
+\centering \includegraphics[width=6cm]{Figs/LSTM3-focus-o.png}
 \caption{Output Gate Layer, \href{https://colah.github.io/posts/2015-08-Understanding-LSTMs/}
         {source}}
 \end{figure}	
@@ -565,9 +572,9 @@ $$
 	\item The gates in the previous slide let the information to pass through the units.
  
 \vspace{3mm}
-	\item The gates value are between zero and one and specify how much information should be let through.
+	\item The gates value are between zero and one and specify \tc{keywords}{how much information should be let through}.
 \vspace{3mm}
-        \item They also somehow solve the vanishing gradient.
+        \item They also somehow solve the \tc{keywords}{vanishing gradient}.
         \vspace{3mm}
         
         \item We can use more blocks of them so there will be more information to remember.
@@ -640,6 +647,7 @@ $$
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Bidirectional RNN}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
 \frame{\frametitle{Bidirectional RNN}
 \begin{itemize}
@@ -690,15 +698,16 @@ $$
 \end{figure}
 
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Encoder-Decoder}
+%%%%%
 \frame{\frametitle{Encoder-Decoder}
 
 \begin{itemize}
-\item If we want an output of variable length with respect to the
-input(e.g. Machine Translation), what should we do?
+\item If we want an output with a different length from the
+input (e.g. Machine Translation), what should we do?
 \vspace{3mm}
-\item Can we use RNN for tasks where we have a sequence as input and
-we want another sequence as output? Alignment problem.
+\item Can we use RNN for seq2seq processing? one of the major problems is the alignment problem.
 \end{itemize}
 \begin{center}
     Encoder-Decoder architecture could be a solution.
@@ -721,7 +730,7 @@ we want another sequence as output? Alignment problem.
 \end{figure}
 
 \begin{itemize}
-        \item \textbf{Encoder:} Encoder processes the input sequence and compresses the information into a fixed length vector, known as the context vector. 
+        \item \textbf{Encoder:} The encoder processes the input sequence and compresses the information into a fixed length vector, known as the context vector. 
 \end{itemize}
 
 }
@@ -735,7 +744,7 @@ we want another sequence as output? Alignment problem.
 \end{figure}
 
 \begin{itemize}
-        \item \textbf{Context Vector:} This representation is expected to be a good summary of the meaning of the whole source sequence. (The early work only used the last state of the encoder network as the context vector.)
+        \item \textbf{Context Vector:} This vector is expected to convey the meaning of the whole source sequence from the encoder to the decoder. (The early work considered the last state of the encoder network as the context vector.)
 \end{itemize}
 
 }
@@ -749,7 +758,7 @@ we want another sequence as output? Alignment problem.
 \end{figure}
 
 \begin{itemize}
-        \item \textbf{Decoder:} Decoder is initialized with the context vector to output the desired target sequence.
+        \item \textbf{Decoder:} The decoder uses the context vector to output the desired target sequence.
 \end{itemize}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -767,6 +776,7 @@ we want another sequence as output? Alignment problem.
 
 }
 %%%%%
+\section{Teacher Forcing}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
 \frame{\frametitle{Teacher Forcing}
 
@@ -791,14 +801,15 @@ we want another sequence as output? Alignment problem.
 
 \begin{itemize}
 
+\item  At the early stages of training, the predictions of the model are very bad. If we do not use Teacher Forcing, the hidden states of the model will be updated by a sequence of wrong predictions, \tc{keywords} {errors will accumulate}, and it is difficult for the model to learn from that.
+\vspace{5mm}
 \item The problem with RNNs is that we need previous time step output as input for next time step.
 \vspace{5mm}
 \item This technique allows us to prevent backpropagation through time which was complex and time-consuming.
 \vspace{5mm}
-\item With teacher forcing the model will be trained faster.
+\item With teacher forcing the model will be \tc{keywords} {trained faster}.
 \vspace{5mm}
-\item During inference, since there is usually no ground truth available, the RNN model will need to feed its own previous prediction back to itself for the next prediction.
-\vspace{5mm}
+
 \end{itemize}
 
 }
@@ -826,21 +837,23 @@ we want another sequence as output? Alignment problem.
 \end{figure}
 
 \begin{itemize}
-        \item We have discussed about Machine Translation models. We are familiar with some of their elements, namely, word embedding, encoder, decoder, S (context vector), and softmax. But, there is a missing part! The search strategy for inference.
+        \item We have discussed Machine Translation models. We are familiar with some of their elements, namely, word embedding, encoder, decoder, S (context vector), and softmax. But, there is a missing part! The search strategy for inference.
         $$
         \Hat{y_T}, \Hat{y_{T-1}}, ..., \Hat{y_1} = \underset{\Tilde{y_T}, \Tilde{y_{T-1}}, ..., \Tilde{y_1}}{\mathbin{argmax}} P(\Tilde{y_T}, \Tilde{y_{T-1}}, ..., \Tilde{y_1}|S)
         $$
-        \textbf{Notice:} $y_t$ is the corresponding word to time step t. 
+        \textbf{Notice:} $\Tilde{y_t}$ is the corresponding word to time step t. 
 \end{itemize}
 
 }
+%%%%%%%%%%%%%%%%%%%%
+\section{Beam Search}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Search Strategy}
 
 \begin{itemize}
         \item \textbf{Exhaustive Search (Brute-force search)}
         \\
-        Iterate over all possible combinations of $\Hat{y_t}, \Hat{y_{t-1}}, ..., \Hat{y_1}$.
+        Iterate over all possible combinations of $\Tilde{y_t}, \Tilde{y_{t-1}}, ..., \Tilde{y_1}$.
         \vspace{3mm}
         \begin{itemize}
             \item T: Total Time Step (the number of decoder units)
@@ -860,7 +873,7 @@ we want another sequence as output? Alignment problem.
 \begin{itemize}
         \item \textbf{Greedy Search}
         $$
-        \mathbin{max} \, P(\Tilde{y_T}, \Tilde{y_{T-1}}, ..., \Tilde{y_1}|S) = 
+        \mathbin{max} \, P(y_T, y_{T-1}, ..., y_1|S) = 
         \mathbin{max} \prod_{t=1}^T P(y_t|y_{t-1}, y_{t-2}, ..., y_1, S)
         $$
         $$
@@ -870,7 +883,7 @@ we want another sequence as output? Alignment problem.
 \end{itemize}
 
 \begin{figure}[!h]
-\includegraphics[width=4cm]{Figs/greedy2.eps}
+\includegraphics[width=3.5cm]{Figs/greedy2.eps}
         \caption{Greedy Search Example, \href{https://d2l.ai/chapter\_recurrent-modern/beam-search.html} 
         {source}}
 \end{figure}
@@ -901,7 +914,7 @@ $$ $$= 0.048$$
 \end{itemize}
 
 \begin{figure}[!h]
-\includegraphics[width=4cm]{Figs/greedy.eps}
+\includegraphics[width=3.5cm]{Figs/greedy.eps}
         \caption{Greedy Search Example, \href{https://d2l.ai/chapter\_recurrent-modern/beam-search.html} 
         {source}}
 \end{figure}
