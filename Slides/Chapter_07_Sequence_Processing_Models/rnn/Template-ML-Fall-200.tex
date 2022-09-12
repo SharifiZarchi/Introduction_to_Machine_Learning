@@ -345,44 +345,46 @@
     \item RNN Training Issues
     \vspace{3mm}
     \begin{itemize}
-        \item Computing gradient of $h_0$ involves many factors of $W$ (and repeated 
-        $\mathbin{tanh}$)
-            \\ What can we do to solve the problem? 
-        \vspace{3mm}
-        \item Vanishing $\&$ Exploding gradients
+        % \item Computing gradient of $h_0$ involves many factors of $W$ (and repeated 
+        % $\mathbin{tanh}$)
+        %     \\ What can we do to solve the problem? 
+        % \vspace{3mm}
+        \item \tc{keywords}{Exploding Gradients}
             \\ What can we do to solve exploding? 
+        \item \tc{keywords}{Vanishing Gradients}
             \\ What can we do to solve vanishing?
+        
 
     \end{itemize}
     
 
 \end{itemize}
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Truncated Backpropagation Through Time (TBPTT)}
-\begin{figure}[!h]
-\includegraphics[width=8cm]{Figs/tbptt.png}
-\caption{TBPTT for $k_1 = k_2 = 4$, \href{https://www.programmersought.com/article/77613555017/} 
-        {source}}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \frame{\frametitle{Truncated Backpropagation Through Time (TBPTT)}
+% \begin{figure}[!h]
+% \includegraphics[width=8cm]{Figs/tbptt.png}
+% \caption{TBPTT for $k_1 = k_2 = 4$, \href{https://www.programmersought.com/article/77613555017/} 
+%         {source}}
 
-\end{figure}
-
-
-\begin{itemize}
-    \item TBPTT Pseudo Code
-    \begin{enumerate}
-        \item for $t$ from $1$ to $T$ do
-        \item \hspace{1cm}Run the RNN one step
-        \item \hspace{1cm}if $t$ divides $k_1$ then
-        \item \hspace{1cm}\hspace{1cm}Run BPTT from $t$ down to $t - k_2$
-        \item \hspace{1cm}end if
-        \item end for 
-    \end{enumerate}
+% \end{figure}
 
 
-\end{itemize}
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{itemize}
+%     \item TBPTT Pseudo Code
+%     \begin{enumerate}
+%         \item for $t$ from $1$ to $T$ do
+%         \item \hspace{1cm}Run the RNN one step
+%         \item \hspace{1cm}if $t$ divides $k_1$ then
+%         \item \hspace{1cm}\hspace{1cm}Run BPTT from $t$ down to $t - k_2$
+%         \item \hspace{1cm}end if
+%         \item end for 
+%     \end{enumerate}
+
+
+% \end{itemize}
+% }
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{LSTM-GRU}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{RNN Unit}
@@ -704,18 +706,29 @@ $$
 \frame{\frametitle{Encoder-Decoder}
 
 \begin{itemize}
-\item If we want an output with a different length from the
+\item If we want an output with a \tc{keywords}{different length} from the
 input (e.g. Machine Translation), what should we do?
 \vspace{3mm}
-\item Can we use RNN for seq2seq processing? one of the major problems is the alignment problem.
+\item Which \tc{keywords}{alignment} method should we use?
 \end{itemize}
+
+\begin{figure}[!h]
+\includegraphics[width=12cm]{Figs/rnn_seq_alignment.png}
+\caption{Problems in Sequence-to-Sequence Models, \href{https://mgubaidullin.github.io/deeplearning4j-docs/usingrnns.html} 
+        {source}}
+\end{figure}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%
+\frame{\frametitle{Encoder-Decoder}
 \begin{center}
     Encoder-Decoder architecture could be a solution.
 \end{center}
 
 \begin{figure}[!h]
-\includegraphics[width=7cm]{Figs/encoder-decoder.eps}
-\caption{Encoder-Decoder Architecture, \href{https://d2l.ai/chapter\_recurrent-modern/encoder-decoder.html} 
+\includegraphics[width=12cm]{Figs/encdec2.png}
+\caption{Encoder-Decoder, \href{https://towardsdatascience.com/how-to-build-an-encoder-decoder-translation-model-using-lstm-with-python-and-keras-a31e9d864b9b} 
         {source}}
 \end{figure}
 
@@ -724,7 +737,7 @@ input (e.g. Machine Translation), what should we do?
 \frame{\frametitle{Encoder-Decoder}
 
 \begin{figure}[!h]
-\includegraphics[width=8cm]{Figs/encoder.png}
+\includegraphics[width=10cm]{Figs/encoder.png}
 \caption{Encoder, \href{https://yjjo.tistory.com/35} 
         {source}}
 \end{figure}
@@ -744,7 +757,7 @@ input (e.g. Machine Translation), what should we do?
 \end{figure}
 
 \begin{itemize}
-        \item \textbf{Context Vector:} This vector is expected to convey the meaning of the whole source sequence from the encoder to the decoder. (The early work considered the last state of the encoder network as the context vector.)
+        \item \textbf{Context Vector (Hidden State):} This vector is expected to convey the meaning of the whole source sequence from the encoder to the decoder. (The early work considered the last state of the encoder network as the context vector.)
 \end{itemize}
 
 }
@@ -763,6 +776,20 @@ input (e.g. Machine Translation), what should we do?
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Encoder-Decoder Limitations}
+\begin{figure}[!h]
+\includegraphics[width=8cm]{Figs/bottleneck.png}
+        \caption{Bottleneck Phenomenon, \href{https://towardsdatascience.com/attention-and-its-different-forms-7fc3674d14dc} 
+        {source}}
+\end{figure}
+
+\begin{itemize}
+        \item The context vector is \tc{keywords}{bottleneck}. 
+        By increasing the length of the input sequence, the model captures the essential information roughly. How to solve it? Attention! Define and use the the context vector better.
+\end{itemize}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Encoder-Decoder Limitations}
 
 \begin{itemize}
         \item Slow convergence in training. How to solve it? Teacher Forcing.
@@ -770,7 +797,7 @@ input (e.g. Machine Translation), what should we do?
 
 \begin{figure}[!h]
 \includegraphics[width=10cm]{Figs/tf_ende.eps}
-        \caption{Teacher Forcing In Decoder Side, \href{https://towardsdatascience.com/what-is-teacher-forcing-3da6217fed1c} 
+        \caption{Teacher Forcing in Decoder Side, \href{https://towardsdatascience.com/what-is-teacher-forcing-3da6217fed1c} 
         {source}}
 \end{figure}
 
@@ -814,22 +841,9 @@ input (e.g. Machine Translation), what should we do?
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Beam Search}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Encoder-Decoder Limitations}
-\begin{figure}[!h]
-\includegraphics[width=8cm]{Figs/bottleneck.png}
-        \caption{Bottleneck Phenomenon, \href{https://towardsdatascience.com/attention-and-its-different-forms-7fc3674d14dc} 
-        {source}}
-\end{figure}
-
-\begin{itemize}
-        \item The context vector is bottleneck. 
-        By increasing the length of the input sequence, the model captures the essential information roughly. How to solve it? Attention! Define and use the the context vector better.
-\end{itemize}
-
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Review: Machine Translation}
+\frame{\frametitle{Search Strategy}
 \begin{figure}[!h]
 \includegraphics[width=8cm]{Figs/machine_translation.eps}
         \caption{Simple Machine Translation Model, \href{https://www.guru99.com/seq2seq-model.html} 
@@ -837,7 +851,7 @@ input (e.g. Machine Translation), what should we do?
 \end{figure}
 
 \begin{itemize}
-        \item We have discussed Machine Translation models. We are familiar with some of their elements, namely, word embedding, encoder, decoder, S (context vector), and softmax. But, there is a missing part! The search strategy for inference.
+        \item By now, we have discussed some important elements of sequence-to-sequence models (e.g. Machine Translation), including word embedding, LSTM, encoder, decoder, context vector, and softmax. But, there is a missing part! The search strategy for inference.
         $$
         \Hat{y_T}, \Hat{y_{T-1}}, ..., \Hat{y_1} = \underset{\Tilde{y_T}, \Tilde{y_{T-1}}, ..., \Tilde{y_1}}{\mathbin{argmax}} P(\Tilde{y_T}, \Tilde{y_{T-1}}, ..., \Tilde{y_1}|S)
         $$
@@ -846,12 +860,11 @@ input (e.g. Machine Translation), what should we do?
 
 }
 %%%%%%%%%%%%%%%%%%%%
-\section{Beam Search}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Search Strategy}
 
 \begin{itemize}
-        \item \textbf{Exhaustive Search (Brute-force search)}
+        \item \textbf{Exhaustive Search (Brute-force Search)}
         \\
         Iterate over all possible combinations of $\Tilde{y_t}, \Tilde{y_{t-1}}, ..., \Tilde{y_1}$.
         \vspace{3mm}
@@ -860,7 +873,7 @@ input (e.g. Machine Translation), what should we do?
             \vspace{3mm}
             \item V: Vocabulary Size (the number of possible words)
             \vspace{3mm}
-            \item Time complexity: $O(V^T)$
+            \item Time Complexity: $O(V^T)$
             \vspace{3mm}
             \item So, it's not feasible.
         \end{itemize}
@@ -899,16 +912,16 @@ $$ $$= 0.048$$
         \vspace{3mm}
         \begin{itemize}
             \item Advantages
-            \begin{enumerate}
+            \begin{itemize}
                 \item Time complexity: $O(TV)$
                 \item Sometimes it's a good approximation
-            \end{enumerate}
+            \end{itemize}
             \vspace{5mm}
             \item Disadvantages
-            \begin{enumerate}
+            \begin{itemize}
                 \item It is somehow too naive. 
                 \item It can be very inaccurate.
-            \end{enumerate}
+            \end{itemize}
 
         \end{itemize}
 \end{itemize}
@@ -946,9 +959,9 @@ $$ $$= 0.054$$
         \item \textbf{Beam Search}
         \\ It's something between the two previous methods.
         \begin{itemize}
-            \item k: Beam width 
+            \item k: Beam Width 
             \vspace{3mm}
-            \item Time complexity: $O(\mathbin{log(k)kVT})$ (By using max heap in each time step)
+            \item Time Complexity: $O(\mathbin{log(k)kVT})$ (By using max heap in each time step)
         \end{itemize}
 \end{itemize}
 
