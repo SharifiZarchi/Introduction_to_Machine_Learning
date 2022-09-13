@@ -103,22 +103,13 @@
 }
 
 
-
 %\setbeamertemplate{navigation symbols}{}
 
-\title{Generalization Error }
+\title{Generalization Error}
 \author{ML Instruction Team, Fall 2022}
 \institute[]{CE Department \newline  Sharif University of Technology \newline \newline}
 \date[\today]{}
-% \author{\newline\newline Ali Sharifi-Zarchi \newline
-% 	Behrooz Azarkhalili \newline
-% 	Peyman Naseri}
-    
-% \institute[]{\newline\newline CE Department \newline  Sharif University of Technology\newline\newline}
-
-% \date{Fall 2022}
-
-% \titlegraphic{\includegraphics[scale=.35]{example-image}}
+%\titlegraphic{\includegraphics[scale=.35]{example-image}}
 
 
 
@@ -161,27 +152,29 @@
 \usetikzlibrary{calc,trees,positioning,arrows,chains,shapes.geometric,decorations.pathreplacing,decorations.pathmorphing,shapes,matrix,shapes.symbols}
 
 
+\usepackage{xcolor}
+\newcommand{\tc}[2]{
+	\textcolor{#1}{#2}
+}
 
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{assumption}[theorem]{Assumption}
 
-\usepackage{fontspec,unicode-math}
-\setmainfont{Consolas}[
-    Scale=0.9,
-    Path=./Fonts/,
-    Extension = .ttf,
-]
-\setmonofont{Monaco}[
-    Scale=0.9,
-    Path=./Fonts/,
-    Extension = .ttf,
-]
-
+%\usepackage{fontspec,unicode-math}
+%\setmainfont[Scale=0.9]{Nimbus Roman No9 L}
+%\setmonofont[Scale=0.9]{Monaco}
 \setsansfont[Scale=1]{Times New Roman}
+
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+
+\definecolor{strings}{rgb}{.624,.251,.259}
+\definecolor{keywords}{rgb}{.224,.451,.686}
+\definecolor{comment}{rgb}{.322,.451,.322}
 
 %\usepackage{smartdiagram}
 %\usesmartdiagramlibrary{additions}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title Page Info %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
