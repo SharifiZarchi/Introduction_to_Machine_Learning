@@ -120,6 +120,7 @@
 %Write \usepackage{etex} just after the \documentclass line (it should be the first loaded package).
 \usepackage{etex}
 \usepackage{subcaption}
+\usepackage{caption}
 \usepackage{multicol}
 \usepackage{amsmath}
 \usepackage{epsfig}
@@ -129,14 +130,16 @@
 \usepackage{url}
 \usepackage{multimedia}
 \usepackage{hyperref}
-\hypersetup{colorlinks,linkcolor=blue,citecolor=redorange,urlcolor=darkred}
+\hypersetup{colorlinks,linkcolor=blue,citecolor=red,urlcolor=darkred}
 \usepackage{multirow}
 \usepackage[font={scriptsize}]{caption}
 \usepackage{pgf}
 \usepackage{fontspec}
-\usepackage[clean]{svg}
-\usepackage{xcolor}
-\usepackage{animate}
+\usepackage{svg}
+
+% \usepackage{biblatex}
+% \addbibresource{Refrences.bib}
+% \AtBeginBibliography{\small}
 
 
 %\setsansfont[Scale=MatchLowercase, BoldFont = * Bold, ItalicFont = * Italic]{Caladea}
@@ -148,6 +151,8 @@
 %\newcommand{\labelitemiv}{$\ast$}
 %\setbeamercolor*{item}{fg=red}
 
+% abbreviation
+% \newrobustcmd{\B}{\bfseries}
 
 \usefonttheme{professionalfonts} 
 \setbeamertemplate{itemize item}{\color{skyblue}$\blacksquare$}
@@ -166,19 +171,22 @@
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{assumption}[theorem]{Assumption}
 
-\usepackage{fontspec,unicode-math}
-\setmainfont{Consolas}[
-    Scale=0.9,
-    Path=./Fonts/,
-    Extension = .ttf,
-]
-\setmonofont{Monaco}[
-    Scale=0.9,
-    Path=./Fonts/,
-    Extension = .ttf,
-]
+\usepackage{xcolor}
+\newcommand{\tc}[2]{
+	\textcolor{#1}{#2}
+}
 
+%\usepackage{fontspec, unicode-math}
+%\setmainfont[Scale=0.9]{Nimbus Roman No9 L}
+%\setmonofont[Scale=0.9]{Monaco}
 \setsansfont[Scale=1]{Times New Roman}
+
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+
+\definecolor{strings}{rgb}{.624,.251,.259}
+\definecolor{keywords}{rgb}{.224,.451,.686}
+\definecolor{comment}{rgb}{.322,.451,.322}
+
 
 %\usepackage{smartdiagram}
 %\usesmartdiagramlibrary{additions}
@@ -202,6 +210,67 @@
 \section{Introduction}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\frame{\frametitle{Brief History of Computer Vision}
+
+\Large{What is Computer Vision?}
+
+\begin{figure}
+\centering
+\begin{minipage}{.5\textwidth}
+  \centering
+    \includegraphics[width=0.65\columnwidth]{images/intro1.jpeg} \caption{\href{https://alexeyab84.medium.com/yolov4-the-most-accurate-real-time-neural-network-on-ms-coco-dataset-73adfd3602fe}{Source}}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+  \centering
+    \includegraphics[width=0.65\columnwidth]{images/intro3.jpeg}
+    \caption{\href{https://towardsdatascience.com/image-segmentation-with-six-lines-0f-code-acb870a462e8}{Source}}
+\end{minipage}
+\newline
+\includegraphics[width=0.35\columnwidth]{images/intro2.jpeg}
+\caption{\href{https://miro.medium.com/max/1000/1*81e42V29ALfP6eU1FPhMdg.jpeg}{Source}}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Brief History of Computer Vision}
+
+\Large{Before Deep Learning:} \large{\tc{keywords}{Hand-Crafted Features}}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\columnwidth]{images/intro4.jpg} \caption{\cite{featureextrac2013}}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Brief History of Computer Vision}
+
+\Large{Before Deep Learning:} \large{\tc{keywords}{Hand-Crafted Features}}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\columnwidth]{images/intro5.jpg}
+    \caption{\cite{wang_see_phan_oh_2015}}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Brief History of Computer Vision}
+
+\Large{Effect of Deep Learning:} \large{\tc{keywords}{Comparison between Deep Learning and Traditional Models}}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.85\columnwidth]{images/intro6.png}
+    \caption{ImageNet Competetion Results Over Time, \href{https://semiengineering.com/new-vision-technologies-for-real-world-applications/}{Source}}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \frame{\frametitle{CNNs}
 
 \Large{What we've been using:}
@@ -213,6 +282,8 @@
     \includesvg[width=1\columnwidth]{images/nn.svg}
 \end{figure}
 }
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Kernels}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -232,13 +303,144 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\frame{\frametitle{CNNs vs. FCNs}
+\centering\Large{First of all...}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{CNNs vs. FCNs}
+\centering\large{Why use ConvNets instead of Fully Connected Networks with images?}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{CNNs vs. FCNs}
+\centering\Large{Let's do an experiment.}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{CNNs vs. FCNs}
+\centering\Large{We're going to use the CIFAR10 dataset}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\columnwidth]{images/intro8.png}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{CNNs vs. FCNs}
+\centering\Large{We're going to use the CIFAR10 dataset}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\columnwidth]{images/intro7.png}
+\end{figure}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{CNNs vs. FCNs}
+\centering\large{First, we train on a Fully Connected Network}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\columnwidth]{images/intro9.png}
+    \caption{FCN with around 9M parameters}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{CNNs vs. FCNs}
+\centering\Large{First, we train on a Fully Connected Network}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\columnwidth]{images/intro10.png}
+    \caption{Training for 20 epochs}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{CNNs vs. FCNs}
+\centering\Large{First, we train on a Fully Connected Network}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\columnwidth]{images/intro11.png}
+    \caption{Test results after the training is done; Test Accuracy = 49.6\%}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{CNNs vs. FCNs}
+\centering\large{Now, let's train on a Convolutional Neural Network}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.45\columnwidth]{images/intro12.png}
+    \caption{CNN with around 2M parameters (A lot less compared to our 9M parameter FCN)}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{CNNs vs. FCNs}
+\centering\Large{Now, let's train on a Convolutional Neural Network}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.7\columnwidth]{images/intro13.png}
+    \caption{Training for 20 epochs}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{CNNs vs. FCNs}
+\centering\Large{Now, let's train on a Convolutional Neural Network}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\columnwidth]{images/intro14.png}
+    \caption{Test results after the training is done; Test Accuracy = 66.5\%}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{CNNs vs. FCNs}
+\begin{itemize}
+    \item \large As you can see, CNNs have a great effect on both results and computation efficiency while working with visual imagery.
+\end{itemize}
+\newline
+\begin{center}
+\begin{tabular}{||c | c | c||} 
+ \hline
+ Model Architecture & \# Params & Test Accuracy \\ [0.5ex] 
+ \hline\hline
+ \normalsize \textbf{CNN} & \normalsize \textbf{2M} & \normalsize \textbf{66.5\%} \\ 
+ \hline
+ \normalsize FCN & \normalsize 9M & \normalsize 49.6\% \\ [1ex] 
+ \hline
+\end{tabular}
+\end{center}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{CNNs vs. FCNs}
+\centering\Large{Now that we understand the importance of Deep Learning and 
+Convolutional Neural Networks, let's learn the details.}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \frame{\frametitle{CNNs}
 
 \large{Convolutional Layer}
 \newline
 
 \begin{itemize}
-	\item Filters always extend the full depth of the input volume.\newline
+	\item Filters always extend the full depth of the input.\newline
 	(\#Input channels == \#Filter Channels)
 \end{itemize}	
 
@@ -248,6 +450,8 @@
 \end{figure}
 
 }
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{What is Convolution and how does it work?}
@@ -269,7 +473,7 @@
 
 \begin{itemize}
     \item We apply the same filter on different regions of the input
-    \item \color{red} Convolutional filters learn to make decisions based on local spatial input which is an important attribute working with images
+    \item \color{red} Convolutional filters learn to make decisions based on local spatial input, which is an important attribute when working with images.
 \end{itemize}
 \begin{figure}
     \centering
@@ -285,7 +489,7 @@
 
 \begin{itemize}
     \item We apply the same filter on different regions of the input
-    \item Convolutional filters learn to make decisions based on local spatial input which is an important attribute working with images.
+    \item Convolutional filters learn to make decisions based on local spatial input, which is an important attribute when working with images.
     \item \color{red} Uses a lot fewer parameters compared to Fully Connected Layers.
 \end{itemize}
 \begin{figure}
@@ -320,10 +524,21 @@ Consider this, the filter we are going to use:
         I: Input Image\newline
         K: Our Kernel\newline
         $k_h$ and $k_w$: The height and width of the Kernel
+
     \begin{figure}
-        \centering
-        \includegraphics[width=0.4\columnwidth]{images/kernel-frame-\i.png}
+    \centering
+    \begin{minipage}{.7\textwidth}
+      \centering
+        \includegraphics[width=0.5\columnwidth]{images/kernel-frame-\i.png}
         \caption{Convoluting a 5x5x1 image with a 3x3x1 kernel to get a 3x3x1 convolved feature, \href{https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53}{Source}}
+    \end{minipage}%
+    \begin{minipage}{.3\textwidth}
+      \centering
+        \includesvg[width=0.45\columnwidth]{images/kernel6.svg}
+        \caption{Convolving Kernel}
+    \end{minipage}
+
+
     \end{figure}
     }
 }
@@ -442,7 +657,6 @@ Consider this, the filter we are going to use:
     \centering
     \includesvg[width=0.35\columnwidth]{images/Stride6.svg}
 \end{figure}
-
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -523,7 +737,6 @@ Consider this, the filter we are going to use:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Strides}
-
 \newline
 \newline
 \large{$Output Size = (N - F) / Stride + 1$}
@@ -556,7 +769,7 @@ N = 7, F = 3 =>
     \begin{figure}
         \centering
         \includesvg[width=0.9\columnwidth]{images/padding1.svg}
-        \caption{\hyperlink{https://d2l.ai/chapter_convolutional-neural-networks/padding-and-strides.html#img-conv-reuse}{Dive into Deep Learning, Fig. 7.3.1: }Pixel utilization for convolutions of size $1 \times 1$, $2 \times 2$, and $3 \times 3$ respectively.}
+        \caption{\cite{zhang2021dive}, Pixel utilization for convolutions of size $1 \times 1$, $2 \times 2$, and $3 \times 3$ respectively.}
         % \label{fig:my_label}
     \end{figure}
 \end{center}
@@ -687,7 +900,7 @@ N = 7, F = 3 =>
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Pooling: How It Works}
 \begin{itemize}
-    \item Polling layers aggregate the
+    \item Pooling layers aggregate the
 inputs using an aggregation function such as the max or mean.
 \end{itemize}
 \begin{center}
@@ -703,7 +916,7 @@ inputs using an aggregation function such as the max or mean.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Pooling: Benefits}
 \begin{itemize}
-        \item{Polling layers goal is to subsample the input on order to Reduce:}
+        \item{A Pooling layer's goal is to sub-sample the input in order to reduce:}
         \begin{itemize}
             \item The computational load
             \item The memory usage
@@ -715,15 +928,15 @@ inputs using an aggregation function such as the max or mean.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Pooling: Types}
 \begin{itemize}
-    \item Max Pooling: give a better result when the background is white and the object is dark
-    \item Min Pooling: give a better result when the background is dark and the object is white
+    \item Max Pooling: gives better results when the background is white and the object is dark
+    \item Min Pooling: gives better results when the background is dark and the object is white
     \item Average Pooling: smoothes the picture
 \end{itemize}
 \begin{center}
     \begin{figure}
         \centering
         \includegraphics[width=0.7\columnwidth]{images/Pooling_3.png}
-        \caption{Different effects of different pooling layers}
+        \caption{Effects of different pooling layers}
         % \label{fig:testtt}
     \end{figure}
 \end{center}
@@ -737,7 +950,7 @@ inputs using an aggregation function such as the max or mean.
 \begin{center}
     \begin{figure}
         \centering
-        \includegraphics[width=0.9\columnwidth]{images/Pooling_4.png}
+        \includegraphics[width=0.8\columnwidth]{images/Pooling_4.png}
         \caption{Invariance to small translations}
         % \label{fig:testtt}
     \end{figure}
@@ -748,7 +961,7 @@ inputs using an aggregation function such as the max or mean.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Dilation}
 \begin{itemize}
-        \item{It is a technique that expands the kernel (input) by inserting holes between its consecutive elements}
+        \item{It expands the kernel (input) by inserting spaces between its consecutive elements}
 \end{itemize}
 \begin{center}
     \begin{figure}
@@ -778,11 +991,29 @@ inputs using an aggregation function such as the max or mean.
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Channels, etc.}
+\section{Channels}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Channels, etc.}
-By now, we talked about 2D inputs, but images are 3D:
+\frame{\frametitle{Channels}
+So far, we have talked about 2D inputs, but although images are 2D, we need to represent them as 3D matrices to show their colors:
+\newline
 \begin{itemize}
+    \item Pixel values range from \tc{keywords}{0 to 255}
+    \item We cannot represent all the colors in a picture with only one channel of numbers from 0 to 255
+\end{itemize}
+\begin{center}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\columnwidth]{images/channels1.jpeg}
+        \caption{RGB Image, \href{https://dev.to/sandeepbalachandran/machine-learning-going-furthur-with-cnn-part-2-41km}{Source}}
+    \end{figure}
+\end{center}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Channels}
+So far, we have talked about 2D inputs, but although images are 2D, we need to represent them as 3D matrices to show their colors:
+\newline
+\begin{itemize}
+    \item \tc{keywords}{So we represent them in 3 channels}
     \item They consist of 3 channels: Red, Green and Blue (RGB images)
     \item Shape: (height x width x 3)
 \end{itemize}
@@ -797,8 +1028,9 @@ By now, we talked about 2D inputs, but images are 3D:
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Channels, etc.}
-By now, we talked about 2D inputs, but images are 3D:
+\frame{\frametitle{Channels}
+So far, we have talked about 2D inputs, but although images are 2D, we need to represent them as 3D matrices to show their colors:
+\newline
 \begin{itemize}
     \item They consist of 3 channels: Red, Green and Blue (RGB images)
     \item Shape: (height x width x 3)
@@ -814,8 +1046,9 @@ By now, we talked about 2D inputs, but images are 3D:
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Channels, etc.}
-By now, we talked about 2D inputs, but images are 3D:
+\frame{\frametitle{Channels}
+So far, we have talked about 2D inputs, but although images are 2D, we need to represent them as 3D matrices to show their colors:
+\newline
 \begin{itemize}
     \item They consist of 3 channels: Red, Green and Blue (RGB images)
     \item Shape: (height x width x 3)
@@ -829,8 +1062,8 @@ By now, we talked about 2D inputs, but images are 3D:
 \end{center}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Channels, etc.}
-- As said before: "Filters always extend the full depth of the input volume. (\#Input channels == \#Filter Channels)"
+\frame{\frametitle{Channels}
+- As said before: "Filters always extend the full depth of the input. \newline(\#Input channels == \#Filter Channels)"
 \begin{center}
     \begin{figure}
         \centering
@@ -841,10 +1074,10 @@ By now, we talked about 2D inputs, but images are 3D:
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Channels, etc.}
+\frame{\frametitle{Channels}
 - As said before: "Filters always extend the full depth of the input volume. (\#Input channels == \#Filter Channels)"
 \newline
-\color{red}- Each filter results in one output channel, we can apply multiple different filters to get multiple output channels. Each channel can learn something different.
+\color{red}- Each filter results in one output channel. We can apply multiple different filters to obtain multiple output channels. Each channel can learn something distinct.
 
 \begin{center}
     \begin{figure}
@@ -855,10 +1088,26 @@ By now, we talked about 2D inputs, but images are 3D:
 \end{center}
 }
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Channels, etc.}
-\color{red}- We apply several filters and stack the output together to get a multilayer output, with each layer representing something it learnt.
+\foreach \i in {1,...,18}
+{
+    \frame{\frametitle{Channels}
+    \normalsize
+    Let's have a closer look to how the calculations with more than one filter work:
+
+    \begin{figure}
+    \centering
+        \includegraphics[width=0.55\columnwidth]{images/cs231n-conv-\i.png}
+        \caption{Great Visualization by CS231n, \href{https://cs231n.github.io/convolutional-networks/}{Source}}
+    \end{figure}
+    }
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Channels}
+\color{red}- We apply several filters and stack the output together to get a multilayer output, with each layer representing something it learned.
 \begin{center}
     \begin{figure}
         \centering
@@ -870,10 +1119,10 @@ By now, we talked about 2D inputs, but images are 3D:
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Channels, etc.}
-- We apply several filters and stack the output together to get a multilayer output, with each layer representing something it learnt.
+\frame{\frametitle{Channels}
+- We apply several filters and stack the output together to get a multilayer output, with each layer representing something it learned.
 \newline
-\color{red}- Some kernels learning to recognize vertical lines, some circles, and some, specific objects:
+\color{red}- Some kernels learn to recognize vertical lines, some circles, and some, specific objects:
 \begin{center}
     \begin{figure}
         \centering
@@ -928,7 +1177,7 @@ input using unit strides (i.e., i = 4, k = 3, s = 1 and p = 0)}
 \begin{center}
 \begin{equation}
 \begin{split}
-o = (i - k) + 2p + 1  \\
+o = (i - k) + 2p + 1  \newline
 \end{split}
 \end{equation}
 \end{center}
@@ -952,8 +1201,8 @@ k = 4, s = 1 and p = 2)}
 \begin{center}
 \begin{equation}
 \begin{split}
-o & =  i + 2⌊k/2⌋ - (k-1) \\
-& = i + 2n - 2n \\
+o & =  i + 2⌊k/2⌋ - (k-1) \newline
+& = i + 2n - 2n \newline
 & = i
 \end{split}
 \end{equation}
@@ -977,7 +1226,7 @@ input using half padding and unit strides (i.e., i = 5, k = 3, s = 1 and p = 1)}
 \begin{center}
 \begin{equation}
 \begin{split}
-o & = i + 2(k-1) - (k-1) \\
+o & = i + 2(k-1) - (k-1) \newline
 & = i + 2(k-1
 \end{split}
 \end{equation}
@@ -1036,7 +1285,7 @@ o= ⌊\frac{i+2p-k} {s}⌋ + 1
         \caption{Convolving a 3 × 3 kernel over a
 6 × 6 input padded with a 1 × 1 border of zeros using 2 × 2 strides (i.e., i = 6,
 k = 3, s = 2 and p = 1). In this case, the bottom row and right column of the
-zero padded input are not covered by the kernel}
+zero-padded input are not covered by the kernel}
     \end{figure}
 \end{center}
 }
@@ -1061,7 +1310,7 @@ zero padded input are not covered by the kernel}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Upsample CNN: Techniques}
 \begin{itemize}
-        \item 1- Nearest Neighbors: In Nearest Neighbors, as the name suggests we take an input pixel value and copy it to the K-Nearest Neighbors where K depends on the expected output
+        \item 1- Nearest Neighbors: In Nearest Neighbors, as the name suggests, we take an input pixel value and copy it to the K-Nearest Neighbors, where K depends on the expected output.
 \end{itemize}
 
 \begin{center}
@@ -1165,8 +1414,17 @@ zero padded input are not covered by the kernel}
     \item Dense semantic labeling of sub-decimeter resolution
 images with convolutional neural networks - Michele Volpi, Devis Tuia - 2016 - \hyperlink{https://arxiv.org/abs/1608.00775}{Link}
     \item Fully Convolutional Networks for Semantic Segmentation - Jonathan Longm, Evan Shelhamer, Trevor Darrell - 2015 - \hyperlink{https://arxiv.org/abs/1411.4038}{Link}
-    \item Deconvolution and Checkerboard Artifacts - Augustus Odena, Vincent Dumoulin, Chris Olah - 2016 - \hyperlink{https://distill.pub/2016/deconv-checkerboard/}{Link} 
+    \item Deconvolution and Checkerboard Artifacts - Augustus Odena, Vincent Dumoulin, Chris Olah - 2016 - \hyperlink{https://distill.pub/2016/deconv-checkerboard/}{Link}
 \end{itemize}
 }
+
+\frame{\frametitle{Refrences}
+% \begin{itemize}
+%     \printbibliography
+% \end{itemize}
+\bibliographystyle{plain}
+\bibliography{Refrences}
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}
