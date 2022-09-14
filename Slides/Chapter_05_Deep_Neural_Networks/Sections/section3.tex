@@ -1,3 +1,50 @@
-\begin{frame}{TO DO}
-    TO DO
+% \frame{\frametitle{Formulation}
+% 	\begin{itemize}
+		
+% 		\item It is generally much easier to formulate the linear regression model in matrix form, say we have a linear model of the form:
+		
+% 		\begin{equation*}
+% 			y_i=\beta_0+\beta_1 x_{i 1}+\ldots+\beta_n x_{i n}+\epsilon_i
+% 		\end{equation*}
+	
+% 		\item We can write it as the matrix from:
+% 		\begin{equation*}
+% 			Y=X \beta+\epsilon
+% 		\end{equation*}
+
+% 	\end{itemize}
+% }
+
+
+\begin{frame}{Stochastic Gradient Descent Algorithm}
+    \begin{itemize}
+        \item First, we need to know what does "Gradient" means.
+        \item Gradient, in plain terms means slope or slant of a surface.
+        \item It means descending a slope to reach the lowest point on that surface.
+        \item In other words, Gradient descent is an iterative algorithm, that starts from a random point on a function and travels down its slope in steps until it reaches the lowest point of that function
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Stochastic Gradient Descent Algorithm Cont.}
+    \begin{itemize}
+        \item Here are the steps of GD Algorithm
+        \begin{itemize}
+            \item Find the slope of the objective function with respect to each parameter/feature. In other words, compute the gradient of the function.
+            \item Pick a random initial value for the parameters. (To clarify, in the parabola example, differentiate “y” with respect to “x”. If we had more features like x1, x2 etc., we take the partial derivative of “y” with respect to each of the features.)
+            \item Update the gradient function by plugging in the parameter values.
+            \item Calculate the step sizes for each feature as : step size = gradient * learning rate.
+            \item Calculate the new parameters as : new params = old params -step size
+            \item Repeat steps 3 to 5 until gradient is almost 0.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Stochastic Gradient Descent Algorithm Cont.}
+    \begin{itemize}
+        \item Why do we need Stochastic?
+        \item Gradient descent is slow on huge data.
+        \item “Stochastic”, in plain terms means “random”.
+        \item Where can we potentially induce randomness in the gradient descent algorithm?
+        \item While selecting data points at each step to calculate the derivatives, SGD randomly picks one data point from the whole data set at each iteration to reduce the computations enormously.
+    \end{itemize}
 \end{frame}
