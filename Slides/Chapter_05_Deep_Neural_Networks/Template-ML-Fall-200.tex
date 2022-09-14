@@ -147,8 +147,6 @@
 \usepackage{tikz}
 \usetikzlibrary{calc,trees,positioning,arrows,chains,shapes.geometric,decorations.pathreplacing,decorations.pathmorphing,shapes,matrix,shapes.symbols}
 
-
-
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{assumption}[theorem]{Assumption}
@@ -166,6 +164,14 @@ Extension = .ttf,
 ]
 
 \setsansfont[Scale=1]{Times New Roman}
+
+\usepackage{xcolor}
+\definecolor{keywords}{rgb}{.224,.451,.686}
+\definecolor{strings}{rgb}{.624,.251,.259}
+\definecolor{comment}{rgb}{.322,.451,.322}
+\newcommand{\tc}[2]{
+	\textcolor{#1}{#2}
+}
 
 %\usepackage{smartdiagram}
 %\usesmartdiagramlibrary{additions}
@@ -190,14 +196,14 @@ Extension = .ttf,
 	\end{frame}
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%	\section{Single Layer Perceptron}
-%	\import{Sections/}{section1.tex}
-%	\section{Multi Layer Perceptron}
-%	\import{Sections/}{section2.tex}
-%	\section{Stochastic Gradient Descent}
-%	\import{Sections/}{section3.tex}
+	\section{Single Layer Perceptron}
+	\import{Sections/}{section1.tex}
+	\section{Multi Layer Perceptron}
+	\import{Sections/}{section2.tex}
+	\section{Stochastic Gradient Descent}
+	\import{Sections/}{section3.tex}
 	\section{Training MLPs}
-%	\import{Sections/}{section3-1.tex}
+	\import{Sections/}{section3-1.tex}
 	\import{Sections/}{section4.tex}
 	\import{Sections/}{section5.tex}
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
