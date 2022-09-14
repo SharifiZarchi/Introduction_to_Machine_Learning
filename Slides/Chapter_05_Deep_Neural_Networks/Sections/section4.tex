@@ -19,11 +19,25 @@
 
 
 Common regularization terms:
-\begin{tabular}{l@{\hspace{0.3\textwidth}}l}
-L2 regularization & $R(W)=\sum_{k}\sum_l W_{k,l}^2$\\
-L1 regularization & $R(W)=\sum_{k}\sum_l W_{k,l}^2$\\
-Elastic net (L1 + L2) & $R(W)=\sum_{k}\sum_l \beta W_{k,l}^2 + \vert W_{k,l}^2\vert$\\
-\end{tabular}
+%\begin{tabular}{l@{\hspace{0.3\textwidth}}l}
+%L2 regularization & $R(W)=\sum_{k}\sum_l W_{k,l}^2$\\
+%L1 regularization & $R(W)=\sum_{k}\sum_l W_{k,l}^2$\\
+%Elastic net (L1 + L2) & $R(W)=\sum_{k}\sum_l \beta W_{k,l}^2 + \vert W_{k,l}^2\vert$\\
+%\end{tabular}
+\begin{columns}
+\begin{column}{0.5 \textwidth}
+\begin{itemize}
+\item L2 regularization
+\item L1 regularization
+\item Elastic net (L1 + L2)
+\end{itemize}
+\end{column}
+\begin{column}{0.5 \textwidth}
+$R(W)=\sum_{k}\sum_l W_{k,l}^2$ \\
+$R(W)=\sum_{k}\sum_l W_{k,l}^2$\\
+$R(W)=\sum_{k}\sum_l \beta W_{k,l}^2 + \vert W_{k,l}^2\vert$\\
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Regularization: Dropout}
@@ -80,13 +94,55 @@ $y = f_W(x, z)$
 \end{center}
 \item We want to "average out" the randomness at test time:
 \begin{equation*}
-y=f(x)=\mathbb{E}_z[f(x, z)] = \int p(z)f(x, z)dz
+y=f(x)=\mathbb{E}_z[f(x, z)] = \sum_z p(z)f(x, z)dz
 \end{equation*}
 
 \item Can we calculate the integral exactly?\\
 \pause
 \item We need to approximate the integral.
 \end{itemize}
+\end{frame}
+
+\begin{frame}{Dropout: Test Time}
+\begin{itemize}
+	\item Consider a simple case:
+\end{itemize}
+\begin{columns}
+\begin{column}{0.4 \textwidth}
+\begin{center}
+	\begin{tikzpicture}[scale=0.2]
+		\tikzstyle{every node}+=[inner sep=0pt]
+		\draw [black] (37.4,-25.4) circle (3);
+		\draw (37.4,-25.4) node {$y$};
+		\draw [black] (23.9,-21) circle (3);
+		\draw (23.9,-21) node {$x_1$};
+		\draw [black] (23.9,-30.6) circle (3);
+		\draw (23.9,-30.6) node {$x_2$};
+		\draw [black] (26.75,-21.93) -- (34.55,-24.47);
+		\fill [black] (34.55,-24.47) -- (33.94,-23.75) -- (33.63,-24.7);
+		\draw (31.99,-22.64) node [above] {$w_1$};
+		\draw [black] (26.7,-29.52) -- (34.6,-26.48);
+		\fill [black] (34.6,-26.48) -- (33.67,-26.3) -- (34.03,-27.23);
+		\draw (32.09,-28.53) node [below] {$w_2$};
+	\end{tikzpicture}
+\end{center}
+
+\end{column}
+\begin{column}{0.6 \textwidth}
+\begin{itemize}
+\item At training time, each neuron is alive with probability of $p=0.5$:
+\begin{align*}
+\mathbb{E}[y] =& \frac{1}{4}(w_1x_1 + w_2x_2) + \frac{1}{4}(w_1x_1 + 0)\\
+&+ \frac{1}{4}(0 + w_2x_2) + \frac{1}{4}(0 + 0)\\
+=& \frac{1}{2}(w_1x_1 + w_2x_2)
+\end{align*}
+\item At test time:
+\begin{itemize}
+	\item \tc{keywords}{Multiply} by dropout rate.
+\end{itemize}
+\end{itemize}
+\end{column}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Dropout: Test Time}
@@ -112,29 +168,100 @@ y=f(x)=\mathbb{E}_z[f(x, z)] = \int p(z)f(x, z)dz
 \end{frame}
 
 
-\begin{frame}{Regularization: Adding Noise}
-\begin{itemize}
-\item We've seen a common approach for regularization thus far:
-\begin{itemize}
-	\item \textbf{Training}: Add some kind of randomness ($z$) : $$y = f_W(x, z)$$
-	\item \textbf{Testing}: Average out the randomness: $$y=f(x)=\mathbb{E}_z[f(x, z)] = \int p(z)f(x, z)dz$$
-\end{itemize}
-\pause
-\item Adding noise is another way to prevent a neural network from overfitting on the training data.
-In every iteration, a random noise is added to the outputs of the layer, preventing consequent layers from co-adapting too much to the outputs of this layer.
-\end{itemize}
-\end{frame}
+%\begin{frame}{Regularization: Adding Noise}
+%\begin{itemize}
+%\item We've seen a common approach for regularization thus far:
+%\begin{itemize}
+%	\item \textbf{Training}: Add some kind of randomness ($z$) : $$y = f_W(x, z)$$
+%	\item \textbf{Testing}: Average out the randomness: $$y=f(x)=\mathbb{E}_z[f(x, z)] = \sum_z p(z)f(x, z)dz$$
+%\end{itemize}
+%\pause
+%\item Adding noise is another way to prevent a neural network from overfitting on the training data.
+%In every iteration, a random noise is added to the outputs of the layer, preventing consequent layers from co-adapting too much to the outputs of this layer.
+%\end{itemize}
+%\end{frame}
 
 \begin{frame}{Batch Normalization}
-\begin{tabular}{l l}
-Input: $x: N\times D$ & Learnable Parameters: $\gamma, \beta: D$\\
-Output: $y: N\times D$ & Intermediates: $\mu, \sigma: D$, $\hat{x}: N \times D$
-\end{tabular}
+	\begin{multicols}{2}
+		\begin{itemize}
+			\item Input: $\pmb{x}: N\times D$
+			\item Output: $\pmb{y}: N\times D$
+			\item Learnable Parameters: $\pmb{\gamma}, \pmb{\beta}: 1\times D$
+			\item Intermediates: $\pmb{\mu}_B, \pmb{\mu}, \pmb{\sigma}_B^2, \pmb{\sigma}^2: 1\times D$
+			\item Intermediates:  $\hat{\pmb{x}}: N \times D$
+			\item Hyper-parameters: m (momentum)
+		\end{itemize}
+	\end{multicols}
+\end{frame}
+
+\begin{frame}{Batch Normalization: Training Time}
+%\begin{tabular}{l l}
+%Input: $x: N\times D$ & Learnable Parameters: $\gamma, \beta: D$\\
+%Output: $y: N\times D$ & Intermediates: $\mu, \sigma: D$, $\hat{x}: N \times D$
+%\end{tabular}
+%\begin{columns}
+%\begin{column}{0.3 \textwidth}
+%
+%\end{column}
+%\end{columns}
+\begin{multicols}{2}
+\begin{itemize}
+\item Input: $\pmb{x}: N\times D$
+\item Output: $\pmb{y}: N\times D$
+\item Learnable Parameters: $\pmb{\gamma}, \pmb{\beta}: 1\times D$
+\item Intermediates: $\pmb{\mu}_B, \pmb{\mu}, \pmb{\sigma}_B^2, \pmb{\sigma}^2: 1\times D$
+\item Intermediates:  $\hat{\pmb{x}}: N \times D$
+\item Hyper-parameters: m (momentum)
+\end{itemize}
+\end{multicols}
+
+\vspace{-30pt}
+
 \begin{align*}
-\mu_j &= \textup{(Running) average of values seen during training}\\
-\sigma^2_j &= \textup{(Running) average of values seen during training}\\
-\hat{x}_{i, j} &= \frac{x_{i, j} - \mu_j}{\sqrt{\sigma^2_j + \epsilon}}\\
-y_{i,j} &= \gamma_j \hat{x}_{i, j} + \beta_j
+\pmb{\mu}_B &= \frac{1}{N_B}\sum_{i=1}^{N_B} \pmb{x}^{(i)}\\
+\pmb{\sigma}_B^2 &= \frac{1}{N_B} \sum_{i=1}^{N_B}(\pmb{x}^{(i)} - \pmb{\mu}_B)\\
+\pmb{\mu} &= m \pmb{\mu} + (1-m)\pmb{\mu}_B \tag{Running average}\\
+\pmb{\sigma}^2 &= m \pmb{\sigma}^2 + (1-m)\pmb{\sigma}_B^2 \tag{Running average}\\
+\hat{\pmb{x}}^{(i)} &= \frac{\pmb{x}^{(i)} - \pmb{\mu}_B}{\sqrt{\pmb{\sigma}_B^2 + \epsilon}}\\
+\pmb{y}^{(i)} &= \pmb{\gamma} \hat{\pmb{x}}^{(i)} + \pmb{\beta}
+%\mu_j &= \textup{(Running) average of values seen during training}&\\
+%\sigma^2_j &= \textup{(Running) average of values seen during training}&\\
+%\hat{x}_{i, j} &= \frac{x_{i, j} - \mu_j}{\sqrt{\sigma^2_j + \epsilon}}&\\
+%y_{i,j} &= \gamma_j \hat{x}_{i, j} + \beta_j&
+\end{align*}
+%\begin{itemize}
+%\item[]
+%\begin{itemize}
+%\item $\mu_j = \textup{(Running) average of values seen during training}$
+%\item $\sigma^2_j = \textup{(Running) average of values seen during training}$
+%\item $\hat{x}_{i, j} = \frac{x_{i, j} - \mu_j}{\sqrt{\sigma^2_j + \epsilon}}$
+%\item $y_{i,j} = \gamma_j \hat{x}_{i, j} + \beta_j$
+%\end{itemize}
+%
+%
+%\item Or the vectorized version: \\
+%\begin{itemize}
+%\item $\pmb{y} = \pmb{\gamma} (\pmb{x} - \pmb{\mu}) / \pmb{\sigma} + \pmb{\beta}$
+%\end{itemize}
+%\end{itemize}
+\end{frame}
+
+\begin{frame}{Batch Normalization: Test Time}
+	\begin{multicols}{2}
+		\begin{itemize}
+			\item Input: $\pmb{x}: N\times D$
+			\item Output: $\pmb{y}: N\times D$
+			\item Learnable Parameters: $\pmb{\gamma}, \pmb{\beta}: 1\times D$
+			\item Intermediates: $\pmb{\mu}_B, \pmb{\mu}, \pmb{\sigma}_B^2, \pmb{\sigma}^2: 1\times D$
+			\item Intermediates:  $\hat{\pmb{x}}: N \times D$
+			\item Hyper-parameters: m (momentum)
+		\end{itemize}
+	\end{multicols}
+	
+	
+\begin{align*}
+\hat{\pmb{x}}^{(i)} &= \frac{\pmb{x}^{(i)} - \pmb{\mu}}{\sqrt{\pmb{\sigma}^2 + \epsilon}}\\
+\pmb{y}^{(i)} &= \pmb{\gamma} \hat{\pmb{x}}^{(i)} + \pmb{\beta}
 \end{align*}
 \end{frame}
 
@@ -147,11 +274,25 @@ y_{i,j} &= \gamma_j \hat{x}_{i, j} + \beta_j
 	\caption{Batch normalization in CNNs \href{https://arxiv.org/pdf/1803.08494.pdf}{Source}.}
 	\label{fig:batch normalization for cnn}
 \end{figure}
+
+\vspace{-20pt}
+
+\begin{columns}
+\begin{column}{0.6 \textwidth}
 \begin{itemize}
-\item BN for FCNs: $x, y: N\times D \rightarrow \mu, \sigma, \gamma, \beta: 1\times D$
-\item BN for CNNs: $x, y: N\times C \times H \times W \rightarrow \mu, \sigma, \gamma, \beta: 1\times C \times 1 \times 1$
-\item In both cases: $y = \gamma (x - \mu) / \sigma + \beta$
+	\item BN for FCNs: $\pmb{x}, \pmb{y}: N\times D $
+	\item BN for CNNs: $\pmb{x}, \pmb{y}: N\times C \times H \times W $
+	\item In both cases: $\pmb{y} = \pmb{\gamma} (\pmb{x} - \pmb{\mu}) / \sqrt{\pmb{\sigma}^2 + \epsilon} + \pmb{\beta}$
 \end{itemize}
+\end{column}
+\begin{column}{0.4 \textwidth}
+\begin{itemize}
+\item[] $\rightarrow \pmb{\mu}, \pmb{\sigma}, \pmb{\gamma}, \pmb{\beta}: 1\times D$
+\item [] $\rightarrow \pmb{\mu}, \pmb{\sigma}, \pmb{\gamma}, \pmb{\beta}: 1\times C \times 1 \times 1$
+\item []
+\end{itemize}
+\end{column}
+\end{columns}
 \end{itemize}
 
 \end{frame}

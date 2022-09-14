@@ -148,7 +148,6 @@
 \usetikzlibrary{calc,trees,positioning,arrows,chains,shapes.geometric,decorations.pathreplacing,decorations.pathmorphing,shapes,matrix,shapes.symbols}
 
 
-
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{assumption}[theorem]{Assumption}
@@ -166,6 +165,13 @@ Extension = .ttf,
 ]
 
 \setsansfont[Scale=1]{Times New Roman}
+
+\usepackage{xcolor}
+\definecolor{keywords}{rgb}{.224,.451,.686}
+
+\newcommand{\tc}[2]{
+	\textcolor{#1}{\textbf{#2}}
+}
 
 %\usepackage{smartdiagram}
 %\usesmartdiagramlibrary{additions}
