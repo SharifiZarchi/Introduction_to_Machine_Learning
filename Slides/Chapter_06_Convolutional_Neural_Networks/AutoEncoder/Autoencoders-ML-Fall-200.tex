@@ -208,12 +208,12 @@
 	To make this non-trivial, we need to add a {\color{hotpink} bottleneck layer} whose
     dimension is much smaller than the input.
 
+    \hyperlink{ae_arch}{
     \begin{figure}[htp]
     \vspace{1ex}%
     \centering
     \includegraphics[width=10cm]{autoencoder-architecture}
-    \caption{https://lilianweng.github.io/posts/2018-08-12-vae/}
-\end{figure}
+    \end{figure}}
 	
 	
 \end{itemize}	
@@ -231,13 +231,12 @@
 	\item 
 	Decoder: reconstruct input from the latent space. $r = g(f(x))$ with $r$ as close to $x$ as possible
 
-    
+    \hyperlink{bad_ae}{
     \begin{figure}[htp]
     \vspace{1ex}%
     \centering
     \includegraphics[width=10cm]{Bad_AE}
-    \caption{https://emkademy.medium.com/1-first-step-to-generative-deep-learning-with-autoencoders-22bd41e56d18}
-\end{figure}
+    \end{figure}}
 	
 	
 \end{itemize}	
@@ -256,14 +255,12 @@
 		\item be used for unsupervised pretraining of deep neural networks
 	\end{itemize}
 
-    
-% Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow, 2nd Edition by Aurélien Géron
+    \hyperlink{AE}{
     \begin{figure}[htp]
     \vspace{1ex}%
     \centering
     \includegraphics[width=8cm]{AE_application}
-    \caption{Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow, 2nd Edition by Aurélien Géron}
-\end{figure}
+    \end{figure}}
 	
 	
 \end{itemize}	
@@ -278,13 +275,12 @@
 	Autoencoders can be used as generative models. (will be discussed more later in this chapter.) 
 
     
-
+    \hyperlink{generated_by_VAE}{
     \begin{figure}[htp]
     \vspace{2ex}%
     \centering
     \includegraphics[width=8cm]{generated_by_VAE}
-    \caption{https://github.com/wojciechmo/vae}
-\end{figure}
+    \end{figure}}
 	
 	
 \end{itemize}	
@@ -300,13 +296,12 @@
 	Watermark removal
 
     
-
+    \hyperlink{watermark_removal}{
     \begin{figure}[htp]
     \vspace{4ex}%
     \centering
     \includegraphics[width=10cm]{watermark_removal}
-    \caption{https://ai.googleblog.com/2017/08/making-visible-watermarks-more-effective.html}
-\end{figure}
+    \end{figure}}
 	
 	
 \end{itemize}	
@@ -322,13 +317,12 @@
 	Noise reduction
 
     
-
+    \hyperlink{noise_reduction}{
     \begin{figure}[htp]
     \vspace{2ex}%
     \centering
     \includegraphics[width=8cm]{noise_reduction}
-    \caption{https://medium.com/@harishr2301/denoising-autoencoders-996e866e5cd0}
-\end{figure}
+    \end{figure}}
 	
 	
 \end{itemize}	
@@ -347,12 +341,12 @@
 
     
 
+    \hyperlink{stacked_ae}{
     \begin{figure}[htp]
     \vspace{2ex}%
     \centering
     \includegraphics[width=8cm]{stacked_AE}
-    \caption{https://subscription.packtpub.com/book/big-data-and-business-intelligence/9781787121089/4/ch04lvl1sec51/setting-up-stacked-autoencoders}
-\end{figure}
+    \end{figure}}
 	
 	
 \end{itemize}	
@@ -360,6 +354,213 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Autoencoders \& Images}
+
+	
+	\centering
+    \vspace{30 pt}
+    \textbf{\large{Are normal Autoencoders suitable for working with images?}}
+
+    
+
+    \hyperlink{ae_1}{
+    \begin{figure}[htp]
+    \vspace{2ex}%
+    \centering
+    \includegraphics[width=10cm]{AE}
+    \end{figure}}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Autoencoders \& Images}
+
+\begin{itemize}	
+    \item 
+    Convolutional Autoencoders
+
+    
+
+    \hyperlink{cnn_ae}{
+    \begin{figure}[htp]
+    \vspace{2ex}%
+    \centering
+    \includegraphics[width=10cm]{cnn_autoencoder}
+    \end{figure}}
+
+\end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Denoising Autoencoders}
+
+\begin{itemize}	
+    \item 
+    Another way to force the autoencoder to learn useful features is to add noise to its inputs.
+    
+    \item 
+    Denoising autoencoders train to minimize the loss between $x$ and $g(f(x+w))$, where $w$ is random noise.
+    
+    \item 
+    Denoising autoencoders, with Gaussian noise (left) or dropout (right):
+
+
+    \hyperlink{AE}{
+    \begin{figure}[htp]
+    \vspace{1ex}%
+    \centering
+    \includegraphics[width=10cm]{denoising_autoencoders}
+    \end{figure}}
+
+\end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Denoising Autoencoders}
+
+\begin{itemize}	
+    \item 
+    A few noisy images (with half the pixels turned off), and the images reconstructed by the dropout-based denoising autoencoder. Notice how the autoencoder guesses details that are actually not in the input, such as the top of the white shirt (bottom row, fourth image).
+
+    \hyperlink{AE}{
+    \begin{figure}[htp]
+    \vspace{1ex}%
+    \centering
+    \includegraphics[width=10cm]{denoising_pics}
+    \end{figure}}
+
+\end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Denoising Autoencoders}
+
+\begin{itemize}	
+    \item 
+    Intuitively, a denoising autoencoder learns a projection from a neighborhood of our training data back onto the training data.
+
+    \hyperlink{denoising}{
+    \begin{figure}[htp]
+    \vspace{1ex}%
+    \centering
+    \includegraphics[width=10cm]{denoising}
+    \end{figure}}
+
+\end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Autoencoder Generative Models}
+
+	
+	\centering
+    \vspace{25 pt}
+    \textbf{\large{How can we generate {\color{hotpink}{NEW}} data with Autoencoders??}}
+    \vspace{5 pt}
+    \newline
+    hint: Autoencoder learns the feature space!
+
+    
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Walking through an example}
+
+\begin{itemize}	
+    \item 
+    We want to reconstruct some shapes.
+
+    \hyperlink{vae}{
+    \begin{figure}[htp]
+    \vspace{1ex}%
+    \centering
+    \includegraphics[width=10cm]{vae_1}
+    \end{figure}}
+
+\end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Walking through an example}
+
+\begin{itemize}	
+    \item 
+    Not all of the points in latent space have meaningful reconstructions.
+
+    \hyperlink{vae}{
+    \begin{figure}[htp]
+    \vspace{1ex}%
+    \centering
+    \includegraphics[width=9cm]{vae_2_1}
+    \end{figure}}
+
+\end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Walking through an example}
+
+\begin{itemize}	
+    \item 
+    What we want is something like the following picture. So that with sampling from the latent space, we can generate new shapes.
+
+    \hyperlink{vae}{
+    \begin{figure}[htp]
+    \vspace{1ex}%
+    \centering
+    \includegraphics[width=9cm]{vae_3}
+    \end{figure}}
+
+\end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Variational Autoencoders}
+
+\begin{itemize}	
+    \item 
+    instead of directly producing a coding for a given input, the encoder produces a mean coding μ and a standard deviation σ. The actual coding is then sampled randomly from a Gaussian distribution with mean μ and standard deviation σ
+
+    \hyperlink{ae}{
+    \begin{figure}[htp]
+    \vspace{1ex}%
+    \centering
+    \includegraphics[width=8cm]{vae_arch}
+    \end{figure}}
+
+\end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Variational Autoencoders}
+
+    
+    \begin{figure}[htp]
+    \centering
+    \hyperlink{vae}{
+    \includegraphics[width=9cm]{vae_6}}
+
+    \vspace{1 pt}
+    
+    \hyperlink{vae}{
+    \includegraphics[width=9cm]{vae_4_1}}
+    \end{figure}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \frame{\frametitle{Test}
 	
 	
@@ -392,6 +593,71 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Image References}
+	
+\begin{itemize}
+    
+    \item
+    \hypertarget{ae_arch}{https://lilianweng.github.io/posts/2018-08-12-vae/}
+    
+    \item
+    \hypertarget{bad_ae}{https://emkademy.medium.com/1-first-step-to-generative-deep-learning-with-autoencoders-22bd41e56d18}
+    
+    \item
+    \hypertarget{AE}{Aurelien Geron. 2019. Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems (2nd. ed.). O'Reilly Media, Inc.}
+    
+    \item
+    \hypertarget{generated_by_VAE}{https://github.com/wojciechmo/vae}
+    
+	\item 
+	\hypertarget{watermark_removal}{https://ai.googleblog.com/2017/08/making-visible-watermarks-more-effective.html}
+	
+	\item
+	\hypertarget{noise_reduction}{https://medium.com/@harishr2301/denoising-autoencoders-996e866e5cd0}
+	
+	\item 
+	\hypertarget{stacked_ae}{
+	https://subscription.packtpub.com/book/big-data-and-business-intelligence/9781787121089/4/ch04lvl1sec51/setting-up-stacked-autoencoders}
+	
+	\item
+	\hypertarget{ae_1}{https://www.analyticsvidhya.com/blog/2021/01/auto-encoders-for-computer-vision-an-endless-world-of-possibilities/}
+	
+	\item
+	\hypertarget{cnn_ae}{https://towardsdatascience.com/convolutional-autoencoders-for-image-noise-reduction-32fce9fc1763}
+	
+	\item
+	\hypertarget{denoising}{https://ift6266h17.files.wordpress.com/2017/03/14\_autoencoders.pdf}
+	
+	\item
+	\hypertarget{vae}{https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73}
+
+
+	
+	
+\end{itemize}	
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{References}
+	
+\begin{itemize}
+    
+    \item
+    Aurelien Geron. 2019. Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems (2nd. ed.). O'Reilly Media, Inc.
+    
+    \item
+    https://www.cs.toronto.edu/~rgrosse/courses/csc321\_2017/slides/lec20.pdf
+    
+    \item
+    https://www.math.purdue.edu/~buzzard/MA598-Spring2019/Lectures/Lec16\%20-\%20Autoencoders.pptx
+    
+    \item
+    http://cs231n.stanford.edu/slides/2019/cs231n\_2019\_lecture11.pdf
+    
+	
+\end{itemize}	
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

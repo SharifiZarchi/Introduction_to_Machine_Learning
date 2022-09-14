@@ -1,0 +1,3 @@
+\beamer@sectionintoc {1}{Introduction}{2}{0}{1}
+\beamer@sectionintoc {2}{K-means}{4}{0}{2}
+\beamer@sectionintoc {3}{Davies-Bouldin (DB) Index}{5}{0}{3}

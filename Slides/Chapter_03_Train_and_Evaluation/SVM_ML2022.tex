@@ -105,12 +105,9 @@
 
 %\setbeamertemplate{navigation symbols}{}
 
-\title{Support Vector Machines}
+\title{Generalization Error}
 \author{ML Instruction Team, Fall 2022}
-\institute[]{CE Department \newline  Sharif University of Technology \newline \newline \newline
-	Ali Sharifi-Zarchi \newline
-	Behrooz Azarkhalili \newline
-	Alireza Gargoori Motlagh}
+\institute[]{CE Department \newline  Sharif University of Technology \newline \newline}
 \date[\today]{}
 %\titlegraphic{\includegraphics[scale=.35]{example-image}}
 
@@ -123,7 +120,6 @@
 \usepackage{amsmath}
 \usepackage{epsfig}
 \usepackage{graphicx}
-\usepackage{amsmath}
 \usepackage[all,knot]{xy}
 \xyoption{arc}
 \usepackage{url}
@@ -156,19 +152,29 @@
 \usetikzlibrary{calc,trees,positioning,arrows,chains,shapes.geometric,decorations.pathreplacing,decorations.pathmorphing,shapes,matrix,shapes.symbols}
 
 
+\usepackage{xcolor}
+\newcommand{\tc}[2]{
+	\textcolor{#1}{#2}
+}
 
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{assumption}[theorem]{Assumption}
 
-\usepackage{fontspec,unicode-math}
-\setmainfont[Scale=0.9]{Consolas}
+%\usepackage{fontspec,unicode-math}
+%\setmainfont[Scale=0.9]{Nimbus Roman No9 L}
 %\setmonofont[Scale=0.9]{Monaco}
 \setsansfont[Scale=1]{Times New Roman}
 
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+
+\definecolor{strings}{rgb}{.624,.251,.259}
+\definecolor{keywords}{rgb}{.224,.451,.686}
+\definecolor{comment}{rgb}{.322,.451,.322}
 
 %\usepackage{smartdiagram}
 %\usesmartdiagramlibrary{additions}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Title Page Info %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -187,19 +193,43 @@
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{Introduction}
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
-	\frame{\frametitle{Intuition: Margins}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\frame{\frametitle{Hyperplane}
 		
+		
+		\begin{itemize}
+			\item \tc{keywords}{Hyperplane}: A hyperplane in \textit p dimensions is an affine subspace of dimension \textit {p-1}:
+			
+			$$\beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p = 0$$ 
+			\begin{figure}
+				\centering
+				\includegraphics[scale=0.15]{Figs/hyperplane.png}
+				\caption{Hyperplanes, \href{https://www.ai-summary.com/summary-hyperplane/}{Source}}
+			\end{figure}
+			
+			\item The vector $\beta = (\beta_1, \beta_2, ..., \beta_p)$ is called the \tc{keywords}{normal vector} -- it points in a direction orthogonal to the surface of the defined hyperplane. \newline 
+			
+			\item If $f(X) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p = \beta^T X + \beta_0$, then $f(X)$ divides the \textit p-dimensional feature space into two half-spaces. %($f(X) > 0$ for one side and $f(X) < 0$ for the other side). %\newline \newline
+			
+			\item So if we code $Y^{(i)} \in \{\pm 1\}$, then $\forall i: \quad Y^{(i)}f(X^{(i)}) > 0$
+		\end{itemize}	
+		
+	}
+
+
+	\frame{\frametitle{Intuition: Margins}
 		
 		\begin{itemize}
 			\item Separating Hyperplane
 			\begin{figure}
 				\centering
-				\includegraphics[scale=0.4]{images/separating_hyperplane.png}
+				\includegraphics[scale=0.4]{Figs/separating_hyperplane.png}
+				\caption{Separating Hyperplane, \href{http://cs229.stanford.edu/lectures-spring2022/main_notes.pdf}{Source}}
 			\end{figure}
 			
 			\item 
-			Our confidence about the prediction of classes of A, B and C relies on their distance from decision boundary. \newline
+			Our confidence about the prediction of classes of A, B and C relies on their \tc{keywords}{distance from decision boundary}. \newline
 			
 			\item 
 			We try to find the optimal hyperplane that separates the classes in the feature space.
@@ -207,25 +237,7 @@
 		
 	}
 	
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\frame{\frametitle{Hyperplane}
-		
-		
-		\begin{itemize}
-			\item \textbf {Hyperplane}: A hyperplane in \textit p dimensions is a flat affine subspace of dimension \textit {p-1}: \newline
-			
-			$$\beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p = 0$$ \newline
-			
-			\item The vector $\beta = (\beta_1, \beta_2, ..., \beta_p)$ is called the normal vector -- it points in a direction orthogonal to the surface of the defined hyperplane. \newline 
-			
-			
-			\item If $f(X) = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p = \beta^T X + \beta_0$, then $f(X)$ divides the \textit p-dimensional feature space into two half-spaces ($f(X) > 0$ for one side and $f(X) < 0$ for the other side). \newline \newline
-			
-			\item So if we code $Y^{(i)} \in \{\pm 1\}$, then $\forall i$
-			 $$Y^{(i)}f(X^{(i)}) > 0$$
-		\end{itemize}	
-		
-	}
+	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{Maximal Margin Classifier}
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -235,16 +247,17 @@
 	
 			\begin{figure}
 				\centering
-				\includegraphics[scale=0.35]{images/possible_hyperplanes.png}
+				\includegraphics[scale=0.4]{Figs/optimal_hyperplane.png}
+				\caption{Maximal Separating Hyperplane, \href{https://miro.medium.com/max/875/1*06GSco3ItM3gwW2scY6Tmg.png}{Source}}
 			\end{figure}
 		
-			\item \textbf{Maximal(Optimal) Separating  Hyperplane}: The separating hyperplane with the biggest margin between the classes.
-			
+			\item \tc{keywords}{Maximal (Optimal) Separating  Hyperplane}: 
+			The separating hyperplane with the largest between-class margin.
 			\begin{equation}
 				\begin{aligned}
-					\max_{\beta_0, \beta_1,...,\beta_p,‌M} & M\\
-					\textrm{s.t.} \quad & \sum_{j=1}^{p} \beta_j ^2 = 1\\
-					 & y^{(i)}(\beta^T x^{(i)} + \beta_0) > M \quad \forall i\in \{1,2,...,N\}\\
+					\max_{\beta_0,\beta,M} \quad & M\\
+					\textrm{s.t.} \quad & \sum_{j=1}^{p}{\beta_j^2 = 1}\\
+					&y^{(i)}(\beta^T x^{(i)} + \beta_0) \geq M \quad \forall i \in \{1,2,...,N\}   \\
 				\end{aligned}
 			\end{equation}
 			
@@ -256,30 +269,44 @@
 		
 		
 		\begin{itemize}
-			\item Eq.(1) can be rephrased as a convex quadratic problem and be solved efficiently using QP solvers.
+			\item Eq.(1) can be rephrased as a \tc{keywords}{convex quadratic problem} and be solved efficiently using QP solvers.
 			\newline
 			\item
 			(Euclidean) distance between two hyperplanes \newline
 			
 			$$\mathcal{H}_1 = \{x | \beta^T x + \beta_0 = 1\} \quad \quad
-			\mathcal{H}_2 = \{x | \beta^T x + \beta_0 = -1\}$$ \vspace{2mm}
+			\mathcal{H}_2 = \{x | \beta^T x + \beta_0 = -1\}$$ \vspace{1mm}
 			
-			is \textbf {dist($\mathcal{H}_1, \mathcal{H}_2$)} = 2/$||\beta||_2$ \newline
+			is \textbf {dist($\mathcal{H}_1, \mathcal{H}_2$)} = 2/$||\beta||_2$ \newline \newline
 			
-			\begin{equation}
-				\begin{aligned}
-					\min_{\beta,\beta_0} \quad & \frac{1}{2}||\beta||_2 ^2\\
-					\textrm{s.t.} \quad & y^{(i)}(\beta^T x^{(i)} + \beta_0) \geq 1 \quad \forall i \in {1,2,...,N}\\
-				\end{aligned}
-			\end{equation}
-			\qquad
-			\includegraphics[scale=0.4]{images/maximal_hyperplane.png}
-			
+			\noindent\begin{minipage}{0.28\textwidth}
+				\includegraphics[width=\linewidth]{Figs/maximal_hyperplane.png}
+				\captionof{figure}{Optimal Hyperplane, \href{https://commons.wikimedia.org/wiki/File:SVM_margin.png}{Source}}
+			\end{minipage}
+			\hfill
+			\begin{minipage}{0.65\textwidth}\raggedleft
+				\begin{equation}
+						\begin{aligned}
+							\min_{\beta,\beta_0} \quad & \frac{1}{2}||\beta||_2 ^2\\
+							\textrm{s.t.} \quad & y^{(i)}(\beta^T x^{(i)} +\beta_0) \geq 1 \quad \forall i \in \{1,2,...,N\}\\
+						\end{aligned}
+					\end{equation}
+			\end{minipage}
 			
 			%\begin{figure}
-				%\centering
-				%\includegraphics[scale=0.35]{images/maximal_hyperplane.png}
+			%	\centering
+			%	\includegraphics[scale=0.05]{Figs/maximal_hyperplane1.png}
+			%	%\caption{Optimal Hyperplane, \%href{https://commons.wikimedia.org/wiki/File:SVM_margin.png}{Source}}
 			%\end{figure}
+			
+		    %\begin{equation}
+			%	\begin{aligned}
+			%		\min_{\beta,\beta_0} \quad & \frac{1}{2}||\beta||_2 ^2\\
+			%		\textrm{s.t.} \quad & y^{(i)}(\beta^T x^{(i)} + \beta_0) \geq 1 \%quad \forall i \in {1,2,...,N}\\
+			%	\end{aligned}
+			%\end{equation}
+		
+			
 		\end{itemize}	
 		
 	}
@@ -287,7 +314,7 @@
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\section{Support Vector Classifier}
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\frame{\frametitle{Non-linear Separable Data}
+	\frame{\frametitle{Not-linearly Separable Data}
 		
 		\begin{itemize}
 			
@@ -295,7 +322,8 @@
 			\newline
 			\begin{figure}
 				\centering
-				\includegraphics[scale=0.5]{images/non_separable.png}
+				\includegraphics[scale=0.35]{Figs/nonlinear_datasets.png}
+				\caption{Not-linearly Separable Data, \href{https://miro.medium.com/max/875/1*1o_4zV7Js_65TThqlDeGsg.png}{Source}}
 			\end{figure}
 			
 		\end{itemize}	
@@ -306,27 +334,30 @@
 		
 		\begin{itemize}
 			
-			\item Sometimes the data are linearly separable, but noisy. This can lead to a poor solution for the maximal margin classifier. Also, hard-margin classifier is sensitive to outliers.
+			\item Sometimes the data are linearly separable, but noisy. This can lead to a poor solution for the maximal margin classifier. Also, hard-margin classifier is sensitive to \tc{keywords}{outliers}.
 			\begin{figure}
 				\centering
-				\includegraphics[scale=0.5]{images/noisy_data.png}
+				\includegraphics[scale=0.4]{Figs/outlier_effect_svm.png}
+				\caption{Noisy Data, \href{https://qph.cf2.quoracdn.net/main-qimg-fd1abee68f789a96e0b706bd5bba3bb5}{Source}}
+			
 			\end{figure}
 		
-			\item The \textcolor{Blue}{\textit {support vector classifier}} maximizes a \textcolor{Blue}{\textit {soft}} margin.
+			\item The \textcolor{Blue}{\textit {support vector classifier} (SVC)} maximizes a \tc{keywords}{soft}} margin.
 			
 		\end{itemize}	
 		
 	}
 
 
-	\frame{\frametitle{Support Vector Classifier(Soft Margin Classifier)}
+	\frame{\frametitle{Support Vector Classifier (Soft Margin Classifier)}
 		
 		\begin{itemize}
 			
-			\item Allowing some samples to violate the margin, with \textit {slack variables}, in a controlled manner.
+			\item Allowing some samples to violate the margin, with \tc{keywords}{slack variables ($\xi$)}, in a controlled manner:
 			\begin{figure}
 				\centering
-				\includegraphics[scale=0.5]{images/support_vector_classifier.png}
+				\includegraphics[scale=0.4]{Figs/soft_svm.png}
+				\caption{Soft Margin Classifier, \href{https://www.researchgate.net/profile/Toan-Tran-28/publication/327015448/figure/fig2/AS:659696117633025@1534295219130/SVM-with-soft-margin-kernel-with-different-cases-of-slack-variables.png}{Source}}
 			\end{figure}
 			
 			\begin{equation}
@@ -346,18 +377,18 @@
 		
 		\begin{itemize}
 			
-			\item \textit C is a regularization parameter that controls the bias-variance trade-off of the support vector classifier.
+			\item \textit C is a regularization parameter that controls the \tc{keywords}{bias-variance trade-off} of the support vector classifier.
 			\begin{figure}
 				\centering
-				\includegraphics[scale=0.45]{images/regularization_parameter.png}
+				\includegraphics[scale=0.3]{Figs/regularization_parameter1.png}
+				\caption{Regularization Effect, \href{https://dinhanhthi.com/img/post/ML/support-vector-machine/svm-7.jpg}{Source}}
 			\end{figure}
 			
 		\end{itemize}	
 		
 	}
 
-	\section{Support Vector Machines}
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 	\frame{\frametitle{The Need for Non-Linear Boundary}
 		
 		\begin{itemize}
@@ -366,16 +397,261 @@
 			\newline
 			\begin{figure}
 				\centering
-				\includegraphics[scale=0.45]{images/non_linear_separable.png}
+				\includegraphics[scale=0.7]{Figs/Linearly-vs-Not-linearly-separable-datasets.png}
+				\caption{The Need for Non-linear Boundary , \href{https://vitalflux.com/wp-content/uploads/2022/04/Linearly-vs-Not-linearly-separable-datasets.png}{Source}}
+			\end{figure}
+			
+		\end{itemize}	
+		
+	}
+	
+	
+	\frame{\frametitle{Feature Expansion}
+		
+		\begin{itemize}
+			
+			\item Enlarge the space of features by including transformations;
+			e.g. $X_1^2 , X_1^3, X_1X_2, X_1X_2^2,...$ . Hence increasing the dimension of the original \textit p-dimensional input space.
+			\newline
+			\item Then we can fit a support vector classifier in the enlarged space.
+			\newline
+			\item This results in \tc{keywords}{non-linear decision boundaries} in the original feature space.
+		
+			\begin{figure}
+				\centering
+				\includegraphics[scale=0.25]{Figs/feature_expansion.png}
+				\caption{The Need for Non-inear Boundary , \href{https://miro.medium.com/max/875/1*zWzeMGyCc7KvGD9X8lwlnQ.png}{Source}}
 			\end{figure}
 			
 		\end{itemize}	
 		
 	}
 
+
+	\frame{\frametitle{Dual Problem of SVC}
 		
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\section{Conclusion}
+		\begin{itemize}
+			
+			\item \textbf {Primal problem}:
+			\begin{equation*}
+				\begin{aligned}
+					\min_{\beta,\beta_0,\xi} \quad & \frac{1}{2}||\beta||_2 ^2+C\sum_{i=1}^{N}{\xi_{i}}\\
+					\textrm{s.t.} \quad & y^{(i)}(\beta^T x^{(i)} + \beta_0) \geq 1-\xi_{i}\\
+					&\xi_i\geq0 \quad \forall i \in \{1,2,...,N\}   \\
+				\end{aligned}
+			\end{equation*}
+			\newline
+			
+			\item \textbf {Dual problem} (using the lagrangian):
+			\begin{equation}
+				\begin{aligned}
+					\max_{\alpha_i} \quad & \sum_{i=1}^{N}{\alpha_i} - \frac{1}{2} \sum_{i=1}^{N}{\sum_{j=1}^{N} {\alpha_i \alpha_j y^{(i)} y^{(j)} \textcolor{Blue}{x^{{(i)}^T} x^{(j)}}}} \\
+					\textrm{s.t.} \quad & \sum_{i=1}^{N} \alpha_i y^{(i)} = 0\\
+					&0 \leq \alpha_i \leq C \quad \forall i \in \{1,2,...,N\}
+					\\
+				\end{aligned}
+			\end{equation}
+		
+			%\item We only need inner products!
+			
+		\end{itemize}	
+		
+	}
+
+
+	\frame{\frametitle{KKT Conditions}
+		
+		\begin{itemize}
+			
+			\item From Karush-Kuhn-Tucker (KKT) conditions and complementary slackness we have:
+			\begin{equation*}
+				\begin{aligned}
+					\alpha_i (1-\xi_i-y^{(i)}(\beta^Tx^{(i)} + \beta_0)) = 0\\
+					(C - \alpha_i)\xi_i = 0\\
+				\end{aligned}
+			\end{equation*}
+			\newline
+			
+			\item There can be 3 cases:
+			\newline\\
+			\begin{cases}
+			$$\textcolor{Blue}{\alpha_i = 0} \rightarrow \textcolor{Red}{\xi_i = 0} \Rightarrow \textcolor{newcolor2}{1-y^{(i)}(\beta^T x^{(i)} + \beta_0) < 0} $$ : \qquad \text{Non-Support} \\
+			 
+			\newline\\
+			$$\textcolor{Blue}{0 < \alpha_i < C} \rightarrow \textcolor{Red}{\xi_i = 0} \Rightarrow \textcolor{newcolor2}{1-y^{(i)}(\beta^T x^{(i)} + \beta_0) = 0} $$ : \quad \text{Support} \\
+			
+		    \newline\\
+			$$\textcolor{Blue}{\alpha_i = C} \rightarrow \textcolor{Red}{\xi_i > 0} \Rightarrow \textcolor{newcolor2}{1- \xi_i - y^{(i)}(\beta^T x^{(i)} + \beta_0) = 0} $$ : \quad \text{Support} \\ 
+			\end{cases}
+			
+		\end{itemize}	
+		
+	}
+
+	\frame{\frametitle{Classification Function}
+		
+		\begin{itemize}
+			
+			\item $f(x) = \beta^T x + \beta_0$
+			\newline
+			\item Also, when minimizing the conjugate function of primal problem, we get: $$\beta = \sum_{i=1}^{N}{\alpha_i y^{(i)}x^{(i)}}$$
+			
+			\item This results in the following classification function for SVC:
+			\begin{equation}
+					f(x) = \beta_0 + \sum_{i=1}^{N} \alpha_i y^{(i)} \textcolor{Blue}{x^T x^{(i)}} = \beta_0 + \sum_{i=1}^{N} \alpha_i y^{(i)} \textcolor{Blue}{\langle x, x^{(i)} \rangle}
+			\end{equation}
+			
+			\item It turns out that most of the $\hat{\alpha}_i$ can be zero:
+			\begin{equation}
+				f(x) = \beta_0 + \sum_{i \in \mathcal{S}} \hat{\alpha}_i y^{(i)} \textcolor{Blue}{\langle x, x^{(i)} \rangle}
+			\end{equation}
+			where \tc{keywords}{$\mathcal{S}$} is the \tc{keywords}{support set} of indices $i$ such that $\hat{\alpha}_i > 0$. \newline \newline
+			So, all we need is \tc{keywords}{inner products}!
+			
+		\end{itemize}	
+		
+	}
+
+
+	\section{Support Vector Machines}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\frame{\frametitle{Kernels and SVMs}
+		
+		\begin{itemize}
+			
+			\item Consider the feature mapping $T: x \rightarrow \phi(x)$, we define the corresponding \tc{keywords}{kernel} to be 
+			\begin{equation}
+				K(x, x') = \langle \phi(x),\phi(x') \rangle .
+			\end{equation}
+			
+			Now we can simply replace all inner products by $ K(x, x')$, and our algorithm would now be learning using the features $\phi$. \newline \newline
+			
+			\item Kernel matrix: $\quad K_{i,j} = K(x^{(i)}, x^{(j)})$
+			
+			A valid kernel function is the one that results in a \tc{keywords}{symmetric positive semi-definite} kernel matrix for any set of samples. (\textit{Mercer theorem}: necessary and sufficient condition) \newline \newline
+			
+			\item Calculating kernel matrix may be very \tc{keywords}{inexpensive}, even though $\phi(x)$ itself may be very expensive to calculate (perhaps because it is an extremely high dimensional vector).\newline \newline
+			
+			\item The classification function solution has the form
+			\begin{equation}
+				f(x) = \beta_0 + \sum_{i \in \mathcal{S}} \hat{\alpha}_i y^{(i)} \textcolor{Blue}{K(x,x^{(i)})}
+			\end{equation}
+			
+		\end{itemize}	
+		
+	}
+
+	\frame{\frametitle{Polynomial Kernels}
+		
+		\begin{equation}
+			K(x,y) = (1+\langle x,y \rangle)^d
+		\end{equation}
+	
+		\begin{itemize}
+			
+			\item e.g. Feature transformation from 2D kernels:
+				$$K(x,y) = (1+\langle x,y \rangle)^2 \Rightarrow \phi(x) = (1, \sqrt{2}x_1, \sqrt{2}x_2, x_1^2, x_2^2)$$
+		
+			\begin{figure}
+					\centering
+					\includegraphics[scale=0.35]{Figs/poly2_kernel_svm.png}
+					\caption{2nd Order Polynomial Kernel, \href{https://www.researchgate.net/profile/Marouane-Hachimi/publication/340610860/figure/fig4/AS:880021191286786@1586824810950/Non-linear-classifier-using-Kernel-trick-16.ppm}{Source}}
+			\end{figure}
+			
+			
+		\end{itemize}	
+		
+	}
+	
+	\frame{\frametitle{Radial Basis Kernels}
+		
+		\begin{equation}
+			K(x,y) = \exp(-\gamma \lVert x-y \rVert_2 ^2)
+		\end{equation}
+		
+		\begin{itemize}
+		
+			\item $\gamma$ is the hyperparameter to be chosen to control the bias-variance trade-off.
+			
+			\begin{figure}
+				\centering
+				\includegraphics[scale=0.25]{Figs/rbf_kernel_svm1.png}
+				\caption{RBF Kernel, \href{https://vitalflux.com/wp-content/uploads/2020/07/C-Values-Page-3-1024x832.png}{Source}}
+			\end{figure}
+			
+		\end{itemize}	
+		
+	}
+
+	\frame{\frametitle{Multi-class SVM}
+		
+		\begin{itemize}
+			
+			\item \tc{keywords}{One-vs-All}: Fit all $K$ different 2-class SVM classifiers $\hat{f}_{k}(x), \forall k\in \{1,2,...,K\}$; each class versus the rest. Classify $x^*$ to the class for which $\hat{f}_{k}(x)$ is the largest. \newline
+			
+			\item \tc{keywords}{One-vs-One}: Fit all ${K \choose 2}$ pairwise classifiers $\hat{f}_{kl}(x)$. Classify $x^*$ to the class that wins the most pairwise competitions. \newline
+			
+			\begin{figure}
+					\centering
+					\subfloat[\centering One-vs-All]{{\includegraphics[scale=0.4]{Figs/ova.png} }}%
+					\qquad
+					\subfloat[\centering One-vs-One]{{\includegraphics[scale=0.4]{Figs/ovo.png} }}
+					\caption{Multi-class SVM, \href{https://www.baeldung.com/cs/svm-multiclass-classification}{Source}}
+			\end{figure}
+			
+			
+		\end{itemize}	
+		
+	}
+
+	\frame{\frametitle{Support Vector Regression}
+		
+		\begin{itemize}
+			
+			\begin{figure}
+					\centering
+					\includegraphics[scale=0.6]{Figs/svr.png}
+					\caption{Support Vector Regression, \href{https://www.saedsayad.com/support_vector_machine_reg.htm}{Source}}
+			\end{figure}
+		
+			\begin{equation}
+				\begin{aligned}
+					\min_{\beta,\beta_0} \quad & \frac{1}{2} ||\beta||_2 ^2\\
+					\textrm{s.t.} \quad & |y^{(i)} - (\beta^T x^{(i)} + \beta_0)|_2 \leq \epsilon \quad \forall i \in \{1,2,...,N\}\\
+				\end{aligned}
+			\end{equation}
+			
+			
+		\end{itemize}	
+		
+	}
+
+
+	\frame{\frametitle{Soft Support Vector Regression}
+		
+		\begin{itemize}
+			
+			\begin{figure}
+					\centering
+					\includegraphics[scale=0.6]{Figs/soft_svr.png}
+					\caption{Soft Support Vector Regression, \href{https://www.saedsayad.com/support_vector_machine_reg.htm}{Source}}
+			\end{figure}
+			
+			\begin{equation}
+				\begin{aligned}
+					\min_{\beta,\beta_0} \quad & \frac{1}{2} ||\beta||_2 ^2 + C\sum_{i=1}^{N}{\xi_i}\\
+					\textrm{s.t.} \quad & |y^{(i)} - (\beta^T x^{(i)} + \beta_0)|_2 \leq \epsilon + \xi_i \\
+					&\xi_i \geq 0 \quad \forall i \in \{1,2,...,N\}\\
+				\end{aligned}
+			\end{equation}
+			
+			
+		\end{itemize}	
+		
+	}
+
+	
+	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\frame{\frametitle{Final Notes}
 			\centering

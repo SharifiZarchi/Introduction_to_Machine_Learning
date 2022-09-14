@@ -1,0 +1,5 @@
+\beamer@slide {fig:subfigure1}{2}
+\beamer@slide {sub@fig:subfigure1}{2}
+\beamer@slide {fig:subfigure2}{2}
+\beamer@slide {sub@fig:subfigure2}{2}
+\beamer@slide {fig:globalfigure2}{2}

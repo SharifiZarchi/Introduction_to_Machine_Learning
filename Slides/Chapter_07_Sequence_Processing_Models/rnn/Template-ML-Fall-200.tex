@@ -105,7 +105,7 @@
 
 %\setbeamertemplate{navigation symbols}{}
 
-\title{Recurrent Neural Networks}
+\title{Linear regression}
 \author{ML Instruction Team, Fall 2022}
 \institute[]{CE Department \newline  Sharif University of Technology \newline \newline}
 \date[\today]{}
@@ -121,7 +121,6 @@
 \usepackage{epsfig}
 \usepackage{graphicx}
 \usepackage[all,knot]{xy}
-\newcommand{\cev}[1]{\reflectbox{\ensuremath{\vec{\reflectbox{\ensuremath{#1}}}}}}
 \xyoption{arc}
 \usepackage{url}
 \usepackage{multimedia}
@@ -158,19 +157,22 @@
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{assumption}[theorem]{Assumption}
 
-\usepackage{fontspec,unicode-math}
-\setmainfont{Consolas}[
-    Scale=0.9,
-    Path=./Fonts/,
-    Extension = .ttf,
-]
-\setmonofont{Monaco}[
-    Scale=0.9,
-    Path=./Fonts/,
-    Extension = .ttf,
-]
+\usepackage{xcolor}
+\newcommand{\tc}[2]{
+	\textcolor{#1}{#2}
+}
 
+%\usepackage{fontspec, unicode-math}
+%\setmainfont[Scale=0.9]{Nimbus Roman No9 L}
+%\setmonofont[Scale=0.9]{Monaco}
 \setsansfont[Scale=1]{Times New Roman}
+
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+
+\definecolor{strings}{rgb}{.624,.251,.259}
+\definecolor{keywords}{rgb}{.224,.451,.686}
+\definecolor{comment}{rgb}{.322,.451,.322}
+
 
 %\usepackage{smartdiagram}
 %\usesmartdiagramlibrary{additions}
@@ -179,6 +181,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Begin Your Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Begin Your Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -191,9 +196,9 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Recurrent Neural Networks}
+\section{Backpropagation Through Time}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Backpropagation through time (BPTT)}
+\frame{\frametitle{Backpropagation Through Time (BPTT)}
 	
 \begin{figure}[!h]
 \includegraphics[width=10cm]{Figs/BPTT.png}
@@ -206,7 +211,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Backpropagation through time (BPTT)}
+\frame{\frametitle{Backpropagation Through Time (BPTT)}
 
 \begin{itemize}
     \item
@@ -230,11 +235,11 @@
 \end{itemize}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
-\frame{\frametitle{Backpropagation through time (BPTT)}
+\frame{\frametitle{Backpropagation Through Time (BPTT)}
 
 \begin{itemize}
     \item
-    Now, we are going to calculate derivation of $L$ w.r.t $W_{yh}, W_{hh}, W_{xh}, b_y, b_h$
+    Now, we are going to calculate derivative of $L$ w.r.t $W_{yh}, W_{hh}, W_{xh}, b_y, b_h$
     \begin{itemize}
         \item Part I: The Straight Ones
         $$
@@ -257,7 +262,7 @@
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
-\frame{\frametitle{Backpropagation through time (BPTT)}
+\frame{\frametitle{Backpropagation Through Time (BPTT)}
 
 \begin{itemize}
     \item Cont.
@@ -284,7 +289,7 @@
 \end{itemize}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Backpropagation through time (BPTT)}
+\frame{\frametitle{Backpropagation Through Time (BPTT)}
 
 \begin{itemize}
     \item Cont.
@@ -308,7 +313,7 @@
 \end{itemize}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Backpropagation through time (BPTT)}
+\frame{\frametitle{Backpropagation Through Time (BPTT)}
 
 \begin{itemize}
     \item Cont.
@@ -327,10 +332,10 @@
 \end{itemize}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Backpropagation through time (BPTT)}
+\frame{\frametitle{Backpropagation Through Time (BPTT)}
 
 \begin{figure}[!h]
-\includegraphics[width=8cm]{Figs/gradient_flow_rnn.png}
+\includegraphics[width=12cm]{Figs/gradient_flow_rnn.png}
 \caption{Vanilla RNN Gradient Flow, \href{https://kharshit.github.io/blog/2019/01/04/the-gradient-problem-in-rnn} 
         {source}}
 
@@ -338,48 +343,54 @@
 
 \begin{itemize}
     \item RNN Training Issues
+    \vspace{3mm}
     \begin{itemize}
-        \item Computing gradient of $h_0$ involves many factors of $W$ (and repeated 
-        $\mathbin{tanh}$)
-            \\ What can we do to solve the problem? TBPTT
-        \item Vanishing $\&$ Exploding gradients
-            \\ What can we do to solve exploding? gradient clipping
-            \\ What can we do to solve vanishing? changing the structure
+        % \item Computing gradient of $h_0$ involves many factors of $W$ (and repeated 
+        % $\mathbin{tanh}$)
+        %     \\ What can we do to solve the problem? 
+        % \vspace{3mm}
+        \item \tc{keywords}{Exploding Gradients}
+            \\ What can we do to solve exploding? 
+        \item \tc{keywords}{Vanishing Gradients}
+            \\ What can we do to solve vanishing?
+        
 
     \end{itemize}
     
 
 \end{itemize}
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Truncated Backpropagation through time (TBPTT)}
-\begin{figure}[!h]
-\includegraphics[width=8cm]{Figs/tbptt.png}
-\caption{TBPTT for $k_1 = k_2 = 4$, \href{https://www.programmersought.com/article/77613555017/} 
-        {source}}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \frame{\frametitle{Truncated Backpropagation Through Time (TBPTT)}
+% \begin{figure}[!h]
+% \includegraphics[width=8cm]{Figs/tbptt.png}
+% \caption{TBPTT for $k_1 = k_2 = 4$, \href{https://www.programmersought.com/article/77613555017/} 
+%         {source}}
 
-\end{figure}
-
-
-\begin{itemize}
-    \item TBPTT Pseudo Code
-    \begin{enumerate}
-        \item for $t$ from $1$ to $T$ do
-        \item \hspace{1cm}Run the RNN one step
-        \item \hspace{1cm}if $t$ divides $k_1$ then
-        \item \hspace{1cm}\hspace{1cm}Run BPTT from $t$ down to $t - k_2$
-        \item \hspace{1cm}end if
-        \item end for 
-    \end{enumerate}
+% \end{figure}
 
 
-\end{itemize}
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{itemize}
+%     \item TBPTT Pseudo Code
+%     \begin{enumerate}
+%         \item for $t$ from $1$ to $T$ do
+%         \item \hspace{1cm}Run the RNN one step
+%         \item \hspace{1cm}if $t$ divides $k_1$ then
+%         \item \hspace{1cm}\hspace{1cm}Run BPTT from $t$ down to $t - k_2$
+%         \item \hspace{1cm}end if
+%         \item end for 
+%     \end{enumerate}
+
+
+% \end{itemize}
+% }
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{LSTM-GRU}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{RNN Unit}
 	
 \begin{figure}[!h]
-\includegraphics[width=6cm]{Figs/description-block-rnn-ltr.eps}
+\includegraphics[width=8cm]{Figs/description-block-rnn-ltr.png}
 \caption{RNN Unit, \href{https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks} 
         {source}}
 
@@ -407,7 +418,7 @@ $$
 \frame{\frametitle{Gated Recurrent Unit (GRU)}
 	
 \begin{figure}[!h]
-\includegraphics[width=5cm]{Figs/gru-ltr.eps}
+\includegraphics[width=5cm]{Figs/gru-ltr.png}
 \caption{GRU Unit, \href{https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks} 
         {source}}
 \centering
@@ -436,7 +447,7 @@ $$
 \frame{\frametitle{Long Short-Term Memory (LSTM)}
 	
 \begin{figure}[!h]
-\includegraphics[width=4cm]{Figs/lstm-ltr.eps}
+\includegraphics[width=4cm]{Figs/lstm-ltr.png}
 \caption{LSTM Unit, \href{https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks} 
         {source}}
 \end{figure}
@@ -500,7 +511,7 @@ $$
     \item The first step in our LSTM is to decide what information we’re going to throw away from the cell state.
 \end{itemize}
 \begin{figure}[!h]
-\centering \includegraphics[width=6cm]{Figs/LSTM3-focus-f.eps}
+\centering \includegraphics[width=6cm]{Figs/LSTM3-focus-f.png}
 \caption{Forget Gate Layer, \href{https://colah.github.io/posts/2015-08-Understanding-LSTMs/}
         {source}}
 \end{figure}
@@ -515,7 +526,7 @@ $$
     \item The next step is to decide what new information we’re going to store in the cell state.
 \end{itemize}
 \begin{figure}[!h]
-\centering \includegraphics[width=6cm]{Figs/LSTM3-focus-i.eps}
+\centering \includegraphics[width=6cm]{Figs/LSTM3-focus-i.png}
 \caption{Input Gate Layer, \href{https://colah.github.io/posts/2015-08-Understanding-LSTMs/}
         {source}}
 \end{figure}	
@@ -531,7 +542,7 @@ $$
     \item It’s now time to update the old cell state, Ct−1, into the new cell state Ct.
 \end{itemize}
 \begin{figure}[!h]
-\centering \includegraphics[width=6cm]{Figs/LSTM3-focus-C.eps}
+\centering \includegraphics[width=6cm]{Figs/LSTM3-focus-C.png}
 \caption{Update Cell State, \href{https://colah.github.io/posts/2015-08-Understanding-LSTMs/}
         {source}}
 \end{figure}	
@@ -545,7 +556,7 @@ $$
     \item Finally, we need to decide what we’re going to output. This output will be based on our cell state
 \end{itemize}
 \begin{figure}[!h]
-\centering \includegraphics[width=6cm]{Figs/LSTM3-focus-o.eps}
+\centering \includegraphics[width=6cm]{Figs/LSTM3-focus-o.png}
 \caption{Output Gate Layer, \href{https://colah.github.io/posts/2015-08-Understanding-LSTMs/}
         {source}}
 \end{figure}	
@@ -558,14 +569,16 @@ $$
 	
 \begin{itemize}
 	\item The LSTM does have the ability to remove and add information to the cell state.
-
+\vspace{3mm}
 
 	\item The gates in the previous slide let the information to pass through the units.
  
-
-	\item The gates value are between zero and one and specify how much information should be let through.
-
-        \item They also somehow solve the vanishing gradient. 
+\vspace{3mm}
+	\item The gates value are between zero and one and specify \tc{keywords}{how much information should be let through}.
+\vspace{3mm}
+        \item They also somehow solve the \tc{keywords}{vanishing gradient}.
+        \vspace{3mm}
+        
         \item We can use more blocks of them so there will be more information to remember.
         
 \end{itemize}	
@@ -636,6 +649,7 @@ $$
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Bidirectional RNN}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
 \frame{\frametitle{Bidirectional RNN}
 \begin{itemize}
@@ -662,6 +676,7 @@ $$
 \begin{itemize}
     \item They are usually used in natural language processing.
 
+\vspace{3mm}
     
     \item They are powerful for modeling dependencies between words and phrases in both directions of the sequence because every component of an input sequence has information from both the past and present.
 
@@ -685,14 +700,117 @@ $$
 \end{figure}
 
 }
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Encoder-Decoder}
+%%%%%
+\frame{\frametitle{Encoder-Decoder}
+
+\begin{itemize}
+\item If we want an output with a \tc{keywords}{different length} from the
+input (e.g. Machine Translation), what should we do?
+\vspace{3mm}
+\item Which \tc{keywords}{alignment} method should we use?
+\end{itemize}
+
+\begin{figure}[!h]
+\includegraphics[width=12cm]{Figs/rnn_seq_alignment.png}
+\caption{Problems in Sequence-to-Sequence Models, \href{https://mgubaidullin.github.io/deeplearning4j-docs/usingrnns.html} 
+        {source}}
+\end{figure}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%
+\frame{\frametitle{Encoder-Decoder}
+\begin{center}
+    Encoder-Decoder architecture could be a solution.
+\end{center}
+
+\begin{figure}[!h]
+\includegraphics[width=12cm]{Figs/encdec2.png}
+\caption{Encoder-Decoder, \href{https://towardsdatascience.com/how-to-build-an-encoder-decoder-translation-model-using-lstm-with-python-and-keras-a31e9d864b9b} 
+        {source}}
+\end{figure}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Encoder-Decoder}
+
+\begin{figure}[!h]
+\includegraphics[width=10cm]{Figs/encoder.png}
+\caption{Encoder, \href{https://yjjo.tistory.com/35} 
+        {source}}
+\end{figure}
+
+\begin{itemize}
+        \item \textbf{Encoder:} The encoder processes the input sequence and compresses the information into a fixed length vector, known as the context vector. 
+\end{itemize}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Encoder-Decoder}
+
+\begin{figure}[!h]
+\includegraphics[width=8cm]{Figs/encoder-decoder-example.png}
+\caption{Context Vector, \href{https://lilianweng.github.io/posts/2018-06-24-attention/} 
+        {source}}
+\end{figure}
+
+\begin{itemize}
+        \item \textbf{Context Vector (Hidden State):} This vector is expected to convey the meaning of the whole source sequence from the encoder to the decoder. (The early work considered the last state of the encoder network as the context vector.)
+\end{itemize}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Encoder-Decoder}
+
+\begin{figure}[!h]
+\includegraphics[width=8cm]{Figs/decoder.png}
+\caption{Decoder, \href{https://yjjo.tistory.com/35} 
+        {source}}
+\end{figure}
+
+\begin{itemize}
+        \item \textbf{Decoder:} The decoder uses the context vector to output the desired target sequence.
+\end{itemize}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Encoder-Decoder Limitations}
+\begin{figure}[!h]
+\includegraphics[width=8cm]{Figs/bottleneck.png}
+        \caption{Bottleneck Phenomenon, \href{https://towardsdatascience.com/attention-and-its-different-forms-7fc3674d14dc} 
+        {source}}
+\end{figure}
+
+\begin{itemize}
+        \item The context vector is \tc{keywords}{bottleneck}. 
+        By increasing the length of the input sequence, the model captures the essential information roughly. How to solve it? Attention! Define and use the the context vector better.
+\end{itemize}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Encoder-Decoder Limitations}
+
+\begin{itemize}
+        \item Slow convergence in training. How to solve it? Teacher Forcing.
+\end{itemize}
+
+\begin{figure}[!h]
+\includegraphics[width=10cm]{Figs/tf_ende.eps}
+        \caption{Teacher Forcing in Decoder Side, \href{https://towardsdatascience.com/what-is-teacher-forcing-3da6217fed1c} 
+        {source}}
+\end{figure}
+
+}
+%%%%%
+\section{Teacher Forcing}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
 \frame{\frametitle{Teacher Forcing}
 
 \begin{itemize}
 
 \item Teacher forcing is a method for training recurrent neural networks more efficiently.
-
+\vspace{3mm}
 \item Teacher forcing works by using the actual output at the current time step $y^{(t-1)}$ as input in the next time step, rather than the $o^{(t-1)}$generated by the network.
 
 \end{itemize}
@@ -710,35 +828,171 @@ $$
 
 \begin{itemize}
 
+\item  At the early stages of training, the predictions of the model are very bad. If we do not use Teacher Forcing, the hidden states of the model will be updated by a sequence of wrong predictions, \tc{keywords} {errors will accumulate}, and it is difficult for the model to learn from that.
+\vspace{5mm}
 \item The problem with RNNs is that we need previous time step output as input for next time step.
-
+\vspace{5mm}
 \item This technique allows us to prevent backpropagation through time which was complex and time-consuming.
-
-\item With teacher forcing the model will be trained faster.
-
-\item During inference, since there is usually no ground truth available, the RNN model will need to feed its own previous prediction back to itself for the next prediction.
+\vspace{5mm}
+\item With teacher forcing the model will be \tc{keywords} {trained faster}.
+\vspace{5mm}
 
 \end{itemize}
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{An application: Automatic Speech Recognition}
+\section{Beam Search}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Search Strategy}
+\begin{figure}[!h]
+\includegraphics[width=8cm]{Figs/machine_translation.eps}
+        \caption{Simple Machine Translation Model, \href{https://www.guru99.com/seq2seq-model.html} 
+        {source}}
+\end{figure}
 
 \begin{itemize}
-
-\item The problem with RNNs is that we need previous time step output as input for next time step.
-
-\item This technique allows us to prevent backpropagation through time which was complex and time-consuming.
-
-\item With teacher forcing the model will be trained faster.
-
-\item During inference, since there is usually no ground truth available, the RNN model will need to feed its own previous prediction back to itself for the next prediction.
-
+        \item By now, we have discussed some important elements of sequence-to-sequence models (e.g. Machine Translation), including word embedding, LSTM, encoder, decoder, context vector, and softmax. But, there is a missing part! The search strategy for inference.
+        $$
+        \Hat{y_T}, \Hat{y_{T-1}}, ..., \Hat{y_1} = \underset{\Tilde{y_T}, \Tilde{y_{T-1}}, ..., \Tilde{y_1}}{\mathbin{argmax}} P(\Tilde{y_T}, \Tilde{y_{T-1}}, ..., \Tilde{y_1}|S)
+        $$
+        \textbf{Notice:} $\Tilde{y_t}$ is the corresponding word to time step t. 
 \end{itemize}
+
+}
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Search Strategy}
+
+\begin{itemize}
+        \item \textbf{Exhaustive Search (Brute-force Search)}
+        \\
+        Iterate over all possible combinations of $\Tilde{y_t}, \Tilde{y_{t-1}}, ..., \Tilde{y_1}$.
+        \vspace{3mm}
+        \begin{itemize}
+            \item T: Total Time Step (the number of decoder units)
+            \vspace{3mm}
+            \item V: Vocabulary Size (the number of possible words)
+            \vspace{3mm}
+            \item Time Complexity: $O(V^T)$
+            \vspace{3mm}
+            \item So, it's not feasible.
+        \end{itemize}
+\end{itemize}
+
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Search Strategy}
+\begin{itemize}
+        \item \textbf{Greedy Search}
+        $$
+        \mathbin{max} \, P(y_T, y_{T-1}, ..., y_1|S) = 
+        \mathbin{max} \prod_{t=1}^T P(y_t|y_{t-1}, y_{t-2}, ..., y_1, S)
+        $$
+        $$
+        \mathbin{max} \prod_{t=1}^T P(y_t|y_{t-1}, y_{t-2}, ..., y_1, S) 
+        \approx \prod_{t=1}^T \mathbin{max}\,P(y_t|y_{t-1}, y_{t-2}, ..., y_1, S) 
+        $$
+\end{itemize}
+
+\begin{figure}[!h]
+\includegraphics[width=3.5cm]{Figs/greedy2.eps}
+        \caption{Greedy Search Example, \href{https://d2l.ai/chapter\_recurrent-modern/beam-search.html} 
+        {source}}
+\end{figure}
+$$
+P((A, B, C, eos)|S) = P(A|(), S) P(B|(A), S) P(C|(A, B), S) P(eos|(A, B, C), S)
+$$ $$= 0.048$$
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Search Strategy}
+\begin{itemize}
+        \item \textbf{Greedy Search}
+        \vspace{3mm}
+        \begin{itemize}
+            \item Advantages
+            \begin{itemize}
+                \item Time complexity: $O(TV)$
+                \item Sometimes it's a good approximation
+            \end{itemize}
+            \vspace{5mm}
+            \item Disadvantages
+            \begin{itemize}
+                \item It is somehow too naive. 
+                \item It can be very inaccurate.
+            \end{itemize}
+
+        \end{itemize}
+\end{itemize}
+
+\begin{figure}[!h]
+\includegraphics[width=3.5cm]{Figs/greedy.eps}
+        \caption{Greedy Search Example, \href{https://d2l.ai/chapter\_recurrent-modern/beam-search.html} 
+        {source}}
+\end{figure}
+$$
+P((A, C, B, eos)|S) = P(A|(), S) P(C|(A), S) P(B|(A, C), S) P(eos|(A, C, B), S) 
+$$ $$= 0.054$$
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Beam Search}
+\begin{itemize}
+        \item \textbf{Beam Search}
+        \\ It's something between the two previous methods.
+        \begin{itemize}
+            \item Keeping a number of candidates (beam width) instead of one in Greedy Search and all of the combinations in Exhaustive Search. 
+        \end{itemize}
+\end{itemize}
+
+\begin{figure}[!h]
+\includegraphics[width=7cm]{Figs/beam-search.eps}
+        \caption{A Beam Search example in which beam width equals 2, \href{https://d2l.ai/chapter\_recurrent-modern/beam-search.html} 
+        {source}}
+\end{figure}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Beam Search}
+\begin{itemize}
+        \item \textbf{Beam Search}
+        \\ It's something between the two previous methods.
+        \begin{itemize}
+            \item k: Beam Width 
+            \vspace{3mm}
+            \item Time Complexity: $O(\mathbin{log(k)kVT})$ (By using max heap in each time step)
+        \end{itemize}
+\end{itemize}
+
+\begin{figure}[!h]
+\includegraphics[width=7cm]{Figs/beam-search2.png}
+        \caption{Another Beam Search example in which beam width equals 2, \href{https://towardsdatascience.com/foundations-of-nlp-explained-visually-beam-search-how-it-works-1586b9849a24} 
+        {source}}
+\end{figure}
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%
+
+\frame{\frametitle{References}
+
+\begin{itemize}
+
+\item https://lilianweng.github.io/posts/2018-06-24-attention/
+\vspace{3mm}
+\item https://mmuratarat.github.io/2019-02-07/bptt-of-rnn
+\vspace{3mm}
+\item https://d2l.ai/chapter\_recurrent-modern/encoder-decoder.html
+\vspace{3mm}
+\item https://d2l.ai/chapter\_recurrent-modern/seq2seq.html
+\vspace{3mm}
+\item https://d2l.ai/chapter\_recurrent-modern/beam-search.html
+\vspace{3mm}
+\end{itemize}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frametitle{Final Notes}
 \centering
