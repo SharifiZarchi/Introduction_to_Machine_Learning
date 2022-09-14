@@ -147,7 +147,6 @@
 \usepackage{tikz}
 \usetikzlibrary{calc,trees,positioning,arrows,chains,shapes.geometric,decorations.pathreplacing,decorations.pathmorphing,shapes,matrix,shapes.symbols}
 
-
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{assumption}[theorem]{Assumption}
@@ -168,9 +167,10 @@ Extension = .ttf,
 
 \usepackage{xcolor}
 \definecolor{keywords}{rgb}{.224,.451,.686}
-
+\definecolor{strings}{rgb}{.624,.251,.259}
+\definecolor{comment}{rgb}{.322,.451,.322}
 \newcommand{\tc}[2]{
-	\textcolor{#1}{\textbf{#2}}
+	\textcolor{#1}{#2}
 }
 
 %\usepackage{smartdiagram}
