@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2022.8.26)  16 SEP 2022 12:43
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2022.8.26)  16 SEP 2022 14:18
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1438,9 +1438,19 @@ LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
 ] [14
 
 ]
-LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
-(Font)              scaled to size 9.0pt on input line 456.
+File: Figs/Boston-House-Price-Dataset.png Graphic file (type bmp)
+<Figs/Boston-House-Price-Dataset.png>
  [15
+
+]
+File: Figs/decision_trees_MSE.png Graphic file (type bmp)
+<Figs/decision_trees_MSE.png>
+ [16
+
+]
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
+(Font)              scaled to size 9.0pt on input line 483.
+ [17
 
 ]
 \tf@nav=\write7
@@ -1452,21 +1462,21 @@ LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
 \tf@snm=\write9
 \openout9 = `"Decision Trees.snm"'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 461.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 461.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 488.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 488.
  (./Decision Trees.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 461.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 461.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 488.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 488.
 Package rerunfilecheck Info: File `"Decision Trees".out' has not changed.
 (rerunfilecheck)             Checksum: <no file>.
  ) 
 Here is how much of TeX's memory you used:
- 33954 strings out of 479819
- 705663 string characters out of 5895846
- 1067830 words of memory out of 5000000
- 50333 multiletter control sequences out of 15000+600000
+ 33972 strings out of 479819
+ 706140 string characters out of 5895846
+ 1068091 words of memory out of 5000000
+ 50349 multiletter control sequences out of 15000+600000
  543480 words of font info for 88 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  58i,22n,81p,802b,1250s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Decision Trees.pdf (15 pages).
+Output written on Decision Trees.pdf (17 pages).
