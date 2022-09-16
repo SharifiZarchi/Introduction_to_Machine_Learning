@@ -286,12 +286,23 @@
 	\item It does not check whether or not the split will lead to the lowest possible impurity several levels down.
 \end{itemize}
 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Decision Trees in Practice}
+	\begin{figure}
+		\centering
+		\includegraphics[width=9cm, height=5cm]{Figs/iris_info.png}
+		\caption{Iris Dataset, \href{https://tinyurl.com/2ebkm4bs}{Source}}
+		\label{fig:iris-dataset}
+	\end{figure}
+	
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Decision Trees in Practice}
 	\begin{figure}
 		\centering
-		\includegraphics[width=8cm, height=6cm]{Figs/iris.svg}
-		\caption{Information Gain, \href{https://tinyurl.com/2n2w6jws}{Source}}
+		\includegraphics[width=10cm, height=6.5cm]{Figs/iris.jpg}
+		\caption{Decision Trees on Iris Dataset, \href{https://tinyurl.com/2zhuxgn6}{Source}}
 		\label{fig:decision trees-sklearn}
 	\end{figure}
 
@@ -419,10 +430,20 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Decision Trees for Regression}
 \begin{itemize}
-	\item It is the same as Classification with a few subtle modification:
+	\item It is the same as classification with a few subtle modifications:
 	
 	\begin{itemize}
-		\item 
+		\item  The main difference is that instead of predicting a class in each node, it predicts a value.
+		
+		\medskip
+		\item  The prediction for each node is simply the average target value of the all training instances associated to this leaf node.
+		
+		\medskip
+		\item Instead of trying to split the training set in a way that minimizes impurity, CART algorithm now tries to split the
+		training set in a way that minimizes the \tc{keywords}{MSE}.
+		
+		\medskip
+		\item Likewise to classification tasks, decision trees are prone to overfitting when dealing with regression tasks.
 	\end{itemize}
 \end{itemize}
 
