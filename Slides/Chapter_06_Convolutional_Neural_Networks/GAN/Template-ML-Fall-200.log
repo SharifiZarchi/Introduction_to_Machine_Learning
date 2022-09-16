@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 22.7) (preloaded format=xelatex 2022.9.13)  17 SEP 2022 01:04
+This is XeTeX, Version 3.141592653-2.6-0.999994 (MiKTeX 22.7) (preloaded format=xelatex 2022.9.13)  17 SEP 2022 01:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1029,7 +1029,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
 (Font)                  OT1/cmss/bx/n --> TU/TimesNewRoman(1)/b/n on input line 174.
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
 (Font)              scaled to size 10.95pt on input line 174.
- (Template-ML-Fall-200.aux (modules/Module1/1.aux) (modules/Module2/2.aux) (modules/Module3/3.aux) (modules/Module5/5.aux) (modules/Module6/6.aux) (modules/Module8/8.aux))
+ (Template-ML-Fall-200.aux (modules/Module1/1.aux) (modules/Module2/2.aux) (modules/Module3/3.aux) (modules/Module6/6.aux) (modules/Module8/8.aux))
 \openout1 = `Template-ML-Fall-200.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 185.
@@ -1411,10 +1411,6 @@ File: images/chart.png Graphic file (type bmp)
 <images/chart.png>
 
 Missing character: There is no 4 in font nullfont!
-
-Overfull \vbox (86.9698pt too high) detected at line 186
- []
-
 [13
 
 ])
@@ -1523,6 +1519,9 @@ Missing character: There is no 4 in font nullfont!
 \openout2 = `modules/Module3/3.aux'.
 
  (modules/Module3/3.tex
+File: images/dcgan_gen.png Graphic file (type bmp)
+<images/dcgan_gen.png>
+
 Missing character: There is no 4 in font nullfont!
 [24
 
@@ -1530,131 +1529,81 @@ Missing character: There is no 4 in font nullfont!
 
 
 ]
-File: images/dcgan_gen.png Graphic file (type bmp)
-<images/dcgan_gen.png>
- [25
-
-]
 File: images/dcgan_disc.jpg Graphic file (type bmp)
 <images/dcgan_disc.jpg>
- [26
 
-])
-\openout2 = `modules/Module5/5.aux'.
-
- (modules/Module5/5.tex
 Missing character: There is no 4 in font nullfont!
-[27
-
-
-
-
-]
-File: images/Interpolation.png Graphic file (type bmp)
-<images/Interpolation.png>
- [28
-
-]
-File: images/Smiling.png Graphic file (type bmp)
-<images/Smiling.png>
- [29
-
-]
-File: images/Smiling.png Graphic file (type bmp)
-<images/Smiling.png>
- [30
-
-]
-File: images/Smiling.png Graphic file (type bmp)
-<images/Smiling.png>
- [31
-
-]
-File: images/Smiling.png Graphic file (type bmp)
-<images/Smiling.png>
- [32
-
-]
-File: images/Glasses.png Graphic file (type bmp)
-<images/Glasses.png>
- [33
-
-]
-File: images/GAN_Applications.png Graphic file (type bmp)
-<images/GAN_Applications.png>
- [34
+[25
 
 ])
 \openout2 = `modules/Module6/6.aux'.
 
  (modules/Module6/6.tex
-Missing character: There is no 4 in font nullfont!
-[35
-
-
-
-
-]
 File: images/stylegan_example1.png Graphic file (type bmp)
 <images/stylegan_example1.png>
- [36
+
+Missing character: There is no 4 in font nullfont!
+[26
+
+
+
 
 ]
 File: images/StyleGan_Architecture.png Graphic file (type bmp)
 <images/StyleGan_Architecture.png>
 
 Missing character: There is no 4 in font nullfont!
-[37
+[27
 
 ]
 Missing character: There is no 4 in font nullfont!
-[38
+[28
 
 ]
 File: images/cyclegan1.png Graphic file (type bmp)
 <images/cyclegan1.png>
 
 Missing character: There is no 4 in font nullfont!
-[39
+[29
 
 ]
 Missing character: There is no 4 in font nullfont!
-[40
+[30
 
 ]
 File: images/cyclegan2.png Graphic file (type bmp)
 <images/cyclegan2.png>
 
 Missing character: There is no 4 in font nullfont!
-[41
+[31
 
 ]
 File: images/cyclegan3.png Graphic file (type bmp)
 <images/cyclegan3.png>
 
 Missing character: There is no 4 in font nullfont!
-[42
+[32
 
 ]
 File: images/cyclegan4.png Graphic file (type bmp)
 <images/cyclegan4.png>
 
 Missing character: There is no 4 in font nullfont!
-[43
+[33
 
 ])
 \openout2 = `modules/Module8/8.aux'.
 
  (modules/Module8/8.tex
 Missing character: There is no 4 in font nullfont!
-[44
+[34
 
 
 
 
 ]
 Missing character: There is no 4 in font nullfont!
-[45
+[35
 
 ])
 \tf@nav=\write7
@@ -1666,17 +1615,17 @@ Missing character: There is no 4 in font nullfont!
 \tf@snm=\write9
 \openout9 = `Template-ML-Fall-200.snm'.
 
- (Template-ML-Fall-200.aux (modules/Module1/1.aux) (modules/Module2/2.aux) (modules/Module3/3.aux) (modules/Module5/5.aux) (modules/Module6/6.aux) (modules/Module8/8.aux))
+ (Template-ML-Fall-200.aux (modules/Module1/1.aux) (modules/Module2/2.aux) (modules/Module3/3.aux) (modules/Module6/6.aux) (modules/Module8/8.aux))
 Package rerunfilecheck Info: File `Template-ML-Fall-200.out' has not changed.
-(rerunfilecheck)             Checksum: 2AAA10FA755AEB580E4222661B9D4D2E;707.
+(rerunfilecheck)             Checksum: E1A7B12AD8E930F57318327CBB8A7B08;589.
  ) 
 Here is how much of TeX's memory you used:
- 39472 strings out of 410654
- 822108 string characters out of 2816096
+ 39396 strings out of 410654
+ 820192 string characters out of 2816096
  1343275 words of memory out of 3000000
- 59713 multiletter control sequences out of 15000+600000
+ 59649 multiletter control sequences out of 15000+600000
  479098 words of font info for 111 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 128i,22n,122p,564b,1265s stack positions out of 10000i,1000n,20000p,200000b,80000s
+ 128i,22n,122p,564b,1261s stack positions out of 10000i,1000n,20000p,200000b,80000s
 
-Output written on Template-ML-Fall-200.xdv (45 pages, 1566284 bytes).
+Output written on Template-ML-Fall-200.xdv (35 pages, 1222548 bytes).

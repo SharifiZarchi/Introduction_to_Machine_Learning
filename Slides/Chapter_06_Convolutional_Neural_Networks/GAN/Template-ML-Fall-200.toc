@@ -2,6 +2,5 @@
 \beamer@sectionintoc {2}{Architecture}{5}{0}{2}
 \beamer@sectionintoc {3}{Training}{12}{0}{3}
 \beamer@sectionintoc {4}{Problems}{14}{0}{4}
-\beamer@sectionintoc {5}{Applications}{27}{0}{5}
-\beamer@sectionintoc {6}{StyleGAN + CycleGAN}{35}{0}{6}
-\beamer@sectionintoc {7}{Refrences}{44}{0}{7}
+\beamer@sectionintoc {5}{Variants of GANs}{24}{0}{5}
+\beamer@sectionintoc {6}{Refrences}{34}{0}{6}
