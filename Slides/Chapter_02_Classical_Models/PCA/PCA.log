@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2022.8.26)  14 SEP 2022 02:46
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2022.8.26)  15 SEP 2022 17:13
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
-**Generlaization_Error.tex
-(./Generlaization_Error.tex
+**PCA.tex
+(./PCA.tex
 LaTeX2e <2020-02-02> patch level 2
 L3 programming layer <2020-02-14>
 (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamer.cls
@@ -1174,8 +1174,8 @@ Package fontspec Info: Font family 'TimesNewRoman(0)' created for font 'Times
 
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
 (Font)              scaled to size 10.95pt on input line 170.
- (./Generlaization_Error.aux)
-\openout1 = `Generlaization_Error.aux'.
+ (./PCA.aux)
+\openout1 = `PCA.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 187.
 LaTeX Font Info:    ... okay on input line 187.
@@ -1257,9 +1257,9 @@ LaTeX Info: Redefining \ref on input line 187.
 LaTeX Info: Redefining \pageref on input line 187.
 LaTeX Info: Redefining \nameref on input line 187.
 
-(./Generlaization_Error.out) (./Generlaization_Error.out)
+(./PCA.out) (./PCA.out)
 \@outlinefile=\write6
-\openout6 = `Generlaization_Error.out'.
+\openout6 = `PCA.out'.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-basic-dictionary
@@ -1349,7 +1349,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
  187.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 187.
- (./Generlaization_Error.nav)
+ (./PCA.nav)
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
 (Font)              scaled to size 6.0pt on input line 187.
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
@@ -1361,88 +1361,66 @@ LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
  [1
 
 ]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 228
+LaTeX Font Info:    Trying to load font information for U+msa on input line 219
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 228
+LaTeX Font Info:    Trying to load font information for U+msb on input line 219
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 10.0pt on input line 228.
-LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 4.0pt on input line 228.
+(Font)              scaled to size 4.0pt on input line 219.
  [2
 
 ] [3
 
-] [4
+]
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
+(Font)              scaled to size 10.0pt on input line 270.
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
+(Font)              scaled to size 10.95pt on input line 270.
+ [4
+
+] [5
 
 ]
-File: Figs/high-variance.png Graphic file (type bmp)
-<Figs/high-variance.png>
-
-Overfull \hbox (21.9pt too wide) in paragraph at lines 322--322
-[] [] 
- []
-
-[5
-
-]
-File: Figs/high-bias.png Graphic file (type bmp)
-<Figs/high-bias.png>
-
-Overfull \hbox (21.9pt too wide) in paragraph at lines 348--348
-[] [] 
- []
-
 [6
 
 ]
-File: Figs/model-over-fitting.png Graphic file (type bmp)
-<Figs/model-over-fitting.png>
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
+(Font)              scaled to size 9.0pt on input line 311.
  [7
 
 ]
-File: Figs/bias_vs_variance.jpg Graphic file (type bmp)
-<Figs/bias_vs_variance.jpg>
- [8
-
-]
-LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
-(Font)              scaled to size 9.0pt on input line 375.
- [9
-
-]
 \tf@nav=\write7
-\openout7 = `Generlaization_Error.nav'.
+\openout7 = `PCA.nav'.
 
 \tf@toc=\write8
-\openout8 = `Generlaization_Error.toc'.
+\openout8 = `PCA.toc'.
 
 \tf@snm=\write9
-\openout9 = `Generlaization_Error.snm'.
+\openout9 = `PCA.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 380.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 380.
- (./Generlaization_Error.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 380.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 380.
-Package rerunfilecheck Info: File `Generlaization_Error.out' has not changed.
-(rerunfilecheck)             Checksum: 91957B463DA9C5DC5C79808917627483;49.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 316.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 316.
+ (./PCA.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 316.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 316.
+Package rerunfilecheck Info: File `PCA.out' has not changed.
+(rerunfilecheck)             Checksum: 8E7C80CB4F0D9E4326F0773E79AFB016;95.
  ) 
 Here is how much of TeX's memory you used:
- 33893 strings out of 479819
- 704753 string characters out of 5895846
- 1065460 words of memory out of 5000000
- 50278 multiletter control sequences out of 15000+600000
- 543480 words of font info for 88 fonts, out of 8000000 for 9000
+ 33838 strings out of 479819
+ 703286 string characters out of 5895846
+ 1065312 words of memory out of 5000000
+ 50230 multiletter control sequences out of 15000+600000
+ 543488 words of font info for 89 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 58i,22n,72p,806b,1250s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 58i,22n,71p,789b,1250s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Generlaization_Error.pdf (9 pages).
+Output written on PCA.pdf (7 pages).

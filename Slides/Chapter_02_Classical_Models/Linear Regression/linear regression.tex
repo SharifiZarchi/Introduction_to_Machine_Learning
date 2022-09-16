@@ -5,8 +5,6 @@
 
 \documentclass[compress,oilve]{beamer}
 \mode<presentation>
-\setbeamertemplate{itemize/enumerate body begin}{\normalsize}
-\setbeamertemplate{itemize/enumerate subbody begin}{\small}
 
 \usetheme[]{CambridgeUS}
 % other themes: AnnArbor, Antibes, Bergen, Berkeley, Berlin, Boadilla, boxes, CambridgeUS, Copenhagen, Darmstadt, default, Dresden, Frankfurt, Goettingen,
@@ -107,7 +105,7 @@
 
 %\setbeamertemplate{navigation symbols}{}
 
-\title{Generalization Error}
+\title{Linear regression}
 \author{ML Instruction Team, Fall 2022}
 \institute[]{CE Department \newline  Sharif University of Technology \newline \newline}
 \date[\today]{}
@@ -144,7 +142,7 @@
 
 \usefonttheme{professionalfonts} 
 \setbeamertemplate{itemize item}{\color{skyblue}$\blacksquare$}
-\setbeamertemplate{itemize subitem}{\color{hotpink}$\triangleright$}
+\setbeamertemplate{itemize subitem}{\color{hotpink}$\blacktriangleright$}
 \setbeamertemplate{itemize subsubitem}{\color{orange}$\bullet$}
 
 
@@ -154,16 +152,17 @@
 \usetikzlibrary{calc,trees,positioning,arrows,chains,shapes.geometric,decorations.pathreplacing,decorations.pathmorphing,shapes,matrix,shapes.symbols}
 
 
-\usepackage{xcolor}
-\newcommand{\tc}[2]{
-	\textcolor{#1}{#2}
-}
 
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{assumption}[theorem]{Assumption}
 
-%\usepackage{fontspec,unicode-math}
+\usepackage{xcolor}
+\newcommand{\tc}[2]{
+	\textcolor{#1}{#2}
+}
+
+%\usepackage{fontspec, unicode-math}
 %\setmainfont[Scale=0.9]{Nimbus Roman No9 L}
 %\setmonofont[Scale=0.9]{Monaco}
 \setsansfont[Scale=1]{Times New Roman}
@@ -171,8 +170,9 @@
 \newcommand{\vect}[1]{\boldsymbol{#1}}
 
 \definecolor{strings}{rgb}{.624,.251,.259}
-\definecolor{keywords}{rgb}{.893,.188,.01}
+\definecolor{keywords}{rgb}{.224,.451,.686}
 \definecolor{comment}{rgb}{.322,.451,.322}
+
 
 %\usepackage{smartdiagram}
 %\usesmartdiagramlibrary{additions}
@@ -193,182 +193,138 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Generalization}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{ML Cycle}
-	\begin{itemize}
-		\item In every ML project:
-		\begin{itemize}
-			\item You study the data.
-			
-			\item You select a model.
-			
-			\item You train it on the training data (i.e., it searches for model parameters that minimize a cost function).
-			
-			\item As a final step, you apply the model to predict new cases, which is called inference, and you expect the model\tc{keywords}{to generalize}well.
-		\end{itemize}
-	
-		\medskip					
-		\item In addition to predicting the training examples correctly, the model should also be capable of generalizing to new cases.
-		
-		\begin{itemize}
-			\item It is only through the application of a model to new cases that we can determine how well it will generalize.
-			
-			\medskip
-			\item Putting your model into production and monitoring how well it performs is one way to do that.
-			
-			\medskip
-			\item The more suitable strategy would be to divide your data into two sets: a\tc{keywords}{Training}set and a\tc{keywords}{Test}set.  
-		\end{itemize}
-
-		
-	\end{itemize}
-
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Measuring Generalization}
-		
-		\begin{itemize}
-			\item \tc{keywords}{Training Set:}which is used to train the model.
-			
-			\medskip
-			\item \tc{keywords}{Validation Set:} which is used to tune the hyperparameters of the model.
-			
-			\medskip
-			\item \tc{keywords}{Test Set:}which is used to measure the generalization performance.
-			
-			\medskip \item The losses on these subsets are called\tc{keywords}{training},\tc{keywords}{validation}, and\tc{keywords}{test}loss, respectively.
-			
-			\medskip
-			\item \tc{keywords}{Cost Function:}the average loss over the\tc{keywords}{training set}:
-			
-			\begin{equation*}
-				\frac{1}{N} \sum_{i=1}^N \mathcal{L}(y_i,\hat{y}_i)
-			\end{equation*}
-		
-			
-		\end{itemize}
-		
-	\begin{itemize}
-
-		\medskip
-		\item What is the purpose of the\tc{keywords}{hyperparameter tuning}in ML projects?
-	\end{itemize}
-
-
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Bias + Variance}
+\section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Formulation}
 	\begin{itemize}
 		
-		\item What are Bias and Variance:
+		\item We generally formulate the linear regression model in matrix form:
 		
-		\begin{itemize}
-			\item \tc{keywords}{Bias:}is commonly defined as the difference between the expected value of the estimator and the parameter that we want to estimate.
-			
-			\medskip
-			\item \tc{keywords}{Variance:}is defined as the difference between the expected value of the squared estimator minus the squared expectation of the estimator.
-			
-		\begin{equation*}
-			\operatorname{Bias}(\hat{\theta})=\mathbb{E}[\hat{\theta}]-\theta, \quad \operatorname{Var}(\hat{\theta})=\mathbb{E}[(\mathbb{E}[\hat{\theta}]-\hat{\theta})^2] .
+				\begin{equation*}
+			Y=X \beta+\epsilon
 		\end{equation*}
-				
-	\end{itemize}
-				
-		\item Bias-Variance Decomposition:
-		
-		$\operatorname{MSE}:=\mathbb{E}[(y-\hat{y})^2]$\\
-		$=\mathbb{E}[y^2+\hat{y}^2-2 y \hat{y}]$
-		$=\mathbb{E}[y^2]+\mathbb{E}[\hat{y}^2]-\mathbb{E}[y \hat{y}]$\\
-		$=\operatorname{Var}(y)+\mathbb{E}[y]^2+\operatorname{Var}[\hat{y}]+\mathbb{E}[\hat{y}]^2-2 y \mathbb{E}[\hat{y}]$\\
-		$=\operatorname{Var}(y)+\operatorname{Var}(\hat{y})+(y^2-2 y E[\hat{y}]+\mathbb{E}[\hat{y}]^2)$\\
-		$=\operatorname{Var}(y)+\operatorname{Var}(\hat{y})+(y-\mathbb{E}[\hat{y}])^2$\\
-		$=\varepsilon^2+\operatorname{Var}[\hat{y}]+\operatorname{Bias}[\hat{y}]^2$
-		
-	\end{itemize}
-
 	
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Overfitting}
+		where the target value $y_i$ can be evaluated by	
+		\begin{equation*}
+			y_i=\beta_0+\beta_1 x_{i 1}+\ldots+\beta_n x_{i n}+\epsilon_i
+		\end{equation*}
 	
-	\begin{itemize}
-		\item \tc{keywords}{Overfitting}means the model works well on training data, but it doesn't generalize well.
+			\item $Y$ represents a vector of length $n$ containing the observed values $Y=\left(y_1, \ldots, y_m\right)^T$
+	
+		\item $\beta$ is a vector for the parameters $\beta=\left(\beta_0, \ldots, \beta_n\right)^T$
 		
 		\medskip
-		\item Overfitting occurs when there is too much complexity in the model in comparison to the amount and noise in the training data.
+		\item $\epsilon$ is a vector for the errors
 		
-		\begin{figure}
-			\centering
-			\includegraphics[width=3cm, height=2cm]{Figs/high-variance.png}
-			\caption{High Variance, \href{https://tinyurl.com/2on8xr4o}{Source}}
-			\label{fig:high-variance}
-		\end{figure}
+		\medskip
+		$\epsilon=\left(\epsilon_1, \ldots, \epsilon_m\right)^T$
 		
-		\item How to fix this problem?
-		\begin{itemize}
-			\item Simplify the model by selecting one with fewer parameters, reducing the number of attributes in the training
-			data, or constraining the model.
-			\item Gather more training data.
-			\item Reduce the noise in the training data.
-			
-		\end{itemize}
+		\medskip
+		\item $X$ is a matrix of the features in which the column of ones incorporates the intercept.
 		
+		\begin{equation*}
+			X=\left(\begin{array}{ccccc}
+				1 & x_{11} & x_{12} & \ldots & x_{1 n} \\
+				1 & x_{21} & x_{22} & \ldots & x_{2 n} \\
+				\vdots & \vdots & \vdots & \ddots & \vdots \\
+				1 & x_{m 1} & x_{m 2} & \ldots & x_{m n}
+			\end{array}\right)
+		\end{equation*}
+
 	\end{itemize}	
-	
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Underfitting}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Optimization Problem}
+	\begin{itemize}
 	
+	\item One suitable estimator of $\beta$ should be the one minimizing the sum of the squared errors $\|\epsilon\|_2^2 = \sum_{i=1}^m \epsilon_i^2=\epsilon^T \epsilon_{.}$
+	
+		\begin{equation*}
+			\begin{aligned}
+				\sum_{i=1}^m \epsilon_i^2=\epsilon^T \epsilon &=(Y-X
+				\beta)^T(Y-X \beta) \\
+				&=Y^T Y-2 \beta X^T Y+\beta^T X^T X \beta
+			\end{aligned}
+		\end{equation*}	
+	\end{itemize}
+
+	
+	\begin{figure}
+			\includegraphics[width=7cm, height=4cm]{Figs/1.png}
+			\caption{Simple Linear Regression, \href{https://tinyurl.com/2fvj5eh9}{Source}}
+	\end{figure}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Non-Geometric Approach}
+	\begin{itemize} 
+	
+	\item \href{https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf}{Differentiating} this term and setting it to zero, we find that the estimate for $beta$, which minimizes the squared error, satisfies the so-called\tc{keywords}{Normal}equation:
+	\begin{equation*}
+		X^T X \hat{\beta}=X^T Y
+	\end{equation*}
+
+	\item Provided $X^T X$ is invertible,
+		\begin{equation*}
+			\hat{\beta}=\left(X^T X\right)^{-1} X^T Y
+		\end{equation*}
+
+	\item We can then get the fitted values, $\hat{Y}$, and residuals, $\hat{\epsilon}$,
+		\begin{equation*}
+			\begin{gathered}
+				\hat{Y}=X \hat{\beta}=X\left(X^T X\right)^{-1} X^T Y=H Y \\
+				\hat{\epsilon}=Y-X \hat{\beta}=Y-\hat{Y}=(I-H) Y
+			\end{gathered}
+		\end{equation*}
+	where the projection matrix $H=X\left(X^T X\right)^{-1} X^T$.
+
+	\end{itemize}
+
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Geometric Approach}
+	\begin{itemize} 
+		\item Another way of looking at this problem is to say we want a solution (our fitted values) that lies in the space spanned by $X$ become as close as possible to $Y$.
+		
+		\item In this way, the systematic component $X \hat{\beta}$ is the projection of $Y$ onto the space spanned by $X$, and the residuals are $Y-X \hat{\beta}$. 
+		
+			\begin{figure}[H]
+					\includegraphics[width=6cm, height=4cm]{Figs/2.png}
+					\caption{Geometric Approach of Linear Regression, \href{https://tinyurl.com/2zp8v79c}{Source}}
+			\end{figure}
+		
+	\end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Extended Versions}
 	\begin{itemize}
 		
-		\item\tc{keywords}{Underfitting}is the opposite of overfitting: it occurs when your model is too simple to learn the underlying structure of the data.
-		
-		\begin{figure}
-			\centering
-			\includegraphics[width=3cm, height=2cm]{Figs/high-bias.png}
-			\caption{High Variance, \href{https://tinyurl.com/2on8xr4o}{Source}}
-			\label{fig:high-bias}
-		\end{figure}
-		
-		\item The main options to fix this problem:
-		
-		\begin{itemize}
-			\item Selecting a more powerful model, with more parameters
-			\item Feeding better features to the learning algorithm (feature engineering)
-			\item Reducing the constraints on the model (e.g., reducing the regularization hyperparameter)
-		\end{itemize}
-		
-	\end{itemize}	
-	
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+		\item The Ridge estimate of the linear regression problem is defined as:
+		\begin{equation*}
+			\begin{aligned}
+				\hat{\beta}_{\text {Ridge }} &=\underset{\beta \in
+					\mathbb{R}^n}{\operatorname{argmin}}\|y-X \beta\|_2^2+\frac{1}{2}\lambda \sum_{j=1}^n\left|\beta_j\right|^2 \\
+				&=\underset{\beta \in \mathbb{R}^n}{\operatorname{argmin}} \| y-\left.X \beta\right|_2 ^2+\frac{1}{2}\lambda \|\beta\|_2^2
+			\end{aligned}
+		\end{equation*}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Overview}
-	
-	\begin{figure}
-		\includegraphics[width=12cm, height=5cm]{Figs/model-over-fitting.png}
-		\caption{Overfitting vs Underfitting, \href{https://tinyurl.com/2n4kj86u}{Source}}
-	\end{figure}
+	\item The Lasso estimate of the linear regression problem is defined as:
+		\begin{equation*}
+			\begin{aligned}
+				\hat{\beta}_{\text {Lasso }} &=\underset{\beta \in
+					\mathbb{R}^n}{\operatorname{argmin}}\|y-X \beta\|_2^2+\lambda \sum_{j=1}^n\left|\beta_j\right| \\
+				&=\underset{\beta \in \mathbb{R}^n}{\operatorname{argmin}} \| y-\left.X \beta\right|_2 ^2+\lambda \|\beta\|_1
+			\end{aligned}
+		\end{equation*}
+	\end{itemize}
 
 }
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Overview}
-	
-	\begin{figure}
-		\includegraphics[width=8cm, height=6cm]{Figs/bias_vs_variance.jpg}
-		\caption{Overfitting vs Underfitting, \href{https://tinyurl.com/2flpkzlm}{Source}}
-	\end{figure}
-	
-}
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frametitle{Final Notes}
 \centering
 \vspace{50 pt}

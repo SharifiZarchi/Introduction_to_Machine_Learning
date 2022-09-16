@@ -61,11 +61,11 @@
 
 %show the page numbers in footnote
 %\addtobeamertemplate{navigation symbols}{}{%
-%	\usebeamerfont{footline}%
-%	\usebeamercolor[fg]{footline}%
-%	\hspace{1em}%
-%	\insertframenumber/\inserttotalframenumber
-%}
+	%	\usebeamerfont{footline}%
+	%	\usebeamercolor[fg]{footline}%
+	%	\hspace{1em}%
+	%	\insertframenumber/\inserttotalframenumber
+	%}
 
 \setbeamercolor{footline}{fg=purpleish}
 \setbeamerfont{footline}{series=\bfseries}
@@ -107,7 +107,7 @@
 
 %\setbeamertemplate{navigation symbols}{}
 
-\title{Generalization Error}
+\title{PCA}
 \author{ML Instruction Team, Fall 2022}
 \institute[]{CE Department \newline  Sharif University of Technology \newline \newline}
 \date[\today]{}
@@ -193,182 +193,118 @@
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Generalization}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{ML Cycle}
+\section{Intuition}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Motivation}
 	\begin{itemize}
-		\item In every ML project:
-		\begin{itemize}
-			\item You study the data.
-			
-			\item You select a model.
-			
-			\item You train it on the training data (i.e., it searches for model parameters that minimize a cost function).
-			
-			\item As a final step, you apply the model to predict new cases, which is called inference, and you expect the model\tc{keywords}{to generalize}well.
-		\end{itemize}
-	
-		\medskip					
-		\item In addition to predicting the training examples correctly, the model should also be capable of generalizing to new cases.
+		\item PCA identifies one or more orthogonal directions that capture the greatest amount of variance in a feature matrix $X\in\mathbb{R}^{m\times n}$.
 		
-		\begin{itemize}
-			\item It is only through the application of a model to new cases that we can determine how well it will generalize.
-			
-			\medskip
-			\item Putting your model into production and monitoring how well it performs is one way to do that.
-			
-			\medskip
-			\item The more suitable strategy would be to divide your data into two sets: a\tc{keywords}{Training}set and a\tc{keywords}{Test}set.  
-		\end{itemize}
-
-		
-	\end{itemize}
-
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Measuring Generalization}
-		
-		\begin{itemize}
-			\item \tc{keywords}{Training Set:}which is used to train the model.
-			
-			\medskip
-			\item \tc{keywords}{Validation Set:} which is used to tune the hyperparameters of the model.
-			
-			\medskip
-			\item \tc{keywords}{Test Set:}which is used to measure the generalization performance.
-			
-			\medskip \item The losses on these subsets are called\tc{keywords}{training},\tc{keywords}{validation}, and\tc{keywords}{test}loss, respectively.
-			
-			\medskip
-			\item \tc{keywords}{Cost Function:}the average loss over the\tc{keywords}{training set}:
-			
-			\begin{equation*}
-				\frac{1}{N} \sum_{i=1}^N \mathcal{L}(y_i,\hat{y}_i)
-			\end{equation*}
-		
-			
-		\end{itemize}
-		
-	\begin{itemize}
-
 		\medskip
-		\item What is the purpose of the\tc{keywords}{hyperparameter tuning}in ML projects?
-	\end{itemize}
+		\item
+		Assuming zero-mean feature matrix $X\in\mathbb{R}^{m\times n}$, the variance of the samples' projections onto a\tc{keywords}{unit vector}$v$ is given by:
+		\begin{equation*}
+			\frac{1}{n} \sum_{i=1}^n(x_i^{t} v)^2=\frac{1}{n}\|X v\|^2=\frac{1}{n} v^{t} X^{t} X v
+		\end{equation*}
+	
+		\item In light of this consideration, we define the first desired vector $v_1$ as the solution to the constrained optimization problem:
+		\begin{equation*}
+			\max\limits_{\|v\|_2=1} v^{t} X^{t} X v
+		\end{equation*}
+	
+	\item We convert this constrained optimization problem into an unconstrained one by writing down its Lagrangian:
+	\begin{equation*}
+		\mathcal{L}(v):=v^{t} X^{t} X v-\lambda(v^{t} v-1)
+	\end{equation*}
+	\end{itemize}	
+}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{First PC}
+	\begin{itemize}
+		\item First-order necessary conditions for optimal value imply that:
+		\begin{equation*}
+			0=\nabla \mathcal{L}(v_1)=2 X^{t} X v_1-2 \lambda v_1
+		\end{equation*}
+	
+		\medskip
+		\item Since $X^{t} X v_1=\lambda v_1$, $v_1$ is an\tc{keywords}{eigenvector}of $X^{t} X$ with eigenvalue $\lambda$. 
+		
+		\medskip
+		\item Since we constrain $\|v_1\|_2^2=v_1^{t} v_1=1$, the value of the objective is precisely:
+		
+		\begin{equation*}
+			v_1^{t} X^{t} X v_1=v_1^{t}(\lambda v_1)=\lambda v_1^{t} v_1=\lambda
+		\end{equation*}
+	
+		\medskip
+		\item The\tc{keywords}{optimal value}is $\lambda=\lambda_{\max}(X^{t} X)$, which is achieved when $v_1$ is a\tc{keywords}{unit eigenvector}of $X^{t} X$ corresponding to its\tc{keywords}{largest}eigenvalue.
+		
+	\end{itemize}
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Bias + Variance}
-	\begin{itemize}
-		
-		\item What are Bias and Variance:
-		
-		\begin{itemize}
-			\item \tc{keywords}{Bias:}is commonly defined as the difference between the expected value of the estimator and the parameter that we want to estimate.
-			
-			\medskip
-			\item \tc{keywords}{Variance:}is defined as the difference between the expected value of the squared estimator minus the squared expectation of the estimator.
-			
-		\begin{equation*}
-			\operatorname{Bias}(\hat{\theta})=\mathbb{E}[\hat{\theta}]-\theta, \quad \operatorname{Var}(\hat{\theta})=\mathbb{E}[(\mathbb{E}[\hat{\theta}]-\hat{\theta})^2] .
-		\end{equation*}
-				
-	\end{itemize}
-				
-		\item Bias-Variance Decomposition:
-		
-		$\operatorname{MSE}:=\mathbb{E}[(y-\hat{y})^2]$\\
-		$=\mathbb{E}[y^2+\hat{y}^2-2 y \hat{y}]$
-		$=\mathbb{E}[y^2]+\mathbb{E}[\hat{y}^2]-\mathbb{E}[y \hat{y}]$\\
-		$=\operatorname{Var}(y)+\mathbb{E}[y]^2+\operatorname{Var}[\hat{y}]+\mathbb{E}[\hat{y}]^2-2 y \mathbb{E}[\hat{y}]$\\
-		$=\operatorname{Var}(y)+\operatorname{Var}(\hat{y})+(y^2-2 y E[\hat{y}]+\mathbb{E}[\hat{y}]^2)$\\
-		$=\operatorname{Var}(y)+\operatorname{Var}(\hat{y})+(y-\mathbb{E}[\hat{y}])^2$\\
-		$=\varepsilon^2+\operatorname{Var}[\hat{y}]+\operatorname{Bias}[\hat{y}]^2$
-		
-	\end{itemize}
-
+\section{PC Evaluation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{More PCs?}
+\begin{itemize}
+	\item How to find more direction with the desired property?
 	
+	\begin{itemize}
+		\item Ideally, the subsequent directions found should also be directions of high variance.
+		\item They should be orthogonal to the existing ones in order to minimize redundancy. 
+	\end{itemize}
 
+	\medskip
+	\item We define the $k$-th loading vector $v_k$ as the solution to the constrained optimization problem:
+	\begin{equation*}
+		\max\limits_{v} v^{t} X^{t} X v \hspace{8pt} \mbox{subject to} \hspace{8pt} v^{t} v=1,
+		v^{t} v_i=0, \quad i=1, \ldots, k-1
+	\end{equation*}
+	
+	
+	\item \textbf{Claim}: $v_k$ is a\tc{keywords}{unit eigenvector}of $X^{t} X$ corresponding to its $k$-th\tc{keywords}{largest}eigenvalue.
+	
+	\medskip
+	\item The unit vector that defines the $k$-th axis is called the $k$-th principal component (PC).
+\end{itemize}
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Overfitting}
-	
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Evaluation of PCs}
 	\begin{itemize}
-		\item \tc{keywords}{Overfitting}means the model works well on training data, but it doesn't generalize well.
+		\item Assuming the singular value decompositon of feature matrix $X$ as follows:
+			\begin{equation*}
+				\begin{aligned}
+					&X=U \Sigma V^T=\left[u_1, u_2, \cdots, u_r\right]\left[\begin{array}{ccccc}
+						\sigma_1 & & & 0 \\
+						& \sigma_2 & & \\
+						& & \ddots & \\
+						0 & & & \\
+						& & & & \sigma_r
+					\end{array}\right]\left[\begin{array}{c}
+						v_1^T \\
+						v_2^T \\
+						\vdots \\
+						v_r^T
+					\end{array}\right]
+				\end{aligned}
+			\end{equation*}
+
+			The first $k$ PCs are $W_k = [v_1, v_2, \cdots, v_k]$.
+			
+		\medskip
+		\item \tc{keywords}{Explained Variance Ratio}explains the proportion of the dataset’s variance that lies along the axis of each PC.
 		
 		\medskip
-		\item Overfitting occurs when there is too much complexity in the model in comparison to the amount and noise in the training data.
-		
-		\begin{figure}
-			\centering
-			\includegraphics[width=3cm, height=2cm]{Figs/high-variance.png}
-			\caption{High Variance, \href{https://tinyurl.com/2on8xr4o}{Source}}
-			\label{fig:high-variance}
-		\end{figure}
-		
-		\item How to fix this problem?
-		\begin{itemize}
-			\item Simplify the model by selecting one with fewer parameters, reducing the number of attributes in the training
-			data, or constraining the model.
-			\item Gather more training data.
-			\item Reduce the noise in the training data.
-			
-		\end{itemize}
-		
-	\end{itemize}	
+		\item PCA can also be viewed as the projection of the sample points to the subspace with the minimum perpendicular distance.
+	\end{itemize}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Other Derivation?}
+	
 	
 }
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Underfitting}
-	
-	\begin{itemize}
-		
-		\item\tc{keywords}{Underfitting}is the opposite of overfitting: it occurs when your model is too simple to learn the underlying structure of the data.
-		
-		\begin{figure}
-			\centering
-			\includegraphics[width=3cm, height=2cm]{Figs/high-bias.png}
-			\caption{High Variance, \href{https://tinyurl.com/2on8xr4o}{Source}}
-			\label{fig:high-bias}
-		\end{figure}
-		
-		\item The main options to fix this problem:
-		
-		\begin{itemize}
-			\item Selecting a more powerful model, with more parameters
-			\item Feeding better features to the learning algorithm (feature engineering)
-			\item Reducing the constraints on the model (e.g., reducing the regularization hyperparameter)
-		\end{itemize}
-		
-	\end{itemize}	
-	
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Overview}
-	
-	\begin{figure}
-		\includegraphics[width=12cm, height=5cm]{Figs/model-over-fitting.png}
-		\caption{Overfitting vs Underfitting, \href{https://tinyurl.com/2n4kj86u}{Source}}
-	\end{figure}
-
-}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Overview}
-	
-	\begin{figure}
-		\includegraphics[width=8cm, height=6cm]{Figs/bias_vs_variance.jpg}
-		\caption{Overfitting vs Underfitting, \href{https://tinyurl.com/2flpkzlm}{Source}}
-	\end{figure}
-	
-}
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frametitle{Final Notes}
 \centering
 \vspace{50 pt}
