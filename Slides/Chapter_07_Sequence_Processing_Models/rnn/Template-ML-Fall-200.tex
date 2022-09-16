@@ -105,7 +105,7 @@
 
 %\setbeamertemplate{navigation symbols}{}
 
-\title{Linear regression}
+\title{Recurrent Neural Networks}
 \author{ML Instruction Team, Fall 2022}
 \institute[]{CE Department \newline  Sharif University of Technology \newline \newline}
 \date[\today]{}
@@ -784,16 +784,13 @@ input (e.g. Machine Translation), what should we do?
 
 \begin{itemize}
         \item The context vector is \tc{keywords}{bottleneck}. 
-        By increasing the length of the input sequence, the model captures the essential information roughly. How to solve it? Attention! Define and use the the context vector better.
+        By increasing the length of the input sequence, the model captures the essential information roughly. How to solve it?
 \end{itemize}
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Encoder-Decoder Limitations}
 
-\begin{itemize}
-        \item Slow convergence in training. How to solve it? Teacher Forcing.
-\end{itemize}
 
 \begin{figure}[!h]
 \includegraphics[width=10cm]{Figs/tf_ende.eps}
@@ -830,12 +827,9 @@ input (e.g. Machine Translation), what should we do?
 
 \item  At the early stages of training, the predictions of the model are very bad. If we do not use Teacher Forcing, the hidden states of the model will be updated by a sequence of wrong predictions, \tc{keywords} {errors will accumulate}, and it is difficult for the model to learn from that.
 \vspace{5mm}
-\item The problem with RNNs is that we need previous time step output as input for next time step.
-\vspace{5mm}
-\item This technique allows us to prevent backpropagation through time which was complex and time-consuming.
-\vspace{5mm}
-\item With teacher forcing the model will be \tc{keywords} {trained faster}.
-\vspace{5mm}
+
+\item This technique allows us to prevent backpropagation through time which was complex and time-consuming. With teacher forcing the model will be \tc{keywords} {trained faster}.
+
 
 \end{itemize}
 
@@ -851,7 +845,8 @@ input (e.g. Machine Translation), what should we do?
 \end{figure}
 
 \begin{itemize}
-        \item By now, we have discussed some important elements of sequence-to-sequence models (e.g. Machine Translation), including word embedding, LSTM, encoder, decoder, context vector, and softmax. But, there is a missing part! The search strategy for inference.
+        \item By now, we have discussed some important elements of sequence-to-sequence models (e.g. Machine Translation), including word embedding, LSTM, encoder, decoder, context vector, and softmax.
+        \item But, there is a missing part! The search strategy for inference.
         $$
         \Hat{y_T}, \Hat{y_{T-1}}, ..., \Hat{y_1} = \underset{\Tilde{y_T}, \Tilde{y_{T-1}}, ..., \Tilde{y_1}}{\mathbin{argmax}} P(\Tilde{y_T}, \Tilde{y_{T-1}}, ..., \Tilde{y_1}|S)
         $$
@@ -866,7 +861,7 @@ input (e.g. Machine Translation), what should we do?
 \begin{itemize}
         \item \textbf{Exhaustive Search (Brute-force Search)}
         \\
-        Iterate over all possible combinations of $\Tilde{y_t}, \Tilde{y_{t-1}}, ..., \Tilde{y_1}$.
+        Iterate over all possible combinations of $\Tilde{y}_t, \Tilde{y}_{t-1}, ..., \Tilde{y}_1$.
         \vspace{3mm}
         \begin{itemize}
             \item T: Total Time Step (the number of decoder units)
@@ -977,19 +972,22 @@ $$ $$= 0.054$$
 
 \frame{\frametitle{References}
 
-\begin{itemize}
-
-\item https://lilianweng.github.io/posts/2018-06-24-attention/
-\vspace{3mm}
-\item https://mmuratarat.github.io/2019-02-07/bptt-of-rnn
-\vspace{3mm}
-\item https://d2l.ai/chapter\_recurrent-modern/encoder-decoder.html
-\vspace{3mm}
-\item https://d2l.ai/chapter\_recurrent-modern/seq2seq.html
-\vspace{3mm}
-\item https://d2l.ai/chapter\_recurrent-modern/beam-search.html
-\vspace{3mm}
-\end{itemize}
+% \begin{itemize}
+\bibliographystyle{plain}
+\renewcommand\refname{}
+\nocite{*}
+\bibliography{cites}
+% \item https://lilianweng.github.io/posts/2018-06-24-attention/
+% \vspace{3mm}
+% \item https://mmuratarat.github.io/2019-02-07/bptt-of-rnn
+% \vspace{3mm}
+% \item https://d2l.ai/chapter\_recurrent-modern/encoder-decoder.html
+% \vspace{3mm}
+% \item https://d2l.ai/chapter\_recurrent-modern/seq2seq.html
+% \vspace{3mm}
+% \item https://d2l.ai/chapter\_recurrent-modern/beam-search.html
+% \vspace{3mm}
+% \end{itemize}
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
