@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2022.8.26)  17 SEP 2022 15:23
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2022.8.26)  17 SEP 2022 15:18
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
-**PCA.tex
-(./PCA.tex
+**Metrics_for_classification_and_regression.tex
+(./Metrics_for_classification_and_regression.tex
 LaTeX2e <2020-02-02> patch level 2
 L3 programming layer <2020-02-14>
 (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamer.cls
@@ -897,7 +897,7 @@ elliptical arcs, loaded)
 Package: multimedia 2012/05/02 ver 0.02
 \mm@movie=\count333
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 130.
+Package hyperref Info: Option `colorlinks' set `true' on input line 128.
 
 (/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2019/05/31 v2.5 Span multiple rows of a table
@@ -966,7 +966,62 @@ X
 Package: fontenc 2020/02/11 v2.0o Standard LaTeX package
 )
 (/usr/share/texlive/texmf-dist/tex/latex/fontspec/fontspec.cfg)))
-(/usr/share/texlive/texmf-dist/tex/latex/anyfontsize/anyfontsize.sty
+(/usr/share/texlive/texmf-dist/tex/latex/svg/svg.sty
+Package: svg 2020/01/13 v2.02e (include SVG pictures)
+
+(/usr/share/texlive/texmf-dist/tex/latex/koma-script/scrbase.sty
+Package: scrbase 2020/01/24 v3.29 KOMA-Script package (KOMA-Script-independent 
+basics and keyval usage)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/tools/shellesc.sty
+Package: shellesc 2019/11/08 v1.0c unified shell escape interface for LaTeX
+Package shellesc Info: Unrestricted shell escape enabled on input line 75.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
+)
+\svg@box=\box126
+\c@svg@param@lastpage=\count353
+
+
+! LaTeX Error: Unknown option `clean' for package `svg'.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.595 \FamilyProcessOptions{SVG}
+                                
+The option `clean' was not declared in package `svg', perhaps you
+misspelled its name. Try typing  <return>  to proceed.
+
+\c@svg@param@currpage=\count354
+(/usr/share/texlive/texmf-dist/tex/latex/ifplatform/ifplatform.sty
+Package: ifplatform 2017/10/13 v0.4a Testing for the operating system
+
+(/usr/share/texlive/texmf-dist/tex/generic/catchfile/catchfile.sty
+Package: catchfile 2019/12/09 v1.8 Catch the contents of a file (HO)
+)
+(/usr/share/texlive/texmf-dist/tex/generic/iftex/ifluatex.sty
+Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
+)
+runsystem(uname -s > "Metrics_for_classification_and_regression.w18")...execute
+d.
+
+
+(./Metrics_for_classification_and_regression.w18)
+runsystem(rm -- "Metrics_for_classification_and_regression.w18")...executed.
+
+))
+(/usr/share/texlive/texmf-dist/tex/latex/transparent/transparent.sty
+Package: transparent 2019/11/29 v1.4 Transparency via pdfTeX's color stack (HO)
+
+
+
+Package transparent Warning: Loading aborted, because pdfTeX is not running in 
+PDF mode.
+
+) (/usr/share/texlive/texmf-dist/tex/latex/anyfontsize/anyfontsize.sty
 Invalid UTF-8 byte or sequence at line 3 replaced by U+FFFD.
 Invalid UTF-8 byte or sequence at line 3 replaced by U+FFFD.
 Package: anyfontsize 2007/11/22 anyfontsize.sty by pts
@@ -1000,7 +1055,7 @@ Package: tikz 2020/01/08 v3.1.5b (3.1.5b)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/pgflibraryplothandlers
 .code.tex
 File: pgflibraryplothandlers.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgf@plot@mark@count=\count353
+\pgf@plot@mark@count=\count355
 \pgfplotmarksize=\dimen337
 )
 \tikz@lastx=\dimen338
@@ -1011,22 +1066,22 @@ File: pgflibraryplothandlers.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 \tikz@lastmovetoy=\dimen343
 \tikzleveldistance=\dimen344
 \tikzsiblingdistance=\dimen345
-\tikz@figbox=\box126
-\tikz@figbox@bg=\box127
-\tikz@tempbox=\box128
-\tikz@tempbox@bg=\box129
-\tikztreelevel=\count354
-\tikznumberofchildren=\count355
-\tikznumberofcurrentchild=\count356
-\tikz@fig@count=\count357
+\tikz@figbox=\box127
+\tikz@figbox@bg=\box128
+\tikz@tempbox=\box129
+\tikz@tempbox@bg=\box130
+\tikztreelevel=\count356
+\tikznumberofchildren=\count357
+\tikznumberofcurrentchild=\count358
+\tikz@fig@count=\count359
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/modules/pgfmodulematrix.code.tex
 File: pgfmodulematrix.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfmatrixcurrentrow=\count358
-\pgfmatrixcurrentcolumn=\count359
-\pgf@matrix@numberofcolumns=\count360
+\pgfmatrixcurrentrow=\count360
+\pgfmatrixcurrentcolumn=\count361
+\pgf@matrix@numberofcolumns=\count362
 )
-\tikz@expandcount=\count361
+\tikz@expandcount=\count363
 
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarytopaths.code.tex
@@ -1076,11 +1131,11 @@ e.tex
 \pgfdecoratedinputsegmentcompleteddistance=\dimen349
 \pgfdecoratedinputsegmentremainingdistance=\dimen350
 \pgf@decorate@distancetomove=\dimen351
-\pgf@decorate@repeatstate=\count362
+\pgf@decorate@repeatstate=\count364
 \pgfdecorationsegmentamplitude=\dimen352
 \pgfdecorationsegmentlength=\dimen353
 )
-\tikz@lib@dec@box=\box130
+\tikz@lib@dec@box=\box131
 )
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/decorations/pgflibrary
 decorations.pathreplacing.code.tex))
@@ -1127,26 +1182,26 @@ File: tikzlibraryshapes.multipart.code.tex 2020/01/08 v3.1.5b (3.1.5b)
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/libraries/shapes/pgflibraryshape
 s.multipart.code.tex
 File: pgflibraryshapes.multipart.code.tex 2020/01/08 v3.1.5b (3.1.5b)
-\pgfnodepartlowerbox=\box131
-\pgfnodeparttwobox=\box132
-\pgfnodepartthreebox=\box133
-\pgfnodepartfourbox=\box134
-\pgfnodeparttwentybox=\box135
-\pgfnodepartnineteenbox=\box136
-\pgfnodeparteighteenbox=\box137
-\pgfnodepartseventeenbox=\box138
-\pgfnodepartsixteenbox=\box139
-\pgfnodepartfifteenbox=\box140
-\pgfnodepartfourteenbox=\box141
-\pgfnodepartthirteenbox=\box142
-\pgfnodeparttwelvebox=\box143
-\pgfnodepartelevenbox=\box144
-\pgfnodeparttenbox=\box145
-\pgfnodepartninebox=\box146
-\pgfnodeparteightbox=\box147
-\pgfnodepartsevenbox=\box148
-\pgfnodepartsixbox=\box149
-\pgfnodepartfivebox=\box150
+\pgfnodepartlowerbox=\box132
+\pgfnodeparttwobox=\box133
+\pgfnodepartthreebox=\box134
+\pgfnodepartfourbox=\box135
+\pgfnodeparttwentybox=\box136
+\pgfnodepartnineteenbox=\box137
+\pgfnodeparteighteenbox=\box138
+\pgfnodepartseventeenbox=\box139
+\pgfnodepartsixteenbox=\box140
+\pgfnodepartfifteenbox=\box141
+\pgfnodepartfourteenbox=\box142
+\pgfnodepartthirteenbox=\box143
+\pgfnodeparttwelvebox=\box144
+\pgfnodepartelevenbox=\box145
+\pgfnodeparttenbox=\box146
+\pgfnodepartninebox=\box147
+\pgfnodeparteightbox=\box148
+\pgfnodepartsevenbox=\box149
+\pgfnodepartsixbox=\box150
+\pgfnodepartfivebox=\box151
 )))
 (/usr/share/texlive/texmf-dist/tex/generic/pgf/frontendlayer/tikz/libraries/tik
 zlibrarymatrix.code.tex
@@ -1173,36 +1228,36 @@ Package fontspec Info: Font family 'TimesNewRoman(0)' created for font 'Times
 (fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 10.95pt on input line 170.
- (./PCA.aux)
-\openout1 = `PCA.aux'.
+(Font)              scaled to size 10.95pt on input line 168.
+ (./Metrics_for_classification_and_regression.aux)
+\openout1 = `Metrics_for_classification_and_regression.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 187.
-LaTeX Font Info:    ... okay on input line 187.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 187.
-LaTeX Font Info:    ... okay on input line 187.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 187.
-LaTeX Font Info:    ... okay on input line 187.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 187.
-LaTeX Font Info:    ... okay on input line 187.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 187.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 179.
+LaTeX Font Info:    ... okay on input line 179.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 179.
+LaTeX Font Info:    ... okay on input line 179.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 179.
+LaTeX Font Info:    ... okay on input line 179.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 179.
+LaTeX Font Info:    ... okay on input line 179.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 179.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 1
-87.
+79.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 187.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 187.
-LaTeX Font Info:    ... okay on input line 187.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 187.
-LaTeX Font Info:    ... okay on input line 187.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 187.
-LaTeX Font Info:    ... okay on input line 187.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 187.
-LaTeX Font Info:    ... okay on input line 187.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 187.
-LaTeX Font Info:    ... okay on input line 187.
+LaTeX Font Info:    ... okay on input line 179.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 179.
+LaTeX Font Info:    ... okay on input line 179.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 179.
+LaTeX Font Info:    ... okay on input line 179.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 179.
+LaTeX Font Info:    ... okay on input line 179.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 179.
+LaTeX Font Info:    ... okay on input line 179.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 179.
+LaTeX Font Info:    ... okay on input line 179.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -1239,8 +1294,8 @@ LaTeX Font Info:    ... okay on input line 187.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 ABD: EveryShipout initializing macros
-\AtBeginShipoutBox=\box151
-Package hyperref Info: Link coloring ON on input line 187.
+\AtBeginShipoutBox=\box152
+Package hyperref Info: Link coloring ON on input line 179.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -1251,15 +1306,16 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 (/usr/share/texlive/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count363
+\c@section@level=\count365
 )
-LaTeX Info: Redefining \ref on input line 187.
-LaTeX Info: Redefining \pageref on input line 187.
-LaTeX Info: Redefining \nameref on input line 187.
+LaTeX Info: Redefining \ref on input line 179.
+LaTeX Info: Redefining \pageref on input line 179.
+LaTeX Info: Redefining \nameref on input line 179.
 
-(./PCA.out) (./PCA.out)
+(./Metrics_for_classification_and_regression.out)
+(./Metrics_for_classification_and_regression.out)
 \@outlinefile=\write6
-\openout6 = `PCA.out'.
+\openout6 = `Metrics_for_classification_and_regression.out'.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-basic-dictionary
@@ -1287,7 +1343,7 @@ ry-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 )
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 6.0pt on input line 187.
+(Font)              scaled to size 6.0pt on input line 179.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 
@@ -1296,141 +1352,279 @@ Package fontspec Info: Adjusting the maths setup (use [no-math] to avoid
 
 \symlegacymaths=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
-(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 187.
-LaTeX Font Info:    Redeclaring math accent \acute on input line 187.
-LaTeX Font Info:    Redeclaring math accent \grave on input line 187.
-LaTeX Font Info:    Redeclaring math accent \ddot on input line 187.
-LaTeX Font Info:    Redeclaring math accent \tilde on input line 187.
-LaTeX Font Info:    Redeclaring math accent \bar on input line 187.
-LaTeX Font Info:    Redeclaring math accent \breve on input line 187.
-LaTeX Font Info:    Redeclaring math accent \check on input line 187.
-LaTeX Font Info:    Redeclaring math accent \hat on input line 187.
-LaTeX Font Info:    Redeclaring math accent \dot on input line 187.
-LaTeX Font Info:    Redeclaring math accent \mathring on input line 187.
-LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 187.
-LaTeX Font Info:    Redeclaring math symbol \Delta on input line 187.
-LaTeX Font Info:    Redeclaring math symbol \Theta on input line 187.
-LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 187.
-LaTeX Font Info:    Redeclaring math symbol \Xi on input line 187.
-LaTeX Font Info:    Redeclaring math symbol \Pi on input line 187.
-LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 187.
-LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 187.
-LaTeX Font Info:    Redeclaring math symbol \Phi on input line 187.
-LaTeX Font Info:    Redeclaring math symbol \Psi on input line 187.
-LaTeX Font Info:    Redeclaring math symbol \Omega on input line 187.
-LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 187.
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 187.
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 179.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 179.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 179.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 179.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 179.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 179.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 179.
+LaTeX Font Info:    Redeclaring math accent \check on input line 179.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 179.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 179.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 179.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 179.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 179.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 179.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 179.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 179.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 179.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 179.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 179.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 179.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 179.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 179.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 179.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 179.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 187.
+(Font)              `operators' in the math version `normal' on input line 179.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> TU/lmr/m/n on input line 187.
+(Font)                  OT1/cmr/m/n --> TU/lmr/m/n on input line 179.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 187.
+(Font)              `operators' in the math version `bold' on input line 179.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/m/n on input line 187.
+(Font)                  OT1/cmr/bx/n --> TU/lmr/m/n on input line 179.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  TU/lmr/m/n --> TU/lmr/m/n on input line 187.
+(Font)                  TU/lmr/m/n --> TU/lmr/m/n on input line 179.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> TU/lmr/m/it on input line 187.
+(Font)                  OT1/cmr/m/it --> TU/lmr/m/it on input line 179.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/b/n on input line 187.
+(Font)                  OT1/cmr/bx/n --> TU/lmr/b/n on input line 179.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
 (Font)                  OT1/cmss/m/n --> TU/TimesNewRoman(0)/m/n on input line 
-187.
+179.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 187.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 179.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  TU/lmr/m/n --> TU/lmr/b/n on input line 187.
+(Font)                  TU/lmr/m/n --> TU/lmr/b/n on input line 179.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> TU/lmr/b/it on input line 187.
+(Font)                  OT1/cmr/bx/it --> TU/lmr/b/it on input line 179.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
 (Font)                  OT1/cmss/bx/n --> TU/TimesNewRoman(0)/b/n on input line
- 187.
+ 179.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 187.
- (./PCA.nav)
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 179.
+ (./Metrics_for_classification_and_regression.nav)
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
-(Font)              scaled to size 6.0pt on input line 187.
+(Font)              scaled to size 6.0pt on input line 179.
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 9.0pt on input line 193.
+(Font)              scaled to size 9.0pt on input line 185.
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 14.4pt on input line 193.
+(Font)              scaled to size 14.4pt on input line 185.
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 193.
+(Font)              scaled to size 8.0pt on input line 185.
  [1
 
 ]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 219
+File: Figs/mnistDataset.png Graphic file (type bmp)
+<Figs/mnistDataset.png>
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
+(Font)              scaled to size 4.0pt on input line 226.
+ [2
+
+]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 235
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 219
+LaTeX Font Info:    Trying to load font information for U+msb on input line 235
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Overfull \hbox (11.81332pt too wide) detected at line 219
-[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 Xv\OT1/cmr/m/n/10.95 ) = \U/msb/m/n/1
-0.95 E\OT1/cmr/m/n/10.95 [(\OML/cmm/m/it/10.95 Xv \OMS/cmsy/m/n/10.95 ^^@ \U/ms
-b/m/n/10.95 E\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 Xv\OT1/cmr/m/n/10.95 ))[]]
- = [] [](\OML/cmm/m/it/10.95 x[]v\OT1/cmr/m/n/10.95 )[] = []\OMS/cmsy/m/n/10.95
- k\OML/cmm/m/it/10.95 Xv\OMS/cmsy/m/n/10.95 k[] \OT1/cmr/m/n/10.95 = []\OML/cmm
-/m/it/10.95 v[]X[]Xv
- []
-
-LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 4.0pt on input line 219.
-[2
-
-] [3
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
+(Font)              scaled to size 9.0pt on input line 235.
+ [3
 
 ]
-LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 10.0pt on input line 270.
-LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
-(Font)              scaled to size 10.95pt on input line 270.
+File: Figs/confMatrix.jpg Graphic file (type bmp)
+<Figs/confMatrix.jpg>
  [4
 
 ] [5
 
-] [6
-
-] [7
+]
+File: Figs/Precisionrecall.png Graphic file (type bmp)
+<Figs/Precisionrecall.png>
+ [6
 
 ]
-LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
-(Font)              scaled to size 9.0pt on input line 346.
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.329 }
+       
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+[7
+
+]
+File: Figs/classifyTNFP2.png Graphic file (type bmp)
+<Figs/classifyTNFP2.png>
  [8
 
 ]
+
+LaTeX Warning: File `Figs/decionfuncion.png' not found on input line 351.
+
+! Unable to load picture or PDF file 'Figs/decionfuncion.png'.
+<to be read again> 
+                   }
+l.351 }
+       
+The requested image couldn't be read because
+it was not a recognized image format.
+
+
+! Package graphics Error: Division by 0.
+
+See the graphics package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.351 }
+       
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+File: Figs/decionfuncion.png Graphic file (type bmp)
+<Figs/decionfuncion.png>
+[9
+
+]
+File: Figs/decisionFunction2.png Graphic file (type bmp)
+<Figs/decisionFunction2.png>
+ [10
+
+]
+
+! LaTeX Error: Something's wrong--perhaps a missing \item.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.384 }
+       
+Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+! LaTeX Error: There's no line here to end.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.384 }
+       
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+[11
+
+]
+! Undefined control sequence.
+\beamer@doifinframe ...mize} \item plots the \emp 
+                                                  {true positive rate} again...
+l.392 }
+       
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+! Undefined control sequence.
+\beamer@doifinframe ...ositive rate} against \emp 
+                                                  {false positive rate}. \it...
+l.392 }
+       
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+[12
+
+]
+
+LaTeX Warning: File `Figs/ROC.png' not found on input line 403.
+
+! Unable to load picture or PDF file 'Figs/ROC.png'.
+<to be read again> 
+                   }
+l.403 }
+       
+The requested image couldn't be read because
+it was not a recognized image format.
+
+
+! Package graphics Error: Division by 0.
+
+See the graphics package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.403 }
+       
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+File: Figs/ROC.png Graphic file (type bmp)
+<Figs/ROC.png>
+[13
+
+] [14
+
+]
+File: Figs/AUC.png Graphic file (type bmp)
+<Figs/AUC.png>
+ [15
+
+] [16
+
+] [17
+
+]
 \tf@nav=\write7
-\openout7 = `PCA.nav'.
+\openout7 = `Metrics_for_classification_and_regression.nav'.
 
 \tf@toc=\write8
-\openout8 = `PCA.toc'.
+\openout8 = `Metrics_for_classification_and_regression.toc'.
 
 \tf@snm=\write9
-\openout9 = `PCA.snm'.
+\openout9 = `Metrics_for_classification_and_regression.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 351.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 351.
- (./PCA.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 351.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 351.
-Package rerunfilecheck Info: File `PCA.out' has not changed.
-(rerunfilecheck)             Checksum: 8E7C80CB4F0D9E4326F0773E79AFB016;95.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 446.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 446.
+ (./Metrics_for_classification_and_regression.aux)
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 446.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 446.
+Package rerunfilecheck Info: File `Metrics_for_classification_and_regression.ou
+t' has not changed.
+(rerunfilecheck)             Checksum: 7734F83E1EAA9D041A65A41CECCB4C35;156.
  ) 
 Here is how much of TeX's memory you used:
- 33887 strings out of 479819
- 704398 string characters out of 5895846
- 1068289 words of memory out of 5000000
- 50273 multiletter control sequences out of 15000+600000
- 545041 words of font info for 96 fonts, out of 8000000 for 9000
+ 34682 strings out of 479819
+ 719907 string characters out of 5895846
+ 1104375 words of memory out of 5000000
+ 51007 multiletter control sequences out of 15000+600000
+ 540856 words of font info for 74 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 58i,22n,71p,789b,1251s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 58i,22n,72p,827b,1250s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on PCA.pdf (8 pages).
+Output written on Metrics_for_classification_and_regression.pdf (17 pages).
