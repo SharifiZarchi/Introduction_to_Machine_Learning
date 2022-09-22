@@ -5,6 +5,8 @@
 
 \documentclass[compress,oilve]{beamer}
 \mode<presentation>
+\setbeamertemplate{itemize/enumerate body begin}{\normalsize}
+\setbeamertemplate{itemize/enumerate subbody begin}{\small}
 
 \usetheme[]{CambridgeUS}
 % other themes: AnnArbor, Antibes, Bergen, Berkeley, Berlin, Boadilla, boxes, CambridgeUS, Copenhagen, Darmstadt, default, Dresden, Frankfurt, Goettingen,
@@ -142,7 +144,7 @@
 
 \usefonttheme{professionalfonts} 
 \setbeamertemplate{itemize item}{\color{skyblue}$\blacksquare$}
-\setbeamertemplate{itemize subitem}{\color{hotpink}$\blacktriangleright$}
+\setbeamertemplate{itemize subitem}{\color{hotpink}$\triangleright$}
 \setbeamertemplate{itemize subsubitem}{\color{orange}$\bullet$}
 
 
@@ -169,7 +171,7 @@
 \newcommand{\vect}[1]{\boldsymbol{#1}}
 
 \definecolor{strings}{rgb}{.624,.251,.259}
-\definecolor{keywords}{rgb}{.224,.451,.686}
+\definecolor{keywords}{rgb}{.893,.188,.01}
 \definecolor{comment}{rgb}{.322,.451,.322}
 
 %\usepackage{smartdiagram}
@@ -193,31 +195,65 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Generalization}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Measuring Generalization}
-	
+
+\frame{\frametitle{ML Cycle}
 	\begin{itemize}
+		\item In every ML project:
+		\begin{itemize}
+			\item You study the data.
 			
-		\item \tc{keywords}{Training Set:}A set of training examples the model is trained on.
+			\item You select a model.
+			
+			\item You train it on the training data (i.e., it searches for model parameters that minimize a cost function).
+			
+			\item As a final step, you apply the model to predict new cases, which is called inference, and you expect the model\tc{keywords}{to generalize}well.
+		\end{itemize}
+	
+		\medskip					
+		\item In addition to predicting the training examples correctly, the model should also be capable of generalizing to new cases.
 		
+		\begin{itemize}
+			\item It is only through the application of a model to new cases that we can determine how well it will generalize.
+			
+			\medskip
+			\item Putting your model into production and monitoring how well it performs is one way to do that.
+			
+			\medskip
+			\item The more suitable strategy would be to divide your data into two sets: a\tc{keywords}{Training}set and a\tc{keywords}{Test}set.  
+		\end{itemize}
+
+		
+	\end{itemize}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Measuring Generalization}
+		
+		\begin{itemize}
+			\item \tc{keywords}{Training Set:}which is used to train the model.
+			
+			\medskip
+			\item \tc{keywords}{Validation Set:} which is used to tune the hyperparameters of the model.
+			
+			\medskip
+			\item \tc{keywords}{Test Set:}which is used to measure the generalization performance.
+			
+			\medskip \item The losses on these subsets are called\tc{keywords}{training},\tc{keywords}{validation}, and\tc{keywords}{test}loss, respectively.
+			
+			\medskip
+			\item \tc{keywords}{Cost Function:}the average loss over the\tc{keywords}{training set}:
+			
+			\begin{equation*}
+				\frac{1}{N} \sum_{i=1}^N \mathcal{L}(y_i,\hat{y}_i)
+			\end{equation*}
+		
+			
+		\end{itemize}
+		
+	\begin{itemize}
+
 		\medskip
-		\item \tc{keywords}{Validation Set:} This dataset is used to tune hyperparameters such as the number of hidden units, or the learning rate.
-		
-		\medskip
-		\item \tc{keywords}{Test Set:}This dataset is used to measure the generalization performance.
-		
-		\medskip \item The losses on these subsets are called\tc{keywords}{training},\tc{keywords}{validation}, and\tc{keywords}{test}loss, respectively.
-		
-		\medskip
-		\item \tc{keywords}{Cost Function:}We can defined a cost function, the average loss over the \tc{keywords}{training set}as follows:
-		
-		\begin{equation*}
-			\frac{1}{N} \sum_{i=1}^N \mathcal{L}(y_i,\hat{y}_i)
-		\end{equation*}
-		
-		\item \tc{keywords}{Generalization Error:}In addition to predicting the training examples correctly, the model should also be capable of generalizing to new cases.
-		
-		\medskip
-		\item What is the purpose of the datasets above?
+		\item What is the purpose of the\tc{keywords}{hyperparameter tuning}in ML projects?
 	\end{itemize}
 
 
@@ -226,7 +262,7 @@
 \frame{\frametitle{Bias + Variance}
 	\begin{itemize}
 		
-		\item Define Bias and Variance:
+		\item What are Bias and Variance:
 		
 		\begin{itemize}
 			\item \tc{keywords}{Bias:}is commonly defined as the difference between the expected value of the estimator and the parameter that we want to estimate.
@@ -234,41 +270,67 @@
 			\medskip
 			\item \tc{keywords}{Variance:}is defined as the difference between the expected value of the squared estimator minus the squared expectation of the estimator.
 			
-			
-		\end{itemize}
 		\begin{equation*}
-			\operatorname{Bias}(\hat{\theta})=\mathbb{E}[\hat{\theta}]-\theta, \quad \operatorname{Var}(\hat{\theta})=\mathbb{E}\left[(\mathbb{E}[\hat{\theta}]-\hat{\theta})^2\right] .
+			\operatorname{Bias}(\hat{\theta})=\mathbb{E}[\hat{\theta}]-\theta, \quad \operatorname{Var}(\hat{\theta})=\mathbb{E}[(\mathbb{E}[\hat{\theta}]-\hat{\theta})^2] .
 		\end{equation*}
-	
-		\item Start with the squared error loss decomposition into bias and variance.
+				
+	\end{itemize}
+				
+		\item Bias-Variance Decomposition:
 		
-		\begin{equation*}
-			\begin{aligned}
-				&S=(y-\hat{y})^2\\
-				&(y-\hat{y})^2=(y-\mathbb{E}[\hat{y}]+\mathbb{E}[\hat{y}]-\hat{y})^2\\
-				&=(y-\mathbb{E}[\hat{y}])^2+(\mathbb{E}[\hat{y}]-y)^2+2(y-\mathbb{E}[\hat{y}])(\mathbb{E}[\hat{y}]-\hat{y}) .
-			\end{aligned}
-		\end{equation*}
-	
-		\item Employing the expectation on both sides:
-		\begin{equation*} 
-			\mathbb{E}[S] =\mathbb{E}[(y-\hat{y})^2]  =(y-\mathbb{E}[\hat{y}])^2+\mathbb{E}[(\mathbb{E}[\hat{y}]-\hat{y})^2]  =[\text{Bias}]^2+\text{Variance} 
-		\end{equation*}
+		$\operatorname{MSE}:=\mathbb{E}[(y-\hat{y})^2]$\\
+		$=\mathbb{E}[y^2+\hat{y}^2-2 y \hat{y}]$
+		$=\mathbb{E}[y^2]+\mathbb{E}[\hat{y}^2]-\mathbb{E}[y \hat{y}]$\\
+		$=\operatorname{Var}(y)+\mathbb{E}[y]^2+\operatorname{Var}[\hat{y}]+\mathbb{E}[\hat{y}]^2-2 y \mathbb{E}[\hat{y}]$\\
+		$=\operatorname{Var}(y)+\operatorname{Var}(\hat{y})+(y^2-2 y E[\hat{y}]+\mathbb{E}[\hat{y}]^2)$\\
+		$=\operatorname{Var}(y)+\operatorname{Var}(\hat{y})+(y-\mathbb{E}[\hat{y}])^2$\\
+		$=\varepsilon^2+\operatorname{Var}[\hat{y}]+\operatorname{Bias}[\hat{y}]^2$
+		
 	\end{itemize}
 
 	
 
 }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Overfitting}
+	
+	\begin{itemize}
+		\item \tc{keywords}{Overfitting}means the model works well on training data, but it doesn't generalize well.
+		
+		\medskip
+		\item Overfitting occurs when there is too much complexity in the model in comparison to the amount and noise in the training data.
+		
+		\begin{figure}
+			\centering
+			\includegraphics[width=3cm, height=2cm]{Figs/high-variance.png}
+			\caption{High Variance, \href{https://tinyurl.com/2on8xr4o}{Source}}
+			\label{fig:high-variance}
+		\end{figure}
+		
+		\item How to fix this problem?
+		\begin{itemize}
+			\item Simplify the model by selecting one with fewer parameters, reducing the number of attributes in the training
+			data, or constraining the model.
+			\item Gather more training data.
+			\item Reduce the noise in the training data.
+			
+		\end{itemize}
+		
+	\end{itemize}	
+	
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Underfitting}
 	
 	\begin{itemize}
 		
-		\item \tc{keywords}{Underfitting}is the opposite of overfitting: it occurs when your model is too simple to learn the underlying structure of the data.
+		\item\tc{keywords}{Underfitting}is the opposite of overfitting: it occurs when your model is too simple to learn the underlying structure of the data.
 		
 		\begin{figure}
 			\centering
-			\includegraphics[width=4cm, height=2.5cm]{Figs/high-bias.png}
+			\includegraphics[width=3cm, height=2cm]{Figs/high-bias.png}
 			\caption{High Variance, \href{https://tinyurl.com/2on8xr4o}{Source}}
 			\label{fig:high-bias}
 		\end{figure}
@@ -285,33 +347,6 @@
 	
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Overfitting}
-		
-\begin{itemize}
-    \item \tc{keywords}{Overfitting}means the model works well on training data, but it doesn't generalize well.
-    
-    \medskip
-    \item Overfitting occurs when there is too much complexity in the model in comparison to the amount and noise in the training data.
-    
-    \begin{figure}
-    	\centering
-    	\includegraphics[width=4cm, height=2.5cm]{Figs/high-variance.png}
-    	\caption{High Variance, \href{https://tinyurl.com/2on8xr4o}{Source}}
-    	\label{fig:high-variance}
-    \end{figure}
-    
-    \item Three practical solutions:
-    \begin{itemize}
-    	\item Simplify the model by selecting one with fewer parameters, reducing the number of attributes in the training
-    	data, or constraining the model.
-    	\item Gather more training data.
-    	\item Reduce the noise in the training data.
-    	
-    \end{itemize}
-    
-\end{itemize}	
-	
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Overview}

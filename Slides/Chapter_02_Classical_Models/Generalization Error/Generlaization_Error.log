@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2022.8.26)  11 SEP 2022 23:01
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2022.8.26)  14 SEP 2022 02:46
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -897,7 +897,7 @@ elliptical arcs, loaded)
 Package: multimedia 2012/05/02 ver 0.02
 \mm@movie=\count333
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 128.
+Package hyperref Info: Option `colorlinks' set `true' on input line 130.
 
 (/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2019/05/31 v2.5 Span multiple rows of a table
@@ -1173,36 +1173,36 @@ Package fontspec Info: Font family 'TimesNewRoman(0)' created for font 'Times
 (fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 10.95pt on input line 168.
+(Font)              scaled to size 10.95pt on input line 170.
  (./Generlaization_Error.aux)
 \openout1 = `Generlaization_Error.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 185.
-LaTeX Font Info:    ... okay on input line 185.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 185.
-LaTeX Font Info:    ... okay on input line 185.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 185.
-LaTeX Font Info:    ... okay on input line 185.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 185.
-LaTeX Font Info:    ... okay on input line 185.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 185.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 187.
+LaTeX Font Info:    ... okay on input line 187.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 187.
+LaTeX Font Info:    ... okay on input line 187.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 187.
+LaTeX Font Info:    ... okay on input line 187.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 187.
+LaTeX Font Info:    ... okay on input line 187.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 187.
 LaTeX Font Info:    Trying to load font information for TS1+cmr on input line 1
-85.
+87.
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 185.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 185.
-LaTeX Font Info:    ... okay on input line 185.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 185.
-LaTeX Font Info:    ... okay on input line 185.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 185.
-LaTeX Font Info:    ... okay on input line 185.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 185.
-LaTeX Font Info:    ... okay on input line 185.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 185.
-LaTeX Font Info:    ... okay on input line 185.
+LaTeX Font Info:    ... okay on input line 187.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 187.
+LaTeX Font Info:    ... okay on input line 187.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 187.
+LaTeX Font Info:    ... okay on input line 187.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 187.
+LaTeX Font Info:    ... okay on input line 187.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 187.
+LaTeX Font Info:    ... okay on input line 187.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 187.
+LaTeX Font Info:    ... okay on input line 187.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -1240,7 +1240,7 @@ LaTeX Font Info:    ... okay on input line 185.
 
 ABD: EveryShipout initializing macros
 \AtBeginShipoutBox=\box151
-Package hyperref Info: Link coloring ON on input line 185.
+Package hyperref Info: Link coloring ON on input line 187.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2019/09/16 v2.46 Cross-referencing by name of section
@@ -1253,9 +1253,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count363
 )
-LaTeX Info: Redefining \ref on input line 185.
-LaTeX Info: Redefining \pageref on input line 185.
-LaTeX Info: Redefining \nameref on input line 185.
+LaTeX Info: Redefining \ref on input line 187.
+LaTeX Info: Redefining \pageref on input line 187.
+LaTeX Info: Redefining \nameref on input line 187.
 
 (./Generlaization_Error.out) (./Generlaization_Error.out)
 \@outlinefile=\write6
@@ -1287,7 +1287,7 @@ ry-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
 )
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 6.0pt on input line 185.
+(Font)              scaled to size 6.0pt on input line 187.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 
@@ -1296,128 +1296,127 @@ Package fontspec Info: Adjusting the maths setup (use [no-math] to avoid
 
 \symlegacymaths=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
-(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 185.
-LaTeX Font Info:    Redeclaring math accent \acute on input line 185.
-LaTeX Font Info:    Redeclaring math accent \grave on input line 185.
-LaTeX Font Info:    Redeclaring math accent \ddot on input line 185.
-LaTeX Font Info:    Redeclaring math accent \tilde on input line 185.
-LaTeX Font Info:    Redeclaring math accent \bar on input line 185.
-LaTeX Font Info:    Redeclaring math accent \breve on input line 185.
-LaTeX Font Info:    Redeclaring math accent \check on input line 185.
-LaTeX Font Info:    Redeclaring math accent \hat on input line 185.
-LaTeX Font Info:    Redeclaring math accent \dot on input line 185.
-LaTeX Font Info:    Redeclaring math accent \mathring on input line 185.
-LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 185.
-LaTeX Font Info:    Redeclaring math symbol \Delta on input line 185.
-LaTeX Font Info:    Redeclaring math symbol \Theta on input line 185.
-LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 185.
-LaTeX Font Info:    Redeclaring math symbol \Xi on input line 185.
-LaTeX Font Info:    Redeclaring math symbol \Pi on input line 185.
-LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 185.
-LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 185.
-LaTeX Font Info:    Redeclaring math symbol \Phi on input line 185.
-LaTeX Font Info:    Redeclaring math symbol \Psi on input line 185.
-LaTeX Font Info:    Redeclaring math symbol \Omega on input line 185.
-LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 185.
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 185.
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 187.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 187.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 187.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 187.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 187.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 187.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 187.
+LaTeX Font Info:    Redeclaring math accent \check on input line 187.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 187.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 187.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 187.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 187.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 187.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 187.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 187.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 187.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 187.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 187.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 187.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 187.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 187.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 187.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 187.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 187.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 185.
+(Font)              `operators' in the math version `normal' on input line 187.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> TU/lmr/m/n on input line 185.
+(Font)                  OT1/cmr/m/n --> TU/lmr/m/n on input line 187.
 LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 185.
+(Font)              `operators' in the math version `bold' on input line 187.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/m/n on input line 185.
+(Font)                  OT1/cmr/bx/n --> TU/lmr/m/n on input line 187.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  TU/lmr/m/n --> TU/lmr/m/n on input line 185.
+(Font)                  TU/lmr/m/n --> TU/lmr/m/n on input line 187.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> TU/lmr/m/it on input line 185.
+(Font)                  OT1/cmr/m/it --> TU/lmr/m/it on input line 187.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/b/n on input line 185.
+(Font)                  OT1/cmr/bx/n --> TU/lmr/b/n on input line 187.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
 (Font)                  OT1/cmss/m/n --> TU/TimesNewRoman(0)/m/n on input line 
-185.
+187.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 185.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 187.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  TU/lmr/m/n --> TU/lmr/b/n on input line 185.
+(Font)                  TU/lmr/m/n --> TU/lmr/b/n on input line 187.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> TU/lmr/b/it on input line 185.
+(Font)                  OT1/cmr/bx/it --> TU/lmr/b/it on input line 187.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
 (Font)                  OT1/cmss/bx/n --> TU/TimesNewRoman(0)/b/n on input line
- 185.
+ 187.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 185.
+(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 187.
  (./Generlaization_Error.nav)
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
-(Font)              scaled to size 6.0pt on input line 185.
+(Font)              scaled to size 6.0pt on input line 187.
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 9.0pt on input line 191.
+(Font)              scaled to size 9.0pt on input line 193.
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 14.4pt on input line 191.
+(Font)              scaled to size 14.4pt on input line 193.
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 191.
+(Font)              scaled to size 8.0pt on input line 193.
  [1
 
 ]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 224
+LaTeX Font Info:    Trying to load font information for U+msa on input line 228
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 224
+LaTeX Font Info:    Trying to load font information for U+msb on input line 228
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 4.0pt on input line 224.
+(Font)              scaled to size 10.0pt on input line 228.
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
+(Font)              scaled to size 4.0pt on input line 228.
  [2
 
-]
-LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 10.0pt on input line 261.
-LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 261.
- [3
+] [3
 
-]
-File: Figs/high-bias.png Graphic file (type bmp)
-<Figs/high-bias.png>
-
-Overfull \hbox (21.9pt too wide) in paragraph at lines 286--286
-[] [] 
- []
-
-[4
+] [4
 
 ]
 File: Figs/high-variance.png Graphic file (type bmp)
 <Figs/high-variance.png>
 
-Overfull \hbox (21.9pt too wide) in paragraph at lines 314--314
+Overfull \hbox (21.9pt too wide) in paragraph at lines 322--322
 [] [] 
  []
 
 [5
 
 ]
+File: Figs/high-bias.png Graphic file (type bmp)
+<Figs/high-bias.png>
+
+Overfull \hbox (21.9pt too wide) in paragraph at lines 348--348
+[] [] 
+ []
+
+[6
+
+]
 File: Figs/model-over-fitting.png Graphic file (type bmp)
 <Figs/model-over-fitting.png>
- [6
+ [7
 
 ]
 File: Figs/bias_vs_variance.jpg Graphic file (type bmp)
 <Figs/bias_vs_variance.jpg>
- [7
+ [8
 
 ]
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
-(Font)              scaled to size 9.0pt on input line 340.
- [8
+(Font)              scaled to size 9.0pt on input line 375.
+ [9
 
 ]
 \tf@nav=\write7
@@ -1429,21 +1428,21 @@ LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
 \tf@snm=\write9
 \openout9 = `Generlaization_Error.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 345.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 345.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 380.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 380.
  (./Generlaization_Error.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 345.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 345.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 380.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 380.
 Package rerunfilecheck Info: File `Generlaization_Error.out' has not changed.
 (rerunfilecheck)             Checksum: 91957B463DA9C5DC5C79808917627483;49.
  ) 
 Here is how much of TeX's memory you used:
- 33889 strings out of 479819
- 704777 string characters out of 5895846
- 1065416 words of memory out of 5000000
- 50273 multiletter control sequences out of 15000+600000
- 541942 words of font info for 83 fonts, out of 8000000 for 9000
+ 33893 strings out of 479819
+ 704753 string characters out of 5895846
+ 1065460 words of memory out of 5000000
+ 50278 multiletter control sequences out of 15000+600000
+ 543480 words of font info for 88 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  58i,22n,72p,806b,1250s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Generlaization_Error.pdf (8 pages).
+Output written on Generlaization_Error.pdf (9 pages).
