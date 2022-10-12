@@ -1,0 +1,24 @@
+Model: "Convolutional_Model"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ Conv_Layer_1 (Conv2D)       (None, 30, 30, 32)        896       
+                                                                 
+ Max_Pool_1 (MaxPooling2D)   (None, 15, 15, 32)        0         
+                                                                 
+ Conv_Layer_2 (Conv2D)       (None, 13, 13, 64)        18496     
+                                                                 
+ Conv_Layer_3 (Conv2D)       (None, 11, 11, 128)       73856     
+                                                                 
+ Flatten (Flatten)           (None, 15488)             0         
+                                                                 
+ Dense_Flat_1 (Dense)        (None, 128)               1982592   
+                                                                 
+ Softmax_Output_Layer (Dense  (None, 10)               1290      
+ )                                                               
+                                                                 
+=================================================================
+Total params: 2,077,130
+Trainable params: 2,077,130
+Non-trainable params: 0
+_________________________________________________________________

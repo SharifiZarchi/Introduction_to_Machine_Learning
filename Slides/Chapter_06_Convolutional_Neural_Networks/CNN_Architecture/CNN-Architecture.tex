@@ -40,6 +40,90 @@
 \definecolor{olive}{cmyk}{0.64,0,0.95,0.4}
 \definecolor{purpleish}{cmyk}{0.75,0.75,0,0}
 
+
+% % Define a custom color
+% \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+% \definecolor{codegreen}{rgb}{0,0.6,0}
+
+% \usepackage{listings}
+
+% % Define a custom style
+% \lstdefinestyle{myStyle}{
+%     backgroundcolor=\color{backcolour},   
+%     commentstyle=\color{codegreen},
+%     basicstyle=\ttfamily\tinytosmallsize,
+%     breakatwhitespace=false,         
+%     breaklines=true,                 
+%     keepspaces=true,                 
+%     numbers=left,       
+%     numbersep=5pt,                  
+%     showspaces=false,                
+%     showstringspaces=false,
+%     showtabs=false,                  
+%     tabsize=2,
+% }
+
+% % Use \lstset to make myStyle the global default
+% \lstset{style=myStyle}
+% color def
+\usepackage{color}
+\definecolor{darkred}{rgb}{0.6,0.0,0.0}
+\definecolor{darkgreen}{rgb}{0,0.50,0}
+\definecolor{lightblue}{rgb}{0.0,0.42,0.91}
+\definecolor{orange}{rgb}{0.99,0.48,0.13}
+\definecolor{grass}{rgb}{0.18,0.80,0.18}
+\definecolor{pink}{rgb}{0.97,0.15,0.45}
+
+% listings
+\usepackage{listings}
+
+% General Setting of listings
+\lstset{
+  aboveskip=1em,
+  breaklines=true,
+  abovecaptionskip=5pt,
+  captionpos=b,
+  escapeinside={\%*}{*)},
+  frame=single,
+  numbers=left,
+  numbersep=15pt,
+  numberstyle=\tiny,
+}
+% 0. Basic Color Theme
+\lstdefinestyle{colored}{ %
+  basicstyle=\ttfamily,
+  backgroundcolor=\color{white},
+  commentstyle=\color{green}\itshape,
+  keywordstyle=\color{blue}\bfseries\itshape,
+  stringstyle=\color{red},
+}
+% 1. General Python Keywords List
+\lstdefinelanguage{PythonPlus}[]{Python}{
+  morekeywords=[1]{,as,assert,nonlocal,with,yield,self,True,False,None,} % Python builtin
+  morekeywords=[2]{,__init__,__add__,__mul__,__div__,__sub__,__call__,__getitem__,__setitem__,__eq__,__ne__,__nonzero__,__rmul__,__radd__,__repr__,__str__,__get__,__truediv__,__pow__,__name__,__future__,__all__,}, % magic methods
+  morekeywords=[3]{,object,type,isinstance,copy,deepcopy,zip,enumerate,reversed,list,set,len,dict,tuple,range,xrange,append,execfile,real,imag,reduce,str,repr,}, % common functions
+  morekeywords=[4]{,Exception,NameError,IndexError,SyntaxError,TypeError,ValueError,OverflowError,ZeroDivisionError,}, % errors
+  morekeywords=[5]{,ode,fsolve,sqrt,exp,sin,cos,arctan,arctan2,arccos,pi, array,norm,solve,dot,arange,isscalar,max,sum,flatten,shape,reshape,find,any,all,abs,plot,linspace,legend,quad,polyval,polyfit,hstack,concatenate,vstack,column_stack,empty,zeros,ones,rand,vander,grid,pcolor,eig,eigs,eigvals,svd,qr,tan,det,logspace,roll,min,mean,cumsum,cumprod,diff,vectorize,lstsq,cla,eye,xlabel,ylabel,squeeze,}, % numpy / math
+}
+% 2. New Language based on Python
+\lstdefinelanguage{PyBrIM}[]{PythonPlus}{
+  emph={d,E,a,Fc28,Fy,Fu,D,des,supplier,Material,Rectangle,PyElmt},
+}
+% 3. Extended theme
+\lstdefinestyle{colorEX}{
+  basicstyle=\ttfamily,
+  backgroundcolor=\color{white},
+  commentstyle=\color{darkgreen}\slshape,
+  keywordstyle=\color{blue}\bfseries\itshape,
+  keywordstyle=[2]\color{blue}\bfseries,
+  keywordstyle=[3]\color{grass},
+  keywordstyle=[4]\color{red},
+  keywordstyle=[5]\color{orange},
+  stringstyle=\color{darkred},
+  emphstyle=\color{pink}\underbar,
+}
+\lstset{style=colored}
+
 % can also choose different themes for the "inside" and "outside"
 
 % \usepackage{beamerinnertheme_______}
@@ -212,10 +296,22 @@
 
 \frame{\frametitle{Brief History of Computer Vision}
 
-\Large{What is Computer Vision?}
+\begin{itemize}
+    \item \Large{What is Computer Vision?}
+\end{itemize}
+% \Large{What is Computer Vision?}
+
+% \begin{figure}
+%   \centering
+%   \vspace{-1cm}
+%   \includegraphics[width=10cm, height=7cm]{Figs/IG-Concave.png}
+%   \caption{Concavity of Entropy, \href{https://tinyurl.com/2zcn3bbx}{Source}}
+%   \label{fig:information gain-concave}
+%  \end{figure}
 
 \begin{figure}
 \centering
+\vspace{-0.3cm}
 \begin{minipage}{.5\textwidth}
   \centering
     \includegraphics[width=0.65\columnwidth]{images/intro1.jpeg} \caption{\href{https://alexeyab84.medium.com/yolov4-the-most-accurate-real-time-neural-network-on-ms-coco-dataset-73adfd3602fe}{Source}}
@@ -234,11 +330,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Brief History of Computer Vision}
-
-\Large{Before Deep Learning:} \large{\tc{keywords}{Hand-Crafted Features}}
+\begin{itemize}
+    \item \Large{Before Deep Learning:} \large{\tc{keywords}{Hand-Crafted Features}}
+\end{itemize}
 
 \begin{figure}
     \centering
+    \vspace{-0.3cm}
+
     \includegraphics[width=0.8\columnwidth]{images/intro4.jpg} \caption{\cite{featureextrac2013}}
 \end{figure}
 }
@@ -247,10 +346,13 @@
 
 \frame{\frametitle{Brief History of Computer Vision}
 
-\Large{Before Deep Learning:} \large{\tc{keywords}{Hand-Crafted Features}}
+\begin{itemize}
+    \item \Large{Before Deep Learning:} \large{\tc{keywords}{Hand-Crafted Features}}
+\end{itemize}
 
 \begin{figure}
     \centering
+    \vspace{-0.3cm}
     \includegraphics[width=0.9\columnwidth]{images/intro5.jpg}
     \caption{\cite{wang_see_phan_oh_2015}}
 \end{figure}
@@ -260,10 +362,13 @@
 
 \frame{\frametitle{Brief History of Computer Vision}
 
-\Large{Effect of Deep Learning:} \large{\tc{keywords}{Comparison between Deep Learning and Traditional Models}}
+\begin{itemize}
+    \item \Large{Effect of Deep Learning:} \large{\tc{keywords}{Comparison between Deep Learning and Traditional Models}}
+\end{itemize}
 
 \begin{figure}
     \centering
+    \vspace{-0.3cm}
     \includegraphics[width=0.85\columnwidth]{images/intro6.png}
     \caption{ImageNet Competetion Results Over Time, \href{https://semiengineering.com/new-vision-technologies-for-real-world-applications/}{Source}}
 \end{figure}
@@ -273,12 +378,15 @@
 
 \frame{\frametitle{CNNs}
 
-\Large{What we've been using:}
-\newline\newline
-\large{- Fully Connected Layers}
-\newline
+\begin{itemize}
+    \item \Large{What we've been using:}
+    \begin{itemize}
+        \item \large{Fully Connected Layers}
+    \end{itemize}
+\end{itemize}
 \begin{figure}
     \centering
+    \vspace{-0.2cm}
     \includesvg[width=1\columnwidth]{images/nn.svg}
 \end{figure}
 }
@@ -289,13 +397,17 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{CNNs}
+\begin{itemize}
+    \item \Large{What we're going to learn:}
+    \begin{itemize}
+        \item \large{Convolutional Layer}
+    \end{itemize}
+\end{itemize}
 
-\Large{What we're going to learn:}
-\newline\newline
-\large{- Convolutional Layer}
-\newline
 \begin{figure}
     \centering
+    \vspace{-0.3cm}
+
     \includesvg[width=0.6\columnwidth]{images/CNN1.svg}
 \end{figure}
 
@@ -304,105 +416,183 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{CNNs vs. FCNs}
-\centering\Large{First of all...}
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{CNNs vs. FCNs}
-\centering\large{Why use ConvNets instead of Fully Connected Networks with images?}
+\centering
+\begin{itemize}
+    \item \Large{First of all...}
+\end{itemize}
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{CNNs vs. FCNs}
-\centering\Large{Let's do an experiment.}
-}
+% \centering\Large{First of all...}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{CNNs vs. FCNs}
-\centering\Large{We're going to use the CIFAR10 dataset}
+\centering
+\begin{itemize}
+    \item \Large{First of all...}
+    \begin{itemize}
+        \item \large{Why use ConvNets instead of Fully Connected Networks with images?}
+    \end{itemize}
+\end{itemize}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{CNNs vs. FCNs}
+\centering
+\begin{itemize}
+    \item \Large{First of all...}
+    \begin{itemize}
+        \item \large{Why use ConvNets instead of Fully Connected Networks with images?}
+        \begin{itemize}
+            \item \Large{Let's do an experiment.}
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\centering
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{CNNs vs. FCNs}
+\begin{itemize}
+    \item \Large{We're going to use the CIFAR10 dataset}
+\end{itemize}
+% \begin{figure}
+    % \centering
+    % \vspace{-0.3cm}
+\lstinputlisting[language=Python]{Code/cifar10.py}
+
+% \end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{CNNs vs. FCNs}
+\begin{itemize}
+    \item \Large{We're going to use the CIFAR10 dataset}
+\end{itemize}
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\columnwidth]{images/intro8.png}
+    \vspace{-0.3cm}
+    \includegraphics[width=0.5\columnwidth]{images/cifar10.png}
 \end{figure}
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{CNNs vs. FCNs}
-\centering\Large{We're going to use the CIFAR10 dataset}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.7\columnwidth]{images/intro7.png}
-\end{figure}
-}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{CNNs vs. FCNs}
-\centering\large{First, we train on a Fully Connected Network}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.45\columnwidth]{images/intro9.png}
-    \caption{FCN with around 9M parameters}
-\end{figure}
+\begin{itemize}
+    \item \large{First, we train on a Fully Connected Network}
+\end{itemize}
+
+\lstinputlisting[language=Python]{Code/Dense.py}
+
+% \begin{figure}
+%     \centering
+%     \vspace{-0.3cm}
+%     \includegraphics[width=0.45\columnwidth]{images/intro9.png}
+%     \caption{FCN with around 9M parameters}
+% \end{figure}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{CNNs vs. FCNs}
+\begin{itemize}
+    \item \large{First, we train on a Fully Connected Network}
+\end{itemize}
+
+
+\lstinputlisting[caption=FCN with around 9M parameters, basicstyle=\tiny]{Code/DenseOut.txt}
+
+% \begin{figure}
+%     \centering
+%     \vspace{-0.3cm}
+%     \includegraphics[width=0.45\columnwidth]{images/intro9.png}
+%     \caption{FCN with around 9M parameters}
+% \end{figure}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \frame{\frametitle{CNNs vs. FCNs}
+% \begin{itemize}
+%     \item \Large{First, we train on a Fully Connected Network}
+% \end{itemize}
+
+% \begin{figure}
+%     \centering
+%     \vspace{-0.3cm}
+%     \includegraphics[width=0.7\columnwidth]{images/intro10.png}
+%     \caption{Training for 20 epochs}
+% \end{figure}
+% }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{CNNs vs. FCNs}
+
+\begin{itemize}
+    \item \Large{First, we train on a Fully Connected Network}
+\end{itemize}
+
+\lstinputlisting[caption=Test results after the training is done; Test Accuracy: 50.6\%, basicstyle=\tiny]{Code/test_dense.py}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{CNNs vs. FCNs}
-\centering\Large{First, we train on a Fully Connected Network}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.7\columnwidth]{images/intro10.png}
-    \caption{Training for 20 epochs}
-\end{figure}
+
+\begin{itemize}
+    \item \large{Now, let's train on a Convolutional Neural Network}
+\end{itemize}
+
+\lstinputlisting[language=Python, basicstyle=\tiny]{Code/CNN.py}
+
+% \begin{figure}
+%     \centering
+%     \vspace{-0.3cm}
+%     \includegraphics[width=0.45\columnwidth]{images/intro12.png}
+%     \caption{CNN with around 2M parameters (A lot less compared to our 9M parameter FCN)}
+% \end{figure}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{CNNs vs. FCNs}
-\centering\Large{First, we train on a Fully Connected Network}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.9\columnwidth]{images/intro11.png}
-    \caption{Test results after the training is done; Test Accuracy = 49.6\%}
-\end{figure}
+
+\begin{itemize}
+    \item \large{Now, let's train on a Convolutional Neural Network}
+\end{itemize}
+
+\lstinputlisting[caption=CNN with around 2M parameters (A lot less compared to our 9M parameter FCN), basicstyle=\tiny]{Code/CNNOut.txt}
+
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{CNNs vs. FCNs}
-\centering\large{Now, let's train on a Convolutional Neural Network}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.45\columnwidth]{images/intro12.png}
-    \caption{CNN with around 2M parameters (A lot less compared to our 9M parameter FCN)}
-\end{figure}
-}
+% \frame{\frametitle{CNNs vs. FCNs}
+% \begin{itemize}
+%     \item \Large{Now, let's train on a Convolutional Neural Network}
+% \end{itemize}
+% \begin{figure}
+%     \centering
+%     \vspace{-0.3cm}
+%     \includegraphics[width=0.7\columnwidth]{images/intro13.png}
+%     \caption{Training for 20 epochs}
+% \end{figure}
+% }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{CNNs vs. FCNs}
 \centering\Large{Now, let's train on a Convolutional Neural Network}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.7\columnwidth]{images/intro13.png}
-    \caption{Training for 20 epochs}
-\end{figure}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{CNNs vs. FCNs}
-\centering\Large{Now, let's train on a Convolutional Neural Network}
-\begin{figure}
-    \centering
-    \includegraphics[width=0.9\columnwidth]{images/intro14.png}
-    \caption{Test results after the training is done; Test Accuracy = 66.5\%}
-\end{figure}
+\lstinputlisting[caption=Test results after the training is done; Test Accuracy: 67.8\%, basicstyle=\tiny]{Code/test_dense.py}
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.9\columnwidth]{images/intro14.png}
+%     \caption{Test results after the training is done; Test Accuracy = 66.5\%}
+% \end{figure}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -417,21 +607,101 @@
  \hline
  Model Architecture & \# Params & Test Accuracy \\ [0.5ex] 
  \hline\hline
- \normalsize \textbf{CNN} & \normalsize \textbf{2M} & \normalsize \textbf{66.5\%} \\ 
+ \normalsize \textbf{CNN} & \normalsize \textbf{2M} & \normalsize \textbf{67.8\%} \\ 
  \hline
- \normalsize FCN & \normalsize 9M & \normalsize 49.6\% \\ [1ex] 
+ \normalsize FCN & \normalsize 9M & \normalsize 50.6\% \\ [1ex] 
  \hline
 \end{tabular}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.55\columnwidth]{images/denseconv.png}
+\end{figure}
 \end{center}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{CNNs vs. FCNs}
-\centering\Large{Now that we understand the importance of Deep Learning and 
+\begin{itemize}
+    \item \centering\Large{Now that we understand the importance of Deep Learning and 
 Convolutional Neural Networks, let's learn the details.}
+\end{itemize}
+
 }
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{What is Convolution and how does it work?}
+\begin{itemize}
+    \item \normalsize Consider this, an array of numbers
+\end{itemize}
+\begin{figure}
+    \centering
+    \includesvg[width=0.45\columnwidth]{images/kernel5.svg}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{What is Convolution and how does it work?}
+\begin{itemize}
+    \item \normalsize Consider this, an array of numbers.
+    \begin{itemize}
+        \item \normalsize Weights for a convolutional layer, called a filter or a kernel.
+    \end{itemize}
+\end{itemize}
+\begin{figure}
+    \centering
+    \includesvg[width=0.45\columnwidth]{images/kernel5.svg}
+\end{figure}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{What is Convolution and how does it work?}
+\begin{itemize}
+    \item \normalsize Consider this as the filter we are going to use:
+\end{itemize}
+\begin{figure}
+    \centering
+    \includesvg[width=0.45\columnwidth]{images/kernel5.svg}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\foreach \i in {0,...,8}
+{
+    \frame{\frametitle{What is Convolution and how does it work?}
+    \begin{itemize}
+        \item \normalsize This is how we calculate the convolutional layer's output:
+    \end{itemize}
+    \small
+    \begin{equation*}
+        Convolved Feature(i, j) = (I * K)(i, j) = \sum_{a=0}^{k_h - 1}\sum_{b=0}^{k_w - 1} I(i+a, j+b) K(a, b)
+    \end{equation*}
+        I: Input Image\newline
+        K: Our Kernel\newline
+        $k_h$ and $k_w$: The height and width of the Kernel
+
+    \begin{figure}
+    \centering
+    \begin{minipage}{.1\textwidth}
+      \centering
+        \includesvg[width=0.6\columnwidth]{images/kernel6-1.svg}
+        \caption{Convolving Kernel}
+    \end{minipage}%
+    \begin{minipage}{.9\textwidth}
+      \centering
+        \includegraphics[width=0.45\columnwidth]{images/kernel-frame-\i.png}
+        \caption{Convoluting a 5x5x1 image with a 3x3x1 kernel to get a 3x3x1 convolved feature, \href{https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53}{Source}}
+    \end{minipage}
+
+
+
+    \end{figure}
+    }
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{CNNs}
@@ -499,49 +769,6 @@ Convolutional Neural Networks, let's learn the details.}
 
 }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{What is Convolution and how does it work?}
-\normalsize
-Consider this, the filter we are going to use:
-\begin{figure}
-    \centering
-    \includesvg[width=0.45\columnwidth]{images/kernel5.svg}
-\end{figure}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\foreach \i in {0,...,8}
-{
-    \frame{\frametitle{What is Convolution and how does it work?}
-    \normalsize
-    This is how we calculate the convolutional layer's output:
-    \small
-    \begin{equation*}
-        Convolved Feature(i, j) = (I * K)(i, j) = \sum_{a=0}^{k_h - 1}\sum_{b=0}^{k_w - 1} I(i+a, j+b) K(a, b)
-    \end{equation*}
-        I: Input Image\newline
-        K: Our Kernel\newline
-        $k_h$ and $k_w$: The height and width of the Kernel
-
-    \begin{figure}
-    \centering
-    \begin{minipage}{.7\textwidth}
-      \centering
-        \includegraphics[width=0.5\columnwidth]{images/kernel-frame-\i.png}
-        \caption{Convoluting a 5x5x1 image with a 3x3x1 kernel to get a 3x3x1 convolved feature, \href{https://towardsdatascience.com/a-comprehensive-guide-to-convolutional-neural-networks-the-eli5-way-3bd2b1164a53}{Source}}
-    \end{minipage}%
-    \begin{minipage}{.3\textwidth}
-      \centering
-        \includesvg[width=0.45\columnwidth]{images/kernel6.svg}
-        \caption{Convolving Kernel}
-    \end{minipage}
-
-
-    \end{figure}
-    }
-}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Strides}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
