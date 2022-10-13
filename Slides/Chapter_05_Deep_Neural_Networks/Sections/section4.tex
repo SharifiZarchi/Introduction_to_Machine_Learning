@@ -71,7 +71,6 @@
 		\caption{Behavior of dropout at training time. \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
 	\end{figure}
 \end{frame}
-
 \begin{frame}{Solution 3: Dropout}
 	during testing:
 	\begin{itemize}
@@ -88,7 +87,6 @@
 		\caption{Behavior of dropout at testing time. \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
 	\end{figure}
 \end{frame}
-
 \begin{frame}{Solution 3: Dropout}
 	practice tips:
 	\begin{itemize}
@@ -105,13 +103,65 @@
 	\end{figure}
 \end{frame}
 
+
+
 \begin{frame}{Problem: Vanishing/Exploding Gradients}
+	// Todo
+    \begin{itemize}
+    	\item beginning of learning -> He/ELU
+    	\item during learning -> still exists
+    \end{itemize}
     
+    \begin{figure}[H]
+    	\centering
+    	\includegraphics[height=0.4\textheight]{Figs/Dropout-after.png}
+    	\caption{Behavior of dropout at training time. \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
+    \end{figure}
 \end{frame}
 
 \begin{frame}{Solution: Batch Norm layer}
-    
+    during training:
+    \begin{itemize}
+    	\item zero-centers and normalizes a batch
+    \end{itemize}
+	\begin{align*}
+		\mu_B &= \textup{average of $x_B^{(i)}$}\\
+		\sigma_B^2 &= \textup{variance of $x_B^{(i)}$}\\
+		\hat{x_B}^{(i)} &= \frac{x_B^{(i)} - \mu_B}{\sqrt{\sigma^2_B + \epsilon}}
+	\end{align*}
+	\begin{itemize}
+		\item scales and shifts with two learnable parameters $\gamma, \beta$
+	\end{itemize}
+	\begin{align*}
+		y_B^{(i)} &= \gamma \hat{x_B}^{(i)} + \beta
+	\end{align*}
 \end{frame}
+\begin{frame}{Solution: Batch Norm layer}
+	during testing:
+	\begin{itemize}
+		\item to zero-center and normalize the input, we need average and variance of the whole data
+		\item that can be acquired during the learning
+		\item therefore two more learnable parameters!
+	\end{itemize}
+	\begin{align*}
+		\mu &= \textup{average of $x^{(i)}$}\\
+		\sigma^2 &= \textup{variance of $x^{(i)}$}\\
+	\end{align*}
+\end{frame}
+\begin{frame}{Solution: Batch Norm layer}
+	Effects: Pros
+	\begin{itemize}
+		\item todo
+	\end{itemize}
+\end{frame}
+\begin{frame}{Solution: Batch Norm layer}
+	Effects: Cons
+	\begin{itemize}
+		\item todo
+	\end{itemize}
+\end{frame}
+
+
 
 % //////////////////
 \begin{frame}{Regularization: Dropout}
