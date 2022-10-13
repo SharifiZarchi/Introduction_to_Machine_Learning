@@ -3,8 +3,10 @@
 %      acroread filename.pdf
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\documentclass[compress,oilve]{beamer}
+\documentclass[compress,oilve,t]{beamer}
 \mode<presentation>
+\setbeamertemplate{itemize/enumerate body begin}{\normalsize}
+\setbeamertemplate{itemize/enumerate subbody begin}{\small}
 
 \usetheme[]{CambridgeUS}
 % other themes: AnnArbor, Antibes, Bergen, Berkeley, Berlin, Boadilla, boxes, CambridgeUS, Copenhagen, Darmstadt, default, Dresden, Frankfurt, Goettingen,
@@ -124,8 +126,9 @@
 \usepackage{fontspec}
 \usepackage{import}
 \usepackage{textpos}
-\usepackage{relsize}
 \usepackage{bm}
+\usepackage{mathtools}
+\usepackage{relsize}
 %\setsansfont[Scale=MatchLowercase, BoldFont = * Bold, ItalicFont = * Italic]{Caladea}
 
 %\usepackage{enumitem,xcolor}
@@ -138,7 +141,7 @@
 
 \usefonttheme{professionalfonts} 
 \setbeamertemplate{itemize item}{\color{skyblue}$\blacksquare$}
-\setbeamertemplate{itemize subitem}{\color{hotpink}$\blacktriangleright$}
+\setbeamertemplate{itemize subitem}{\color{hotpink}$\triangleright$}
 \setbeamertemplate{itemize subsubitem}{\color{orange}$\bullet$}
 
 
@@ -147,31 +150,26 @@
 \usepackage{tikz}
 \usetikzlibrary{calc,trees,positioning,arrows,chains,shapes.geometric,decorations.pathreplacing,decorations.pathmorphing,shapes,matrix,shapes.symbols}
 
+
+\usepackage{xcolor}
+\newcommand{\tc}[2]{
+	\textcolor{#1}{\hspace{-2pt}#2\hspace{-2pt}}
+}
+
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{assumption}[theorem]{Assumption}
 
-\usepackage{fontspec,unicode-math}
-\setmainfont{Consolas}[
-Scale=0.9,
-Path=./Fonts/,
-Extension = .ttf,
-]
-\setmonofont{Monaco}[
-Scale=0.9,
-Path=./Fonts/,
-Extension = .ttf,
-]
-
+%\usepackage{fontspec,unicode-math}
+%\setmainfont[Scale=0.9]{Nimbus Roman No9 L}
+%\setmonofont[Scale=0.9]{Monaco}
 \setsansfont[Scale=1]{Times New Roman}
 
-\usepackage{xcolor}
-\definecolor{keywords}{rgb}{.224,.451,.686}
+\newcommand{\vect}[1]{\boldsymbol{#1}}
+
 \definecolor{strings}{rgb}{.624,.251,.259}
+\definecolor{keywords}{rgb}{.893,.188,.01}
 \definecolor{comment}{rgb}{.322,.451,.322}
-\newcommand{\tc}[2]{
-	\textcolor{#1}{#2}
-}
 
 %\usepackage{smartdiagram}
 %\usesmartdiagramlibrary{additions}
@@ -182,48 +180,48 @@ Extension = .ttf,
 \author{ML Instruction Team, Fall 2022}
 \institute[]{CE Department \newline  Sharif University of Technology}
 \date[\today]{}
-\titlegraphic{\includegraphics[scale=.3]{Images/intro.png}}
+\titlegraphic{\includegraphics[scale=.3]{Figs/intro.png}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Begin Your Document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
 	
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\fontsize{9}{9}
-	\begin{frame}[noframenumbering, plain]
-		\titlepage
-	\end{frame}
-	
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\section{Single Layer Perceptron}
-	\import{Sections/}{section1.tex}
-	\section{Multi Layer Perceptron}
-	\import{Sections/}{section2.tex}
-	\section{Stochastic Gradient Descent}
-	\import{Sections/}{section3.tex}
-	\section{Training MLPs}
-	\import{Sections/}{section3-1.tex}
-	\import{Sections/}{section4.tex}
-	\import{Sections/}{section5.tex}
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	
-	
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\section{}
-	
-	\frame{
-		\centering
-		\vspace{30 pt}
-		\textbf{\Huge Thank You!}
-		
-		\vspace{50pt}
-		\textbf{\Large Any Question?}
-	}
-	
-	\begin{frame}{References}
-		\bibliographystyle{ieeetr}%{IEEEtrans}%{latex8}%
-		\bibliography{references}
-	\end{frame}
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\fontsize{9}{9}
+\begin{frame}[noframenumbering, plain]
+	\titlepage
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Single Layer Perceptron}
+% \import{Sections/}{section1.tex}
+% \section{Multi Layer Perceptron}
+% \import{Sections/}{section2.tex}
+% \section{Stochastic Gradient Descent}
+% \import{Sections/}{section3.tex}
+\section{Training MLPs}
+% \import{Sections/}{section3-1.tex}
+\import{Sections/}{section4.tex}
+% \import{Sections/}{section5.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{}
+
+\frame{
+\centering
+\vspace{60 pt}
+\textbf{\Huge Thank You!}
+
+\vspace{50pt}
+\textbf{\Large Any Question?}
+}
+
+\begin{frame}{References}
+\bibliographystyle{ieeetr}%{IEEEtrans}%{latex8}%
+\bibliography{references}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \end{document}

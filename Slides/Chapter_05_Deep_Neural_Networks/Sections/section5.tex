@@ -1,49 +1,52 @@
 \begin{frame}{Gradient Clipping}
     \begin{itemize}
         \item What will happen in case of a large gradient value?
-        \pause
-        \item The gradient descent will take us \textcolor{red}{far away} from our local position.
+        \item The gradient descent will take us \tc{keywords}{far away} from our local position.
     \end{itemize}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.4\textwidth]{Images/gard-clipping-1.png}
+		\includegraphics[width=0.4\textwidth]{Figs/gard-clipping-1.png}
 		\caption{The problem of large gradient value \cite{Goodfellow-et-al-2016}.}
 	\end{figure}
 \end{frame}
 
 \begin{frame}{Gradient Clipping}
 	\begin{itemize}
-		\item Solve this problem simply by clipping gradient
+		\item Solve this problem simply by clipping gradient.
 		\item Two approaches to do so:
 		\begin{itemize}
 			\item Clipping by value
 			\item Clipping by norm
 		\end{itemize} 
 	\end{itemize}
+	\begin{figure}[H]
+	    \centering
+	    \includegraphics[width=0.5\textwidth]{Figs/clipping_more.png}
+	    \caption{The effect of gradient clipping. Instead of solid line\\following dotted line will lead us to minimum, \href{https://neptune.ai/blog/understanding-gradient-clipping-and-how-it-can-fix-exploding-gradients-problem}{Source}}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Gradient Clipping by value}
 	\begin{itemize}
-		\item Set a max ($\alpha$) and min ($\beta$) threshold value
-		\item For each index of gradient $\symbfit{g}_i$ if it is lower or greater than your threshold clip it:
+		\item Set a max ($\alpha$) and min ($\beta$) threshold value.
+		\item For each index of gradient $\bm{g}_i$ if it is lower or greater than your threshold clip it:
 		\begin{columns}
 			\centering
-			\begin{column}{0.45\textwidth}
+			\begin{column}{0.3\textwidth}
 				\centering
 				\[
 				\begin{aligned}
-					&\text{if} \; \symbfit{g}_i > \alpha: \\
-					&\qquad \symbfit{g}_i \gets \alpha \\
-					&\text{else if} \; \symbfit{g}_i < \beta: \\
-					&\qquad \symbfit{g}_i \gets \beta
+					&\text{if} \; \bm{g}_i > \alpha: \\
+					&\qquad \bm{g}_i \gets \alpha \\
+					&\text{else if} \; \bm{g}_i < \beta: \\
+					&\qquad \bm{g}_i \gets \beta
 				\end{aligned}
 				\]
 			\end{column}
 			\begin{column}{0.45\textwidth}
 				\centering
 				\begin{figure}[H]
-					\centering
-					\includegraphics[width=0.95\textwidth]{Images/clipping-value.png}
+					\centering	\includegraphics[width=0.95\textwidth]{Figs/clipping-value.png}
 				\end{figure}
 			\end{column}
 		\end{columns}
@@ -53,18 +56,18 @@
 \begin{frame}{Gradient Clipping by value}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.5\textwidth]{Images/clip-by-value.png}
-		\caption{The effect of clipping by value. \href{https://github.com/dvgodoy/PyTorchStepByStep/blob/master/ChapterExtra.ipynb}{source}}
+		\includegraphics[width=0.5\textwidth]{Figs/clip-by-value.png}
+		\caption{The effect of clipping by value. \href{https://github.com/dvgodoy/PyTorchStepByStep/blob/master/ChapterExtra.ipynb}{Source}}
 	\end{figure}
 	\begin{itemize}
-		\item Clipping by value \textcolor{red}{will change gradient direction}.
+		\item Clipping by value \tc{keywords}{will change gradient direction}.
 		\item To preserve direction use clipping by norm.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Gradient Clipping by norm}
 	\begin{itemize}
-		\item Clip the norm $\|\symbfit{g}\|$ of the gradient $\symbfit{g}$ before updating parameters:
+		\item Clip the norm $\|\bm{g}\|$ of the gradient $\bm{g}$ before updating parameters:
 		\item[]
 		\begin{columns}
 			\centering
@@ -72,15 +75,14 @@
 				\centering
 				\[
 				\begin{aligned}
-					&\text{if} \; \|\symbfit{g}\| > v:\\
-					&\qquad \symbfit{g} \gets \frac{\symbfit g}{\|\symbfit g\|} v
+					&\text{if} \; \|\bm{g}\| > v:\\
+					&\qquad \bm{g} \gets \frac{\bm g}{\|\bm g\|} v
 				\end{aligned}
 				\]
 			\end{column}
 			\begin{column}{0.6\textwidth}
 				\begin{figure}[H]
-					\centering
-					\includegraphics[width=0.5\textwidth]{Images/clip-by-norm.png}
+					\centering	\includegraphics[width=0.65\textwidth]{Figs/clip-by-norm.png}
 					\caption{The effect of clipping by norm. \href{https://github.com/dvgodoy/PyTorchStepByStep/blob/master/ChapterExtra.ipynb}{source}}
 				\end{figure}
 			\end{column}
@@ -93,33 +95,43 @@
 
 \begin{frame}{Gradient Clipping}
 	\begin{itemize}
-		\item There is one question, clipping by norm or value?
-		\pause
-		\item Clipping by value will not preserve the direction of the gradient, so it will send us to a bad neighborhood.
-		\item Clipping by norm will preserve the direction and just control the value.
+		\item Clipping by \tc{keywords}{value} will \tc{keywords}{change the direction} of the gradient, so it will send us to a bad neighborhood.
+		\item Clipping by \tc{keywords}{norm} will \tc{keywords}{preserve the direction} and just control the value.
 		\item So it is better to use clipping by \tc{keywords}{norm}.
 	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}[b]{0.45\textwidth}
+			\centering
+			\includegraphics[width=0.75\textwidth]{Figs/gard-clipping-1.png}
+		\end{subfigure}
+		\begin{subfigure}[b]{0.45\textwidth}
+			\centering
+			\includegraphics[width=0.75\textwidth]{Figs/grad-clipping-2.png}
+		\end{subfigure}
+		\caption{The "cliffs" landscape (left) without gradient clipping\\ and (right) with gradient clipping \cite{Goodfellow-et-al-2016}.}
+	\end{figure}
 \end{frame}
 
-\begin{frame}{Gradient Clipping}
-	\begin{itemize}
-		\item The effect of gradient clipping:
-	\end{itemize}
-	\begin{center}
-		\begin{figure}[H]
-			\centering
-			\begin{minipage}{0.45\textwidth}
-				\centering
-				\includegraphics[width=0.8\textwidth]{Images/gard-clipping-1.png}
-			\end{minipage}%\hfill
-			\begin{minipage}{0.45\textwidth}
-				\centering
-				\includegraphics[width=0.8\textwidth]{Images/grad-clipping-2.png}
-			\end{minipage}
-			\caption{The "cliffs" landscape (left) without gradient clipping\\ and (right) with gradient clipping \cite{Goodfellow-et-al-2016}.}
-		\end{figure}
-	\end{center}
-\end{frame}
+% \begin{frame}{Gradient Clipping}
+% 	\begin{itemize}
+% 		\item The effect of gradient clipping:
+% 	\end{itemize}
+% 	\begin{center}
+% 		\begin{figure}[H]
+% 			\centering
+% 			\begin{minipage}{0.45\textwidth}
+% 				\centering
+% 				\includegraphics[width=0.8\textwidth]{Figs/gard-clipping-1.png}
+% 			\end{minipage}%\hfill
+% 			\begin{minipage}{0.45\textwidth}
+% 				\centering
+% 				\includegraphics[width=0.8\textwidth]{Figs/grad-clipping-2.png}
+% 			\end{minipage}
+% 			\caption{The "cliffs" landscape (left) without gradient clipping\\ and (right) with gradient clipping \cite{Goodfellow-et-al-2016}.}
+% 		\end{figure}
+% 	\end{center}
+% \end{frame}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -128,7 +140,6 @@
     \begin{itemize}
     	\item Is initialization really necessary?
     	\item What are the impacts of initialization?
-    	\pause
 %    	\item Weight initialization is critical for model performance.
     	\item A bad initialization may increase convergence time or even make optimization diverge.
     	\item How to initialize?
@@ -139,7 +150,7 @@
     \end{itemize}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.65\textwidth]{Images/wi-crucial.png}
+		\includegraphics[width=0.65\textwidth]{Figs/wi-crucial.png}
 		\caption{The output of a three layer network after about 600 epoch. (left) using a bad\\ initialization method and (right) using an appropriate initialization \cite{katanforoosh-kunin}.}
 	\end{figure}
 \end{frame}
@@ -150,17 +161,23 @@
 			\begin{column}{0.4\textwidth}
 				\[
 				\begin{cases}
-					n^{[l]} := \text{layer $l$ neurons number}, \\
-					W^{[l]} := \text{layer $l$ weights},\\
-					b^{[l]} := \text{layer $l$ biases}, \\
+					n^{[l]} := \text{layer $l$ neurons number}, \\[0.5em]
+					W^{[l]} := \text{layer $l$ weights},\\[0.5em]
+					b^{[l]} := \text{layer $l$ biases},\\[0.5em]
 					a^{[l]} := \text{layer $l$ outputs}
+				\end{cases}
+				\]
+				\[
+				\begin{cases}
+					\text{fan}_\text{in}^{[l]} = n^{[l-1]} \quad (\text{layer $l$ number of inputs}),\\[0.6em]
+					\text{fan}_\text{out}^{[l]} = n^{[l]} \quad (\text{layer $l$ number of outputs}),\\[0.6em]
+					\text{fan}_\text{avg}^{[l]} = \frac{n^{[l-1]} + n^{[l]}}{2}
 				\end{cases}
 				\]
 			\end{column}\hfill
 			\begin{column}{0.4\textwidth}
 				\begin{figure}[H]
-					\centering
-					\includegraphics[width=0.65\textwidth]{Images/layer.png}
+					\centering	\includegraphics[width=0.65\textwidth]{Figs/notation_review.png}
 				\end{figure}
 			\end{column}
 		\end{columns}
@@ -171,8 +188,8 @@
 	\begin{block}{Zero Initialization method:}
 		\[
 		\begin{cases}
-			W^{[l]} = \symbfit{0},\\
-			b^{[l]} = \symbfit{0}
+			W^{[l]} = \bm{0},\\
+			b^{[l]} = \bm{0}
 		\end{cases}
 		\]
 	\end{block}
@@ -180,7 +197,6 @@
 		\item[]
 		\item[]
 		\item Simple but perform very poorly. (why?)
-		\pause
 		\item Zero initialization will lead each neuron to learn the same feature
 		\item This problem is known as network {\color{red}failing to break symmetry}
 		\item In fact any constant initialization suffers from this problem.
@@ -190,11 +206,10 @@
 \begin{frame}{Weight Initialization: Zero Initialization}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.65\textwidth]{Images/zero-init.png}
+		\includegraphics[width=0.65\textwidth]{Figs/zero-init.png}
 		\caption{As we can see network has failed to break symmetry. There has been no improvement in weights after about 600 epochs of training \cite{katanforoosh-kunin}.}
 	\end{figure}
 	\begin{itemize}
-		\item[]
 		\item We need to break symmetry. How? using randomness.
 	\end{itemize}
 \end{frame}
@@ -219,7 +234,6 @@
 			\end{cases}
 			\]
 		\end{block}
-		\medskip
 		\item But this is really crucial to choose $r$ or $\sigma$ properly.
 	\end{itemize}
 \end{frame}
@@ -234,7 +248,6 @@
 %		\end{cases}
 %		\]
 %	\end{block}
-%	\pause
 %	\begin{itemize}
 %		\item[]
 %		\item[]
@@ -249,7 +262,7 @@
 \begin{frame}{Weight Initialization: Random Initialization}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.9\textwidth]{Images/normal-init.png}
+		\includegraphics[width=0.9\textwidth]{Figs/normal-init.png}
 		\caption{Uniform initialization problem. On the top, you can see the model architecture, and on the bottom, you can see the density of each layer's output. Model has trained on MNIST dataset for 4 epoch. Weights are initialized randomly from $U(\frac{-1}{\sqrt{n^{[l-1]}}}, \frac{1}{\sqrt{n^{[l-1]}}})$ \cite{katanforoosh-kunin}.}
 	\end{figure}
 \end{frame}
@@ -262,49 +275,59 @@
 			\item keep the mean of the activations zero.
 			\item keep the variance of the activations same across every layer.
 		\end{itemize}
-		\item How to do so?
 	\end{itemize}
-\end{frame}
-
-\begin{frame}{Weight Initialization: Xavier Initialization}
 	\begin{block}{Xavier Initialization:}
 		\begin{itemize}
 			\item For Uniform distribution use:
 			\[
 			r = \sqrt{\frac{3}{\text{fan}_\text{avg}}}
 			\]
-			
-			\medskip
 			\item For Normal distribution use:
 			\[
 				\sigma^2 = \frac{1}{\text{fan}_\text{avg}}
 			\]
-			\item Where:
-			\[
-			\text{fan}_\text{avg} = \frac{n^{[l-1]} + n^{[l]}}{2}
-			\]
 		\end{itemize}
 		{\scriptsize (You can read about why this method works at \cite{katanforoosh-kunin}.)}
 	\end{block}
-	\begin{itemize}
-		\medskip
-		\medskip
-		\item Xavier initialization works well on \tc{keywords}{Tanh, Logestic or Sigmoid} activation function.
-	\end{itemize}
 \end{frame}
 
+% \begin{frame}{Weight Initialization: Xavier Initialization}
+% 	\begin{block}{Xavier Initialization:}
+% 		\begin{itemize}
+% 			\item For Uniform distribution use:
+% 			\[
+% 			r = \sqrt{\frac{3}{\text{fan}_\text{avg}}}
+% 			\]
+			
+% 			\medskip
+% 			\item For Normal distribution use:
+% 			\[
+% 				\sigma^2 = \frac{1}{\text{fan}_\text{avg}}
+% 			\]
+% 			\item Where:
+% 			\[
+% 			\text{fan}_\text{avg} = \frac{n^{[l-1]} + n^{[l]}}{2}
+% 			\]
+% 		\end{itemize}
+% 		{\scriptsize (You can read about why this method works at \cite{katanforoosh-kunin}.)}
+% 	\end{block}
+% \end{frame}
 
-\begin{frame}{Weight Initialization: Random Initialization}
+
+\begin{frame}{Weight Initialization: Xavier Initialization}
+	\begin{itemize}
+		\item Xavier initialization works well on \tc{keywords}{Tanh, Logestic or Sigmoid} activation function.
+	\end{itemize}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.9\textwidth]{Images/xavier-init.png}
+		\includegraphics[width=0.9\textwidth]{Figs/xavier-init.png}
 		\caption{Vanishing gradient is no longer problem using Xavier initialization. Model has trained on MNIST dataset for 4 epoch. \cite{katanforoosh-kunin}.}
 	\end{figure}
 \end{frame}
 
 \begin{frame}{Weight Initialization: He Initialization}
 	\begin{itemize}
-		\item Be careful that there is no universal method to choose $r$ and $\sigma$.
+% 		\item Be careful that there is no universal method to choose $r$ and $\sigma$.
 		\item Different method has proposed for different activation functions.
 	\end{itemize}
 	\begin{block}{He Initialization:}
@@ -326,17 +349,17 @@
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Weight Initialization}
-	\begin{itemize}
-		\item So we talked about how to initialize weight
-		\item Initializing well will solve problem of vanishing gradient problem.
-		\item Different method have been proposed to initialize weights for different activation function.
-		\item[]
-		\item[]
-		\item Use Xavier initialization for \tc{keywords}{Tanh, Logistic or Sigmoid} activation functions.
-		\item Use He initialization for \tc{keywords}{ReLU and its variants}.
-	\end{itemize}
-\end{frame}
+% \begin{frame}{Weight Initialization}
+% 	\begin{itemize}
+% 		\item So we talked about how to initialize weight
+% 		\item Initializing well will solve problem of vanishing gradient problem.
+% 		\item Different method have been proposed to initialize weights for different activation function.
+% 		\item[]
+% 		\item[]
+% 		\item Use Xavier initialization for \tc{keywords}{Tanh, Logistic or Sigmoid} activation functions.
+% 		\item Use He initialization for \tc{keywords}{ReLU and its variants}.
+% 	\end{itemize}
+% \end{frame}
 
 %\begin{frame}{Weight Initialization}
 %	\begin{itemize}
@@ -362,14 +385,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Various GD types}
     \begin{itemize}
-    	\item So far you got familiar with gradient-based optimization
-    	\item If $\symbfit{g} = \nabla_{\symbfit{\theta}} \mathcal{J}$, then we will update parameters with this simple rule:
+    	\item So far you got familiar with gradient-based optimization.
+    	\item If $\bm{g} = \nabla_{\bm{\theta}} \mathcal{J}$, then we will update parameters with this simple rule:
     	\[
-    	\symbfit{\theta} \gets \symbfit{\theta} - \alpha\symbfit{g}
+    	\bm{\theta} \gets \bm{\theta} - \eta\bm{g}
     	\]
-    	\item[]
-    	\item But there is one question here, how to compute $\symbfit{g}$?
-    	\item Based on how we calculate $\symbfit{g}$ we will have different types of gradient descent:
+    % 	\item[]
+    	\item But there is one question here, how to compute $\bm{g}$?
+    	\item Based on how we calculate $\bm{g}$ we will have different types of gradient descent:
     	\begin{itemize}
     		\item Batch Gradient Descent
     		\item Stochastic Gradient Descent
@@ -379,42 +402,58 @@
 \end{frame}
 
 \begin{frame}{Various GD types}
-	\begin{block}{Review before continue:}
+	\begin{block}{Recap:}
 		Training cost function ($\mathcal{J}$) over a dataset usually is the average of loss function ($\mathcal{L}$) on entire training set, so for a dataset $\mathcal{D}=\{d_i\}_{i=1}^n$ we have:
 		\[
-		\mathcal{J}(\mathcal{D}) = \frac{1}{n} \sum_{i=1}^{n} \mathcal{L}(d_i; \symbfit{\theta})
-		\] 
+		\mathcal{J}(\mathcal{D}) = \frac{1}{n} \sum_{i=1}^{n} \mathcal{L}(d_i; \bm{\theta})
+		\]
+		For example:
+		\begin{equation*}
+		H(p, q)=-\frac{1}{m} \sum_{i=1}^m\sum_{j=1}^{k} y_j^{(i)} \log (p(y_j^{(i)}))
+	    \end{equation*}
+	    \begin{equation*}
+		\text{MSE}(y, \hat{y}) = \frac{1}{m}\sum_{i=1}^{m}(y_i-\hat{y}_i)^2
+    	\end{equation*}
+    	\begin{equation*}
+    		\text{MAE}(y, \hat{y}) = \frac{1}{m}\sum_{i=1}^{m}|(y_i-\hat{y}_i)|
+    	\end{equation*}
 	\end{block}
 \end{frame}
 
 \begin{frame}{Various GD types: Batch Gradient Descent}
 	\begin{itemize}
-		\item In this type we use \tc{keywords}{entire training set} to calculate gradient
+		\item In this type we use \tc{keywords}{entire training set} to calculate gradient.
 		\begin{block}{Batch Gradient:}
 			\[
-			\symbfit{g} = \frac{1}{n}\sum_{i=1}^n \nabla_{\symbfit{\theta}} \mathcal{L}(d_i, \symbfit{\theta})
+			\bm{g} = \frac{1}{n}\sum_{i=1}^n \nabla_{\bm{\theta}} \mathcal{L}(d_i, \bm{\theta})
 			\]
 		\end{block}
 		\item[]
-		\item This really needs huge computation and so is slow for large training sets.
+		\item Using this method with very large training set:
+		\begin{itemize}
+		    \item Your data can be too large to process in your memory.
+		    \item It requires a lot of processing to compute gradient for all samples.
+		\end{itemize}
+		\item Using exact gradient may lead us to local minima.
+		\item Moving noisy may help us get out of this local minimas.
 	\end{itemize}
 \end{frame}
 
 \begin{frame}{Various GD types: Batch Gradient Descent}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.8\textwidth]{Images/bgd.png}
+		\includegraphics[width=0.8\textwidth]{Figs/bgd.png}
 		\caption{Optimization of parameters using BGD. Movement is very smooth \cite{katanforoosh-kunin-opt}.}
 	\end{figure} 
 \end{frame}
 
 \begin{frame}{Various GD types: Stochastic Gradient Descent}
 	\begin{itemize}
-		\item Instead of calculating exact gradient, we can estimate it using our data
-		\item This is exactly what SGD does, it estimates gradient using \tc{keywords}{only single data point}
+		\item Instead of calculating exact gradient, we can estimate it using our data.
+		\item This is exactly what SGD does, it estimates gradient using \tc{keywords}{only single data point}.
 		\begin{block}{Stochastic Gradient:}
 			\[
-			\hat{\symbfit{g}} = \nabla_{\symbfit{\theta}} \mathcal{L}(d_i, \symbfit{\theta})
+			\hat{\bm{g}} = \nabla_{\bm{\theta}} \mathcal{L}(d_i, \bm{\theta})
 			\]
 		\end{block}
 		\item[]
@@ -426,7 +465,7 @@
 \begin{frame}{Various GD types: Stochastic Gradient Descent}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.8\textwidth]{Images/sgd.png}
+		\includegraphics[width=0.8\textwidth]{Figs/sgd.png}
 		\caption{Optimization of parameters using SGD. As we expect, the movement is not that smooth \cite{katanforoosh-kunin-opt}.}
 	\end{figure} 
 \end{frame}
@@ -436,11 +475,11 @@
 		\item In this method we still use estimation idea But use \tc{keywords}{a batch of data} instead of one point.
 		\begin{block}{Mini-Batch Gradient:}
 			\[
-			\hat{\symbfit{g}} = \frac{1}{|\mathcal{B}|} \sum_{d\in\mathcal{B}} \nabla_{\symbfit{\theta}} \mathcal{L}(d, \symbfit{\theta}), \quad \mathcal{B} \subset \mathcal{D}
+			\hat{\bm{g}} = \frac{1}{|\mathcal{B}|} \sum_{d\in\mathcal{B}} \nabla_{\bm{\theta}} \mathcal{L}(d, \bm{\theta}), \quad \mathcal{B} \subset \mathcal{D}
 			\]
 		\end{block}
 		\item[]
-		\item A better estimation than SGD
+		\item This is a better estimation than SGD.
 		\item With this way we can get a performance boost from hardware optimization, especially when using GPUs.
 		\item Batch size ($|\mathcal{B}|$) is a hyperparameter you need to tune.
 	\end{itemize}
@@ -449,7 +488,7 @@
 \begin{frame}{Various GD types: Mini-Batch Gradient Descent}
 	\begin{figure}[H]
 		\centering
-		\includegraphics[width=0.8\textwidth]{Images/mbgd.png}
+		\includegraphics[width=0.8\textwidth]{Figs/mbgd.png}
 		\caption{Optimization of parameters using MBGD. The movement is much smother than SGD and behave like BGD \cite{katanforoosh-kunin-opt}.}
 	\end{figure} 
 \end{frame}
@@ -464,7 +503,7 @@
 		
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.4\textwidth]{Images/epoch-iteration.png}
+			\includegraphics[width=0.4\textwidth]{Figs/epoch-iteration.png}
 			\caption{Epoch vs Iteration, \href{https://jerryan.medium.com/batch-size-a15958708a6}{source}.}
 		\end{figure} 
 	\end{itemize}
