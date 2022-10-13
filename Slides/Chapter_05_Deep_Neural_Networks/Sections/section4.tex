@@ -1,7 +1,8 @@
 \begin{frame}{Problem: Over-fitting in a Neural Network}
-    \begin{figure}
+    \begin{figure}[H]
         \centering
-        \href{https://algotrading101.com/learn/what-is-overfitting-in-trading/}{\includegraphics[width=0.8\textwidth]{Figs/section_4/image.png}}
+        \includegraphics[width=0.4\textwidth]{Figs/section_4/overfitting.png}
+        \caption{Over-fitting in a Neural Network \href{https://en.wikipedia.org/wiki/Overfitting}{source}}
     \end{figure}
 \end{frame}
 
@@ -19,7 +20,7 @@
 \end{frame}
 \begin{frame}{Solution 1: L1/L2 regularization}
     \begin{itemize}
-        \item review
+        \item L1/L2 regularizer functions (review)
     \end{itemize}
     \vspace{0.1\textheight}
     \begin{equation*}
@@ -35,6 +36,7 @@
     \begin{itemize}
         \item you can also combine the two different regularizers (Elastic net)
     \end{itemize}
+    \vspace{0.1\textheight}
     \begin{equation*}
         \mathlarger{\mathlarger{\mathlarger{
         R(w) = \beta w^2 + \vert w\vert
@@ -46,14 +48,61 @@
     \begin{itemize}
         \item Stop learning when the validation error is Minimum
     \end{itemize}
-    \begin{figure}[H]
+    \begin{figure}
 	\centering
-        \href{https://medium.com/analytics-vidhya/early-stopping-with-pytorch-to-restrain-your-model-from-overfitting-dce6de4081c5}{\includegraphics[width=0.8\textwidth]{Figs/Early Stopping.png}}
+	\includegraphics[width=0.8\textwidth]{Figs/Early Stopping.png}
+	\caption{Early-Stopping diagram\href{https://medium.com/analytics-v7idhya/early-stopping-with-pytorch-to-restrain-your-model-from-overfitting-dce6de4081c5}{source}}
     \end{figure}
 \end{frame}
 
 \begin{frame}{Solution 3: Dropout}
-    
+	during training:
+	\begin{itemize}
+		\item at each iteration, every neuron has a probability P of being dropped out
+		\begin{itemize}
+			\item meaning it will be ignored
+		\end{itemize}
+		\item P := dropout rate
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[height=0.4\textheight]{Figs/Dropout-after.png}
+		\caption{Behavior of dropout at training time. \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Solution 3: Dropout}
+	during testing:
+	\begin{itemize}
+		\item at each iteration, on average, 1-P percent of Neurons are active
+		\begin{itemize}
+			\item less neurons results in bigger weights
+		\end{itemize}
+		\item we need to normalize weights by 1-P
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[height=0.4\textheight]{Figs/Dropout-before.png}
+		\caption{Behavior of dropout at testing time. \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Solution 3: Dropout}
+	practice tips:
+	\begin{itemize}
+		\item still overfitting -> increase dropout rate
+		\item underfitting -> decrease dropout rate
+		\item layersize -> dropout rate
+		\item usually in practice, people will use dropout after the last hidden layer
+	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[height=0.4\textheight]{Figs/Dropout-before.png}
+		\caption{Behavior of dropout at testing time. \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Problem: Vanishing/Exploding Gradients}
@@ -65,28 +114,6 @@
 \end{frame}
 
 % //////////////////
-\begin{frame}{Regularization: Dropout}
-\begin{itemize}
-	\item Randomly set some of neurons to zero in forward pass.
-\end{itemize}
-\begin{figure}[H]
-\centering
-\begin{subfigure}[b]{0.3\textwidth}
-	\centering
-	\includegraphics[width=\textwidth]{Figs/Dropout-before.png}
-	\caption{Without using dropout}
-	\label{fig:Dropout-before}
-\end{subfigure}
-\begin{subfigure}[b]{0.3\textwidth}
-	\centering
-	\includegraphics[width=\textwidth]{Figs/Dropout-after.png}
-	\caption{After using dropout.}
-	\label{fig:Dropout-after}
-\end{subfigure}
-\caption{Behavior of dropout at training time. \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
-\end{figure}
-\end{frame}
-
 \begin{frame}{Regularization: Dropout}
 \begin{clomuns}
 \begin{column}{0.4\textwidth}
