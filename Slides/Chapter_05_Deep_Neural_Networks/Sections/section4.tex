@@ -64,11 +64,11 @@
 \begin{frame}{Solution 3: Dropout}
 	during training:
 	\begin{itemize}
-		\item at each iteration, every neuron has a probability P of being dropped out
+		\item at each iteration, every neuron has a probability $P$ of being dropped out
 		\begin{itemize}
 			\item meaning it will be ignored
 		\end{itemize}
-		\item P := dropout rate
+		\item $P :=$ dropout rate
 	\end{itemize}
 	
 	\begin{figure}[H]
@@ -94,32 +94,31 @@
 	\end{figure}
 \end{frame}
 \begin{frame}{Solution 3: Dropout}
-	pros
+	performance:
 	\begin{itemize}
 		\item the dependence between different neuron decreases
 		\begin{itemize}
 			\item neurons get more generalized
 		\end{itemize}
 	\end{itemize}
-	cons
-	\begin{itemize}
-		\item model complexity increases
-	\end{itemize}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[height=0.4\textheight]{Figs/section_4/dropout_performance.png}
+		\caption{the effect of dropout layer. as you see, the total error is reduced by a considerable amount. \href{https://towardsdatascience.com/understanding-and-implementing-dropout-in-tensorflow-and-keras-a8a3a02c1bfa}{Source}}
+	\end{figure}
 \end{frame}
 \begin{frame}{Solution 3: Dropout}
 	practice tips:
 	\begin{itemize}
-		\item still overfitting -> increase dropout rate
-		\item underfitting -> decrease dropout rate
-		\item layersize -> dropout rate
+		\item you can tweak dropout rate if you still see overfitting issues
+		\begin{itemize}
+			\item still overfitting -> increase dropout rate
+			\item underfitting -> decrease dropout rate
+		\end{itemize}
+		\item layersize $\sim$ dropout rate
 		\item usually in practice, people will use dropout after the last hidden layer
 	\end{itemize}
-	
-	\begin{figure}[H]
-		\centering
-		\includegraphics[height=0.4\textheight]{Figs/Dropout-before.png}
-		\caption{Behavior of dropout at testing time. \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
-	\end{figure}
 \end{frame}
 
 
@@ -153,17 +152,29 @@
     \begin{itemize}
     	\item zero-centers and normalizes a batch
     \end{itemize}
-	\begin{align*}
-		\mu_B &= \textup{average of $x_B^{(i)}$}\\
-		\sigma_B^2 &= \textup{variance of $x_B^{(i)}$}\\
-		\hat{x_B}^{(i)} &= \frac{x_B^{(i)} - \mu_B}{\sqrt{\sigma^2_B + \epsilon}}
-	\end{align*}
+	\begin{equation*}
+		\mathlarger{
+			\mu_B := \frac{1}{N_B} \sum{x_B^{(i)}}
+		}
+	\end{equation*}
+	\begin{equation*}
+		\mathlarger{
+			\sigma_B^2 := \frac{1}{N_B} \sum{(x_B^{(i)} - \mu_B)^2}
+		}
+	\end{equation*}
+	\begin{equation*}
+		\mathlarger{
+			\hat{x_B}^{(i)} = \frac{x_B^{(i)} - \mu_B}{\sqrt{\sigma^2_B + \epsilon}}
+		}
+	\end{equation*}
 	\begin{itemize}
-		\item scales and shifts with two learnable parameters $\gamma, \beta$
+		\item then, scales and shifts with two learnable parameters $\gamma, \beta$
 	\end{itemize}
-	\begin{align*}
-		y_B^{(i)} &= \gamma \hat{x_B}^{(i)} + \beta
-	\end{align*}
+	\begin{equation*}
+		\mathlarger{
+		y_B^{(i)} = \gamma \hat{x_B}^{(i)} + \beta	
+	}
+	\end{equation*}
 \end{frame}
 \begin{frame}{Solution: Batch Norm layer}
 	during testing:
@@ -172,10 +183,19 @@
 		\item that can be acquired during the learning
 		\item therefore two more learnable parameters!
 	\end{itemize}
-	\begin{align*}
-		\mu &= \textup{average of $x^{(i)}$}\\
-		\sigma^2 &= \textup{variance of $x^{(i)}$}\\
-	\end{align*}
+	\vspace{0.1\textheight}
+	\begin{equation*}
+		\begin{equation}
+			\mathlarger{
+				\mu := \frac{1}{N} \sum{x^{(i)}}
+			}
+		\end{equation}
+		\begin{equation}
+			\mathlarger{
+				\sigma^2 := \frac{1}{N} \sum{(x^{(i)} - \mu)^2}
+			}
+		\end{equation}
+	\end{equation*}
 \end{frame}
 \begin{frame}{Solution: Batch Norm layer}
 	\begin{itemize}
@@ -218,10 +238,20 @@
 			\mathlarger{x'^{(i)} = W x^{(i)} + b}
 		\end{equation}
 		\begin{equation}
-			\mathlarger{z^{(i)} = \frac{x'^{(i)} - \mu}{\sqrt{\sigma^2 + \epsilon}} + \beta}
+			\mathlarger{y^{(i)} = \frac{x'^{(i)} - \mu}{\sqrt{\sigma^2 + \epsilon}} + \beta}
 		\end{equation}
 		\begin{equation}
-			\mathlarger{z^{(i)} = W' x^{(i)} + b'; W' = \frac{1}{\sqrt{\sigma^2 + \epsilon}} W, b' = \beta + \frac{b- \mu}{\sqrt{\sigma^2 + \epsilon}}}
+			\mathlarger{y^{(i)} = W' x^{(i)} + b'}
+		\end{equation}
+		\begin{equation}
+			\mathlarger{
+			W' := \frac{1}{\sqrt{\sigma^2 + \epsilon}} W	
+			}
+		\end{equation}
+		\begin{equation}
+			\mathlarger{
+			b' := \beta + \frac{b- \mu}{\sqrt{\sigma^2 + \epsilon}}	
+			}
 		\end{equation}
 	\end{equation*}
 \end{frame}
@@ -230,21 +260,4 @@
 	\begin{itemize}
 		\item todo. examples from the book?
 	\end{itemize}
-\end{frame}
-
-
-% //////////////////
-
-
-\begin{frame}{Regularization: Adding Noise}
-\begin{itemize}
-\item We've seen a common approach for regularization thus far:
-\begin{itemize}
-	\item \textbf{Training}: Add some kind of randomness ($z$) : $$y = f_W(x, z)$$
-	\item \textbf{Testing}: Average out the randomness: $$y=f(x)=\mathbb{E}_z[f(x, z)] = \int p(z)f(x, z)dz$$
-\end{itemize}
-\pause
-\item Adding noise is another way to prevent a neural network from overfitting on the training data.
-In every iteration, a random noise is added to the outputs of the layer, preventing consequent layers from co-adapting too much to the outputs of this layer.
-\end{itemize}
 \end{frame}
