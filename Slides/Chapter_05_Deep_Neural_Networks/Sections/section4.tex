@@ -1,4 +1,10 @@
 \begin{frame}{Problem: Over-fitting in a Neural Network}
+	\begin{itemize}
+		\item Why does over-fitting happen in a Neural network?
+		\begin{itemize}
+			\item too many free parameters
+		\end{itemize}
+	\end{itemize}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.4\textwidth]{Figs/section_4/overfitting.png}
@@ -88,6 +94,19 @@
 	\end{figure}
 \end{frame}
 \begin{frame}{Solution 3: Dropout}
+	pros
+	\begin{itemize}
+		\item the dependence between different neuron decreases
+		\begin{itemize}
+			\item neurons get more generalized
+		\end{itemize}
+	\end{itemize}
+	cons
+	\begin{itemize}
+		\item model complexity increases
+	\end{itemize}
+\end{frame}
+\begin{frame}{Solution 3: Dropout}
 	practice tips:
 	\begin{itemize}
 		\item still overfitting -> increase dropout rate
@@ -120,6 +139,16 @@
 \end{frame}
 
 \begin{frame}{Solution: Batch Norm layer}
+	\begin{itemize}
+		\item for normalizing the data
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.75\textwidth]{Figs/section_4/batchnorm_2.jpg}
+		\caption{where batchnorm layer is placed \href{https://gradientscience.org/batchnorm/}{source}}
+	\end{figure}
+\end{frame}
+\begin{frame}{Solution: Batch Norm layer}
     during training:
     \begin{itemize}
     	\item zero-centers and normalizes a batch
@@ -149,103 +178,62 @@
 	\end{align*}
 \end{frame}
 \begin{frame}{Solution: Batch Norm layer}
-	Effects: Pros
 	\begin{itemize}
-		\item todo
+		\item the effect it has on data
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.75\textwidth]{Figs/section_4/batchnorm_3.png}
+		\caption{batchnorm effect \href{https://jsideas.net/batch_normalization/}{source}}
+	\end{figure}
+\end{frame}
+\begin{frame}{Solution: Batch Norm layer}
+	Pros
+	\begin{itemize}
+		\item vanishing gradient problem reduced
+		\begin{itemize}
+			\item can use even saturating activation functions (tanh, logistics, etc.)
+		\end{itemize}
+		\item much less sensitive to initial weight
+		\item exploding gradient problem reduced
+		\begin{itemize}
+			\item being able to use longer learning rates , which speeds up learning
+		\end{itemize}
+		\item acts as a regularizer, too
+		\begin{itemize}
+			\item no need for other regularizer techniques (dropout, etc.)
+		\end{itemize}
 	\end{itemize}
 \end{frame}
 \begin{frame}{Solution: Batch Norm layer}
-	Effects: Cons
+	Cons
 	\begin{itemize}
-		\item todo
+		\item adds complexity to the model (more parameters and computations)
+		\begin{itemize}
+			\item after training, we can mix the layer with its previous one
+		\end{itemize}
+	\end{itemize}
+	\begin{equation*}
+		\begin{equation}
+			\mathlarger{x'^{(i)} = W x^{(i)} + b}
+		\end{equation}
+		\begin{equation}
+			\mathlarger{z^{(i)} = \frac{x'^{(i)} - \mu}{\sqrt{\sigma^2 + \epsilon}} + \beta}
+		\end{equation}
+		\begin{equation}
+			\mathlarger{z^{(i)} = W' x^{(i)} + b'; W' = \frac{1}{\sqrt{\sigma^2 + \epsilon}} W, b' = \beta + \frac{b- \mu}{\sqrt{\sigma^2 + \epsilon}}}
+		\end{equation}
+	\end{equation*}
+\end{frame}
+\begin{frame}{Solution: Batch Norm layer}
+	Examples
+	\begin{itemize}
+		\item todo. examples from the book?
 	\end{itemize}
 \end{frame}
-
 
 
 % //////////////////
-\begin{frame}{Regularization: Dropout}
-\begin{clomuns}
-\begin{column}{0.4\textwidth}
-\centering
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.9\textwidth]{Figs/Dropout-after.png}
-	\caption{\href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
-\end{figure}
-\end{column}
-\begin{column}{0.4\textwidth}
-\centering
-\begin{itemize}
-	\item Dropout:
-	\begin{itemize}
-		\item Prevents co-adaptation of features (forces network to have redundant representations).
-		\item Can be considered a large ensemble of models sharing parameters.
-	\end{itemize}
-\end{itemize}
-\end{column}
-\end{clomuns}
-% \noindent\begin{minipage}{0.4\textwidth}
-% \begin{figure}[H]
-% 	\centering
-% 	\includegraphics[width=\textwidth]{Figs/Dropout-after.png}
-% 	\caption{\href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
-% \end{figure}
-% \end{minipage}
-% \noindent\begin{minipage}{0.4\textwidth}
-% \begin{itemize}
-% 	\item Dropout:
-% 	\begin{itemize}
-% 		\item Prevents co-adaptation of features (forces network to have redundant representations).
-% 		\item Can be considered a large ensemble of models sharing parameters.
-% 	\end{itemize}
-% \end{itemize}
-% \end{minipage}
-\end{frame}
-
-\begin{frame}{Dropout: Test Time}
-\begin{itemize}
-\item Dropout makes output of network random!
-\begin{center}
-\begin{tabular}{l@{\hspace{0.25\textwidth}}l}
-&$z$: random mask\\
-$y = f_W(x, z)$
-& $x$: input of the layer\\
-& $y$: output of the layer\\
-\end{tabular}
-\end{center}
-\item We want to "average out" the randomness at test time:
-\begin{equation*}
-y=f(x)=\mathbb{E}_z[f(x, z)] = \int p(z)f(x, z)dz
-\end{equation*}
-
-\item Can we calculate the integral exactly?\\
-\pause
-\item We need to approximate the integral.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Dropout: Test Time}
-\begin{itemize}
-	\item At test time neurons are always present and its output is multiplied by dropout probability:
-\end{itemize}
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}[b]{0.3\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{Figs/dropout-test time-before.png}
-		\caption{Without using dropout}
-		\label{fig:dropout-test time-before}
-	\end{subfigure}
-	\begin{subfigure}[b]{0.3\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{Figs/dropout-test time-after.png}
-		\caption{After using dropout.}
-		\label{fig:dropout-test time-after}
-	\end{subfigure}
-	\caption{Behavior of dropout at test time. \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
-\end{figure}
-\end{frame}
 
 
 \begin{frame}{Regularization: Adding Noise}
@@ -259,35 +247,4 @@ y=f(x)=\mathbb{E}_z[f(x, z)] = \int p(z)f(x, z)dz
 \item Adding noise is another way to prevent a neural network from overfitting on the training data.
 In every iteration, a random noise is added to the outputs of the layer, preventing consequent layers from co-adapting too much to the outputs of this layer.
 \end{itemize}
-\end{frame}
-
-\begin{frame}{Batch Normalization}
-\begin{tabular}{l l}
-Input: $x: N\times D$ & Learnable Parameters: $\gamma, \beta: D$\\
-Output: $y: N\times D$ & Intermediates: $\mu, \sigma: D$, $\hat{x}: N \times D$
-\end{tabular}
-\begin{align*}
-\mu_j &= \textup{(Running) average of values seen during training}\\
-\sigma^2_j &= \textup{(Running) average of values seen during training}\\
-\hat{x}_{i, j} &= \frac{x_{i, j} - \mu_j}{\sqrt{\sigma^2_j + \epsilon}}\\
-y_{i,j} &= \gamma_j \hat{x}_{i, j} + \beta_j
-\end{align*}
-\end{frame}
-
-\begin{frame}{Batch Normalization}
-\begin{itemize}
-\item Batch normalization is done along with \textbf{C} axis in convolutional networks:
-\begin{figure}
-	\centering
-	\includegraphics[width=0.3\textwidth]{Figs/batch normalization for cnn.png}
-	\caption{Batch normalization in CNNs \href{https://arxiv.org/pdf/1803.08494.pdf}{Source}.}
-	\label{fig:batch normalization for cnn}
-\end{figure}
-\begin{itemize}
-\item BN for FCNs: $x, y: N\times D \rightarrow \mu, \sigma, \gamma, \beta: 1\times D$
-\item BN for CNNs: $x, y: N\times C \times H \times W \rightarrow \mu, \sigma, \gamma, \beta: 1\times C \times 1 \times 1$
-\item In both cases: $y = \gamma (x - \mu) / \sigma + \beta$
-\end{itemize}
-\end{itemize}
-
 \end{frame}
