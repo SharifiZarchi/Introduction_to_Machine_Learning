@@ -5,8 +5,6 @@
 
 \documentclass[compress,oilve]{beamer}
 \mode<presentation>
-\setbeamertemplate{itemize/enumerate body begin}{\normalsize}
-\setbeamertemplate{itemize/enumerate subbody begin}{\small}
 
 \usetheme[]{CambridgeUS}
 % other themes: AnnArbor, Antibes, Bergen, Berkeley, Berlin, Boadilla, boxes, CambridgeUS, Copenhagen, Darmstadt, default, Dresden, Frankfurt, Goettingen,
@@ -61,11 +59,11 @@
 
 %show the page numbers in footnote
 %\addtobeamertemplate{navigation symbols}{}{%
-%	\usebeamerfont{footline}%
-%	\usebeamercolor[fg]{footline}%
-%	\hspace{1em}%
-%	\insertframenumber/\inserttotalframenumber
-%}
+	%	\usebeamerfont{footline}%
+	%	\usebeamercolor[fg]{footline}%
+	%	\hspace{1em}%
+	%	\insertframenumber/\inserttotalframenumber
+	%}
 
 \setbeamercolor{footline}{fg=purpleish}
 \setbeamerfont{footline}{series=\bfseries}
@@ -144,7 +142,7 @@
 
 \usefonttheme{professionalfonts} 
 \setbeamertemplate{itemize item}{\color{skyblue}$\blacksquare$}
-\setbeamertemplate{itemize subitem}{\color{hotpink}$\triangleright$}
+\setbeamertemplate{itemize subitem}{\color{hotpink}$\blacktriangleright$}
 \setbeamertemplate{itemize subsubitem}{\color{orange}$\bullet$}
 
 
@@ -154,16 +152,17 @@
 \usetikzlibrary{calc,trees,positioning,arrows,chains,shapes.geometric,decorations.pathreplacing,decorations.pathmorphing,shapes,matrix,shapes.symbols}
 
 
-\usepackage{xcolor}
-\newcommand{\tc}[2]{
-	\textcolor{#1}{\hspace{-2pt}#2\hspace{-2pt}}
-}
 
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{assumption}[theorem]{Assumption}
 
-%\usepackage{fontspec,unicode-math}
+\usepackage{xcolor}
+\newcommand{\tc}[2]{
+	\textcolor{#1}{\hspace{-2pt}#2\hspace{-2pt}}
+}
+
+%\usepackage{fontspec, unicode-math}
 %\setmainfont[Scale=0.9]{Nimbus Roman No9 L}
 %\setmonofont[Scale=0.9]{Monaco}
 \setsansfont[Scale=1]{Times New Roman}
@@ -171,8 +170,9 @@
 \newcommand{\vect}[1]{\boldsymbol{#1}}
 
 \definecolor{strings}{rgb}{.624,.251,.259}
-\definecolor{keywords}{rgb}{.893,.188,.01}
+\definecolor{keywords}{rgb}{.224,.451,.686}
 \definecolor{comment}{rgb}{.322,.451,.322}
+
 
 %\usepackage{smartdiagram}
 %\usesmartdiagramlibrary{additions}
