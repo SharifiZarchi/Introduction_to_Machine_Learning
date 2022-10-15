@@ -24,7 +24,7 @@
         }}}
     \end{equation*}
 \end{frame}
-\begin{frame}{Solution 1: L1/L2 Regularization}
+\begin{frame}{L1/L2 Regularization}
     \begin{itemize}
         \item L1/L2 regularizer functions (review)
     \end{itemize}
@@ -77,65 +77,115 @@
 \begin{frame}{Solution 3: Dropout}
 	\begin{block}{Training}
 		\begin{itemize}
-			\item at each iteration, every neuron has a probability $P$ of being dropped out
-			\begin{itemize}
-				\item meaning it will be ignored
-			\end{itemize}
-			\item $P :=$ dropout rate
+			\item ّIn each forward pass, randomly set some neurons to zero.
+			\item Probability of dropping out for each neuron is a hyperparameter; 0.5 is common.
 		\end{itemize}
 		
 		\begin{figure}[H]
 			\centering
-			\includegraphics[height=0.4\textheight]{Figs/Dropout-after.png}
-			\caption{Behavior of dropout at training time. \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
+			\begin{subfigure}[b]{0.45\textwidth}
+				\centering
+				\includegraphics[height=0.4\textheight]{Figs/Dropout-before.png}
+			\end{subfigure}
+			\begin{subfigure}[b]{0.45\textwidth}
+				\centering
+				\includegraphics[height=0.4\textheight]{Figs/Dropout-after.png}
+			\end{subfigure}
+			\caption{Behavior of dropout at training time. \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{source}}
 		\end{figure}
 	\end{block}
 \end{frame}
-\begin{frame}{Solution 3: Dropout}
-	\begin{block}{Testing}
+\begin{frame}{Dropout}
+	\begin{itemize}
+		\item How can this possibly be a good idea?
 		\begin{itemize}
-			\item at each iteration, on average, 1-P percent of Neurons are active
-			\begin{itemize}
-				\item less neurons results in bigger weights
-			\end{itemize}
-			\item we need to normalize weights by 1-P
+			\item It prevents co-adaptation of features
 		\end{itemize}
-		
-		\begin{figure}[H]
-			\centering
-			\includegraphics[height=0.4\textheight]{Figs/Dropout-before.png}
-			\caption{Behavior of dropout at testing time. \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
-		\end{figure}
-	\end{block}
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[height=0.4\textheight]{Figs/section_4/dropout_why.png}
+		\caption{Behavior of dropout at testing time. \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
+	\end{figure}
 \end{frame}
-\begin{frame}{Solution 3: Dropout}
-	\begin{block}{Performance}
+\begin{frame}{Dropout}
+	\begin{itemize}
+		\item How can this possibly be a good idea?
 		\begin{itemize}
-			\item the dependence between different neuron decreases
-			\begin{itemize}
-				\item neurons get more generalized
-			\end{itemize}
+			\item It trains a large ensemble of models that share parameters.
+			\medskip
+			\item A fully connected layer with 4096 neurons has $2^4096 \sim 10^1233$ possible masks! There are only $10^82$ atoms in the universe!
 		\end{itemize}
-		
-		\begin{figure}[H]
-			\centering
-			\includegraphics[height=0.4\textheight]{Figs/section_4/dropout_performance.png}
-			\caption{the effect of dropout layer. as you see, the total error is reduced by a considerable amount. \href{https://towardsdatascience.com/understanding-and-implementing-dropout-in-tensorflow-and-keras-a8a3a02c1bfa}{Source}}
-		\end{figure}
-	\end{block}
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[height=0.4\textheight]{Figs/section_4/dropout_why2.png}
+		\caption{Behavior of dropout at testing time. \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
+	\end{figure}
 \end{frame}
-\begin{frame}{Solution 3: Dropout}
-	\begin{block}{Practice tips}
-		\begin{itemize}
-			\item you can tweak dropout rate if you still see overfitting issues
+\begin{frame}{Dropout: Test Time}
+	\begin{itemize}
+		\item Dropout makes our output random at training time.
+		\medskip
+	\end{itemize}
+	\begin{equation*}
+		\mathlarger{\mathlarger{
+		y = f_W(x, \underbrace{z}_{\text{random mask}})
+	}}
+	\end{equation*}
+	\begin{itemize}
+		\item We want to \tc{keywords}{average out} the randomness at test time.
+		\medskip
+	\end{itemize}
+	\begin{equation*}
+		\mathlarger{\mathlarger{
+			y = f(x) = E_z[f(x, z)] = \int p(z)f(x, z) dz
+		}}
+	\end{equation*}
+	\begin{itemize}
+		\item But this integral seems hard.
+	\end{itemize}
+\end{frame}
+\begin{frame}{Dropout: Test Time}
+	\begin{itemize}
+		\item We want to approximate the integral for a simple layer.
+	\end{itemize}
+	\begin{equation*}
+		\mathlarger{\mathlarger{
+			y = f(x) = E_z[f(x, z)] = \int p(z)f(x, z) dz
+		}}
+	\end{equation*}
+	\begin{columns}
+		\begin{column}[c]{0.4\textwidth}
 			\begin{itemize}
-				\item still overfitting -> increase dropout rate
-				\item underfitting -> decrease dropout rate
+				\item Training time
 			\end{itemize}
-			\item layersize $\sim$ dropout rate
-			\item usually in practice, people will use dropout after the last hidden layer
-		\end{itemize}
-	\end{block}
+			\begin{align*}
+				E[a] = \frac{1}{4}(w_1 x + w_2 y) + \frac{1}{4}(w_1 x + 0 y) \\
+				+ \frac{1}{4}(0 x + w_2 y) + \frac{1}{4}(0 x + 0 y)\\
+				= \frac{1}{2}(w_1 x + w_2 y)
+			\end{align*}
+			\begin{itemize}
+				\item Test time
+			\end{itemize}
+			\begin{align*}
+				E_{test}[a] = w_1 x + w_2 y
+			\end{align*}
+			\begin{itemize}
+				\item Therefore we should multiply test result by 1-P
+			\end{itemize}
+			\begin{align*}
+				\Rightarrow E_{test}[a] = 0.5 E_{train}[a]
+			\end{align*}
+		\end{column}
+		\begin{column}[c]{0.5\textwidth}
+			\begin{figure}[H]
+				\centering
+				\includegraphics[height=0.4\textheight]{Figs/section_4/dropout_test.png}
+				\caption{dropout rate is 0.5 \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
+			\end{figure}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 
