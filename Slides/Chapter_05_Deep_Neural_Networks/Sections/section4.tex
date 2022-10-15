@@ -1,21 +1,21 @@
-\begin{frame}{Problem: Over-fitting in a Neural Network}
+\begin{frame}{Problem: OverFitting in a Neural Network}
 	\begin{itemize}
-		\item Why does over-fitting happen in a Neural network?
+		\item Why does overfitting happen in a neural network?
 		\begin{itemize}
-			\item too many free parameters
+			\item There are \tc{keywords}{Too many free parameters}.
 		\end{itemize}
 	\end{itemize}
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.4\textwidth]{Figs/section_4/overfitting.png}
-        \caption{Over-fitting in a Neural Network \href{https://en.wikipedia.org/wiki/Overfitting}{source}}
+        \caption{OverFitting in a neural network. \href{https://en.wikipedia.org/wiki/Overfitting}{source}}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Solution 1: L1/L2 regularization}
+\begin{frame}{Solution 1: L1/L2 Regularization}
     \begin{itemize}
-        \item just like a classic regularizer
-        \item sum the regularizer term for every layer weight
+        \item It is like a linear regression regularizer.
+        \item Sum the regularizer term for every \tc{keywords}{layer weight}!
     \end{itemize}
     \vspace{0.2\textheight}
     \begin{equation*}
@@ -24,40 +24,53 @@
         }}}
     \end{equation*}
 \end{frame}
-\begin{frame}{Solution 1: L1/L2 regularization}
+\begin{frame}{Solution 1: L1/L2 Regularization}
     \begin{itemize}
         \item L1/L2 regularizer functions (review)
     \end{itemize}
-    \vspace{0.1\textheight}
-    \begin{equation*}
-        \mathlarger{\mathlarger{\mathlarger{
-            L1: R(w) = \vert w\vert
-        }}}
-    \end{equation*}
-    \begin{equation*}
-        \mathlarger{\mathlarger{\mathlarger{
-            L2: R(w) = w^2
-        }}}
-    \end{equation*}
+	\begin{columns}
+		\begin{column}[c]{0.5\textwidth}
+			\centering
+			\begin{equation*}
+				\centering
+				\mathlarger{\mathlarger{
+							L1: R(w) = \vert w\vert
+				}}
+			\end{equation*}
+			\begin{equation*}
+				\centering
+				\mathlarger{\mathlarger{
+							L2: R(w) = w^2
+				}}
+			\end{equation*}
+		\end{column}
+		\begin{column}[c]{0.5\textwidth}
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=\textwidth]{Figs/section_4/l1l2_reg.jpeg}
+				\caption{L1/L2 regularizers' solution diagram \href{https://towardsdatascience.com/understanding-l1-and-l2-regularization-93918a5ac8d0}{source}}
+			\end{figure}
+		\end{column}
+	\end{columns}
+    
     \begin{itemize}
-        \item you can also combine the two different regularizers (Elastic net)
+        \item You can also combine the two different regularizers (Elastic Net).
     \end{itemize}
-    \vspace{0.1\textheight}
     \begin{equation*}
-        \mathlarger{\mathlarger{\mathlarger{
+        \mathlarger{\mathlarger{
         R(w) = \beta w^2 + \vert w\vert
-        }}}
+        }}
     \end{equation*}
 \end{frame}
 
 \begin{frame}{Solution 2: Early Stopping}
     \begin{itemize}
-        \item Stop learning when the validation error is Minimum
+        \item Stop the training procedure when the validation error is \tc{keywords}{minimum}.
     \end{itemize}
     \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figs/Early Stopping.png}
-	\caption{Early-Stopping diagram\href{https://medium.com/analytics-v7idhya/early-stopping-with-pytorch-to-restrain-your-model-from-overfitting-dce6de4081c5}{source}}
+	\caption{Early-Stopping diagram. \href{https://medium.com/analytics-v7idhya/early-stopping-with-pytorch-to-restrain-your-model-from-overfitting-dce6de4081c5}{source}}
     \end{figure}
 \end{frame}
 
@@ -141,20 +154,20 @@
     \end{figure}
 \end{frame}
 
-\begin{frame}{Solution: Batch Norm layer}
+\begin{frame}{Solution: Batch Norm Layer}
 	\begin{itemize}
-		\item for normalizing the data
+		\item It is used for \tc{keywords}{normalizing} the data.
 	\end{itemize}
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.75\textwidth]{Figs/section_4/batchnorm_2.jpg}
-		\caption{where batchnorm layer is placed \href{https://gradientscience.org/batchnorm/}{source}}
+		\caption{The suggested place to put a BatchNorm layer. \href{https://gradientscience.org/batchnorm/}{source}}
 	\end{figure}
 \end{frame}
-\begin{frame}{Solution: Batch Norm layer}
+\begin{frame}{Solution: Batch Norm Layer}
 	\begin{block}{Training}
 		\begin{itemize}
-			\item zero-centers and normalizes a batch
+			\item First, it zero-centers and normalizes the batch.
 		\end{itemize}
 		\begin{equation*}
 			\mathlarger{
@@ -172,7 +185,7 @@
 			}
 		\end{equation*}
 		\begin{itemize}
-			\item then, scales and shifts with two learnable parameters $\gamma, \beta$
+			\item Then, scales and shifts the batch with two learnable parameters $\gamma, \beta$.
 		\end{itemize}
 		\begin{equation*}
 			\mathlarger{
@@ -181,92 +194,101 @@
 		\end{equation*}
 	\end{block}
 \end{frame}
-\begin{frame}{Solution: Batch Norm layer}
+\begin{frame}{Solution: Batch Norm Layer}
 	\begin{block}{Testing}
 		\begin{itemize}
-			\item to zero-center and normalize the input, we need average and variance of the whole data
-			\item that can be acquired during the learning
-			\item therefore two more learnable parameters!
+			\item To zero-center and normalize the input, we need average and variance of the whole data.
+			\item Those parameters can be acquired during the training.
+			\item Therefore we need two more trainable parameters.
 		\end{itemize}
 		\vspace{0.1\textheight}
-			\begin{equation}
+			\begin{equation*}
 				\mathlarger{
-					\mu := \frac{1}{N} \sum{x^{(i)}}
+					\mu_D := \frac{1}{N} \sum{x^{(i)}}
 				}
-			\end{equation}
-			\begin{equation}
+			\end{equation*}
+			\begin{equation*}
 				\mathlarger{
-					\sigma^2 := \frac{1}{N} \sum{(x^{(i)} - \mu)^2}
+					\sigma_D^2 := \frac{1}{N} \sum{(x^{(i)} - \mu)^2}
 				}
-			\end{equation}
+			\end{equation*}
 	\end{block}
 \end{frame}
-\begin{frame}{Solution: Batch Norm layer}
+\begin{frame}{Solution: Batch Norm Layer}
 	\begin{block}{Performance}
 		\begin{itemize}
-			\item data gets normalized
-			\begin{itemize}
-				\item convergence improves
-			\end{itemize}
+			\item Normalizing the data improves the convergence speed by a considerable amount.
 		\end{itemize}
 		\begin{figure}[H]
 			\centering
-			\includegraphics[width=0.75\textwidth]{Figs/section_4/batchnorm_3.png}
-			\caption{batchnorm performance. as you see, convergence speed is increased by 200\% in this problem.  \href{https://jsideas.net/batch_normalization/}{source}}
+			\includegraphics[width=0.8\textwidth]{Figs/section_4/batchnorm_3.png}
+			\caption{BatchNorm performance. Convergence speed is increased by 200\%.  \href{https://jsideas.net/batch_normalization/}{source}}
 		\end{figure}
 	\end{block}
 \end{frame}
-\begin{frame}{Solution: Batch Norm layer}
+\begin{frame}{Solution: Batch Norm Layer}
 	\begin{block}{Pros}
 		\begin{itemize}
-			\item vanishing gradient problem reduced
+			\item Vanishing/Exploding gradient problem is reduced by a considerable amount.
+			\medskip
+%			\begin{itemize}
+				\item You can use even saturating activation functions.
+				\medskip
+				\item The network is much less sensitive to initial weight.
+				\medskip
+				\item We're able to use larger learning rates, which speeds up the training.
+%			\end{itemize}
+			\medskip
+			\item It also acts as a regularizer.
+			\medskip
 			\begin{itemize}
-				\item can use even saturating activation functions (tanh, logistics, etc.)
-			\end{itemize}
-			\item much less sensitive to initial weight
-			\item exploding gradient problem reduced
-			\begin{itemize}
-				\item being able to use longer learning rates , which speeds up learning
-			\end{itemize}
-			\item acts as a regularizer, too
-			\begin{itemize}
-				\item no need for other regularizer techniques (dropout, etc.)
+				\item There is no need for other regularizer techniques.
 			\end{itemize}
 		\end{itemize}
 	\end{block}
 \end{frame}
-\begin{frame}{Solution: Batch Norm layer}
+\begin{frame}{Solution: Batch Norm Layer}
 	\begin{block}{Cons}
 		\begin{itemize}
-			\item adds complexity to the model (more parameters and computations)
+			\item It increases model parameters and prediction latency.
 			\begin{itemize}
-				\item after training, we can mix the layer with its previous one
+				\item After the training procedure, we can mix the BatchNorm layer with its previous layer to hold the prediction latency.
 			\end{itemize}
 		\end{itemize}
-			\begin{equation}
-				\mathlarger{x'^{(i)} = W x^{(i)} + b}
-			\end{equation}
-			\begin{equation}
-				\mathlarger{y^{(i)} = \frac{x'^{(i)} - \mu}{\sqrt{\sigma^2 + \epsilon}} + \beta}
-			\end{equation}
-			\begin{equation}
-				\mathlarger{y^{(i)} = W' x^{(i)} + b'}
-			\end{equation}
-			\begin{equation}
-				\mathlarger{
-					W' := \frac{1}{\sqrt{\sigma^2 + \epsilon}} W	
-				}
-			\end{equation}
-			\begin{equation}
-				\mathlarger{
-					b' := \beta + \frac{b- \mu}{\sqrt{\sigma^2 + \epsilon}}	
-				}
-			\end{equation}
+		\begin{columns}
+			\begin{column}[c]{0.45\textwidth}
+				\centering
+				\begin{equation*}
+					\mathlarger{x'^{(i)} = W x^{(i)} + b}
+				\end{equation*}
+				\begin{equation*}
+					\mathlarger{y^{(i)} = \frac{x'^{(i)} - \mu}{\sqrt{\sigma^2 + \epsilon}} + \beta}
+				\end{equation*}
+			\end{column}
+			\begin{column}[c]{0.1\textwidth}
+				\centering
+				\begin{equation*}
+					\mathlarger{\mathlarger{
+					\Rightarrow
+				}}
+				\end{equation*}
+			\end{column}
+			\begin{column}[c]{0.45\textwidth}
+				\centering
+				\begin{equation*}
+					\mathlarger{y^{(i)} = W' x^{(i)} + b'}
+				\end{equation*}
+				\begin{equation*}
+					\mathlarger{
+						W' := \frac{1}{\sqrt{\sigma^2 + \epsilon}} W	
+					}
+				\end{equation*}
+				\begin{equation*}
+					\mathlarger{
+						b' := \beta + \frac{b- \mu}{\sqrt{\sigma^2 + \epsilon}}	
+					}
+				\end{equation*}
+			\end{column}
+		\end{columns}
 	\end{block}
-\end{frame}
-\begin{frame}{Solution: Batch Norm layer}
-	Examples
-	\begin{itemize}
-		\item todo. examples from the book?
-	\end{itemize}
 \end{frame}
