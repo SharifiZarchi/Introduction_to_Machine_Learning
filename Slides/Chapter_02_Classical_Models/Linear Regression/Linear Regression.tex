@@ -105,7 +105,7 @@
 
 %\setbeamertemplate{navigation symbols}{}
 
-\title{Linear regression}
+\title{Linear Regression}
 \author{ML Instruction Team, Fall 2022}
 \institute[]{CE Department \newline  Sharif University of Technology \newline \newline}
 \date[\today]{}
@@ -159,7 +159,7 @@
 
 \usepackage{xcolor}
 \newcommand{\tc}[2]{
-	\textcolor{#1}{#2}
+	\textcolor{#1}{\hspace{-2pt}#2\hspace{-2pt}}
 }
 
 %\usepackage{fontspec, unicode-math}
@@ -209,15 +209,13 @@
 			y_i=\beta_0+\beta_1 x_{i 1}+\ldots+\beta_n x_{i n}+\epsilon_i
 		\end{equation*}
 	
-			\item $Y$ represents a vector of length $n$ containing the observed values $Y=\left(y_1, \ldots, y_m\right)^T$
+			\item $Y$ represents a vector of length $n$ containing the observed values $Y=\left(y_1, \ldots, y_m\right)^T$.
 	
-		\item $\beta$ is a vector for the parameters $\beta=\left(\beta_0, \ldots, \beta_n\right)^T$
+		\item $\beta$ is a vector for the parameters $\beta=\left(\beta_0, \ldots, \beta_n\right)^T$.
 		
 		\medskip
 		\item $\epsilon$ is a vector for the errors
-		
-		\medskip
-		$\epsilon=\left(\epsilon_1, \ldots, \epsilon_m\right)^T$
+		$\epsilon=\left(\epsilon_1, \ldots, \epsilon_m\right)^T$.
 		
 		\medskip
 		\item $X$ is a matrix of the features in which the column of ones incorporates the intercept.
@@ -261,7 +259,7 @@
 \frame{\frametitle{Non-Geometric Approach}
 	\begin{itemize} 
 	
-	\item \href{https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf}{Differentiating} this term and setting it to zero, we find that the estimate for $beta$, which minimizes the squared error, satisfies the so-called\tc{keywords}{Normal}equation:
+	\item \href{https://www.math.uwaterloo.ca/~hwolkowi/matrixcookbook.pdf}{Differentiating} this term and setting it to zero, we find that the estimate for $beta$, which minimizes the squared error, satisfies the so-called \tc{keywords}{Normal} equation:
 	\begin{equation*}
 		X^T X \hat{\beta}=X^T Y
 	\end{equation*}
