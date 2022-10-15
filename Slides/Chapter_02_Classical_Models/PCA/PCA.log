@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2022.10.14)  15 OCT 2022 20:11
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2022.10.14)  15 OCT 2022 21:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -909,7 +909,7 @@ elliptical arcs, loaded)
 Package: multimedia 2012/05/02 ver 0.02
 \mm@movie=\count352
 )
-Package hyperref Info: Option `colorlinks' set `true' on input line 128.
+Package hyperref Info: Option `colorlinks' set `true' on input line 130.
 
 (/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
@@ -1187,7 +1187,7 @@ Package fontspec Info: Font family 'TimesNewRoman(0)' created for font 'Times
 (fontspec)             - 'bold italic small caps'  (b/scit) with NFSS spec.: 
 
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 10.95pt on input line 169.
+(Font)              scaled to size 10.95pt on input line 170.
  (./PCA.aux)
 \openout1 = `PCA.aux'.
 
@@ -1385,8 +1385,14 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 219
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 219.
+Overfull \hbox (11.81332pt too wide) detected at line 219
+[]\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 Xv\OT1/cmr/m/n/10.95 ) = \U/msb/m/n/1
+0.95 E\OT1/cmr/m/n/10.95 [(\OML/cmm/m/it/10.95 Xv \OMS/cmsy/m/n/10.95 ^^@ \U/ms
+b/m/n/10.95 E\OT1/cmr/m/n/10.95 (\OML/cmm/m/it/10.95 Xv\OT1/cmr/m/n/10.95 ))[]]
+ = [] [](\OML/cmm/m/it/10.95 x[]v\OT1/cmr/m/n/10.95 )[] = []\OMS/cmsy/m/n/10.95
+ k\OML/cmm/m/it/10.95 Xv\OMS/cmsy/m/n/10.95 k[] \OT1/cmr/m/n/10.95 = []\OML/cmm
+/m/it/10.95 v[]X[]Xv
+ []
 
 Missing character: There is no 4 ("34) in font nullfont!
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
@@ -1401,7 +1407,7 @@ Missing character: There is no 4 ("34) in font nullfont!
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
 (Font)              scaled to size 10.0pt on input line 270.
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
-(Font)              scaled to size 9.0pt on input line 270.
+(Font)              scaled to size 10.95pt on input line 270.
 
 Missing character: There is no 4 ("34) in font nullfont!
 [4
@@ -1420,7 +1426,10 @@ Missing character: There is no 4 ("34) in font nullfont!
 Missing character: There is no 4 ("34) in font nullfont!
 [7
 
-] [8
+]
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
+(Font)              scaled to size 9.0pt on input line 346.
+ [8
 
 ]
 \tf@nav=\write7
@@ -1433,15 +1442,21 @@ Missing character: There is no 4 ("34) in font nullfont!
 \openout9 = `PCA.snm'.
 
  (./PCA.aux)
-Package rerunfilecheck Info: File `PCA.out' has not changed.
-(rerunfilecheck)             Checksum: 99AFB3A84FA0D368F552C34B1C24BE35;199.
+
+Package rerunfilecheck Warning: File `PCA.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `PCA.out':
+(rerunfilecheck)             Before: 8E7C80CB4F0D9E4326F0773E79AFB016;95
+(rerunfilecheck)             After:  99AFB3A84FA0D368F552C34B1C24BE35;199.
  ) 
 Here is how much of TeX's memory you used:
- 34682 strings out of 476191
- 752143 string characters out of 5812071
- 1125409 words of memory out of 5000000
- 54684 multiletter control sequences out of 15000+600000
- 478863 words of font info for 87 fonts, out of 8000000 for 9000
+ 34703 strings out of 476191
+ 752522 string characters out of 5812071
+ 1125406 words of memory out of 5000000
+ 54699 multiletter control sequences out of 15000+600000
+ 481962 words of font info for 100 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  128i,22n,122p,411b,1264s stack positions out of 5000i,500n,10000p,200000b,80000s
 

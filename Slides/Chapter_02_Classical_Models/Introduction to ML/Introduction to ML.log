@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2022.10.14)  15 OCT 2022 20:09
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2022.10.14)  15 OCT 2022 21:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1481,7 +1481,7 @@ Package rerunfilecheck Info: File `"Introduction to ML".out' has not changed.
 Here is how much of TeX's memory you used:
  34776 strings out of 476191
  753885 string characters out of 5812071
- 1125615 words of memory out of 5000000
+ 1125927 words of memory out of 5000000
  54767 multiletter control sequences out of 15000+600000
  478863 words of font info for 87 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
