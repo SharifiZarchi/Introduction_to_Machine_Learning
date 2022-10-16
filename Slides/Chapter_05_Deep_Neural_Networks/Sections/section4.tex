@@ -56,6 +56,7 @@
     \begin{itemize}
         \item You can also combine the two different regularizers (Elastic Net).
     \end{itemize}
+	\vspace{0.05\textheight}
     \begin{equation*}
         \mathlarger{\mathlarger{
         R(w) = \beta w^2 + \vert w\vert
@@ -67,6 +68,7 @@
     \begin{itemize}
         \item Stop the training procedure when the validation error is \tc{keywords}{minimum}.
     \end{itemize}
+	\vspace{0.1\textheight}
     \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figs/Early Stopping.png}
@@ -77,7 +79,8 @@
 \begin{frame}{Solution 3: Dropout}
 	\begin{block}{Training}
 		\begin{itemize}
-			\item ّIn each forward pass, randomly set some neurons to zero.
+			\item ّIn each forward pass, \tc{keywords}{randomly} set some neurons to zero.
+			\medskip
 			\item Probability of dropping out for each neuron is a hyperparameter; 0.5 is common.
 		\end{itemize}
 		
@@ -98,8 +101,9 @@
 \begin{frame}{Dropout}
 	\begin{itemize}
 		\item How can this possibly be a good idea?
+		\medskip
 		\begin{itemize}
-			\item It prevents co-adaptation of features
+			\item It prevents \tc{keywords}{co-adaptation of features}
 		\end{itemize}
 	\end{itemize}
 	\begin{figure}[H]
@@ -111,8 +115,9 @@
 \begin{frame}{Dropout}
 	\begin{itemize}
 		\item How can this possibly be a good idea?
+		\medskip
 		\begin{itemize}
-			\item It trains a large ensemble of models that share parameters.
+			\item It trains a \tc{keywords}{large ensemble of models} that share parameters.
 			\medskip
 			\item A fully connected layer with 4096 neurons has $2^4096 \sim 10^1233$ possible masks! There are only $10^82$ atoms in the universe!
 		\end{itemize}
@@ -163,7 +168,7 @@
 				+ \frac{1}{4}(0 x + w_2 y) + \frac{1}{4}(0 x + 0 y) \\
 				= \frac{1}{2}(w_1 x + w_2 y) \\
 				E_{test}[a] = w_1 x + w_2 y \\
-				\Rightarrow E_{test}[a] = \underbrace{0.5}_{\text{dropout probability}} E_{train}[a]
+				\Rightarrow E_{test}[a] = \underbrace{0.5}_{\text{\tc{keywords}{dropout probability}}} E_{train}[a]
 			\end{align*}
 		\end{column}
 		\begin{column}{0.5\textwidth}
