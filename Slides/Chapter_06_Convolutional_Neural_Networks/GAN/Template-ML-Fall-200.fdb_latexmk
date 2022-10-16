@@ -1,9 +1,9 @@
 # Fdb version 3
-["xdvipdfmx"] 1663361487 "Template-ML-Fall-200.xdv" "Template-ML-Fall-200.pdf" "Template-ML-Fall-200" 1663361496
-  "Template-ML-Fall-200.xdv" 1663361486 1222548 f5c4198be0f89ffacee79d52e3b545f1 "xelatex"
+["xdvipdfmx"] 1663361535 "Template-ML-Fall-200.xdv" "Template-ML-Fall-200.pdf" "Template-ML-Fall-200" 1663361546
+  "Template-ML-Fall-200.xdv" 1663361534 1222108 9af31d7ec1b146f03152f7b5b60743ad "xelatex"
   (generated)
   "Template-ML-Fall-200.pdf"
-["xelatex"] 1663361469 "d:/ML_course_Fall1401/repo/Introduction_to_Machine_Learning/Slides/Chapter_06_Convolutional_Neural_Networks/GAN/Template-ML-Fall-200.tex" "Template-ML-Fall-200.xdv" "Template-ML-Fall-200" 1663361496
+["xelatex"] 1663361512 "d:/ML_course_Fall1401/repo/Introduction_to_Machine_Learning/Slides/Chapter_06_Convolutional_Neural_Networks/GAN/Template-ML-Fall-200.tex" "Template-ML-Fall-200.xdv" "Template-ML-Fall-200" 1663361546
   "C:/Users/Pooyan/AppData/Local/MiKTeX/miktex/data/le/xetex/xelatex.fmt" 1663029730 23766142 b4db41abb789c0354d11cfc4e6f0b727 ""
   "C:/Users/Pooyan/AppData/Local/Programs/MiKTeX/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136763254 1528 7e12f4c0fcf5a072cebdcfbfc610f54c ""
   "C:/Users/Pooyan/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/symbols/msam10.tfm" 1233955454 916 f87d7c45f9c908e672703b83b72241a3 ""
@@ -270,9 +270,9 @@
   "C:/Users/Pooyan/AppData/Local/Programs/MiKTeX/tex/latex/unicode-math/unicode-math.sty" 1580430746 1474 aba4cc64ac109084e74e3e749fbcd54e ""
   "C:/Users/Pooyan/AppData/Local/Programs/MiKTeX/tex/latex/url/url.sty" 1388494052 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "C:/Users/Pooyan/AppData/Local/Programs/MiKTeX/tex/latex/xcolor/xcolor.sty" 1656236890 56148 51a9a8571c07b9921892ae11063ae853 ""
-  "Template-ML-Fall-200.aux" 1663361486 2503 71bf5ee2a43e5169e72a33ed8c14e1fc "xelatex"
-  "Template-ML-Fall-200.nav" 1663361486 4352 b8ea5e1444a9c0f8bd6f66ae311d533a "xelatex"
-  "Template-ML-Fall-200.out" 1663361486 589 e1a7b12ad8e930f57318327cbb8a7b08 "xelatex"
+  "Template-ML-Fall-200.aux" 1663361534 2503 71bf5ee2a43e5169e72a33ed8c14e1fc "xelatex"
+  "Template-ML-Fall-200.nav" 1663361534 4352 b8ea5e1444a9c0f8bd6f66ae311d533a "xelatex"
+  "Template-ML-Fall-200.out" 1663361534 589 e1a7b12ad8e930f57318327cbb8a7b08 "xelatex"
   "Template-ML-Fall-200.tex" 1663361326 6945 08cd060c6deff428d24cfd2080cd156e ""
   "d:/ML_course_Fall1401/repo/Introduction_to_Machine_Learning/Slides/Chapter_06_Convolutional_Neural_Networks/GAN/Template-ML-Fall-200.tex" 1663361326 6945 08cd060c6deff428d24cfd2080cd156e ""
   "figs//../images/Disc.png" 1663136444 155306 7f93b898b9ad9e092f56fe3cb79ffa8b ""
@@ -308,16 +308,16 @@
   "images/stylegan_example1.png" 1662825690 184178 223b161e835ce1affb174442bbcd104f ""
   "images/two_gen.png" 1662825690 5118 4d4a45472358b70ef298bdd53df77785 ""
   "images/two_real.png" 1662825690 5647 96b4d739c9e2ebb8497df1f60b4ec430 ""
-  "modules/Module1/1.aux" 1663361482 3119 e4954c32d18ed5a716383e250e84f123 "xelatex"
+  "modules/Module1/1.aux" 1663361530 3119 e4954c32d18ed5a716383e250e84f123 "xelatex"
   "modules/Module1/1.tex" 1663361039 8240 8058bafc3b015b258eb2f164aebe44c8 ""
   "modules/Module1/tikz_images/gen_disc_noanim.tex" 1662825688 2272 fc0ff24d66553f772da3a92368076fad ""
-  "modules/Module2/2.aux" 1663361484 2347 34d919cfd08bfeb320bb1b972270218e "xelatex"
+  "modules/Module2/2.aux" 1663361532 2347 34d919cfd08bfeb320bb1b972270218e "xelatex"
   "modules/Module2/2.tex" 1663359307 6418 e8cadd3efdef7a9b51487ad74182fa9f ""
-  "modules/Module3/3.aux" 1663361484 1345 14de9dec1d739e3e2e478f2366542de2 "xelatex"
+  "modules/Module3/3.aux" 1663361532 1345 14de9dec1d739e3e2e478f2366542de2 "xelatex"
   "modules/Module3/3.tex" 1663361451 1562 993faaaa815b1962bd064d06ef65ccba ""
-  "modules/Module6/6.aux" 1663361485 1822 848192bf33b94deb2f30b399f02aaf03 "xelatex"
-  "modules/Module6/6.tex" 1663361450 3857 6da79585d586d3b6ffaa5c2d4b06cdd2 ""
-  "modules/Module8/8.aux" 1663361486 1325 8298fbeb8441269e41643c1b7e340bee "xelatex"
+  "modules/Module6/6.aux" 1663361533 1822 848192bf33b94deb2f30b399f02aaf03 "xelatex"
+  "modules/Module6/6.tex" 1663361510 3812 8271bb2b917599f49be591d2b165a67d ""
+  "modules/Module8/8.aux" 1663361534 1325 8298fbeb8441269e41643c1b7e340bee "xelatex"
   "modules/Module8/8.tex" 1663358701 2320 9a7fd88e61ce198ab63195dd1ef47d98 ""
   (generated)
   "Template-ML-Fall-200.aux"
