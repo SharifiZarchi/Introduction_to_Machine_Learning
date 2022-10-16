@@ -81,7 +81,7 @@
 		\begin{itemize}
 			\item ّIn each forward pass, \tc{keywords}{randomly} set some neurons to zero.
 			\medskip
-			\item Probability of dropping out for each neuron is a hyperparameter; 0.5 is common.
+			\item The probability of dropping out for each neuron is a hyperparameter; 0.5 is common.
 		\end{itemize}
 		
 		\begin{figure}[H]
@@ -103,7 +103,7 @@
 		\item How can this possibly be a good idea?
 		\medskip
 		\begin{itemize}
-			\item It prevents \tc{keywords}{co-adaptation of features}
+			\item It prevents the \tc{keywords}{co-adaptation of features}
 		\end{itemize}
 	\end{itemize}
 	\begin{figure}[H]
@@ -139,7 +139,7 @@
 	}}
 	\end{equation*}
 	\begin{itemize}
-		\item We want to \tc{keywords}{average out} the randomness at test time.
+		\item We want to \tc{keywords}{average out} the randomness at test time,
 		\medskip
 	\end{itemize}
 	\begin{equation*}
@@ -148,12 +148,12 @@
 		}}
 	\end{equation*}
 	\begin{itemize}
-		\item But this integral seems hard.
+		\item But this integral seems complicated.
 	\end{itemize}
 \end{frame}
 \begin{frame}{Dropout: Test Time}
 	\begin{itemize}
-		\item We want to approximate the integral for a simple layer.
+		\item We want to approximate the integral for a superficial layer.
 	\end{itemize}
 	\begin{equation*}
 		\mathlarger{\mathlarger{
@@ -207,131 +207,126 @@
 		\caption{The suggested place to put a BatchNorm layer. \href{https://gradientscience.org/batchnorm/}{source}}
 	\end{figure}
 \end{frame}
-\begin{frame}{Solution: Batch Norm Layer}
-	\begin{block}{Training}
-		\begin{itemize}
-			\item First, it zero-centers and normalizes the batch.
-		\end{itemize}
-		\begin{equation*}
-			\mathlarger{
-				\mu_B := \frac{1}{N_B} \sum{x_B^{(i)}}
-			}
-		\end{equation*}
-		\begin{equation*}
-			\mathlarger{
-				\sigma_B^2 := \frac{1}{N_B} \sum{(x_B^{(i)} - \mu_B)^2}
-			}
-		\end{equation*}
-		\begin{equation*}
-			\mathlarger{
-				\hat{x_B}^{(i)} = \frac{x_B^{(i)} - \mu_B}{\sqrt{\sigma^2_B + \epsilon}}
-			}
-		\end{equation*}
-		\begin{itemize}
-			\item Then, scales and shifts the batch with two learnable parameters $\gamma, \beta$.
-		\end{itemize}
-		\begin{equation*}
-			\mathlarger{
-				y_B^{(i)} = \gamma \hat{x_B}^{(i)} + \beta	
-			}
-		\end{equation*}
-	\end{block}
+\begin{frame}{Batch Norm: Training}
+	\begin{itemize}
+		\item First, it zero-centers and normalizes the batch.
+	\end{itemize}
+	\vspace{0.05\textheight}
+	\begin{equation*}
+		\mathlarger{
+			\mu_B := \frac{1}{N_B} \sum{x_B^{(i)}}
+		}
+	\end{equation*}
+	\begin{equation*}
+		\mathlarger{
+			\sigma_B^2 := \frac{1}{N_B} \sum{(x_B^{(i)} - \mu_B)^2}
+		}
+	\end{equation*}
+	\begin{equation*}
+		\mathlarger{
+			\hat{x_B}^{(i)} = \frac{x_B^{(i)} - \mu_B}{\sqrt{\sigma^2_B + \epsilon}}
+		}
+	\end{equation*}
+	\begin{itemize}
+		\item Then, scales and shifts the batch with two learnable parameters $\gamma, \beta$.
+	\end{itemize}
+	\vspace{0.05\textheight}
+	\begin{equation*}
+		\mathlarger{
+			y_B^{(i)} = \gamma \hat{x_B}^{(i)} + \beta	
+		}
+	\end{equation*}
 \end{frame}
-\begin{frame}{Solution: Batch Norm Layer}
-	\begin{block}{Testing}
-		\begin{itemize}
-			\item To zero-center and normalize the input, we need average and variance of the whole data.
-			\item Those parameters can be acquired during the training.
-			\item Therefore we need two more trainable parameters.
-		\end{itemize}
-		\vspace{0.1\textheight}
-			\begin{equation*}
-				\mathlarger{
-					\mu_D := \frac{1}{N} \sum{x^{(i)}}
-				}
-			\end{equation*}
-			\begin{equation*}
-				\mathlarger{
-					\sigma_D^2 := \frac{1}{N} \sum{(x^{(i)} - \mu)^2}
-				}
-			\end{equation*}
-	\end{block}
+\begin{frame}{Batch Norm: Testing}
+	\begin{itemize}
+		\item To zero-center and normalize the input, we need the average and variance of the whole data.
+		\medskip
+		\item Those parameters can be acquired during the training.
+		\medskip
+		\item Therefore we need two more trainable parameters.
+	\end{itemize}
+	\vspace{0.1\textheight}
+		\begin{equation*}
+			\mathlarger{
+				\mu_D := \frac{1}{N} \sum{x^{(i)}}
+			}
+		\end{equation*}
+		\begin{equation*}
+			\mathlarger{
+				\sigma_D^2 := \frac{1}{N} \sum{(x^{(i)} - \mu)^2}
+			}
+		\end{equation*}
 \end{frame}
-\begin{frame}{Solution: Batch Norm Layer}
-	\begin{block}{Performance}
-		\begin{itemize}
-			\item Normalizing the data improves the convergence speed by a considerable amount.
-		\end{itemize}
-		\begin{figure}[H]
-			\centering
-			\includegraphics[width=0.8\textwidth]{Figs/section_4/batchnorm_3.png}
-			\caption{BatchNorm performance. Convergence speed is increased by 200\%.  \href{https://jsideas.net/batch_normalization/}{source}}
-		\end{figure}
-	\end{block}
+\begin{frame}{Batch Norm: Performance}
+	\begin{itemize}
+		\item Normalizing the data improves the convergence speed by a considerable amount.
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{Figs/section_4/batchnorm_3.png}
+		\caption{BatchNorm performance. Convergence speed is increased by 200\%.  \href{https://jsideas.net/batch_normalization/}{source}}
+	\end{figure}
 \end{frame}
-\begin{frame}{Solution: Batch Norm Layer}
-	\begin{block}{Pros}
-		\begin{itemize}
-			\item Vanishing/Exploding gradient problem is reduced by a considerable amount.
-			\medskip
+\begin{frame}{Batch Norm: Pros}
+	\begin{itemize}
+		\item Vanishing/Exploding gradient problem is reduced by a considerable amount.
+		\medskip
 %			\begin{itemize}
-				\item You can use even saturating activation functions.
-				\medskip
-				\item The network is much less sensitive to initial weight.
-				\medskip
-				\item We're able to use larger learning rates, which speeds up the training.
+			\item You can use even saturating activation functions.
+			\medskip
+			\item The network is much less sensitive to the initial weight.
+			\medskip
+			\item We're able to use larger learning rates, which speeds up the training.
 %			\end{itemize}
-			\medskip
-			\item It also acts as a regularizer.
-			\medskip
-			\begin{itemize}
-				\item There is no need for other regularizer techniques.
-			\end{itemize}
-		\end{itemize}
-	\end{block}
-\end{frame}
-\begin{frame}{Solution: Batch Norm Layer}
-	\begin{block}{Cons}
+		\medskip
+		\item It also acts as a regularizer.
+		\medskip
 		\begin{itemize}
-			\item It increases model parameters and prediction latency.
-			\begin{itemize}
-				\item After the training procedure, we can mix the BatchNorm layer with its previous layer to hold the prediction latency.
-			\end{itemize}
+			\item There is no need for other regularizer techniques.
 		\end{itemize}
-		\begin{columns}
-			\begin{column}[c]{0.45\textwidth}
-				\centering
-				\begin{equation*}
-					\mathlarger{x'^{(i)} = W x^{(i)} + b}
-				\end{equation*}
-				\begin{equation*}
-					\mathlarger{y^{(i)} = \frac{x'^{(i)} - \mu}{\sqrt{\sigma^2 + \epsilon}} + \beta}
-				\end{equation*}
-			\end{column}
-			\begin{column}[c]{0.1\textwidth}
-				\centering
-				\begin{equation*}
-					\mathlarger{\mathlarger{
-					\Rightarrow
-				}}
-				\end{equation*}
-			\end{column}
-			\begin{column}[c]{0.45\textwidth}
-				\centering
-				\begin{equation*}
-					\mathlarger{y^{(i)} = W' x^{(i)} + b'}
-				\end{equation*}
-				\begin{equation*}
-					\mathlarger{
-						W' := \frac{1}{\sqrt{\sigma^2 + \epsilon}} W	
-					}
-				\end{equation*}
-				\begin{equation*}
-					\mathlarger{
-						b' := \beta + \frac{b- \mu}{\sqrt{\sigma^2 + \epsilon}}	
-					}
-				\end{equation*}
-			\end{column}
-		\end{columns}
-	\end{block}
+	\end{itemize}
+\end{frame}
+\begin{frame}{Batch Norm: Cons}
+	\begin{itemize}
+		\item It increases model parameters and prediction latency.
+		\medskip
+		\begin{itemize}
+			\item After the training procedure, we can mix the BatchNorm layer with its previous layer to hold the prediction latency.
+		\end{itemize}
+	\end{itemize}
+	\begin{columns}
+		\begin{column}[c]{0.45\textwidth}
+			\centering
+			\begin{equation*}
+				\mathlarger{x'^{(i)} = W x^{(i)} + b}
+			\end{equation*}
+			\begin{equation*}
+				\mathlarger{y^{(i)} = \frac{x'^{(i)} - \mu}{\sqrt{\sigma^2 + \epsilon}} + \beta}
+			\end{equation*}
+		\end{column}
+		\begin{column}[c]{0.1\textwidth}
+			\centering
+			\begin{equation*}
+				\mathlarger{\mathlarger{
+				\Rightarrow
+			}}
+			\end{equation*}
+		\end{column}
+		\begin{column}[c]{0.45\textwidth}
+			\centering
+			\begin{equation*}
+				\mathlarger{y^{(i)} = W' x^{(i)} + b'}
+			\end{equation*}
+			\begin{equation*}
+				\mathlarger{
+					W' := \frac{1}{\sqrt{\sigma^2 + \epsilon}} W	
+				}
+			\end{equation*}
+			\begin{equation*}
+				\mathlarger{
+					b' := \beta + \frac{b- \mu}{\sqrt{\sigma^2 + \epsilon}}	
+				}
+			\end{equation*}
+		\end{column}
+	\end{columns}
 \end{frame}
