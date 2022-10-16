@@ -156,29 +156,17 @@
 		}}
 	\end{equation*}
 	\begin{columns}
-		\begin{column}[c]{0.4\textwidth}
-			\begin{itemize}
-				\item Training time
-			\end{itemize}
+		\begin{column}{0.5\textwidth}
 			\begin{align*}
-				E[a] = \frac{1}{4}(w_1 x + w_2 y) + \frac{1}{4}(w_1 x + 0 y) \\
-				+ \frac{1}{4}(0 x + w_2 y) + \frac{1}{4}(0 x + 0 y)\\
-				= \frac{1}{2}(w_1 x + w_2 y)
-			\end{align*}
-			\begin{itemize}
-				\item Test time
-			\end{itemize}
-			\begin{align*}
-				E_{test}[a] = w_1 x + w_2 y
-			\end{align*}
-			\begin{itemize}
-				\item Therefore we should multiply test result by 1-P
-			\end{itemize}
-			\begin{align*}
-				\Rightarrow E_{test}[a] = 0.5 E_{train}[a]
+				E_{train}[a] = \frac{1}{4}(w_1 x + w_2 y
+				+ \frac{1}{4}(w_1 x + 0 y) \\
+				+ \frac{1}{4}(0 x + w_2 y) + \frac{1}{4}(0 x + 0 y) \\
+				= \frac{1}{2}(w_1 x + w_2 y) \\
+				E_{test}[a] = w_1 x + w_2 y \\
+				\Rightarrow E_{test}[a] = \underbrace{0.5}_{\text{dropout probability}} E_{train}[a]
 			\end{align*}
 		\end{column}
-		\begin{column}[c]{0.5\textwidth}
+		\begin{column}{0.5\textwidth}
 			\begin{figure}[H]
 				\centering
 				\includegraphics[height=0.4\textheight]{Figs/section_4/dropout_test.png}
