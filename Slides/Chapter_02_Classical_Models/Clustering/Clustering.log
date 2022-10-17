@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2022.10.14)  17 OCT 2022 19:53
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2022/dev/Debian) (preloaded format=xelatex 2022.10.14)  17 OCT 2022 11:10
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**"Decision Trees.tex"
-(./Decision Trees.tex
+**Clustering.tex
+(./Clustering.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-01-21>
 (/usr/share/texlive/texmf-dist/tex/latex/beamer/beamer.cls
@@ -1188,8 +1188,8 @@ Package fontspec Info: Font family 'TimesNewRoman(0)' created for font 'Times
 
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
 (Font)              scaled to size 10.95pt on input line 169.
- (./Decision Trees.aux)
-\openout1 = `"Decision Trees.aux"'.
+ (./Clustering.aux)
+\openout1 = `Clustering.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 187.
 LaTeX Font Info:    ... okay on input line 187.
@@ -1268,9 +1268,9 @@ LaTeX Info: Redefining \ref on input line 187.
 LaTeX Info: Redefining \pageref on input line 187.
 LaTeX Info: Redefining \nameref on input line 187.
 
-(./Decision Trees.out) (./Decision Trees.out)
+(./Clustering.out) (./Clustering.out)
 \@outlinefile=\write6
-\openout6 = `"Decision Trees.out"'.
+\openout6 = `Clustering.out'.
 
 
 (/usr/share/texlive/texmf-dist/tex/latex/translator/translator-basic-dictionary
@@ -1360,7 +1360,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
  187.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 187.
- (./Decision Trees.nav)
+ (./Clustering.nav)
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
 (Font)              scaled to size 6.0pt on input line 187.
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
@@ -1374,151 +1374,89 @@ LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
 [1
 
 ]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 218
+LaTeX Font Info:    Trying to load font information for U+msa on input line 233
 .
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 218
+LaTeX Font Info:    Trying to load font information for U+msb on input line 233
 .
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-File: Figs/task.PNG Graphic file (type bmp)
-<Figs/task.PNG>
-
-Overfull \hbox (21.9pt too wide) in paragraph at lines 218--218
-[][] 
- []
+File: Figs/2.jpg Graphic file (type bmp)
+<Figs/2.jpg>
+File: Figs/3.png Graphic file (type bmp)
+<Figs/3.png>
 
 Missing character: There is no 4 ("34) in font nullfont!
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 4.0pt on input line 218.
+(Font)              scaled to size 4.0pt on input line 233.
 [2
 
 ]
-File: Figs/terminology.png Graphic file (type bmp)
-<Figs/terminology.png>
-
-Overfull \hbox (21.9pt too wide) in paragraph at lines 244--244
-[][] 
- []
+File: Figs/4.png Graphic file (type bmp)
+<Figs/4.png>
+LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
+(Font)              scaled to size 10.0pt on input line 265.
 
 Missing character: There is no 4 ("34) in font nullfont!
+
+Overfull \vbox (50.96118pt too high) detected at line 265
+ []
+
 [3
 
 ]
-LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 10.0pt on input line 283.
-
 Missing character: There is no 4 ("34) in font nullfont!
+
+Overfull \vbox (2.03693pt too high) detected at line 309
+ []
+
 [4
 
 ]
-File: Figs/IG.jpeg Graphic file (type bmp)
-<Figs/IG.jpeg>
-
 Missing character: There is no 4 ("34) in font nullfont!
 [5
 
 ]
+File: Figs/5.png Graphic file (type bmp)
+<Figs/5.png>
+
+Overfull \hbox (21.9pt too wide) in paragraph at lines 352--352
+[][] 
+ []
+
 Missing character: There is no 4 ("34) in font nullfont!
 [6
 
 ]
-File: Figs/iris_info.png Graphic file (type bmp)
-<Figs/iris_info.png>
-
-Missing character: There is no 4 ("34) in font nullfont!
-[7
-
-]
-File: Figs/iris.jpg Graphic file (type bmp)
-<Figs/iris.jpg>
-
-Missing character: There is no 4 ("34) in font nullfont!
-[8
-
-]
-LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 371.
-
-Missing character: There is no 4 ("34) in font nullfont!
-[9
-
-]
-File: Figs/misclassification_criterion.png Graphic file (type bmp)
-<Figs/misclassification_criterion.png>
-File: Figs/entropy_criterion.PNG Graphic file (type bmp)
-<Figs/entropy_criterion.PNG>
-
-Missing character: There is no 4 ("34) in font nullfont!
-
-Overfull \vbox (21.44725pt too high) detected at line 386
- []
-
-[10
-
-]
-File: Figs/IG-Concave.png Graphic file (type bmp)
-<Figs/IG-Concave.png>
-
-Missing character: There is no 4 ("34) in font nullfont!
-[11
-
-]
-Missing character: There is no 4 ("34) in font nullfont!
-[12
-
-]
-Missing character: There is no 4 ("34) in font nullfont!
-[13
-
-]
-Missing character: There is no 4 ("34) in font nullfont!
-[14
-
-]
-File: Figs/Boston-House-Price-Dataset.png Graphic file (type bmp)
-<Figs/Boston-House-Price-Dataset.png>
-
-Missing character: There is no 4 ("34) in font nullfont!
-[15
-
-]
-File: Figs/decision_trees_MSE.png Graphic file (type bmp)
-<Figs/decision_trees_MSE.png>
-
-Missing character: There is no 4 ("34) in font nullfont!
-[16
-
-]
 LaTeX Font Info:    Font shape `TU/TimesNewRoman(0)/b/n' will be
-(Font)              scaled to size 9.0pt on input line 516.
- [17
+(Font)              scaled to size 9.0pt on input line 358.
+ [7
 
 ]
 \tf@nav=\write7
-\openout7 = `"Decision Trees.nav"'.
+\openout7 = `Clustering.nav'.
 
 \tf@toc=\write8
-\openout8 = `"Decision Trees.toc"'.
+\openout8 = `Clustering.toc'.
 
 \tf@snm=\write9
-\openout9 = `"Decision Trees.snm"'.
+\openout9 = `Clustering.snm'.
 
- (./Decision Trees.aux)
-Package rerunfilecheck Info: File `"Decision Trees".out' has not changed.
-(rerunfilecheck)             Checksum: <no file>.
+ (./Clustering.aux)
+Package rerunfilecheck Info: File `Clustering.out' has not changed.
+(rerunfilecheck)             Checksum: 2B4D7BA034F8739448E1DF3E97FDE4C4;361.
  ) 
 Here is how much of TeX's memory you used:
- 34803 strings out of 476191
- 754705 string characters out of 5812071
- 1127434 words of memory out of 5000000
- 54789 multiletter control sequences out of 15000+600000
- 478863 words of font info for 87 fonts, out of 8000000 for 9000
+ 34727 strings out of 476191
+ 752519 string characters out of 5812071
+ 1125255 words of memory out of 5000000
+ 54718 multiletter control sequences out of 15000+600000
+ 480408 words of font info for 93 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 128i,22n,122p,424b,1263s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 128i,22n,122p,418b,1263s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on Decision Trees.pdf (17 pages).
+Output written on Clustering.pdf (7 pages).

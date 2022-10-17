@@ -59,11 +59,11 @@
 
 %show the page numbers in footnote
 %\addtobeamertemplate{navigation symbols}{}{%
-%	\usebeamerfont{footline}%
-%	\usebeamercolor[fg]{footline}%
-%	\hspace{1em}%
-%	\insertframenumber/\inserttotalframenumber
-%}
+	%	\usebeamerfont{footline}%
+	%	\usebeamercolor[fg]{footline}%
+	%	\hspace{1em}%
+	%	\insertframenumber/\inserttotalframenumber
+	%}
 
 \setbeamercolor{footline}{fg=purpleish}
 \setbeamerfont{footline}{series=\bfseries}
@@ -117,11 +117,9 @@
 \usepackage{etex}
 \usepackage{subcaption}
 \usepackage{multicol}
-\usepackage{physics, amsmath}
+\usepackage{amsmath}
 \usepackage{epsfig}
 \usepackage{graphicx}
-\usepackage{amsfonts}
-\usepackage{amssymb}
 \usepackage[all,knot]{xy}
 \xyoption{arc}
 \usepackage{url}
@@ -132,18 +130,15 @@
 \usepackage[font={scriptsize}]{caption}
 \usepackage{pgf}
 \usepackage{fontspec}
-\usepackage{subcaption}
-\usepackage[export]{adjustbox}
-\usepackage{caption}
 %\setsansfont[Scale=MatchLowercase, BoldFont = * Bold, ItalicFont = * Italic]{Caladea}
-\graphicspath{ {./Pictures/} }
+
 %\usepackage{enumitem,xcolor}
 %\newcommand{\labelitemi}{$\blacksquare$}
 %\newcommand{\labelitemii}{$\diamond$}
 %\newcommand{\labelitemiii}{$\square$}
 %\newcommand{\labelitemiv}{$\ast$}
 %\setbeamercolor*{item}{fg=red}
-\usepackage{bm}
+
 
 \usefonttheme{professionalfonts} 
 \setbeamertemplate{itemize item}{\color{skyblue}$\blacksquare$}
@@ -156,27 +151,28 @@
 \usepackage{tikz}
 \usetikzlibrary{calc,trees,positioning,arrows,chains,shapes.geometric,decorations.pathreplacing,decorations.pathmorphing,shapes,matrix,shapes.symbols}
 
-\usepackage{xcolor}
-\newcommand{\tc}[2]{
-	\textcolor{#1}{#2}
-}
 
-\DeclareMathOperator*{\argmin}{argmin}
+
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{assumption}[theorem]{Assumption}
 
-\usepackage{fontspec,unicode-math}
-\setmainfont[Scale=0.9]{Consolas}
-\setmonofont[Scale=0.9]{Monaco}
+\usepackage{xcolor}
+\newcommand{\tc}[2]{
+	\textcolor{#1}{\hspace{-2pt}#2\hspace{-2pt}}
+}
+
+%\usepackage{fontspec, unicode-math}
+%\setmainfont[Scale=0.9]{Nimbus Roman No9 L}
+%\setmonofont[Scale=0.9]{Monaco}
 \setsansfont[Scale=1]{Times New Roman}
+
 \newcommand{\vect}[1]{\boldsymbol{#1}}
 
 \definecolor{strings}{rgb}{.624,.251,.259}
 \definecolor{keywords}{rgb}{.224,.451,.686}
 \definecolor{comment}{rgb}{.322,.451,.322}
 
-\usepackage{float}
 
 %\usepackage{smartdiagram}
 %\usesmartdiagramlibrary{additions}
@@ -248,13 +244,13 @@
 	
 	\begin{itemize}
 		
-		\item The idea is to represent each cluster $k$ by a center point $c_k$ and assign each data point $x_n$ to one of the clusters $k$.
+		\item The idea is to represent each cluster $\mathcal{C}_k$ by a center point $c_k$ and assign each data point $x_n$ to one of the clusters $\mathcal{C}_k$.
 		
 		\medskip
 		\item The center points and the assignment are then chosen such that the mean squared distance between data points and center points
 		
 		\begin{equation*}
-			J=\sum_{n=1}^N \sum_{n\in\mathcal{c}_k} \left\|x_n-c_k\right\|^2
+			J=\sum_{n=1}^N \sum_{n\in\mathcal{C}_k} \left\|x_n-c_k\right\|^2
 		\end{equation*}
 	is minimized.
 	
@@ -276,7 +272,7 @@
 		\item If the assignment is fixed, it is easy to show that the optimal choice of the center positions is given
 		by:
 		\begin{equation*}
-			c_k = \frac{1}{N_k}\sum_{n\in\mathcal{c}_k}x_n
+			c_k = \frac{1}{N_k}\sum_{n\in\mathcal{C}_k}x_n
 		\end{equation*}
 		
 		\item If the center points are fixed, it is obvious that each point should be assigned to the nearest center position.
@@ -320,7 +316,7 @@
 		
 		\item \tc{keywords}{Cluster Dispersion:}Which can be interpreted as a generalized standard deviation.
 		\begin{equation*}
-			\delta_{k} := \sqrt{\frac{1}{N_k}\sum_{n\in\mathcal{c}_k}\|x_n-c_k\|^2}
+			\delta_{k} := \sqrt{\frac{1}{N_k}\sum_{n\in\mathcal{C}_k}\|x_n-c_k\|^2}
 		\end{equation*}
 		
 		\medskip
@@ -330,6 +326,8 @@
 			S_{kl} := \frac{\delta_{k}+\delta_{l}}{\| c_k-c_l\|}
 		\end{equation*}
 	
+		\medskip
+		\item A good clustering should be characterized by clusters being as dissimilar as possible.
 	
 		\medskip
 		\item Considering aforementioned definitions, an overall validation of the clustering can be done by the DB index:
@@ -341,7 +339,7 @@
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{https://replicate.com/nateraw/stable-diffusion-videos}
+\begin{frame}{Davies-Bouldin (DB) Index}
 	\begin{itemize}
 		\item The DB index does not systematically depend on $K$ and is therefore suitable to find the best optimal number of clusters.
 
