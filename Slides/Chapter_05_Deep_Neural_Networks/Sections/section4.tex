@@ -17,12 +17,21 @@
         \item It is like a linear regression regularizer.
         \item Sum the regularizer term for every \tc{keywords}{layer weight}!
     \end{itemize}
-    \vspace{0.2\textheight}
-    \begin{equation*}
-        \mathlarger{\mathlarger{\mathlarger{
-        L = \frac{1}{N} \sum_{i=1}^{N} L(\phi(x_i), y_i) + \lambda \sum_{i,j,k} R(W_{j,k}^{(i)})
-        }}}
-    \end{equation*}
+    \begin{columns}
+    	\begin{column}[c]{0.5\textwidth}
+    			\begin{align*}
+    				\scalebox{1.5}{$L = \frac{1}{N} \sum_{i=1}^{N} L(\phi(x_i), y_i)$} \\
+    			\scalebox{1.5}{$+ \lambda \sum_{i,j,k} R(W_{j,k}^{(i)})$}
+	    		\end{align*}
+    	\end{column}
+    	\begin{column}[c]{0.5\textwidth}
+    		\begin{figure}[H]
+    			\centering
+    			\includegraphics[width=\textwidth]{Figs/section_4/overfitting_loss.png}
+    			\caption{Convergence diagram for different losses, \href{https://www.oreilly.com/library/view/hands-on-machine-learning/9781491962282/ch04.html}{Source}}
+    		\end{figure}
+    	\end{column}
+    \end{columns}
 \end{frame}
 \begin{frame}{L1/L2 Regularization}
     \begin{itemize}
