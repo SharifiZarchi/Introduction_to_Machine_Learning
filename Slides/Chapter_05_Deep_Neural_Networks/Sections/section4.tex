@@ -111,11 +111,10 @@
 \end{frame}
 \begin{frame}{Dropout: Why can this possibly be a good idea?}
 	\begin{itemize}
-		\item Dropout-trained neurons are unable to co-adapt with their surrounding
-		neurons.
+		\item Dropout-trained neurons are unable to \tc{keywords}{co-adapt} with their surrounding neurons.
 		\item They also can't depend too heavily on a small number of input neurons.
 		\item They become less responsive to even little input changes.
-		\item The result is a stronger network that generalizes better.
+		\item The result is a stronger network that \tc{keywords}{generalizes} better.
 	\end{itemize}
 	\begin{figure}[H]
 		\centering
@@ -124,7 +123,7 @@
 	\end{figure}
 \end{frame}
 \begin{frame}{Dropout: Why can this possibly be a good idea?}
-`'	\begin{itemize}
+	\begin{itemize}
 		\item Dropout trains a \tc{keywords}{large ensemble of models} that share parameters.
 		\medskip
 		\item Every possible dropout state for neurons of a network, which is called a \tc{keywords}{mask}, is one model.
@@ -170,7 +169,7 @@
 				+ \frac{1}{4}(0 x + w_2 y) + \frac{1}{4}(0 x + 0 y) \\
 				= \frac{1}{2}(w_1 x + w_2 y) \\
 				E_{test}[a] = w_1 x + w_2 y \\
-				\Rightarrow E_{test}[a] = \underbrace{0.5}_{\text{\tc{keywords}{dropout probability}}} E_{train}[a]
+				\Rightarrow E_{test}[a] = \underbrace{0.5}_{\text{\tc{keywords}{keep probability}}} E_{train}[a]
 			\end{align*}
 		\end{column}
 		\begin{column}{0.5\textwidth}
