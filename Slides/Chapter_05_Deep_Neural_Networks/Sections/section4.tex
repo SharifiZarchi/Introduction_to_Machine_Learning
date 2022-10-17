@@ -109,13 +109,13 @@
 		\caption{Behavior of dropout at training time, \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
 	\end{figure}
 \end{frame}
-\begin{frame}{Dropout}
+\begin{frame}{Dropout: Why can this possibly be a good idea?}
 	\begin{itemize}
-		\item How can this possibly be a good idea?
-		\medskip
-		\begin{itemize}
-			\item It prevents the \tc{keywords}{co-adaptation of features}
-		\end{itemize}
+		\item Dropout-trained neurons are unable to co-adapt with their surrounding
+		neurons.
+		\item They also can't depend too heavily on a small number of input neurons.
+		\item They become less responsive to even little input changes.
+		\item The result is a stronger network that generalizes better.
 	\end{itemize}
 	\begin{figure}[H]
 		\centering
@@ -123,15 +123,12 @@
 		\caption{Discrimination of neurons at training time. \cite{cs231n-2018-lecture7}}
 	\end{figure}
 \end{frame}
-\begin{frame}{Dropout}
-	\begin{itemize}
-		\item How can this possibly be a good idea?
+\begin{frame}{Dropout: Why can this possibly be a good idea?}
+`'	\begin{itemize}
+		\item Dropout trains a \tc{keywords}{large ensemble of models} that share parameters.
 		\medskip
-		\begin{itemize}
-			\item It trains a \tc{keywords}{large ensemble of models} that share parameters.
-			\medskip
-			\item A fully connected layer with 4096 neurons has $2^{4096} \sim 10^{1233}$ possible masks! There are only $10^{82}$ atoms in the universe!
-		\end{itemize}
+		\item Every possible dropout state for neurons of a network, which is called a \tc{keywords}{mask}, is one model.
+		\item A fully connected network with 4096 neurons has $2^{4096} \sim 10^{1233}$ possible masks! There are only $10^{82}$ atoms in the universe!
 	\end{itemize}
 	\begin{figure}[H]
 		\centering
