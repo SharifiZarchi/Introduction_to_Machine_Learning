@@ -8,7 +8,7 @@
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.4\textwidth]{Figs/section_4/overfitting.png}
-        \caption{OverFitting in a neural network. \href{https://en.wikipedia.org/wiki/Overfitting}{source}}
+        \caption{OverFitting in a neural network, \href{https://en.wikipedia.org/wiki/Overfitting}{Source}}
     \end{figure}
 \end{frame}
 
@@ -48,7 +48,7 @@
 			\begin{figure}[H]
 				\centering
 				\includegraphics[width=\textwidth]{Figs/section_4/l1l2_reg.jpeg}
-				\caption{L1/L2 regularizers' solution diagram \href{https://towardsdatascience.com/understanding-l1-and-l2-regularization-93918a5ac8d0}{source}}
+				\caption{L1/L2 regularizers' solution diagram, \href{https://towardsdatascience.com/understanding-l1-and-l2-regularization-93918a5ac8d0}{Source}}
 			\end{figure}
 		\end{column}
 	\end{columns}
@@ -72,31 +72,33 @@
     \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{Figs/Early Stopping.png}
-	\caption{Early-Stopping diagram. \href{https://medium.com/analytics-v7idhya/early-stopping-with-pytorch-to-restrain-your-model-from-overfitting-dce6de4081c5}{source}}
+	\caption{Early Stopping diagram, \href{https://medium.com/analytics-v7idhya/early-stopping-with-pytorch-to-restrain-your-model-from-overfitting-dce6de4081c5}{Source}}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Solution 3: Dropout}
-	\begin{block}{Training}
+\begin{frame}{Dropout: Training Time}
+	\begin{itemize}
+		\item In each forward pass, \tc{keywords}{randomly} set some neurons to zero.
+		\medskip
+		\item The probability of dropping out for each neuron, which is called \tc{keywords}{dropout rate}, is a hyperparameter.
 		\begin{itemize}
-			\item ّIn each forward pass, \tc{keywords}{randomly} set some neurons to zero.
-			\medskip
-			\item The probability of dropping out for each neuron is a hyperparameter; 0.5 is common.
+			\item 0.5 is a common dropout rate.
 		\end{itemize}
-		
-		\begin{figure}[H]
+		\medskip
+		\item The probability of not dropping out is also called the \tc{keywords}{keep probability}.
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}[b]{0.45\textwidth}
 			\centering
-			\begin{subfigure}[b]{0.45\textwidth}
-				\centering
-				\includegraphics[height=0.4\textheight]{Figs/Dropout-before.png}
-			\end{subfigure}
-			\begin{subfigure}[b]{0.45\textwidth}
-				\centering
-				\includegraphics[height=0.4\textheight]{Figs/Dropout-after.png}
-			\end{subfigure}
-			\caption{Behavior of dropout at training time. \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{source}}
-		\end{figure}
-	\end{block}
+			\includegraphics[height=0.4\textheight]{Figs/Dropout-before.png}
+		\end{subfigure}
+		\begin{subfigure}[b]{0.45\textwidth}
+			\centering
+			\includegraphics[height=0.4\textheight]{Figs/Dropout-after.png}
+		\end{subfigure}
+		\caption{Behavior of dropout at training time, \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
+	\end{figure}
 \end{frame}
 \begin{frame}{Dropout}
 	\begin{itemize}
@@ -135,7 +137,7 @@
 	\end{itemize}
 	\begin{equation*}
 		\mathlarger{\mathlarger{
-		y = f_W(x, \underbrace{z}_{\text{random mask}})
+		y = f_W(x, \underbrace{z}_{\text{\tiny{\tc{keywords}{random mask}}}})
 	}}
 	\end{equation*}
 	\begin{itemize}
@@ -149,21 +151,15 @@
 	\end{equation*}
 	\begin{itemize}
 		\item But this integral seems complicated.
+		\medskip
+		\item Let's approximate the integral for a superficial layer where dropout rate is 0.5.
 	\end{itemize}
 \end{frame}
 \begin{frame}{Dropout: Test Time}
-	\begin{itemize}
-		\item We want to approximate the integral for a superficial layer.
-	\end{itemize}
-	\begin{equation*}
-		\mathlarger{\mathlarger{
-			y = f(x) = E_z[f(x, z)] = \int p(z)f(x, z) dz
-		}}
-	\end{equation*}
 	\begin{columns}
 		\begin{column}{0.5\textwidth}
 			\begin{align*}
-				E_{train}[a] = \frac{1}{4}(w_1 x + w_2 y
+				E_{train}[a] = \frac{1}{4}(w_1 x + w_2 y)
 				+ \frac{1}{4}(w_1 x + 0 y) \\
 				+ \frac{1}{4}(0 x + w_2 y) + \frac{1}{4}(0 x + 0 y) \\
 				= \frac{1}{2}(w_1 x + w_2 y) \\
@@ -181,33 +177,17 @@
 	\end{columns}
 \end{frame}
 
-
-
-\begin{frame}{Problem: Vanishing/Exploding Gradients}
-	// Todo
-    \begin{itemize}
-    	\item beginning of learning -> He/ELU
-    	\item during learning -> still exists
-    \end{itemize}
-    
-    \begin{figure}[H]
-    	\centering
-    	\includegraphics[height=0.4\textheight]{Figs/Dropout-after.png}
-    	\caption{Behavior of dropout at training time. \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
-    \end{figure}
-\end{frame}
-
 \begin{frame}{Solution: Batch Norm Layer}
 	\begin{itemize}
-		\item It is used for \tc{keywords}{normalizing} the data.
+		\item It is used to \tc{keywords}{normalize} the data.
 	\end{itemize}
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.75\textwidth]{Figs/section_4/batchnorm_2.jpg}
-		\caption{The suggested place to put a BatchNorm layer. \href{https://gradientscience.org/batchnorm/}{source}}
+		\caption{The suggested place to put a BatchNorm layer, \href{https://gradientscience.org/batchnorm/}{Source}}
 	\end{figure}
 \end{frame}
-\begin{frame}{Batch Norm: Training}
+\begin{frame}{Batch Norm: Training Time}
 	\begin{itemize}
 		\item First, it zero-centers and normalizes the batch.
 	\end{itemize}
@@ -237,13 +217,13 @@
 		}
 	\end{equation*}
 \end{frame}
-\begin{frame}{Batch Norm: Testing}
+\begin{frame}{Batch Norm: Test Time}
 	\begin{itemize}
 		\item To zero-center and normalize the input, we need the average and variance of the whole data.
 		\medskip
 		\item Those parameters can be acquired during the training.
 		\medskip
-		\item Therefore we need two more trainable parameters.
+		\item Therefore, we need two more trainable parameters.
 	\end{itemize}
 	\vspace{0.1\textheight}
 		\begin{equation*}
@@ -264,7 +244,7 @@
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.8\textwidth]{Figs/section_4/batchnorm_3.png}
-		\caption{BatchNorm performance. Convergence speed is increased by 200\%.  \href{https://jsideas.net/batch_normalization/}{source}}
+		\caption{BatchNorm performance. Convergence speed is increased by 200\%,  \href{https://jsideas.net/batch_normalization/}{Source}}
 	\end{figure}
 \end{frame}
 \begin{frame}{Batch Norm: Pros}
@@ -291,7 +271,7 @@
 		\item It increases model parameters and prediction latency.
 		\medskip
 		\begin{itemize}
-			\item After the training procedure, we can mix the BatchNorm layer with its previous layer to hold the prediction latency.
+			\item Solution: after the training procedure, we can mix the BatchNorm layer with its previous layer to hold the prediction latency.
 		\end{itemize}
 	\end{itemize}
 	\begin{columns}
@@ -329,4 +309,7 @@
 			\end{equation*}
 		\end{column}
 	\end{columns}
+	\begin{itemize}
+		\item Where $\mu$ and $\sigma$ are the mean and variance for the test time.
+	\end{itemize}
 \end{frame}
