@@ -5,8 +5,6 @@
 
 \documentclass[compress,oilve]{beamer}
 \mode<presentation>
-\setbeamertemplate{itemize/enumerate body begin}{\normalsize}
-\setbeamertemplate{itemize/enumerate subbody begin}{\small}
 
 \usetheme[]{CambridgeUS}
 % other themes: AnnArbor, Antibes, Bergen, Berkeley, Berlin, Boadilla, boxes, CambridgeUS, Copenhagen, Darmstadt, default, Dresden, Frankfurt, Goettingen,
@@ -107,7 +105,7 @@
 
 %\setbeamertemplate{navigation symbols}{}
 
-\title{Decision Tree}
+\title{Decision Trees}
 \author{ML Instruction Team, Fall 2022}
 \institute[]{CE Department \newline  Sharif University of Technology \newline \newline}
 \date[\today]{}
@@ -144,7 +142,7 @@
 
 \usefonttheme{professionalfonts} 
 \setbeamertemplate{itemize item}{\color{skyblue}$\blacksquare$}
-\setbeamertemplate{itemize subitem}{\color{hotpink}$\triangleright$}
+\setbeamertemplate{itemize subitem}{\color{hotpink}$\blacktriangleright$}
 \setbeamertemplate{itemize subsubitem}{\color{orange}$\bullet$}
 
 
@@ -154,16 +152,17 @@
 \usetikzlibrary{calc,trees,positioning,arrows,chains,shapes.geometric,decorations.pathreplacing,decorations.pathmorphing,shapes,matrix,shapes.symbols}
 
 
-\usepackage{xcolor}
-\newcommand{\tc}[2]{
-	\textcolor{#1}{\hspace{-2pt}#2\hspace{-2pt}}
-}
 
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{remark}[theorem]{Remark}
 \newtheorem{assumption}[theorem]{Assumption}
 
-%\usepackage{fontspec,unicode-math}
+\usepackage{xcolor}
+\newcommand{\tc}[2]{
+	\textcolor{#1}{\hspace{-2pt}#2\hspace{-2pt}}
+}
+
+%\usepackage{fontspec, unicode-math}
 %\setmainfont[Scale=0.9]{Nimbus Roman No9 L}
 %\setmonofont[Scale=0.9]{Monaco}
 \setsansfont[Scale=1]{Times New Roman}
@@ -171,8 +170,9 @@
 \newcommand{\vect}[1]{\boldsymbol{#1}}
 
 \definecolor{strings}{rgb}{.624,.251,.259}
-\definecolor{keywords}{rgb}{.893,.188,.01}
+\definecolor{keywords}{rgb}{.224,.451,.686}
 \definecolor{comment}{rgb}{.322,.451,.322}
+
 
 %\usepackage{smartdiagram}
 %\usesmartdiagramlibrary{additions}
@@ -198,7 +198,7 @@
 \frame{\frametitle{Decision Tree}
 	
 	\begin{itemize}
-		\item \tc{keywords}{Decision Tree}algorithms can be considered as an iterative, top-down construction
+		\item \tc{keywords}{Decision Tree} algorithms can be considered as an iterative, top-down construction
 		method for either classifier or regressor.
 		
 		\item 
@@ -221,8 +221,14 @@
 	
 	\begin{itemize}
 		\item \tc{keywords}{Root Node}: No incoming edge, zero, or more outgoing edges.
+		
+		\medskip
 		\item \tc{keywords}{Internal Node}: One incoming edge, two (or more) outgoing edges.
+		
+		\medskip
 		\item \tc{keywords}{Leaf Node}: Each leaf node is assigned a class label if nodes are pure; otherwise, the class label is determined by majority vote.
+		
+		\medskip
 		\item \tc{keywords}{Parent \& Child Node}: If a node is split, we refer to that given node as the parent node, and the resulting nodes are called child nodes.
 		
 		\begin{figure}
@@ -240,14 +246,35 @@
 \section{Algorithm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Information Gain}
+	
 	\begin{itemize}
 		\item \tc{keywords}{Entropy}: Let $X$ be a random variable over a discrete space $\Omega$ with probability mass function $\mathbb{P}$. Then the (Shannon) entropy of $X$ is:
 		\begin{equation*}
-			H(X)=\mathbb{E}_X[\log\frac{1}{\mathbb{P}(X)}]=\sum_{x \in X} \mathbb{P}(x) \log \frac{1}{\mathbb{P}(x)}=-\sum_{x \in X} \mathbb{P}(x) \log \mathbb{P}(x)
+			H(X)=\mathbb{E}_X[\log(\frac{1}{\mathbb{P}(X)})]=\sum_{x \in X} \mathbb{P}(x) \log \frac{1}{\mathbb{P}(x)}=-\sum_{x \in X} \mathbb{P}(x) \log \mathbb{P}(x)
 		\end{equation*}
 	
+	\item Upper Bound for $H(x)$:
+	\begin{itemize}
+		\item Jensen Inequality:
+		\begin{equation*}
+			H(X)=\mathbb{E}\left(\log \frac{1}{\mathbb{P}_X(X)}\right)
+			\leq \log \mathbb{E}\left(\frac{1}{\mathbb{P}_X(X)}\right)
+			=\log|X|
+		\end{equation*}
+	
+	\item Using Lagrange multipliers with the constraint $\sum_x p(x)=1$:
+	
+	\begin{equation*}
+		H(x) \leq-\sum_x \frac{1}{|X|} \log(\frac{1}{|X|})=\log (|X|)
+	\end{equation*}
+	
+	
+	
+	\end{itemize}
+
+	\medskip
 	\item \tc{keywords}{Gini Impurity}: Let $X$ be a random variable over a discrete space $\Omega$ with probability mass function $\mathbb{P}$. Then the gini coefficient of $X$ is:
-			\begin{equation*}
+	\begin{equation*}
 		G(X)=\sum_{x \in X}\mathbb{P}(x)(1-\mathbb{P}(x))=1-\sum_{x \in X}\mathbb{P}(x)^2
 	\end{equation*}
 	
@@ -267,6 +294,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{CART Algorithm}
+	\vspace{-1.5cm}
 \begin{itemize}
 	\item The algorithm first splits the training set in \tc{keywords}{two subsets} using a \tc{keywords}{single feature} $k$ and a \tc{keywords}{threshold} $t_k$. 
 	
@@ -310,59 +338,64 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Misclassifications Error}
-\begin{itemize}
-	\item \tc{keywords}{Misclassification} error seems to
-	be another reasonable choice, where:
+	\vspace{-1.5cm}
+	\begin{itemize}
+		\item \tc{keywords}{Misclassification} error seems to
+		be another reasonable choice, where:
+		
+		\begin{equation*}
+			E R R(\mathcal{D})=\frac{1}{n} \sum_{i=1}^n L(\hat{y}^{[i]}, y^{[i]})
+		\end{equation*}
+		with the 0-1 Loss,
+		\begin{equation*}
+			L(\hat{y}, y)=\{\begin{array}{l}
+				0 \text { if } \hat{y}=y, \\
+				1 \text{ if }  \hat{y}\neq y
+			\end{array}
+		\end{equation*}
 	
-	\begin{equation*}
-		E R R(\mathcal{D})=\frac{1}{n} \sum_{i=1}^n L(\hat{y}^{[i]}, y^{[i]})
-	\end{equation*}
-	with the 0-1 Loss,
-	\begin{equation*}
-		L(\hat{y}, y)=\{\begin{array}{l}
-			0 \text { if } \hat{y}=y, \\
-			1 \text{ if }  \hat{y}\neq y
-		\end{array}
-	\end{equation*}
-
-	\item
-	\medskip
-	This, in case of the training set, is equal to
-	\begin{equation*}
-		E R R(p)=1-\max _i(p(i \mid x_j))
-	\end{equation*}
-	
-	\item Can we apply this measure as the criteria for splitting?
-\end{itemize}
+		\item
+		\medskip
+		This, in case of the training set, is equal to
+		\begin{equation*}
+			E R R(p)=1-\max _i(p(i \mid x_j))
+		\end{equation*}
+		
+		for a given node if we use majority voting at this node.
+		
+		\medskip
+		\item Can we apply this measure as the criteria for splitting?
+	\end{itemize}
 
 
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\frame{\frametitle{Misclassifications Error}
 	\begin{figure}[htbp!]
-	\subfloat[][Misclassification Error, \href{https://tinyurl.com/2gswcjmd}{Source}]
-	{\includegraphics[width=8cm, height=3.5cm]{Figs/misclassification_criterion.png}
-		\label{fig:subfigure1}}
-	
-	\subfloat[][Entropy, \href{https://tinyurl.com/2hjbcvpr}{Source}]
-	{\includegraphics[width=8cm, height=3.5cm]{Figs/entropy_criterion.PNG}
-		\label{fig:subfigure2}}
-	\label{fig:globalfigure2}
-	
-\end{figure}
-
+		\subfloat[][Misclassification Error, \href{https://tinyurl.com/2gswcjmd}{Source}]
+		{\includegraphics[width=8cm, height=3.25cm]{Figs/misclassification_criterion.png}
+			\label{fig:subfigure1}}
+		
+		\subfloat[][Entropy, \href{https://tinyurl.com/2hjbcvpr}{Source}]
+		{\includegraphics[width=8cm, height=3.5cm]{Figs/entropy_criterion.PNG}
+			\label{fig:subfigure2}}
+		\label{fig:globalfigure2}
+		
+	\end{figure}
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Positiveness of Information Gain}
-	\begin{figure}
-		\centering
-		\vspace{-1cm}
-		\includegraphics[width=10cm, height=7cm]{Figs/IG-Concave.png}
-		\caption{Concavity of Entropy, \href{https://tinyurl.com/2zcn3bbx}{Source}}
-		\label{fig:positiveness of information gain}
-	\end{figure}
-	
-}
+		\begin{figure}
+			\centering
+			\vspace{-1cm}
+			\includegraphics[width=10cm, height=7cm]{Figs/IG-Concave.png}
+			\caption{Concavity of Entropy, \href{https://tinyurl.com/2zcn3bbx}{Source}}
+			\label{fig:positiveness of information gain}
+		\end{figure}
+		
+	}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Pros and Cons}
 
@@ -402,7 +435,7 @@
 \begin{itemize}
 	\item ID3: Iterative Dichotomizer 3
 	\begin{itemize}
-		\item It can only be used for Discrete features, and cannot handle numeric features!
+		\item It can only be used for discrete features, and cannot handle numeric features!
 		
 		\item It supports multi-category splits.
 		

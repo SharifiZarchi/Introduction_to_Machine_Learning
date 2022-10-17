@@ -24,6 +24,8 @@
 \headcommand {\beamer@framepages {9}{9}}
 \headcommand {\slideentry {2}{0}{7}{10/10}{}{0}}
 \headcommand {\beamer@framepages {10}{10}}
+\headcommand {\slideentry {2}{0}{8}{11/11}{}{0}}
+\headcommand {\beamer@framepages {11}{11}}
 \headcommand {\beamer@sectionpages {4}{11}}
 \headcommand {\beamer@subsectionpages {4}{11}}
 \headcommand {\sectionentry {3}{Pros and Cons}{12}{Pros and Cons}{0}}
@@ -41,4 +43,4 @@
 \headcommand {\beamer@subsectionpages {12}{17}}
 \headcommand {\beamer@sectionpages {12}{17}}
 \headcommand {\beamer@documentpages {17}}
-\headcommand {\gdef \inserttotalframenumber {14}}
+\headcommand {\gdef \inserttotalframenumber {15}}
