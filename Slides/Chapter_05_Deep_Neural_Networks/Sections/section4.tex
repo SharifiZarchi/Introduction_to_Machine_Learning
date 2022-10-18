@@ -244,7 +244,18 @@
 \end{frame}
 \begin{frame}{Batch Norm: Test Time}
 	\begin{itemize}
-		\item Moving average //todo
+		\item The majority of Batch Normalization implementations use an exponential moving average of the layer's input means and standard deviations to estimate these final statistics during training.
+	\end{itemize}
+	\begin{align*}
+		\scalebox{1.5}{$\mu_D = \alpha \mu_D + (1 - \alpha) \mu_B$} \\
+		\scalebox{1.5}{$= \mu_D - (1 - \alpha) \mu_D + (1 - \alpha) \mu_B$} \\
+		\scalebox{1.5}{$= \mu_D - (1 - \alpha)(\mu_D - \mu_B)$}
+	\end{align*}
+	\begin{itemize}
+		\item $\alpha$ is the momentum hyperparameter.
+		\medskip
+		\item Based on the equations, older values are lost earlier when momentum is less. 
+		\item As a result, the moving average changes more quickly.
 	\end{itemize}
 \end{frame}
 \begin{frame}{Batch Norm: Performance}
@@ -287,7 +298,7 @@
 		\end{itemize}
 	\end{itemize}
 	\begin{itemize}
-		\item Solution: after the training procedure, we can mix the BatchNorm layer with its previous layer to hold the prediction latency.
+		\item Solution: during the test time, we can mix the BatchNorm layer with its previous layer to hold the prediction latency.
 	\end{itemize}
 	\begin{columns}
 		\begin{column}[c]{0.45\textwidth}
@@ -296,7 +307,7 @@
 				\mathlarger{x'^{(i)} = W x^{(i)} + b}
 			\end{equation*}
 			\begin{equation*}
-				\mathlarger{y^{(i)} = \frac{x'^{(i)} - \mu}{\sqrt{\sigma^2 + \epsilon}} + \beta}
+				\mathlarger{y^{(i)} = \frac{x'^{(i)} - \mu_D}{\sqrt{\sigma_D^2 + \epsilon}} + \beta}
 			\end{equation*}
 		\end{column}
 		\begin{column}[c]{0.1\textwidth}
@@ -314,20 +325,14 @@
 			\end{equation*}
 			\begin{equation*}
 				\mathlarger{
-					W' := \frac{1}{\sqrt{\sigma^2 + \epsilon}} W	
+					W' := \frac{1}{\sqrt{\sigma_D^2 + \epsilon}} W	
 				}
 			\end{equation*}
 			\begin{equation*}
 				\mathlarger{
-					b' := \beta + \frac{b- \mu}{\sqrt{\sigma^2 + \epsilon}}	
+					b' := \beta + \frac{b- \mu_D}{\sqrt{\sigma_D^2 + \epsilon}}	
 				}
 			\end{equation*}
 		\end{column}
 	\end{columns}
-	\vspace{0.05\textheight}
-	\begin{itemize}
-		\begin{itemize}
-			\item Where $\mu$ and $\sigma$ are the mean and variance for the test time.
-		\end{itemize}
-	\end{itemize}
 \end{frame}
