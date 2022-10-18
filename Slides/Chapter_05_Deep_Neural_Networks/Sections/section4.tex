@@ -238,9 +238,14 @@
 		\end{equation*}
 		\begin{equation*}
 			\mathlarger{
-				\sigma_D^2 := \frac{1}{N} \sum{(x^{(i)} - \mu)^2}
+				\sigma_D^2 := \frac{1}{N} \sum{(x^{(i)} - \mu_D)^2}
 			}
 		\end{equation*}
+\end{frame}
+\begin{frame}{Batch Norm: Test Time}
+	\begin{itemize}
+		\item Moving average //todo
+	\end{itemize}
 \end{frame}
 \begin{frame}{Batch Norm: Performance}
 	\begin{itemize}
@@ -252,32 +257,37 @@
 		\caption{BatchNorm performance. Convergence speed is increased by 200\%,  \href{https://jsideas.net/batch_normalization/}{Source}}
 	\end{figure}
 \end{frame}
-\begin{frame}{Batch Norm: Pros}
+\begin{frame}{Batch Norm}
 	\begin{itemize}
-		\item Vanishing/Exploding gradient problem is reduced by a considerable amount.
+		\item Pros
 		\medskip
-%			\begin{itemize}
+		\begin{itemize}
+			\item Vanishing/Exploding gradient problem is reduced by a considerable amount.
+			\medskip
 			\item You can use even saturating activation functions.
 			\medskip
 			\item The network is much less sensitive to the initial weight.
 			\medskip
 			\item We're able to use larger learning rates, which speeds up the training.
-%			\end{itemize}
-		\medskip
-		\item It also acts as a regularizer.
-		\medskip
-		\begin{itemize}
-			\item There is no need for other regularizer techniques.
+			\medskip
+			\item It also acts as a regularizer.
+			\medskip
+			\begin{itemize}
+				\item There is no need for other regularizer techniques.
+			\end{itemize}
 		\end{itemize}
 	\end{itemize}
 \end{frame}
-\begin{frame}{Batch Norm: Cons}
+\begin{frame}{Batch Norm}
 	\begin{itemize}
-		\item It increases model parameters and prediction latency.
-		\medskip
+		\item Cons
 		\begin{itemize}
-			\item Solution: after the training procedure, we can mix the BatchNorm layer with its previous layer to hold the prediction latency.
+			\item It increases model parameters and prediction latency.
+			\medskip
 		\end{itemize}
+	\end{itemize}
+	\begin{itemize}
+		\item Solution: after the training procedure, we can mix the BatchNorm layer with its previous layer to hold the prediction latency.
 	\end{itemize}
 	\begin{columns}
 		\begin{column}[c]{0.45\textwidth}
@@ -314,7 +324,10 @@
 			\end{equation*}
 		\end{column}
 	\end{columns}
+	\vspace{0.05\textheight}
 	\begin{itemize}
-		\item Where $\mu$ and $\sigma$ are the mean and variance for the test time.
+		\begin{itemize}
+			\item Where $\mu$ and $\sigma$ are the mean and variance for the test time.
+		\end{itemize}
 	\end{itemize}
 \end{frame}
