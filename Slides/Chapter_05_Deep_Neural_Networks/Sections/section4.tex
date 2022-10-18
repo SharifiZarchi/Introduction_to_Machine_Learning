@@ -247,9 +247,9 @@
 		\item The majority of Batch Normalization implementations use an exponential moving average of the layer's input means and standard deviations to estimate these final statistics during training.
 	\end{itemize}
 	\begin{align*}
-		\scalebox{1.5}{$\mu_D = \alpha \mu_D + (1 - \alpha) \mu_B$} \\
-		\scalebox{1.5}{$= \mu_D - (1 - \alpha) \mu_D + (1 - \alpha) \mu_B$} \\
-		\scalebox{1.5}{$= \mu_D - (1 - \alpha)(\mu_D - \mu_B)$}
+		\scalebox{1.5}{$\mu_D $} & \scalebox{1.5}{$= \alpha \mu_D + (1 - \alpha) \mu_B$} \\
+		 & \scalebox{1.5}{$= \mu_D - (1 - \alpha) \mu_D + (1 - \alpha) \mu_B$} \\
+		 & \scalebox{1.5}{$= \mu_D - (1 - \alpha)(\mu_D - \mu_B)$}
 	\end{align*}
 	\begin{itemize}
 		\item $\alpha$ is the momentum hyperparameter.
