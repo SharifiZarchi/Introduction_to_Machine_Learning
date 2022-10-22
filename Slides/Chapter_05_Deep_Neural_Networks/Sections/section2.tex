@@ -1,602 +1,334 @@
 \begin{frame}{Limitations of SLP}
-    \begin{itemize}
-        \item What are the limitations of SLP?
-        \item Can we learn all functions with SLP?
-    \end{itemize}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.6\textwidth]{Figs/xor.png}
-        \caption{The XOR function is not linear separable.}
-    \end{figure}
+	\begin{itemize}
+		\item What are the limitations of SLP?
+		\item Can we learn all functions with SLP?
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{Figs/xor.png}
+		\caption{The XOR function is not linear separable.}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Limitations of SLP}
-    \begin{itemize}
-        \item As we saw in the XOR case, nonlinear separable functions can not be learned by SPLs.
-    \end{itemize}
-    \begin{figure}[H]
-        \centering
-        \begin{subfigure}[b]{0.4\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{Figs/non-linear1.png}
-        \end{subfigure}
-        \hspace*{1.5em}
-        \begin{subfigure}[b]{0.4\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{Figs/non-linear2.png}
-        \end{subfigure}
-        \caption{Examples of nonlinear separable functions.}
-    \end{figure}    
-    \begin{itemize}
-        \item How to solve this?
-    \end{itemize}
+	\begin{itemize}
+		\item As we saw in the XOR case, nonlinear separable functions can not be learned by SPLs.
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}[b]{0.4\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{Figs/non-linear1.png}
+		\end{subfigure}
+		\hspace*{1.5em}
+		\begin{subfigure}[b]{0.4\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{Figs/non-linear2.png}
+		\end{subfigure}
+		\caption{Examples of nonlinear separable functions.}
+	\end{figure}    
+	\begin{itemize}
+		\item How to solve this?
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Limitations of SLP}
-    \begin{itemize}
-        \item What if we knew some feature space which our data is linear separable in?!
-    \end{itemize}
-    \begin{figure}[H]
-        \centering
-        \begin{subfigure}[b]{0.35\textwidth}
-            \centering
-            $(x, y)$
-            \vcenter{\hbox{\includegraphics[width=\textwidth]{Figs/non-linear2.png}}}
-        \end{subfigure}
-        $\quad\Longrightarrow\quad$
-        \begin{subfigure}[b]{0.35\textwidth}
-            \centering
-            $(r, \theta)$
-            \vcenter{\hbox{\includegraphics[width=\textwidth]{Figs/circ-linear.png}}}
-        \end{subfigure}
-        \caption{Data is linear separable after transformation.}
-    \end{figure}
+	\begin{itemize}
+		\item What if we knew some feature space which our data is linear separable in?!
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}[b]{0.35\textwidth}
+			\centering
+			$(x, y)$
+			$\vcenter{\hbox{\includegraphics[width=\textwidth]{Figs/non-linear2.png}}}$
+		\end{subfigure}
+		$\quad\Longrightarrow\quad$
+		\begin{subfigure}[b]{0.35\textwidth}
+			\centering
+			$(r, \theta)$
+			$\vcenter{\hbox{\includegraphics[width=\textwidth]{Figs/circ-linear.png}}}$
+		\end{subfigure}
+		\caption{Data is linear separable after transformation.}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Multi-Layer Perceptron}
-    \begin{itemize}
-        \item So if we know some $f_1, \cdots, f_4$ we can use SLP to solve problem.
-    \end{itemize}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[height=0.45\textheight]{Figs/feature_space.png}
-        \caption{Using feature space $f$ to solve problem.}
-    \end{figure}
-    \begin{itemize}
-        \item How to learn this $f_i$s? Use SLP!
-    \end{itemize}
+	\begin{itemize}
+		\item So if we know some $f_1, \cdots, f_4$ we can use SLP to solve problem.
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[height=0.45\textheight]{Figs/feature_space.png}
+		\caption{Using feature space $f$ to solve problem.}
+	\end{figure}
+	\begin{itemize}
+		\item How to learn this $f_i$s? Use SLP!
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Multi-Layer Perceptron}
-    \begin{itemize}
-        \item We can use inputs ($x_i$) to learn features ($f_i$)
-    \end{itemize}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[height=0.45\textheight]{Figs/learn_features.png}
-        \caption{Using inputs to learn features.}
-    \end{figure}
-    \begin{itemize}
-        \item What if $f_i$s are not sufficient? We can add more layers!
-    \end{itemize}
+	\begin{itemize}
+		\item We can use inputs ($x_i$) to learn features ($f_i$)
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[height=0.45\textheight]{Figs/learn_features.png}
+		\caption{Using inputs to learn features.}
+	\end{figure}
+	\begin{itemize}
+		\item What if $f_i$s are not sufficient? We can add more layers!
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Multi-Layer Perceptron}
-    \begin{itemize}
-        \item Adding more layers we will have a bigger network.
-    \end{itemize}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.8\textwidth]{Figs/5layer_mlp.png}
-        \caption{A 5 layer MLP.}
-    \end{figure}
+	\begin{itemize}
+		\item Adding more layers we will have a bigger network.
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.8\textwidth]{Figs/5layer_mlp.png}
+		\caption{A 5 layer MLP.}
+	\end{figure}
 \end{frame}
 
 
 \begin{frame}{Architecture of MLPs}
-    \begin{itemize}
-        \item Important questions:
-        \begin{itemize}
-            \item How many hidden layer should we have?
-            \item In each hidden layer, how many neuron should we have?
-        \end{itemize}
-    \end{itemize}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[height=0.6\textheight]{Figs/how_many_layer.png}
-        \caption{How many layers and neurons should we have?}
-    \end{figure}
+	\begin{itemize}
+		\item Important questions:
+		\begin{itemize}
+			\item How many hidden layer should we have?
+			\item In each hidden layer, how many neuron should we have?
+		\end{itemize}
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[height=0.6\textheight]{Figs/how_many_layer.png}
+		\caption{How many layers and neurons should we have?}
+	\end{figure}
 \end{frame}
 
 
 % \begin{frame}{Architecture of MLPs}
-%     \begin{itemize}
-%         \item In theory:
-%         \begin{itemize}
-%             \item You will have unlimited resources
-%             \item (1 hidden layer, $\infty$ neurons) will be sufficient to learn any function 
-%         \end{itemize}
-%     \end{itemize}
-%     \begin{figure}[H]
-%         \centering
-%         \includegraphics[height=0.5\textheight]{Figs/inf_neuron.png}
-%         \caption{1 hidden layer and $\infty$ neuron.}
-%     \end{figure}
-% \end{frame}
+	%     \begin{itemize}
+		%         \item In theory:
+		%         \begin{itemize}
+			%             \item You will have unlimited resources
+			%             \item (1 hidden layer, $\infty$ neurons) will be sufficient to learn any function 
+			%         \end{itemize}
+		%     \end{itemize}
+	%     \begin{figure}[H]
+		%         \centering
+		%         \includegraphics[height=0.5\textheight]{Figs/inf_neuron.png}
+		%         \caption{1 hidden layer and $\infty$ neuron.}
+		%     \end{figure}
+	% \end{frame}
 
 
 \begin{frame}{Architecture of MLPs}
-    \begin{itemize}
-        \item In practice:
-        \begin{itemize}
-            \item You have limited resources
-            \item There is no universal rule to choose this hyperparameters
-            \item Need to experiment for different number of layers and neurons in each layer
-        \end{itemize}
-    \end{itemize}
+	\begin{itemize}
+		\item In practice:
+		\begin{itemize}
+			\item You have limited resources
+			\item There is no universal rule to choose this hyperparameters
+			\item Need to experiment for different number of layers and neurons in each layer
+		\end{itemize}
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{Figs/experiment_arch.png}
+		\caption{Experiment for different architecture and choose the best model.}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{Activation Function of Hidden Layers}
-    \begin{itemize}
-        \item One can use any activation function for each hidden units
-        \item Usually people use the same activation function for all neurons in one layer
-        \item The important point is to use \tc{keywords}{nonlinear} activation functions
-    \end{itemize}
-    \begin{figure}[H]
-        \centering
-        \begin{subfigure}[b]{0.55\textwidth}
-            \centering
-            \vcenter{\hbox{\includegraphics[width=\textwidth]{Figs/linear_neurons.png}}}
-        \end{subfigure}
-        $\quad\equiv\quad$
-        \begin{subfigure}[b]{0.15\textwidth}
-            \centering
-            \vcenter{\hbox{\includegraphics[width=\textwidth]{Figs/simple_slp.png}}}
-        \end{subfigure}
-        \caption{MLP with linear activation functions is equivalent to simple SLP.}
-    \end{figure}
+	\begin{itemize}
+		\item One can use any activation function for each hidden units
+		\item Usually people use the same activation function for all neurons in one layer
+		\item The important point is to use \tc{keywords}{nonlinear} activation functions
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}[b]{0.55\textwidth}
+			\centering
+			$\vcenter{\hbox{\includegraphics[width=\textwidth]{Figs/linear_neurons.png}}}$
+		\end{subfigure}
+		$\quad\equiv\quad$
+		\begin{subfigure}[b]{0.15\textwidth}
+			\centering
+			$\vcenter{\hbox{\includegraphics[width=\textwidth]{Figs/simple_slp.png}}}$
+		\end{subfigure}
+		\caption{MLP with linear activation functions is equivalent to simple SLP.}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{XOR problem}
-    \begin{itemize}
-        \item Now lets solve XOR problem with MLPs.
-        \item We have two binary inputs, build an MLP to calculate their \textbf{XOR}.
-        \medskip
-        \medskip
-        \item First lets build logical \textbf{AND} and \textbf{OR} functions.
-    \end{itemize}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.35\textwidth]{Figs/solve_and_or_gate.png}
-        \caption{We need to find weights, biases and activation function.}
-    \end{figure}
+	\begin{itemize}
+		\item Now let's solve XOR problem with MLPs.
+		\item We have two binary inputs, build an MLP to calculate their \textbf{XOR}.
+		\medskip
+		\medskip
+		\item First let's build logical \textbf{AND} and \textbf{OR} functions.
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.35\textwidth]{Figs/solve_and_or_gate.png}
+		\caption{We need to find weights, biases and activation function.}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{XOR problem}
-    \begin{figure}
-        \centering
-        \begin{subfigure}[b]{0.25\textwidth}
-            \centering
-            \vcenter{\hbox{\includegraphics[width=\textwidth]{Figs/and_gate.png}}}
-            \caption{$x_1 \wedge x_2$}
-        \end{subfigure}
-        \hspace*{0.5em}
-        \begin{subfigure}[b]{0.25\textwidth}
-            \centering
-            \vcenter{\hbox{\includegraphics[width=\textwidth]{Figs/or_gate.png}}}
-            \caption{$x_1 \vee x_2$}
-        \end{subfigure}
-        \hspace*{0.5em}
-        \begin{subfigure}[b]{0.25\textwidth}
-            \centering
-            \vcenter{\hbox{\includegraphics[width=\textwidth]{Figs/and_not_gate.png}}}
-            \caption{$x_1 \wedge \overline{x_2}$}
-        \end{subfigure}
-    \end{figure}
-    \pause
-    \begin{figure}[H]
-        \centering
-        \includegraphics[height=0.35\textheight]{Figs/xor_gate.png}
-        \caption{MLP for XOR function.}
-    \end{figure}
+	\begin{figure}
+		\centering
+		\begin{subfigure}[b]{0.25\textwidth}
+			\centering
+			$\vcenter{\hbox{\includegraphics[width=\textwidth]{Figs/and_gate.png}}}$
+			\caption{$x_1 \wedge x_2$}
+		\end{subfigure}
+		\hspace*{0.5em}
+		\begin{subfigure}[b]{0.25\textwidth}
+			\centering
+			$\vcenter{\hbox{\includegraphics[width=\textwidth]{Figs/or_gate.png}}}$
+			\caption{$x_1 \vee x_2$}
+		\end{subfigure}
+		\hspace*{0.5em}
+		\begin{subfigure}[b]{0.25\textwidth}
+			\centering
+			$\vcenter{\hbox{\includegraphics[width=\textwidth]{Figs/and_not_gate.png}}}$
+			\caption{$x_1 \wedge \overline{x_2}$}
+		\end{subfigure}
+	\end{figure}
+	\pause
+	\begin{figure}[H]
+		\centering
+		\includegraphics[height=0.35\textheight]{Figs/xor_gate.png}
+		\caption{MLP for XOR function.}
+	\end{figure}
 \end{frame}
 
 
 % \begin{frame}{Example of universality}
-%     \begin{itemize}
-%         \item ToDo
-%     \end{itemize}
-% \end{frame}
+	%     \begin{itemize}
+		%         \item ToDo
+		%     \end{itemize}
+	% \end{frame}
 
 
 \begin{frame}{MLP notation}
-    \begin{itemize}
-        \item $a^{[l]}_i$: $i$-th neuron outpu in layer $l$
-        \item $\bm{a}^{[l]}$: layer $l$ output in vector form
-    \end{itemize}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.5\textwidth]{Figs/notation1.png}
-    \end{figure}
+	\begin{itemize}
+		\item $a^{[l]}_i$: $i$-th neuron outpu in layer $l$
+		\item $\bm{a}^{[l]}$: layer $l$ output in vector form
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{Figs/notation1.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{MLP notation}
-    \begin{itemize}
-        \item $b^{[l]}_i$: $i$-th neuron biase in layer $l$
-        \item $\bm{b}^{[l]}$: layer $l$ biases in vector form
-    \end{itemize}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.5\textwidth]{Figs/notation1.2.png}
-    \end{figure}
+	\begin{itemize}
+		\item $b^{[l]}_i$: $i$-th neuron biase in layer $l$
+		\item $\bm{b}^{[l]}$: layer $l$ biases in vector form
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{Figs/notation1.2.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{MLP notation}
-    \begin{itemize}
-        \item $W^{[l]}_{ij}$: weight of the edge between $i$-th nuron in layer $l-1$ and $j$-th neuron in layer $l$ 
-    \end{itemize}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.5\textwidth]{Figs/notation2.png}
-    \end{figure}
+	\begin{itemize}
+		\item $W^{[l]}_{ij}$: weight of the edge between $i$-th nuron in layer $l-1$ and $j$-th neuron in layer $l$ 
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{Figs/notation2.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{MLP notation}
-    \begin{itemize}
-        \item $z^{[l]}_j$: $j$-th neuron input in layer $l$
-        \item $z^{[l]}_j = b_j^{[l]} + \sum_{i=1}^n W^{[l]}_{ij}a^{[l-1]}_i$
-    \end{itemize}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.5\textwidth]{Figs/notation3.png}
-    \end{figure}
+	\begin{itemize}
+		\item $z^{[l]}_j$: $j$-th neuron input in layer $l$
+		\item $z^{[l]}_j = b_j^{[l]} + \sum_{i=1}^n W^{[l]}_{ij}a^{[l-1]}_i$
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{Figs/notation3.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{MLP notation}
-    \begin{itemize}
-        \item $\bm{z}^{[l]}$: input of layer $l$ in vector form
-        \item $\bm{z}^{[l]} = \bm{b}^{[l]} + (W^{[l]})^T \bm{a}^{[l-1]}$
-    \end{itemize}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.5\textwidth]{Figs/notation3.png}
-    \end{figure}
+	\begin{itemize}
+		\item $\bm{z}^{[l]}$: input of layer $l$ in vector form
+		\item $\bm{z}^{[l]} = \bm{b}^{[l]} + (W^{[l]})^T \bm{a}^{[l-1]}$
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{Figs/notation3.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{MLP notation}
-    \begin{itemize}
-        \item $\sigma^{[l]}_j$: $j$-th neuron activation function in layer $l$
-    \end{itemize}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.5\textwidth]{Figs/notation4.png}
-    \end{figure}
+	\begin{itemize}
+		\item $\sigma^{[l]}_j$: $j$-th neuron activation function in layer $l$
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{Figs/notation4.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{MLP notation}
-    \begin{itemize}
-        \item If we assume all neurons in one layer have the same activation function then:
-        \[
-        \bm{a}^{[l]} = \sigma^{[l]}\left(\bm{b}^{[l]} +  (W^{[l]})^T\bm{a}^{[l-1]}\right)
-        \]
-    \end{itemize}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.5\textwidth]{Figs/notation5.png}
-    \end{figure}
+	\begin{itemize}
+		\item If we assume all neurons in one layer have the same activation function then:
+		\[
+		\bm{a}^{[l]} = \sigma^{[l]}\left(\bm{b}^{[l]} +  (W^{[l]})^T\bm{a}^{[l-1]}\right)
+		\]
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{Figs/notation5.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{MLP notation}
-    \begin{itemize}
-        \item So for a network with $L$ layer, and $\bm{x}$ as its input we will have:
-    \end{itemize}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.6\textwidth]{Figs/notation6.png}
-    \end{figure}
-    % \[
-    % \bm{o}=\bm{a}^{[L]}=\sigma^{[L]}\left((W^{[L]})^T\sigma^{[L-1]}\left((W^{[L-1]})^T\sigma^{[L-2]}\left(\cdots\sigma^{[1]}\left((W^{[1]})^T\bm{x}\right)\cdots \right)\right)\right)
-    % \]
-    \[
-    \bm{o}=\bm{a}^{[L]}=\sigma^{[L]}\left(\bm{b}^{[L]} + (W^{[L]})^T\sigma^{[L-1]}\left(\cdots\sigma^{[1]}\left(\bm{b}^{[1]}+(W^{[1]})^T\bm{x}\right)\cdots \right)\right)
-    \]
+	\begin{itemize}
+		\item So for a network with $L$ layer, and $\bm{x}$ as its input we will have:
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{Figs/notation6.png}
+	\end{figure}
+	% \[
+	% \bm{o}=\bm{a}^{[L]}=\sigma^{[L]}\left((W^{[L]})^T\sigma^{[L-1]}\left((W^{[L-1]})^T\sigma^{[L-2]}\left(\cdots\sigma^{[1]}\left((W^{[1]})^T\bm{x}\right)\cdots \right)\right)\right)
+	% \]
+	\[
+	\bm{o}=\bm{a}^{[L]}=\sigma^{[L]}\left(\bm{b}^{[L]} + (W^{[L]})^T\sigma^{[L-1]}\left(\cdots\sigma^{[1]}\left(\bm{b}^{[1]}+(W^{[1]})^T\bm{x}\right)\cdots \right)\right)
+	\]
 \end{frame}
-
-
-\begin{frame}{Is this deep?}
-    \begin{itemize}
-        \item ToDo
-    \end{itemize}
-\end{frame}
-
 
 \begin{frame}{Learning MLPs}
-    \begin{itemize}
-        \item Till here we have used networks with predefined weights and biases.
-        \item How to learn these parameters?
-        \medskip
-        \medskip
-        \medskip
-        \item The idea is to use gradient descent
-    \end{itemize}
-    \begin{figure}
-        \centering
-        \begin{subfigure}[b]{0.3\textwidth}
-            \includegraphics[width=\textwidth]{Figs/forward_propagation.png}
-            \caption{Forward pass}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.3\textwidth}
-            \includegraphics[width=\textwidth]{Figs/backward_propagation.png}
-            \caption{Backward pass}
-        \end{subfigure}
-        \begin{subfigure}[b]{0.28\textwidth}
-            \includegraphics[width=\textwidth]{Figs/update_phase.png}
-            \caption{Update parameters}
-        \end{subfigure}
-    \end{figure}
-\end{frame}
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Limitations of Perceptrons}
-    \begin{itemize}
-        \item If the data is not separable, the training algorithm may not terminate.
-        \item Test accuracy rises at first, but then starts falling.
-        \item We should have a sufficiently small learning rate $\eta$
-    \end{itemize}
-	\begin{figure}[H]
+	\begin{itemize}
+		\item Till here we have used networks with predefined weights and biases.
+		\item How to learn these parameters?
+		\medskip
+		\medskip
+		\medskip
+		\item The idea is to use gradient descent
+	\end{itemize}
+	\begin{figure}
 		\centering
-		\includegraphics[width=0.6\textwidth]{Figs/Not_Separable_Data.png}
-		\caption{Not separable data \cite{https://vitalflux.com/how-know-data-linear-non-linear/}.}
+		\begin{subfigure}[b]{0.3\textwidth}
+			\includegraphics[width=\textwidth]{Figs/forward_propagation.png}
+			\caption{Forward pass}
+		\end{subfigure}
+		\begin{subfigure}[b]{0.3\textwidth}
+			\includegraphics[width=\textwidth]{Figs/backward_propagation.png}
+			\caption{Backward pass}
+		\end{subfigure}
+		\begin{subfigure}[b]{0.28\textwidth}
+			\includegraphics[width=\textwidth]{Figs/update_phase.png}
+			\caption{Update parameters}
+		\end{subfigure}
 	\end{figure}
-\end{frame}
-
-\begin{frame}{Multi-Layered Perceptron}
-    \begin{itemize}
-        \item Why Should we do?
-        \begin{itemize}
-            \item One of the main weaknesses of linear models are that they are linear and they ran into problem when the data has non-linear relations.
-            \item So we take our biological inspiration further by chaining together perceptrons.
-        \end{itemize}
-    \end{itemize}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.5\textwidth]{Figs/Brain.png}
-		\caption{Inspiration \cite{https://www.pngwing.com/en/free-png-xzwgm}.}
-	\end{figure}
-\end{frame}
-
-\begin{frame}{Learning with hidden units}
-    \begin{itemize}
-        \item Networks without hidden units are very limited in the
-input-output mappings they can model.
-        \begin{itemize}
-            \item More layers of linear units do not help. Its still linear.
-            \item Fixed output non-linearities are not enough
-        \end{itemize}
-        \item We need multiple layers of adaptive non-linear hidden
-units. This gives us a universal approximator.
-        \begin{itemize}
-            \item We need an efficient way of adapting all the weights,
-not just the last layer. This is hard. Learning the
-weights going into hidden units is equivalent to
-learning features.
-            \item Nobody is telling us directly what hidden units should
-do.
-        \end{itemize}
-    \end{itemize}
-    \begin{figure}[H]
-		\centering
-		\includegraphics[width=0.4\textwidth]{Figs/MLP1.png}
-		\caption{Multi layer perceptron \cite{https://www.projectpro.io/article/deep-learning-algorithms/443}.}
-	\end{figure}
-\end{frame}
-
-\begin{frame}{XOR Example}
-    \begin{itemize}
-        \item A Perceptron cannot learn the XOR function. 
-        \begin{itemize}
-            \item Positive cases: $(1, 0) \to 1; (0, 1) \to 1$
-            \item Negative cases: $(1, 1) \to 0; (0, 0) \to 0$
-            \item ?I need to draw a perceptron myself?
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Multi-Layer perceptron neural architecture}
-    \begin{itemize}
-        \item In a typical MLP network, the input units ($X_i$) are fully
-connected to all hidden layer units ($Y_j$) and the hidden layer
-units are fully connected to all output layer units ($Z_k$).
-        \item Each of the connections
-between the input to hidden
-and hidden to output layer
-units has an associated weight
-attached to it ($W_{ij}$ or $W_{jk}$)
-        \item The hidden and output layer
-units also derive their bias
-values ($b_j$ or $b_k$) from
-weighted connections to units
-whose outputs are always 1
-(true neurons)
-    \end{itemize}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.3\textwidth]{Figs/MLP2.png}
-		\caption{MLP Architecture \cite{Gonna Replace It/}.}
-	\end{figure}
-\end{frame}
-
-\begin{frame}{Two-layer MLP}
-    \begin{itemize}
-        \item Two-layer networks are Universal function approximators.
-        \begin{itemize}
-            \item It can approximate any continuous function on a bounded subset of D-dimensional space.
-        \end{itemize}
-        \item How many hidden units needed then?
-        \begin{itemize}
-            \item 
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Two-layer MLP}
-    \begin{itemize}
-        \item $X_i = input[i]$
-        \item $Y_j = f(b^1_j + \sum{X_i W^1_{ij}})$
-        \item $Z_k = g(b^2_k + \sum{Y_j W^2_{jk}})$
-    \end{itemize}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.3\textwidth]{Figs/MLP2.png}
-		\caption{MLP Architecture \cite{Gonna Replace It/}.}
-	\end{figure}
-\end{frame}
-
-\begin{frame}{Non-linearity}
-\begin{itemize}
-    \item 1-Layer MLP: $Z = g(Wx)$
-    \item 2-Layer MLP: $Z = g(W_2f(W_1x))$
-    \item 3-Layer MLP: $Z = g(W_3f_2(W_2f_1(W_1x)))$
-    \item What does deep mean?
-    \begin{itemize}
-        \item In any directed acyclic graph (DAG) "Depth" is the length of the longest path from a source to a sink
-    \end{itemize}
-\end{itemize}
-    
-\end{frame}
-
-\begin{frame}{Learning by perturbing weights}
-    \begin{itemize}
-        \item Randomly perturb one weight and see
-if it improves performance. If so, save
-the change.
-        \begin{itemize}
-            \item Very inefficient. We need to do
-multiple forward passes on a
-representative set of training data
-just to change one weight.
-            \item Towards the end of learning, large
-weight perturbations will nearly
-always make things worse.
-        \end{itemize}
-        \item We could randomly perturb all the
-weights in parallel and correlate the
-performance gain with the weight
-changes.
-        \begin{itemize}
-            \item Not any better because we need
-lots of trials to “see” the effect of
-changing one weight through the
-noise created by all the others.
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Training a MLP}
-    \begin{itemize}
-        \item Now we need to find the Optimal weights for our network
-    \end{itemize}
-    \begin{block}{Optimazation}
-        \[
-            \begin{cases}
-                min_{W_N, ..., W_1} \sum_{n=1}^{N} \dfrac{1}{2} (t_n - Z_n)^2 \\
-                Z = g(W_Nf_{N-1}(...(W_2f_1(W_1x))...))
-            \end{cases}
-        \]
-    \end{block}
-    \begin{itemize}
-        \item Loss minimization: replace squared-loss with any other
-        \item Regularization:
-        \begin{itemize}
-            \item traditionally NN's are not regularized.
-            \item But you can add a regularization.
-        \end{itemize}
-        \item Optimization by gradient descent (Not gurantees about optimality)
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Training a 2-layered network}
-    \begin{block}{2-layered network optimazation term}
-        \[
-            \begin{cases}
-                min_{W_2, W_1} \sum_{n=1}^{N} \dfrac{1}{2} (t_n - \sum{i}{} w^2_if(w^1_ix_n))^2 \\
-            \end{cases}
-        \]
-    \end{block}
-    \begin{block}{Equiavantly}
-        \[
-            \begin{cases}
-                min_{W_2, W_1} \sum_{n=1}^{N} \dfrac{1}{2} (t_n - \sum{i}{} w^2h_h{i,n}
-                \\
-                h_{i,n} = f(w^1_ix_n)
-            \end{cases}
-        \]
-    \end{block}
-    \begin{block}{Computing gradients: output layer}
-        
-    \end{block}
-\end{frame}
-
-\begin{frame}{Back Propagation}
-    \begin{itemize}
-        \item We don’t know what the hidden units ought to do,
-but we can compute how fast the error changes as
-we change a hidden activity.
-        \begin{itemize}
-            \item Instead of using desired activities to train the
-hidden units, use error derivatives w.r.t. hidden
-activities.
-            \item Each hidden activity can affect many output units
-and can therefore have many separate effects on
-the error. These effects must be combined.
-            \item We can compute error derivatives for all the
-hidden units efficiently.
-            \item Once we have the error derivatives for the
-hidden activities, its easy to get the error
-derivatives for the weights going into a hidden
-unit.
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Back propagation algorithm}
-    \begin{itemize}
-        \item Initialize each $W_i$ to some small random value
-        \item Until the termination condition is met, Do
-        \begin{itemize}
-            \item For each training example $<(x_1, ..., x_n), t>$ Do
-            \begin{itemize}
-                \item Input the instance $(x_1, ..., x_n)$ to the network and compute the network outputs $Z_k$
-                \item for each output unit k
-                \item $\delta_{pk} = z_k (1-z_k)(t_k-y_k)$
-                \item for each hidden unit h in the j layer
-                \item $\delta_{j,h} = y_{j,h} (1-y_{j,h}) \sum_{k}{}W^j_{h,k} \delta_{j+1,k}$
-                \item for each network weight $W^j_{h,k}$ Do
-                \item $W^j_{h,k} = W^j_{h,k} + \Delta^j_{h,k}$ where
-                $\Delta^j_{h,k} = \eta \delta_{j,k} x_{i,j}$
-            \end{itemize}
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Back propagation}
-    \begin{itemize}
-        \item Gradient descent over entire network weight vector
-        \item Easily generalized to arbitrary directed graphs
-        \item Will find a local, not necessarily global error minimum
-        \begin{itemize}
-            \item in practice often works well (can be invoked multiple
-                times with different initial weights)
-        \end{itemize}
-        \item Minimizes error training examples
-        
-
-    \end{itemize}
 \end{frame}
