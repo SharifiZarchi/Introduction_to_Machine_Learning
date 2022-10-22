@@ -1,0 +1,48 @@
+\DeclarePairedDelimiter\abs{\lvert}{\rvert}%
+\begin{frame}{Saturating Functions}
+	\begin{itemize}
+		\item A saturating activation function squeezes the input.
+		\begin{align*}
+			(\abs{\lim_{x \to -\infty}f(x)}=+\infty)
+			\vee (\abs{\lim_{x \to +\infty}f(x)}=+\infty)
+		\end{align*}
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.5\textwidth]{Figs/van_1.png}
+			\caption{Saturating Functions, \href{https://www.analyticsvidhya.com/blog/2021/06/the-challenge-of-vanishing-exploding-gradients-in-deep-neural-networks/}{Source}}
+		\end{figure}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Saturating Functions}
+	\begin{itemize}
+		\item The Tanh (hyperbolic tangent) activation function is saturating as it squashes real numbers to range between $(-1, 1)$
+	\end{itemize}
+	\begin{figure}
+		\centering
+		\includegraphics[width=8cm, height=4cm]{Figs/TANH.png}
+		\caption{Hyperbolic Tangent}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Saturating Functions}
+	\begin{itemize}
+		\item The Sigmoid activation function  $f(x) = \frac{1}{1+\exp^{-x}}$ is also saturating, because it squashes real numbers to range between $(0, 1)$.
+	\end{itemize}
+	\begin{figure}
+		\centering
+		\includegraphics[width=8cm, height=4cm]{Figs/SIG.png}
+		\caption{Sigmoid}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Saturating Functions}
+	\begin{itemize}
+		\item In contrast, The Rectified Linear Unit (ReLU) activation function is non-saturating.
+	\end{itemize}
+	\begin{figure}
+		\centering
+		\includegraphics[width=8cm, height=4cm]{Figs/RELU.png}
+		\caption{ReLU}
+	\end{figure}
+\end{frame}
