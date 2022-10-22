@@ -332,3 +332,297 @@
 		\end{subfigure}
 	\end{figure}
 \end{frame}
+
+\begin{frame}{Learning MLPs}
+	\begin{itemize}
+		\item Let's define the learning problem more formal:
+		\begin{itemize}
+			\item $\{(x^{(i)}, y^{(i)})\}_{i=1}^{n}$: dataset
+			\item $f$: network
+			\item $W$: all weights and biases of the network ($W^{[l]}$ and $\bm{b}^{[l]}$ for different $l$)
+			\item $L$: loss function
+		\end{itemize}
+		\medskip
+		\item We want to find $W^{\ast}$ which minimizes following cost function:
+		\[
+		\mathcal{J}(W) = \sum_{i=1}^{n} L\left(f(x^{(i)}; W), y^{(i)}\right)
+		\]
+		\item We are going to use gradient descent, so we need to find $\nabla_W \mathcal{J}$.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Forward Propagation}
+	\begin{itemize}
+		\item First of all we need to find loss value.
+		\item It only requires to know the inputs of each neuron.
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.3\textwidth]{Figs/forward_pass.png}
+		\caption{$a^{[l]}_j = \sum_{i=1}^m W^{[l]}_{ij}a^{[l-1]}_i + b^{[l]}_j$}
+	\end{figure}
+	\begin{itemize}
+		\item So we can calculate these outputs layer by layer.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Forward Propagation}
+	\begin{itemize}
+		\item After forward pass we will know:
+		\begin{itemize}
+			\item Loss value
+			\item Network output
+			\item Middle values
+		\end{itemize}
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.5\textwidth]{Figs/forward_propagation.png}
+		\caption{Forward pass}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Backward Propagation}
+	\begin{itemize}
+		\item Now we need to calculate $\nabla_W \mathcal{J}$.
+		\medskip
+		\item First idea:
+		\begin{itemize}
+			\item Use analytical approach.
+			\item Write down derivatives on paper.
+			\item Find the close form of $\nabla_W \mathcal{J}$ (if it is possible to do so).
+			\item Implement this gradient as a function to work with.
+			\medskip
+			\medskip
+			\item Pros:
+			\begin{itemize}
+				\item Fast
+				\item Exact
+			\end{itemize}
+			\medskip
+			\medskip
+			\item Cons:
+			\begin{itemize}
+				\item Need to rewrite calculation for different architectures
+			\end{itemize}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Backward Propagation}
+	\begin{itemize}
+		\item Second idea:
+		\begin{itemize}
+			\item Using \tc{keywords}{modular} approach.
+			\item Computing the cost function consists of doing many operations.
+			\item We can build a computation graph for this calculation.
+			\item Each node will represent a single operation.
+		\end{itemize}
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[height=0.5\textheight]{Figs/computational_graph.png}
+		\caption{An example of computational graph, \href{https://ekababisong.org/gcp-ml-seminar/tensorflow/}{Source}.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Backward Propagation}
+	\begin{itemize}
+		\item In this approach if we know how to calculate gradient for single node or module, then we can find gradient with respect to each variables.
+		\item Let's say we have a module as follow:
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.35\textwidth]{Figs/module_f.png}
+		\end{figure}
+		\item It gets $x$ and $y$ as its input and returns $z = f(x, y)$ as its output.
+		\item How to calculate derivative of loss with respect to module inputs?
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Backward Propagation}
+	\begin{itemize}
+		\item We know:
+		\begin{itemize}
+			\item Module output for $x_0$ and $y_0$, let's call it $z_0$.
+			\item Gradient of loss with respect to module output at $z_0$, $\left(\frac{\partial L}{\partial z}\right)$.
+		\end{itemize}
+		\item We want:
+		\begin{itemize}
+			\item Gradient of loss with respect to module inputs at $x_0$ and $y_0$, $\left(\frac{\partial L}{\partial x}, \frac{\partial L}{\partial y}\right)$.
+		\end{itemize}
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.4\textwidth]{Figs/module_f_upstream.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Backward Propagation}
+	\begin{itemize}
+		\item We can use chain rule to do so.
+		\medskip
+		\begin{block}{Chain rule:}
+			\[
+			\left.\begin{aligned}
+				& z = f(x, y)\\
+				& L = L(z)
+			\end{aligned}\right\}\quad\implies\quad \frac{\partial L}{\partial x} = \frac{\partial L}{\partial z}\times \frac{\partial z}{\partial x} 
+			\]
+		\end{block}
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.6\textwidth]{Figs/module_f_downstream.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Backward Propagation}
+	\begin{itemize}
+		\item Backpropagation for single module:
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[height=0.7\textheight]{Figs/module_f_chain_rule.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Backward Propagation: Example}
+	\begin{itemize}
+		\item Let's solve a simple example using backpropagation.
+		\medskip
+		\item We have $f(x, y, z) = \frac{x^2 y}{z}$.
+		\medskip
+		\item Find $\frac{\partial f}{\partial x}$, $\frac{\partial f}{\partial y}$ and $\frac{\partial f}{\partial z}$ at $x=3$, $y=4$ and $z=2$.
+		\medskip
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{Figs/backprop_e1.png}
+		\caption{Computational graph of $f$.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Backward Propagation: Example}
+	\begin{itemize}
+		\item First let's find gradient analytically.
+		\item We have:
+		\[
+		\begin{cases}
+			v = x^2\\
+			u = vy\\
+			f = \frac{u}{z}
+		\end{cases}
+		\qquad
+		\begin{cases}
+			\frac{\partial f}{\partial z} = -\frac{u}{z^2}\\[0.7em]
+			\frac{\partial f}{\partial y} = \frac{\partial u}{\partial y}\times\frac{\partial f}{\partial u} =  v \times \frac{1}{z} = \frac{v}{z}\\[0.7em]
+			\frac{\partial f}{\partial x} = \frac{\partial v}{\partial x}\times\frac{\partial u}{\partial v}\times\frac{\partial f}{\partial u} = 2x \times y \times \frac{1}{z} = \frac{2xy}{z}
+		\end{cases}
+		\]
+		\[
+		(x=3, y=4, z=2)\implies
+		\begin{cases}
+			v = 9\\
+			u = 36 \\
+			f = 18
+		\end{cases}
+		\implies
+		\begin{cases}
+			\frac{\partial f}{\partial z} = -9\\[0.7em]
+			\frac{\partial f}{\partial y} = 4.5\\[0.7em]
+			\frac{\partial f}{\partial x} = 12
+		\end{cases}
+		\]
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Backward Propagation: Example}
+	\begin{itemize}
+		\item Now let's use backpropagation.
+		\item First we do forward propagation.
+		\medskip
+		\begin{figure}[H]
+			\centering
+			\includegraphics[width=0.9\textwidth]{Figs/backprop_e2.png}
+		\end{figure}
+		\medskip
+		\item Second we will do backpropagation for each module.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Backward Propagation: Example}
+	\begin{itemize}
+		\item Backpropagation for $/$ module:
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{Figs/backprop_e3.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Backward Propagation: Example}
+	\begin{itemize}
+		\item Backpropagation for $/$ module:
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{Figs/backprop_e4.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Backward Propagation: Example}
+	\begin{itemize}
+		\item Backpropagation for $\times$ module:
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{Figs/backprop_e5.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Backward Propagation: Example}
+	\begin{itemize}
+		\item Backpropagation for $\times$ module:
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{Figs/backprop_e6.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Backward Propagation: Example}
+	\begin{itemize}
+		\item Backpropagation for ${\_}^2$ module:
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{Figs/backprop_e7.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Backward Propagation: Example}
+	\begin{itemize}
+		\item Backpropagation for ${\_}^2$ module:
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.9\textwidth]{Figs/backprop_e8.png}
+	\end{figure}
+	\begin{itemize}
+		\item Results are the same as analytical results.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Backward Propagation}
+	\begin{itemize}
+		\item So after backward propagation we will have:
+		\begin{itemize}
+			\item Gradient of loss with respect to each parameter.
+			\item We can apply gradient descent to update parameters.
+		\end{itemize}
+	\end{itemize}
+	\begin{figure}[H]
+		\includegraphics[width=0.5\textwidth]{Figs/backward_propagation.png}
+		\caption{Backward pass}
+	\end{figure}
+\end{frame}
