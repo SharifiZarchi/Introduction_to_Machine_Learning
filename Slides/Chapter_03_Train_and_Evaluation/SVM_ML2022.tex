@@ -375,7 +375,8 @@
 		
 	}
 
-
+	\iffalse
+	
 	\frame{\frametitle{Dual Problem of SVC}
 		
 		\begin{itemize}
@@ -435,6 +436,8 @@
 		\end{itemize}	
 		
 	}
+	
+	\fi
 
 	\frame{\frametitle{Classification Function}
 		
@@ -442,7 +445,7 @@
 			
 			\item $f(x) = \beta^T x + \beta_0$
 			\newline
-			\item Also, when minimizing the conjugate function of primal problem, we get: $$\beta = \sum_{i=1}^{N}{\alpha_i y^{(i)}x^{(i)}}$$
+			\item Also, when optimizing the problem, we get: $$\beta = \sum_{i=1}^{N}{\alpha_i y^{(i)}x^{(i)}}$$
 			
 			\item This results in the following classification function for SVC:
 			\begin{equation*}
