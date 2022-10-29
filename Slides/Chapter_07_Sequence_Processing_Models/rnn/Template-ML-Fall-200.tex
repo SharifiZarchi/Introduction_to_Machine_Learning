@@ -130,6 +130,7 @@
 \usepackage[font={scriptsize}]{caption}
 \usepackage{pgf}
 \usepackage{fontspec}
+
 %\setsansfont[Scale=MatchLowercase, BoldFont = * Bold, ItalicFont = * Italic]{Caladea}
 
 %\usepackage{enumitem,xcolor}
@@ -161,6 +162,7 @@
 \newcommand{\tc}[2]{
 	\textcolor{#1}{#2}
 }
+\newcommand{\cev}[1]{\reflectbox{\ensuremath{\vec{\reflectbox{\ensuremath{#1}}}}}}
 
 %\usepackage{fontspec, unicode-math}
 %\setmainfont[Scale=0.9]{Nimbus Roman No9 L}
@@ -203,7 +205,7 @@
 \begin{figure}[!h]
 \includegraphics[width=10cm]{Figs/BPTT.png}
 \caption{Simple RNN Computational Graph, \href{https://mmuratarat.github.io/2019-02-07/bptt-of-rnn} 
-        {source}}
+        {Source}}
 
 \end{figure}
 
@@ -337,7 +339,7 @@
 \begin{figure}[!h]
 \includegraphics[width=12cm]{Figs/gradient_flow_rnn.png}
 \caption{Vanilla RNN Gradient Flow, \href{https://kharshit.github.io/blog/2019/01/04/the-gradient-problem-in-rnn} 
-        {source}}
+        {Source}}
 
 \end{figure}
 
@@ -365,7 +367,7 @@
 % \begin{figure}[!h]
 % \includegraphics[width=8cm]{Figs/tbptt.png}
 % \caption{TBPTT for $k_1 = k_2 = 4$, \href{https://www.programmersought.com/article/77613555017/} 
-%         {source}}
+%         {Source}}
 
 % \end{figure}
 
@@ -392,7 +394,7 @@
 \begin{figure}[!h]
 \includegraphics[width=8cm]{Figs/description-block-rnn-ltr.png}
 \caption{RNN Unit, \href{https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks} 
-        {source}}
+        {Source}}
 
 \end{figure}
 
@@ -404,12 +406,12 @@
 
 $$
 a^{<t>} = g_1(W_{aa}a^{<t-1>} + W_{ax}x^{<t>}+b_a)
-\\
+$$
+$$
 \centering y^{<t>} = g_2(W_{ga}a^{<t>}+b_y)
 $$
 
 \end{itemize}	
-
 
 }
 
@@ -420,7 +422,7 @@ $$
 \begin{figure}[!h]
 \includegraphics[width=5cm]{Figs/gru-ltr.png}
 \caption{GRU Unit, \href{https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks} 
-        {source}}
+        {Source}}
 \centering
 \end{figure}
 $$
@@ -449,7 +451,7 @@ $$
 \begin{figure}[!h]
 \includegraphics[width=4cm]{Figs/lstm-ltr.png}
 \caption{LSTM Unit, \href{https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks} 
-        {source}}
+        {Source}}
 \end{figure}
 $$
 \Tilde{c}^{<t>} = \tanh(W_{c}[\Gamma_r * a^{<t-1>}, x^{<t>}]+ b_c)
@@ -476,27 +478,22 @@ $$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
 \frame{\frametitle{Type of Gates}
-	
+\vspace{-0.3cm}
+\begin{figure}[!h]
+\centering \includegraphics[width=6cm]{Figs/The-LSTM-unit-contain-a-forget-gate-output-gate-and-input-gate-The-yellow-circle.png}
+\caption{Gates, \href{https://www.researchgate.net/figure/The-LSTM-unit-contain-a-forget-gate-output-gate-and-input-gate-The-yellow-circle_fig2_338717757}
+        {Source}}
+\end{figure}
+
 \begin{itemize}
-	\item Update Gate $\Gamma_u$
-	\begin{itemize}
-		\item How much past should matter
-	\end{itemize}
 
-	\item Relevance Gate $\Gamma_r$
- 	\begin{itemize}
-		\item Drop previous information
-	\end{itemize}
-
-	\item Forget gate $\Gamma_f$
- 	\begin{itemize}
-		\item Erase a cell or not
-	\end{itemize}
-
-        \item Output gate $\Gamma_o$
-        \begin{itemize}
-		\item How much to reveal of a cell
-	\end{itemize}
+	\item Forget gate $\Gamma_f$: Erase a cell or not
+\vspace{3mm}
+	\item Relevance Gate $\Gamma_r$: Drop previous information
+\vspace{3mm}
+	\item Update Gate $\Gamma_u$: How much past should matter
+\vspace{3mm} 
+        \item Output gate $\Gamma_o$: How much to reveal of a cell
 
         
 \end{itemize}	
@@ -513,7 +510,7 @@ $$
 \begin{figure}[!h]
 \centering \includegraphics[width=6cm]{Figs/LSTM3-focus-f.png}
 \caption{Forget Gate Layer, \href{https://colah.github.io/posts/2015-08-Understanding-LSTMs/}
-        {source}}
+        {Source}}
 \end{figure}
 	
 
@@ -528,7 +525,7 @@ $$
 \begin{figure}[!h]
 \centering \includegraphics[width=6cm]{Figs/LSTM3-focus-i.png}
 \caption{Input Gate Layer, \href{https://colah.github.io/posts/2015-08-Understanding-LSTMs/}
-        {source}}
+        {Source}}
 \end{figure}	
 
 	
@@ -544,7 +541,7 @@ $$
 \begin{figure}[!h]
 \centering \includegraphics[width=6cm]{Figs/LSTM3-focus-C.png}
 \caption{Update Cell State, \href{https://colah.github.io/posts/2015-08-Understanding-LSTMs/}
-        {source}}
+        {Source}}
 \end{figure}	
 
 }
@@ -558,7 +555,7 @@ $$
 \begin{figure}[!h]
 \centering \includegraphics[width=6cm]{Figs/LSTM3-focus-o.png}
 \caption{Output Gate Layer, \href{https://colah.github.io/posts/2015-08-Understanding-LSTMs/}
-        {source}}
+        {Source}}
 \end{figure}	
 
 }
@@ -566,7 +563,8 @@ $$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
 \frame{\frametitle{Why LSTMs?}
-	
+
+\vspace{-2cm}
 \begin{itemize}
 	\item The LSTM does have the ability to remove and add information to the cell state.
 \vspace{3mm}
@@ -590,21 +588,11 @@ $$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
 \frame{\frametitle{How LSTMs solve vanishing gradients}
 \begin{figure}[!h]
-\centering \includegraphics[width=6cm]{Figs/rnn-bp.eps}
+\centering \includegraphics[width=10cm]{Figs/rnn-bp.eps}
 \caption{Simple Recurrent Neural Network, \href{https://medium.datadriveninvestor.com/how-do-lstm-networks-solve-the-problem-of-vanishing-gradients-a6784971a577}
-        {source}}
+        {Source}}
 \end{figure}
-$$
-\frac{\partial L}{\partial W} = \sum_{t=1}^{T} \frac{\partial L_t}{\partial W}
-$$
-\begin{align*}\label{eq:pareto mle2}
-\frac{\partial L_k}{\partial W} = \frac{\partial L_k}{\partial h_k} \frac{\partial h_k}{\partial c_k} \dots \frac{\partial c_2}{\partial c_1} \frac{\partial c_1}{\partial W} 
- = \frac{\partial L_k}{\partial h_k} \frac{\partial h_k}{\partial c_k} (\prod_{t=2}^{k} \frac{\partial c_t}{\partial c_{t-1}}) \frac{\partial c_1}{\partial W}
-\end{align*}
 
-$$
-\frac{\partial c_t}{\partial c_{t-1}} = \sigma'(W_{rec}.c_{t-1} + W_{in}.x_t)W_{rec}
-$$
 	
 
 }
@@ -612,12 +600,25 @@ $$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
 \frame{\frametitle{How LSTMs solve vanishing gradients}
-\begin{align*}\label{eq:pareto mle2}
+
+$$
+\frac{\partial L}{\partial W} = \sum_{t=1}^{T} \frac{\partial L_t}{\partial W}
+$$
+\begin{align*}
+\frac{\partial L_k}{\partial W} = \frac{\partial L_k}{\partial h_k} \frac{\partial h_k}{\partial c_k} \dots \frac{\partial c_2}{\partial c_1} \frac{\partial c_1}{\partial W} 
+ = \frac{\partial L_k}{\partial h_k} \frac{\partial h_k}{\partial c_k} (\prod_{t=2}^{k} \frac{\partial c_t}{\partial c_{t-1}}) \frac{\partial c_1}{\partial W}
+\end{align*}
+
+$$
+\frac{\partial c_t}{\partial c_{t-1}} = \sigma'(W_{rec}.c_{t-1} + W_{in}.x_t)W_{rec}
+$$
+
+\begin{align*}
 \frac{\partial L_k}{\partial W} = \frac{\partial L_k}{\partial h_k} \frac{\partial h_k}{\partial c_k} (\prod_{t=2}^{k} \sigma'(W_{rec}.c_{t-1} + W_{in}.x_t)W_{rec}) \frac{\partial c_1}{\partial W}
 \end{align*}
 
 \begin{itemize}
-\item For lagre K the gradient tends to vanish or if $W_{rec}$ is large enough it cause exploding gradient which is solved by \textit{Gradient Clipping}.
+\item For large K the gradient tends to vanish or if $W_{rec}$ is large enough it cause exploding gradient which is solved by \textit{Gradient Clipping}.
 \end{itemize}
 
 	
@@ -630,7 +631,7 @@ $$
 \begin{itemize}
 \item In LSTM we also have
 
-\begin{align*}\label{eq:pareto mle2}
+\begin{align*}
 \frac{\partial L_k}{\partial W} =  \frac{\partial L_k}{\partial h_k} \frac{\partial h_k}{\partial c_k} (\prod_{t=2}^{k} \frac{\partial c_t}{\partial c_{t-1}}) \frac{\partial c_1}{\partial W}
 \end{align*}
 \item But 
@@ -658,12 +659,12 @@ $$
 \begin{figure}[!h]
 \includegraphics[width=5cm]{Figs/bidirectional-rnn-ltr.eps}
 \caption{BRNN, \href{https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks} 
-        {source}}
+        {Source}}
 \centering
 \end{figure}
 
 $$
-y^{<t>} = g(W_y[\vec{a}^{<t>},\: \cev{a}^{<T-t>}] + b_y)
+y^{<t>} = g(W_y[\vec{a}^{<t>}, \cev{a}^{<T-t>}] + b_y)
 $$
 
 
@@ -672,7 +673,7 @@ $$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
 \frame{\frametitle{Bidirectional RNN}
-
+\vspace{-1cm}
 \begin{itemize}
     \item They are usually used in natural language processing.
 
@@ -680,9 +681,13 @@ $$
     
     \item They are powerful for modeling dependencies between words and phrases in both directions of the sequence because every component of an input sequence has information from both the past and present.
 
-
 \end{itemize}
-
+\begin{figure}[!h]
+\includegraphics[width=8cm]{Figs/bidir.png}
+\caption{BRNN, \href{http://colah.github.io/posts/2015-09-NN-Types-FP/} 
+        {Source}}
+\centering
+\end{figure}
 
 }
 
@@ -693,9 +698,9 @@ $$
 \item It is exactly the same as simple RNN
 \end{itemize}
 \begin{figure}[!h]
-\includegraphics[width=8cm]{Figs/bpbbrn.eps}
+\includegraphics[width=10cm]{Figs/bpbbrn.eps}
 \caption{BRNN, \href{https://ai.stackexchange.com/questions/24013/how-does-back-propagation-through-time-work-for-optimizing-the-weights-of-a-bidi} 
-        {source}}
+        {Source}}
 \centering
 \end{figure}
 
@@ -715,7 +720,7 @@ input (e.g. Machine Translation), what should we do?
 \begin{figure}[!h]
 \includegraphics[width=12cm]{Figs/rnn_seq_alignment.png}
 \caption{Problems in Sequence-to-Sequence Models, \href{https://mgubaidullin.github.io/deeplearning4j-docs/usingrnns.html} 
-        {source}}
+        {Source}}
 \end{figure}
 
 }
@@ -729,17 +734,17 @@ input (e.g. Machine Translation), what should we do?
 \begin{figure}[!h]
 \includegraphics[width=12cm]{Figs/encdec2.png}
 \caption{Encoder-Decoder, \href{https://towardsdatascience.com/how-to-build-an-encoder-decoder-translation-model-using-lstm-with-python-and-keras-a31e9d864b9b} 
-        {source}}
+        {Source}}
 \end{figure}
 
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Encoder-Decoder}
-
+\vspace{-1cm}
 \begin{figure}[!h]
 \includegraphics[width=10cm]{Figs/encoder.png}
 \caption{Encoder, \href{https://yjjo.tistory.com/35} 
-        {source}}
+        {Source}}
 \end{figure}
 
 \begin{itemize}
@@ -753,11 +758,15 @@ input (e.g. Machine Translation), what should we do?
 \begin{figure}[!h]
 \includegraphics[width=8cm]{Figs/encoder-decoder-example.png}
 \caption{Context Vector, \href{https://lilianweng.github.io/posts/2018-06-24-attention/} 
-        {source}}
+        {Source}}
 \end{figure}
 
 \begin{itemize}
-        \item \textbf{Context Vector (Hidden State):} This vector is expected to convey the meaning of the whole source sequence from the encoder to the decoder. (The early work considered the last state of the encoder network as the context vector.)
+        \item \textbf{Context Vector (Hidden State):} This vector is expected to convey the meaning of the whole source sequence from the encoder to the decoder.
+     \begin{itemize}
+         \item The early work considered the last state of the encoder network as the context vector.
+     \end{itemize}
+
 \end{itemize}
 
 }
@@ -767,7 +776,7 @@ input (e.g. Machine Translation), what should we do?
 \begin{figure}[!h]
 \includegraphics[width=8cm]{Figs/decoder.png}
 \caption{Decoder, \href{https://yjjo.tistory.com/35} 
-        {source}}
+        {Source}}
 \end{figure}
 
 \begin{itemize}
@@ -776,10 +785,11 @@ input (e.g. Machine Translation), what should we do?
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Encoder-Decoder Limitations}
+\vspace{-1cm}
 \begin{figure}[!h]
 \includegraphics[width=8cm]{Figs/bottleneck.png}
         \caption{Bottleneck Phenomenon, \href{https://towardsdatascience.com/attention-and-its-different-forms-7fc3674d14dc} 
-        {source}}
+        {Source}}
 \end{figure}
 
 \begin{itemize}
@@ -795,7 +805,7 @@ input (e.g. Machine Translation), what should we do?
 \begin{figure}[!h]
 \includegraphics[width=10cm]{Figs/tf_ende.eps}
         \caption{Teacher Forcing in Decoder Side, \href{https://towardsdatascience.com/what-is-teacher-forcing-3da6217fed1c} 
-        {source}}
+        {Source}}
 \end{figure}
 
 }
@@ -814,7 +824,7 @@ input (e.g. Machine Translation), what should we do?
 \begin{figure}[!h]
 \includegraphics[width=8cm]{Figs/fig10-6.eps}
 \caption{Teacher Forcing, \href{https://www.arashash.com/2020-02-23-deeplearning-ch10-lect2/} 
-        {source}}
+        {Source}}
 \centering
 \end{figure}
 
@@ -823,9 +833,14 @@ input (e.g. Machine Translation), what should we do?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
 \frame{\frametitle{Teacher Forcing}
 
+\vspace{-1cm}
 \begin{itemize}
 
-\item  At the early stages of training, the predictions of the model are very bad. If we do not use Teacher Forcing, the hidden states of the model will be updated by a sequence of wrong predictions, \tc{keywords} {errors will accumulate}, and it is difficult for the model to learn from that.
+\item  At the early stages of training, the predictions of the model are very bad.
+\vspace{5mm}
+\item If we do not use Teacher Forcing, the hidden states of the model will be updated by a sequence of wrong predictions, \tc{keywords} {errors will accumulate.}
+\vspace{5mm}
+\item It will be difficult for the model to learn from that.
 \vspace{5mm}
 
 \item This technique allows us to prevent backpropagation through time which was complex and time-consuming. With teacher forcing the model will be \tc{keywords} {trained faster}.
@@ -841,23 +856,23 @@ input (e.g. Machine Translation), what should we do?
 \begin{figure}[!h]
 \includegraphics[width=8cm]{Figs/machine_translation.eps}
         \caption{Simple Machine Translation Model, \href{https://www.guru99.com/seq2seq-model.html} 
-        {source}}
+        {Source}}
 \end{figure}
 
 \begin{itemize}
         \item By now, we have discussed some important elements of sequence-to-sequence models (e.g. Machine Translation), including word embedding, LSTM, encoder, decoder, context vector, and softmax.
         \item But, there is a missing part! The search strategy for inference.
         $$
-        \Hat{y_T}, \Hat{y_{T-1}}, ..., \Hat{y_1} = \underset{\Tilde{y_T}, \Tilde{y_{T-1}}, ..., \Tilde{y_1}}{\mathbin{argmax}} P(\Tilde{y_T}, \Tilde{y_{T-1}}, ..., \Tilde{y_1}|S)
+        \Hat{y}_T, \Hat{y}_{T-1}, ..., \Hat{y}_1 = \underset{\Tilde{y}_T, \Tilde{y}_{T-1}, ..., \Tilde{y}_1}{\mathbin{argmax}} P(\Tilde{y}_T, \Tilde{y}_{T-1}, ..., \Tilde{y}_1|S)
         $$
-        \textbf{Notice:} $\Tilde{y_t}$ is the corresponding word to time step t. 
+        \textbf{Notice:} $\Tilde{y}_t$ is the corresponding word to time step t. 
 \end{itemize}
 
 }
 %%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Search Strategy}
-
+\vspace{-2cm}
 \begin{itemize}
         \item \textbf{Exhaustive Search (Brute-force Search)}
         \\
@@ -893,7 +908,7 @@ input (e.g. Machine Translation), what should we do?
 \begin{figure}[!h]
 \includegraphics[width=3.5cm]{Figs/greedy2.eps}
         \caption{Greedy Search Example, \href{https://d2l.ai/chapter\_recurrent-modern/beam-search.html} 
-        {source}}
+        {Source}}
 \end{figure}
 $$
 P((A, B, C, eos)|S) = P(A|(), S) P(B|(A), S) P(C|(A, B), S) P(eos|(A, B, C), S)
@@ -924,7 +939,7 @@ $$ $$= 0.048$$
 \begin{figure}[!h]
 \includegraphics[width=3.5cm]{Figs/greedy.eps}
         \caption{Greedy Search Example, \href{https://d2l.ai/chapter\_recurrent-modern/beam-search.html} 
-        {source}}
+        {Source}}
 \end{figure}
 $$
 P((A, C, B, eos)|S) = P(A|(), S) P(C|(A), S) P(B|(A, C), S) P(eos|(A, C, B), S) 
@@ -944,7 +959,7 @@ $$ $$= 0.054$$
 \begin{figure}[!h]
 \includegraphics[width=7cm]{Figs/beam-search.eps}
         \caption{A Beam Search example in which beam width equals 2, \href{https://d2l.ai/chapter\_recurrent-modern/beam-search.html} 
-        {source}}
+        {Source}}
 \end{figure}
 
 }
@@ -963,7 +978,7 @@ $$ $$= 0.054$$
 \begin{figure}[!h]
 \includegraphics[width=7cm]{Figs/beam-search2.png}
         \caption{Another Beam Search example in which beam width equals 2, \href{https://towardsdatascience.com/foundations-of-nlp-explained-visually-beam-search-how-it-works-1586b9849a24} 
-        {source}}
+        {Source}}
 \end{figure}
 
 }
@@ -971,7 +986,7 @@ $$ $$= 0.054$$
 %%%%%%%%
 
 \frame{\frametitle{References}
-
+\vspace{-1cm}
 % \begin{itemize}
 \bibliographystyle{plain}
 \renewcommand\refname{}
