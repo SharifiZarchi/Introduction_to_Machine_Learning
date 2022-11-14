@@ -1,0 +1,183 @@
+\begin{frame}{Problem: OverFitting in a Neural Network}
+	\begin{itemize}
+		\item Why does overfitting happen in a neural network?
+		\begin{itemize}
+			\item There are \tc{keywords}{Too many free parameters}.
+		\end{itemize}
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.4\textwidth]{Figs/section_4/overfitting.png}
+		\caption{OverFitting in a neural network, \href{https://en.wikipedia.org/wiki/Overfitting}{Source}}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Solution 1: L1/L2 Regularization}
+	\begin{itemize}
+		\item It is like a linear regression regularizer.
+		\item Sum the regularizer term for every \tc{keywords}{layer weight}!
+	\end{itemize}
+	\begin{columns}
+		\begin{column}[c]{0.5\textwidth}
+			\begin{align*}
+				\scalebox{1.5}{$L = \frac{1}{N} \sum_{i=1}^{N} L(\phi(x_i), y_i)$} \\
+				\scalebox{1.5}{$+ \lambda \sum_{i,j,k} R(W_{j,k}^{(i)})$}
+			\end{align*}
+		\end{column}
+		\begin{column}[c]{0.5\textwidth}
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=\textwidth]{Figs/section_4/overfitting_loss.png}
+				\caption{Convergence diagram for different losses, \href{https://www.oreilly.com/library/view/hands-on-machine-learning/9781491962282/ch04.html}{Source}}
+			\end{figure}
+		\end{column}
+	\end{columns}
+\end{frame}
+\begin{frame}{L1/L2 Regularization}
+	\begin{itemize}
+		\item L1/L2 regularizer functions (review)
+	\end{itemize}
+	\begin{columns}
+		\begin{column}[c]{0.5\textwidth}
+			\centering
+			\begin{equation*}
+				\centering
+				\mathlarger{\mathlarger{
+						L1: R(w) = \vert w\vert
+				}}
+			\end{equation*}
+			\begin{equation*}
+				\centering
+				\mathlarger{\mathlarger{
+						L2: R(w) = w^2
+				}}
+			\end{equation*}
+		\end{column}
+		\begin{column}[c]{0.5\textwidth}
+			\begin{figure}[H]
+				\centering
+				\includegraphics[width=\textwidth]{Figs/section_4/l1l2_reg.jpeg}
+				\caption{L1/L2 regularizers' solution diagram, \href{https://towardsdatascience.com/understanding-l1-and-l2-regularization-93918a5ac8d0}{Source}}
+			\end{figure}
+		\end{column}
+	\end{columns}
+	
+	\begin{itemize}
+		\item You can also combine the two different regularizers (Elastic Net).
+	\end{itemize}
+	\vspace{0.05\textheight}
+	\begin{equation*}
+		\mathlarger{\mathlarger{
+				R(w) = \beta w^2 + \vert w\vert
+		}}
+	\end{equation*}
+\end{frame}
+
+\begin{frame}{Solution 2: Early Stopping}
+	\begin{itemize}
+		\item Stop the training procedure when the validation error is \tc{keywords}{minimum}.
+	\end{itemize}
+	\vspace{0.1\textheight}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\textwidth]{Figs/Early Stopping.png}
+		\caption{Early Stopping diagram, \href{https://medium.com/analytics-v7idhya/early-stopping-with-pytorch-to-restrain-your-model-from-overfitting-dce6de4081c5}{Source}}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Dropout: Training Time}
+	\begin{itemize}
+		\item In each forward pass, \tc{keywords}{randomly} set some neurons to zero.
+		\medskip
+		\item The probability of dropping out for each neuron, which is called \tc{keywords}{dropout rate}, is a hyperparameter.
+		\begin{itemize}
+			\item 0.5 is a common dropout rate.
+		\end{itemize}
+		\medskip
+		\item The probability of not dropping out is also called the \tc{keywords}{keep probability}.
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}[b]{0.45\textwidth}
+			\centering
+			\includegraphics[height=0.4\textheight]{Figs/Dropout-before.png}
+		\end{subfigure}
+		\begin{subfigure}[b]{0.45\textwidth}
+			\centering
+			\includegraphics[height=0.4\textheight]{Figs/Dropout-after.png}
+		\end{subfigure}
+		\caption{Behavior of dropout at training time, \href{https://www.cs.toronto.edu/~hinton/absps/JMLRdropout.pdf}{Source}}
+	\end{figure}
+\end{frame}
+\begin{frame}{Dropout: Why can this possibly be a good idea?}
+	\begin{itemize}
+		\item Dropout-trained neurons are unable to \tc{keywords}{co-adapt} with their surrounding neurons.
+		\item They also can't depend too heavily on a small number of input neurons.
+		\item They become less responsive to even little input changes.
+		\item The result is a stronger network that \tc{keywords}{generalizes} better.
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[height=0.4\textheight]{Figs/section_4/dropout_why.png}
+		\caption{Discrimination of neurons at training time. \cite{cs231n-2018-lecture7}}
+	\end{figure}
+\end{frame}
+\begin{frame}{Dropout: Why can this possibly be a good idea?}
+	\begin{itemize}
+		\item Dropout trains a \tc{keywords}{large ensemble of models} that share parameters.
+		\medskip
+		\item Every possible dropout state for neurons of a network, which is called a \tc{keywords}{mask}, is one model.
+		\item A fully connected network with 4096 neurons has $2^{4096} \sim 10^{1233}$ possible masks! There are only $10^{82}$ atoms in the universe!
+	\end{itemize}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[height=0.4\textheight]{Figs/section_4/dropout_why2.png}
+		\caption{Behavior of dropout at training time. \cite{cs231n-2018-lecture7}}
+	\end{figure}
+\end{frame}
+\begin{frame}{Dropout: Test Time}
+	\begin{itemize}
+		\item Dropout makes our output random at training time.
+		\medskip
+	\end{itemize}
+	\begin{equation*}
+		\mathlarger{\mathlarger{
+				y = f_W(x, \underbrace{z}_{\text{\tiny{\tc{keywords}{random mask}}}})
+		}}
+	\end{equation*}
+	\begin{itemize}
+		\item We want to \tc{keywords}{average out} the randomness at test time,
+		\medskip
+	\end{itemize}
+	\begin{equation*}
+		\mathlarger{\mathlarger{
+				y = f(x) = E_z[f(x, z)] = \int p(z)f(x, z) dz
+		}}
+	\end{equation*}
+	\begin{itemize}
+		\item But this integral seems complicated.
+		\medskip
+		\item Let's approximate the integral for a superficial layer where dropout rate is 0.5.
+	\end{itemize}
+\end{frame}
+\begin{frame}{Dropout: Test Time}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{align*}
+				E_{train}[a] = \frac{1}{4}(w_1 x + w_2 y)
+				+ \frac{1}{4}(w_1 x + 0 y) \\
+				+ \frac{1}{4}(0 x + w_2 y) + \frac{1}{4}(0 x + 0 y) \\
+				= \frac{1}{2}(w_1 x + w_2 y) \\
+				E_{test}[a] = w_1 x + w_2 y \\
+				\Rightarrow E_{test}[a] = \underbrace{0.5}_{\text{\tc{keywords}{keep probability}}} E_{train}[a]
+			\end{align*}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{figure}[H]
+				\centering
+				\includegraphics[height=0.4\textheight]{Figs/section_4/dropout_test.png}
+				\caption{Simple neural network. \cite{cs231n-2018-lecture7}}
+			\end{figure}
+		\end{column}
+	\end{columns}
+\end{frame}
