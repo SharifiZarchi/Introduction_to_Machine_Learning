@@ -375,9 +375,48 @@
 		
 	}
 
-	\iffalse
+	\frame{\frametitle{The Need for Non-Linear Boundary}
+		
+		\begin{itemize}
+			
+			\item Linear boundary can fail in many cases, regardless of the value of C.
+			\newline
+			\begin{figure}
+				\centering
+				\includegraphics[scale=0.7]{Figs/Linearly-vs-Not-linearly-separable-datasets.png}
+				\caption{The Need for Non-linear Boundary , \href{https://vitalflux.com/wp-content/uploads/2022/04/Linearly-vs-Not-linearly-separable-datasets.png}{Source}}
+			\end{figure}
+			
+		\end{itemize}	
+		
+	}
 	
-	\frame{\frametitle{Dual Problem of SVC}
+	\frame{\frametitle{Feature Expansion}
+		
+		\begin{itemize}
+			
+			\item Enlarge the space of features by including transformations;
+			e.g. $X_1^2 , X_1^3, X_1X_2, X_1X_2^2,...$ . Hence increasing the dimension of the original \textit p-dimensional input space.
+			\newline
+			\item Then we can fit a support vector classifier in the enlarged space.
+			\newline
+			\item This results in \tc{keywords}{non-linear decision boundaries} in the original feature space.
+			
+			\begin{figure}
+				\centering
+				\includegraphics[scale=0.25]{Figs/feature_expansion.png}
+				\caption{The Need for Non-inear Boundary , \href{https://miro.medium.com/max/875/1*zWzeMGyCc7KvGD9X8lwlnQ.png}{Source}}
+			\end{figure}
+			
+		\end{itemize}	
+		
+	}
+
+
+	\section{Support Vector Machines}
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+		\frame{\frametitle{Dual Problem of SVC}
 		
 		\begin{itemize}
 			
@@ -400,14 +439,14 @@
 					\\
 				\end{aligned}
 			\end{equation*}
-		
+			
 			%\item We only need inner products!
 			
 		\end{itemize}	
 		
 	}
-
-
+	
+	
 	\frame{\frametitle{KKT Conditions}
 		
 		\begin{itemize}
@@ -424,21 +463,20 @@
 			\item There can be 3 cases:
 			\newline\\
 			\begin{cases}
-			$$\textcolor{Blue}{\alpha_i = 0} \rightarrow \textcolor{Red}{\xi_i = 0} \Rightarrow \textcolor{newcolor2}{1-y^{(i)}(\beta^T x^{(i)} + \beta_0) < 0} $$ : \qquad \text{Non-Support} \\
-			 
-			\newline\\
-			$$\textcolor{Blue}{0 < \alpha_i < C} \rightarrow \textcolor{Red}{\xi_i = 0} \Rightarrow \textcolor{newcolor2}{1-y^{(i)}(\beta^T x^{(i)} + \beta_0) = 0} $$ : \quad \text{Support} \\
-			
-		    \newline\\
-			$$\textcolor{Blue}{\alpha_i = C} \rightarrow \textcolor{Red}{\xi_i > 0} \Rightarrow \textcolor{newcolor2}{1- \xi_i - y^{(i)}(\beta^T x^{(i)} + \beta_0) = 0} $$ : \quad \text{Support} \\ 
+				$$\textcolor{Blue}{\alpha_i = 0} \rightarrow \textcolor{Red}{\xi_i = 0} \Rightarrow \textcolor{newcolor2}{1-y^{(i)}(\beta^T x^{(i)} + \beta_0) < 0} $$ : \qquad \text{Non-Support} \\
+				
+				\newline\\
+				$$\textcolor{Blue}{0 < \alpha_i < C} \rightarrow \textcolor{Red}{\xi_i = 0} \Rightarrow \textcolor{newcolor2}{1-y^{(i)}(\beta^T x^{(i)} + \beta_0) = 0} $$ : \quad \text{Support} \\
+				
+				\newline\\
+				$$\textcolor{Blue}{\alpha_i = C} \rightarrow \textcolor{Red}{\xi_i > 0} \Rightarrow \textcolor{newcolor2}{1- \xi_i - y^{(i)}(\beta^T x^{(i)} + \beta_0) = 0} $$ : \quad \text{Support} \\ 
 			\end{cases}
 			
 		\end{itemize}	
 		
 	}
 	
-	\fi
-
+	
 	\frame{\frametitle{Classification Function}
 		
 		\begin{itemize}
@@ -449,7 +487,7 @@
 			
 			\item This results in the following classification function for SVC:
 			\begin{equation*}
-					f(x) = \beta_0 + \sum_{i=1}^{N} \alpha_i y^{(i)} \textcolor{Blue}{x^T x^{(i)}} = \beta_0 + \sum_{i=1}^{N} \alpha_i y^{(i)} \textcolor{Blue}{\langle x, x^{(i)} \rangle}
+				f(x) = \beta_0 + \sum_{i=1}^{N} \alpha_i y^{(i)} \textcolor{Blue}{x^T x^{(i)}} = \beta_0 + \sum_{i=1}^{N} \alpha_i y^{(i)} \textcolor{Blue}{\langle x, x^{(i)} \rangle}
 			\end{equation*}
 			
 			\item It turns out that most of the $\hat{\alpha}_i$ can be zero:
@@ -462,47 +500,7 @@
 		\end{itemize}	
 		
 	}
-
-
-	\section{Support Vector Machines}
-	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
-	\frame{\frametitle{The Need for Non-Linear Boundary}
-		
-		\begin{itemize}
-			
-			\item Linear boundary can fail in many cases, regardless of the value of C.
-			\newline
-			\begin{figure}
-				\centering
-				\includegraphics[scale=0.7]{Figs/Linearly-vs-Not-linearly-separable-datasets.png}
-				\caption{The Need for Non-linear Boundary , \href{https://vitalflux.com/wp-content/uploads/2022/04/Linearly-vs-Not-linearly-separable-datasets.png}{Source}}
-			\end{figure}
-			
-		\end{itemize}	
-		
-	}
-
-	\frame{\frametitle{Feature Expansion}
-		
-		\begin{itemize}
-			
-			\item Enlarge the space of features by including transformations;
-			e.g. $X_1^2 , X_1^3, X_1X_2, X_1X_2^2,...$ . Hence increasing the dimension of the original \textit p-dimensional input space.
-			\newline
-			\item Then we can fit a support vector classifier in the enlarged space.
-			\newline
-			\item This results in \tc{keywords}{non-linear decision boundaries} in the original feature space.
-			
-			\begin{figure}
-				\centering
-				\includegraphics[scale=0.25]{Figs/feature_expansion.png}
-				\caption{The Need for Non-inear Boundary , \href{https://miro.medium.com/max/875/1*zWzeMGyCc7KvGD9X8lwlnQ.png}{Source}}
-			\end{figure}
-			
-		\end{itemize}	
-		
-	}
 
 
 	\frame{\frametitle{Kernels and SVMs}
@@ -540,7 +538,7 @@
 		\begin{itemize}
 			
 			\item e.g. Feature transformation from 2D kernels:
-				$$K(x,y) = (1+\langle x,y \rangle)^2 \Rightarrow \phi(x) = (1, \sqrt{2}x_1, \sqrt{2}x_2, x_1^2, x_2^2)$$
+				$$K(x,y) = (1+\langle x,y \rangle)^2 \Rightarrow \phi(x) = (1, \sqrt{2}x_1, \sqrt{2}x_2, \sqrt{2}x_1x_2, x_1^2, x_2^2)$$
 		
 			\begin{figure}
 					\centering
@@ -608,7 +606,7 @@
 			\begin{equation*}
 				\begin{aligned}
 					\min_{\beta,\beta_0} \quad & \frac{1}{2} ||\beta||_2 ^2\\
-					\textrm{s.t.} \quad & |y^{(i)} - (\beta^T x^{(i)} + \beta_0)|_2 \leq \epsilon \quad \forall i \in \{1,2,...,N\}\\
+					\textrm{s.t.} \quad & |y^{(i)} - (\beta^T x^{(i)} + \beta_0)| \leq \epsilon \quad \forall i \in \{1,2,...,N\}\\
 				\end{aligned}
 			\end{equation*}
 			
@@ -631,7 +629,7 @@
 			\begin{equation*}
 				\begin{aligned}
 					\min_{\beta,\beta_0} \quad & \frac{1}{2} ||\beta||_2 ^2 + C\sum_{i=1}^{N}{\xi_i}\\
-					\textrm{s.t.} \quad & |y^{(i)} - (\beta^T x^{(i)} + \beta_0)|_2 \leq \epsilon + \xi_i \\
+					\textrm{s.t.} \quad & |y^{(i)} - (\beta^T x^{(i)} + \beta_0)| \leq \epsilon + \xi_i \\
 					&\xi_i \geq 0 \quad \forall i \in \{1,2,...,N\}\\
 				\end{aligned}
 			\end{equation*}
