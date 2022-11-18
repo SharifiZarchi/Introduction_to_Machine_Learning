@@ -107,7 +107,7 @@
 
 %\setbeamertemplate{navigation symbols}{}
 
-\title{PCA}
+\title{Decision Tree}
 \author{ML Instruction Team, Fall 2022}
 \institute[]{CE Department \newline  Sharif University of Technology \newline \newline}
 \date[\today]{}
@@ -156,7 +156,7 @@
 
 \usepackage{xcolor}
 \newcommand{\tc}[2]{
-	\textcolor{#1}{#2}
+	\textcolor{#1}{\hspace{-2pt}#2\hspace{-2pt}}
 }
 
 \newtheorem{proposition}[theorem]{Proposition}
@@ -203,7 +203,7 @@
 		\item
 		Assuming zero-mean feature matrix $X\in\mathbb{R}^{m\times n}$, the variance of the samples' projections onto a\tc{keywords}{unit vector}$v$ is given by:
 		\begin{equation*}
-			\frac{1}{n} \sum_{i=1}^n(x_i^{t} v)^2=\frac{1}{n}\|X v\|^2=\frac{1}{n} v^{t} X^{t} X v
+			\text{Var}(Xv)=\mathbb{E}[(Xv-\mathbb{E}(Xv))^2]=\frac{1}{m} \sum_{i=1}^m(x_i^{t} v)^2=\frac{1}{m}\|X v\|^2=\frac{1}{m} v^{t} X^{t} X v
 		\end{equation*}
 	
 		\item In light of this consideration, we define the first desired vector $v_1$ as the solution to the constrained optimization problem:
@@ -275,18 +275,18 @@
 		\item Assuming the singular value decompositon of feature matrix $X$ as follows:
 			\begin{equation*}
 				\begin{aligned}
-					&X=U \Sigma V^T=\left[u_1, u_2, \cdots, u_r\right]\left[\begin{array}{ccccc}
+					&X=U \Sigma V^T=[u_1, u_2, \cdots, u_r][\begin{array}{ccccc}
 						\sigma_1 & & & 0 \\
 						& \sigma_2 & & \\
 						& & \ddots & \\
 						0 & & & \\
 						& & & & \sigma_r
-					\end{array}\right]\left[\begin{array}{c}
+					\end{array}][\begin{array}{c}
 						v_1^T \\
 						v_2^T \\
 						\vdots \\
 						v_r^T
-					\end{array}\right]
+					\end{array}]
 				\end{aligned}
 			\end{equation*}
 
@@ -301,9 +301,44 @@
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Other Derivation?}
-	
+		\vspace{-1cm}
+	\begin{definition}
+		For a matrix $X$, operator 2-norm is defined as
+		\begin{equation*}
+			\|X\|_2=\sup \frac{\|X v\|_2}{\|v\|_2}=\max (s_i)
+		\end{equation*}
+		and Frobenius norm as
+		\begin{equation*}
+			\|X\|_F=\sqrt{\sum_{i j} X_{i j}^2}=\sqrt{\operatorname{tr}(X^t X)}=\sqrt{\sum \sigma_i^2}
+		\end{equation*}
+		where $\sigma_i$ are singular values of $X$, i.e. diagonal elements of $\Sigma$ in the singular value decomposition $X=U \Sigma V^t$
+	\end{definition}
 	
 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\frame{\frametitle{Other Derivation?}
+
+	\begin{itemize}
+		\item PCA is given by the same singular value decomposition when the data are centered. 
+		
+		\medskip
+		\item $U \Sigma$ are principal components, and $V$ are principal axes, i.e. eigenvectors of the covariance matrix.
+		
+		\medskip
+		\item
+		The reconstruction of $X$ with only the $k$ principal components corresponding to the $k$ largest singular values is given by $X_k=U_k \Sigma_k V_k^{\top}$.
+		
+		\medskip
+		\item
+		The \tc{keywords}{Eckart-Young} theorem says that $X_k$ is the matrix minimizing the norm of the reconstruction error $\|X-A\|$ among all matrices $A$ of rank $k$. 
+		
+		\medskip
+		\item This is true for both, Frobenius norm and the operator 2-norm
+	\end{itemize}
+
+
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frametitle{Final Notes}
 \centering

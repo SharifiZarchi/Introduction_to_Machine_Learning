@@ -1,10 +1,13 @@
 \beamer@slide {fig:decision tree}{2}
 \beamer@slide {fig:terminology}{3}
 \beamer@slide {fig:information gain}{5}
-\beamer@slide {fig:decision trees-sklearn}{7}
-\beamer@slide {fig:subfigure1}{9}
-\beamer@slide {sub@fig:subfigure1}{9}
-\beamer@slide {fig:subfigure2}{9}
-\beamer@slide {sub@fig:subfigure2}{9}
-\beamer@slide {fig:globalfigure2}{9}
-\beamer@slide {fig:information gain-concave}{9}
+\beamer@slide {fig:iris-dataset}{7}
+\beamer@slide {fig:decision trees-sklearn}{8}
+\beamer@slide {fig:subfigure1}{10}
+\beamer@slide {sub@fig:subfigure1}{10}
+\beamer@slide {fig:subfigure2}{10}
+\beamer@slide {sub@fig:subfigure2}{10}
+\beamer@slide {fig:globalfigure2}{10}
+\beamer@slide {fig:positiveness of information gain}{11}
+\beamer@slide {fig:bosoton dataset}{15}
+\beamer@slide {fig:information gain-concave}{16}
