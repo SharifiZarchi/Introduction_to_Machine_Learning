@@ -303,6 +303,7 @@
 \begin{figure}
     \centering
     % \hspace{3cm}
+    \captionsetup{justification=centering}
     \includegraphics[width=0.9\columnwidth]{figs/unsupervised-learning.jpg}
     \caption{Types of Machine learning: Deep learning (supervised and\tc{keywords}{unsupervised learning})(Jones [2017]), \href{https://www.researchgate.net/figure/Types-of-Machine-learning-Deep-learning-supervised-and-unsupervised-learning-and_fig5_335569456}{Source}}
 \end{figure}
@@ -324,6 +325,7 @@
 \begin{figure}
     \centering
     % \vspace{-1cm}
+    \captionsetup{justification=centering, margin=1cm, labelformat=empty}
     \includegraphics[width=12cm, height=5cm]{figs/Applications1.png}
     \caption{\href{https://www.jeremyjordan.me/variational-autoencoders/}{Source}}
 \end{figure}
@@ -345,6 +347,7 @@
 \begin{figure}
     \centering
     % \vspace{-1cm}
+    \captionsetup{justification=centering, margin=1cm, labelformat=empty}
     \includegraphics[width=12cm, height=5cm]{figs/Applications2.png}
     \caption{\href{https://www.assemblyai.com/blog/introduction-to-variational-autoencoders-using-keras/}{Source}}
 \end{figure}
@@ -363,8 +366,47 @@
 \begin{figure}
     \centering
     % \vspace{-1cm}
+    \captionsetup{justification=centering, margin=1cm, labelformat=empty}
     \includegraphics[width=12cm, height=5cm]{figs/Applications3.png}
     \caption{\href{https://towardsdatascience.com/convolutional-autoencoders-for-image-noise-reduction-32fce9fc1763}{Source}}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
+
+\frame{\frametitle{Applications of Autoencoders}
+\centering
+\vspace{-0.2cm}
+\begin{itemize}
+    \normalsize {
+	\item Noise reduction
+	}
+\end{itemize}	
+\begin{figure}
+    \centering
+    % \vspace{-1cm}
+    \captionsetup{justification=centering, margin=1cm, labelformat=empty}
+    \includegraphics[width=12cm, height=5cm]{figs/noise_reduction.png}
+    \caption{\href{https://towardsdatascience.com/applied-deep-learning-part-3-autoencoders-1c083af4d798}{Source}}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
+
+\frame{\frametitle{Applications of Autoencoders}
+\centering
+\vspace{-0.2cm}
+\begin{itemize}
+    \normalsize {
+	\item Watermark removal
+	}
+\end{itemize}	
+\begin{figure}
+    \centering
+    % \vspace{-1cm}
+    \captionsetup{justification=centering, margin=1cm, labelformat=empty}
+    \includegraphics[width=12cm, height=5cm]{figs/watermark_removal.png}
+    \caption{\href{https://watermark-cvpr17.github.io/}{Source}}
 \end{figure}
 }
 
@@ -380,11 +422,14 @@
 \end{itemize}	
 \begin{figure}
     \centering
-    \vspace{-0.5cm}
+    \captionsetup{justification=centering, margin=1cm, labelformat=empty}
+    \vspace{-0.4cm}
     \includegraphics[width=11cm, height=5cm]{figs/Applications4.png}
     \caption{\href{https://towardsdatascience.com/improving-pewdiepies-camera-quality-with-autoencoders-583635de1cde}{Source}}
 \end{figure}
 }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Definition}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{What is an Autoencoder?}
@@ -400,145 +445,149 @@
 \end{itemize}	
 \begin{figure}
     \centering
-    \vspace{-0.1cm}
+    % \captionsetup{justification=centering, margin=1cm, labelformat=empty}
+    \captionsetup{justification=centering}
+    \vspace{-0.22cm}
     \includegraphics[width=10cm, height=4cm]{figs/Autoencoder1.png}
-    \caption{Schematic structure of an autoencoder with 3 fully connected hidden layers. The code (z) is the most internal layer, \href{https://en.wikipedia.org/wiki/Autoencoder}{Source}}
+    \caption{Schematic structure of an autoencoder with 3 fully connected hidden layers. The code (z -\tc{keywords}{bottleneck}) is the most internal layer, \href{https://en.wikipedia.org/wiki/Autoencoder}{Source}}
 \end{figure}
 
 	
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Autoencoders: Structure}
-	
+\frame{\frametitle{Autoencoders: Architecture}
+\vspace{-0.1cm}	
+
 \begin{itemize}
-	\item 
-	Encoder:  compress input into a latent-space of usually smaller dimension.  $h = f(x)$
+    \large{
+    \item Autoencoders consist of 3 parts:
+    % \vspace{0.2cm}
+    \begin{enumerate}
+        \normalsize{
+        \item \tc{keywords}{Encoder}: \small Function $f(x)$ that transforms input $x$ to the latent variable $z$
 
+        \item \tc{keywords}{Bottleneck}: \small Single layer of neurons that represent the encoding of our input, therefore the most important part of our model
 
-	\item 
-	Decoder: reconstruct input from the latent space. $r = g(f(x))$ with $r$ as close to $x$ as possible
+        \item {\tc{keywords}{Decoder}: \small Function $h(z)$ that tries to reconstruct input $x$ from encoded latent variable $z$ {\rightarrow} \(h(z) = h(f(x)) = x'\)}
+        }
+    \end{enumerate}
+    }
+\end{itemize}
 
-    \hyperlink{bad_ae}{
-    \begin{figure}[htp]
-    \vspace{1ex}%
+\begin{figure}
     \centering
-    \includegraphics[width=10cm]{Bad_AE}
-    \end{figure}}
-	
-	
-\end{itemize}	
-	
+    \vspace{-0.2cm}
+    \includegraphics[width=10cm, height=4cm]{figs/Bad_AE.png}
+    \caption{Autoencoder Architecture (with a little joke :)), \href{https://emkademy.medium.com/1-first-step-to-generative-deep-learning-with-autoencoders-22bd41e56d18}{Source}}
+\end{figure}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Autoencoders: Applications}
-	
+\frame{\frametitle{Linear vs. Non-Linear}
+\vspace{-1.3cm}
 \begin{itemize}
-	\item 
-	Autoencoders can 
-	\begin{itemize}
-		\item act as feature detectors
-		\item be used for unsupervised pretraining of deep neural networks
+    \normalsize{
+	\item If your AE uses only linear activations and MSE loss function:
+	    \begin{itemize}
+	        \item It will be performing PCA (Principal Component Analysis)
+	        \item So we need non-linearity to get the most out of autoencoders
+	    \end{itemize}
+	}
 	\end{itemize}
+	\lstinputlisting[language=Python]{codes/pca.py}
 
-    \hyperlink{AE}{
-    \begin{figure}[htp]
-    \vspace{1ex}%
-    \centering
-    \includegraphics[width=8cm]{AE_application}
-    \end{figure}}
-	
-	
-\end{itemize}	
-	
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{Autoencoders: Applications}
-	
-\begin{itemize}
-	\item 
-	Autoencoders can be used as generative models. (will be discussed more later in this chapter.) 
-
-    
-    \hyperlink{generated_by_VAE}{
-    \begin{figure}[htp]
-    \vspace{2ex}%
+\frame{\frametitle{Linear vs. Non-Linear}
+% \vspace{-1.5cm}
+\begin{figure}
     \centering
-    \includegraphics[width=8cm]{generated_by_VAE}
-    \end{figure}}
-	
-	
-\end{itemize}	
-	
+    \captionsetup{justification=centering, margin=1cm, labelformat=empty}
+    \includegraphics[width=8cm]{figs/AE_PCA.png}
+    \caption{\href{https://www.jeremyjordan.me/autoencoders/}{Source}}
+\end{figure}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{Autoencoders: Applications}
-	
-\begin{itemize}
-	\item 
-	Watermark removal
-
-    
-    \hyperlink{watermark_removal}{
-    \begin{figure}[htp]
-    \vspace{4ex}%
-    \centering
-    \includegraphics[width=10cm]{watermark_removal}
-    \end{figure}}
-	
-	
-\end{itemize}	
-	
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{Autoencoders: Applications}
-	
-\begin{itemize}
-	\item 
-	Noise reduction
-
-    
-    \hyperlink{noise_reduction}{
-    \begin{figure}[htp]
-    \vspace{2ex}%
-    \centering
-    \includegraphics[width=8cm]{noise_reduction}
-    \end{figure}}
-	
-	
-\end{itemize}	
-	
-}
-
+\section{Variations}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Stacked Autoencoders}
 	
 \begin{itemize}
+    \normalsize{
 	\item 
-	Autoencoders can have multiple hidden layers. In this case they are called \textit{stacked autoencoders} (or \textit{deep autoencoders}).
+	Autoencoders can have multiple hidden layers to learn more complex encoding/decoding functions - \tc{keywords}{deep autoencoders}
+	\vspace{0.1cm}
 	\item
-	Adding more layers helps the autoencoder learn more complex codings. but be careful about {\color{red}overfitting}!
-
-    
-
-    \hyperlink{stacked_ae}{
-    \begin{figure}[htp]
-    \vspace{2ex}%
-    \centering
-    \includegraphics[width=8cm]{stacked_AE}
-    \end{figure}}
-	
-	
+	Although, using too deep networks, can cause \tc{keywords}{overfitting}
+	\vspace{0.1cm}
+	    \begin{itemize}
+	        \item
+	        Your model will just memorize points in the coding space for each training data, instead of learning a good latent representation of them
+	    \end{itemize}
+	}
 \end{itemize}	
-	
+\begin{figure}
+    \centering
+    % \vspace{-1cm}
+    \captionsetup{justification=centering, margin=1cm, labelformat=empty}
+    \includegraphics[width=12cm, height=4.3cm]{figs/Applications2.png}
+    \caption{\href{https://www.assemblyai.com/blog/introduction-to-variational-autoencoders-using-keras/}{Source}}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Loss and Training}
+% \vspace{-3cm}
+\begin{itemize}
+    \normalsize{
+	\item 
+	We're trying to reconstruct our input
+	\vspace{0.1cm}
+	\item
+	Common loss functions for training autoencoders are:
+	\vspace{0.1cm}
+	\begin{itemize}
+	    \item{L2: $loss(x, x') = \sum^{m}_{i=1}(x^{(i)} - x'^{(i)})^2$}
+    	\vspace{0.05cm}
+	    \item{Cross-Entropy}
+	\end{itemize}
+	}
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \vspace{-0.5cm}
+    \captionsetup{justification=centering}
+    \includegraphics[width=10cm]{figs/AE_MSE.png}
+    \caption{Schematic of an autoencoder architecture with mean-squared error reconstruction loss.\cite{MSE_AE}}
+\end{figure}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Pretraining}
+% \vspace{-3cm}
+\begin{itemize}
+    \normalsize{
+	\item 
+	You can use an autoencoder for pretraining on supervised problems with few labeled data
+    }
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \vspace{-4.5cm}
+    \captionsetup{justification=centering}
+    \includesvg[width=13cm, height=9cm]{figs/pretrain.svg}
+    \caption{Using unsupervised learning for pretraining with autoencoders}
+\end{figure}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -549,35 +598,13 @@
 	\centering
     \vspace{30 pt}
     \textbf{\large{Are normal Autoencoders suitable for working with images?}}
-
     
-
-    \hyperlink{ae_1}{
+    \hyperlink{AE}{
     \begin{figure}[htp]
-    \vspace{2ex}%
+    \vspace{1ex}%
     \centering
-    \includegraphics[width=10cm]{AE}
+    \includegraphics[width=10cm]{figs/AE_Arch.png}
     \end{figure}}
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{Autoencoders \& Images}
-
-\begin{itemize}	
-    \item 
-    Convolutional Autoencoders
-
-    
-
-    \hyperlink{cnn_ae}{
-    \begin{figure}[htp]
-    \vspace{2ex}%
-    \centering
-    \includegraphics[width=10cm]{cnn_autoencoder}
-    \end{figure}}
-
-\end{itemize}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -599,7 +626,7 @@
     \begin{figure}[htp]
     \vspace{1ex}%
     \centering
-    \includegraphics[width=10cm]{denoising_autoencoders}
+    \includegraphics[width=10cm]{figs/denoising_autoencoders.png}
     \end{figure}}
 
 \end{itemize}
@@ -617,7 +644,7 @@
     \begin{figure}[htp]
     \vspace{1ex}%
     \centering
-    \includegraphics[width=10cm]{denoising_pics}
+    \includegraphics[width=10cm]{figs/denoising_pics.png}
     \end{figure}}
 
 \end{itemize}
@@ -635,7 +662,7 @@
     \begin{figure}[htp]
     \vspace{1ex}%
     \centering
-    \includegraphics[width=10cm]{denoising}
+    \includegraphics[width=10cm]{figs/denoising.png}
     \end{figure}}
 
 \end{itemize}
@@ -669,7 +696,7 @@
     \begin{figure}[htp]
     \vspace{1ex}%
     \centering
-    \includegraphics[width=10cm]{vae_1}
+    \includegraphics[width=10cm]{figs/vae_1.png}
     \end{figure}}
 
 \end{itemize}
@@ -687,7 +714,7 @@
     \begin{figure}[htp]
     \vspace{1ex}%
     \centering
-    \includegraphics[width=9cm]{vae_2_1}
+    \includegraphics[width=9cm]{figs/vae_2_1.png}
     \end{figure}}
 
 \end{itemize}
@@ -723,7 +750,7 @@
     \begin{figure}[htp]
     \vspace{1ex}%
     \centering
-    \includegraphics[width=8cm]{vae_arch}
+    \includegraphics[width=8cm]{figs/vae_arch.png}
     \end{figure}}
 
 \end{itemize}
@@ -737,47 +764,14 @@
     \begin{figure}[htp]
     \centering
     \hyperlink{vae}{
-    \includegraphics[width=9cm]{vae_6}}
+    \includegraphics[width=9cm]{figs/vae_6.png}}
 
     \vspace{1 pt}
     
     \hyperlink{vae}{
-    \includegraphics[width=9cm]{vae_4_1}}
+    \includegraphics[width=9cm]{figs/vae_4_1.png}}
     \end{figure}
 
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\frame{\frametitle{Test}
-	
-	
-\begin{itemize}
-	\item One
-	\begin{itemize}
-		\item One
-		\item Two
-		\item Three
-	\end{itemize}
-
-	\item 
-	For two-dimensional tensors, we have a corresponding sum with indices $(a, b)$ for $f$ and $(i-a, j-b)$ for $g$, respectively:
-	$$
-	(f * g)(i, j)=\sum_a \sum_b f(a, b) g(i-a, j-b)
-	$$
-	
-	\item 
-	
-	It is given by,
-	$$
-	\left.w_{t+1}=w_t-\left(\alpha_t / \sqrt{\left(v_t\right.}\right)+e\right) *\left(\delta L / \delta w_t\right)
-	$$
-	where,
-	$$
-	v_t=\beta * v_t+(1-\beta) *\left(\delta L / \delta w_t\right)^2
-	$$
-\end{itemize}	
-	
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -847,6 +841,13 @@
 \end{itemize}	
 }
 
+\frame{\frametitle{Refrences}
+% \begin{itemize}
+%     \printbibliography
+% \end{itemize}
+\bibliographystyle{plain}
+\bibliography{Refrences}
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frametitle{Final Notes}
