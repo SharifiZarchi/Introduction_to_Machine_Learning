@@ -290,6 +290,25 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Let's Think}
+	\centering
+    % \vspace{25 pt}
+    \textbf{\large{Let's start with a question!}}
+
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Any ideas?}
+    \begin{center}
+    % \vspace{25 pt}
+    \textbf{\large{How can we combine\tc{keywords}{neural networks}and\tc{keywords}{unlabeled data}to perform\tc{keywords}{compression}?}}
+    \end{center}
+
+    
+
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
 
 \frame{\frametitle{The Power Of Unsupervised Learning}
@@ -562,7 +581,7 @@
 
 \begin{figure}
     \centering
-    \vspace{-0.5cm}
+    \vspace{-0.3cm}
     \captionsetup{justification=centering}
     \includegraphics[width=10cm]{figs/AE_MSE.png}
     \caption{Schematic of an autoencoder architecture with mean-squared error reconstruction loss.\cite{MSE_AE}}
@@ -596,15 +615,45 @@
 
 	
 	\centering
-    \vspace{30 pt}
-    \textbf{\large{Are normal Autoencoders suitable for working with images?}}
+    % \vspace{-0.cm}
+    \begin{itemize}
+        \item \textbf{\large{Are normal autoencoders suitable for working with images?}}
+        \begin{itemize}
+            \item Encoder: A regular CNN
+            \item Decoder: A network that uses transpose convolutional layers (or upsampling layers with convolution layers)
+        \end{itemize}
+    \end{itemize}
     
-    \hyperlink{AE}{
-    \begin{figure}[htp]
-    \vspace{1ex}%
+    
+    \begin{figure}
+    \captionsetup{justification=centering, margin=1cm, labelformat=empty}
+    % \vspace{-0.3cm}
     \centering
-    \includegraphics[width=10cm]{figs/AE_Arch.png}
-    \end{figure}}
+    \includegraphics[width=12cm, height=5.2cm]{figs/AE_Arch.png}
+    \caption{\href{https://hackernoon.com/latent-space-visualization-deep-learning-bits-2-bd09a46920df}{Source}}
+    \end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Denoising Autoencoders (DAE)}
+
+\begin{itemize}	
+    \normalsize{
+    \item An AE learns the identity function which brings the risk of\tc{keywords}{overfitting}
+    \item A DAE forces the model to learn a\tc{keywords}{more robust}latent representation
+    \item It can also be used to efficiently\tc{keywords}{remove noise}from noisy images
+    }
+\end{itemize}
+
+
+\begin{figure}
+    \captionsetup{justification=centering, margin=1cm}
+    % \vspace{-0.3cm}
+    \centering
+    \includegraphics[width=12cm, height=5.2cm]{figs/denoising-autoencoder-architecture.png}
+    \caption{Illustration of denoising autoencoder model architecture, \href{https://lilianweng.github.io/posts/2018-08-12-vae/}{Source}}
+\end{figure}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -612,24 +661,16 @@
 \frame{\frametitle{Denoising Autoencoders}
 
 \begin{itemize}	
-    \item 
-    Another way to force the autoencoder to learn useful features is to add noise to its inputs.
-    
-    \item 
-    Denoising autoencoders train to minimize the loss between $x$ and $g(f(x+w))$, where $w$ is random noise.
-    
-    \item 
-    Denoising autoencoders, with Gaussian noise (left) or dropout (right):
-
-
-    \hyperlink{AE}{
-    \begin{figure}[htp]
-    \vspace{1ex}%
-    \centering
-    \includegraphics[width=10cm]{figs/denoising_autoencoders.png}
-    \end{figure}}
-
+    \item \normalsize Results of an autoencoder, predicting what the original data was, without even seeing it
 \end{itemize}
+\begin{figure}
+    \centering
+    \captionsetup{justification=centering, margin=1cm, labelformat=empty}
+    \includegraphics[width=12cm, height=5cm]{figs/noise_reduction.png}
+    \caption{\href{https://towardsdatascience.com/applied-deep-learning-part-3-autoencoders-1c083af4d798}{Source}}
+\end{figure}
+
+
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -637,17 +678,21 @@
 \frame{\frametitle{Denoising Autoencoders}
 
 \begin{itemize}	
+    \normalsize{
     \item 
-    A few noisy images (with half the pixels turned off), and the images reconstructed by the dropout-based denoising autoencoder. Notice how the autoencoder guesses details that are actually not in the input, such as the top of the white shirt (bottom row, fourth image).
-
-    \hyperlink{AE}{
-    \begin{figure}[htp]
-    \vspace{1ex}%
-    \centering
-    \includegraphics[width=10cm]{figs/denoising_pics.png}
-    \end{figure}}
-
+    DAEs won't simply memorize the inputs and outputs (More robustness)
+    
+    \item
+    Intuitively, a DAE learns a\tc{keywords}{projection}from a neighborhood of our training data back onto the training data (\href{https://www.math.purdue.edu/~buzzard/MA598-Spring2019/Lectures/Lec16\%20-\%20Autoencoders.pptx}{Refrence})
+    }
 \end{itemize}
+
+\begin{figure}
+    \centering
+    \captionsetup{justification=centering, margin=1cm, labelformat=empty}
+    \includegraphics[width=12cm, height=5cm]{figs/denoise-theory1.png}
+    \caption{\href{https://info.usherbrooke.ca/hlarochelle/ift725/6_06_denoising_autoencoder.pdf}{Source}}
+\end{figure}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -655,26 +700,72 @@
 \frame{\frametitle{Denoising Autoencoders}
 
 \begin{itemize}	
+    \normalsize{
     \item 
-    Intuitively, a denoising autoencoder learns a projection from a neighborhood of our training data back onto the training data.
-
-    \hyperlink{denoising}{
-    \begin{figure}[htp]
-    \vspace{1ex}%
-    \centering
-    \includegraphics[width=10cm]{figs/denoising.png}
-    \end{figure}}
-
+    DAEs won't simply memorize the inputs and outputs (More robustness)
+    
+    \item
+    Intuitively, a DAE learns a\tc{keywords}{projection}from a neighborhood of our training data back onto the training data (\href{https://www.math.purdue.edu/~buzzard/MA598-Spring2019/Lectures/Lec16\%20-\%20Autoencoders.pptx}{Refrence})
+    }
 \end{itemize}
-}
 
+\begin{figure}
+    \centering
+    \captionsetup{justification=centering, margin=1cm, labelformat=empty}
+    \includegraphics[width=12cm, height=5cm]{figs/denoise-theory2.png}
+    \caption{\href{https://info.usherbrooke.ca/hlarochelle/ift725/6_06_denoising_autoencoder.pdf}{Source}}
+\end{figure}
+}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\frame{\frametitle{Denoising Autoencoders}
+
+\begin{itemize}	
+    \normalsize{
+    \item 
+    DAEs won't simply memorize the inputs and outputs (More robustness)
+    
+    \item
+    Intuitively, a DAE learns a\tc{keywords}{projection}from a neighborhood of our training data back onto the training data (\href{https://www.math.purdue.edu/~buzzard/MA598-Spring2019/Lectures/Lec16\%20-\%20Autoencoders.pptx}{Refrence})
+    }
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \captionsetup{justification=centering, margin=1cm, labelformat=empty}
+    \includegraphics[width=12cm, height=5cm]{figs/denoise-theory3.png}
+    \caption{\href{https://info.usherbrooke.ca/hlarochelle/ift725/6_06_denoising_autoencoder.pdf}{Source}}
+\end{figure}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Denoising Autoencoders}
+
+\begin{itemize}	
+    \normalsize{
+    \item 
+    DAEs won't simply memorize the inputs and outputs (More robustness)
+    
+    \item
+    Intuitively, a DAE learns a\tc{keywords}{projection}from a neighborhood of our training data back onto the training data (\href{https://www.math.purdue.edu/~buzzard/MA598-Spring2019/Lectures/Lec16\%20-\%20Autoencoders.pptx}{Refrence})
+    }
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \captionsetup{justification=centering, margin=1cm, labelformat=empty}
+    \includegraphics[width=12cm, height=5cm]{figs/denoise-theory4.png}
+    \caption{\href{https://info.usherbrooke.ca/hlarochelle/ift725/6_06_denoising_autoencoder.pdf}{Source}}
+\end{figure}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{VAEs}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Autoencoder Generative Models}
 
 	
 	\centering
-    \vspace{25 pt}
+    % \vspace{25 pt}
     \textbf{\large{How can we generate {\color{hotpink}{NEW}} data with Autoencoders??}}
     \vspace{5 pt}
     \newline
@@ -689,17 +780,20 @@
 \frame{\frametitle{Walking through an example}
 
 \begin{itemize}	
+    \normalsize{
     \item 
-    We want to reconstruct some shapes.
-
-    \hyperlink{vae}{
-    \begin{figure}[htp]
-    \vspace{1ex}%
-    \centering
-    \includegraphics[width=10cm]{figs/vae_1.png}
-    \end{figure}}
-
+    We can try to decode a\tc{keywords}{random point}from the latent space to generate new data
+    \item
+    The freedom of AEs leads to a severe overfitting which results in some points of the latent space being\tc{keywords}{meaningless}once decoded
+    }
 \end{itemize}
+\vspace{-0.4cm}
+\begin{figure}
+    \centering
+    \captionsetup{justification=centering, margin=1cm}
+    \includegraphics[width=12cm, height=5cm]{figs/vae1.png}
+    \caption{Irregular latent space prevent us from using autoencoder for new content generation, \href{https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73}{Source}}
+\end{figure}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -707,17 +801,17 @@
 \frame{\frametitle{Walking through an example}
 
 \begin{itemize}	
-    \item 
-    Not all of the points in latent space have meaningful reconstructions.
+    \item \normalsize Not all of the points in latent space have meaningful reconstructions
+\end{itemize}
 
-    \hyperlink{vae}{
-    \begin{figure}[htp]
-    \vspace{1ex}%
+
+\begin{figure}
     \centering
+    \vspace{-0.5cm}
+    \captionsetup{justification=centering, margin=1cm}
     \includegraphics[width=9cm]{figs/vae_2_1.png}
-    \end{figure}}
-
-\end{itemize}
+    \caption{Latent space and the decoded outputs for some points in it, \href{https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73}{Source}}
+\end{figure}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -725,35 +819,31 @@
 \frame{\frametitle{Walking through an example}
 
 \begin{itemize}	
-    \item 
+    \item \normalsize
     What we want is something like the following picture. So that with sampling from the latent space, we can generate new shapes.
 
-    \hyperlink{vae}{
-    \begin{figure}[htp]
-    \vspace{1ex}%
-    \centering
-    \includegraphics[width=9cm]{vae_3}
-    \end{figure}}
-
 \end{itemize}
+
+\begin{figure}[htp]
+    \centering
+    \captionsetup{justification=centering, margin=1cm}
+    \includegraphics[width=9cm]{figs/vae_3.png}
+    \caption{Regularisation tends to create a “gradient” over the information encoded in the latent space, \href{https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73}{Source}}
+\end{figure}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Variational Autoencoders}
+	\centering
+    \textbf{\large{Ideas for solving this problem?}}
+}
 
-\begin{itemize}	
-    \item 
-    instead of directly producing a coding for a given input, the encoder produces a mean coding μ and a standard deviation σ. The actual coding is then sampled randomly from a Gaussian distribution with mean μ and standard deviation σ
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    \hyperlink{ae}{
-    \begin{figure}[htp]
-    \vspace{1ex}%
-    \centering
-    \includegraphics[width=8cm]{figs/vae_arch.png}
-    \end{figure}}
-
-\end{itemize}
+\frame{\frametitle{Variational Autoencoders}
+	\centering
+    \textbf{\large{Ideas for solving this problem?}}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
