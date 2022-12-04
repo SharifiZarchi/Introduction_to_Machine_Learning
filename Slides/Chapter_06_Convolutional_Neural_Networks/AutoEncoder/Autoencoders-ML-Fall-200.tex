@@ -323,7 +323,7 @@
     \centering
     % \hspace{3cm}
     \captionsetup{justification=centering}
-    \includegraphics[width=0.9\columnwidth]{figs/unsupervised-learning.jpg}
+    \includegraphics[width=11cm]{figs/unsupervised-learning.jpg}
     \caption{Types of Machine learning: Deep learning (supervised and\tc{keywords}{unsupervised learning})(Jones [2017]), \href{https://www.researchgate.net/figure/Types-of-Machine-learning-Deep-learning-supervised-and-unsupervised-learning-and_fig5_335569456}{Source}}
 \end{figure}
 }
@@ -531,7 +531,7 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Variations}
+\section{Stacked AE}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Stacked Autoencoders}
@@ -610,6 +610,8 @@
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Convolutional AE}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Autoencoders \& Images}
 
@@ -634,6 +636,8 @@
     \end{figure}
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Denoising AE}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Denoising Autoencoders (DAE)}
@@ -759,7 +763,7 @@
 \end{figure}
 }
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{VAEs}
+\section{Variaional AE}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Autoencoder Generative Models}
 
@@ -824,7 +828,7 @@
 
 \end{itemize}
 
-\begin{figure}[htp]
+\begin{figure}
     \centering
     \captionsetup{justification=centering, margin=1cm}
     \includegraphics[width=9cm]{figs/vae_3.png}
@@ -842,99 +846,203 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Variational Autoencoders}
-	\centering
-    \textbf{\large{Ideas for solving this problem?}}
+\centering
+\vspace{-0.3cm}
+\begin{itemize}
+    \normalsize{
+    \item Instead of encoding the input into a single point (the latent representation), we encode it into a distribution over the latent space
+    \item Then we can sample our latent representation from the latent distribution
+    }
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \vspace{-0.8cm}
+    \captionsetup{justification=centering, margin=1cm}
+    \includegraphics[width=12cm, height=5cm]{figs/vae4.png}
+    \caption{Difference between autoencoder (deterministic) and variational autoencoder (probabilistic), \href{https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73}{Source}}
+\end{figure}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \frame{\frametitle{Variational Autoencoders}
+\centering
+% \vspace{-0.3cm}
+\begin{itemize}
+    \normalsize{
+    \item We will be encoding into, and sampling from normal distributions
+    \item So our encoder needs to return the mean and the variance matrix, describing these Gaussians
+    }
+\end{itemize}
 
-    
-    \begin{figure}[htp]
+\begin{figure}
     \centering
-    \hyperlink{vae}{
-    \includegraphics[width=9cm]{figs/vae_6.png}}
-
-    \vspace{1 pt}
-    
-    \hyperlink{vae}{
-    \includegraphics[width=9cm]{figs/vae_4_1.png}}
-    \end{figure}
-
-}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frame{\frametitle{Image References}
-	
-\begin{itemize}
-    
-    \item
-    \hypertarget{ae_arch}{https://lilianweng.github.io/posts/2018-08-12-vae/}
-    
-    \item
-    \hypertarget{bad_ae}{https://emkademy.medium.com/1-first-step-to-generative-deep-learning-with-autoencoders-22bd41e56d18}
-    
-    \item
-    \hypertarget{AE}{Aurelien Geron. 2019. Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems (2nd. ed.). O'Reilly Media, Inc.}
-    
-    \item
-    \hypertarget{generated_by_VAE}{https://github.com/wojciechmo/vae}
-    
-	\item 
-	\hypertarget{watermark_removal}{https://ai.googleblog.com/2017/08/making-visible-watermarks-more-effective.html}
-	
-	\item
-	\hypertarget{noise_reduction}{https://medium.com/@harishr2301/denoising-autoencoders-996e866e5cd0}
-	
-	\item 
-	\hypertarget{stacked_ae}{
-	https://subscription.packtpub.com/book/big-data-and-business-intelligence/9781787121089/4/ch04lvl1sec51/setting-up-stacked-autoencoders}
-	
-	\item
-	\hypertarget{ae_1}{https://www.analyticsvidhya.com/blog/2021/01/auto-encoders-for-computer-vision-an-endless-world-of-possibilities/}
-	
-	\item
-	\hypertarget{cnn_ae}{https://towardsdatascience.com/convolutional-autoencoders-for-image-noise-reduction-32fce9fc1763}
-	
-	\item
-	\hypertarget{denoising}{https://ift6266h17.files.wordpress.com/2017/03/14\_autoencoders.pdf}
-	
-	\item
-	\hypertarget{vae}{https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73}
-
-
-	
-	
-\end{itemize}	
+    % \vspace{-0.5cm}
+    \captionsetup{justification=centering}
+    \includegraphics[width=10.7cm]{figs/vae6.png}
+    \caption{In variational autoencoders, the loss function is composed of a reconstruction term (that makes the encoding-decoding scheme efficient) and a regularization term (that makes the latent space regular), \href{https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73}{Source}}
+\end{figure}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\frame{\frametitle{References}
-	
+\frame{\frametitle{Variational Autoencoders}
+\centering
+% \vspace{-0.3cm}
 \begin{itemize}
-    
-    \item
-    Aurelien Geron. 2019. Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow: Concepts, Tools, and Techniques to Build Intelligent Systems (2nd. ed.). O'Reilly Media, Inc.
-    
-    \item
-    https://www.cs.toronto.edu/~rgrosse/courses/csc321\_2017/slides/lec20.pdf
-    
-    \item
-    https://www.math.purdue.edu/~buzzard/MA598-Spring2019/Lectures/Lec16\%20-\%20Autoencoders.pptx
-    
-    \item
-    http://cs231n.stanford.edu/slides/2019/cs231n\_2019\_lecture11.pdf
-    
-	
-\end{itemize}	
+    \normalsize{
+    \item Encoding as distributions, will make it possible to express a good latent space regularization:
+        \begin{itemize}
+            \item {The distribution returned will be forced to be close to the standard normal distribution (Mean=0, Var=1) {\rightarrow} \(\mathcal{N}(0,\,1)\)}
+        \end{itemize}
+    }
+\end{itemize}
+
+\begin{figure}
+    \centering
+    % \vspace{-0.5cm}
+    \captionsetup{justification=centering}
+    \includegraphics[width=10cm]{figs/vae6.png}
+    \caption{In variational autoencoders, the loss function is composed of a reconstruction term (that makes the encoding-decoding scheme efficient) and a regularisation term (that makes the latent space regular), \href{https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73}{Source}}
+\end{figure}
 }
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Variational Autoencoders}
+\centering
+% \vspace{-0.3cm}
+\begin{itemize}
+    \normalsize{
+    \item The regularization term is expressed as the Kulback-Leibler divergence between the returned distribution and a standard Gaussian:
+    \vspace{0.1cm}
+    \begin{itemize}
+        \item \(KL(\mathcal{N}(\mu_x,\,\sigma_x) || \mathcal{N}(0,\,1))\)
+    \end{itemize}
+    }
+\end{itemize}
+
+\begin{figure}
+    \centering
+    % \vspace{-0.5cm}
+    \captionsetup{justification=centering}
+    \includegraphics[width=10.6cm]{figs/vae6.png}
+    \caption{In variational autoencoders, the loss function is composed of a reconstruction term (that makes the encoding-decoding scheme efficient) and a regularisation term (that makes the latent space regular), \href{https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73}{Source}}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Effect of regularization}
+\centering
+% \vspace{-0.3cm}
+\begin{itemize}
+    \normalsize{
+    \item This regularity brings two main properties:
+    \vspace{0.1cm}
+    \begin{itemize}
+        \item \tc{keywords}{Continuity}: Two close points in the latent space should not give two completely different contents once decoded
+        \item \tc{keywords}{Completeness}: For a chosen distribution, a point sampled from the latent space should give “meaningful” content once decoded
+    \end{itemize}
+    }
+\end{itemize}
+
+\begin{figure}
+    \centering
+    % \vspace{-0.5cm}
+    \captionsetup{justification=centering}
+    \includegraphics[width=12cm]{figs/vae7.png}
+    \caption{Difference between a “regular” and an “irregular” latent space, \href{https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73}{Source}}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{In practice}
+\centering
+% \vspace{-0.3cm}
+\begin{itemize}
+    \normalsize{
+    \item We will use two networks at the end of our encoder to calculate the mean and variance
+    }
+\end{itemize}
+\normalsize{\centering {$g(x) = g_2(g_1(x)) \qquad h(x) = h_2(h_1(x)) \qquad g_1(x)=h_1(x)$}}
+
+\begin{figure}
+    \centering
+    % \vspace{-0.5cm}
+    \captionsetup{justification=centering}
+    \includegraphics[width=5.5cm]{figs/vae8.png}
+    \caption{Encoder part of the VAE, \href{https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73}{Source}}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Reparameterization Trick}
+\centering
+\vspace{-0.7cm}
+\begin{itemize}
+    \normalsize{
+    \item Problem: We cannot perform\tc{keywords}{backpropagation}on the direct sampling operation
+    }
+\end{itemize}
+
+\begin{figure}
+    \centering
+    % \vspace{-0.5cm}
+    \captionsetup{justification=centering}
+    \includegraphics[width=12cm]{figs/vae9.png}
+    \caption{Illustration of the reparameterization trick, \href{https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73}{Source}}
+\end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{Reparameterization Trick}
+\centering
+\vspace{-0.5cm}
+\begin{itemize}
+    \normalsize{
+    \item Solution:\tc{keywords}{Reparameterization trick}
+    \begin{itemize}
+        \item We sample from a standard normal distribution and do the following operations to be able to track gradients
+    \end{itemize}
+    }
+\end{itemize}
+\begin{figure}
+    \centering
+    % \vspace{-0.5cm}
+    \captionsetup{justification=centering}
+    \includegraphics[width=12cm]{figs/vae9.png}
+    \caption{Illustration of the reparameterization trick, \href{https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73}{Source}}
+\end{figure}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\frame{\frametitle{The Whole Picture}
+\centering
+% \vspace{-0.3cm}
+\begin{itemize}
+    \normalsize{
+    \item The whole picture of a simple variational autoencoder:
+    }
+\end{itemize}
+
+\begin{figure}
+    \centering
+    % \vspace{-0.5cm}
+    \captionsetup{justification=centering}
+    \includegraphics[width=12cm, height=6cm]{figs/vae11.png}
+    \caption{Variational Autoencoders representation, \href{https://towardsdatascience.com/understanding-variational-autoencoders-vaes-f70510919f73}{Source}}
+\end{figure}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \frame{\frametitle{Refrences}
-% \begin{itemize}
-%     \printbibliography
-% \end{itemize}
+\begin{itemize}
+    \printbibliography
+\end{itemize}
 \bibliographystyle{plain}
 \bibliography{Refrences}
 }
