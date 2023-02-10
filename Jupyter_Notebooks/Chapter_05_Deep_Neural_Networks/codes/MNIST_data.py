@@ -36,12 +36,10 @@ def get_MNIST_data(num_training=50000, num_validation=10000, num_test=10000):
 
 
 def get_normalized_MNIST_data(X_train, X_val, X_test):
-    # Normalize the data: subtract the mean image and divide by the sd
+    # Normalize the data: subtract the mean image
     mean_image = np.mean(X_train, axis=0)
-    std = np.std(X_train, axis=0)
-    if std == 0:
-        std = 1
+
     X_train -= mean_image
     X_val -= mean_image
     X_test -= mean_image
-    return X_train / std, X_val / std, X_test / std
+    return X_train, X_val, X_test
