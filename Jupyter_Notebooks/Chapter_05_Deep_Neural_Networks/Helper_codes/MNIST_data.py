@@ -11,14 +11,6 @@ def get_MNIST_data(num_training=50000, num_validation=10000, num_test=10000):
     train_data = datasets.MNIST('./data', train=True, download=True)
     test_data = datasets.MNIST('./data', train=False, download=True)
 
-    # Cleaning up variables to prevent loading data multiple times (which may cause memory issue)
-    try:
-        del X_train, y_train
-        del X_test, y_test
-        print('Clear previously loaded data.')
-    except:
-        pass
-
     X_train, y_train = np.array(train_data.data, dtype=float), np.array(
         train_data.targets, dtype=float)
     X_test, y_test = np.array(test_data.data, dtype=float), np.array(
@@ -44,9 +36,10 @@ def get_MNIST_data(num_training=50000, num_validation=10000, num_test=10000):
 
 
 def get_normalized_MNIST_data(X_train, X_val, X_test):
-    # Normalize the data: subtract the mean image
+    # Normalize the data: subtract the mean image and divide by the sd
     mean_image = np.mean(X_train, axis=0)
+    std = np.std(X_train, axis=0)
     X_train -= mean_image
     X_val -= mean_image
     X_test -= mean_image
-    return X_train, X_val, X_test
+    return X_train / std, X_val / std, X_test / std

@@ -1,12 +1,5 @@
-from __future__ import print_function, division
 import numpy as np
 import pickle as pickle
-import os
-from builtins import object
-from builtins import range
-from future import standard_library
-
-standard_library.install_aliases()
 
 
 class Solver(object):
@@ -15,12 +8,12 @@ class Solver(object):
     and regression models. The Solver performs stochastic gradient descent 
     with momentum.
 
-    The solver accepts both training and validataion data and labels or 
-    target values so it can periodically check accuracy on both training
+    The solver accepts both training and validation data and labels or
+    target values, so it can periodically check accuracy on both training
     and validation data to watch out for overfitting.
 
     To train a model, you will first construct a Solver instance, passing the
-    model, dataset, and various options (learning rate, batch size, etc) to the
+    model, dataset, and various options (learning rate, batch size, etc.) to the
     constructor. You will then call the train() method to run the optimization
     procedure and train the model.
 
@@ -103,7 +96,7 @@ class Solver(object):
           during training.
         - num_epochs: The number of epochs to run for during training.
         - print_every: Integer; training losses will be printed every
-          print_every iterations.
+          print_every iteration.
         - verbose: Boolean; if set to false then no output will be printed
           during training.
         - num_train_samples: Number of training samples used to check training
@@ -142,10 +135,10 @@ class Solver(object):
 
     def _reset(self):
         """
-        Set up some book-keeping variables for optimization. Don't call this
+        Set up some bookkeeping variables for optimization. Don't call this
         manually.
         """
-        # Set up some variables for book-keeping
+        # Set up some variables for bookkeeping
         self.epoch = 0
         self.best_val_acc = 0
         self.best_params = {}
@@ -222,7 +215,7 @@ class Solver(object):
           classified by the model.
 
         For a regression problem:
-        - acc: Scalar giving the root mean square(RMS) error.
+        - acc: Scalar giving the root-mean-square(RMS) error.
         """
 
         # Maybe subsample the data
@@ -247,7 +240,9 @@ class Solver(object):
                 y_pred.append(np.argmax(scores, axis=1))
             elif self.model.category == "regression":
                 loss += batch_size * \
-                    self.model.loss(X[start:end], y[start:end])[0]
+                        self.model.loss(X[start:end], y[start:end])[0]
+        acc = None
+
         if self.model.category == "classification":
             y_pred = np.hstack(y_pred)
             acc = np.mean(y_pred == y)
@@ -310,7 +305,8 @@ class Solver(object):
                         )
 
                 # Keep track of the best model
-                if (self.model.category == "classification" and val_acc > self.best_val_acc) or (self.model.category == "regression" and val_acc < self.best_val_acc):
+                if (self.model.category == "classification" and val_acc > self.best_val_acc) or (
+                        self.model.category == "regression" and val_acc < self.best_val_acc):
                     self.best_val_acc = val_acc
                     self.best_params = {}
                     for k, v in self.model.params.items():
