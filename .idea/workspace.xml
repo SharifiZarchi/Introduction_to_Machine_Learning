@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="71a04866-6132-4ac3-ad77-c75bc63a37b4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/Helper_codes/MNIST_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/Helper_codes/MNIST_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/Helper_codes/california_housing.py" beforeDir="false" afterPath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/Helper_codes/california_housing.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/Helper_codes/solver.py" beforeDir="false" afterPath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/Helper_codes/solver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/Neural Networks.ipynb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/data/MNIST/raw/t10k-images-idx3-ubyte" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/data/MNIST/raw/t10k-images-idx3-ubyte.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/data/MNIST/raw/t10k-labels-idx1-ubyte" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/data/MNIST/raw/t10k-labels-idx1-ubyte.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/data/MNIST/raw/train-images-idx3-ubyte" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/data/MNIST/raw/train-images-idx3-ubyte.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/data/MNIST/raw/train-labels-idx1-ubyte" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/data/MNIST/raw/train-labels-idx1-ubyte.gz" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/imgs/batchnorm_graph.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_06_Convolutional_Neural_Networks/CNN_Architecture.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_06_Convolutional_Neural_Networks/CNN_Architecture.ipynb" afterDir="false" />
+    <list default="true" id="71a04866-6132-4ac3-ad77-c75bc63a37b4" name="Changes" comment="change helper code and some changes in notebook">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/Helper_codes/MNIST_data.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/Helper_codes/california_housing.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/Helper_codes/gradient_check.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/Helper_codes/solver.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,13 +24,13 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -48,8 +39,17 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1676010598814</updated>
-      <workItem from="1676010601829" duration="3221000" />
+      <workItem from="1676010601829" duration="3301000" />
+      <workItem from="1676017824884" duration="15000" />
     </task>
+    <task id="LOCAL-00001" summary="change helper code and some changes in notebook">
+      <created>1676017783853</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1676017783853</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -65,5 +65,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="change helper code and some changes in notebook" />
+    <option name="LAST_COMMIT_MESSAGE" value="change helper code and some changes in notebook" />
   </component>
 </project>
