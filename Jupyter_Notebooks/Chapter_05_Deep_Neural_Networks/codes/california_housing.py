@@ -35,6 +35,8 @@ def get_california_housing_normalized__data(X_train, X_val, X_test):
     # Normalize the data: subtract the mean array and divide by std
     mean_array = np.mean(X_train, axis=0)
     std = np.std(X_train, axis=0)
+    if std == 0:
+        std = 1
     X_train -= mean_array
     X_val -= mean_array
     X_test -= mean_array

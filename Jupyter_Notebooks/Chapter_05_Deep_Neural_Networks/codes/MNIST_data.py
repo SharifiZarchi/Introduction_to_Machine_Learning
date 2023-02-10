@@ -39,6 +39,8 @@ def get_normalized_MNIST_data(X_train, X_val, X_test):
     # Normalize the data: subtract the mean image and divide by the sd
     mean_image = np.mean(X_train, axis=0)
     std = np.std(X_train, axis=0)
+    if std == 0:
+        std = 1
     X_train -= mean_image
     X_val -= mean_image
     X_test -= mean_image
