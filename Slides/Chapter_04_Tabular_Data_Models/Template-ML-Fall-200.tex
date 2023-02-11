@@ -412,11 +412,11 @@ This means that when the dataset is big enough, \textbf{37\%} of its samples are
 \end{itemize}
 }
 
-\frame{\frametitle{$P(NotChosen)$}
+\frame{\frametitle{$P(Chosen)$}
 
 \begin{figure}[t]
     \includegraphics[scale=0.45]{Chosen.png}
-    \caption{Plot of $P(NotChosen)$\cite{notes}}
+    \caption{Plot of $P(Chosen)$\cite{notes}}
     \centering
 \end{figure}
 }
@@ -619,7 +619,7 @@ Finally, a new predictor is trained using the updated weights, and the whole pro
 \item
 The algorithm stops when the desired number of predictors is reached, or when a perfect predictor is found.
 \item
-AdaBoost preidctions:
+AdaBoost predictions:
 $$\hat{y}(x) =argmax \sum\limits_{\substack{j=1 \\ \hat{y}_j(x)=k}}^N \alpha_j$$
 
 \end{itemize}

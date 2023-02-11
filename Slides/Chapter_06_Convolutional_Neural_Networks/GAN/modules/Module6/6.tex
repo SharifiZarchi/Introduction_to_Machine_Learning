@@ -2,7 +2,7 @@
     \frametitle{StyleGAN}
     \begin{figure}[h!]
         \hyperlink{StyleGAN}{
-            \includegraphics[scale=0.40]{images/stylegan_example1.png}
+            \includegraphics[width=5cm]{images/stylegan_example1.png}
             \caption{Example of One Set of Generated Faces (Left) Adopting the Coarse Style of Another Set of Generated Faces (Top)}
         }
     \end{figure}
@@ -24,6 +24,7 @@
 
 }
 \frame{\frametitle{StyleGAN Model Architecture}
+    \vspace*{-2cm}
     \begin{itemize}
         \item The StyleGAN is described as a progressive growing GAN architecture with five modifications:
               \begin{itemize}
@@ -43,7 +44,7 @@
     \end{itemize}
     \hyperlink{CycleGAN}{
         \begin{figure}[h!]
-            \includegraphics[scale=0.40]{images/cyclegan1.png}
+            \includegraphics[width=10cm]{images/cyclegan1.png}
         \end{figure}
     }
     \begin{itemize}
@@ -53,6 +54,7 @@
 
 \begin{frame}
     \frametitle{CycleGAN: Unpaired Image-to-Image Translation}
+    \vspace*{-2cm}
     \begin{itemize}
         \item If we had paired data (same content in both styles), this would be a supervised learning problem. But this is hard to find.
         \item The CycleGAN architecture learns to do it from unpaired data.
@@ -68,29 +70,33 @@
     \frametitle{CycleGAN}
     \hyperlink{CycleGAN}{
         \begin{figure}[h!]
-            \includegraphics[scale=0.40]{images/cyclegan2.png}
+            \includegraphics[width=10cm]{images/cyclegan2.png}
         \end{figure}
     }
 \end{frame}
 
 \begin{frame}
     \frametitle{CycleGAN}
-    \textbf{Style transfer between aerial photos and maps:}
+    \vspace*{-2cm}
+    \begin{itemize}
+        \item Style transfer between aerial photos and maps:
+    \end{itemize}
     \hyperlink{CycleGAN}{
         \begin{figure}[h!]
-            \includegraphics[scale=0.40]{images/cyclegan3.png}
+            \includegraphics[width=10cm]{images/cyclegan3.png}
         \end{figure}
     }
 \end{frame}
 
 \begin{frame}
     \frametitle{CycleGAN: Example}
+    \vspace*{-1cm}
     \begin{itemize}
         \item Style transfer between road scenes and semantic segmentations (labels of every pixel in an image by object category):
     \end{itemize}
     \hyperlink{CycleGAN}{
         \begin{figure}[h!]
-            \includegraphics[scale=0.40]{images/cyclegan4.png}
+            \includegraphics[width=10cm]{images/cyclegan4.png}
         \end{figure}
     }
 \end{frame}

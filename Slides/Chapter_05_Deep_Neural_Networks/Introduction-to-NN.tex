@@ -400,8 +400,8 @@
 	\begin{itemize}
 		\item Important questions:
 		\begin{itemize}
-			\item How many hidden layer should we have?
-			\item In each hidden layer, how many neuron should we have?
+			\item How many hidden layers should we have?
+			\item In each hidden layer, how many neurons should we have?
 		\end{itemize}
 	\end{itemize}
 	\begin{figure}[H]
@@ -503,7 +503,7 @@
 
 \begin{frame}{MLP notation}
 	\begin{itemize}
-		\item $a^{[l]}_i$: $i$-th neuron outpu in layer $l$
+		\item $a^{[l]}_i$: $i$-th neuron output in layer $l$
 		\item $\bm{a}^{[l]}$: layer $l$ output in vector form
 	\end{itemize}
 	\begin{figure}[H]
@@ -514,7 +514,7 @@
 
 \begin{frame}{MLP notation}
 	\begin{itemize}
-		\item $b^{[l]}_i$: $i$-th neuron biase in layer $l$
+		\item $b^{[l]}_i$: $i$-th neuron bias in layer $l$
 		\item $\bm{b}^{[l]}$: layer $l$ biases in vector form
 	\end{itemize}
 	\begin{figure}[H]
@@ -525,7 +525,7 @@
 
 \begin{frame}{MLP notation}
 	\begin{itemize}
-		\item $W^{[l]}_{ij}$: weight of the edge between $i$-th nuron in layer $l-1$ and $j$-th neuron in layer $l$ 
+		\item $W^{[l]}_{ij}$: weight of the edge between $i$-th neuron in layer $l-1$ and $j$-th neuron in layer $l$ 
 	\end{itemize}
 	\begin{figure}[H]
 		\centering
@@ -1023,7 +1023,7 @@
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.8\textwidth]{Figs/mbgd.png}
-		\caption{Optimization of parameters using MBGD. The movement is much smother than SGD and behave like BGD \cite{katanforoosh-kunin-opt}.}
+		\caption{Optimization of parameters using MBGD. The movement is much smother than SGD and behaves like BGD \cite{katanforoosh-kunin-opt}.}
 	\end{figure} 
 \end{frame}
 
@@ -1053,7 +1053,7 @@
 		\end{itemize}
 		\item[]
 		\item[]
-		\item The most recommended one is MBGD, because it is computational efficient.
+		\item The most recommended one is MBGD, because it is computationally efficient.
 		\item Choosing the right batch size is important to ensure convergence of the cost function and parameter values, and to the generalization of your model.
 	\end{itemize}
 \end{frame}
@@ -1116,7 +1116,7 @@
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.65\textwidth]{Figs/wi-crucial.png}
-		\caption{The output of a three layer network after about 600 epoch. (left) using a bad\\ initialization method and (right) using an appropriate initialization \cite{katanforoosh-kunin}.}
+		\caption{The output of a three layer network after about 600 epochs. (left) using a bad\\ initialization method and (right) using an appropriate initialization \cite{katanforoosh-kunin}.}
 	\end{figure}
 \end{frame}
 
@@ -1207,7 +1207,7 @@
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.9\textwidth]{Figs/normal-init.png}
-		\caption{Uniform initialization problem. On the top, you can see the model architecture, and on the bottom, you can see the density of each layer's output. Model has trained on MNIST dataset for 4 epoch. Weights are initialized randomly from $U(\frac{-1}{\sqrt{n^{[l-1]}}}, \frac{1}{\sqrt{n^{[l-1]}}})$ \cite{katanforoosh-kunin}.}
+		\caption{Uniform initialization problem. On the top, you can see the model architecture, and on the bottom, you can see the density of each layer's output. Model has trained on MNIST dataset for 4 epochs. Weights are initialized randomly from $U(\frac{-1}{\sqrt{n^{[l-1]}}}, \frac{1}{\sqrt{n^{[l-1]}}})$ \cite{katanforoosh-kunin}.}
 	\end{figure}
 \end{frame}
 
@@ -1237,12 +1237,12 @@
 
 \begin{frame}{Weight Initialization: Xavier Initialization}
 	\begin{itemize}
-		\item Xavier initialization works well on \tc{keywords}{Tanh, Logestic or Sigmoid} activation function.
+		\item Xavier initialization works well on \tc{keywords}{Tanh, Logistic or Sigmoid} activation function.
 	\end{itemize}
 	\begin{figure}[H]
 		\centering
 		\includegraphics[width=0.9\textwidth]{Figs/xavier-init.png}
-		\caption{Vanishing gradient is no longer problem using Xavier initialization. Model has trained on MNIST dataset for 4 epoch. \cite{katanforoosh-kunin}.}
+		\caption{Vanishing gradient is no longer problem using Xavier initialization. Model has trained on MNIST dataset for 4 epochs. \cite{katanforoosh-kunin}.}
 	\end{figure}
 \end{frame}
 
@@ -1269,6 +1269,11 @@
 	\end{itemize}
 \end{frame}
 
+\begin{frame}{More On Weight Initialization}
+	\begin{itemize}
+		\item To read more about different weight initialization methods and deepen your understanding about how it can affect your network, visit \href{https://www.deeplearning.ai/ai-notes/initialization/index.html}{here}. 
+	\end{itemize}
+\end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%[Saturating Functions]%%%%%%%%%%%%%%%%%%%%%%%%%%
 \DeclarePairedDelimiter\abs{\lvert}{\rvert}%
@@ -1615,7 +1620,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%[Learning Rate]%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Learning Rate}
 	\begin{itemize}
-		\item Learning rate is a hyper-parameter that controls how much we are adjusting the weights of our network with respect the loss gradient. 
+		\item Learning rate is a hyper-parameter that controls how much we are adjusting the weights of our network with respect to the loss gradient. 
 	\end{itemize}    
 	\begin{figure}[H]
 		\centering
@@ -1787,7 +1792,7 @@
 	\begin{figure}[H]
 		\centering
 		\includegraphics[height=0.4\textheight]{Figs/section_4/dropout_why2.png}
-		\caption{Behavior of dropout at training time. \cite{cs231n-2018-lecture7}}
+		\caption{Behaviour of dropout at training time. \cite{cs231n-2018-lecture7}}
 	\end{figure}
 \end{frame}
 \begin{frame}{Dropout: Test Time}
@@ -1824,7 +1829,7 @@
 				+ \frac{1}{4}(0 x + w_2 y) + \frac{1}{4}(0 x + 0 y) \\
 				= \frac{1}{2}(w_1 x + w_2 y) \\
 				E_{test}[a] = w_1 x + w_2 y \\
-				\Rightarrow E_{test}[a] = \underbrace{0.5}_{\text{\tc{keywords}{keep probability}}} E_{train}[a]
+				\Rightarrow E_{train}[a] = \underbrace{0.5}_{\text{\tc{keywords}{keep probability}}} E_{test}[a]
 			\end{align*}
 		\end{column}
 		\begin{column}{0.5\textwidth}

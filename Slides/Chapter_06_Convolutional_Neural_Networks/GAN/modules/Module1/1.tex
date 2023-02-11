@@ -84,7 +84,7 @@
 
 \frame{\frametitle{GAN: Loss Function}
 	\begin{center}
-		\input{modules/Module1/tikz_images/gen_disc_noanim.tex}[scale=0.7]
+		\input{modules/Module1/tikz_images/gen_disc_noanim.tex}
 	\end{center}
 
 	\begin{itemize}
@@ -96,6 +96,7 @@
 }
 
 \frame{\frametitle{GAN: Loss Function}
+	\vspace*{-1cm}
 	\begin{itemize}
 		\item For a given $z$, the generator would want to maximize  $\log D_\theta(G_\phi(z))$ (log likelihood) or minimize $\log (1 - D_\theta(G_\phi(z)))$
 		\item This is just for a single $z$ and the generator would like to do this for all possible values of $z$,
@@ -137,6 +138,7 @@
 }
 
 \frame{\frametitle{GAN: Loss Function}
+	\vspace*{-1cm}
 	\begin{itemize}
 		\item If we put the objectives of the generator and discriminator together we get a minimax game
 		      \begin{align*}
