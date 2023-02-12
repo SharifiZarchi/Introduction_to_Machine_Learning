@@ -1069,7 +1069,8 @@ $$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
 \frame{\frametitle{How LSTMs solve vanishing gradients}
-
+\begin{itemize}
+\item In Vanilla RNN we have
 $$
 \frac{\partial L}{\partial W} = \sum_{t=1}^{T} \frac{\partial L_t}{\partial W}
 $$
@@ -1086,9 +1087,22 @@ $$
 \frac{\partial L_k}{\partial W} = \frac{\partial L_k}{\partial h_k} \frac{\partial h_k}{\partial c_k} (\prod_{t=2}^{k} \sigma'(W_{rec}.c_{t-1} + W_{in}.x_t)W_{rec}) \frac{\partial c_1}{\partial W}
 \end{align*}
 
-\begin{itemize}
+
 \item For large K the gradient tends to vanish or if $W_{rec}$ is large enough it cause exploding gradient which is solved by \textit{Gradient Clipping}.
 \end{itemize}
+
+	
+
+}
+%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%######
+
+\frame{\frametitle{How LSTMs solve vanishing gradients}
+\begin{figure}[!h]
+\centering \includegraphics[width=10cm]{Figs/lstm-bp.eps}
+\caption{LSTM Network, \href{https://medium.datadriveninvestor.com/how-do-lstm-networks-solve-the-problem-of-vanishing-gradients-a6784971a577}
+        {Source}}
+\end{figure}
 
 	
 
