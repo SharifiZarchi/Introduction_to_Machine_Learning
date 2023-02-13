@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="71a04866-6132-4ac3-ad77-c75bc63a37b4" name="Changes" comment="fix a bug in codes">
-      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/Neural_Networks.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/Neural_Networks.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/codes/MNIST_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/codes/MNIST_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/codes/california_housing.py" beforeDir="false" afterPath="$PROJECT_DIR$/Jupyter_Notebooks/Chapter_05_Deep_Neural_Networks/codes/california_housing.py" afterDir="false" />
+    <list default="true" id="71a04866-6132-4ac3-ad77-c75bc63a37b4" name="Changes" comment="fix some bugs">
+      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +39,10 @@
       <workItem from="1676010601829" duration="3301000" />
       <workItem from="1676017824884" duration="15000" />
       <workItem from="1676018095031" duration="29000" />
-      <workItem from="1676018779122" duration="371000" />
+      <workItem from="1676018779122" duration="657000" />
+      <workItem from="1676276150686" duration="3000" />
+      <workItem from="1676281763314" duration="239000" />
+      <workItem from="1676282009634" duration="34000" />
     </task>
     <task id="LOCAL-00001" summary="change helper code and some changes in notebook">
       <created>1676017783853</created>
@@ -70,7 +72,14 @@
       <option name="project" value="LOCAL" />
       <updated>1676018882394</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="fix some bugs">
+      <created>1676019432191</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1676019432191</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -92,6 +101,7 @@
     <MESSAGE value="change dir" />
     <MESSAGE value="change notebook" />
     <MESSAGE value="fix a bug in codes" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix a bug in codes" />
+    <MESSAGE value="fix some bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix some bugs" />
   </component>
 </project>
