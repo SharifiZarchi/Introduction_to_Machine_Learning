@@ -1,0 +1,38 @@
+% Source: ss17_wissschreib (Eva)
+
+\lstset{
+   basicstyle=\ttfamily\scriptsize\mdseries,
+   keywordstyle=\bfseries\color[rgb]{0.171875, 0.242188, 0.3125},
+   identifierstyle=,
+   commentstyle=\color[rgb]{0.257813, 0.15625, 0},  
+   stringstyle=\itshape\color[rgb]{0.0195313, 0.195313, 0.0117188},
+   numbers=left,
+   numberstyle=\tiny,
+   stepnumber=1,
+   breaklines=true,
+   frame=none,
+   showstringspaces=false,
+   tabsize=4,
+   backgroundcolor=\color[rgb]{0.98,0.98,0.98},
+   captionpos=b,
+   float=htbp,
+   language=Python,
+   xleftmargin=15pt,
+   xrightmargin=15pt
+} 
+
+%(deutsche) Sonderzeichen
+\lstset{literate=%
+  {Ä}{{\"A}}1
+  {Ö}{{\"O}}1
+  {Ü}{{\"U}}1
+  {ä}{{\"a}}1
+  {ö}{{\"o}}1
+  {ü}{{\"u}}1
+  {ß}{{\ss}}1
+}
+
+%Verwendung im Text:
+%-> \begin{lstlisting}[language=Python,firstnumber=27] ... \end{lstlisting}
+%-> \begin{lstlisting}[language=Python,numbers=none] ... \end{lstlisting}
+%-> \lstinline[language=JAVA]{...}
