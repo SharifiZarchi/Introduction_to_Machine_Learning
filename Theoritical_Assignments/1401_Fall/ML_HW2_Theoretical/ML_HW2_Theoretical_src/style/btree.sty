@@ -1,0 +1,131 @@
+%% Last Modified: Thu Oct 18 18:26:25 2007.
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{style/btree}
+\typeout{Document Style `weiw_BTree - Support drawing B+-Tree (ver 0.999)}
+
+\RequirePackage{tikz}
+\RequirePackage{ifthen}
+
+% use libraries
+\usetikzlibrary{arrows,shapes,decorations,matrix}
+
+
+%% global declaration
+\tikzstyle{btreeptr} = [draw, semithick, minimum height=2em]
+\tikzstyle{btreeval} = [draw, semithick, minimum size=2em]
+\tikzstyle{btreevale} = [draw,semithick, minimum size=2em]
+\tikzstyle{btlink} = [draw, semithick, ->, >=triangle 45]
+
+%% macro
+%% helper macros
+\newcommand{\suppressemptystr}[1]{% leave blank for entries in leaf nodes
+  \ifthenelse{\equal{#1}{}}%
+  {%
+    \relax%
+  }%
+  % Else
+  {%
+    #1\textsuperscript{*}%
+  }%
+}%
+
+\newcommand{\xyshift}[3]{% help to place the nodes
+  \begin{scope}[xshift=#1, yshift=#2]
+    #3
+  \end{scope}%
+}
+
+%% Common btree macros
+\newcommand{\btreelink}[2]{% #1: src node; #2: dest node; 
+  \draw[btlink] ([yshift=3pt] #1.south) -- (#2-b.north);
+}
+
+\newcommand{\btreelinknorth}[2]{% #1: src node; #2: dest node; 
+  \draw[btlink] ([yshift=3pt] #1.south) -- (#2.north);
+}
+
+\newcommand{\btreetriangle}[2]{% #1: node name; #2 text inside
+  \node[anchor=north, regular polygon, regular polygon sides=3, draw] (#1) {#2};
+}
+
+%%======================================================================
+%% btree with capacity = 4
+\newcommand{\btreeinodefour}[5]{%
+  \matrix [ampersand replacement=\&] (#1)
+  {
+    \node[btreeptr] (#1-1) {\vphantom{1}}; \& \node[btreeval] (#1-a) {#2}; \&
+    \node[btreeptr] (#1-2) {\vphantom{1}}; \& \node[btreeval] (#1-b) {#3}; \&
+    \node[btreeptr] (#1-3) {\vphantom{1}}; \& \node[btreeval] (#1-c) {#4}; \&
+    \node[btreeptr] (#1-4) {\vphantom{1}}; \& \node[btreeval] (#1-d) {#5}; \&
+    \node[btreeptr] (#1-5) {\vphantom{1}}; \\
+  };
+}
+\newcommand{\btreelnodefour}[5]{%
+  \matrix [ampersand replacement=\&, outer sep=0pt, matrix anchor=north] (#1)
+  {
+    \node[btreevale] (#1-a) {\suppressemptystr{#2}}; \&
+    \node[btreevale] (#1-b) {\suppressemptystr{#3}}; \&
+    \node[btreevale] (#1-c) {\suppressemptystr{#4}}; \&
+    \node[btreevale] (#1-d) {\suppressemptystr{#5}}; \\
+  };
+}
+
+%%======================================================================
+%% btree with capacity = 3
+\newcommand{\btreeinodethree}[4]{%
+  \matrix [ampersand replacement=\&] (#1)
+  {
+    \node[btreeptr] (#1-1) {\vphantom{1}}; \& \node[btreeval] (#1-a) {#2}; \&
+    \node[btreeptr] (#1-2) {\vphantom{1}}; \& \node[btreeval] (#1-b) {#3}; \&
+    \node[btreeptr] (#1-3) {\vphantom{1}}; \& \node[btreeval] (#1-c) {#4}; \&
+    \node[btreeptr] (#1-4) {\vphantom{1}}; \\
+  };
+}
+\newcommand{\btreelnodethree}[4]{%
+  \matrix [ampersand replacement=\&, outer sep=0pt, matrix anchor=north] (#1)
+  {
+    \node[btreevale] (#1-a) {\suppressemptystr{#2}}; \&
+    \node[btreevale] (#1-b) {\suppressemptystr{#3}}; \&
+    \node[btreevale] (#1-c) {\suppressemptystr{#4}}; \\
+  };
+}
+
+%%======================================================================
+%% btree with capacity = 2
+\newcommand{\btreeinodetwo}[4]{%
+  \matrix [ampersand replacement=\&] (#1)
+  {
+    \node[btreeptr] (#1-1) {\vphantom{1}}; \& \node[btreeval] (#1-a) {#2}; \&
+    \node[btreeptr] (#1-2) {\vphantom{1}}; \& \node[btreeval] (#1-b) {#3}; \&
+    \node[btreeptr] (#1-3) {\vphantom{1}}; \\
+  };
+}
+\newcommand{\btreelnodetwo}[3]{%
+  \matrix [ampersand replacement=\&, outer sep=0pt, matrix anchor=north] (#1)
+  {
+    \node[btreevale] (#1-a) {\suppressemptystr{#2}}; \&
+    \node[btreevale] (#1-b) {\suppressemptystr{#3}}; \\
+  };
+}
+%%======================================================================
+
+
+
+
+%% simple example
+%  \begin{center}
+%    \scalebox{0.7}{
+%      \begin{tikzpicture}
+%        % 
+%        \btreeinodefour{root}{13}{17}{24}{30};
+%        \xyshift{-40mm}{-20mm}{\btreelnodefour{n1}{2}{3}{5}{7}}
+%        \xyshift{-0mm}{-20mm}{\btreelnodefour{n2}{14}{16}{}{}}
+%        \xyshift{40mm}{-20mm}{\btreelnodefour{n3}{19}{20}{22}{}}
+%        \xyshift{80mm}{-20mm}{\btreelnodefour{n4}{24}{27}{29}{}}
+%        \xyshift{120mm}{-20mm}{\btreelnodefour{n5}{33}{34}{38}{39}}
+%        %
+%        \foreach \x in {1,2,...,5} { \btreelink{root-\x}{n\x} }
+%      \end{tikzpicture}
+%    }
+%  \end{center}
