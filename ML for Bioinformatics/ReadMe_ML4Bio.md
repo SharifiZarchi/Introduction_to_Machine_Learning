@@ -1,7 +1,7 @@
 # Machine Learning for Bioinformatics
 A course for M.Sc. students of Bioinformatics, Computer Engineering Department, Sharif University of Technology.
 
-The course is instructed in Persian (Farsi) language, yet the HWs are provided in English.
+The course is instructed in Persian (Farsi) language, yet the HWs and Workshops are provided in English.
 
 All course materials are freely available under Creative Commons BY license.
 
