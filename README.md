@@ -1,12 +1,9 @@
-# Introduction to Machine Learning
-A course for B.Sc. students, Computer Engineering Department, Sharif University of Technology.
+# مقدمه‌ای بر یادگیری ماشین
+محتوای دوره‌ی مقدمه‌ای بر یادگیری ماشین. این دوره به اتفاق آقای بهروز آذرخلیلی برای دانشجویان کارشناسی مهندسی کامپیوتر دانشگاه صنعتی شریف ارائه گردیده است. 
 
-The course is instructed in Persian (Farsi) language. 
+برای دیدن محتوای ژوپیتر (که به شما امکان دیدن درس‌نامه و کدزدن در یک صفحه‌ی وب را می‌دهد) لازم است ابتدا [از این صفحه](https://jupyter.org/install) ژوپیتر را در کامپیوتر خود نصب کنید. محتوای ژوپیتر این دوره به زبان برنامه‌نویسی پایتون است.
 
-All course materials (Slides, Jupyter Notebooks, Theory and Practical Assignments, Projects, etc.) are freely available under Creative Commons BY license.
+برای دسترسی به ویدئوهای این دوره می‌توانید به آدرس زیر بروید:
+* [مکتب‌خونه](https://maktabkhooneh.org/course/آموزش-رایگان-مقدمه-یادگیری-ماشین-mk1815/))
 
-Co-instructors: Behrooz Azarkhalili, Ali Sharifi-Zarchi
-
-## Copyright Notice
-All materials are provided under Creative-Commons BY license. 
-This course is crowd-sourced by a group of volunteer university students. If you noticed any copyright violation in texts, figures, etc., please report it by sending an email to sharifi [at] sharif [dot] edu
+تمامی محتوای این دوره و ویدئوها رایگان است. شما می‌توانید به دل‌خواه خود آن را تغییر دهید و بازنشر کنید. پیشنهاد می‌شود در هنگام بازنشر به این نشانی پیوند دهید.
