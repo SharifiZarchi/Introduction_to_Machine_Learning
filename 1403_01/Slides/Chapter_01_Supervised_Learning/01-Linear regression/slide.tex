@@ -788,5 +788,203 @@ J^{(i)}(\mathbf{w}) = \left( y^{(i)} - \mathbf{w}^T \mathbf{x}^{(i)} \right)^2
     \end{itemize}
 \end{frame}
 
+\begin{frame}{Example of Predictive Distribution}
+\small Example: Sinusoidal data with 9 Gaussian basis functions.
+
+\vspace{0.3cm}
+\begin{minipage}{0.65\textwidth}
+    \centering
+    \includegraphics[width=0.9\textwidth]{pic/9.png}
+    \caption*{\scriptsize \textit{Figure adapted from Machine Learning and Pattern Recognition, Bishop.}}
+\end{minipage}%
+\begin{minipage}{0.3\textwidth}
+    \vspace{0.5cm} % Adjust vertical alignment of the text if needed
+    \begin{itemize}
+        \item \textbf{Red curve}: Mean of the predictive distribution.
+        \item \textbf{Pink region}: One standard deviation from the mean.
+    \end{itemize}
+\end{minipage}
+\end{frame}
+
+
+\section{Generalization}
+\begin{frame}{Generalization Overview}
+    \textbf{Main Idea}: The ability of a model to perform well on unseen data
+    \begin{itemize}
+        \item \textbf{Training Set}: \( D = \{(x_i, y_i)\}_{i=1}^n \)
+        \item \textbf{Test Set}: New data not seen during training
+        \item \textbf{Cost Function}: Measures how well the model fits data
+        \[
+        J(w) = \sum_{i=1}^{n} (y_i - h_w(x^{(i)}))^2
+        \]
+        \item \textbf{Objective}: Minimize the cost function on unseen data (generalization error)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Expected Test Error}
+    \textbf{Definition}: Expected performance on unseen data
+    \begin{itemize}
+        \item Test data sampled from the same distribution \( p(x, y) \)
+        \[
+        J(w) = \mathbb{E}_{p(x,y)}[(y - h_w(x))^2]
+        \]
+        \item Approximate using test set \( \hat{J}(w) \)
+        \item Generalization error is the gap between training and test performance.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Training vs Test Error}
+    \textbf{Key Concept}: Training error measures fit on known data, test error on unseen data
+    \begin{itemize}
+        \item \textbf{Training error}:
+        \[
+        J_{\text{train}}(w) = \frac{1}{n} \sum_{i=1}^{n} (y_i - h_w(x^{(i)}))^2
+        \]
+        \item \textbf{Test error}:
+        \[
+        J_{\text{test}}(w) = \frac{1}{m} \sum_{i=1}^{m} (y_i^{\text{test}} - h_w(x_i^{\text{test}}))^2
+        \]
+        \item \textbf{Goal}: Minimize the test error (generalization).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Overfitting Definition}
+    \textbf{Concept}: A model fits the training data well but performs poorly on the test set
+    \[
+    J_{\text{train}}(w) \ll J_{\text{test}}(w)
+    \]
+    \begin{itemize}
+        \item Causes: Model too complex, high variance
+        \item Consequence: Captures noise in training data, fails on unseen data
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Example: Regression using polynomial curve}
+\begin{minipage}{0.45\textwidth}
+        \includegraphics[width=\linewidth]{pic/10.png}
+        \captionof{Figure adapted from Machine Learning and Pattern Recognition, Bishop.}
+    \end{minipage}%
+\begin{minipage}{0.3\textwidth}
+    \vspace{0.5cm} % Adjust vertical alignment of the text if needed
+    \begin{itemize}
+            \item \[t = \sin(2 \pi x) + \epsilon\]
+        \end{itemize}
+\end{minipage}
+\end{frame}
+
+
+\begin{frame}{Underfitting Definition}
+    \textbf{Concept}: The model is too simple and cannot capture the structure of the data
+    \[
+    J_{\text{train}}(w) \approx J_{\text{test}}(w) \gg 0
+    \]
+    \begin{itemize}
+        \item Causes: Model lacks complexity, high bias
+        \item Consequence: Poor fit on both training and test data
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Bias-Variance Decomposition}
+    \textbf{Generalization error decomposition}:
+    \[
+    \mathbb{E}[(y - h_w(x))^2] = (\text{Bias})^2 + \text{Variance} + \text{Noise}
+    \]
+    \begin{itemize}
+        \item \textbf{Bias}: Error due to simplifying assumptions in the model
+        \[
+        \text{Bias}(x) = \mathbb{E}[h_w(x)] - f(x)
+        \]
+        \item \textbf{Variance}: Sensitivity of the model to training data
+        \[
+        \text{Variance}(x) = \mathbb{E}[(h_w(x) - \mathbb{E}[h_w(x)])^2]
+        \]
+        \item \textbf{Noise}: Irreducible error from the inherent randomness in data
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{High Bias in Simple Models}
+    \textbf{Explanation}: Simple models, such as linear regression, often underfit
+    \[
+    h_w(x) = w_0 + w_1 x
+    \]
+    \begin{itemize}
+        \item Bias remains large even with infinite data
+        \[
+        \text{Bias}^2 \gg \text{Variance}
+        \]
+        \item Leads to large generalization error
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{High Variance in Complex Models}
+    \textbf{Explanation}: Complex models tend to overfit
+    \[
+    h_w(x) = w_0 + w_1 x + w_2 x^2 + \dots + w_m x^m
+    \]
+    \begin{itemize}
+        \item Variance dominates when the model is too complex
+        \[
+        \text{Variance} \gg \text{Bias}
+        \]
+        \item Fits noise, leading to high test error
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Bias-Variance Tradeoff}
+    \textbf{Tradeoff}: Balancing between bias and variance is key for optimal performance
+    \begin{itemize}
+        \item Low complexity: High bias, low variance
+        \item High complexity: Low bias, high variance
+    \end{itemize}
+    \[
+    \text{Generalization error} = (\text{Bias})^2 + \text{Variance} + \text{Noise}
+    \]
+\end{frame}
+
+\begin{frame}{Regularization}
+    \textbf{Purpose}: Prevent overfitting by penalizing large weights
+    \[
+    J_{\lambda}(w) = J(w) + \lambda R(w)
+    \]
+    \begin{itemize}
+        \item Common regularizer: \( R(w) = ||w||_2^2 \) (L2 norm)
+        \item \( \lambda \): Controls balance between fit and simplicity
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Effect of Regularization Parameter \( \lambda \)}
+    \textbf{Balancing Fit and Complexity}:
+    \[
+    J_{\lambda}(w) = J(w) + \lambda \sum_{j=1}^{m} w_j^2
+    \]
+    \begin{itemize}
+        \item Large \( \lambda \): Reduces complexity, increases bias, decreases variance
+        \item Small \( \lambda \): Increases complexity, reduces bias, increases variance
+    \end{itemize}
+\end{frame}
+
+\section{Cross-validation}
+\begin{frame}{Cross-Validation Concept}
+    \textbf{Purpose}: Estimate model performance and prevent overfitting
+    \[
+    J_v(w) = \frac{1}{v_{\text{set}}} \sum_{i \in v_{\text{set}}} (y_i - h_w(x^{(i)}))^2
+    \]
+    \begin{itemize}
+        \item Use validation error \( J_v(w) \) to select the best model
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{k-Fold Cross-Validation (CV)}
+    \textbf{k-Fold Procedure}:
+    \[
+    \text{For each } i = 1 \text{ to } k, \text{train on all except } i\text{-th part, validate on } i\text{-th part.}
+    \]
+    \begin{itemize}
+        \item Average performance across \( k \) runs
+        \item Common choices: \( k = 5 \), \( k = 10 \)
+    \end{itemize}
+\end{frame}
+
 
 \end{document}
