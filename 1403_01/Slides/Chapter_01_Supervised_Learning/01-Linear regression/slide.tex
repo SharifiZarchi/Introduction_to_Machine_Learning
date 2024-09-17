@@ -975,15 +975,80 @@ J^{(i)}(\mathbf{w}) = \left( y^{(i)} - \mathbf{w}^T \mathbf{x}^{(i)} \right)^2
     \end{itemize}
 \end{frame}
 
-\begin{frame}{k-Fold Cross-Validation (CV)}
-    \textbf{k-Fold Procedure}:
+\begin{frame}{k-Fold Cross Validation (CV)}
+  \begin{itemize}
+    \item Procedure:
     \[
     \text{For each } i = 1 \text{ to } k, \text{train on all except } i\text{-th part, validate on } i\text{-th part.}
     \]
-    \begin{itemize}
-        \item Average performance across \( k \) runs
-        \item Common choices: \( k = 5 \), \( k = 10 \)
-    \end{itemize}
+    \item Average performance over all \( k \) runs to estimate true model performance
+    \item Common choices for \( k \): 5, 10
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Leave-One-Out Cross Validation (LOOCV)}
+  \begin{itemize}
+    \item Special case where \( k = n \) (Leave-One-Out Cross Validation)
+    \item Each training point is left out once, training on the remaining data
+    \item Computationally expensive but provides an unbiased estimate of generalization error
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Model Complexity Selection via Cross-Validation}
+  \begin{itemize}
+    \item Use cross-validation to select the model with the lowest validation error
+    \[
+    J_v(w) = \frac{1}{v_{\text{set}}} \sum_{i \in v_{\text{set}}} (y_i - h_w(x^{(i)}))^2
+    \]
+    \item Ensures model neither underfits nor overfits
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Cross-Validation for Regularization}
+  \begin{itemize}
+    \item Use cross-validation to select the regularization parameter \( \lambda \)
+    \[
+    \lambda^* = \arg \min_{\lambda} J_v(w)
+    \]
+    \item Choose \( \lambda \) that minimizes the validation error
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Model Selection and Regularization}
+  \begin{itemize}
+    \item Hyperparameters (e.g., \( \lambda \)) control model complexity
+    \item Cross-validation helps select hyperparameters that minimize validation error
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Training Size and Generalization}
+  \begin{itemize}
+    \item Larger datasets generally reduce variance and improve generalization
+    \[
+    J_{\text{train}}(w), J_v(w) \text{ vs training size}
+    \]
+    \item More data generally improves generalization, but diminishing returns apply
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Regularization and Data Size}
+  \begin{itemize}
+    \item Regularization is especially important for small datasets to prevent overfitting
+    \[
+    J_{\lambda}(w) = J(w) + \lambda ||w||_2^2
+    \]
+    \item Large \( \lambda \) reduces variance for small data
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Model Selection via Validation Error}
+  \begin{itemize}
+    \item Find the model that minimizes validation error
+    \[
+    J_v(w) = \frac{1}{v_{\text{set}}} \sum_{i \in v_{\text{set}}} (y_i - h_w(x^{(i)}))^2
+    \]
+    \item Select the model with the lowest validation error
+  \end{itemize}
 \end{frame}
 
 
