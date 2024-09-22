@@ -21,6 +21,8 @@
 \usepackage{colortbl}
 \usepackage{times}
 \usepackage{fancyhdr,graphicx,amsmath,amssymb,algorithm,algpseudocode,mathtools,needspace}
+\usepackage{tikz}
+    \usetikzlibrary{positioning}
 % For writing comments that are aligned to the left side
 \makeatletter
 \NewDocumentCommand{\LeftComment}{s m}{%
@@ -110,18 +112,61 @@ subsubsectionstyle=show/shaded/hide]
     \begin{itemize}\itemsep2em
         \item Given: Training Set
         \begin{itemize}
-            \item A dataset \(D\) with \(N\) labeled instances \(D \, = \, \{(x^{(i)}, \, y^{(i)})\}^N_{i=1}\)
+            \item A dataset \(D\) with \(N\) labeled instances \(D \, = \, \{(\mathbf{x}^{(i)}, \, y^{(i)})\}^N_{i=1}\)
             \item $y^{(i)} \in \{1, \, ... \, , K\}$
         \end{itemize}
-        \item Goal: Given an input $x$, assign it to one of $K$ classes
-        \item Real-World Examples:
-        \begin{itemize}
-            \item Email Spam Detection
-            \item Credit Scoring
-            \item Churn Prediction
-            \item ...
+    \end{itemize}
+    \minipage{0.55\textwidth}
+    \begin{itemize}
+        \item \justifying Goal: Given an input $x$, assign it to one of $K$ classes.
+            \item Real-World Examples:
+            \begin{itemize}
+                \item Email Spam Detection
+                \item Medical Diagnosis
+                \item Churn Prediction
+            \end{itemize}
+    \end{itemize}
+    \endminipage
+    \hfill
+    \minipage{0.42\textwidth}
+    \begin{figure}
+            \centering
+            \includegraphics[width=\linewidth]{pic/Figure_30.png}
+        \end{figure}
+    \endminipage
+\end{frame}
+
+\begin{frame}{Real-World Example of Classification}
+    \begin{itemize}
+        \justifying
+        \item \textbf{Pima Indians Diabetes Dataset:}
+        \medskip
+        \begin{itemize}\itemsep.8em
+            \item \textbf{Problem}:
+            Predict whether a patient has diabetes based on medical diagnostics.
+            \item \textbf{Context}:
+            Early detection of diabetes is critical for treatment and management.
         \end{itemize}
     \end{itemize}
+
+    \begin{table}[]
+        \resizebox{\textwidth}{!}{%
+        \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+\hline
+\rowcolor[HTML]{C0C0C0} 
+\cellcolor[HTML]{000000}                                                  & Number of times pregnant                          & Glucose                                           & Blood Pressure                                    & Skin Thickness                                    & Insulin                                           & Diabetes pedigree function                        & Age                                               & BMI                                               & Label                                             \\ \hline
+\cellcolor[HTML]{C0C0C0}Patient 1                                         & 6                                                 & 148                                               & 72                                                & 35                                                & 0                                                 & 0.627                                             & 50                                                & 33.6                                              & \cellcolor[HTML]{FE0000}Positive                  \\ \hline
+\cellcolor[HTML]{C0C0C0}Patient 2                                         & 1                                                 & 85                                                & 66                                                & 29                                                & 0                                                 & 0.351                                             & 31                                                & 26.6                                              & \cellcolor[HTML]{32CB00}Negative                  \\ \hline
+\cellcolor[HTML]{C0C0C0}Patient 3                                         & 0                                                 & 137                                               & 40                                                & 35                                                & 168                                               & 2.288                                             & 33                                                & 43.1                                              & \cellcolor[HTML]{FE0000}Positive                  \\ \hline
+\cellcolor[HTML]{C0C0C0}Patient 4                                         & 1                                                 & 89                                                & 66                                                & 23                                                & 94                                                & 0.167                                             & 21                                                & 28.1                                              & \cellcolor[HTML]{32CB00}Negative                  \\ \hline
+\cellcolor[HTML]{C0C0C0}\begin{tabular}[c]{@{}c@{}}.\\ .\\ .\end{tabular} & \begin{tabular}[c]{@{}c@{}}.\\ .\\ .\end{tabular} & \begin{tabular}[c]{@{}c@{}}.\\ .\\ .\end{tabular} & \begin{tabular}[c]{@{}c@{}}.\\ .\\ .\end{tabular} & \begin{tabular}[c]{@{}c@{}}.\\ .\\ .\end{tabular} & \begin{tabular}[c]{@{}c@{}}.\\ .\\ .\end{tabular} & \begin{tabular}[c]{@{}c@{}}.\\ .\\ .\end{tabular} & \begin{tabular}[c]{@{}c@{}}.\\ .\\ .\end{tabular} & \begin{tabular}[c]{@{}c@{}}.\\ .\\ .\end{tabular} & \begin{tabular}[c]{@{}c@{}}.\\ .\\ .\end{tabular} \\ \hline
+\end{tabular}
+        %
+        }
+\end{table}
+
+
+
 \end{frame}
 
 \begin{frame}{Classification vs. Regression}
@@ -131,11 +176,9 @@ subsubsectionstyle=show/shaded/hide]
         >{\columncolor[HTML]{C0C0C0}}c |c|c|}
         \hline
         \textbf{Aspect}        & \cellcolor[HTML]{C0C0C0}\textbf{Linear Regression}                                                & \cellcolor[HTML]{C0C0C0}\textbf{Linear Classification}                                           \\ \hline
-        \textbf{Purpose}       & \begin{tabular}[c]{@{}c@{}}Predicts a continuous\\ output (e.g., price, temperature)\end{tabular} & \begin{tabular}[c]{@{}c@{}}Predicts a discrete\\ class label (e.g., spam/not spam)\end{tabular}  \\ \hline
         \textbf{Output Type}   & Continuous values (real numbers).                                                                 & \begin{tabular}[c]{@{}c@{}}Binary or Multi-class labels\\ (e.g., 0/1, A/B/C)\end{tabular}        \\ \hline
         \textbf{Use Cases}     & \begin{tabular}[c]{@{}c@{}}Predicting house prices,\\ stock market trends.\end{tabular}           & \begin{tabular}[c]{@{}c@{}}Email spam detection,\\ Credit Scoring, Churn Prediction\end{tabular} \\ \hline
         \end{tabular}
-        \caption{Linear Regression vs. Linear Classification}
         \label{tab:my-table}
     \end{table}
 \end{frame}
@@ -145,18 +188,18 @@ subsubsectionstyle=show/shaded/hide]
 
 \begin{frame}{Discriminant Functions in Machine Learning}
     \begin{itemize}
-        \item \textbf{Definition:}
+        \item \textbf{Definition}
         \medskip
         \begin{itemize}\itemsep1.5em
             \item \justifying A function that assigns a score to an input vector $x$, to classify it into different classes.
-            \item \justifying It maps the input \textbf{$x$} to a real number \textbf{$g(x)$}, which represents the degree of confidence in assigning \textbf{$x$} to a particular class.
+            \item \justifying It maps the input $\mathbf{x}$ to a real number $g(\mathbf{x})$, which represents the degree of confidence in assigning $\mathbf{x}$ to a particular class.
         \end{itemize}
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Discriminant Functions in Machine Learning}
     \begin{itemize}
-        \item \textbf{How it works:}
+        \item \textbf{How it works}
         \medskip
         \begin{itemize}\itemsep1.5em
             \item \justifying \textbf{Binary Classification}: Two functions \textbf{$g_1(\mathbf{x})$} and \textbf{$g_2(\mathbf{x})$} for classes $C_1$ and $C_2$, respectively. The class is predicted by comparing these two functions:
@@ -177,27 +220,24 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 \begin{frame}{Decision Boundary}
-    \begin{itemize}\itemsep2em
-        \item \justifying \textbf{Definition}: A dividing hyperplane that separates different classes in a feature space, determining how data points are classified. Also known as "Decision Surface".
-        
-        \item \justifying \textbf{How to find}: Decision boundaries can be found using discriminant functions.
-        \begin{itemize}
-            \item Boundary $H$ between two classes $i$ and $j$, separating samples between them:
-            $$
-                \forall \mathbf{x} \in H \, ,\, \, \, \, g_i(\mathbf{x}) = g_j(\mathbf{x})
-            $$
-        \end{itemize}
+    \begin{itemize}
+        \item \justifying \textbf{Definition}: A dividing hyperplane that separates different classes in a feature space, also known as "Decision Surface".
+        \medskip
+        \begin{figure}
+            \centering
+            \includegraphics[width=.85\linewidth]{pic/Figure_24.png}
+        \end{figure}
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Discriminant Functions: Two-Category}
     \begin{itemize}\itemsep1.5em
-        \item \justifying \textbf{Function}: For two-category problem, we can only find a function $f \, : \, \mathbb{R}^d \rightarrow \mathbb{R}$
+        \item \justifying \textbf{Function}: For two-category problem, we can only find a function $g \, : \, \mathbb{R}^d \rightarrow \mathbb{R}$
         \begin{itemize}
-            \item $f_1(x) \, = \, f(x)$,
-            \item $f_2(x) \, = \, -f(x)$
+            \item $g_1(\mathbf{x}) \, = \, g(\mathbf{x})$,
+            \item $g_2(\mathbf{x}) \, = \, -g(\mathbf{x})$
         \end{itemize}
-        \item \textbf{Decision Boundary}: $f(x) \, = \, 0$
+        \item \textbf{Decision Boundary}: $g(\mathbf{x}) \, = \, 0$
         \item \justifying At first, we start by explaining two-category classification for simplicity, and then extend the concept to multi-category classification for more complex problems.
     \end{itemize}
 \end{frame}
@@ -210,16 +250,17 @@ subsubsectionstyle=show/shaded/hide]
         \item \justifying \textbf{Definition}: In case of linear classifiers, decision boundaries are linear in $d$ (\(\mathbf{x} \in \mathbb{R}^d\)), or linear in some given set of functions of $x$.
         \item \justifying \textbf{Linearly separable data}: Data points that can be exactly separated by a linear decision boundary.
         \item \textbf{Why are they popular?}
+        \smallskip
         \begin{itemize}
-            \item \justifying Linear classifiers are popular due to their simplicity, efficiency, and effectiveness in solving many practical classification problems
+            \item \justifying Simplicity, Efficiency, Effectiveness.
         \end{itemize}
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Two Category Classification}
+    \minipage{.5\textwidth}
     \begin{itemize}\itemsep1.5em
-        \item \(f(\mathbf{x}) \, = \, \mathbf{w}^T\mathbf{x} + w_0\) = 
-        \(f(\mathbf{x}) \, = w_d \cdot x_d + ... + w_1 \cdot x_1 + w_0\)
+        \item \(g(\mathbf{x}) \, = \, \mathbf{w}^T\mathbf{x} + w_0 \, = \, w_d \cdot x_d + ... + w_1 \cdot x_1 + w_0\)
         \begin{itemize}
             \item \(\mathbf{x} = [x_1 \, \, ... \, \, x_d]\)
             \item \(\mathbf{w} = [w_1 \, \, ... \, \, w_d]\)
@@ -231,20 +272,15 @@ subsubsectionstyle=show/shaded/hide]
                 C_2 & \text{otherwise}
             \end{cases}
             \)
-        \item \justifying \textbf{Decision Surface}: \(\mathbf{w}^T\mathbf{x} + w_0 \quad \Longrightarrow \quad \mathbf{w}\) is orthogonal to every vector lying within the decision surface.
+        \item \justifying \textbf{Decision Surface}: \(\mathbf{w}^T\mathbf{x} + w_0\)
     \end{itemize}
-\end{frame}
-
-\begin{frame}{Example}
-    \begin{center}
-    \minipage{0.6\textwidth}
-    \begin{figure}[bh]
-        \includegraphics[width=\textwidth]{pic/Figure_1.png}
-    \end{figure}
-    
     \endminipage
-        
-    \end{center}
+    \hfill
+    \minipage{.48\textwidth}
+        \begin{figure}[bh]
+            \includegraphics[width=\linewidth]{pic/Figure_1.png}
+        \end{figure}
+    \endminipage
 \end{frame}
 
 
@@ -255,158 +291,18 @@ subsubsectionstyle=show/shaded/hide]
         \begin{itemize}\itemsep0.7em
             \item Orientation of \(H\) is determined by the normal vector \([w_1 \, ... \, w_d]\) (\(\frac{w}{\Vert w \Vert}\)).
             \item \(w_0\) determines the location of the surface.
-            \begin{itemize}
-                \item \(\frac{w_0}{\Vert w \Vert}\) Normal distance from origin to decision surface.
-            \end{itemize}
         \end{itemize}
     \end{itemize}
-    \minipage{0.45\textwidth}
-            \begin{itemize}
-                \item[]
-                \begin{center}
-                    \(\mathbf{x} \, = \, \mathbf{x_p} \, + \, r \cdot \frac{\mathbf{w}}{\Vert\mathbf{w}\Vert}\)
-                \end{center}
-                \item[]
-                \begin{center}
-                    \(g(\mathbf{x}) \, = \, \mathbf{w}^t\mathbf{x} \, + \, w_0 \, = \, r \cdot \Vert\mathbf{w}\Vert \Rightarrow r \, = \, \frac{g(\mathbf{x})}{\Vert\mathbf{w}\Vert}\)
-                \end{center}
-            \end{itemize}
-            \endminipage
-            \hfill
-            \minipage{0.4\textwidth}
-            \begin{figure}[bh]
-                \includegraphics[width=.6\textwidth]{pic/Figure_2.png}
-            \end{figure}
-            \endminipage
-\end{frame}
-
-\begin{frame}{Linear Boundary: Geometry}
-    \begin{center}
-    \minipage{0.45\textwidth}
-    \begin{itemize}
-        \item \justifying Geometry of a linear discriminant in 2D. The decision boundary (red line), orthogonal to \(\mathbf{w}\), shifted by the bias \(w_0\).
-        \item[] \justifying The orthogonal distance of point 
-\(\mathbf{x}\) from the boundary is determined by \(\frac{g(\mathbf{x})}{\Vert w \Vert}\).
-    \end{itemize}
-    \endminipage
-    \hfill
-    \minipage{0.5\textwidth}
-    \begin{figure}[bh]
-        \includegraphics[width=\textwidth]{pic/Figure_3.png}
-    \end{figure}
-    
-    \endminipage
-        
-    \end{center}
-\end{frame}
-
-\begin{frame}{Multi-Category Classification}
-    \begin{itemize}
-        \item \textbf{Solutions to multi-category classification problem}:
-        \medskip
-        \begin{itemize}\itemsep1.5em
-            \item Extend the learning algorithm to support multi-class.
-            \medskip
-            \begin{itemize}\itemsep1em
-                \item First, a function \(g_i\) for every class \(C_i\) is found.
-                \item Second, \(\mathbf{x}\) is assigned to \(C_i\) if \(g_i(\mathbf{x}) > g_j(\mathbf{x}) \quad \forall i \neq j\)
-                \item[] \[\hat{y} \, = \, \argmax_{i=\text{1,...,c}} \, g_i(\mathbf{x})\]
-            \end{itemize}
-            \item Convert to a set of two-categorical problems.
-            \medskip
-            \begin{itemize}
-                \item Methods like \textbf{One-vs-Rest} or \textbf{One-vs-One}, where each classifier distinguishes between either \textbf{one class and the rest}, or \textbf{between pairs of classes}.
-            \end{itemize}
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Multi-Category Classification}
-    \begin{itemize}
-        \item \textbf{One-vs-Rest} (One-vs-All):
-    \end{itemize}
-    \begin{center}
-        \minipage{.7\textwidth}
-            \begin{figure}[bh]
-                \includegraphics[width=.6\textwidth]{pic/Figure_4.png}
-            \end{figure}
-        \endminipage
-    \end{center}
-\end{frame}
-
-\begin{frame}{Multi-Category Classification}
-    \begin{itemize}
-        \item \textbf{One-vs-One}:
-    \end{itemize}
-    \begin{center}
-        \minipage{.7\textwidth}
-            \begin{figure}[bh]
-                \includegraphics[width=.6\textwidth]{pic/Figure_5.png}
-            \end{figure}
-        \endminipage
-    \end{center}
-\end{frame}
-
-\begin{frame}{Multi-Category Classification: Ambiguity}
-    \begin{itemize}
-        \item One-vs-One and One-vs-Rest conversion can lead to regions in which the classification is \textbf{undefined}.
-    \end{itemize}
-    \minipage{.4\textwidth}
-    \begin{figure}[bh]
+    \begin{figure}
         \centering
-        \includegraphics[width=0.65\linewidth]{pic/Figure_6.png}
+        \includegraphics[width=\linewidth]{pic/Figure_25.png}
     \end{figure}
-    \begin{figure}[bh]
-        \centering
-        \includegraphics[width=0.65\linewidth]{pic/Figure_7.png}
-    \end{figure}
-    \endminipage
-    \hfill
-    \minipage{.5\textwidth}
-    \begin{figure}[bh]
-        \centering
-        \includegraphics[width=.6\linewidth]{pic/Figure_8.png}
-    \end{figure}
-    \endminipage
-\end{frame}
-
-
-\begin{frame}{Multi-Category Classification: Linear Machines}
-    \begin{itemize}\itemsep1.5em
-        \item \justifying \textbf{Linear Machines}: Alternative to One-vs-Rest and One-vs-One methods; 
-        Each class is represented by its own discriminant function.
-        \item \justifying \textbf{Decision Rule:} 
-        \[\hat{y} \, = \, \argmax_{i=\text{1,...,c}} \, g_i(\mathbf{x})\]
-        The predicted class is the one with the highest discriminant function value.
-        \item \textbf{Decision Boundary}:
-        \(g_i(\mathbf{x}) \, = \, g_j(\mathbf{x})\)
-        \[(\mathbf{w}_i - \mathbf{w}_j)^T\mathbf{x} + (w_{0i} - w_{0j}) = 0\]
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Linear Machines Cont.}
-    \begin{center}
-        \minipage{.35\textwidth}
-            \begin{figure}[bh]
-                \includegraphics[width=\textwidth]{pic/Figure_9.png}
-            \end{figure}
-        \endminipage
-    \end{center}
-    \hspace{4cm}
-    \begin{itemize}\itemsep1.5em
-        \item \justifying The decision regions of this discriminant are \textbf{convex} and \textbf{singly connected}. Any point on the line between two points within the same region can be expressed as 
-\(
-\mathbf{x} = \lambda \mathbf{x}_A + (1 - \lambda) \mathbf{x}_B
-\)
-where \( \mathbf{x}_A, \mathbf{x}_B \in R_k \).
-
-    \end{itemize}
 \end{frame}
 
 \begin{frame}{Non-linear decision boundary}
     \minipage{.45\textwidth}
     \begin{itemize}
-        \item \textbf{Non-linear Decision Boundaries:}
+        \item \textbf{Non-linear Decision Boundaries}
         \begin{itemize}\itemsep1em
             \item \justifying \textbf{Feature Transformation}: Non-linearity is introduced by transforming features into a higher-dimensional space.
             \item \justifying \textbf{Linear in Transformed Space}: The decision boundary becomes linear in the new space, but non-linear in the original space.
@@ -424,7 +320,7 @@ where \( \mathbf{x}_A, \mathbf{x}_B \in R_k \).
 \section{Cost Functions}
 \begin{frame}{Cost Functions}
     \begin{itemize}
-        \item \textbf{Cost Functions in Linear Classifiers:}
+        \item \textbf{Cost Functions in Linear Classifiers}
         \medskip
         \begin{itemize}\itemsep1em
             \item Purpose of cost functions is to measure the \textbf{difference} between \textbf{predicted} and \textbf{actual} class labels.
@@ -441,37 +337,33 @@ where \( \mathbf{x}_A, \mathbf{x}_B \in R_k \).
 
 \begin{frame}{Sum of Squared Error Cost Function}
     \begin{itemize}
-        \item \textbf{Sum of Squared Error (SSE) Cost Function:}\itemsep1em
+        \item \textbf{Sum of Squared Error (SSE) Cost Function}\itemsep1em
         \medskip
         \begin{itemize}\itemsep0.8em
-            \item \textbf{Definition}:
-            SSE measures the sum of the squared differences between predicted (\(\hat{y}^{(i)}\)) and actual (\(y^{(i)}\)) labels.
             \item \textbf{Formula}:
-                \[
+                \(
                 J(\mathbf{w}) = \sum_{i=1}^{n} (y^{(i)} - \hat{y}^{(i)})^2 \, , \quad \hat{y}^{(i)} \, = \, \mathbf{w}^T\mathbf{x}^{(i)} \, + \, w_0
-                \]
-            \item \textbf{Limitations}: \\
-            \minipage{0.5\linewidth}
-            \medskip
-        \begin{itemize}
-            \item \justifying \textbf{Low Robustness to Noise}:
-            Prone to overfitting noisy data, as small variations can cause significant changes in the cost.
-        \end{itemize}
-        \endminipage
-        \hspace{1cm}
-        \minipage{0.25\textwidth}
-            \begin{figure}[bh]
-                \includegraphics[width=\textwidth]{pic/Figure_11.png}
-            \end{figure}
-        \endminipage
+                \)
+            \item \justifying SSE minimizes the magnitude of the error, which is ideal for \textbf{regression} but \textcolor{red}{irrelevant} for classification.
         \end{itemize}
     \end{itemize}
+    \minipage{0.6\textwidth}
+    \begin{itemize}
+        \item \justifying If the model predicts close to the true class but not exactly 1 or -1, SSE still shows positive error, even for correct predictions.
+    \end{itemize}
+    \endminipage
+    \minipage{.4\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=.8\linewidth]{pic/Figure_11.png}
+        \end{figure}
+    \endminipage
 \end{frame}
 
 
 \begin{frame}{An Alternative for SSE Cost Function}
     \begin{itemize}
-        \item \textbf{Number of Misclassifications:}\itemsep1em
+        \item \textbf{Number of Misclassifications}\itemsep1em
         \medskip
         \begin{itemize}\itemsep0.8em
             \item \textbf{Definition}:
@@ -498,23 +390,19 @@ where \( \mathbf{x}_A, \mathbf{x}_B \in R_k \).
 \end{frame}
 
 
-\begin{frame}{Perceptron}
+\begin{frame}{Perceptron Algorithm}
     \begin{itemize}
-        \item \textbf{The Perceptron Algorithm:}
+        \item \textbf{The Perceptron Algorithm}
         \medskip
         \begin{itemize}\itemsep1em
-            \item \textbf{Purpose}:
+            \item \justifying \textbf{Purpose}:
             A simple algorithm for binary classification, separating two classes with a linear boundary.
-            \item \textbf{Decision Rule}:
-            \(
-            y = \text{sign}(\mathbf{w}^T \mathbf{x})
-            \)
-            \item Simplifying Assumption:
-            For simplicity, the bias term is built into the vectors \( \mathbf{x} \) and \( \mathbf{w} \).
-            \item \justifying \textbf{Learning Process}:
-            Iteratively updates \( \mathbf{w} \) based on misclassified examples.
         \end{itemize}
     \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\linewidth]{pic/Figure_13.png}
+    \end{figure}
 \end{frame}
 
 
@@ -529,13 +417,6 @@ where \( \mathbf{x}_A, \mathbf{x}_B \in R_k \).
         \item \textbf{Goal}:
         Minimize the loss by correctly classifying all points.
     \end{itemize}
-    \begin{center}
-    \minipage{0.45\textwidth}
-        \begin{figure}[bh]
-            \includegraphics[width=\textwidth]{pic/Figure_13.png}
-        \end{figure}
-    \endminipage
-    \end{center}
 \end{frame}
 
 
@@ -544,14 +425,13 @@ where \( \mathbf{x}_A, \mathbf{x}_B \in R_k \).
         \item \justifying \textbf{Batch Perceptron}:
         Updates the weight vector using all misclassified points in each iteration.
         \item \justifying \textbf{Gradient Descent}:
-        Solves the criterion by adjusting weights in the direction that reduces the loss:
+        Adjusting weights in the direction that reduces the loss:
         \[
         \mathbf{w} \leftarrow \mathbf{w} - \eta \nabla_\mathbf{w} \, J_p(\mathbf{w})
         \]
         \[
         \nabla_\mathbf{w} \, J_p(\mathbf{w}) \, = \, - \sum_{i \in M} y_i \mathbf{x}_i
         \]
-        where \( \eta \) is the learning rate.
         \begin{itemize}
             \item Batch Perceptron converges in finite number of steps for linearly separable data.
         \end{itemize}
@@ -560,22 +440,21 @@ where \( \mathbf{x}_A, \mathbf{x}_B \in R_k \).
 
 \begin{frame}{Single-sample Perceptron}
     \begin{itemize}\itemsep1.5em
-        \item \textbf{Single Sample Perceptron}: Updates the weight vector after each individual misclassified point.
+        \item \justifying \textbf{Single Sample Perceptron}: Updates the weight vector after each individual point.
         \item \textbf{Stochastic Gradient Descent (SGD) Update Rule:}
         \smallskip
         \begin{itemize}\itemsep1em
-            \item Update is performed using a single misclassified sample:
+            \item Using only one misclassified sample at a time:
             \[
             \mathbf{w} \leftarrow \mathbf{w} + \eta y_i \mathbf{x}_i
             \]
-            where \( y_i \) is the label of the misclassified sample and \( \eta \) is the learning rate.
             \item Lower computational cost per iteration, faster convergence.
             \item \justifying If training data are linearly separable, the single-sample perceptron is also guaranteed to find a solution in a finite number of steps.
         \end{itemize}
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Perceptron: Example}
+\begin{frame}{Example}
     \begin{itemize}
         \item Perceptron changes \(\mathbf{w}\) in a direction that corrects error.
     \end{itemize}
@@ -592,9 +471,9 @@ where \( \mathbf{x}_A, \mathbf{x}_B \in R_k \).
         \medskip
         \begin{itemize}\itemsep1em
         \minipage{0.5\textwidth}
-            \item The Perceptron updates its weights based on misclassified points.
-            \item If data is not linearly separable, there will always be some points that the model cannot classify correctly.
+            \item If data is not linearly separable, there will always be some points that the model fails to classify.
             \item As a result, the algorithm keeps adjusting the weights to fix the misclassified points, causing it to never converge.
+            \item For the data that are not linearly separable due to noise, \textbf{Pocket Algorithm} keeps in its pocket the best \(\mathbf{w}\) encountered up to now.
         \endminipage
         \minipage{0.4\textwidth}
         \hspace{1.5cm}
@@ -608,9 +487,6 @@ where \( \mathbf{x}_A, \mathbf{x}_B \in R_k \).
 \end{frame}
 
 \begin{frame}{Pocket Algorithm}
-    \begin{itemize}
-        \item For the data that are not linearly separable due to noise, \textbf{Pocket Algorithm} keeps in its pocket the best \(\mathbf{w}\) encountered up to now.
-    \end{itemize}
     \begin{algorithm}[H]
     \caption{Pocket Algorithm}\label{alg:Pocket Algorithm}
     \begin{algorithmic}[1]
@@ -628,12 +504,167 @@ where \( \mathbf{x}_A, \mathbf{x}_B \in R_k \).
     \end{algorithm}
 \end{frame}
 
+\section{Perceptron}
+
+\begin{frame}{But What Is Perceptron?}
+    \minipage{.65\textwidth}
+    \begin{itemize}
+        \item \textbf{Perceptron Unit}:
+        \medskip
+        \begin{itemize}\itemsep1em
+        \item \justifying \textbf{Basic Building Block}:
+        A perceptron is the simplest type of artificial neuron used in machine learning.
+        \item \justifying \textbf{Linear Classifier}:
+        It maps input features to an output by applying a linear combination and a threshold.
+        \item \justifying \textbf{Binary Decision}:
+        Outputs 1 if the weighted sum of inputs exceeds the threshold, otherwise 0.
+        \item \justifying \textbf{Components}:
+        Inputs, weights, bias, and an activation function (often a step function).
+        \end{itemize}
+    \end{itemize}
+    \endminipage
+    \hfill
+    \minipage{.3\textwidth}
+    \begin{figure}
+        \centering
+        \includegraphics[width=.6\linewidth]{pic/Figure_17.png}
+    \end{figure}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\linewidth]{pic/Figure_18.png}
+    \end{figure}
+    \endminipage
+\end{frame}
+
+
+\begin{frame}{Inspired by Biology}
+    \begin{itemize}
+        \item \textbf{Biological Motivation Behind Perceptron:}
+        \medskip
+        \begin{itemize}\itemsep1em
+            \item \justifying \textbf{Inspired by Neurons}:
+            Perceptron mimics the basic function of biological neurons in the brain.
+            \begin{itemize}
+                \item \justifying Input and Output, Activation Function.
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.55\linewidth]{pic/Figure_19.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Single Neuron}
+    \minipage{.66\textwidth}
+    \begin{itemize}
+        \item \textbf{Single Neuron as a Linear Decision Boundary}
+        \medskip
+        \begin{itemize}\itemsep1em
+        \item \justifying \textbf{Mathematical Form}:
+        The output of a single neuron is computed as:
+        \[
+        y = f(\mathbf{w}^T \mathbf{x} + w_0)
+        \]
+        where:
+        \begin{itemize}
+            \item \( \mathbf{x} \) is the input vector.
+            \item \( \mathbf{w} \) is the weight vector.
+            \item \( w_0 \) is the bias term.
+            \item \( f \) is an activation function (e.g., step function).
+        \end{itemize}
+        
+        \item \justifying \textbf{Linear Separation}: 
+        If the activation function is a step function, the neuron defines a linear decision boundary:
+        \(
+        \mathbf{w}^T \mathbf{x} + w_0 = 0
+        \)
+        \item \textbf{Decision Rule}:
+        Class 1 if \( \mathbf{w}^T \mathbf{x} + w_0 \geq 0 \), otherwise Class 2.
+        \end{itemize}
+    \end{itemize}
+    \endminipage
+    \hfill
+    \minipage{.3\textwidth}
+        \centering Class = \(f(\mathbf{w}^T \mathbf{x} + w_0)\)
+        \begin{figure}
+            \centering
+            \includegraphics[width=\linewidth]{pic/Figure_20.png}
+        \end{figure}
+    \endminipage
+\end{frame}
+
+\begin{frame}{Limitations of a Single Perceptron}
+    \begin{itemize}
+        \item \textbf{What a Single Perceptron Can and Can't Do:}
+        \medskip
+        \begin{itemize}\itemsep1em
+            \item \justifying \textbf{Performs Linear Separations:}
+            A single perceptron can handle linearly separable problems such as:
+            \begin{itemize}
+                \item AND operation
+                \item OR operation
+            \end{itemize}
+            \minipage{.6\textwidth}
+            \item \justifying \textbf{Fails on Non-Linear Problems:}
+            A single perceptron fails to solve non-linear problems like XOR, as the data points cannot be separated by a straight line.
+            \endminipage
+            \hfill
+            \minipage{.3\textwidth}
+            \begin{figure}
+                \centering
+                \includegraphics[width=\linewidth]{pic/Figure_23.png}
+            \end{figure}
+            \endminipage
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Towards Complex Decision Boundaries}
+    \begin{itemize}
+        \item \textbf{Multi-Layer Perceptron (MLP):}
+        \medskip
+        \begin{itemize}\itemsep1em
+            \item \justifying \textbf{Adding Layers for More Complexity}:
+            An MLP consists of multiple layers of neurons that allow us to model more complex functions than a single neuron.
+            \begin{itemize}
+                \item \justifying Each layer introduces new decision boundaries, making it possible to separate non-linear data.
+            \end{itemize}
+            \item \justifying \textbf{Two-Layer Example:}
+            \begin{itemize}
+                \item Input Layer $\rightarrow$ Hidden Layer $\rightarrow$ Output Layer
+                \item Hidden layer introduces non-linear transformations that enable complex decision regions.
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.38\linewidth]{pic/Figure_21.png}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Refining the Decision Boundary}
+    \begin{itemize}
+        \item \justifying \textbf{New Neurons for Better Separation}:
+        By adding more neurons to a layer, we can further refine the decision boundary to better separate complex data.
+        \item \justifying Each additional neuron introduces new features that help the model make more accurate decisions.
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.53\linewidth]{pic/Figure_22.png}
+    \end{figure}
+\end{frame}
+
+
 
 \section{Cross Validation}
 
 \begin{frame}{Model Selection via Cross Validation}
     \begin{itemize}
-        \item \textbf{Cross-Validation:}
+        \item \textbf{Cross-Validation}
         \medskip
         \begin{itemize}\itemsep1em
             \item \justifying \textbf{Purpose}:
@@ -648,20 +679,22 @@ where \( \mathbf{x}_A, \mathbf{x}_B \in R_k \).
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Visualization of Cross-Validation}
+
+\begin{frame}{K-Fold Cross Validation}
     \begin{figure}
         \centering
-        \includegraphics[width=0.8\linewidth]{pic/Figure_16.png}
+        \includegraphics[width=.8\textwidth]{pic/Figure_28.png}
     \end{figure}
 \end{frame}
 
+
 \begin{frame}{Leave-One-Out Cross-Validation (LOOCV)}
     \begin{itemize}
-        \item \textbf{Leave-One-Out Cross-Validation (LOOCV):}
+        \item \textbf{Leave-One-Out Cross-Validation (LOOCV)}
             \medskip
             \begin{itemize}\itemsep1em
-            \item \justifying \textbf{How It Works}: 
-            Uses a single data point as the validation set and the rest as the training set. Repeat for all data points.
+            \item \justifying \textbf{How It Works}:
+            Uses a single data point as the validation set ($k$ = 1) and the rest as the training set. Repeat for all data points.
             \item \textbf{Properties:}
             \smallskip
             \begin{itemize}\itemsep.5em
@@ -676,6 +709,134 @@ where \( \mathbf{x}_A, \mathbf{x}_B \in R_k \).
     \end{itemize}
 \end{frame}
 
+\begin{frame}{Cross-Validation for Choosing Regularization Term}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\linewidth]{pic/Figure_29.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Cross-Validation for Choosing Model Complexity}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\linewidth]{pic/Figure_16.png}
+    \end{figure}
+\end{frame}
+
+\section{Multi-Category Classification}
+
+\begin{frame}{Multi-Category Classification}
+    \begin{itemize}
+        \item \textbf{Solutions to multi-category classification problem}:
+        \medskip
+        \begin{itemize}\itemsep1.5em
+            \item Extend the learning algorithm to support multi-class.
+            \medskip
+            \begin{itemize}\itemsep1em
+                \item First, a function \(g_i\) for every class \(C_i\) is found.
+                \item Second, \(\mathbf{x}\) is assigned to \(C_i\) if \(g_i(\mathbf{x}) > g_j(\mathbf{x}) \quad \forall i \neq j\)
+                \item[] \[\hat{y} \, = \, \argmax_{i=\text{1,...,c}} \, g_i(\mathbf{x})\]
+            \end{itemize}
+            \item Convert to a set of two-categorical problems.
+            \medskip
+            \begin{itemize}
+                \item Methods like \textbf{One-vs-Rest} or \textbf{One-vs-One}, where each classifier distinguishes between either \textbf{one class and the rest}, or \textbf{between pairs of classes}.
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Multi-Category Classification: Ambiguity}
+    \begin{itemize}
+        \item \justifying One-vs-One and One-vs-Rest conversion can lead to regions in which the classification is \textbf{undefined}.
+    \end{itemize}
+    \vfill
+    \minipage{.45\textwidth}
+    \begin{figure}[bh]
+        \centering
+        \includegraphics[width=\linewidth]{pic/Figure_6.png}
+    \end{figure}
+    \endminipage
+    \minipage{.45\textwidth}
+    \begin{figure}[bh]
+        \centering
+        \includegraphics[width=\linewidth]{pic/Figure_7.png}
+    \end{figure}
+    \endminipage
+\end{frame}
+
+
+\begin{frame}{Multi-Category Classification: Linear Machines}
+    \begin{itemize}\itemsep1.5em
+        \item \justifying \textbf{Linear Machines}: Alternative to One-vs-Rest and One-vs-One methods; 
+        Each class is represented by its own discriminant function.
+        \item \justifying \textbf{Decision Rule:} 
+        \[\hat{y} \, = \, \argmax_{i=\text{1,...,c}} \, g_i(\mathbf{x})\]
+        The predicted class is the one with the highest discriminant function value.
+        \item \textbf{Decision Boundary}:
+        \(g_i(\mathbf{x}) \, = \, g_j(\mathbf{x})\)
+        \[(\mathbf{w}_i - \mathbf{w}_j)^T\mathbf{x} + (w_{0i} - w_{0j}) = 0\]
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Linear Machines Cont.}
+    \begin{center}
+        \minipage{.5\textwidth}
+            \begin{figure}
+                \includegraphics[width=\textwidth]{pic/Figure_9.png}
+            \end{figure}
+        \endminipage
+    \end{center}
+    \hspace{4cm}
+    \begin{itemize}\itemsep1.5em
+        \item \justifying The decision regions of this discriminant are \textbf{convex} and \textbf{singly connected}. Any point on the line between two points within the same region can be expressed as 
+\(
+\mathbf{x} = \lambda \mathbf{x}_A + (1 - \lambda) \mathbf{x}_B
+\)
+where \( \mathbf{x}_A, \mathbf{x}_B \in C_k \).
+
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Multi-Class Perceptron Algorithm}
+    \begin{itemize}
+        \item \textbf{Weight Vectors}:
+        \medskip
+        \begin{itemize}\itemsep.8em
+            \item Maintain a weight matrix \( W \in \mathbb{R}^{m \times K} \), where \( m \) is the number of features and \( K \) is the number of classes.
+        \item Each column \( w_k \) of the matrix corresponds to the weight vector for class \( k \).
+        \end{itemize}
+    \end{itemize} \\
+    \[
+    \hat{y} \, = \, \argmax_{i=1,...,c} \, \mathbf{w}_i^T \mathbf{x}
+    \]
+    \[
+    J_p(\mathbf{W}) \, = \, - \sum_{i \in M}(\mathbf{w}_{y^{(i)}} - \mathbf{w}_{\hat{y}^{(i)}})^T\mathbf{x}^{(i)}
+    \]
+    where \( M \) is the set of misclassified points.
+\end{frame}
+
+
+\begin{frame}{Multi-Class Perceptron Algorithm}
+
+    \begin{algorithm}[H]
+    \caption{Multi-class perceptron}\label{alg:Multi-class perceptron}
+    \begin{algorithmic}[1]
+        \State \textbf{Initialize} $\mathbf{W} \, = \, [\mathbf{w}_1 \, , \, ... \, , \, \mathbf{w}_c], \, k \leftarrow 0$
+        \While{A pattern is misclassified}
+            \State \(k \leftarrow k \, + \, 1 \text{ mod } N\)
+            \If{\(\mathbf{x}^{(i)}\) is misclassified}
+            \State \(\mathbf{w}_{\hat{y}^{(i)}} \, = \, \mathbf{w}_{\hat{y}^{(i)}} - \mathbf{x}^{(i)}\)
+            \State \(\mathbf{w}_{y^{(i)}} \, = \, \mathbf{w}_{y^{(i)}} + \mathbf{x}^{(i)}\)
+            \EndIf
+        \EndWhile
+    \end{algorithmic}
+    \end{algorithm}
+    
+\end{frame}
+
+
 \section{References}
 
 \begin{frame}[allowframebreaks]
@@ -684,13 +845,6 @@ where \( \mathbf{x}_A, \mathbf{x}_B \in R_k \).
     \nocite{*} % used here because no citation happens in slides
     % if there are too many try use：
     % \tiny\bibliographystyle{alpha}
-\end{frame}
-
-
-\begin{frame}
-    \begin{center}
-        {\Huge Any Questions?}
-    \end{center}
 \end{frame}
 
 \end{document}
