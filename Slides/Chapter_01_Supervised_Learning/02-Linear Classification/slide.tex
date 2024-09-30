@@ -570,7 +570,7 @@ subsubsectionstyle=show/shaded/hide]
             Measures how many samples are misclassified by the model.
             \item \textbf{Formula}:
                 \[
-                J(\mathbf{w}) = \sum_{i=1}^{n} (y^{(i)} - \text{sign(\(\hat{y}^{(i)})\)})^2 \, , \quad \hat{y}^{(i)} \, = \, \mathbf{w}^T\mathbf{x}^{(i)} \, + \, w_0 \, , \quad y^{(i)} \in \{-1, \, +1\}
+                J(\mathbf{w}) = \sum_{i=1}^{n} (\frac{y^{(i)} - \text{sign(\(\hat{y}^{(i)})\)}}{2})^2 \, , \quad \hat{y}^{(i)} \, = \, \mathbf{w}^T\mathbf{x}^{(i)} \, + \, w_0 \, , \quad y^{(i)} \in \{-1, \, +1\}
                 \]
             \item \textbf{Limitations}: \\
             \minipage{0.5\linewidth}
@@ -717,9 +717,9 @@ subsubsectionstyle=show/shaded/hide]
         \State \textbf{Initialize} $\mathbf{w}$
         \For{$t = 1$ to $T$}
             \State \(i \leftarrow t \text{ mod } N\)
-            \If{\(\mathbf{x}^{(i)}\) is misclassified}
+            \If{\(\mathbf{x}^{(i)}\) is misclassified} 
             \State \(\mathbf{w}^{new} \, = \, \mathbf{w} + \eta \mathbf{x}^{(i)}y^{(i)}\)
-            \If{\(E_{train}(\mathbf{w}^{new}) \, < \, E_{train}(\mathbf{w})\)}
+            \If{\(E_{train}(\mathbf{w}^{new}) \, < \, E_{train}(\mathbf{w})\)} \Comment{\(E_{train}(\mathbf{w}) \, = \, J_p(\mathbf{w})\)}
             \State \(\mathbf{w} \, = \, \mathbf{w}^{new}\)
             \EndIf
             \EndIf
