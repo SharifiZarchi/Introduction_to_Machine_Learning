@@ -1,0 +1,556 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% A Beamer template for University of Wollongong     %
+% Based on THU beamer theme                          %
+% Author: Qiuyu Lu                                   %
+% Date: July 2024                                    %
+% LPPL Licensed.                                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Customized for Sharif University of Technology     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[serif, aspectratio=169]{beamer}
+%\documentclass[serif]{beamer}  % for 4:3 ratio
+\usepackage[T1]{fontenc} 
+\usepackage{fourier} % see "http://faq.ktug.org/wiki/uploads/MathFonts.pdf" for other options
+\usepackage{hyperref}
+\usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
+\usepackage{graphicx,pstricks,listings,stackengine}
+\usepackage{lipsum}
+\usepackage{tikz}
+
+\usepackage{caption}
+\usepackage{multirow}
+\usepackage{array}
+
+
+\author{Ali Sharifi-Zarchi}
+% \author{CE Department}
+\title{Machine Learning (CE 40477)}
+\subtitle{Fall 2024}
+\institute{
+    CE Department \\
+    Sharif University of Technology
+}
+%\date{\small \today}
+% \usepackage{UoWstyle}
+\usepackage{SUTstyle}
+
+% defs
+\def\cmd#1{\texttt{\color{red}\footnotesize $\backslash$#1}}
+\def\env#1{\texttt{\color{blue}\footnotesize #1}}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{RGB}{153,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{halfgray}{gray}{0.55}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\bfseries\color{deepblue},
+    emphstyle=\ttfamily\color{deepred},    % Custom highlighting style
+    stringstyle=\color{deepgreen},
+    numbers=left,
+    numberstyle=\small\color{halfgray},
+    rulesepcolor=\color{red!20!green!20!blue!20},
+    frame=shadowbox,
+}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+    \vspace*{-0.6cm}
+    \begin{figure}[htpb]
+        \begin{center}
+            \includegraphics[keepaspectratio, scale=0.25]{pic/sharif-main-logo.png}
+        \end{center}
+    \end{figure}
+\end{frame}
+
+\begin{frame}    
+\tableofcontents[sectionstyle=show,
+subsectionstyle=show/shaded/hide,
+subsubsectionstyle=show/shaded/hide]
+\end{frame}
+
+% \section{Overview}
+
+
+\section{k-Nearest-Neighbor}
+
+\begin{frame}{kNN}
+    \begin{minipage}{0.5\textwidth}
+        \begin{itemize}
+            \item K-NN classifier: $k \geq 1$ nearest neighbors
+            \begin{itemize}
+                \item Label for $x$ predicted by majority voting among its $k-NN$
+            \end{itemize}
+            \item $k=5$, $x=[x_1, x_2]$
+        \end{itemize}
+    \end{minipage} %
+    \begin{minipage}{0.45\textwidth}
+        \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.8\textwidth]{pic/kE5.png}
+        % \caption{This is the caption of the image.}
+        % \label{fig:image1}
+        \end{figure}
+    \end{minipage}
+\end{frame}
+
+%%%%%%%%%%%%%%
+\begin{frame}{kNN classifier}
+    \begin{itemize}
+        \item Given
+            \begin{itemize}
+                \item Training data $\{(x^{(1)}, y^{(1)}), \dots, (x^{(n)}, y^{(n)})\}$ are simply stored.
+            \end{itemize}
+        \item To classify $x$:
+            \begin{itemize}
+                \item Find $k$ nearest training samples to $x$
+                \item Out of these $k$ samples, identify the number of samples $k_j$ belonging to class $C_j$ $(j=1, \dots, C)$.
+                \item Assign $x$ to the class $C_{j^*}$ where $j^*=\underset{j=1,\dots, c}{\arg\max} \hspace{0.2cm} k_j$
+            \end{itemize}
+        \item It can be considered as a \textbf{discriminative} method.
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{kNN example}
+    \begin{itemize}
+        \item We want to classify a new document and put it into one of three categories by studying its neighbor samples
+    \end{itemize}
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.5\textwidth]{pic/kNN?.png}
+            % \caption* { \scriptsize [Duda, Hurt, and Strok’s Book]}
+            % \label{fig:image1}
+            \end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{1-Nearest neighbor classifier}
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.7\textwidth]{pic/1NN.png}
+            % \caption* { \scriptsize [Duda, Hurt, and Strok’s Book]}
+            % \label{fig:image1}
+            \end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{2-Nearest neighbor classifier}
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.7\textwidth]{pic/2NN.png}
+            % \caption* { \scriptsize [Duda, Hurt, and Strok’s Book]}
+            % \label{fig:image1}
+            \end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{3-Nearest neighbor classifier}
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.7\textwidth]{pic/3NN.png}
+            % \caption* { \scriptsize [Duda, Hurt, and Strok’s Book]}
+            % \label{fig:image1}
+            \end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{5-Nearest neighbor classifier}
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.7\textwidth]{pic/5NN.png}
+            % \caption* { \scriptsize [Duda, Hurt, and Strok’s Book]}
+            % \label{fig:image1}
+            \end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Voronoi tessellation}
+
+    \begin{itemize}
+        \item Voronoi tessellation:
+         \begin{itemize}
+             \item Each cell consists of all points closer to a given training point than to any other training points
+             \item All points in a cell are labeled by the category of the corresponding training point
+         \end{itemize}
+         
+         
+    \end{itemize}
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.35\textwidth]{pic/Voroni.png}
+            \caption* { \scriptsize [Duda, Hurt, and Strok’s Book]}
+            % \label{fig:image1}
+            \end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Voronoi tessellation}
+    \begin{itemize}
+        \item 1NN plot is a Voronoi tessellation
+    \end{itemize}
+    
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.8\textwidth]{pic/1NNVoronoi.png}
+            % \caption* { \scriptsize [Duda, Hurt, and Strok’s Book]}
+            % \label{fig:image1}
+            \end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Effect of k}
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.9\textwidth]{pic/effectOfK.png}
+            \caption* { \scriptsize [Bishop]}
+            % \label{fig:image1}
+            \end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Effect of k cont.}
+    \begin{itemize}
+        \item compare $k=1$ with $k=15$
+    \end{itemize}
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.7\textwidth]{pic/1vs15.png}
+            % \caption* { \scriptsize [Bishop]}
+            % \label{fig:image1}
+            \end{figure}
+    
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Model complexity}
+    \begin{itemize}
+        \item As we further increase $k$, the model tends to be less complex.
+        \item Compare $66NN$ with a linear model that uses only $3$ parameters:
+    \end{itemize}
+    
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.7\textwidth]{pic/66vsLin.png}
+            % \caption* { \scriptsize [Bishop]}
+            % \label{fig:image1}
+            \end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Parametric vs. non-parametric methods}
+    \begin{itemize}
+        \item Parametric methods need to find parameters from data and then use the inferred parameters to decide on new data points
+        \begin{itemize}
+            \item Learning: finding parameters from data
+        \end{itemize}
+        \item Non-parametric methods
+        \begin{itemize}
+            \item Training examples are explicitly used
+            \item Training phase is not required
+        \end{itemize}
+        \item Both supervised and unsupervised learning can be categorized into parametric and non-parametric methods
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Non-parametric learners}
+    \begin{itemize}
+        \item \textbf{Memory-based} or \textbf{Instance-based} learners
+        \begin{itemize}
+            \item lazy learning: (almost) all the work at the test time
+        \end{itemize}
+        
+        \item Generic description:
+        \begin{itemize}
+            \item Memorize training $(x^{(1)}, y^{(1)}), \dots, (x^{(n)}, y^{(n)})$
+            \item Given test $x$ predict: $\hat{y} = f(x;x^{(1)}, y^{(1)}, \dots, x^{(n)}, y^{(n)})$
+        \end{itemize}
+        \item $f$ is typically expressed in terms of the similarity of the test samples $x$ to the training samples $x^{(1)}, \dots, x^{(n)}$
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Instance-based learner}
+    \begin{itemize}
+        \item kNN is an instance-based learner
+        \item Main things to construct an instance-based learner:
+        \begin{itemize}
+            \item A distance metric
+            \item Number of nearest neighbors of the test data that we look at
+            \item A weighting function (optional)
+            \item How to find the output based on neighbors?
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Distance measures}
+    \begin{itemize}
+        \item Euclidean distance
+    \end{itemize}
+       \[
+          d(x, x') = \sqrt{\|x - x'\|_2^2} = \sqrt{(x_1 - x'_1)^2 + \cdots + (x_d - x'_d)^2}
+       \]
+    \begin{itemize}
+        \item Distance learning methods for this purpose
+        \begin{itemize}
+            \item Weighted Euclidean distance
+             \[
+                d_w(x, x') = \sqrt{w_1(x_1 - x'_1)^2 + \cdots + w_d(x_d - x'_d)^2}
+             \]
+            % \item Mahalanobis distance 
+            % \[
+            %     d_A(x, x') = \sqrt{(x_1 - x'_1)^TA(x_1-x'_1)}
+            % \]
+        \end{itemize}
+    \item Other distances:
+        \begin{itemize}
+            \item Hamming, angle, L-norm, Mahalanobis distance, ...
+            % \item $L_p(x, x') = \sqrt[p]{\sum _{i=1}^{d} (x_i - x'_i)^p}$
+        \end{itemize}
+    \end{itemize}       
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Effect of distance measure}
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.9\textwidth]{pic/DistMeasEf.png}
+            % \caption* { \scriptsize [}
+            % \label{fig:image1}
+            \end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Probabilistic perspective of kNN}
+%     \begin{itemize}
+%         \item kNN as a discriminative non-parametric classifier
+%           \begin{itemize}
+%               \item Non-parametric density estimation for $P(C_j|x)$
+%               \item $P(C_j|x) \approx \frac{k_j}{k}$ where $k_j$ shows the number of training samples among $k$ nearest neighbors of $x$ that are labeled $C_j$
+%           \end{itemize}
+%         \item Bayes decision rule for assigning labels
+%     \end{itemize}
+% \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Performance metrics}
+
+
+
+\begin{frame}{Performance metrics}
+    
+    
+    \begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+         & actually in the class & actually not in the  class \\ \hline
+        predicted to be in the class & tp & fp \\ \hline
+        predicted not to be in the class & fn & tn \\ \hline
+        % Row 3, Col 1 & Row 3, Col 2 & Row 3, Col 3 \\ \hline
+    \end{tabular}
+    % \caption{Basic Table}
+    % \label{tab:basic_table}
+    \end{table}
+    
+    
+    \begin{align*}
+        \text{Precision P } &= \frac{tp}{tp + fp} \\
+        \text{Recall R } &= \frac{tp}{tp + fn} \\
+        \text{Accuracy } &= \frac{tp + tn}{tp + tn + fp + fn}
+    \end{align*}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Precision/Recall/Accuracy}
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.9\textwidth]{pic/rePreAcc.png}
+            % \caption* { \scriptsize [}
+            % \label{fig:image1}
+            \end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{A combined measure: F}
+    \begin{itemize}
+        \item Combined measure: \textbf{F measure}
+        \begin{itemize}
+            \item allows us to trade off precision and recall
+            \item weighted harmonic mean of P and R
+        \end{itemize}
+    \end{itemize}
+    \begin{align*}
+        F = \frac{1}{\alpha \frac{1}{P} + (1-\alpha)\frac{1}{R}} = \frac{(\beta^2 + 1)PR}{\beta^2P + R}
+    \end{align*}
+    \[
+        \hspace{10cm} \text{You can see: } \beta^2 = \frac{1-\alpha}{\alpha}
+    \]
+    
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{A combined measure: F cont.}
+    \begin{itemize}
+        \item People usually use balanced $F$ $(\beta=1 \text{ or } \alpha=\frac{1}{2})$
+    \end{itemize}
+    \begin{align*}
+        F &= F_{\beta=1} \\
+        &\\
+        F &= \frac{2PR}{P + R}
+    \end{align*}
+    \begin{itemize}
+        \item Harmonic mean of P and R: 
+    \end{itemize}
+    \begin{align*}
+        \frac{1}{F}=\frac{1}{2}(\frac{1}{P}+\frac{1}{R})
+    \end{align*}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Why harmonic mean?}
+    \begin{itemize}
+        \item Why don't we use a different mean of P and R as a measure?
+        \begin{itemize}
+            \item e.g., the arithmetic mean
+        \end{itemize}
+        \item The simple (arithmetic) mean is $50\%$ for "return true for every thing", which is too high.
+        \item Desideratum: Punch really bad performance either on precision or recall
+        \begin{itemize}
+            \item Taking the minimum achieves this.
+            \item F (harmonic mean) is a kind of \textbf{smooth minimum}.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{F1 and other averages}
+    \begin{itemize}
+        \item Harmonic mean is a conservative average. We can view the harmonic mean as a kind of soft minimum
+    \end{itemize}
+    
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.58\textwidth]{pic/F1andOthers.png}
+            % \caption* { \scriptsize [}
+            % \label{fig:image1}
+            \end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{A precision-recall curve}
+%     \begin{figure}[h]
+%             \centering
+            
+%             \includegraphics[width=0.68\textwidth]{pic/preReCurv.png}
+%             % \caption* { \scriptsize [}
+%             % \label{fig:image1}
+%             \end{figure}
+% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Confusion matrix}
+    \begin{itemize}
+        \item This  $(i,j)$ entry means $53$ of the samples actually in class $i$ were put in class $j$ by the classifier:
+    \end{itemize}
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.4\textwidth]{pic/cmatrix.png}
+            % \caption* { \scriptsize [}
+            % \label{fig:image1}
+            \end{figure}
+    \begin{itemize}
+        \item In a perfect classification, only the diagonal has non-zero entries
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Per class evaluation measures}
+    \begin{itemize}
+        \item Recall: Fraction of the samples in class $i$ classified correctly:
+        \[
+          \frac{c_{ii}}{\sum _{j} c_{ij}}    
+        \]
+        \item Precision: Fraction of the samples assigned class $i$ that are actually about class $i$:
+        \[
+          \frac{c_{ii}}{\sum _{j} c_{ji}}
+        \]
+        \item Accuracy: Fraction of the samples classified correctly:
+        \[
+          \frac{\sum _i {c_{ii}}}{\sum _j \sum _i c_{ij}}
+        \]
+    \end{itemize}
+    
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Averaging: macro vs. micro}
+    \begin{itemize}
+        \item We now have an evaluation measure (F1) for one class.
+        \item But we also want a single number that shows \textcolor{deepred}{aggregate performance} over all classes
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Micro- vs. Macro-Averaging}
+    \begin{itemize}
+        \item If we have more than one class, how do we combine
+multiple performance measures into one quantity?
+        \item \textcolor{deepred}{Macroaveraging}: Compute performance for each class, then average
+        \begin{itemize}
+            \item Compute F1 for each of the $C$ classes
+            \item Average these $C$ numbers
+        \end{itemize}
+        \item \textcolor{deepred}{Microaveraging}: Collect decisions for all classes, aggregate them and then compute measure.
+        \begin{itemize}
+            \item Compute TP, FP, FN for each of the $C$ classes.
+            \item Sum these $C$ numbers(e.g, all TP to get aggregate TP)
+            \item Compute F1 for aggregate TP, FP, FN
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Micro- vs. Macro-Averaging: example}
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.8\textwidth]{pic/MicroVsMacro.png}
+            % \caption* { \scriptsize [}
+            % \label{fig:image1}
+            \end{figure}
+            
+    \begin{itemize}
+        \item Macroaveraged precision: $(0.5 + 0.9)/2 = 0.7$
+        \item Microaveraged precision: $100/120 = 0.83$
+        \item Microaveraged score is dominated by score on common classes
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Imbalanced classification}
+%     \begin{itemize}
+%         \item Accuracy is not a proper criteria
+%         \item Micro-F1 for multi-class classification is equal to accuracy
+%         \item Macro-F1 is more suitable for this purpose
+%     \end{itemize}
+% \end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{References}
+
+\begin{frame}{Contributions}
+\begin{itemize}
+\item \textbf{These slides are authored by:}
+\begin{itemize}
+    \setlength{\itemsep}{10pt} % Adjust the value to control the spacing
+    \item \href{https://github.com/Danial-Gharib}{Danial Gharib}
+    \item \href{https://github.com/Mahan-Bayhaghi}{Mahan Bayhaghi}
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+    \bibliography{ref}
+    \bibliographystyle{ieeetr}
+    \nocite{*}
+\end{frame}
+
+\end{document}
