@@ -140,7 +140,7 @@ subsubsectionstyle=show/shaded/hide]
         \text{Logistic regression:  } 0 \leq h_\theta (x) \leq 1
     \end{align*}
     \begin{itemize}
-        \item We also show this function with a different notation: $f(x;w)$
+        \item We also show this function with other notations: $f(x;w)= \sigma (w^Tx)$
     \end{itemize}
 \end{frame}
 
@@ -182,17 +182,17 @@ subsubsectionstyle=show/shaded/hide]
         \end{table}
         %%%%
         \item We denote the \textcolor{deepred}{features} of a sample with vector $x$ and the \textcolor{deepgreen}{label} with $y$.
-        \item In logistic regression we try to find an $f(x;w)$ which predicts \textbf{posterior} probabilities $P(y=1|x)$.
+        \item In logistic regression we try to find an $\sigma (w^Tx)$ which predicts \textbf{posterior} probabilities $P(y=1|x)$.
     \end{itemize}
     
 \end{frame}
 %%%% 5.1 %%%%%%%%%
 \begin{frame}{Introduction (cont.)}
     \begin{itemize}
-        \item $f(x;w)$: probability that $y=1$ given $x$ (parameterized by \textbf{$\textbf{w}$})
+        \item $\sigma (w^Tx)$: probability that $y=1$ given $x$ (parameterized by \textbf{$\textbf{w}$})
       \begin{align*}
-        P(y=1|x,\mathbf{w}) &= f(x;\mathbf{w}) \\
-        P(y=0|x,\mathbf{w}) &= 1 - f(x;\mathbf{w})
+        P(y=1|x,\mathbf{w}) &= \sigma (\mathbf{w}^Tx) \\
+        P(y=0|x,\mathbf{w}) &= 1 - \sigma (\mathbf{w}^Tx)
       \end{align*}
 
         \item We need to look for a function which gives us an output in the range [0, 1]. (like a probability).
@@ -222,6 +222,13 @@ subsubsectionstyle=show/shaded/hide]
         \includegraphics[width=0.8\textwidth]{pic/sigmoid.png}
     \end{minipage}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Sigmoid function \& its derivative}
+    \centering
+        \includegraphics[width=0.65\textwidth]{pic/sigmoidDer.png}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%% 7 %%%%
 % \begin{frame}{Basics Cont.}
 %     \begin{itemize}
@@ -245,11 +252,11 @@ subsubsectionstyle=show/shaded/hide]
     \begin{itemize} 
       \item So we can use the \textbf{dot product} of $x$ and $w$.
       
-      \item We have $f(x;\mathbf{w}) = \sigma (\mathbf{w}^Tx)$, hence $0\leq f(x;\mathbf{w}) \leq 1$. which is the estimated probability of $y=1$ on input $x$.
+      \item We have $0\leq \sigma (\mathbf{w}^Tx) \leq 1$. which is the estimated probability of $y=1$ on input $x$.
 
       \item An Example : A basketball game (Win, Lose)
         \begin{itemize}
-            \item $f(x;\mathbf{w}) = 0.7$
+            \item $\sigma (\mathbf{w}^T x) = 0.7$
             \item In other terms $70$ percent chance of winning the game.
         \end{itemize}
         
@@ -301,13 +308,13 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{Decision surface (cont.)}
     \begin{itemize}
       \item Back to our logistic regression problem.
-      \item Decision surface $f(x;w) = $ \textbf{constant}.
+      \item Decision surface $\sigma (\mathbf{w}^Tx) = $ \textbf{constant}.
         \[
-            f(x;\mathbf{w})=\sigma (\mathbf{w}^Tx) = \frac{1}{1 + e^{-(\mathbf{w}^Tx)}} = 0.5
+            \sigma (\mathbf{w}^Tx) = \frac{1}{1 + e^{-(\mathbf{w}^Tx)}} = 0.5
         \]
       \item Decision surfaces are \textbf{linear functions} of $x$
         \begin{itemize}
-            \item if $f(x;\mathbf{w}) \geq 0.5$ then $\hat{y}=1$, else $\hat{y} = 0$
+            \item if $\sigma (\mathbf{w}^Tx) \geq 0.5$ then $\hat{y}=1$, else $\hat{y} = 0$
             \item Equivalently, if $\mathbf{w}^Tx + w_0 \geq 0.5$ then decide $\hat{y}=1$, else $\hat{y}=0$
         \end{itemize}% ayoub eshgh
         \vfill
@@ -320,7 +327,7 @@ subsubsectionstyle=show/shaded/hide]
 %%%% 10 %%%%
 \begin{frame}{Decision boundary example}
     \begin{align*}
-        f(x;w) = \sigma (w_0 + w_1 x_1 + w_2 x_2)
+        \sigma (\mathbf{w}^Tx) = \sigma (w_0 + w_1 x_1 + w_2 x_2)
     \end{align*}
     
     \begin{minipage}{0.35\linewidth}
@@ -341,7 +348,7 @@ subsubsectionstyle=show/shaded/hide]
 %%%%%%%%%%%%%
 \begin{frame}{Non-linear decision boundary example}
     \begin{align*}
-        f(x;w) &= \sigma (w_0 + w_1 x_1 + w_2 x_2 + w_3x_1^2 + w_4x_2^2) \\
+        \sigma (\mathbf{w}^Tx) &= \sigma (w_0 + w_1 x_1 + w_2 x_2 + w_3x_1^2 + w_4x_2^2) \\
         \text{We can learn } & \text{more complex decision boundaries when having higher order terms}
     \end{align*}
     
@@ -367,18 +374,18 @@ subsubsectionstyle=show/shaded/hide]
     \begin{itemize}
         \item We had posterior of a sample as:
         \begin{align*}
-            p(y^{(i)}|x^{(i)},\mathbf{w})
+            P(y^{(i)}|x^{(i)},\mathbf{w})
         \end{align*}
         \item Logistic regression should maximize production of all these sample posteriors.
         
         \item Maximum (conditional) log likelihood:
         \begin{align*}
-             \mathbf{\hat{w}} = \underset{w}{\arg\max} \hspace{0.2cm} \log \prod_{i=1}^{n} p(y^{(i)}|x^{(i)},\mathbf{w})
+             \mathbf{\hat{w}} = \underset{w}{\arg\max} \hspace{0.2cm} \log \prod_{i=1}^{n} P(y^{(i)}|x^{(i)},\mathbf{w})
         \end{align*}
         \item Note that in \textbf{binary} classification $y$ is either $1$ or $0$, So we can have posterior term simplified as follows:
         
         \begin{align*}
-            p(y^{(i)}|x^{(i)},\mathbf{w})=f(x^{(i)}; \mathbf{w})^{y^{(i)}} (1 - f(x^{(i)}; \mathbf{w}))^{(1 - y^{(i)})}
+            P(y^{(i)}|x^{(i)},\mathbf{w})=\sigma (\mathbf{w}^Tx^{(i)})^{y^{(i)}} (1 - \sigma (\mathbf{w}^T x^{(i)}))^{(1 - y^{(i)})}
         \end{align*}
     \end{itemize}
 \end{frame}
@@ -387,18 +394,18 @@ subsubsectionstyle=show/shaded/hide]
     \begin{itemize}
         \item Logarithm of the posterior probability:
             \[
-            \log p(y^{(i)}|x^{(i)}, \mathbf{x})=
-            y^{(i)}\log (f(x^{(i)}; \mathbf{w})) + 
-            (1-y^{(i)})\log (1 - f(x^{(i)}; \mathbf{w}))
+            \log P(y^{(i)}|x^{(i)}, \mathbf{w})=
+            y^{(i)}\log (\sigma (\mathbf{w} ^T x^{(i)})) + 
+            (1-y^{(i)})\log (1 - \sigma (\mathbf{w}^T x^{(i)}))
             \]
         \item Hence the log likelihood is as follows:
     \end{itemize}
     \[
-    \log \prod _{i=1}^{n} p(y^{(i)}|x^{(i)}, \mathbf{w}) = \sum  _{i=1}^{n} \log p(y^{(i)}|x^{(i)}, \mathbf{w})
+    \log \prod _{i=1}^{n} P(y^{(i)}|x^{(i)}, \mathbf{w}) = \sum  _{i=1}^{n} \log P(y^{(i)}|x^{(i)}, \mathbf{w})
     \]
     \[
-    = \sum_{i=1}^{n}[y^{(i)}\log (f(x^{(i)}; \mathbf{w})) + 
-    (1-y^{(i)})\log (1 - f(x^{(i)}; \mathbf{w}))]
+    = \sum_{i=1}^{n}[y^{(i)}\log ( \sigma (\mathbf{w} ^T x^{(i)})) + 
+    (1-y^{(i)})\log (1 - \sigma (\mathbf{w} ^ T x^{(i)}))]
     \]
 \end{frame}
 
@@ -413,9 +420,9 @@ subsubsectionstyle=show/shaded/hide]
         \end{align*}
         \item MLE finds parameters that best describe a classification problem so cost function should be negative of log likelihood term:
         \begin{align*}
-            J(w) &= -\sum_{i=1}^{n} \log p(y^{(i)}|wx^{(i)}, \mathbf{w})\\
-            &= \sum_{i=1}^{n}-y^{(i)}\log (f(x^{(i)}; \mathbf{w})) - 
-            (1-y^{(i)})\log (1 - f(x^{(i)}; \mathbf{w}))
+            J(w) &= -\sum_{i=1}^{n} \log P(y^{(i)}|x^{(i)}, \mathbf{w})\\
+            &= \sum_{i=1}^{n}-y^{(i)}\log (\sigma (\mathbf{w}^T x^{(i)})) - 
+            (1-y^{(i)})\log (1 - \sigma (\mathbf{w}^T x^{(i)}))
         \end{align*}
         \item No closed form solution for $\nabla _w J(w) = 0$
         \item However $J(w)$ is \textbf{convex}.
@@ -431,32 +438,37 @@ subsubsectionstyle=show/shaded/hide]
             \item Each term in the summation is differentiable (twice).
             \item If you twice get derivative of (with respect to $f$):
                 \[
-                    -y^{(i)}\log (f(x^{(i)}; \mathbf{w})) - 
-            (1-y^{(i)})\log (1 - f(x^{(i)}; \mathbf{w}))
+                    -y^{(i)}\log (\sigma (\mathbf{w}^T x^{(i)})) - 
+            (1-y^{(i)})\log (1 - \sigma (\mathbf{w}^T x^{(i)}))
                 \]
             \item You get:
                 \[
-                    \frac{y}{f^2} + \frac{1-y}{(1-f)^2}
+                    \frac{y}{\sigma ^2} + \frac{1-y}{(1-\sigma )^2}
                 \]
             \item Which for both $y=0$ and $y=1$ is positive.
-            \item Each $\log p(y^{(i)}|x^{(i)}, \mathbf{w})$ is convex, hence the summation is convex as well.
+            \item Each $\log P(y^{(i)}|x^{(i)}, \mathbf{w})$ is convex, hence the summation is convex as well.
         \end{itemize}
     \end{itemize}
 \end{frame}
 %%%%% 11.7 %%%%%%
 \begin{frame}{Cost function (cont.)}
     \begin{itemize}
-    \item Visualization of each binary cross entropy loss term ($p$ is our prediction or $f(x;w)$):
+    \item Visualization of each binary cross entropy loss term:
     \end{itemize}
     \begin{center}
-        \includegraphics[width=0.7\textwidth]{pic/BCE.png}
+        \includegraphics[width=0.7\textwidth]{pic/BCE2.png}
         % \captionof{figure}{\footnotesize [Eric Xing, Machine Learning, CMU]}
     \end{center}
     %% https://medium.com/@shrividya.gs/log-loss-penalty-for-overconfidence-ce8cb540eb45
+    
+    
+    \begin{itemize}
+        \item As you can see if the model predicted value is $\hat{y}=0.16$ and true label is $y=1$ then the error is high but if the true label is $y=0$ the error would be low.
+    \end{itemize}
     \vfill
     \begin{tikzpicture}[remember picture,overlay]
     \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-        \scriptsize Figure adopted from medium.com/@shrividya.gs/log-loss-penalty-for-overconfidence-ce8cb540eb45
+        \scriptsize Figure adopted from https://towardsdatascience.com/logistic-regression-from-scratch-69db4f587e17
     };
     \end{tikzpicture}
 \end{frame}
@@ -468,8 +480,8 @@ subsubsectionstyle=show/shaded/hide]
     \begin{itemize}
     \item Remember from previous slides:
         \[
-        J(w) = \sum_{i=1}^{n}-y^{(i)}\log (f(x^{(i)}; \mathbf{w})) - 
-            (1-y^{(i)})\log (1 - f(x^{(i)}; \mathbf{w}))
+        J(w) = \sum_{i=1}^{n}-y^{(i)}\log (\sigma (\mathbf{w}^T x^{(i)})) - 
+            (1-y^{(i)})\log (1 - \sigma (\mathbf{w}^T x^{(i)}))
         \]
     \item Update rule for \textbf{gradient descent}: 
         \begin{align*}
@@ -477,9 +489,9 @@ subsubsectionstyle=show/shaded/hide]
         \end{align*}
     \item With $J(w)$ definition for logistic regression we get:
         \begin{align*}
-            \nabla _w J(w) = \sum_{i=1}^{n} (f(x^{(i)}; \mathbf{w}) - y^{(i)})x^{(i)} 
+            \nabla _w J(w) = \sum_{i=1}^{n} (\sigma (\mathbf{w}^T x^{(i)}) - y^{(i)})x^{(i)} 
         \end{align*}
-    \item Also keep in mind $f(x^{(i)}; \mathbf{w})= \sigma (\mathbf{w}^Tx^{(i)})$
+    % \item Also keep in mind $f(x^{(i)}; \mathbf{w})= \sigma (\mathbf{w}^Tx^{(i)})$
     % \item Compare with the gradient of \textbf{SSE} in \textbf{linear regression} :
     %     \begin{align*}
     %         \nabla _w J(w) = \sum_{i=1}^{n} (w^Tx^{(i)} - y^{(i)})x^{(i)}
@@ -511,15 +523,15 @@ subsubsectionstyle=show/shaded/hide]
         %% delete paranthesis
         \item Loss function is a single overall measure of loss incurred for taking our decisions (over entire dataset).
         \item We have:
-        \[ Loss(y, f(x; \mathbf{w})) = -y \times \log (f(x; \mathbf{w})) - (1-y) \times \log 
-        (1 - f(x; \mathbf{w}))
+        \[ Loss(y, \sigma (\mathbf{w}^T x)) = -y \times \log (\sigma ( \mathbf{w}^T x)) - (1-y) \times \log 
+        (1 - \sigma (\mathbf{w}^T x))
         \]
         
         \item Since in binary classification either $y=1$ or $y=0$ we have:
             \[
-                Loss(y, f(x; \mathbf{w})) = \begin{cases}
-                    - \log (f(x; \mathbf{w})) & \textbf{if } y = 1 \\
-                    - \log (1 - f(x; \mathbf{w})) & \textbf{if } y = 0
+                Loss(y, \sigma (\mathbf{w}^T x)) = \begin{cases}
+                    - \log (\sigma (\mathbf{w}^T x)) & \textbf{if } y = 1 \\
+                    - \log (1 - \sigma (\mathbf{w}^T x)) & \textbf{if } y = 0
                 \end{cases}
             \]
         \item How is it related to zero-one loss? ($\hat{y}$ is the predicted label and $y$ is the ture label)
@@ -577,20 +589,20 @@ subsubsectionstyle=show/shaded/hide]
 %%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Multi-class logistic regression (cont.)}
     \begin{itemize}
-         \item For each class $k$, $f_k(x; \mathbf{W})$ predicts the probability of $y=k$.
+         \item For each class $k$, $\sigma _k(x; \mathbf{W})$ predicts the probability of $y=k$.
             \begin{itemize}
                 \item i.e., $P(y=k|x, \mathbf{W})$
             \end{itemize}
-        \item For each data point $x_0$, $\sum _{k=1}^{K} p(y=k|x_0, \mathbf{W})$ must be $1$
+        \item For each data point $x_0$, $\sum _{k=1}^{K} P(y=k|x_0, \mathbf{W})$ must be $1$
             \begin{itemize}
                 \item $W$ denotes a matrix of $w_i$'s in which each $w_i$ is a weight vector dedicated for class label $i$.
             \end{itemize}
-        \item On a new input $x$, to make a prediction, we pick the class that maximizes $f_k(x; \mathbf{W})$:
+        \item On a new input $x$, to make a prediction, we pick the class that maximizes $\sigma _k(x; \mathbf{W})$:
             \begin{align*}
-                \alpha (x) &= \underset{k=1, \dots , K}{\arg\max} \hspace{0.2cm} f_k(x) 
+                \alpha (x) &= \underset{k=1, \dots , K}{\arg\max} \hspace{0.2cm} \sigma _k(x; \mathbf{W}) 
             \end{align*}
             \begin{center}
-                \textbf{if $\color{red} f_k(x) > f_j(x)$ $\color{red} \forall j \neq k$ then decide $\color{red} C_k$}
+                \textbf{if $\color{red} \sigma _k(x; \mathbf{W}) > \sigma _j(x; \mathbf{W})$ $\color{red} \forall j \neq k$ then decide $\color{red} C_k$}
             \end{center}
     \end{itemize}
 \end{frame}
@@ -601,15 +613,15 @@ subsubsectionstyle=show/shaded/hide]
     \begin{itemize}
         \item $K > 2$ and $y \in \{1,2,\dots,K\}$
         \begin{align*}
-            f_k(x, \mathbf{W}) = p(y=k|x) = \frac{\exp{(w^T_kx)}}{\sum_{j=1}^{K}\exp{(w_j^Tx)}}
+            \sigma _k(x, \mathbf{W}) = P(y=k|x) = \frac{\exp{(w^T_kx)}}{\sum_{j=1}^{K}\exp{(w_j^Tx)}}
         \end{align*}
         \item Normalized exponential (Aka \textbf{Softmax})
           
-            \item if $w_k^Tx \gg w_j^Tx$ for all $j \neq k$ then $p(C_k|x) \approx 1$ and $p(C_j|x) \approx 0$
+            \item if $w_k^Tx \gg w_j^Tx$ for all $j \neq k$ then $P(C_k|x) \approx 1$ and $P(C_j|x) \approx 0$
             \item Note : remember from Bayes theorem:
                 \[
-                p(C_k|x) = \frac{p(x|C_k)p(C_k)}
-            {\sum_{j=1}^{K}p(x|C_j)p(C_j)}
+                P(C_k|x) = \frac{P(x|C_k)P(C_k)}
+            {\sum_{j=1}^{K}P(x|C_j)P(C_j)}
                 \]
           
     \end{itemize}
@@ -644,9 +656,9 @@ subsubsectionstyle=show/shaded/hide]
         \item Again we set $J(W)$ as negative of log likelihood.
         \item We need $\hat{W} = \underset{W}{\arg\min} \hspace{0.2cm} J(W)$
         \begin{align*}
-            J(W) &= -\log \prod_{i=1}^{n} \textcolor{red}{p(y^{(i)}|x^{(i)}, \mathbf{W})} \\
-            &= -\log \prod_{i=1}^{n}\textcolor{red}{\prod_{k=1}^{K}f_k(x^{(i)}; \mathbf{W})^{y_k^{(i)}} }\\
-            &= -\sum_{i=1}^{n}\sum_{k=1}^{K}y_k^{(i)} \log (f_k(x^{(i)}; \mathbf{W}))
+            J(W) &= -\log \prod_{i=1}^{n} \textcolor{red}{P(y^{(i)}|x^{(i)}, \mathbf{W})} \\
+            &= -\log \prod_{i=1}^{n}\textcolor{red}{\prod_{k=1}^{K}\sigma _k(x^{(i)}; \mathbf{W})^{y_k^{(i)}} }\\
+            &= -\sum_{i=1}^{n}\sum_{k=1}^{K}y_k^{(i)} \log (\sigma _k(x^{(i)}; \mathbf{W}))
         \end{align*}
         \item If \textbf{$\textbf{i}$-th} sample belongs to class $k$ then $y^{(i)}_k$ is 1 else 0.
         \item Again no closed-from solution for $\hat{W}$
@@ -658,7 +670,7 @@ subsubsectionstyle=show/shaded/hide]
     \begin{itemize}
         \item From previous slides we have:
             \begin{align*}
-                J(W) = -\sum_{i=1}^{n}\sum_{k=1}^{K}y_k^{(i)} \log (f_k(x^{(i)}; \mathbf{W}))
+                J(W) = -\sum_{i=1}^{n}\sum_{k=1}^{K}y_k^{(i)} \log (\sigma _k(x^{(i)}; \mathbf{W}))
             \end{align*}
         \item In which:
              \[
@@ -695,7 +707,7 @@ subsubsectionstyle=show/shaded/hide]
     \end{itemize}
     \begin{align*}
             w_j^{t+1} &= w_j^t - \eta \nabla _W J(W^t) \\
-            \nabla _{w_{j}} J(W) &= \sum_{i=1}^{n} (f_j(x^{(i)}; \mathbf{W}) - y_j^{(i)})x^{(i)}
+            \nabla _{w_{j}} J(W) &= \sum_{i=1}^{n} (\sigma _j(x^{(i)}; \mathbf{W}) - y_j^{(i)})x^{(i)}
         \end{align*}
         
     \begin{itemize}
@@ -962,24 +974,24 @@ subsubsectionstyle=show/shaded/hide]
     \begin{itemize}
         \item Posterior probability : The probability of a class label $C_k$ given a sample $x$
             \[
-                p(C_k|x)
+                P(C_k|x)
             \]
             
-        \item Likelihood or class conditional probability : Pdf of feature vector $x$ for samples of class $C_k$
+        \item Likelihood or class conditional probability : PDF of feature vector $x$ for samples of class $C_k$
             \[
-                 p(x|C_k)
+                 P(x|C_k)
             \]
         
         \item Prior probability : Probability of the label be $C_k$ 
             \[
-                p(C_k)
+            P(C_k)
             \]
             
-        \item $p(x)$: Pdf of feature vector $x$ 
+        \item $P(x)$: PDF of feature vector $x$ 
             \begin{itemize}
                 \item From total probability theorem:   
                 
-                \[ p(x)=\sum_{k=1}^{K}p(x|C_k)p(C_k)
+                \[ P(x)=\sum_{k=1}^{K}P(x|C_k)P(C_k)
                 \]
             \end{itemize}
         
@@ -997,11 +1009,11 @@ subsubsectionstyle=show/shaded/hide]
             \begin{itemize}
                 \item Generative
                     \begin{itemize}
-                        \item Estimate pdf $p(x, C_k)$ for each class $C_k$ and then use it to find $p(C_k|x)$. Alternatively estimate both pdf $p(x|C_k)$ and $p(C_k)$ to find $p(C_k|x)$.
+                        \item Estimate PDF $P(x, C_k)$ for each class $C_k$ and then use it to find $P(C_k|x)$. Alternatively estimate both PDF $P(x|C_k)$ and $P(C_k)$ to find $P(C_k|x)$.
                     \end{itemize}
                 \item Discriminative
                     \begin{itemize}
-                        \item Directly estimate $p(C_k|x)$ for class $C_k$
+                        \item Directly estimate $P(C_k|x)$ for class $C_k$
                     \end{itemize}
             \end{itemize}
     \end{itemize}
@@ -1010,9 +1022,9 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{Probabilistic classifiers (cont.)}
     \begin{itemize}
         \item Let's assume we have input data $x$ and want to classify the data into labels $y$.
-        \item A generative model learns the \textbf{joint} probability distribution $p(x,y)$.
+        \item A generative model learns the \textbf{joint} probability distribution $P(x,y)$.
             
-        \item A discriminative model learns the \textbf{conditional} probability distribution $p(y|x)$
+        \item A discriminative model learns the \textbf{conditional} probability distribution $P(y|x)$
            
     \end{itemize}
 \end{frame}
@@ -1024,7 +1036,7 @@ subsubsectionstyle=show/shaded/hide]
             \[
                 (1,0), (1,0), (2,0), (2,1)
             \]
-        \item $p(x,y)$ is :
+        \item $P(x,y)$ is :
             \[
             \begin{array}{c|cc}
                 & y=0 & y=1 \\
@@ -1033,7 +1045,7 @@ subsubsectionstyle=show/shaded/hide]
             x=2 & \frac{1}{4} & \frac{1}{4} \\
             \end{array}
             \]
-        \item $p(y|x)$ is :
+        \item $P(y|x)$ is :
             \[
             \begin{array}{c|cc}
                 & y=0 & y=1 \\
@@ -1049,14 +1061,14 @@ subsubsectionstyle=show/shaded/hide]
 
 \begin{frame}{Discriminative vs. Generative : example (cont.)}
     \begin{itemize}
-        \item The distribution $p(y|x)$ is the natural distribution for classifying a given sample $x$ into class $y$.
+        \item The distribution $P(y|x)$ is the natural distribution for classifying a given sample $x$ into class $y$.
             \begin{itemize}
                 \item This is why that algorithms which model this directly are called \textbf{discriminative} algorithms.
             \end{itemize}
-        \item Generative algorithms model $p(x,y)$, which can be transformed into $p(y|x)$ by Bayes rule and then used for classification.
+        \item Generative algorithms model $P(x,y)$, which can be transformed into $P(y|x)$ by Bayes rule and then used for classification.
             \begin{itemize}
-                \item However, the distribution $p(x,y)$ can also be used for other purposes.
-                \item For example we can use $p(x,y)$ to \textbf{generate} likely $(x,y)$ pairs
+                \item However, the distribution $P(x,y)$ can also be used for other purposes.
+                \item For example we can use $P(x,y)$ to \textbf{generate} likely $(x,y)$ pairs
             \end{itemize}
     \end{itemize}
 \end{frame}
@@ -1066,13 +1078,13 @@ subsubsectionstyle=show/shaded/hide]
     \begin{enumerate}
         \item Inference
         \begin{itemize}
-            \item Determine class conditional densities $p(x|C_k)$ and priors $p(C_k)$
-            \item Use Bayes theorem to find $p(C_k|x)$
+            \item Determine class conditional densities $P(x|C_k)$ and priors $P(C_k)$
+            \item Use Bayes theorem to find $P(C_k|x)$
         \end{itemize}
         \item Decision
         \begin{itemize}
             \item Make optimal assignment for new input (after learning the model in the inference stage)
-            \item if $p(C_i|x) > p(C_j|x) \forall j \neq i$, then decide $C_i$ .
+            \item if $P(C_i|x) > P(C_j|x) \forall j \neq i$, then decide $C_i$ .
         \end{itemize}
     \end{enumerate}
 \end{frame}
@@ -1100,12 +1112,12 @@ subsubsectionstyle=show/shaded/hide]
     \begin{enumerate}
         \item Inference
         \begin{itemize}
-            \item Determine the posterior class probabilities $p(C_k|x)$ directly.
+            \item Determine the posterior class probabilities $P(C_k|x)$ directly.
         \end{itemize}
         \item Decision
         \begin{itemize}
             \item Make optimal assignment for new input (after learning the model in the inference stage)
-            \item if $p(C_i|x) > p(C_j|x) \forall j \neq i$, then decide $C_i$ .
+            \item if $P(C_i|x) > P(C_j|x) \forall j \neq i$, then decide $C_i$ .
         \end{itemize}
     \end{enumerate}
 \end{frame}
@@ -1139,7 +1151,7 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{Discriminative approach (cont.)}
     \begin{itemize}
         \item Logistic regression is a \textbf{discriminative} approach.
-        \item We directly want to specify the class label with $f(x;\mathbf{w})$
+        \item We directly want to specify the class label with $\sigma (\mathbf{w}^T x)$
     \end{itemize}
 \end{frame}
 
