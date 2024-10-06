@@ -22,6 +22,7 @@
 \usepackage{caption}
 \usepackage{multirow}
 \usepackage{array}
+\usepackage{ragged2e}
 
 
 \author{Ali Sharifi-Zarchi}
@@ -73,11 +74,62 @@ subsectionstyle=show/shaded/hide,
 subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
-% \section{Overview}
-
+\section{Overview}
+\begin{frame}{Parametric vs. non-parametric methods}
+    \begin{itemize}
+        \item Parametric methods need to find parameters from data and then use the inferred parameters to decide on new data points
+        \begin{itemize}
+            \item Learning: finding parameters from data
+            \item e.g., Linear regression, Logistic regression
+        \end{itemize}
+        \item Non-parametric methods
+        \begin{itemize}
+            \item Training examples are explicitly used
+            \item Training phase is not required
+            \item e.g., k-Nearest neighbors (kNN)
+        \end{itemize}
+        \item Both supervised and unsupervised learning can be categorized into parametric and non-parametric methods
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Non-parametric learners}
+    \begin{itemize}
+        \item \textbf{Memory-based} or \textbf{Instance-based} learners
+        \begin{itemize}
+            \item lazy learning: (almost) all the work at the test time
+        \end{itemize}
+        
+        \item Generic description:
+        \begin{itemize}
+            \item Memorize training $(x^{(1)}, y^{(1)}), \dots, (x^{(n)}, y^{(n)})$
+            \item Given test $x$ predict: $\hat{y} = f(x;x^{(1)}, y^{(1)}, \dots, x^{(n)}, y^{(n)})$
+        \end{itemize}
+        \item $f$ is typically expressed in terms of the similarity of the test samples $x$ to the training samples $x^{(1)}, \dots, x^{(n)}$
+        \item kNN is an instance-based learner
+    \end{itemize}
+\end{frame}
 
 \section{k-Nearest-Neighbor}
-
+    
+\begin{frame}{kNN concept}
+    \begin{figure}[h]
+            \centering
+            \includegraphics[width=0.6\textwidth]{pic/Saadi.png}
+            % \caption{This is the caption of the image.}
+            % \label{fig:image1}
+            \end{figure}
+    \begin{itemize}
+        \item First, tell me who you have lived with,
+Then, I will tell you who you are.
+    \end{itemize}
+    
+    
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figure adapted from https://setare.com
+        };
+    \end{tikzpicture}
+\end{frame}
 \begin{frame}{kNN}
     \begin{minipage}{0.5\textwidth}
         \begin{itemize}
@@ -112,6 +164,18 @@ subsubsectionstyle=show/shaded/hide]
                 \item Assign $x$ to the class $C_{j^*}$ where $j^*=\underset{j=1,\dots, c}{\arg\max} \hspace{0.2cm} k_j$
             \end{itemize}
         \item It can be considered as a \textbf{discriminative} method.
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{kNN classifier cont.}
+    \begin{itemize}
+        \item With kNN we can obtain non-linear decision surfaces unlike the previous methods (linear and logistic regression)
+        \item But note that this method could be prone to outliers or noisy data especially if:
+        \begin{itemize}
+            \item We have small dataset
+            \item Our data is low-dimensional
+            \item We use a small value of $k$ (like $k=1$ is only determined by the nearest neighbor and could be misleading in many test cases.
+        \end{itemize}
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -241,40 +305,11 @@ subsubsectionstyle=show/shaded/hide]
             \end{figure}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Parametric vs. non-parametric methods}
-    \begin{itemize}
-        \item Parametric methods need to find parameters from data and then use the inferred parameters to decide on new data points
-        \begin{itemize}
-            \item Learning: finding parameters from data
-        \end{itemize}
-        \item Non-parametric methods
-        \begin{itemize}
-            \item Training examples are explicitly used
-            \item Training phase is not required
-        \end{itemize}
-        \item Both supervised and unsupervised learning can be categorized into parametric and non-parametric methods
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Non-parametric learners}
-    \begin{itemize}
-        \item \textbf{Memory-based} or \textbf{Instance-based} learners
-        \begin{itemize}
-            \item lazy learning: (almost) all the work at the test time
-        \end{itemize}
-        
-        \item Generic description:
-        \begin{itemize}
-            \item Memorize training $(x^{(1)}, y^{(1)}), \dots, (x^{(n)}, y^{(n)})$
-            \item Given test $x$ predict: $\hat{y} = f(x;x^{(1)}, y^{(1)}, \dots, x^{(n)}, y^{(n)})$
-        \end{itemize}
-        \item $f$ is typically expressed in terms of the similarity of the test samples $x$ to the training samples $x^{(1)}, \dots, x^{(n)}$
-    \end{itemize}
-\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Instance-based learner}
     \begin{itemize}
-        \item kNN is an instance-based learner
+        % \item kNN is an instance-based learner
         \item Main things to construct an instance-based learner:
         \begin{itemize}
             \item A distance metric
@@ -291,28 +326,75 @@ subsubsectionstyle=show/shaded/hide]
         \item Euclidean distance
     \end{itemize}
        \[
-          d(x, x') = \sqrt{\|x - x'\|_2^2} = \sqrt{(x_1 - x'_1)^2 + \cdots + (x_d - x'_d)^2}
+          d(x, x') = \sqrt[2]{\|x - x'\|_2^2} = \sqrt[2]{(x_1 - x'_1)^2 + \cdots + (x_d - x'_d)^2}
        \]
     \begin{itemize}
         \item Distance learning methods for this purpose
         \begin{itemize}
             \item Weighted Euclidean distance
              \[
-                d_w(x, x') = \sqrt{w_1(x_1 - x'_1)^2 + \cdots + w_d(x_d - x'_d)^2}
+                d_w(x, x') = \sqrt[2]{w_1(x_1 - x'_1)^2 + \cdots + w_d(x_d - x'_d)^2}
              \]
             % \item Mahalanobis distance 
             % \[
             %     d_A(x, x') = \sqrt{(x_1 - x'_1)^TA(x_1-x'_1)}
             % \]
         \end{itemize}
-    \item Other distances:
-        \begin{itemize}
-            \item Hamming, angle, L-norm, Mahalanobis distance, ...
-            % \item $L_p(x, x') = \sqrt[p]{\sum _{i=1}^{d} (x_i - x'_i)^p}$
-        \end{itemize}
+    % \item Other distances:
+    %     \begin{itemize}
+    %         \item Hamming, angle, L-norm, Mahalanobis distance, ...
+    %         % \item $L_p(x, x') = \sqrt[p]{\sum _{i=1}^{d} (x_i - x'_i)^p}$
+    %     \end{itemize}
+   
     \end{itemize}       
 \end{frame}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Distance measures cont.}
+    \begin{itemize}
+         \item Minkowski distance
+    \[
+    d(x,x') = (\sum _{i=1} ^ n |x_i - x'_i| ^ p ) ^ {\frac{1}{p}}
+    \]
+        \begin{itemize}
+            \item for $p \geq 1$ is a distance metric
+            \item As you can see Minkowski distance with $p=2$ is the same as Euclidean distance
+            \item Minkowski distance is the same as $L^p$ norm of $(x-x')$
+        \end{itemize}
+    \item Remember $L^p$ norm from linear algebra:
+        \[
+            \|x\|_p = \sqrt[p]{(|x_1|^p + \dots + |x_n|^p)}
+        \]
+        \begin{align*}
+            \text{Some famous $L^p$ norms} \begin{cases}
+                    \|x\|_1 &= \sum _{i=1}^n |x_i| \\
+                    \|x\|_2 &= \sqrt{x_1^2 + \dots + x_n^2} \\
+                    \|x\|_{\infty}  &= \max \{|x_1|, |x_2|, \dots, |x_n|\}
+                \end{cases}
+        \end{align*}
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Distance measures cont.}
+    \begin{itemize}
+        \item Cosine distance (angle)
+    \end{itemize}
+    \begin{align*}  
+        d(x,x') &= 1 - \text{cosine similarity}(x,x') \\
+        \text{Where,} \hspace{0.4cm} \text{cosine similarity}(x,x') &= \frac{x.x'}{\|x\|_2^2 \|x'\|_2^2} = \frac{\sum _ {i=1}^d x_i x'_i}{\sqrt{\sum _{i=1}^d x_i^2} \sqrt{\sum _{i=1}^d x'_i^2}}
+    \end{align*}
+    
+    
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.5\textwidth]{pic/cosine.png}
+            \caption* { \scriptsize Example of angle difference for cosine similarity}
+            % \label{fig:image1}
+            \end{figure}
+    
+     
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Effect of distance measure}
     \begin{figure}[h]
@@ -335,41 +417,241 @@ subsubsectionstyle=show/shaded/hide]
 %     \end{itemize}
 % \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Performance metrics}
-
-
-
-\begin{frame}{Performance metrics}
-    
-    
-    \begin{table}[h!]
-    \centering
-    \begin{tabular}{|c|c|c|}
-        \hline
-         & actually in the class & actually not in the  class \\ \hline
-        predicted to be in the class & tp & fp \\ \hline
-        predicted not to be in the class & fn & tn \\ \hline
-        % Row 3, Col 1 & Row 3, Col 2 & Row 3, Col 3 \\ \hline
-    \end{tabular}
-    % \caption{Basic Table}
-    % \label{tab:basic_table}
-    \end{table}
-    
-    
-    \begin{align*}
-        \text{Precision P } &= \frac{tp}{tp + fp} \\
-        \text{Recall R } &= \frac{tp}{tp + fn} \\
-        \text{Accuracy } &= \frac{tp + tn}{tp + tn + fp + fn}
-    \end{align*}
+\begin{frame}{kNN regression}
+    \begin{itemize}
+        \item Let $x'^{(1)}, \dots , x'^{(k)}$ be the $k$ nearest neighbors of $x$ and $y'^{(1)}, \dots, y'^{(k)}$ be their labels.
+        \[
+            \hat{y} = \frac{1}{k}\sum _{j=1}^k y'^{(j)}
+        \]
+        \item Some problems of kNN regression for fitting functions:
+        \begin{itemize}
+            \item Discontinuities in the estimated function
+            \item 1NN: noise-fitting problem
+            \item kNN ($k>1$) smoothes away noise, but there could be other issues (e.g, flats the ends)
+        \end{itemize}
+    \end{itemize}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Precision/Recall/Accuracy}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{kNN regression cont.}
     \begin{figure}[h]
             \centering
             
-            \includegraphics[width=0.9\textwidth]{pic/rePreAcc.png}
+            \includegraphics[width=0.75\textwidth]{pic/knnR1.png}
+            \caption* { \scriptsize [Figs. have been adopted from Andrew Moore’s tutorial on “Instance-based learning”]}
+            % \label{fig:image1}
+            \end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{kNN regression: example}
+    \begin{itemize}
+        \item Suppose we have a dataset with only 1 feature from uniform $[0, 2\pi]$. The true model is:
+        \[Y = 2sin(X) + \epsilon\]
+        \item Where $\epsilon$ is the standard normal error.
+        \item First we simulate 200 observations, and see the model for $k=1$
+    \end{itemize}
+    
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.6\textwidth]{pic/knnReg1.png}
+            % \caption* { \scriptsize [Figs. have been adopted from Andrew Moore’s tutorial on “Instance-based learning”]}
+            % \label{fig:image1}
+            \end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{kNN regression: example}
+    \begin{itemize}
+        \item Now for $k=2$ and $k=10$
+    \end{itemize}
+    
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.8\textwidth]{pic/knnReg2.png}
+            % \caption* { \scriptsize [Figs. have been adopted from Andrew Moore’s tutorial on “Instance-based learning”]}
+            % \label{fig:image1}
+            \end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{kNN regression: example}
+    \begin{itemize}
+        \item As you can see the model becomes smoother as $k$ increases. However, this eventually deviates from the truth if $k$ is too large
+    \end{itemize}
+    
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.8\textwidth]{pic/knnReg3.png}
+            % \caption* { \scriptsize [Figs. have been adopted from Andrew Moore’s tutorial on “Instance-based learning”]}
+            % \label{fig:image1}
+            \end{figure}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Performance metrics}
+
+
+\begin{frame}{Accuracy in classification problems}
+    \begin{itemize}
+        \item \textbf{Accuracy} is one of the simplest and most commonly used performance metrics.
+        \item It is defined as the ratio of correctly predicted instances to the total instances:
+        \[
+        \text{Accuracy} = \frac{\text{True Positives} + \text{True Negatives}}{\text{Total Samples}}
+        \]
+        \item However, accuracy alone can be misleading, especially with imbalanced datasets.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example: cancer detection problem}
+    \begin{itemize}
+        \item Imagine a dataset with 1000 patients:
+        \begin{itemize}
+            \item Only 10 have cancer (\textbf{positive class}).
+            \item 990 do not have cancer (\textbf{negative class}).
+        \end{itemize}
+        \item A classifier predicts that no one has cancer (predicts all as negative).
+        \item What will be the accuracy of this model?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example: cancer detection problem cont}
+    Look at this table for our model which predict negative all the time:
+    
+    \begin{table}[h!]
+        \centering
+        \begin{tabular}{@{}lcc@{}}
+            \toprule
+            & \textbf{Predicted Negative} & \textbf{Predicted Positive} \\ \midrule
+            \textbf{Actual Negative} & 990 (TN) & 0 (FP) \\
+            \textbf{Actual Positive} & 10 (FN)  & 0 (TP) \\ \bottomrule
+        \end{tabular}
+        % \caption*{Confusion Matrix for Cancer Detection (All Negative Predictions)}
+    \end{table}
+    
+    \[
+    \text{Accuracy} = \frac{990 + 0}{1000} = 99\%
+    \]
+    
+    \textbf{High accuracy}, but the model fails to detect any actual cases of cancer!
+\end{frame}
+
+
+\begin{frame}{Why accuracy can be misleading}
+    \begin{itemize}
+        \item In highly imbalanced datasets (e.g., cancer detection), the \textbf{minority class} (positive cases) is often underrepresented.
+        \item A model that always predicts the majority class can still have high accuracy, but poor real-world performance.
+        \item In the cancer detection example, 99\% accuracy sounds good, but the model doesn't detect any actual cancer cases.
+        \item We need better metrics to evaluate model performance.
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Performance metrics}
+    \begin{itemize}
+        \item \textbf{Scenario:}
+        \begin{itemize}
+            \item An alarm system can either ring or not ring when a thief is present.
+            \item Let's define the outcomes:
+            \begin{itemize}
+                \item \textbf{True Positive (TP)}: Alarm rings (correctly) when a thief is present.
+                \item \textbf{True Negative (TN)}: Alarm does not ring (correctly) when no thief is present.
+                \item \textbf{False Positive (FP)}: Alarm rings (incorrectly) when no thief is present (a false alarm).
+                \item \textbf{False Negative (FN)}: Alarm does not ring (incorrectly) when a thief is present (a missed alarm).
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+    
+    % \begin{table}[h!]
+    %     \centering
+    %     \begin{tabular}{@{}lcc@{}}
+    %         \toprule
+    %         & \textbf{Thief Present} & \textbf{No Thief Present} \\ \midrule
+    %         \textbf{Alarm Rings} & TP & FP \\
+    %         \textbf{Alarm Does Not Ring} & FN & TN \\ \bottomrule
+    %     \end{tabular}
+    %     % \caption*{Confusion Matrix for Alarm System}
+    % \end{table}
+    
+    \begin{minipage}{0.6\textwidth} % Left side for the table
+        \begin{table}[h!]
+            \centering
+            \begin{tabular}{@{}lcc@{}}
+                \toprule
+                & \textbf{Thief Present} & \textbf{No Thief Present} \\ \midrule
+                \textbf{Alarm Rings} & TP & FP \\
+                \textbf{Alarm Does Not Ring} & FN & TN \\ \bottomrule
+            \end{tabular}
+        \end{table}
+    \end{minipage}\hfill 
+    \begin{minipage}{0.2\textwidth} 
+        \centering
+        \includegraphics[width=\textwidth]{pic/thief.png} 
+    \end{minipage}
+\end{frame}
+
+\begin{frame}{Performance metrics cont.}
+    \begin{itemize}
+        \item \textbf{Metrics:}
+        \begin{itemize}
+            % \item \textbf{Accuracy}:
+            % \[
+            % \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
+            % \]
+            % \textit{Measures the overall correctness of the alarm system. It is the proportion of true results (both true positives and true negatives) among the total cases examined.}
+            
+            \item \textbf{Sensitivity (Recall)}:
+            \[
+            \text{Sensitivity} = \frac{TP}{TP + FN}
+            \]
+            \textit{Indicates the ability of the alarm system to correctly identify a thief. It is the proportion of actual positives (thief present) that are correctly identified.}
+
+            \item \textbf{Specificity}:
+            \[
+            \text{Specificity} = \frac{TN}{TN + FP}
+            \]
+            \textit{Measures the ability of the alarm system to correctly identify when no thief is present. It is the proportion of actual negatives that are correctly identified.}
+
+            \item \textbf{Precision}:
+            \[
+            \text{Precision} = \frac{TP}{TP + FP}
+            \]
+            \textit{Indicates the accuracy of the alarm when it rings. It is the proportion of times the alarm rang and a thief was indeed present out of all the times the alarm was activated.}
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Performance metrics}
+    
+    
+%     \begin{table}[h!]
+%     \centering
+%     \begin{tabular}{|c|c|c|}
+%         \hline
+%          & actually in the class & actually not in the  class \\ \hline
+%         predicted to be in the class & TP & FP \\ \hline
+%         predicted not to be in the class & FN & TN \\ \hline
+%         % Row 3, Col 1 & Row 3, Col 2 & Row 3, Col 3 \\ \hline
+%     \end{tabular}
+%     % \caption{Basic Table}
+%     % \label{tab:basic_table}
+%     \end{table}
+    
+    
+%     \begin{align*}
+%         \text{Precision P } &= \frac{TP}{TP + FP} \\
+%         \text{Recall R } &= \frac{TP}{TP + FN} \\
+%         \text{Accuracy } &= \frac{TP + TN}{TP + TN + FP + FN}
+%     \end{align*}
+% \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Performance metrics cont.}
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.9\textwidth]{pic/prass.png}
             % \caption* { \scriptsize [}
             % \label{fig:image1}
             \end{figure}
@@ -407,6 +689,23 @@ subsubsectionstyle=show/shaded/hide]
     \begin{align*}
         \frac{1}{F}=\frac{1}{2}(\frac{1}{P}+\frac{1}{R})
     \end{align*}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Precision/recall/F1}
+    \begin{itemize}
+        \item This website could give you a perfect intuition about precision recall trade-off
+        
+    \end{itemize}
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.5\textwidth]{pic/prRtradeoff.png}
+            % \caption* { \scriptsize [}
+            % \label{fig:image1}
+            \end{figure}
+    \begin{itemize}
+        \item Link: \href{https://mlu-explain.github.io/precision-recall/}{https://mlu-explain.github.io/precision-recall/}
+    \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Why harmonic mean?}
@@ -447,6 +746,7 @@ subsubsectionstyle=show/shaded/hide]
 %             % \label{fig:image1}
 %             \end{figure}
 % \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Confusion matrix}
@@ -531,8 +831,114 @@ multiple performance measures into one quantity?
 %         \item Macro-F1 is more suitable for this purpose
 %     \end{itemize}
 % \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{AUC-ROC}
+    \begin{itemize}
+        \item Area Under the Receiver Operating Characteristic Curve
+        \begin{itemize}
+            \item ROC (Receiver Operating Characteristic) is a graphical representation of the performance of a binary classification model.
+            \item It plots the true positive rate (TPR) against the false positive rate (FPR) at different classification thresholds.
+        \end{itemize}
+        
+    \end{itemize}
+    
+    \begin{figure}[h]
+            \centering
+            
+            \includegraphics[width=0.4\textwidth]{pic/image.png}
+            % \caption* { \scriptsize [}
+            % \label{fig:image1}
+            \end{figure}
+            
+\end{frame}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{AUC-ROC cont.}
+    \begin{itemize}
+        \item A high AUC score indicates that the model has good discrimination ability, i.e., it can effectively differentiate between positive and negative instances at different classification thresholds.
+        \item Conversely, a lower AUC-ROC score suggests that the model struggles to differentiate between the two classes.
+        \item AUC ranges from 0 to 1, with 0.5 indicating random guessing and 1 indicating a perfect classifier.
+
+
+    \end{itemize}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Cross Validation}
+
+\begin{frame}{Model Selection via Cross Validation}
+    \begin{itemize}
+        \item \textbf{Cross-Validation}
+        \medskip
+        \begin{itemize}\itemsep1em
+            \item \justifying \textbf{Purpose}:
+            Technique for evaluating how well a model generalizes to unseen data.
+            \item \justifying \textbf{How It Works}:
+            Split data into $k$ folds; train on $k-1$ folds and validate on the remaining fold.
+            \item \justifying \textbf{Repeat Process}:
+            Repeat $k$ times, rotating the test fold each time. Average of all scores is the final score of the model.
+            \item \justifying Cross-validation
+            reduces overfitting and provides a more reliable estimation of model performance.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{K-Fold Cross Validation}
+    \begin{figure}
+        \centering
+        \includegraphics[width=.8\textwidth]{pic/Figure_28.png}
+    \end{figure}
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figure adapted from Introduction to Support Vector Machines and Kernel Methods, J.M. Ashfaque.
+        };
+    \end{tikzpicture}
+\end{frame}
+
+
+\begin{frame}{Leave-One-Out Cross-Validation (LOOCV)}
+    \begin{itemize}
+        \item \textbf{Leave-One-Out Cross-Validation (LOOCV)}
+            \medskip
+            \begin{itemize}\itemsep1em
+            \item \justifying \textbf{How It Works}:
+            Uses a single data point as the validation set ($k$ = 1) and the rest as the training set. Repeat for all data points.
+            \item \textbf{Properties:}
+            \smallskip
+            \begin{itemize}\itemsep.5em
+                \item \textbf{No Data Wastage}:
+                Every data point is used for both training and validation.
+                \item \textbf{High Variance, Low Bias}.
+                \item \justifying \textbf{Computationally Expensive}: 
+                Requires training the model $N$ times for $N$ data points, making it slow for large datasets.
+                \item \textbf{Best for small datasets}.
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Cross-Validation for Choosing Regularization Term}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\linewidth]{pic/Figure_29.png}
+    \end{figure}
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figures adapted from slides of F.Salehi, Machine Learning course, Sharif University of Technology.
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Cross-Validation for Choosing Model Complexity}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\linewidth]{pic/Figure_16.png}
+    \end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{References}
 
 \begin{frame}{Contributions}
