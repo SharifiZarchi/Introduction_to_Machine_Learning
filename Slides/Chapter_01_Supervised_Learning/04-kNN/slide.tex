@@ -24,7 +24,6 @@
 \usepackage{array}
 \usepackage{ragged2e}
 
-
 \author{Ali Sharifi-Zarchi}
 % \author{CE Department}
 \title{Machine Learning (CE 40477)}
@@ -77,16 +76,16 @@ subsubsectionstyle=show/shaded/hide]
 \section{Overview}
 \begin{frame}{Parametric vs. non-parametric methods}
     \begin{itemize}
-        \item Parametric methods need to find parameters from data and then use the inferred parameters to decide on new data points
+        \item \textbf{Parametric} methods need to \textbf{find parameters} from data and then use the inferred parameters to decide on new data points
         \begin{itemize}
             \item Learning: finding parameters from data
-            \item e.g., Linear regression, Logistic regression
+            \item e.g., \textbf{Linear regression}, \textbf{Logistic regression}
         \end{itemize}
-        \item Non-parametric methods
+        \item \textbf{Non-parametric} methods
         \begin{itemize}
-            \item Training examples are explicitly used
-            \item Training phase is not required
-            \item e.g., k-Nearest neighbors (kNN)
+            \item Training examples are \textbf{explicitly} used
+            \item \textbf{Training phase} is \textbf{not required}
+            \item e.g., \textbf{k-Nearest neighbors (kNN)}
         \end{itemize}
         \item Both supervised and unsupervised learning can be categorized into parametric and non-parametric methods
     \end{itemize}
@@ -147,7 +146,16 @@ Then, I will tell you who you are.
         % \caption{This is the caption of the image.}
         % \label{fig:image1}
         \end{figure}
+        
+        \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.01cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figure adapted from M.Soleymani ML slides, Sharif University of Technology
+        };
+    \end{tikzpicture}
     \end{minipage}
+    
+    
 \end{frame}
 
 %%%%%%%%%%%%%%
@@ -169,12 +177,12 @@ Then, I will tell you who you are.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{kNN classifier cont.}
     \begin{itemize}
-        \item With kNN we can obtain non-linear decision surfaces unlike the previous methods (linear and logistic regression)
-        \item But note that this method could be prone to outliers or noisy data especially if:
+        \item With \textbf{kNN} we can obtain \textbf{non-linear} decision surfaces unlike the previous methods (linear and logistic regression)
+        \item But note that this method could be prone to \textbf{outliers} or \textbf{noisy} data especially if:
         \begin{itemize}
-            \item We have small dataset
-            \item Our data is low-dimensional
-            \item We use a small value of $k$ (like $k=1$ is only determined by the nearest neighbor and could be misleading in many test cases.
+            \item We have \textbf{small dataset}
+            \item Our data is \textbf{low-dimensional}
+            \item We use a \textbf{small value of} $\mathbf{k}$ (like $k=1$ is only determined by the nearest neighbor and could be misleading in many test cases.
         \end{itemize}
     \end{itemize}
 \end{frame}
@@ -230,6 +238,12 @@ Then, I will tell you who you are.
             % \caption* { \scriptsize [Duda, Hurt, and Strok’s Book]}
             % \label{fig:image1}
             \end{figure}
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.01cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figures for this example were adapted from E. Xing, “Theory of classification and nonparametric classifier.” Lecture notes
+        };
+    \end{tikzpicture}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Voronoi tessellation}
@@ -264,6 +278,13 @@ Then, I will tell you who you are.
             % \caption* { \scriptsize [Duda, Hurt, and Strok’s Book]}
             % \label{fig:image1}
             \end{figure}
+            
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.01cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figure adapted from R. Zhu, “Stat 542: Statistical learning - k-nearest neighbor and the bias-variancetrade-off.” Lecture notes.
+        };
+    \end{tikzpicture}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Effect of k}
@@ -303,6 +324,13 @@ Then, I will tell you who you are.
             % \caption* { \scriptsize [Bishop]}
             % \label{fig:image1}
             \end{figure}
+            
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.01cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figures were adapted from R. Zhu, “Stat 542: Statistical learning - k-nearest neighbor and the bias-variancetrade-off.” Lecture notes.
+        };
+    \end{tikzpicture}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -393,7 +421,11 @@ Then, I will tell you who you are.
             % \label{fig:image1}
             \end{figure}
     
-     
+     \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figure adapted from https://medium.com/@milana.shxanukova15/cosine-distance-and-cosine-similarity-a5da0e4d9ded
+        };
+    \end{tikzpicture}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Effect of distance measure}
@@ -404,6 +436,13 @@ Then, I will tell you who you are.
             % \caption* { \scriptsize [}
             % \label{fig:image1}
             \end{figure}
+            
+    \vfill 
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.01cm, yshift=0.15cm] at (current page.south west) {
+            \scriptsize Figures adapted from M.Soleymani ML slides, Sharif University of Technology
+        };
+    \end{tikzpicture}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \begin{frame}{Probabilistic perspective of kNN}
@@ -457,6 +496,13 @@ Then, I will tell you who you are.
             % \caption* { \scriptsize [Figs. have been adopted from Andrew Moore’s tutorial on “Instance-based learning”]}
             % \label{fig:image1}
             \end{figure}
+    
+    % \vfill 
+    % \begin{tikzpicture}[remember picture,overlay]
+    %     \node[anchor=south west, xshift=0.01cm, yshift=0.15cm] at (current page.south west) {
+    %         \scriptsize Figure adapted from R.Zhu, STAT 542, University of Illinois
+    %     };
+    % \end{tikzpicture}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{kNN regression: example}
@@ -471,6 +517,14 @@ Then, I will tell you who you are.
             % \caption* { \scriptsize [Figs. have been adopted from Andrew Moore’s tutorial on “Instance-based learning”]}
             % \label{fig:image1}
             \end{figure}
+            
+    % \vfill 
+    
+    % \begin{tikzpicture}[remember picture,overlay]
+    %     \node[anchor=south west, xshift=0.01cm, yshift=0.15cm] at (current page.south west) {
+    %         \scriptsize Figure adapted from R.Zhu, STAT 542, University of Illinois
+    %     };
+    % \end{tikzpicture}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{kNN regression: example}
@@ -485,6 +539,20 @@ Then, I will tell you who you are.
             % \caption* { \scriptsize [Figs. have been adopted from Andrew Moore’s tutorial on “Instance-based learning”]}
             % \label{fig:image1}
             \end{figure}
+    
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.01cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figures were adapted from R. Zhu, “Stat 542: Statistical learning - k-nearest neighbor and the bias-variancetrade-off.” Lecture notes.
+        };
+    \end{tikzpicture}
+    % \vfill 
+    
+    % \begin{tikzpicture}[remember picture,overlay]
+    %     \node[anchor=south west, xshift=0.01cm, yshift=0.15cm] at (current page.south west) {
+    %         \scriptsize Figure adapted from R.Zhu, STAT 542, University of Illinois
+    %     };
+    % \end{tikzpicture}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Performance metrics}
@@ -513,7 +581,7 @@ Then, I will tell you who you are.
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Example: cancer detection problem cont}
+\begin{frame}{Example: cancer detection problem cont.}
     Look at this table for our model which predict negative all the time:
     
     \begin{table}[h!]
@@ -570,7 +638,7 @@ Then, I will tell you who you are.
     %     % \caption*{Confusion Matrix for Alarm System}
     % \end{table}
     
-    \begin{minipage}{0.6\textwidth} % Left side for the table
+    \begin{minipage}{0.7\textwidth} % Left side for the table
         \begin{table}[h!]
             \centering
             \begin{tabular}{@{}lcc@{}}
@@ -580,11 +648,21 @@ Then, I will tell you who you are.
                 \textbf{Alarm Does Not Ring} & FN & TN \\ \bottomrule
             \end{tabular}
         \end{table}
+        
+        
     \end{minipage}\hfill 
     \begin{minipage}{0.2\textwidth} 
         \centering
         \includegraphics[width=\textwidth]{pic/thief.png} 
+        
+        \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.2cm] at (current page.south west) {
+            \scriptsize Photo adapted from https://stock.adobe.com/search?k=thief+cartoon
+        };
+    \end{tikzpicture}
+        
     \end{minipage}
+    
 \end{frame}
 
 \begin{frame}{Performance metrics cont.}
@@ -651,45 +729,60 @@ Then, I will tell you who you are.
     \begin{figure}[h]
             \centering
             
-            \includegraphics[width=0.9\textwidth]{pic/prass.png}
-            % \caption* { \scriptsize [}
+            \includegraphics[width=0.8\textwidth]{pic/prass.png}
+            % \caption* { \scriptsize Figure adapted from }
             % \label{fig:image1}
             \end{figure}
+            
+    \vfill 
+    
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.01cm, yshift=0.15cm] at (current page.south west) {
+            \scriptsize Figure adapted from https://medium.com
+
+        };
+    \end{tikzpicture}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{A combined measure: F}
+\begin{frame}{A combined measure: F1}
     \begin{itemize}
-        \item Combined measure: \textbf{F measure}
+        \item Combined measure: \textbf{F1 measure}
         \begin{itemize}
             \item allows us to trade off precision and recall
-            \item weighted harmonic mean of P and R
+            \item harmonic mean of P and R
         \end{itemize}
     \end{itemize}
     \begin{align*}
-        F = \frac{1}{\alpha \frac{1}{P} + (1-\alpha)\frac{1}{R}} = \frac{(\beta^2 + 1)PR}{\beta^2P + R}
+        F = \frac{1}{\frac{1}{2P} + \frac{1}{2R}} = \frac{2PR}{P + R}
     \end{align*}
-    \[
-        \hspace{10cm} \text{You can see: } \beta^2 = \frac{1-\alpha}{\alpha}
-    \]
+    % \[
+    %     \hspace{10cm} \text{You can see: } \beta^2 = \frac{1-\alpha}{\alpha}
+    % \]
     
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{A combined measure: F cont.}
-    \begin{itemize}
-        \item People usually use balanced $F$ $(\beta=1 \text{ or } \alpha=\frac{1}{2})$
-    \end{itemize}
-    \begin{align*}
-        F &= F_{\beta=1} \\
-        &\\
-        F &= \frac{2PR}{P + R}
-    \end{align*}
     \begin{itemize}
         \item Harmonic mean of P and R: 
     \end{itemize}
-    \begin{align*}
+        \begin{align*}
         \frac{1}{F}=\frac{1}{2}(\frac{1}{P}+\frac{1}{R})
     \end{align*}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{A combined measure: F1 cont.}
+%     \begin{itemize}
+%         \item People usually use balanced $F$ $(\beta=1 \text{ or } \alpha=\frac{1}{2})$
+%     \end{itemize}
+%     \begin{align*}
+%         F &= F_{\beta=1} \\
+%         &\\
+%         F &= \frac{2PR}{P + R}
+%     \end{align*}
+%     \begin{itemize}
+%         \item Harmonic mean of P and R: 
+%     \end{itemize}
+%     \begin{align*}
+%         \frac{1}{F}=\frac{1}{2}(\frac{1}{P}+\frac{1}{R})
+%     \end{align*}
+% \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Precision/recall/F1}
     \begin{itemize}
@@ -735,6 +828,14 @@ Then, I will tell you who you are.
             % \caption* { \scriptsize [}
             % \label{fig:image1}
             \end{figure}
+    
+    \vfill 
+    
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.01cm, yshift=0.15cm] at (current page.south west) {
+            \scriptsize Figure adapted from M.Soleymani ML slides, Sharif University of Technology
+        };
+    \end{tikzpicture}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \begin{frame}{A precision-recall curve}
@@ -751,33 +852,96 @@ Then, I will tell you who you are.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Confusion matrix}
     \begin{itemize}
-        \item This  $(i,j)$ entry means $53$ of the samples actually in class $i$ were put in class $j$ by the classifier:
+        \item The \textbf{confusion matrix} is a \textbf{table} used to evaluate the performance of a classification model.
+        \item It compares the \textbf{actual values (true labels)} with the \textbf{predicted values} from the model.
+        \item Each \textbf{row} of the matrix represents the \textbf{actual class}, while each \textbf{column} represents the \textbf{predicted class}.
+        \item It helps us understand not just how often the model is correct, but also \textbf{where it makes mistakes}.
     \end{itemize}
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.4\textwidth]{pic/cmatrix.png}
-            % \caption* { \scriptsize [}
-            % \label{fig:image1}
-            \end{figure}
-    \begin{itemize}
-        \item In a perfect classification, only the diagonal has non-zero entries
-    \end{itemize}
+    
+    % \vfill
+    % \centering
+    % \includegraphics[width=0.5\textwidth]{confusion_matrix_image.png}
+    % % Add an illustrative image of a confusion matrix
 \end{frame}
+
+
+%%%%%%
+\begin{frame}{Confusion matrix cont.}
+    \begin{itemize}
+        \item Let's consider an image classification task where we classify images into three categories: **Cat**, **Dog**, and **Horse**.
+        \item After training the model, we evaluate its predictions against the actual labels.
+    \end{itemize}
+    
+    \vfill
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+    \hline
+    & \textbf{Predicted Cat} & \textbf{Predicted Dog} & \textbf{Predicted Horse} \\
+    \hline
+    \textbf{Actual Cat} & True Positive (TP) & False Negative (FN) & False Negative (FN) \\
+    \hline
+    \textbf{Actual Dog} & False Negative (FN) & True Positive (TP) & False Negative (FN) \\
+    \hline
+    \textbf{Actual Horse} & False Negative (FN) & False Negative (FN) & True Positive (TP) \\
+    \hline
+    \end{tabular}
+\end{frame}
+
+%%%%%%%
+\begin{frame}{Confusion matrix cont.}
+    \begin{minipage}{0.4\textwidth}
+        \begin{itemize}
+            \item Here is an example confusion matrix for a model that classifies images of cats, dogs, and horses:
+            \item We can see that the model classified 8 images of cats correctly, but it classified 1 cat as a dog and 1 cat as a horse (False Negatives).
+            \item Similarly, it made 2 mistakes when predicting dogs and horses.
+        \end{itemize}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.55\textwidth}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[width=1\textwidth]{pic/cmCatDogHorse.png}
+            \caption* {\scriptsize Figure adapted from https://www.geeksforgeek}
+        \end{figure}
+    \end{minipage}
+\end{frame}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Confusion matrix}
+%     \begin{itemize}
+%         \item This  $(i,j)$ entry means $53$ of the samples actually in class $i$ were put in class $j$ by the classifier:
+%     \end{itemize}
+%     \begin{figure}[h]
+%             \centering
+            
+%             \includegraphics[width=0.4\textwidth]{pic/cmatrix.png}
+%             % \caption* { \scriptsize [}
+%             % \label{fig:image1}
+%             \end{figure}
+%     \begin{itemize}
+%         \item In a perfect classification, only the diagonal has non-zero entries
+%     \end{itemize}
+% \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Per class evaluation measures}
     \begin{itemize}
+        \item \textbf{Definition:} For our \textbf{confusion matrix} $\mathbf{C}$, each \textbf{element} $\mathbf{C_{ij}}$ denotes the number of samples actually in class $i$ that were put in class $j$ by our classifier.
+        \begin{itemize}
+            \item Now we could rewrite our performance metrics with confusion matrix view
+        \end{itemize}
+        \noindent\hrulefill 
         \item Recall: Fraction of the samples in class $i$ classified correctly:
         \[
-          \frac{c_{ii}}{\sum _{j} c_{ij}}    
+          \frac{C_{ii}}{\sum _{j} C_{ij}}    
         \]
         \item Precision: Fraction of the samples assigned class $i$ that are actually about class $i$:
         \[
-          \frac{c_{ii}}{\sum _{j} c_{ji}}
+          \frac{C_{ii}}{\sum _{j} C_{ji}}
         \]
         \item Accuracy: Fraction of the samples classified correctly:
         \[
-          \frac{\sum _i {c_{ii}}}{\sum _j \sum _i c_{ij}}
+          \frac{\sum _i {C_{ii}}}{\sum _j \sum _i C_{ij}}
         \]
     \end{itemize}
     
@@ -845,11 +1009,20 @@ multiple performance measures into one quantity?
     \begin{figure}[h]
             \centering
             
-            \includegraphics[width=0.4\textwidth]{pic/image.png}
+            \includegraphics[width=0.4\textwidth]{pic/AUC.png}
             % \caption* { \scriptsize [}
             % \label{fig:image1}
             \end{figure}
-            
+    
+    \vfill 
+    
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.01cm, yshift=0.15cm] at (current page.south west) {
+            \scriptsize Figure adapted from https://www.researchgate.net/figure/ROC-curves-and-area-under-curve-AUC_fig2_351506473
+
+        };
+    \end{tikzpicture}
+    
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -863,6 +1036,7 @@ multiple performance measures into one quantity?
     \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Cross Validation}
 
 \begin{frame}{Model Selection via Cross Validation}
@@ -878,6 +1052,7 @@ multiple performance measures into one quantity?
             Repeat $k$ times, rotating the test fold each time. Average of all scores is the final score of the model.
             \item \justifying Cross-validation
             reduces overfitting and provides a more reliable estimation of model performance.
+            \item Note that the model must be \textbf{retrained} at each iteration to avoid reusing a model that has already seen the test data, ensuring unbiased evaluation.
         \end{itemize}
     \end{itemize}
 \end{frame}
@@ -918,24 +1093,38 @@ multiple performance measures into one quantity?
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Cross-Validation for Choosing Regularization Term}
+\begin{frame}{Cross-Validation for Better Generalization}
+    \begin{itemize}
+        \item Cross-validation is one of the methods used to find the optimal model degree and regularization parameter, ensuring better generalization by minimizing validation error and balancing model complexity.
+    \end{itemize}
     \begin{figure}
         \centering
-        \includegraphics[width=0.8\linewidth]{pic/Figure_29.png}
+        \begin{minipage}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{pic/Figure_16.png}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.48\linewidth}
+            \centering
+            \includegraphics[width=\linewidth]{pic/Figure_29.png}
+        \end{minipage}
     \end{figure}
-    \vfill
     \begin{tikzpicture}[remember picture,overlay]
         \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figures adapted from slides of F.Salehi, Machine Learning course, Sharif University of Technology.
+            \scriptsize Figure on the right adapted from slides of F.Salehi, Machine Learning course, Sharif University of Technology.
         };
     \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Cross-Validation for Choosing Model Complexity}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.8\linewidth]{pic/Figure_16.png}
-    \end{figure}
+
+
+\begin{frame}{Cross-Validation for Evaluating Model Performance}
+    \begin{itemize}\itemsep1.2em
+        \item Metrics like accuracy, precision, recall, and F1 score are assessed across different folds.
+        \item Averaging these scores gives a reliable estimate of performance and stability.
+        \item Ensures the model is effective before final testing and use on the test dataset.
+        \item \justifying For example, high variance in cross-validation metrics means the model's performance is inconsistent, likely overfitting to specific data subsets.
+    \end{itemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
