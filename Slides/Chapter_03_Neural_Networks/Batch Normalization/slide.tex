@@ -102,30 +102,103 @@ subsubsectionstyle=show/shaded/hide]
 
 \begin{itemize}
 
-    \item \textbf{Definition:} During training, as the parameters of earlier layers change, the distribution of inputs to deeper layers shifts, which slows down learning.
-    \item \textbf{Impact:} This shift makes the network slower to train and requires careful tuning of the learning rate.
-    \item \textbf{Example:} Imagine training a deep network where the input scale and distribution to each layer are constantly changing, making convergence harder to achieve.
+    \item Wait! What does it mean, in simple language?
+    \item Let’s say that we want to train a model and the ideal target output function that the model needs to learn is as below.
+
+    \begin{figure}
+        \includegraphics[width=0.45\textwidth]{pic/ICS-1.png}
+        \caption{Target function \href{https://ketanhdoshi.github.io/assets/images/BatchNorm/ICS-1.png}{\textcolor{orange}{\textbf{Source}}}}
+        \label{fig:Target_function}
+    \end{figure}
 
 \end{itemize}
 
 \end{frame}
 
-\begin{frame}{Why Batch Normalization?}
+\begin{frame}{Problem: Internal Covariate Shift}
 
-    \textcolor{blue}{\textbf{Batch Normalization Solution}}
+\begin{itemize}
+
+    \item Suppose that the training data values input to the model cover only a part of the range of output values. Therefore, the model can only learn a subset of the target function.
+
+    \begin{figure}
+        \includegraphics[width=0.45\textwidth]{pic/ICS-2.png}
+        \caption{Training data distribution \href{https://ketanhdoshi.github.io/assets/images/BatchNorm/ICS-2.png}{\textcolor{orange}{\textbf{Source}}}}
+        \label{fig:Training_data_distribution}
+    \end{figure}
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Problem: Internal Covariate Shift}
+
+\begin{itemize}
+
+    \item The model has no idea about the rest of the target curve. It could be anything.
+
+    \begin{figure}
+        \includegraphics[width=0.45\textwidth]{pic/ICS-3.png}
+        \caption{Rest of the target curve \href{https://ketanhdoshi.github.io/assets/images/BatchNorm/ICS-3.png}{\textcolor{orange}{\textbf{Source}}}}
+        \label{fig:Rest_Curve}
+    \end{figure}
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Problem: Internal Covariate Shift}
+
+\begin{itemize}
+
+    \item Suppose we feed the model to the testing data as below.
+    \item This has a very different distribution from the data that the model was initially trained with.
+    \item The model cannot simply generalize its predictions for this new data.
+
+    \begin{figure}
+        \includegraphics[width=0.3\textwidth]{pic/ICS-4.png}
+        \caption{Test data has different distribution \href{https://ketanhdoshi.github.io/assets/images/BatchNorm/ICS-4.png}{\textcolor{orange}{\textbf{Source}}}}
+        \label{fig:Test_data_distribution}
+    \end{figure}
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Problem: Internal Covariate Shift}
     
+\begin{itemize}
+    \item This is the problem of Covariate Shift \textcolor{blue}{the model is fed data with a different distribution than what it was previously trained with}, even though that new data still conforms to the same target function.
+
+    \item For the model to figure out how to adapt to this new data, it has to re-learn some of its target output functions.
+    \item \textbf{This slows down the training process.}
+    
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Problem: Internal Covariate Shift}
+
+\textcolor{blue}{\textbf{What happens inside Deep Network Layers?}}
+
+\begin{itemize}
+
+\item Think about what happens when we train a deep network: As we update the weights of earlier layers, the data distribution in the deeper layers keeps shifting.
+\item This means that deeper layers see new and varying patterns every time we update the weights in previous layers.
+\item As a result, the network must keep readjusting, which makes the learning process slower and more difficult.
+\item \textbf{In other words:} The network is constantly “re-learning” how to make predictions because the data it sees is never consistent!
+
+\end{itemize}
+
+\end{frame}
+
+\begin{frame}{Batch Normalization Solution}
+
     \begin{itemize}
-
-    \item \textbf{Goal:} Normalize the inputs to each layer so that the mean is close to 0 and the variance is close to 1.
-    \item \textbf{How it helps:} This stabilization of the learning process allows for higher learning rates and often leads to faster convergence.
-    \item \textbf{Additional Benefits:}
-        \begin{itemize}
-        \item Reduces sensitivity to weight initialization.
-        \item Mitigates vanishing and exploding gradient problems in deep neural networks.
-        \end{itemize}
-
-
+        \item \textbf{Goal:} Normalize inputs so that the mean is near 0 and the variance is close to 1.
+        \item \textbf{How it helps:} Stabilizes learning, allowing for higher learning rates and faster convergence.
     \end{itemize}
+
 \end{frame}
 
 \begin{frame}{Magic Effect of Batch Normalization}
@@ -137,9 +210,9 @@ subsubsectionstyle=show/shaded/hide]
             \item Batch Normalization \textbf{makes the distribution more stable} and reduces the internal covariate shift.
     \end{itemize}
 
-        \begin{figure}
+    \begin{figure}
         \includegraphics[width=0.7\textwidth]{pic/BN.png}
-        \caption{(a) The test accuracy of the MNIST network trained with and without Batch Normalization, vs the number of training steps. (b, c) The evolution of input distributions to a typical sigmoid, over the course of training, shown as {15, 50, 85}th percentiles [1].}
+        \caption{(a) The test accuracy of the MNIST network trained with and without Batch Normalization, vs the number of training steps. (b, c) The evolution of input distributions to a typical sigmoid, for training, shown as {15, 50, 85}th percentiles [1].}
         \label{fig:BN_Effect}
     \end{figure}
 \end{frame}
@@ -212,6 +285,23 @@ subsubsectionstyle=show/shaded/hide]
     \end{itemize}
 \end{frame}
 
+
+\begin{frame}{Effect of Batch Normalization on Gradients}
+        \begin{figure}
+        \includegraphics[width=0.9\textwidth]{pic/BN_Grad_Dist.png}
+        \caption{Gradient magnitudes at initialization for layer 55 of a network with and without Batch Normalization. \href{https://doi.org/10.48550/arXiv.1806.02375}{\textcolor{orange}{\textbf{Source}}}}
+        \label{fig:BN_Dist}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Effect of Batch Normalization on Gradients}
+        \begin{figure}
+        \includegraphics[width=0.55\textwidth]{pic/Smooth.png}
+        \caption{Gradients with Batch Norm are smoother. \href{https://ketanhdoshi.github.io/Batch-Norm-Why/}{\textcolor{orange}{\textbf{Source}}}}
+        \label{fig:Smooth}
+    \end{figure}
+\end{frame}
+
 \begin{frame}
     \frametitle{Effect of Batch Normalization on Gradients}
 
@@ -233,15 +323,25 @@ subsubsectionstyle=show/shaded/hide]
     \end{equation}
 \end{frame}
 
+
 \begin{frame}
-    \frametitle{How Batch Normalization Smooth the Cost Surface}
+    \frametitle{Loss Landscape is not Smooth in Typical Neural Networks}
+    \begin{figure}
+        \includegraphics[width=0.45\textwidth]{pic/Landscape-1.png}
+        \caption{A neural network loss-landscape. \href{https://arxiv.org/pdf/1712.09913.pdf}{\textcolor{orange}{\textbf{Source}}}}
+        \label{fig:Loss_Landscape}
+    \end{figure}
+\end{frame}
+
+\begin{frame}
+    \frametitle{How Batch Normalization Smooth the  Loss Landscape}
 
     The smoothing effect of batch normalization can be understood by observing how it constrains the gradient magnitudes. The expression shows that:
     \begin{equation}
         \frac{\partial \mathcal{L}}{\partial x} \text{ is scaled by } \frac{1}{\sqrt{\sigma_{\mathcal{B}}^2 + \epsilon}}
     \end{equation}
 
-    This consistent scaling leads to a smoother loss surface because:
+    This consistent scaling leads to a smooth loss landscape because:
     \begin{itemize}
         \item It stabilizes the gradient flow, ensuring controlled optimization step sizes.
         \item Reduces the risk of large oscillations or abrupt changes in the loss landscape.
@@ -287,10 +387,11 @@ subsubsectionstyle=show/shaded/hide]
 
 \begin{frame}{Batch Normalization Pros}
 
-    \textcolor{blue}{\textbf{Why Using Batch Normalization Reduces Sensitivity to Weight Initialization?}}
+    \textcolor{blue}{\textbf{Why Does Batch Normalization Reduce Sensitivity to Weight Initialization?}}
     \begin{itemize}
-
-        \item Batch normalization decreases the importance of initial weights because makes optimization space smoother, \\ so \textcolor{green}{doesn’t matter where you start}, you will get to the minimal point more or less with the same quantity of iterations in every start point.
+        \item Batch normalization smooths the optimization landscape, reducing the dependency on initial weights. 
+        \item This allows the model to converge to a minimum efficiently, \textcolor{green}{regardless of where optimization begins}.
+        
 
 
     \end{itemize}
@@ -376,10 +477,11 @@ subsubsectionstyle=show/shaded/hide]
     
     \begin{itemize}
 
-        \item \textbf{Key Point:} Batch normalization has become an essential tool in deep learning due to its ability to stabilize and accelerate training, while also acting as a form of regularization.
-        \item \textbf{Impact on Training:} Allows deeper networks to be trained more efficiently and with fewer hyperparameter tuning efforts.
+    \item \textbf{Key Point:} Batch normalization stabilizes and accelerates training while providing regularization benefits.
+    \item \textbf{Impact on Training:} Enables efficient training of deeper networks with reduced hyperparameter tuning.
 
-    \end{itemize}
+\end{itemize}
+
 \end{frame}
 
 
