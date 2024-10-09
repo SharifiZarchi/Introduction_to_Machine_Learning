@@ -120,7 +120,7 @@ subsubsectionstyle=show/shaded/hide]
     \begin{itemize}
         \item Learning from unlabeled data.
         \item Most of the times, there is no (or minimal) prior knowledge of the data.
-        \item Two of the most common techniques:
+        \item Two of the most common tasks:
         \begin{itemize}
             \item \textbf{Clustering}: Grouping data points into clusters based on similarity towards user need.
             \item \textbf{Dimensionality Reduction}: Reducing the number of features under consideration and keeping (perhaps approximately) the most informative features.
@@ -168,10 +168,9 @@ subsubsectionstyle=show/shaded/hide]
 \section{K-Means}
 \begin{frame}{K-Means overview}
     \begin{itemize}
-        \item One of the most common partitional clustering methods used
-        \item The idea is to \textbf{find} \( \mathbf{K} \) \textbf{centers.} \textbf{Each center representing a cluster.}
-        \item Each data point is assigned to cluster \( j \) if and only if it has the least distance to center of cluster \( j \) amongst all clusters.
-        \item K-Means suggest an \textbf{iterative algorithm} to find these centers.
+        \item   A popular \textbf{heuristic} algorithm
+        \item Each data point is assigned to a cluster if and only if it has the least distance to center of that cluster amongst all clusters.
+        \item K-Means suggest an \textbf{iterative} process to find these centers.
     \end{itemize}
 \end{frame}
 
@@ -215,7 +214,7 @@ J = \sum_{\mathbf{x} \in X_{\text{train}}} \sum_{k=1}^{K} r_k(x)|| x -  \mu_k ||
 $$
         \item This is also known as \textit{distortion measure}
         \item We want to chose $f$ and $\mathbf{C}_k$ to minimize this measure.
-        \item K-Means is an algorithm to do this task.
+        \item K-Means is an algorithm to do this task. But this is NP-hard.
 
         
     \end{itemize}
@@ -432,23 +431,6 @@ where
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Some Issues (cont.)}
-    \begin{itemize}
-        \item In the begging we assumed $x_i \in \mathbb{R}^d$, which is not always the case. K-Means requires a space where sample \textbf{mean} is defined.
-        \begin{itemize}
-            \item A simple case is when we have categorical data. 
-            \item  A suggested solution: k-mode - the centroid is represented by most frequent values.
-        \end{itemize}
-        \item The K is predefined.  
-        \item The algorithm is sensitive to outliers
-        \begin{itemize}
-            \item Outliers are data points that are very far away from other data points. 
-\item Outliers could be errors in the data recording or some special data points with very different values.
-        \end{itemize}
-
-    \end{itemize}
-\end{frame}
-
 \begin{frame}{Local optimum}
     \begin{itemize}
         \begin{figure}
@@ -481,6 +463,27 @@ where
 \end{frame}
 
 
+\begin{frame}{Some Issues (cont.)}
+    \begin{itemize}
+        \item In the begging we assumed $x_i \in \mathbb{R}^d$, which is not always the case. K-Means requires a space where sample \textbf{mean} is defined.
+        \begin{itemize}
+            \item A simple case is when we have categorical data. 
+            \item  A suggested solution: k-mode - the centroid is represented by most frequent values.
+        \end{itemize}
+        \item The K is predefined.  
+   \begin{itemize}
+       \item  \textbf{Elbow Method} and \textbf{Silhouette Score} can help
+   \end{itemize}
+        \item The algorithm is sensitive to outliers
+        \begin{itemize}
+            \item Outliers are data points that are very far away from other data points. 
+\item Outliers could be errors in the data recording or some special data points with very different values.
+\item K-medoids  and DBSCAN are more robust to outliers.
+        \end{itemize}
+
+    \end{itemize}
+\end{frame}
+
 \begin{frame}{How many clusters?}
     \begin{figure}
         \centering
@@ -507,28 +510,16 @@ where
     \end{itemize}
 \end{frame}
 
-% \begin{frame}{others}
-%     How do you find optimal K? (Is the elbow informative?)
-% Outliers and pointless clusters and introducing k-means++
-% Unknown number of clusters (regularization)
-% External clustering criteria (purity, r-index, NMI, F-measure)
 
-% \end{frame}
-
-\begin{frame}{External criteria}
-    External clustering criteria (purity, r-index, NMI, F-measure)
-\end{frame}
-
-
-\begin{frame}{Deal Breaker}
+\begin{frame}{Definition Issue}
     \begin{itemize}
-        \item Perhaps the most important problems is how k-means defines clusters. data might not be clustered in centered groups.
-        \item As commonly seen in ML, an idea is to map this data into another vector space where thay can be clustered by our simple measures of similarity.
+        \item Perhaps the most important problems is how k-means defines clusters. K-means assumes clusters are spherical and separated by equal variance, which limits its effectiveness on non-spherical or complex-shaped clusters. 
+        \item Data might not be clustered in centered groups. Or in other words the underlying "pattern" or behavior of data samples  with relation to one another might not be expressed in such simple clusters.
+        \item As commonly seen in ML, an idea is to map this data into another vector space where they can be clustered by our simple measures of similarity. you will see how Neural Networks are incorporated for this task later in the course.
 \item So lets take a look at clustering.
 
-PICTURE
+PICTURE of complex clusters
 
-        
     \end{itemize}
 \end{frame}
 
@@ -539,12 +530,13 @@ PICTURE
     \begin{minipage}{0.95\textwidth}
         \begin{itemize}
         \item Assume we have a set of unlabeled data points $ \{ \mathbf{x}^{(i)} \}_{i=1}^N$.
-        \item We intend to find \textbf{groups of similar objects} with respect to our need.
+        \item We intend to organize data into \textbf{groups }of \textbf{similar }objects.
         \begin{itemize}
+            \item group and similar should be with respect to our need.
             \item For example all data points having most similar number of buys in a market.
         \end{itemize}
-        \item It helps us to gain insight into structure of data prior to class design.
-        \item Clustering could also help to compress and reduce data.
+        \item A cluster is a collection of data items which are “similar” between them, and “dissimilar” to data items in other clusters.
+        \item Clustering could also help to compress and reduce data. (???)
     \end{itemize}
     \end{minipage}%
     % \begin{minipage}{0.45\textwidth}
@@ -571,6 +563,89 @@ PICTURE
             \scriptsize Figure adapted from slides of Dr. Soleymani, Machine Learning course, Sharif University of technology.
         };
     \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Historic application of clustering}
+\begin{itemize}
+    \item John Snow, a London physician, plotted the location of cholera deaths on a map during an outbreak in the 1850s.
+    \item The locations indicated that cases were clustered around certain intersections where there were polluted wells -- thus exposing both the problem and the solution.
+\end{itemize}
+    
+
+\end{frame}
+
+\begin{frame}{Modern applications of clustering}
+\begin{itemize}
+    \item Clustering is the origin of many unsupervised learning applications.
+    \item Customer Segmentation (Marketing)
+    \item Image Segmentation and Object Detection (Computer Vision)
+    \item Anomaly Detection (Cybersecurity, Finance)
+    \item Genomics and Bioinformatics
+    \item Social Network Analysis and Community Detection
+    \item Vector Quantization
+    \item \dots
+\end{itemize}
+    
+
+\end{frame}
+
+
+\begin{frame}{Analysing the task}
+\begin{itemize}
+    \item first lets define a way to measure and show similarity. Two general ways would be:
+    \begin{itemize}
+        \item a similarity function $s(x_i,x_j)$ that is larger when $x_i$ and $x_j$ are more similar
+        \item a dissimilarity or distance function $d(x_i,x_j)$ that is smaller the more simialr to points are.
+    \end{itemize}
+\item  a criterion to evaluate (and use to determine) a clustering. notion of "good" and "bad" clustering.
+\item Algorithm to use the above and compute clustering.
+
+            \item Extra Note: Most algorithms require a distance function to be a \textbf{proper metric} and the similarity measure to create a \textbf{PSD matrix} for all pairs of a finite number of data points.
+\end{itemize}
+
+    
+\end{frame}
+
+
+% \begin{frame}{Similarity measure and Distance measure}
+    % \begin{minipage}{0.6\textwidth}
+        % \begin{itemize}
+        %     \item Similarity measures are used to distinguish between similar and non-similar data points.
+        %     \item We usually define similarity of two data point as \textbf{inverse of distance} between them.
+        %     \item Using this definition, {hard clustering aims to put data points with less distance in same cluster.}
+        % \end{itemize}
+    % \end{minipage}%
+    % \begin{minipage}{0.35}
+    %     \begin{figure}
+    %         \centering
+    %         \includegraphics[scale=0.4]{pic/Distance-based-clustering-approach.png}
+    %     \end{figure}
+    % \end{minipage}
+% \end{frame}
+
+\begin{frame}{Common similarity and distance measures}
+    \begin{itemize}
+        \item Assume \( p \) and \( q \) are two data points from $ \mathbb{R}^D$. most common similarity and distance measures in the problem of clustering are as follows:
+        \begin{itemize}
+            \item \textbf{Euclidean distance:} Most common measure of distance between two vectors:
+
+            \[
+            d(p,q)=\sqrt{{\sum_{i=1}^{D}{(p_i-q_i)^2}}}
+            \]
+            it is translation invariant.
+            
+            \item \textbf{Manhattan distance:} Most common measure of distance when dimensions are not equally important
+            \[
+            d(p,q)=\sqrt{\sum_{i=1}^{D} |p_i-q_i|}
+            \]
+            
+            \item \textbf{Cosine similarity:} Most common measure of similarity when the magnitude of vectors does not change the similarity
+            \[
+            s( p,q)=\frac{p^T q}{||p|| \ . \ ||q||}
+            \]
+
+        \end{itemize}
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Hard clustering vs Soft clustering}
@@ -620,55 +695,85 @@ PICTURE
     \end{tikzpicture}  
 \end{frame}
 
-\begin{frame}{Hard clustering problem}
+\begin{frame}{Cluster Evaluation}
     \begin{itemize}
-        \item We need to \textbf{partition} \( N \) data points to \( K \) clusters.
-        \item Good flat clustering should have two important factors:
+        \item Intra-cluster cohesion (compactness)
         \begin{itemize}
-            \item Data points in a cluster should be similar (\textbf{High intra-cluster similarity})
-            \item Data points in different clusters should be less similar (\textbf{Low inter-cluster similarity})
+            \item Cohesion measures how near the data points in a cluster are to the cluster centroid.
+            \item Sum of squared error (SSE) is a commonly used measure.
         \end{itemize}
-        \item As mentioned earlier, each partitional clustering method requires a \textbf{similarity metric} between data points.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Similarity measure and Distance measure}
-    \begin{minipage}{0.6\textwidth}
+        \item Inter-cluster separation (isolation):
         \begin{itemize}
-            \item Similarity measures are used to distinguish between similar and non-similar data points.
-            \item We usually define similarity of two data point as \textbf{inverse of distance} between them.
-            \item Using this definition, {hard clustering aims to put data points with less distance in same cluster.}
-        \end{itemize}
-    \end{minipage}%
-    \begin{minipage}{0.35}
-        \begin{figure}
-            \centering
-            \includegraphics[scale=0.4]{pic/Distance-based-clustering-approach.png}
-        \end{figure}
-    \end{minipage}
-\end{frame}
-
-\begin{frame}{Common similarity and distance measures}
-    \begin{itemize}
-        \item Assume \( p \) and \( q \) are two data points from $ \mathbb{R}^D$. most common similarity and distance measures in the problem of clustering are as follows:
-        \begin{itemize}
-            \item \textbf{Euclidean distance:} Most common measure of distance between two vectors doesn't matter.
-            \[
-            d^2(p,q)=\sqrt{{\sum_{i=1}^{D}{(p_i-q_i)^2}}}
-            \]
-            \item \textbf{Cosine similarity:} Most common measure of similarity when the magnitude of vectors does not change the similarity
-            \[
-            \textbf{similarity(\(p\),\(q\))}=\frac{p^T q}{||p|| \ . \ ||q||}
-            \]
-            \item \textbf{Manhattan distance:} Most common measure of distance when dimensions are not equally important
-            \[
-            d^2(p,q)=\sqrt{\sum_{i=1}^{D} |p_i-q_i|}
-            \]
+            \item Separation means that different cluster centroids should be far away from one another.
+            \item Sum of squared error (SSE) is a commonly used measure.
         \end{itemize}
     \end{itemize}
 \end{frame}
 
-\section{References}
+\begin{frame}{Clustering Algorithms}
+\begin{itemize}
+    \item The Traditional algorithms for clustering are usually categorized as: 
+    \begin{itemize}
+        \item Hierarchical algorithms find successive clusters using previously established clusters. These algorithms can be either agglomerative ("bottom-up") or divisive ("top-down"):
+\begin{itemize}
+\item Agglomerative algorithms begin with each element as a separate cluster and merge them into successively larger clusters;
+    \item Divisive algorithms begin with the whole set and proceed to divide it into successively smaller clusters.
+\end{itemize}
+
+\item  Partitional algorithms typically determine all clusters at once, but can also be used as divisive algorithms in the hierarchical clustering.
+
+\item  Bayesian algorithms try to generate a posteriori distribution over the collection of all partitions of the data.
+
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Clustering Algorithms (cont.)}
+\begin{itemize}
+    \item But modern approaches leverage advances in deep learning, self-supervised learning, and representation learning.
+    \item As it is a common idea in ML, these methods transform or map data vectors (usually into another vector space), so the traditional clustering concepts can be applied.
+    \item For example, with the same "curse of dimensionality" we had in supervised learning, for high dimensional vectors, using raw distance metrics will lose most of its functionality. So a Neural Network learns to transform data into a low dimensional space where our distance measure is more effective.
+    \item Or when the data clusters are not centeric, they can be transformed into a space where the clusters are separated with respect to distance and in a centeric manner.
+
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.45]{pic/figs/kmeans_anti.png}
+        \caption{example when k-means wont work, plot code generated by ChatGPT}
+    \end{figure}
+    
+\end{itemize}
+\end{frame}
+\section{Unsupervised Learning Review}
+\begin{frame}{Definition}
+    \begin{itemize}
+        \item \textbf{Objective}: To find hidden structures or underlying distributions in the data.
+        \item \textbf{Input}: A dataset \( X = \{x_1, x_2, ..., x_n\} \subseteq \mathbb{R}^d \), where the data points \( x_i \in \mathbb{R}^d \) are unlabeled.
+        \item \textbf{Goal}: Learn a mapping \( f: \mathbb{R}^d \to \mathbb{R}^m \) to describe underlying structure, in a way that is useful for a downstream task.
+        \item Common tasks: 
+        \begin{itemize}
+            \item Clustering: The mapping \( f(X) = Z \) where \( Z \in \{1, 2, \dots, K\} \) represents the cluster assignments.
+        
+        \item Dimensionality Reduction: The mapping \( f(X) = Z \), where \( Z \in \mathbb{R}^k \) represents a lower-dimensional representation with \( k < d \).
+        
+        \item Density Estimation: Estimate the probability distribution \( P(X) \).
+        \item Anomaly detection
+        \item Generative modeling
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\section{K-Means and Clustering}
+\begin{frame}{References}
+    \begin{itemize}
+        \item \cite{M2006-mk}
+        \item \cite{MITNeuroscienceLecture2014}
+        \item \cite{SontagMLLecture2012}
+        \item \cite{soleymaniMLCourse}
+        
+    \end{itemize}
+\end{frame}
+
 
 \begin{frame}{Contributions}
 \begin{itemize}
