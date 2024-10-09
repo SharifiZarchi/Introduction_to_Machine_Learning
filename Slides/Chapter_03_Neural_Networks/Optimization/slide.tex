@@ -74,7 +74,7 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{Problem Definition}
     \begin{itemize}%[<+-| alert@+>] % stepwise alerts
         \item \textbf{Goal}: Given a function $f(x)$ of some variable $x$, find the value of $x$ where $f(x)$ is minimum or maximum
-        \item In neural networks, the goal is to make the prediction error as small as possible.
+        \item In neural networks, the goal is to make the prediction error as small as possible
         \item We want to find the network weights $W^*$ that result in the lowest loss
     \end{itemize}
     
@@ -87,7 +87,7 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 \begin{frame}{Problem Definition}
     \begin{itemize}
-        \item Simply put, we want to find the direction to step in that will \textbf{reduce our loss} as quickly as possible.
+        \item Simply put, we want to find the direction to step in that will \textbf{reduce our loss} as quickly as possible
         \item In other words, \textbf{which way is downhill?}
     \end{itemize}
 \end{frame}
@@ -146,8 +146,8 @@ subsubsectionstyle=show/shaded/hide]
     \begin{figure}[h]
         \centering
         \includegraphics[height=.5\textheight]{pic/resnet56_noshort_small.jpg}
-        \caption{ResNet56 from \url{https://github.com/tomgoldstein/loss-landscape}}
-        \end{figure}
+        \caption{\footnotesize ResNet56 from \url{https://github.com/tomgoldstein/loss-landscape}}
+    \end{figure}
 \end{minipage}
 %\end{center}
 \end{frame}
@@ -166,7 +166,7 @@ subsubsectionstyle=show/shaded/hide]
         \begin{figure}[h]
             \centering
             \includegraphics[height=.6\textheight]{pic/gradient_descent_blog.skz.dev.png}
-            \caption{Gradient Descent visualization from \url{https://blog.skz.dev/gradient-descent}}
+            \caption{\footnotesize Gradient Descent visualization from \url{https://blog.skz.dev/gradient-descent}}
         \end{figure}
     \end{minipage}
 \end{frame}
@@ -220,7 +220,7 @@ Requires tuning batch size \newline
 Some noise remains \\ 
 \bottomrule
 \end{tabularx}
-\caption{Comparison of Gradient Descent Types}
+\caption{\footnotesize Comparison of Gradient Descent Types}
 \end{table}
 \end{frame}
 
@@ -239,7 +239,7 @@ Some noise remains \\
     \begin{center}
         \begin{figure}
             \includegraphics[width=1\linewidth]{pic/sgd_stanford.png}
-            \caption{SGD visualization from \url{CS231n: Convolutional Neural Networks for Visual Recognition}}
+            \caption{\footnotesize SGD visualization from CS231n: Convolutional Neural Networks for Visual Recognition}
         \end{figure}
     \end{center}
  %   \end{minipage}
@@ -260,7 +260,7 @@ Some noise remains \\
         \begin{figure}
         \centering
             \includegraphics[width=0.75\linewidth]{pic/saddle_wiki.png}
-            \caption{$f(x,y) = x^2 - y^2$ from \url{https://en.wikipedia.org/wiki/Saddle_point}}
+            \caption{\footnotesize Saddle point from \url{https://en.wikipedia.org/wiki/Saddle_point}}
         \end{figure}
         \end{center}
     \end{minipage}
@@ -276,8 +276,8 @@ Some noise remains \\
         \centering
         \begin{figure}
             \centering
-            \includegraphics[width=0.8\linewidth]{pic/sgd_mlexplained.png}
-            \caption{SGD visualization from \url{https://laptrinhx.com/understanding-optimization-algorithms-3818430905/}}
+            \includegraphics[width=0.6\linewidth]{pic/sgd_mlexplained.png}
+            \caption{\footnotesize SGD visualization from \url{https://laptrinhx.com/understanding-optimization-algorithms-3818430905/}}
         \end{figure}
     \end{minipage}
 \end{frame}
@@ -301,14 +301,14 @@ Some noise remains \\
 
 \begin{frame}{Problem Definition}
     \begin{itemize}
-        \item \textbf{Goal}: Choose an appropriate learning rate to avoid slow convergence and getting stuck in local minima while not overshooting or becoming unstable.
-        \item \textbf{Naive Approach}: Try lots of different learning rates and see what works "just right."
+        \item \textbf{Goal}: Choose an appropriate learning rate to avoid slow convergence and getting stuck in local minima while not overshooting or becoming unstable
+        \item \textbf{Naive Approach}: Try lots of different learning rates and see what works "just right"
         \begin{itemize}
-            \item This can be inefficient and time-consuming.
+            \item This can be inefficient and time-consuming
         \end{itemize}
-        \item \textbf{Smarter Approach}: Design an adaptive learning rate that adapts to the loss surface.
+        \item \textbf{Smarter Approach}: Design an adaptive learning rate that adapts to the loss surface
         \begin{itemize}
-            \item We can achieve this by incorporating \textbf{Momentum}.
+            \item We can achieve this by incorporating \textbf{Momentum}
         \end{itemize}
     \end{itemize}
     \vfill
@@ -321,18 +321,18 @@ Some noise remains \\
 \begin{frame}{Momentum}
     \begin{minipage}{0.5\textwidth}
         \begin{itemize}
-            \item \textbf{Goal}: Speed up convergence by using past gradients to smooth out oscillations and avoid getting stuck.
+            \item \textbf{Goal}: Speed up convergence by using past gradients to smooth out oscillations and avoid getting stuck
             \begin{itemize}
-                \item Keep moving in the same general direction as previous steps.
+                \item Keep moving in the same general direction as previous steps
             \end{itemize}
-            \item \textbf{Benefit}: Accelerates learning in important directions while reducing oscillations in irrelevant ones.
+            \item \textbf{Benefit}: Accelerates learning in important directions while reducing oscillations in irrelevant ones
         \end{itemize}
     \end{minipage}%
     \begin{minipage}{0.5\linewidth}
     \begin{figure}[h]
         \centering
         \includegraphics[height=.25\textheight]{pic/momentum_paperswithcode.jpg}
-        \caption{SGD comparison from \url{https://paperswithcode.com/method/sgd-with-momentum}}
+        \caption{\footnotesize SGD comparison from \url{https://paperswithcode.com/method/sgd-with-momentum}}
     \end{figure}
     \end{minipage}
 \end{frame}
@@ -340,8 +340,8 @@ Some noise remains \\
 
 \begin{frame}{First Momentum}
     \begin{itemize}
-        \item The first momentum, denoted as $m_t$, is essentially the moving average of the gradients
-         \item It’s inspired by physics: like a ball rolling in a frictionless bowl, it keeps moving due to accumulated momentum.
+        \item The first momentum, denoted as $m_t$, is essentially \textbf{the moving average of the gradients}
+         \item It’s inspired by physics: like a ball rolling in a frictionless bowl, it keeps moving due to accumulated momentum
         \item In gradient descent with momentum, the update rule is:
         \[m_t = \beta_1 m_{t-1} + (1 - \beta_1) \nabla_{\theta}J(\theta_{t-1})\]
         \[\theta_t = \theta_{t-1} - \eta m_t\]\\
@@ -357,7 +357,7 @@ Some noise remains \\
 
 \begin{frame}{Second Momentum}
     \begin{itemize}
-        \item The second momentum, denoted as $v_t$, is the moving average of the squared gradients. It tracks the magnitude of the gradients over time
+        \item The second momentum, denoted as $v_t$, is \textbf{the moving average of the squared gradients} It tracks the magnitude of the gradients over time
         \item This is updated similarly to the first momentum:
         \[v_t = \beta_2 v_{t-1} + (1 - \beta_2) (\nabla_{\theta} J(\theta_t) \odot \nabla J(\theta_t)\]
         \[\theta_t = \theta_{t-1} - \eta v_t\]
@@ -386,8 +386,8 @@ Some noise remains \\
     \begin{itemize}
     \item Momentum update steps involve two stages:
     \begin{enumerate}
-        \item Take a step in the opposite direction of the gradient at the current position.
-        \item Add a scaled version of the previous step to this move.
+        \item Take a step in the opposite direction of the gradient at the current position
+        \item Add a scaled version of the previous step to this move
     \end{enumerate}
     \item Reversing these steps leads to a more optimal approach, known as \textit{Nesterov's Accelerated Gradient (NAG)}.
     \end{itemize}
@@ -396,7 +396,7 @@ Some noise remains \\
     \begin{figure}[h]
         \centering
         \includegraphics[height=.3\textheight]{pic/momentum_update.png}
-        \caption{Momentum update from \url{https://deeplearning.cs.cmu.edu/F24/document/slides/lec6.pdf}}
+        \caption{\footnotesize Momentum update from \url{https://deeplearning.cs.cmu.edu/F24/document/slides/lec6.pdf}}
     \end{figure}
 \end{minipage}
 \end{frame}
@@ -411,8 +411,8 @@ Some noise remains \\
 \subsection{AdaGrad}
 \begin{frame}{AdaGrad}
        \begin{itemize}
-    \item The Adaptive Gradient algorithm, or \textbf{AdaGrad} for short, adjusts the learning rate for each feature based on the cumulative sum of squared gradients.
-    \item Features that are updated frequently receive a progressively smaller learning rate, allowing sparse features that update slowly to catch up.
+    \item The Adaptive Gradient algorithm, or \textbf{AdaGrad} for short, adjusts the learning rate for each feature based on the cumulative sum of squared gradients
+    \item Features that are updated frequently receive a progressively smaller learning rate, allowing sparse features that update slowly to catch up
         \begin{align*}
         G_t &= G_{t-1} + \nabla J(\theta_t) \odot \nabla J(\theta_t) \\
         \theta_{t} &= \theta_{t-1}- \frac{\eta}{\sqrt{G_{t-1}} + \epsilon} \nabla J(\theta_{t-1})
@@ -428,8 +428,8 @@ Some noise remains \\
 \subsection{RMSProp}
 \begin{frame}{RMSProp}
     \begin{itemize}
-        \item The problem with AdaGrad is that it becomes incredibly slow. This is because the sum of squared gradients only grows and never shrinks.
-        \item \textbf{RMSProp} (Root Mean Square Propagation) addresses AdaGrad's slow convergence by introducing a \textbf{decay factor}, allowing only the most recent squared gradients to contribute to the update, which prevents the accumulation of excessively large values.
+        \item The problem with AdaGrad is that it becomes incredibly slow. This is because the sum of squared gradients only grows and never shrinks
+        \item \textbf{RMSProp} (Root Mean Square Propagation) addresses AdaGrad's slow convergence by introducing a \textbf{decay factor}, allowing only the most recent squared gradients to contribute to the update, which prevents the accumulation of excessively large values
 
         \begin{align*}
         v_t &= \beta v_{t-1} + (1 - \beta) \nabla J(\theta_t) \odot \nabla J(\theta_t) \\
@@ -446,8 +446,8 @@ Some noise remains \\
 \subsection{Adam}
 \begin{frame}{Adam}
     \begin{itemize}
-        \item Adaptive Moment Estimation, or \textbf{Adam}, combines the concepts of momentum and adaptive learning rates by maintaining an exponentially decaying average of both past gradients and squared gradients.
-        \item Adam adapts the learning rate for each parameter based on the gradient history: larger gradients lead to smaller update steps, and vice versa.
+        \item Adaptive Moment Estimation, or \textbf{Adam}, combines the concepts of momentum and adaptive learning rates by maintaining an exponentially decaying average of both past gradients and squared gradients
+        \item Adam adapts the learning rate for each parameter based on the gradient history: larger gradients lead to smaller update steps, and vice versa
     \end{itemize}
 \end{frame}
 
@@ -486,7 +486,7 @@ Some noise remains \\
         \begin{figure}
         \centering
             \includegraphics[width=0.8\linewidth]{pic/Adam_training_kingma2015.png}
-            \caption{GD comparison on MNIST from \url{kingma2014adam}}
+            \caption{\footnotesize GD comparison on MNIST from \url{kingma2014adam}}
             %\cite{kingma2014adam}
         \end{figure}
         \end{center}
