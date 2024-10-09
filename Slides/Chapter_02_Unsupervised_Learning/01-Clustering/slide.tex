@@ -119,7 +119,7 @@ subsubsectionstyle=show/shaded/hide]
     \textbf{Unsupervised Learning} involves working with \textbf{unlabeled data}, where the goal is to \textbf{infer the natural structure} present within a set of data points.
     \begin{itemize}
         \item Learning from unlabeled data.
-        \item Most of the times, there is no (or minimal) prior knowledge of the data.
+        % \item Most of the times, there is no (or minimal) prior knowledge of the data.
         \item Two of the most common tasks:
         \begin{itemize}
             \item \textbf{Clustering}: Grouping data points into clusters based on similarity towards user need.
@@ -128,59 +128,78 @@ subsubsectionstyle=show/shaded/hide]
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Clustering: Bio-informatics}
+\begin{frame}{Music Recommendation Systems }
+\begin{itemize}
+    \item When you like a song you probably like other "similar" songs.
+    \item Fun little exercise to \href{https://machinelearninggeek.com/spotify-song-recommender-system-in-python/}{build a simple system}, after finishing this chapter.
+\end{itemize}
+  
     \begin{figure}
         \centering
-        \includegraphics[scale=0.5]{pic/bioconductor_clustering.png}
+        \includegraphics[scale=0.3]{pic/figs/image-4.png}
     \end{figure}
-        \begin{tikzpicture}[remember picture,overlay]
+    
+    \begin{tikzpicture}[Simple Music Recommendation]
         \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figure adapted from \href{https://bioconductor.org/books/3.15/OSCA.basic/clustering.html}{bioconductor.org}
+            \scriptsize Figure adapted from \href{https://machinelearninggeek.com/spotify-song-recommender-system-in-python/}{machinelearninggeek.com}
+        };
+    \end{tikzpicture}
+
+\end{frame}
+
+
+\begin{frame}{Music Recommendation Systems }
+\begin{itemize}
+    \item When you like a song you probably like other "similar" songs.
+    \item Fun little exercise to \href{https://machinelearninggeek.com/spotify-song-recommender-system-in-python/}{build a simple system}, after finishing this chapter.
+\end{itemize}
+
+    \begin{figure}
+        \includegraphics[scale=0.4]{pic/figs/Music Clustering2.png}
+        \centering
+    \end{figure}
+
+        
+\end{frame}
+
+\begin{frame}{Organizing Photos on Smartphones }
+\begin{itemize}
+    \item All pictures with that one friend
+    \item All pictures where you looked "cool"
+\end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.2]{pic/figs/rec_people_fig2_3f04b0c03f.jpg}
+    \end{figure}
+    
+    
+    \begin{tikzpicture}[Recognizing people in image collections]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Recognizing people in image collections. Figure from \href{https://machinelearning.apple.com/research/recognizing-people-photos}{Apple Research}. 
         };
     \end{tikzpicture}
 \end{frame}
 
-\begin{frame}{Slide showcasing reduction (PCA)}
-    
-\end{frame}
-
-\begin{frame}{Clustering: Customer segmentation}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.45]{pic/customer_clusters_raw_plot.png}
-    \end{figure}
-    \begin{center}
-        Information of customers
-    \end{center}
-\end{frame}
-
-\begin{frame}{Clustering: Customer segmentation (cont.)}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.45]{pic/customer_clusters.png}
-    \end{figure}
-    \begin{center}
-        Predicted clusters of customers
-    \end{center}
-\end{frame}
-
-
 \section{K-Means}
 \begin{frame}{K-Means overview}
     \begin{itemize}
-        \item   A popular \textbf{heuristic} algorithm
-        \item Each data point is assigned to a cluster if and only if it has the least distance to center of that cluster amongst all clusters.
-        \item K-Means suggest an \textbf{iterative} process to find these centers.
+        \item   A popular \textbf{clustering} algorithm
+        \item \textbf{Similar} data in the same cluster.
+        \item K-Means suggests an \textbf{iterative} process to find these centers.
+        \begin{figure}
+        \centering
+        \includegraphics[scale=0.25]{pic/figs/Clustering_K-means_7_1.png}
+        Figure From \href{https://mlbhanuyerra.github.io/2018-02-19-Clustering-K-means/}{This blog}.
+    \end{figure}
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Problem Intuition}
     \begin{itemize}
-        \item One of the most straightforward tasks we can perform on a data set without labels is to find groups of data in our dataset which are "similar" to one another -- what we call clusters.
-        \item  In a space, where each data point can be associated with a vector $x_i \in \mathbb{R}^d$. Lets formalize and model this problem. What is a cluster ?
-        \item Intuitively (and naively), we might think of a cluster as a subset of data points whose inter-point euclidean distances are small compared with the distances to points outside of the cluster.
-        \item For now lets fix a $k$, meaning that we want to find $k$ clusters, or we know there are $k$ clusters.
-        \item Also we might want to be able to predict the cluster a new data-point belongs to.
+    
+        \item One of the most straightforward tasks we can perform on a data set without labels.
+        \item finding groups of data in our dataset which are "similar" to one another --\textbf{clusters}.
+        \item How many cluster? Can we cluster new unseen data? What is similar data ?
         
     \end{itemize}
 \end{frame}
@@ -188,88 +207,90 @@ subsubsectionstyle=show/shaded/hide]
 
 \begin{frame}{Problem definition}
     \begin{itemize}
-        \item Like we did before in supervised learning, we want to create an objective function or loss function. But here our objective is assessing the clusters we have created. Formally:
-        \item We have $X_{\text{train}} = \{ x^{(1)}, x^{(2)}, \dots, x^{(N)} \} \subseteq \mathbb{R}^d$
-        \item  We are learning:
+        \item Formally: We have $X_{\text{train}} = \{ x^{(1)}, x^{(2)}, \dots, x^{(N)} \} \subseteq \mathbb{R}^d$
+        \item Assume we know there are $K$ clusters, or we want $K$ clusters.
+        \item We are learning:
         \begin{enumerate}
-            \item a function $f:\mathbb{R}^d\to \{1,2, \dots , K\}$ that assigns a cluster to each data point. 
-\item  a set of \( K \) prototypes \(\mu = \{ \mu_1, \mu_2, \dots, \mu_K  \} \subseteq \mathbb{R}^d \) as the cluster  representatives.
+            \item a function or mapping $f:\mathbb{R}^d\to \{1,2, \dots , K\}$ that assigns a cluster to each data point.
+            \item a set of \( K \) prototypes \(\mu = \{ \mu_1, \mu_2, \dots, \mu_K  \} \subseteq \mathbb{R}^d \) as the \textbf{cluster representatives}.
         \end{enumerate}
-        \item For now we lets create the objective as below:
-        $$
-        \sum_{\mathbf{x} \in X_{\text{train}}} || x - \mu_{f(x)} ||^2
-        $$
-        
+        \item data assigned to the same $i \in \{1,2, \dots , K\}$ are in the same cluster $i$.
     \end{itemize}
 \end{frame}
 
+\begin{frame}{Objective Function}
+\begin{itemize}
+    
+    \item Create objective function like the loss we had before.
+    \item We want data in the same cluster to be closer and data from different clusters to be further. more on this later.
+    \item in K-Means, this is expressed as:
 
-\begin{frame}{Problem definition (cont.)}
+    $$
+    \sum_{\mathbf{x} \in X_{\text{train}}} || x -  \mu_{f(x)} ||^2
+    $$
+    
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Objective Function (cont.)}
     \begin{itemize}
         
 
-        \item  We can express $f$ by defining $r_k(\mathbf{x}) = 1$ if $f(\mathbf{x}) = k$ and $0$ otherwise, we can write this objective as below:
+        \item We can express $f$ by defining $r_k(\mathbf{x}) = 1$ if $f(\mathbf{x}) = k$ and $0$ otherwise, we can write this objective as below:
 $$
 J = \sum_{\mathbf{x} \in X_{\text{train}}} \sum_{k=1}^{K} r_k(x)|| x -  \mu_k ||^2
 $$
-        \item This is also known as \textit{distortion measure}
-        \item We want to chose $f$ and $\mathbf{C}_k$ to minimize this measure.
-        \item K-Means is an algorithm to do this task. But this is NP-hard.
-
-        
+        \item called\textit{distortion measure}.
+        \item chose $f$ and $\mu$ to minimize this.
+        \item Its NP-hard. what does K-Means suggest ?
+      
     \end{itemize}
 \end{frame}
 
-
-\begin{frame}{K-Means }
+\begin{frame}{Observation}
     \begin{itemize}
-   
 
-\item If we fix a set of centroids or representetives $\mu$ then we could optimize by \textbf{assigning} $f(x) : = \textit{argmin}_k \; ||x - \mu_k||^2$ and $r_k(x)$ with respect to this $f$.
-\item If we fix an assignment $f$ then we can optimize by taking derivative and \textbf{updating} $\mu_k = \frac{\sum_i r_k(x_i) x_i}{\sum_i r_k(x_i) }$.
+\item If we fix the set of \textbf{centroids} or representatives $\mu$, we could minimize each term by \textbf{assigning}:
+  $$ f(x) : = \textit{argmin}_k \; ||x - \mu_k||^2 $$.
+  
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Observation (cont.)}
+    
+     If we fix the assignments $f$ we can optimize for $\mu$ by taking the derivative as:
+    $$
+        \frac{\partial J}{\partial \mu_k } = 0 \implies 2 \sum_{i=1}^{N} r_k(x_i) \left(x_i - \mu_k \right) = 0
+    $$
+and \textbf{updating} $\mu$ as:
+    $$
+        \mu_k = \frac{\sum_{i=1}^{N}{r_k(x_i)x_i}}{\sum_{i=1}^{N} r_k(x_i)}
+    $$
+
+\end{frame}
+
+\begin{frame}{K-Means Process}
+\begin{itemize}
 \item K-Means uses an iterative process that:
 \begin{enumerate}
-    \item \textbf{Assigns} each point to the \textbf{nearest} centroid (cluster representative).
-    \item \textbf{Updates} each centroid as the \textbf{mean} of the points assigned to that cluster.
-
+    \item \textbf{Assigns} each point to the \textbf{nearest} centroid. Optimizing for $f$.
+    \item \textbf{Updates} each centroid as the \textbf{mean} of the points in its cluster. Optimizing for $\mu$.
 \end{enumerate}
-    \item GIF Here
-    \end{itemize}
-\end{frame}
 
-\begin{frame}{K-Means Algorithm}
-    \begin{itemize}
-        The K-means algorithm can be expressed as:
+% \begin{figure}
+%     \centering
+%     \includegraphics[width=0.5\linewidth]{}
+%     \caption{Caption}
+%     \label{fig:enter-label}
+% \end{figure}
+
     \end{itemize}
-    
-\begin{algorithm}
-\caption{K-means Clustering Algorithm}
-\begin{algorithmic}[1]
-\State \textbf{Input:} Data points $X = \{x_1, x_2, ..., x_n\} \subset \mathbb{R}^d$, number of clusters $K$
-\State \textbf{Output:} Cluster assignments $C = \{C_1, C_2, ..., C_K\}$ and centroids $\mu = \{\mu_1, \mu_2, ..., \mu_K\}$
-\State \textbf{Initialize:} Randomly select $K$ points as initial centroids $\mu_1, \mu_2, ..., \mu_K$
-\Repeat
-    \State \textbf{Assignment step:}
-    \For {each data point $x_i$}
-        \State Assign $x_i$ to the nearest centroid $C_k$: 
-        \[
-        C_k = \{ x_i : ||x_i - \mu_k||^2 \leq ||x_i - \mu_j||^2, \, \forall j = 1, 2, ..., K \}
-        \]
-    \EndFor
-    \State \textbf{Update step:}
-    \For {each cluster $C_k$}
-        \State Update the centroid of $C_k$: 
-        \[
-        \mu_k = \frac{1}{|C_k|} \sum_{x_i \in C_k} x_i
-        \]
-    \EndFor
-\Until{the centroids do not change (convergence)}
-\end{algorithmic}
-\end{algorithm}
 \end{frame}
 
 % K means in action
 \begin{frame}{K-Means in action}
+random initialization
     \begin{figure}
         \centering
         \includegraphics[scale=0.45]{pic/figs/kmeans_step_1_unlabeled_data.png}
@@ -356,36 +377,88 @@ $$
 \end{frame}
 
 
+\begin{frame}{K-Means Algorithm}
+ \resizebox{\textwidth}{!}{%
+\begin{algorithm}
+\caption{K-means Clustering Algorithm}
+\begin{algorithmic}[1]
+\State \textbf{Input:} Data points $X = \{x_1, x_2, ..., x_n\} \subset \mathbb{R}^d$, number of clusters $K$
+\State \textbf{Output:} Clusters $C = \{C_1, C_2, ..., C_K\}$ and centroids $\mu = \{\mu_1, \mu_2, ..., \mu_K\}$
+\State \textbf{Initialize:} Randomly select $K$ points as initial centroids $\mu_1, \mu_2, ..., \mu_K$
+\Repeat
+    \State \textbf{Assignment step:}
+    \For {each data point $x_i$}
+        \State Assign $x_i$ to the nearest cluster $C_k$: 
+        \[
+        C_k = \{ x_i : ||x_i - \mu_k||^2 \leq ||x_i - \mu_j||^2, \, \forall j = 1, 2, ..., K \}
+        \]
+    \EndFor
+    \State \textbf{Update step:}
+    \For {each cluster $C_k$}
+        \State Update the centroid of $C_k$: 
+        \[
+        \mu_k = \frac{1}{|C_k|} \sum_{x_i \in C_k} x_i
+        \]
+    \EndFor
+\Until{the centroids do not change (convergence)}
+\end{algorithmic}
+\end{algorithm}
+}
+\end{frame}
+
 \begin{frame}{Convergence}
     \begin{itemize}
     \item How do we know K-Means will converge in a finite number of steps ?
-        \item  In Assignment step we optimize \( J \) with respect to \( r_k(x) \).
-        \item Because \( J \) is a linear function of \( r_k(x) \), since $x$s are not variables in training. this optimization can be performed easily to give a closed form solution.
-        \item We need each $x$ to be at least in some cluster and terms involving different $x$ are independent, so for each $x$ we chose one of the the $k$ distance expressions that is the minimum. 
-        \item  Now for $r_n$s fixed $J$ is a quadratic function of $\mu_k$ and by taking derivative we can miminze as:
-$$
-    
-        \frac{\partial J}{\partial \mu_k} = 0 \implies 2 \sum_{i=1}^{N} r_k(x_i) \left(x_i - \mu_k \right) = 0
-        
-$$
-$$
-
-        \mu_k = \frac{\sum_{i=1}^{N}{r_k(x_i)x_i}}{\sum_{i=1}^{N} r_k(x_i)}
-         
-$$
         
     \end{itemize}
 \end{frame}
 
+\begin{frame}{Convergence (cont.)}
+\begin{itemize}
+    \item  In Assignment step:
+        \begin{itemize}
+        \item  we optimize \( J \) with respect to \( r_k(x) \).
+        \item In this step \( J \) is a linear combination of \( r_k(x) \).
+        \item We need each $x$ to be at least in some cluster and terms involving different $x$s are independent.
+        \item So for each $x$ we chose one of the the $K$ distance expressions that is the minimum. i.e. 
+            $$
+            r_k(x) = 
+            \begin{cases}
+                1 & k = \text{argmin}_j ||x-\mu_j ||_2^2 \\
+                0 & O.W
+            \end{cases}
+            $$
+            \item This will definitely not decrease $J$.
+        \end{itemize}
+            
+\end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Convergence (cont.)}
+\begin{itemize}
+    \item  Now with $r_k$s fixed, $J$ is a quadratic function of $\mu_k$ (like SSE) and by taking derivative we can minimize as:
+$$
+        \frac{ \partial J }{ \partial \mu_k } = 0 \implies 2 \sum_{i=1}^{N} r_k(x_i) \left(x_i - \mu_k \right) = 0
+$$
+then we set:
+$$
+        \mu_k = \frac{\sum_{i=1}^{N}{r_k(x_i)x_i}}{\sum_{i=1}^{N} r_k(x_i)}
+$$
+\item This will also definitley not increase $J$.
+
+\end{itemize}
+    
+\end{frame}
 
 \begin{frame}{Convergence (cont.)}
     \begin{itemize}
-\item  Because each step reduces the value of the objective function J (or just does not increase it), convergence of the algorithm is assured.
+\item We know each step will not increase the $J$ objective from its current value.
+\item  Also and $J$ is non-negative, and there are a finite number of partitions so there is a minimum.
+ \item  Therefore we must converge at some point, where the $J$ does not decrease anymore.
 \item  The convergence properties of the K-means algorithm were studied by MacQueen (1967).
-\item We know each step will decrease the $J$ objective from its current value. Also there are a finite number of partitions, and $J$ is non-negative. So we must converge at some point, where the $J$ does not decrease anymore.
-\item  Each Assignment and Updating step corresponds respectively to the E (expectation) and M (maximization) steps of the EM algorithm, which we will see later ???
-    \end{itemize}
 
+    \end{itemize}
 \end{frame}
 
 
@@ -396,6 +469,10 @@ $$
     \end{figure}
 \end{frame}
 
+\begin{frame}{Optional Adventure}
+    \item  Each Assignment and Updating step in K-Means corresponds respectively to the E (expectation) and M (maximization) steps of the EM algorithm.
+    \item One can prove that k-means is equivalent to running EM on a particular Naive Bayes Model.  
+\end{frame}
 
 \begin{frame}{Strengths}
     \begin{itemize}
@@ -408,7 +485,7 @@ where
 \item $k$ is the number of clusters, and 
 \item $t$ is the number of iterations. 
 \end{itemize}
-– Since both k and t are usually small. k-means is considered a linear algorithm. (personally not sure about this ???)
+% – Since both k and t are usually small. k-means is considered a linear algorithm. (personally not sure about this ???)
         
     \end{itemize}
 \end{frame}
@@ -418,16 +495,24 @@ where
         \item k-Means always converges. What could go wrong ?
         \item K-means algorithm is a \textbf{heuristic}
         \item It requires initial centroids, and the choice is important. It could affect the $t$ in $O(tkn)$.
-        \item the algorithm finds a local Minimum but it does not guarantee global minimum. This is highly affected by the initialization.
+        
+        
+        
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Local optimum}
+    \begin{itemize}
+        \item The algorithm finds a local Minimum but it does not guarantee global minimum.
+        \item This is highly affected by the initialization.
         \item Whats the solution ? some suggestions are:
         \begin{itemize}
-            \item  variance-based split / merge
+            \item variance-based split / merge
             \item Random centers from the data points with Multiple runs and select the best ones.
             \item initialization heuristics (k-means++ , Furthest Traversal)
-            \item  Initializing with the suggested results of another method
+            \item Initializing with the suggested results of another method
         \end{itemize}
-        
-        
     \end{itemize}
 \end{frame}
 
@@ -463,23 +548,14 @@ where
 \end{frame}
 
 
-\begin{frame}{Some Issues (cont.)}
+\begin{frame}{Defined Mean}
     \begin{itemize}
         \item In the begging we assumed $x_i \in \mathbb{R}^d$, which is not always the case. K-Means requires a space where sample \textbf{mean} is defined.
         \begin{itemize}
             \item A simple case is when we have categorical data. 
             \item  A suggested solution: k-mode - the centroid is represented by most frequent values.
         \end{itemize}
-        \item The K is predefined.  
-   \begin{itemize}
-       \item  \textbf{Elbow Method} and \textbf{Silhouette Score} can help
-   \end{itemize}
-        \item The algorithm is sensitive to outliers
-        \begin{itemize}
-            \item Outliers are data points that are very far away from other data points. 
-\item Outliers could be errors in the data recording or some special data points with very different values.
-\item K-medoids  and DBSCAN are more robust to outliers.
-        \end{itemize}
+
 
     \end{itemize}
 \end{frame}
@@ -499,26 +575,36 @@ where
 \begin{frame}{How many clusters? (cont.)}
     \begin{itemize}
         \item Number of clusters is usually given in advance in the problem of clustering. However; finding the \textbf{right} number of clusters is also a problem.
-        \item There is a tradeoff between having better focus within each cluster or having too many clusters. We probably dont want each data to be a one-element cluster.
-        \item \textbf{Optimization problem:} penalize having too much clusters
-        \begin{itemize}
-            \item Application dependent
-        \end{itemize}
+        \item  \textbf{Elbow Method} and \textbf{Silhouette Score} can help.
+        \item There is a trade-off between having better focus within each cluster or having too many clusters.
+        \item  Don't want one-element clusters.
+        \item \textbf{Optimization problem:} penalize having too many clusters
         \[
         K^* = \ arg \ min_k \  J(k) + \lambda k 
         \]
     \end{itemize}
 \end{frame}
 
+\begin{frame}{Outliers}
+        \begin{itemize}
+    \item The algorithm is sensitive to outliers
+            \item Outliers are data points that are very far away from other data points. 
+\item Outliers could be errors in the data recording or some special data points with very different values.
+\item K-medoids  and DBSCAN are more robust to outliers.
+        \end{itemize}
+\end{frame}
 
 \begin{frame}{Definition Issue}
     \begin{itemize}
-        \item Perhaps the most important problems is how k-means defines clusters. K-means assumes clusters are spherical and separated by equal variance, which limits its effectiveness on non-spherical or complex-shaped clusters. 
-        \item Data might not be clustered in centered groups. Or in other words the underlying "pattern" or behavior of data samples  with relation to one another might not be expressed in such simple clusters.
-        \item As commonly seen in ML, an idea is to map this data into another vector space where they can be clustered by our simple measures of similarity. you will see how Neural Networks are incorporated for this task later in the course.
-\item So lets take a look at clustering.
+        \item Perhaps the most important problems is how k-means defines clusters.
+        \item  K-means assumes clusters are spherical and separated by equal variance, which limits its effectiveness on non-spherical or complex-shaped clusters. 
+        \item So lets take a closer look at clustering.
 
-PICTURE of complex clusters
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.35]{pic/figs/kmeans_anti.png}
+        \caption{example when k-means wont work, plot code generated by ChatGPT}
+    \end{figure}
 
     \end{itemize}
 \end{frame}
@@ -596,6 +682,7 @@ PICTURE of complex clusters
     \begin{itemize}
         \item a similarity function $s(x_i,x_j)$ that is larger when $x_i$ and $x_j$ are more similar
         \item a dissimilarity or distance function $d(x_i,x_j)$ that is smaller the more simialr to points are.
+
     \end{itemize}
 \item  a criterion to evaluate (and use to determine) a clustering. notion of "good" and "bad" clustering.
 \item Algorithm to use the above and compute clustering.
@@ -714,15 +801,15 @@ PICTURE of complex clusters
 \begin{itemize}
     \item The Traditional algorithms for clustering are usually categorized as: 
     \begin{itemize}
-        \item Hierarchical algorithms find successive clusters using previously established clusters. These algorithms can be either agglomerative ("bottom-up") or divisive ("top-down"):
+        \item \textbf{ Hierarchical} algorithms find successive clusters using previously established clusters. These algorithms can be either agglomerative ("bottom-up") or divisive ("top-down"):
 \begin{itemize}
-\item Agglomerative algorithms begin with each element as a separate cluster and merge them into successively larger clusters;
-    \item Divisive algorithms begin with the whole set and proceed to divide it into successively smaller clusters.
+\item \textit{ Agglomerative } algorithms begin with each element as a separate cluster and merge them into successively larger clusters;
+    \item \textit{ Divisive } algorithms begin with the whole set and proceed to divide it into successively smaller clusters.
 \end{itemize}
 
-\item  Partitional algorithms typically determine all clusters at once, but can also be used as divisive algorithms in the hierarchical clustering.
+\item \textbf{ Partitional } algorithms typically determine all clusters at once, but can also be used as divisive algorithms in the hierarchical clustering.
 
-\item  Bayesian algorithms try to generate a posteriori distribution over the collection of all partitions of the data.
+\item \textbf{ Bayesian} algorithms try to generate a posteriori distribution over the collection of all partitions of the data.
 
     \end{itemize}
 \end{itemize}
@@ -732,20 +819,16 @@ PICTURE of complex clusters
 \begin{frame}{Clustering Algorithms (cont.)}
 \begin{itemize}
     \item But modern approaches leverage advances in deep learning, self-supervised learning, and representation learning.
-    \item As it is a common idea in ML, these methods transform or map data vectors (usually into another vector space), so the traditional clustering concepts can be applied.
+    \item As it is a common idea in ML, these methods transform data vectors, so the traditional clustering concepts can be applied.
     \item For example, with the same "curse of dimensionality" we had in supervised learning, for high dimensional vectors, using raw distance metrics will lose most of its functionality. So a Neural Network learns to transform data into a low dimensional space where our distance measure is more effective.
     \item Or when the data clusters are not centeric, they can be transformed into a space where the clusters are separated with respect to distance and in a centeric manner.
 
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.45]{pic/figs/kmeans_anti.png}
-        \caption{example when k-means wont work, plot code generated by ChatGPT}
-    \end{figure}
-    
 \end{itemize}
 \end{frame}
-\section{Unsupervised Learning Review}
-\begin{frame}{Definition}
+
+\section{Conclusion}
+
+\begin{frame}{Unsupervised Learning Review}
     \begin{itemize}
         \item \textbf{Objective}: To find hidden structures or underlying distributions in the data.
         \item \textbf{Input}: A dataset \( X = \{x_1, x_2, ..., x_n\} \subseteq \mathbb{R}^d \), where the data points \( x_i \in \mathbb{R}^d \) are unlabeled.
@@ -763,7 +846,6 @@ PICTURE of complex clusters
     \end{itemize}
 \end{frame}
 
-\section{K-Means and Clustering}
 \begin{frame}{References}
     \begin{itemize}
         \item \cite{M2006-mk}
@@ -773,7 +855,6 @@ PICTURE of complex clusters
         
     \end{itemize}
 \end{frame}
-
 
 \begin{frame}{Contributions}
 \begin{itemize}
