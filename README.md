@@ -1,8 +1,11 @@
-# Machine Learning Course
-## Computer Engineering Department, Sharif University of Technology
+# Machine Learning Course  
+## Department of Computer Engineering, Sharif University of Technology
 
-You can access the slides, Jupyter notebooks, and exercises for the "Introduction to Machine Learning" course for the Fall 2024 (1403) semester. Please note that the content is still under construction and will be updated throughout the semester.
+Welcome to the "Machine Learning" course of [Department of Computer Engineering](https://ce.sharif.edu), [Sharif University of Technology](https://www.sharif.edu). 
+Here, you can access [slides](#), [Jupyter notebooks](#), and [exercises](#). Please note that this content is a work in progress and will be updated throughout Fall 2024 semester.
 
-Course materials from previous semesters are available in the "Previous Semesters" section.
+For course materials from previous semesters, please visit the [Previous Semesters](#) section.
 
-Class videos and other information are available at: www.SharifML.ir
+Class videos and additional resources can be found on the [SharifML website](http://www.SharifML.ir).
+
+Feel free to use this content, provided you properly cite both the course and this GitHub repository. For more details, see the [Creative Commons BY license](https://creativecommons.org/licenses/by/4.0/).
