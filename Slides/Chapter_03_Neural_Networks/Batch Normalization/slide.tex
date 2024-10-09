@@ -103,7 +103,7 @@ subsubsectionstyle=show/shaded/hide]
 \begin{itemize}
 
     \item Wait! What does it mean, in simple language?
-    \item Let’s say that we want to train a model and the ideal target output function that the model needs to learn is as below.
+    \item Let’s say that we want to train a model and the ideal target output function that the model needs to learn is as below:
 
     \begin{figure}
         \includegraphics[width=0.45\textwidth]{pic/ICS-1.png}
@@ -156,9 +156,9 @@ subsubsectionstyle=show/shaded/hide]
     \item The model cannot simply generalize its predictions for this new data.
 
     \begin{figure}
-        \includegraphics[width=0.3\textwidth]{pic/ICS-4.png}
-        \caption{Test data has different distribution \href{https://ketanhdoshi.github.io/assets/images/BatchNorm/ICS-4.png}{\textcolor{orange}{\textbf{Source}}}}
-        \label{fig:Test_data_distribution}
+        \includegraphics[width=0.4\textwidth]{pic/ICS-4.png}
+        \caption{The rest of the data has different distribution \href{https://ketanhdoshi.github.io/assets/images/BatchNorm/ICS-4.png}{\textcolor{orange}{\textbf{Source}}}}
+        \label{fig:Rest_data_distribution}
     \end{figure}
 
 \end{itemize}
@@ -168,7 +168,7 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{Problem: Internal Covariate Shift}
     
 \begin{itemize}
-    \item This is the problem of Covariate Shift \textcolor{blue}{the model is fed data with a different distribution than what it was previously trained with}, even though that new data still conforms to the same target function.
+    \item This is the problem of Covariate Shift \textcolor{green}{the model is fed data with a different distribution than what it was previously trained with}, even though that new data still conforms to the same target function.
 
     \item For the model to figure out how to adapt to this new data, it has to re-learn some of its target output functions.
     \item \textbf{This slows down the training process.}
