@@ -1388,10 +1388,10 @@
                 \node[input neuron] (I2) at (0,0) {Input 2};
 
                 \node[hidden neuron] (H1) at (2,3) {Hidden 1};
-                \node[hidden neuron] (H2) at (2,1) {Hidden 2};
+                \node[hidden neuron] (H2) at (2.5,1) {Hidden 2};
                 \node[hidden neuron] (H3) at (2,-1) {Hidden 3};
 
-                \node[output neuron] (O) at (4,1) {Output};
+                \node[output neuron] (O) at (5,1) {Output};
 
                 % Draw connections with zero weights
                 \draw[->, color=gray] (I1) -- (H1) node[midway, above] {0};
@@ -1406,7 +1406,7 @@
                 \draw[->, color=gray] (H3) -- (O) node[midway, above] {0};
 
                 % Add annotation below the diagram
-                \node[align=center] at (2, -3) {\textbf{All weights initialized to zero}};
+                \node[align=center] at (2.5, -3) {\textbf{All weights initialized to zero}};
             \end{tikzpicture}
     \end{columns}
 
@@ -1585,7 +1585,7 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
 
     \textbf{Example (3-Class):}
     \begin{itemize}
-        \item True labels (One-hot): Class 2, Class 1, Class 2
+        \item True labels (One-hot): Class 2, Class 1, Class 3
         \item Predicted probabilities:
         \[
         \hat{y} = \left[ [0.1, 0.7, 0.2], [0.6, 0.3, 0.1], [0.1, 0.6, 0.3] \right]
