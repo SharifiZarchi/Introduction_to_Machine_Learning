@@ -123,7 +123,7 @@
         \justifying
         \item $\boldsymbol{N}$ voters wish to reach a decision by \textbf{majority vote}.
         \item Each voter has an independent probability $\boldsymbol{p}$ of voting for the correct decision.
-        \item Majority votes for the correct decision with probability $\boldsymbol{M}$.
+        \item Let $\boldsymbol{M}$ be the probability of the majority voting for the correct decision.
         \item \textcolor{deepred}{If $\boldsymbol{p > 0.5}$ and $\boldsymbol{N \to \infty}$, then $\boldsymbol{M \to 1}$}
         \begin{itemize}
             \item How?
@@ -171,7 +171,7 @@
     \endminipage
 \end{frame}
 
-\subsection{Ensemble methods}
+\subsection{Ensemble Methods}
 
 \begin{frame}{Ensemble Methods}
     \minipage{0.44\textwidth}
@@ -325,6 +325,9 @@
         \end{itemize}
         \item The most common strategy for DT learning is a greedy top-down approach.
         \item Tree is constructed by splitting samples into subsets based on an \textbf{attribute value test} in a recursive manner.
+        \item[] \begin{center}
+            Adopted from G.E. Naumov, "NP-completeness of problems of construction of optimal decision trees", 1991
+        \end{center}
     \end{itemize}
 \end{frame}
 
@@ -339,8 +342,8 @@
         \Else
             \State \textbf{status} $\gets$ internal
             \State $a \gets$ \textcolor{deepred}{bestAttribute($S$, $A$)} \Comment{The attribute value test}
-            \State LeftNode $\gets$ FindTree($S(a=1)$, $A \setminus \{a\}$)
-            \State RightNode $\gets$ FindTree($S(a=0)$, $A \setminus \{a\}$)
+            \State LeftNode $\gets$ FindTree($S(a=1)$, $A - \{a\}$)
+            \State RightNode $\gets$ FindTree($S(a=0)$, $A - \{a\}$)
         \EndIf
     \EndProcedure
     \end{algorithmic}
@@ -364,9 +367,10 @@
     \begin{itemize}
         \itemsep0.25em
         \justifying
-        \item[] A: variable used to split samples
-        \item[] Y: target variable
-        \item[] S: samples
+        \item[] $A$: variable used to split samples
+        \item[] $Y$: target variable
+        \item[] $S$: samples, \qquad $S_v$: subset of $S$ where $A = v$
+        \item[] $H_S(Y)$: entropy of $Y$ over $S$
     \end{itemize}
     \endminipage
     \hfill
@@ -392,11 +396,11 @@
     \itemsep1em
     \justifying
     \item[] $\text{Gain}(S, Humidity) = 0.940 - (7/14) 0.985 - (7/14) 0.592 = 0.151$
-    \item[] $\text{Gain}(S, Humidity) = 0.940 - (8/14) 0.811 - (6/14) 1.0 = 0.48$
+    \item[] $\text{Gain}(S, Wind) = 0.940 - (8/14) 0.811 - (6/14) 1.0 = 0.48$
     \end{itemize}
 \end{frame}
 
-\section{Random Forest}
+\subsection{Random Forest}
 
 \begin{frame}{Bagging on decision trees?}
     \minipage{0.29\textwidth}
@@ -424,7 +428,7 @@
     \begin{itemize}
         \itemsep1em
         \justifying
-        \item Why are \textbf{DTs} perfect candidates for ensembles?
+        \item Why are \textbf{DTs} good candidates for ensembles?
         \begin{itemize}
             \itemsep0.25em
             \item Consider averaging many (nearly) \textbf{unbiased} tree estimators.
@@ -432,7 +436,7 @@
         \end{itemize}
         \item Remember Bagging?
         \begin{itemize}
-            \item Train many trees on bootstrapped data, then average the outputs.
+            \item Train many trees on bootstrapped data, then aggregate (average/majority) the outputs.
         \end{itemize}
     \end{itemize}
 \end{frame}
@@ -445,8 +449,8 @@
         
         \For{$t = 1$ to $T$}
             \State Draw a bootstrap dataset
+            \State \textcolor{deepred}{Select $\boldsymbol{m}$ features randomly out of $\boldsymbol{d}$ features as candidates for splitting}
             \State Learn a tree on this dataset
-            \LeftComment{\textit{\textcolor{deepred}{Select $\boldsymbol{m}$ features randomly out of $\boldsymbol{d}$ features as candidates before splitting}}}
         \EndFor
         
         \State \textbf{Output:} \Comment{\textit{Usually: $m \leq \sqrt{d}$}}
@@ -458,9 +462,32 @@
 
 \begin{frame}{Example}
     \begin{center}
+    \minipage{0.69\textwidth}
+    \begin{figure}[bh]
+        \includegraphics[width=\textwidth]{pic/rf_e1.png}
+        {\scriptsize Adopted from [4]}
+    \end{figure}
+    \endminipage
+    \end{center}
+\end{frame}
+
+\begin{frame}{Example, Cont.}
+    \begin{center}
+    \minipage{0.76\textwidth}
+    \begin{figure}[!htb]
+        \includegraphics[width=\linewidth]{pic/rf_e2.png} \\
+        \includegraphics[width=0.85\linewidth]{pic/rf_e3.png} \\
+        {\scriptsize Adopted from [4]}
+    \end{figure}
+    \endminipage
+    \end{center}
+\end{frame}
+
+\begin{frame}{Example, Cont.}
+    \begin{center}
     \minipage{0.76\textwidth}
     \begin{figure}[bh]
-        \includegraphics[width=\textwidth]{pic/randomforest.png}
+        \includegraphics[width=\textwidth]{pic/rf_e4.png}
         {\scriptsize Adopted from [4]}
     \end{figure}
     \endminipage
@@ -481,7 +508,7 @@
         \end{itemize}
         \item Did we have full control over the usefulness of the weak learners?
         \begin{itemize}
-            \item The \textbf{diversity} or \textbf{complementarity} of the weak learners is not controlled in any way, it is left to chance and to the instability of the models.
+            \item The \textbf{diversity} or \textbf{complementarity} of the weak learners is not controlled in any way, it is left to chance and to the instability (variance) of the models.
         \end{itemize}
     \end{itemize}
 \end{frame}
@@ -520,20 +547,20 @@
     \begin{itemize}
         \itemsep1em
         \justifying
-        \item Try to combine many simple \textbf{weak} classifiers (in sequence) to find a single \textbf{strong} classifier.
+        \item Try to combine many simple \textbf{weak} learners (in sequence) to find a single \textbf{strong} learner (For simplicity, suppose that we have a classification problem from now on).
         \begin{itemize}
             \itemsep0.25em
             \item Each component is a simple binary $\pm1$ classifier
             \item Voted combinations of component classifiers
         \end{itemize}
         \item[] \begin{center}
-        $H_m(\boldsymbol{x})=\alpha_1h(\boldsymbol{x};\boldsymbol{\theta}_1)+\dots+\alpha_mh(\boldsymbol{x};\boldsymbol{\theta}_m)$
+        $H_M(\boldsymbol{x})=\alpha_1h(\boldsymbol{x};\boldsymbol{\theta}_1)+\dots+\alpha_Mh(\boldsymbol{x};\boldsymbol{\theta}_M)$
         \end{center} 
         \item To simplify notations: $h(\boldsymbol{x};\boldsymbol{\theta}_i)=h_i(\boldsymbol{x})$
         \item[] \begin{center}
-            $H_m(\boldsymbol{x})=\alpha_1h_1(\boldsymbol{x})+\dots+\alpha_mh_m(\boldsymbol{x})$
+            $H_M(\boldsymbol{x})=\alpha_1h_1(\boldsymbol{x})+\dots+\alpha_Mh_M(\boldsymbol{x})$
         \end{center}
-        \item \textbf{Prediction}: $\hat{y}=\text{sign}(H_m(\boldsymbol{x}))$
+        \item \textbf{Prediction}: $\hat{y}=\text{sign}(H_M(\boldsymbol{x}))$
     \end{itemize}
 \end{frame}
 
@@ -543,7 +570,7 @@
         \itemsep1em
         \justifying
         \item \textbf{Decision stumps}
-        \item Each classifier is based on a single feature of $\boldsymbol{x}$ (e.g., $\boldsymbol{x}_k$):
+        \item Each classifier is based on only a single feature of $\boldsymbol{x}$ (e.g., $\boldsymbol{x}_k$):
         \item[] \begin{center}
             $h(\boldsymbol{x};\boldsymbol{\theta})=\text{sign}(w_1\boldsymbol{x}_k-w_0)$ \\ \medskip
             $\boldsymbol{\theta}=\{k,w_1,w_0\}$
@@ -561,7 +588,7 @@
 
 \section{AdaBoost}
 
-\subsection{Basic idea \& example}
+\subsection{Basic idea \& algorithm}
 
 \begin{frame}{Basic idea}
     \begin{itemize}
@@ -639,69 +666,98 @@
     \end{center}
 \end{frame}
 
-\subsection{Algorithm}
-
 \begin{frame}{Algorithm}
+    \begin{itemize}
+        \itemsep1em
+        \justifying
+        \item $H_M(\boldsymbol{x}) = \dfrac{1}{2}[\alpha_1h_1(\boldsymbol{x})+\dots+\alpha_Mh_M(\boldsymbol{x})] \longrightarrow$ the complete model \hfill $y^{(i)} \in \{-1, 1\}$
+        \smallskip
+        \begin{itemize}
+            \itemsep0.5em
+            \item $h_m(\boldsymbol{x})$: $m$-th weak learner
+            \item $\alpha_m = \ \textcolor{deepred}{?} \longrightarrow$ votes of the $m$-th weak learner
+        \end{itemize}
+        \item $w_m^{(i)}$: weight of sample $i$ in iteration $m$
+        \smallskip
+        \begin{itemize}
+            \item $w_{m+1}^{(i)} = \ \textcolor{deepred}{?}$
+        \end{itemize}
+        \item $J_m = \displaystyle\sum_{i=1}^N w_m^{(i)} \times I(y^{(i)} \neq h_m(\boldsymbol{x}^{(i)})) \longrightarrow$ loss of the $m$-th weak learner
+        \item $\epsilon_m = \dfrac{\sum_{i=1}^N w_m^{(i)} \times I(y^{(i)} \neq h_m(\boldsymbol{x}^{(i)}))}{\sum_{i=1}^N w_m^{(i)}} \longrightarrow$ weighted error of the $m$-th weak learner
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Algorithm, Cont.}
+    \begin{itemize}
+        \itemsep1em
+        \justifying
+        \item $H_M(\boldsymbol{x}) = \dfrac{1}{2}[\alpha_1h_1(\boldsymbol{x})+\dots+\alpha_Mh_M(\boldsymbol{x})] \longrightarrow$ the complete model \hfill $y^{(i)} \in \{-1, 1\}$
+        \smallskip
+        \begin{itemize}
+            \itemsep0.5em
+            \item $h_m(\boldsymbol{x})$: $m$-th weak learner
+            \item $\alpha_m = \textcolor{deepred}{\ln\left(\dfrac{1 - \epsilon_m}{\epsilon_m}\right)} \longrightarrow$ votes of the $m$-th weak learner
+        \end{itemize}
+        \item $w_m^{(i)}$: weight of sample $i$ in iteration $m$
+        \smallskip
+        \begin{itemize}
+            \item $w_{m+1}^{(i)} = \textcolor{deepred}{w_m^{(i)} e^{\alpha_m I(y^{(i)} \neq h_m(\boldsymbol{x}^{(i)}))}} \longrightarrow$
+        \end{itemize}
+        \item $J_m = \displaystyle\sum_{i=1}^N w_m^{(i)} \times I(y^{(i)} \neq h_m(\boldsymbol{x}^{(i)})) \longrightarrow$ loss of the $m$-th weak learner
+        \item $\epsilon_m = \dfrac{\sum_{i=1}^N w_m^{(i)} \times I(y^{(i)} \neq h_m(\boldsymbol{x}^{(i)}))}{\sum_{i=1}^N w_m^{(i)}} \longrightarrow$ weighted error of the $m$-th weak learner
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Algorithm, Cont.}
     \begin{algorithm}[H]
     \caption{AdaBoost}\label{alg:AdaBoost}
     \begin{algorithmic}[1]
         \State Initialize data weight $w_1^{(i)} = \frac{1}{N}$ for all $N$ samples
         \For{$m=1$ to $M$}
-            \State $J_m = \displaystyle\sum_{i=1}^N w_m^{(i)} \times I(y^{(i)} \neq h_m(\boldsymbol{x}^{(i)}))$ \Comment{Find $h_m(\boldsymbol{x})$ by minimizing the weighted error}
-            \State $\epsilon_m = \dfrac{\sum_{i=1}^N w_m^{(i)} \times I(y^{(i)} \neq h_m(\boldsymbol{x}^{(i)}))}{\sum_{i=1}^N w_m^{(i)}}$ \Comment{Find the weighted error of $h_m(\boldsymbol{x})$}
-            \State $\alpha_m = \ln\left(\dfrac{1 - \epsilon_m}{\epsilon_m}\right)$ \Comment{Assign votes based on the error}
-            \State $w_{m+1}^{(i)} = w_m^{(i)} e^{\alpha_m I(y^{(i)} \neq h_m(\boldsymbol{x}^{(i)}))}$ \Comment{Update normalized weights}
+            \State Find $h_m(\boldsymbol{x})$ by minimizing the loss: \hfill $J_m = \displaystyle\sum_{i=1}^N w_m^{(i)} \times I(y^{(i)} \neq h_m(\boldsymbol{x}^{(i)}))$
+            \State Find the weighted error of $h_m(\boldsymbol{x})$: \hfill $\epsilon_m = \dfrac{\sum_{i=1}^N w_m^{(i)} \times I(y^{(i)} \neq h_m(\boldsymbol{x}^{(i)}))}{\sum_{i=1}^N w_m^{(i)}}$
+            \State Assign votes $\alpha_m = \ln\left(\dfrac{1 - \epsilon_m}{\epsilon_m}\right)$
+            \State Update the weights: \hfill $w_{m+1}^{(i)} = w_m^{(i)} e^{\alpha_m I(y^{(i)} \neq h_m(\boldsymbol{x}^{(i)}))}$
         \EndFor
-        \State \textbf{Combined classifier:} $\hat{y} = \text{sign}(H_M(\boldsymbol{x}))$, $H_M(\boldsymbol{x}) = \sum_{m=1}^M \alpha_m h_m(\boldsymbol{x})$
+        \State \textbf{Combined classifier:} $\hat{y} = \text{sign}(H_M(\boldsymbol{x}))$ where $H_M(\boldsymbol{x}) = \dfrac{1}{2}\sum_{m=1}^M \alpha_m h_m(\boldsymbol{x})$
     \end{algorithmic}
     \end{algorithm}
 \end{frame}
 
-\begin{frame}{Notations \& conditions}
-    \begin{itemize}
-        \itemsep1em
-        \justifying
-        \item $w_m^{(i)}$: weighting coefficient of data point $i$ in iteration $m$
-        \item $\alpha_m$: weighting coefficient of $m$-th base classifier in the final ensemble
-        \begin{itemize}
-            \item $\epsilon_m$: weighted error rate of $m$-th classifier 
-        \end{itemize}
-    \end{itemize}
-    \bigskip \bigskip
-    \begin{itemize}
-        \itemsep1em
-        \justifying
-        \item Only when $h_m(\boldsymbol{x})$ with $\epsilon_m < 0.5$ (better than chance) is found, boosting continues.
-        \begin{itemize}
-            \item Condorcet's jury theorem?
-        \end{itemize}
-    \end{itemize}
-\end{frame}
+% \begin{frame}{Notations \& conditions}
+%     \begin{itemize}
+%         \itemsep1em
+%         \justifying
+%         \item $w_m^{(i)}$: weighting coefficient of data point $i$ in iteration $m$
+%         \item $\alpha_m$: weighting coefficient of $m$-th base classifier in the final ensemble
+%         \item $\epsilon_m$: weighted error rate of $m$-th classifier 
+%     \end{itemize}
+%     \bigskip \bigskip
+%     \begin{itemize}
+%         \itemsep1em
+%         \justifying
+%         \item Only when $h_m(\boldsymbol{x})$ with $\epsilon_m < 0.5$ (better than chance) is found, boosting continues.
+%         \begin{itemize}
+%             \item Condorcet's jury theorem?
+%         \end{itemize}
+%     \end{itemize}
+% \end{frame}
 
-\subsection{Loss function}
+\subsection{Loss function \& proof}
 
 \begin{frame}{Loss function}
     \begin{itemize}
         \itemsep1em
         \justifying
-        \item We need a loss function for the combination
+        \item There are many options for the loss function.
         \begin{itemize}
-            \itemsep0.25em
-            \item To Determine the new component, $h(\boldsymbol{x};\theta)$
-            \item And how many votes it should receive, $\alpha$
+            \item AdaBoost is equivalent to using the following \textbf{exponential loss}.
         \end{itemize}
         \item[] \begin{center}
-            $H_m(\boldsymbol{x})=\alpha_1h_1(\boldsymbol{x})+\dots+\alpha_mh_m(\boldsymbol{x})$
-        \end{center}
-        \item Many options for the loss function
-        \begin{itemize}
-            \item AdaBoost is equivalent to using the following \textbf{exponential loss}
-        \end{itemize}
-        \item[] \begin{center}
-            $\text{Loss}(y,\hat{y})=e^{-y \times H_m(\boldsymbol{x})}$
+            $\mathcal{L}(y,\hat{y})=e^{-y \times H_M(\boldsymbol{x})}$
         \end{center}
         \item[] \begin{center}
-            $\hat{y}=\text{sign}(H_m(\boldsymbol{x}))$
+            $\hat{y}=\text{sign}(H_M(\boldsymbol{x}))$
         \end{center}
     \end{itemize}
 \end{frame}
@@ -713,6 +769,7 @@
         \justifying
         \item Differentiable approximation (bound) of the $\boldsymbol{0/1}$ \textbf{loss}
         \begin{itemize}
+            \itemsep0.25em
             \item Easy to optimize
             \item Optimizing an upper bound on classification error.
         \end{itemize}
@@ -727,16 +784,35 @@
     \endminipage
 \end{frame}
 
-\begin{frame}{Calculations}
+% \begin{frame}{Break down of the algorithm}
+%     \begin{itemize}
+%         \itemsep1em
+%         \justifying
+%         \item Now let's break down each step of the algorithm and show where they come from.
+%         \begin{itemize}
+%             \itemsep0.25em
+%             \item \textbf{Step 1:} Calculate the exponential loss for the previous $H_M(\boldsymbol{x})$
+%             \item \textbf{Step 2:} Derive the weighted error function, $J_m$
+%             \item \textbf{Step 3:} Derive $\epsilon_m$ and $\alpha_m$
+%             \item \textbf{Step 4:} Justify the weight update mechanism
+%         \end{itemize}
+%     \end{itemize}
+% \end{frame}
+
+\begin{frame}{Step 1: calculating the exponential loss}
     \begin{itemize}
         \itemsep1em
         \justifying
-        \item Consider adding the $m$-th component: \hfill $H_m(\boldsymbol{x}) = 
-        \text{\vertarrowbox[0ex]{\dfrac{1}{2}}{For a cleaner form later}}
-        [\alpha_1h_1(\boldsymbol{x})+\dots,+\alpha_mh_m(\boldsymbol{x})]$
+        \item First, we need to calculate the exponential loss for:
+        \item[] \begin{center}
+            $H_m(\boldsymbol{x}) = 
+            \text{\vertarrowbox[0ex]{\dfrac{1}{2}}{To have a cleaner form later}}
+            [\alpha_1h_1(\boldsymbol{x})+\dots,+\alpha_mh_m(\boldsymbol{x})]$
+        \end{center}
+        \item \textbf{Idea:} consider adding the $m$-th component:
     \end{itemize}
     \begin{align*}
-        E &= \displaystyle\sum_{i=1}^N e^{-y^{(i)}H_m(\boldsymbol{x}^{(i)})} = \displaystyle\sum_{i=1}^N e^{-y^{(i)}[H_{m-1}(\boldsymbol{x}^{(i)}) + \frac{1}{2}\alpha_mh_m(\boldsymbol{x}^{(i)})]} \\
+        \mathcal{L}_m &= \displaystyle\sum_{i=1}^N e^{-y^{(i)}H_m(\boldsymbol{x}^{(i)})} = \displaystyle\sum_{i=1}^N e^{-y^{(i)}[H_{m-1}(\boldsymbol{x}^{(i)}) + \frac{1}{2}\alpha_mh_m(\boldsymbol{x}^{(i)})]} \\
         &=\displaystyle\sum_{i=1}^N
         \text{\vertarrowbox[4ex]{e^{-y^{(i)}H_{m-1}(\boldsymbol{x}^{(i)})}}{Suppose it is fixed at stage $m$}}
         e^{-\frac{1}{2}\alpha_my^{(i)}h_m(\boldsymbol{x}^{(i)})}
@@ -745,30 +821,35 @@
     \end{align*}
 \end{frame}
 
-\begin{frame}{Weighted exponential loss}
+% \begin{frame}{Step 1: calculating the exponential loss, Cont.}
+%     \begin{itemize}
+%         \itemsep1em
+%         \justifying
+%         \item[] \begin{center}
+%             $E=\displaystyle\sum_{i=1}^N w_m^{(i)} e^{-\frac{1}{2}\alpha_my^{(i)}h_m(\boldsymbol{x}^{(i)})}$
+%         \end{center}
+%         \item Sequentially adds a new component trained on reweighted training samples.
+%         \item $w_m^{(i)}$: history of classification of $\boldsymbol{x}^{(i)}$ by $H_{m-1}$
+%         \begin{itemize}
+%             \item Loss weighted towards mistakes
+%         \end{itemize}
+%         \item Iteration $m$ optimization:
+%         \begin{itemize}
+%             \itemsep0.25em
+%             \item Choose the new component, $h_m=h(\boldsymbol{x};\boldsymbol{\theta}_m)$
+%             \item And the vote that optimizes the weighted exponential loss, $\alpha_m$.
+%         \end{itemize}
+%     \end{itemize}
+% \end{frame}
+
+\begin{frame}{Step 2: Deriving the weighted error function}
     \begin{itemize}
         \itemsep1em
         \justifying
-        \item[] \begin{center}
-            $E=\displaystyle\sum_{i=1}^N w_m^{(i)} e^{-\frac{1}{2}\alpha_my^{(i)}h_m(\boldsymbol{x}^{(i)})}$
-        \end{center}
-        \item Sequentially adds a new component trained on reweighted training samples.
-        \item $w_m^{(i)}$: history of classification of $\boldsymbol{x}^{(i)}$ by $H_{m-1}$
-        \begin{itemize}
-            \item Loss weighted towards mistakes
-        \end{itemize}
-        \item Iteration $m$ optimization:
-        \begin{itemize}
-            \itemsep0.25em
-            \item Choose the new component, $h_m=h(\boldsymbol{x};\boldsymbol{\theta}_m)$
-            \item And the vote that optimizes the weighted exponential loss, $\alpha_m$.
-        \end{itemize}
+        \item Second, we need to derive the weighted error function, $J_m$
     \end{itemize}
-\end{frame}
-
-\begin{frame}{Minimizing loss: finding $h_m$}
     \begin{align*}
-        E &= \displaystyle\sum_{i=1}^N w_m^{(i)} e^{-\frac{1}{2}\alpha_my^{(i)}h_m(\boldsymbol{x}^{(i)})} \\
+        \mathcal{L}_m &= \displaystyle\sum_{i=1}^N w_m^{(i)} e^{-\frac{1}{2}\alpha_my^{(i)}h_m(\boldsymbol{x}^{(i)})} \\
         &= e^{\frac{-\alpha_m}{2}} \left( \displaystyle\sum_{y^{(i)}=h_m(\boldsymbol{x}^{(i)})} w_m^{(i)} \right) + e^{\frac{\alpha_m}{2}} \left( \displaystyle\sum_{y^{(i)}\neq h_m(\boldsymbol{x}^{(i)})} w_m^{(i)} \right) \\
         &= (e^{\frac{\alpha_m}{2}}-e^{\frac{-\alpha_m}{2}}) \underbrace{\left(\displaystyle\sum_{y^{(i)}\neq h_m(\boldsymbol{x}^{(i)})} w_m^{(i)}\right)}_{\mathclap{J_m=\displaystyle\sum_{i=1}^Nw_m^{(i)} \times 
         \text{\vertarrowbox[2ex]{I}{\footnotesize Find $h_m(\boldsymbol{x})$ that minimizes $J_m$}}
@@ -776,81 +857,94 @@
     \end{align*}
 \end{frame}
 
-\begin{frame}{Minimizing loss: finding $\alpha_m$}
-    \begin{align*}
-        &\dfrac{\partial E}{\partial \alpha_m} = 0 \\
-        &\implies \frac{1}{2} (e^{\frac{\alpha_m}{2}} + e^{\frac{-\alpha_m}{2}}) \left(\displaystyle\sum_{y^{(i)}\neq h_m(\boldsymbol{x}^{(i)})} w_m^{(i)} \right) - \frac{1}{2}e^{\frac{-\alpha_m}{2}} \left(\displaystyle\sum_{i=1}^Nw_m^{(i)} \right) = 0 \\
-        &\implies \dfrac{e^{\frac{-\alpha_m}{2}}}{(e^{\frac{\alpha_m}{2}} + e^{\frac{-\alpha_m}{2}})} = \dfrac{\sum_{y^{(i)}\neq h_m(\boldsymbol{x}^{(i)})} w_m^{(i)}}{\sum_{i=1}^Nw_m^{(i)}} \\ \\
-        &\epsilon_m = \dfrac{\sum_{i=1}^N w_m^{(i)}I\left(y^{(i)} \neq h_m(\boldsymbol{x}^{(i)})\right)}{\sum_{i=1}^N w_m^{(i)}}, \qquad \alpha_m = \ln\left(\dfrac{1 - \epsilon_m}{\epsilon_m}\right)
-    \end{align*}
-\end{frame}
-
-\begin{frame}{Updating weights}
+\begin{frame}{Step 3: Deriving $\epsilon_m$ and $\alpha_m$}
     \begin{itemize}
         \itemsep1em
         \justifying
-        \item Updating weights in AdaBoost algorithm:
+        \item Third, we need to derive $\epsilon_m$ and $\alpha_m$ by setting the derivative equal to zero:
+        \item[] \begin{center}
+            $\dfrac{\partial \mathcal{L}_m}{\partial \alpha_m} = 0$
+        \end{center}
+        \item \textbf{Idea:} separate the derivative into misclassified and correctly classified samples.
     \end{itemize}
     \begin{align*}
-        &w_i^{m+1} = w_i^m e^{-\frac{1}{2}\alpha_my^{(i)}h_m(\boldsymbol{x}^{(i)})} \\ \\
-        &\xRightarrow{y^{(i)}h_m(\boldsymbol{x}^{(i)}) = 1 - 2I\left(y^{(i)} \neq h_m(\boldsymbol{x}^{(i)})\right)} w_i^{m+1} = w_i^m
+        &\implies \frac{1}{2} (e^{\frac{\alpha_m}{2}} + e^{\frac{-\alpha_m}{2}}) \left(\displaystyle\sum_{y^{(i)}\neq h_m(\boldsymbol{x}^{(i)})} w_m^{(i)} \right) = \frac{1}{2}e^{\frac{-\alpha_m}{2}} \left(\displaystyle\sum_{i=1}^Nw_m^{(i)} \right) \\
+        &\implies \dfrac{e^{\frac{-\alpha_m}{2}}}{(e^{\frac{\alpha_m}{2}} + e^{\frac{-\alpha_m}{2}})} = \dfrac{\sum_{y^{(i)}\neq h_m(\boldsymbol{x}^{(i)})} w_m^{(i)}}{\sum_{i=1}^Nw_m^{(i)}}
+    \end{align*}
+    \begin{itemize}
+        \itemsep1em
+        \justifying
+        \item Set $\epsilon_m = \dfrac{\sum_{i=1}^N w_m^{(i)}I\left(y^{(i)} \neq h_m(\boldsymbol{x}^{(i)})\right)}{\sum_{i=1}^N w_m^{(i)}} \Longrightarrow \alpha_m = \ln\left(\dfrac{1 - \epsilon_m}{\epsilon_m}\right)$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Step 4: justifying the weight update mechanism}
+    \begin{itemize}
+        \itemsep1em
+        \justifying
+        \item Fourth, we need to justify the weight update mechanism.
+        \item \textbf{Idea:} we have $w_m^{(i)}$ from the first step as $w_{m+1}^{(i)} = e^{-y^{(i)}H_{M}(\boldsymbol{x}^{(i)})}$
+    \end{itemize}
+    \begin{align*}
+        &\xRightarrow{\text{separate } h_m(\boldsymbol{x}^{(i)})}w_{m+1}^{(i)} = w_m^{(i)} e^{-\frac{1}{2}\alpha_my^{(i)}h_m(\boldsymbol{x}^{(i)})} \\
+        &\xRightarrow{y^{(i)}h_m(\boldsymbol{x}^{(i)}) = 1 - 2I\left(y^{(i)} \neq h_m(\boldsymbol{x}^{(i)})\right)} w_{m+1}^{(i)} = w_m^{(i)}
         \text{\vertarrowbox[0ex]{\ e^{-\frac{1}{2}\alpha_m}\ }{Independent of $i$ and can be ignored}}
-        e^{\alpha_mI\left(y^{(i)} \neq h_m(\boldsymbol{x}^{(i)})\right)} \\
-        &\implies w_i^{m+1}=w_i^{m}e^{\alpha_m I\left(y^{(i)} \neq h_m(\boldsymbol{x}^{(i)})\right)}
+        e^{\alpha_mI\left(y^{(i)} \neq h_m(\boldsymbol{x}^{(i)})\right)} \\ \\
+        &\implies w_{m+1}^{(i)} = w_m^{(i)}e^{\alpha_m I\left(y^{(i)} \neq h_m(\boldsymbol{x}^{(i)})\right)}
     \end{align*}
 \end{frame}
 
-\subsection{Summary \& example}
+% \subsection{Summary \& example}
 
-\begin{frame}{Summary}
-    \begin{algorithm}[H]
-    \caption{AdaBoost Summary}\label{alg:AdaBoostSummary}
-    \begin{algorithmic}[1]
-    \For{$i = 1$ to $N$}
-        \State Initialize the data weight $w_1^{(i)} = \frac{1}{N}$
-    \EndFor
-    \For{$m = 1$ to $M$}
-        \State Find a classifier $h_m(\boldsymbol{x})$ by minimzing the weighted error function
-        \State Find the normalized weighted error of $h_m(\boldsymbol{x})$ as $\epsilon_m$
-        \State Compute the new component weight as $\alpha_m$
-        \State Update example weights for the next iteration $w_{m+1}^{(i)}$
-    \EndFor
-    \State Combined classifier $\hat{y}=\text{sign}(H_M(\boldsymbol{x}))$ where $H_M(\boldsymbol{x}) = \sum_{m=1}^M \alpha_m h_m(\boldsymbol{x})$
-    \end{algorithmic}
-    \end{algorithm}
-\end{frame}
+% \begin{frame}{Summary}
+%     \begin{algorithm}[H]
+%     \caption{AdaBoost Summary}\label{alg:AdaBoostSummary}
+%     \begin{algorithmic}[1]
+%     \For{$i = 1$ to $N$}
+%         \State Initialize the data weight $w_1^{(i)} = \frac{1}{N}$
+%     \EndFor
+%     \For{$m = 1$ to $M$}
+%         \State Find a classifier $h_m(\boldsymbol{x})$ by minimizing the weighted error function, $J_m$
+%         \State Find the normalized weighted error of $h_m(\boldsymbol{x})$ as $\epsilon_m$
+%         \State Compute the new component weight (share of votes) as $\alpha_m$
+%         \State Update example weights for the next iteration $w_{m+1}^{(i)}$
+%     \EndFor
+%     \State Combined classifier $\hat{y}=\text{sign}(H_M(\boldsymbol{x}))$ where $H_M(\boldsymbol{x}) = \sum_{m=1}^M \alpha_m h_m(\boldsymbol{x})$
+%     \end{algorithmic}
+%     \end{algorithm}
+% \end{frame}
 
-\begin{frame}{Example}
-    \begin{center}
-        \minipage{0.8\textwidth}
-        \begin{figure}
-            \includegraphics[width=\linewidth]{pic/adaboost_e11.png}
-            {\scriptsize Adopted from [4]}
-        \end{figure}
-        \endminipage
-    \end{center}
-\end{frame}
+% \begin{frame}{Example}
+%     \begin{center}
+%         \minipage{0.8\textwidth}
+%         \begin{figure}
+%             \includegraphics[width=\linewidth]{pic/adaboost_e11.png}
+%             {\scriptsize Adopted from [4]}
+%         \end{figure}
+%         \endminipage
+%     \end{center}
+% \end{frame}
 
-\begin{frame}{Example, Cont.}
-    \begin{center}
-        \minipage{0.6\textwidth}
-        \begin{figure}
-            \includegraphics[width=\linewidth]{pic/adaboost_e12.png}
-            {\scriptsize Adopted from [4]}
-        \end{figure}
-        \endminipage
-    \end{center}
-\end{frame}
+% \begin{frame}{Example, Cont.}
+%     \begin{center}
+%         \minipage{0.6\textwidth}
+%         \begin{figure}
+%             \includegraphics[width=\linewidth]{pic/adaboost_e12.png}
+%             {\scriptsize Adopted from [4]}
+%         \end{figure}
+%         \endminipage
+%     \end{center}
+% \end{frame}
 
-\subsection{Properties}
+\subsection{Properties (extra-reading)}
 
 \begin{frame}{Exponential loss properties}
     \begin{itemize}
         \itemsep1em
         \justifying
-        \item In each boosting iteration, assuming we can find $h(\boldsymbol{x};\hat{\boldsymbol{\theta}}_m)$ whose weighted error is better than chance.
+        \item In each boosting iteration, assuming we can find $h(\boldsymbol{x};\boldsymbol{\theta}_m)$ whose weighted error is better than chance.
         \item[] \begin{center}
-            $H_m(x) = \frac{1}{2}[\hat{\alpha}_1h(\boldsymbol{x};\hat{\boldsymbol{\theta}}_1)+ \dots + \hat{\alpha}_mh(\boldsymbol{x};\hat{\boldsymbol{\theta}}_m)]$
+            $H_m(x) = \frac{1}{2}[\alpha_1h(\boldsymbol{x};\boldsymbol{\theta}_1)+ \dots + \alpha_mh(\boldsymbol{x};\boldsymbol{\theta}_m)]$
         \end{center}
         \item Thus, \textbf{lower exponential loss} over training data is guaranteed.
     \end{itemize}
@@ -869,7 +963,7 @@
     \begin{itemize}
         \itemsep1em
         \justifying
-        \item Boosting iterations typically \textbf{decrease} the \textbf{training error} of $H_m(\boldsymbol{x})$ over training examples.
+        \item Boosting iterations typically \textbf{decrease} the \textbf{training error} of $H_M(\boldsymbol{x})$ over training examples.
     \end{itemize}
     \vfill
     \begin{center}
@@ -955,7 +1049,7 @@
         \justifying
         \item \textbf{Exponential loss} goes \textbf{strictly down}.
         \item \textbf{Training error} of $H$ goes \textbf{down}.
-        \item Weighted error $\boldsymbol{\epsilon_m}$ goes \textbf{up} $\implies$ votes $\boldsymbol{\alpha_m}$ go \textbf{down}.
+        \item Weighted error $\boldsymbol{\epsilon_m}$ goes \textbf{up} $\implies$ share of votes $\boldsymbol{\alpha_m}$ goes \textbf{down}.
         \item \textbf{Test error} \textbf{decreases} even after a flat training error.
     \end{itemize}
 \end{frame}
@@ -988,7 +1082,7 @@
     \textbf{Learners Dependency} & Independent                          & {Dependent\\(on the previous models)}         \\
     \textbf{Learner Weighting}   & Equal weights                        & {Varying weights\\(based on importance)}      \\
     \textbf{Tolerance to Noise}  & {More robust \\(due to aggregation)} & {More sensitive \\(may overfit to noise)}     \\
-    \textbf{Properties}          & Reduces bias                         & {Reduces bias and variance \\(focus on bias)} 
+    \textbf{Properties}          & Reduces variance                     & {Reduces bias and variance \\(focus on bias)} 
     \end{tblr}
     \end{table}
 \end{frame}
