@@ -342,8 +342,8 @@
         \Else
             \State \textbf{status} $\gets$ internal
             \State $a \gets$ \textcolor{deepred}{bestAttribute($S$, $A$)} \Comment{The attribute value test}
-            \State LeftNode $\gets$ FindTree($S(a=1)$, $A - \{a\}$)
-            \State RightNode $\gets$ FindTree($S(a=0)$, $A - \{a\}$)
+            \State LeftNode $\gets$ FindTree($S(a > t)$, $A - \{a\}$) \Comment{$t$ (threshold)}
+            \State RightNode $\gets$ FindTree($S(a \leq t)$, $A - \{a\}$)
         \EndIf
     \EndProcedure
     \end{algorithmic}
