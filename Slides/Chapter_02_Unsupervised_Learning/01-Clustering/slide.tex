@@ -188,8 +188,8 @@ subsubsectionstyle=show/shaded/hide]
         \item K-Means suggests an \textbf{iterative} process to find these centers.
         \begin{figure}
         \centering
-        \includegraphics[scale=0.25]{pic/figs/Clustering_K-means_7_1.png}
-        Figure From \href{https://mlbhanuyerra.github.io/2018-02-19-Clustering-K-means/}{This blog}.
+        \includegraphics[scale=0.18]{pic/figs/Clustering_K-means_7_1.png}
+        Figure From \href{https://mlbhanuyerra.github.io/2018-02-19-Clustering-K-means/}{mlbhanuyerra.github.io}.
     \end{figure}
     \end{itemize}
 \end{frame}
@@ -200,7 +200,6 @@ subsubsectionstyle=show/shaded/hide]
         \item One of the most straightforward tasks we can perform on a data set without labels.
         \item finding groups of data in our dataset which are "similar" to one another --\textbf{clusters}.
         \item How many cluster? Can we cluster new unseen data? What is similar data ?
-        
     \end{itemize}
 \end{frame}
 
@@ -236,7 +235,6 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{Objective Function (cont.)}
     \begin{itemize}
         
-
         \item We can express $f$ by defining $r_k(\mathbf{x}) = 1$ if $f(\mathbf{x}) = k$ and $0$ otherwise, we can write this objective as below:
 $$
 J = \sum_{\mathbf{x} \in X_{\text{train}}} \sum_{k=1}^{K} r_k(x)|| x -  \mu_k ||^2
@@ -290,89 +288,43 @@ and \textbf{updating} $\mu$ as:
 
 % K means in action
 \begin{frame}{K-Means in action}
+original blobs
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.45]{kmeans_in_action_figures/original.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{K-Means in action}
 random initialization
     \begin{figure}
         \centering
-        \includegraphics[scale=0.45]{pic/figs/kmeans_step_1_unlabeled_data.png}
+        \includegraphics[scale=0.45]{kmeans_in_action_figures/kmeans_iter_1.png}
     \end{figure}
 \end{frame}
 \begin{frame}{K-Means in action (cont.)}
     \begin{figure}
         \centering
-        \includegraphics[scale=0.45]{pic/figs/kmeans_step_2_assignment.png}
+        \includegraphics[scale=0.45]{kmeans_in_action_figures/kmeans_iter_2.png}
     \end{figure}
 \end{frame}
 
 \begin{frame}{K-Means in action (cont.)}
     \begin{figure}
         \centering
-        \includegraphics[scale=0.45]{pic/figs/kmeans_step_3_recompute_centers.png}
+        \includegraphics[scale=0.45]{kmeans_in_action_figures/kmeans_iter_3.png}
     \end{figure}
 \end{frame}
 \begin{frame}{K-Means in action (cont.)}
     \begin{figure}
         \centering
-        \includegraphics[scale=0.45]{pic/figs/kmeans_step_4_assignment.png}
+        \includegraphics[scale=0.45]{kmeans_in_action_figures/kmeans_iter_4.png}
     \end{figure}
 \end{frame}
 \begin{frame}{K-Means in action (cont.)}
     \begin{figure}
         \centering
-        \includegraphics[scale=0.45]{pic/figs/kmeans_step_5_recompute_centers.png}
-    \end{figure}
-\end{frame}
-\begin{frame}{K-Means in action (cont.)}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.45]{pic/figs/kmeans_step_6_assignment.png}
-    \end{figure}
-\end{frame}
-\begin{frame}{K-Means in action (cont.)}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.45]{pic/figs/kmeans_step_7_recompute_centers.png}
-    \end{figure}
-\end{frame}
-\begin{frame}{K-Means in action (cont.)}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.45]{pic/figs/kmeans_step_8_assignment.png}
-    \end{figure}
-\end{frame}
-\begin{frame}{K-Means in action (cont.)}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.45]{pic/figs/kmeans_step_9_recompute_centers.png}
-    \end{figure}
-\end{frame}
-\begin{frame}{K-Means in action (cont.)}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.45]{pic/figs/kmeans_step_10_assignment.png}
-    \end{figure}
-\end{frame}
-\begin{frame}{K-Means in action (cont.)}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.45]{pic/figs/kmeans_step_11_recompute_centers.png}
-    \end{figure}
-\end{frame}
-\begin{frame}{K-Means in action (cont.)}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.45]{pic/figs/kmeans_step_12_assignment.png}
-    \end{figure}
-\end{frame}
-\begin{frame}{K-Means in action (cont.)}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.45]{pic/figs/kmeans_step_13_recompute_centers.png}
-    \end{figure}
-\end{frame}
-\begin{frame}{K-Means in action (cont.)}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.45]{pic/figs/kmeans_step_14_assignment.png}
+        \includegraphics[scale=0.45]{kmeans_in_action_figures/kmeans_iter_5.png}
     \end{figure}
 \end{frame}
 
@@ -385,6 +337,17 @@ random initialization
 \State \textbf{Input:} Data points $X = \{x_1, x_2, ..., x_n\} \subset \mathbb{R}^d$, number of clusters $K$
 \State \textbf{Output:} Clusters $C = \{C_1, C_2, ..., C_K\}$ and centroids $\mu = \{\mu_1, \mu_2, ..., \mu_K\}$
 \State \textbf{Initialize:} Randomly select $K$ points as initial centroids $\mu_1, \mu_2, ..., \mu_K$
+\end{algorithmic}
+\end{algorithm}
+}
+\end{frame}
+
+
+\begin{frame}{K-Means Algorithm (cont.)}
+ \resizebox{\textwidth}{!}{%
+\begin{algorithm}
+\caption{K-means Clustering Algorithm (cont.)}
+\begin{algorithmic}[2]
 \Repeat
     \State \textbf{Assignment step:}
     \For {each data point $x_i$}
@@ -404,6 +367,14 @@ random initialization
 \end{algorithmic}
 \end{algorithm}
 }
+\end{frame}
+
+\begin{frame}{Algorithm Overview}
+    \begin{figure}
+        \centering
+        \includegraphics[scale=0.45]{pic/figs/actionmeans.jpg}
+        \caption{picture from \href{https://datasciencebook.ca/clustering.html}{datasciencebook.ca}}
+    \end{figure}
 \end{frame}
 
 \begin{frame}{Convergence}
