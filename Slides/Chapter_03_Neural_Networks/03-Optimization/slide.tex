@@ -224,8 +224,8 @@ Some noise remains \\
 \end{table}
 \end{frame}
 
-\subsection{Problems with SGD}
-\begin{frame}{Problem 1 with SGD}
+\subsection{Problems with Gradient Descent}
+\begin{frame}{Problem 1}
     \begin{itemize}
         \item \textbf{SGD} is fast and can escape local minima, but it faces some issues
         \item What if the loss changes quickly in one direction but slowly in another?
@@ -245,7 +245,7 @@ Some noise remains \\
  %   \end{minipage}
 \end{frame}
 
-\begin{frame}{Problem 2 with SGD}
+\begin{frame}{Problem 2}
     \begin{minipage}{0.4\textwidth}
         \begin{itemize}
         \item What if the loss function has a local minima or saddle point?
@@ -266,7 +266,7 @@ Some noise remains \\
     \end{minipage}
 \end{frame}
 
-\begin{frame}{Problem 3 with SGD}
+\begin{frame}{Problem 3}
     \begin{minipage}{0.4\textwidth}
         \begin{itemize}
         \item Gradients that come from single data points or mini-batches can be \textbf{noisy}
@@ -282,13 +282,23 @@ Some noise remains \\
     \end{minipage}
 \end{frame}
 
-\begin{frame}{Problem 4 with SGD}
+\begin{frame}{Problem 4}
     \begin{itemize}
-        \item Using the same learning rate for all dimensions can lead to:
+        \item Why not just use mini-batches?
+        \begin{itemize}
+            \item Even though mini-batch gradient descent helps \textbf{reduce the noise}, It can still have a \textbf{slow convergence} and might \textbf{get stuck} in regions where the gradients are small (like plateaus or valleys), which makes learning inefficient
+        \end{itemize}
+        \item In addition, using the same learning rate for all dimensions can lead to:
         \begin{itemize}
             \item Smooth convergence in some directions
             \item Oscillations or divergence in other directions
         \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Problem Definition}
+    \begin{itemize}
+        \item So, how can we improve the vanilla Gradient Descent algorithm? 
         \item \textbf{Proposal}:
         \begin{itemize}
             \item Track oscillations in each direction
@@ -318,6 +328,7 @@ Some noise remains \\
 \end{frame}
 
 \section{Momentum}
+\subsection{Momentum Definition and Types}
 \begin{frame}{Momentum}
     \begin{minipage}{0.5\textwidth}
         \begin{itemize}
@@ -340,66 +351,74 @@ Some noise remains \\
 
 \begin{frame}{First Momentum}
     \begin{itemize}
-        \item The first momentum, denoted as $m_t$, is essentially \textbf{the moving average of the gradients}
-         \item It’s inspired by physics: like a ball rolling in a frictionless bowl, it keeps moving due to accumulated momentum
-        \item In gradient descent with momentum, the update rule is:
+        \item The first momentum, denoted as $m_t$, is essentially \textbf{the moving average of the gradients}. The update rule is:
         \[m_t = \beta_1 m_{t-1} + (1 - \beta_1) \nabla_{\theta}J(\theta_{t-1})\]
         \[\theta_t = \theta_{t-1} - \eta m_t\]\\
         where:
         \begin{itemize}
             \item $m_t$ is the first moment
-            \item $\beta_1$ (momentum term) controls how much of the past gradients to include (typically 0.9 or 0.99)\\
-            \item $\eta$ is the learning rate\\ 
-            \item $\nabla_{\theta}J(\theta_t)$ is the gradient of the cost function
+            \item $\beta_1$ is the decay rate, which controls how much of the past gradients to include (typically 0.9 or 0.99)\\
+            %\item $\eta$ is the learning rate\\ 
+            \item $\nabla_{\theta}J(\theta_t)$ is the gradient
         \end{itemize}
+    \end{itemize}
+    \textbf{Why use the first moment?}
+    \begin{itemize}
+        \item Inspired by physics, it keeps us moving due to accumulated momentum, like a ball rolling in a frictionless bowl 
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Second Momentum}
     \begin{itemize}
-        \item The second momentum, denoted as $v_t$, is \textbf{the moving average of the squared gradients} It tracks the magnitude of the gradients over time
-        \item This is updated similarly to the first momentum:
-        \[v_t = \beta_2 v_{t-1} + (1 - \beta_2) (\nabla_{\theta} J(\theta_t) \odot \nabla J(\theta_t)\]
+        \item The second momentum, denoted as $v_t$, is a \textbf{moving average of the squared gradients}. 
+        \item It helps us track how large the gradients have been over time. The update rule is:
+        \[v_t = \beta_2 v_{t-1} + (1 - \beta_2) (\nabla_{\theta} J(\theta_t))^2\]
         \[\theta_t = \theta_{t-1} - \eta v_t\]
         where:
         \begin{itemize}
-        \item $v_t$ is the second moment% (uncentered variance, squared gradients)
-        \item$\beta_2$ is the decay rate
-        \item$\eta$ is the learning rate
-        \item$\nabla_{\theta}J(\theta_t)$ is the gradient of the cost function
-        \item $\odot$ denotes the element-wise (Hadamard) product
+            \item $v_t$ is the second moment
+            \item $\beta_2$ is the decay rate
+            \item $\nabla_{\theta} J(\theta_t)$ is the gradient
         \end{itemize}
     \end{itemize}
+    
+    \textbf{Why use the second moment?}
+    \begin{itemize}
+        \item The second moment helps \textbf{control the size of updates} by adjusting for consistently large or small gradients, preventing overshooting or slow learning
+    \end{itemize}
 \end{frame}
+
 
 \begin{frame}{Moment Bias Correction}
     \begin{itemize}
-        \item \textbf{Problem}: When we start training, both $m_t$ and $v_t$ are initialized to zero. This means that the estimates for the first and second moments will be biased toward zero, especially during the initial steps when the gradients are still small
-        \item \textbf{Solution}: To counteract this initial bias, we use the bias-corrected versions of $m_t$ and $v_t$:
+        \item \textbf{Problem}: When we start training, both $m_t$ and $v_t$ are initialized to zero, causing their estimates to be biased toward zero in the early steps, especially when gradients are small.
+        \item \textbf{Solution}: We use bias-corrected versions of $m_t$ and $v_t$ to fix this:
         \[\hat{m}_t = \frac{m_t}{1 - \beta_1^t}, \quad 
         \hat{v}_t = \frac{v_t}{1 -\beta_2^t}\]
+        \item These corrections compensate for the bias by scaling $m_t$ and $v_t$ upward, especially in the early steps when $t$ is small, ensuring more accurate estimates of the moments.
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Momentum update}
-    \begin{minipage}{0.5\textwidth}
-    \begin{itemize}
-    \item Momentum update steps involve two stages:
-    \begin{enumerate}
-        \item Take a step in the opposite direction of the gradient at the current position
-        \item Add a scaled version of the previous step to this move
-    \end{enumerate}
-    \item Reversing these steps leads to a more optimal approach, known as \textit{Nesterov's Accelerated Gradient (NAG)}.
-    \end{itemize}
-\end{minipage}%
-\begin{minipage}{0.5\textwidth}
-    \begin{figure}[h]
-        \centering
-        \includegraphics[height=.3\textheight]{pic/momentum_update.png}
-        \caption{\footnotesize Momentum update from \url{https://deeplearning.cs.cmu.edu/F24/document/slides/lec6.pdf}}
-    \end{figure}
-\end{minipage}
-\end{frame}
+
+% \begin{frame}{Momentum update}
+%     \begin{minipage}{0.5\textwidth}
+%     \begin{itemize}
+%     \item Momentum update steps involve two stages:
+%     \begin{enumerate}
+%         \item Take a step in the opposite direction of the gradient at the current position
+%         \item Add a scaled version of the previous step to this move
+%     \end{enumerate}
+%     \item Reversing these steps leads to a more optimal approach, known as \textit{Nesterov's Accelerated Gradient (NAG)}.
+%     \end{itemize}
+% \end{minipage}%
+% \begin{minipage}{0.5\textwidth}
+%     \begin{figure}[h]
+%         \centering
+%         \includegraphics[height=.3\textheight]{pic/momentum_update.png}
+%         \caption{\footnotesize Momentum update from \url{https://deeplearning.cs.cmu.edu/F24/document/slides/lec6.pdf}}
+%     \end{figure}
+% \end{minipage}
+% \end{frame}
 
 % \begin{frame}{Problem Definition}
 %     \begin{itemize}
@@ -408,46 +427,49 @@ Some noise remains \\
 %     \end{itemize}
 % \end{frame}
 
-\subsection{AdaGrad}
-\begin{frame}{AdaGrad}
-       \begin{itemize}
-    \item The Adaptive Gradient algorithm, or \textbf{AdaGrad} for short, adjusts the learning rate for each feature based on the cumulative sum of squared gradients
-    \item Features that are updated frequently receive a progressively smaller learning rate, allowing sparse features that update slowly to catch up
-        \begin{align*}
-        G_t &= G_{t-1} + \nabla J(\theta_t) \odot \nabla J(\theta_t) \\
-        \theta_{t} &= \theta_{t-1}- \frac{\eta}{\sqrt{G_{t-1}} + \epsilon} \nabla J(\theta_{t-1})
-        \end{align*}
-        Where:
-        \begin{itemize}
-            \item $G_t$ is the cumulative sum of squared gradients at time step $t$
-            \item $\epsilon$ is a small constant added for numerical stability
-        \end{itemize}
-    \end{itemize}
-\end{frame}
+% \subsection{AdaGrad}
+% \begin{frame}{AdaGrad}
+%        \begin{itemize}
+%     \item The Adaptive Gradient algorithm, or \textbf{AdaGrad} for short, adjusts the learning rate for each feature based on the cumulative sum of squared gradients
+%     \item Features that are updated frequently receive a progressively smaller learning rate, allowing sparse features that update slowly to catch up
+%         \begin{align*}
+%         G_t &= G_{t-1} + \nabla J(\theta_t) \odot \nabla J(\theta_t) \\
+%         \theta_{t} &= \theta_{t-1}- \frac{\eta}{\sqrt{G_{t-1}} + \epsilon} \nabla J(\theta_{t-1})
+%         \end{align*}
+%         Where:
+%         \begin{itemize}
+%             \item $G_t$ is the cumulative sum of squared gradients at time step $t$
+%             \item $\epsilon$ is a small constant added for numerical stability
+%         \end{itemize}
+%     \end{itemize}
+% \end{frame}
 
-\subsection{RMSProp}
-\begin{frame}{RMSProp}
-    \begin{itemize}
-        \item The problem with AdaGrad is that it becomes incredibly slow. This is because the sum of squared gradients only grows and never shrinks
-        \item \textbf{RMSProp} (Root Mean Square Propagation) addresses AdaGrad's slow convergence by introducing a \textbf{decay factor}, allowing only the most recent squared gradients to contribute to the update, which prevents the accumulation of excessively large values
+% \subsection{RMSProp}
+% \begin{frame}{RMSProp}
+%     \begin{itemize}
+%         \item The problem with AdaGrad is that it becomes incredibly slow. This is because the sum of squared gradients only grows and never shrinks
+%         \item \textbf{RMSProp} (Root Mean Square Propagation) addresses AdaGrad's slow convergence by introducing a \textbf{decay factor}, allowing only the most recent squared gradients to contribute to the update, which prevents the accumulation of excessively large values
 
-        \begin{align*}
-        v_t &= \beta v_{t-1} + (1 - \beta) \nabla J(\theta_t) \odot \nabla J(\theta_t) \\
-        \theta_{t} &= \theta_{t-1}- \frac{\eta}{\sqrt{v_{t-1}} + \epsilon} \nabla J(\theta_{t-1})
-        \end{align*}
-        Where:
-        \begin{itemize}
-            \item $v_t$ is the \textbf{weighted} cumulative sum of squared gradients at time step $t$ and is equal to the second moment
-            \item $\epsilon$ is a small constant added for numerical stability
-        \end{itemize}
-    \end{itemize}
-\end{frame}
+%         \begin{align*}
+%         v_t &= \beta v_{t-1} + (1 - \beta) \nabla J(\theta_t) \odot \nabla J(\theta_t) \\
+%         \theta_{t} &= \theta_{t-1}- \frac{\eta}{\sqrt{v_{t-1}} + \epsilon} \nabla J(\theta_{t-1})
+%         \end{align*}
+%         Where:
+%         \begin{itemize}
+%             \item $v_t$ is the \textbf{weighted} cumulative sum of squared gradients at time step $t$ and is equal to the second moment
+%             \item $\epsilon$ is a small constant added for numerical stability
+%         \end{itemize}
+%     \end{itemize}
+% \end{frame}
 
 \subsection{Adam}
 \begin{frame}{Adam}
     \begin{itemize}
-        \item Adaptive Moment Estimation, or \textbf{Adam}, combines the concepts of momentum and adaptive learning rates by maintaining an exponentially decaying average of both past gradients and squared gradients
-        \item Adam adapts the learning rate for each parameter based on the gradient history: larger gradients lead to smaller update steps, and vice versa
+        \item Adaptive Moment Estimation, or \textbf{Adam}, combines the concepts of \textbf{momentum} and \textbf{adaptive learning rate} by maintaining an exponentially decaying average of both past gradients and squared gradients
+        \item Adam adapts the learning rate for each parameter based on the gradient history
+        \begin{itemize}
+            \item Larger gradients lead to smaller update steps, and vice versa
+        \end{itemize}
     \end{itemize}
 \end{frame}
 
@@ -476,7 +498,8 @@ Some noise remains \\
         \begin{center}
         \begin{figure}
         \centering
-            \includegraphics[width=1\linewidth]{pic/all_moment.jpg}
+            \includegraphics[width=1\linewidth]{pic/gd_comparison.png}
+            \caption{\footnotesize GD comparison from \url{https://github.com/ilguyi/optimizers.numpy}}
         \end{figure}
         \end{center}
     \end{minipage}%
@@ -485,7 +508,7 @@ Some noise remains \\
         \begin{center}
         \begin{figure}
         \centering
-            \includegraphics[width=0.8\linewidth]{pic/Adam_training_kingma2015.png}
+            \includegraphics[width=0.9\linewidth]{pic/Adam_training_kingma2015.png}
             \caption{\footnotesize GD comparison on MNIST from \url{kingma2014adam}}
             %\cite{kingma2014adam}
         \end{figure}
