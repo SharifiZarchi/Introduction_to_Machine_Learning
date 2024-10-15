@@ -88,30 +88,11 @@ subsubsectionstyle=show/shaded/hide]
         \item $\{x_1, x_2, \dots, x_k\}$ : input features
         \item $\{w_1, w_2, \dots, w_k\}$ : feature weights
         \item $b$ : bias term
-        \item $f(\cdot)$ : activation function
+        \item $\sigma(\cdot)$ : activation function
         \item $y$ : output of the neuron
     \end{itemize}
 \end{frame}
 
-
-\begin{frame}[t]{Perceptron Capacity}
-\begin{figure}[h]
-        \centering
-        \begin{minipage}{0.45\textwidth}
-            \begin{itemize}
-                \item A perceptron solves linearly separable problems
-                \item The XOR gate is not linearly separable
-                \item We need a multi-layer perceptron for such problems
-            \end{itemize}
-        \end{minipage}
-        \hfill
-        \begin{minipage}{0.45\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{pic/1/xor.png}
-            {\scriptsize XOR gate}
-        \end{minipage}
-    \end{figure}
-\end{frame}
 
 
 \begin{frame}{Why Neural Networks?}
@@ -210,10 +191,10 @@ subsubsectionstyle=show/shaded/hide]
     \begin{columns}
         \begin{column}{0.6\textwidth}
             \begin{itemize}
-                \item Increasing width and depth allows us to approximate complex decision boundaries
-                \item An activation function makes a neuron’s output non-linear, allowing the network to learn complex data
-                \item Not limited to Boolean or step functions
-                \item With appropriate activation functions, neural networks can approximate any real-valued function (More details later)
+                \item Increasing \textbf{width and depth} allows us to approximate \textbf{complex decision boundaries}
+                \item An \textbf{activation function} makes a neuron’s output \textbf{non-linear}, allowing the network to learn complex data
+                \item \textbf{Not limited} to Boolean or step functions
+                \item With appropriate activation functions, neural networks can \textbf{approximate any real-valued function} (More details later)
             \end{itemize}
         \end{column}
         \begin{column}{0.4\textwidth}
@@ -231,11 +212,11 @@ subsubsectionstyle=show/shaded/hide]
     \minipage{.5\textwidth}
     \begin{itemize}
         \item Hidden layer pre-activation:
-        $$a(x)_i = b^{(1)}_i + \sum_j W^{(1)}_{ij} \cdot x_j$$
+        $$a_i(x) = b^{(1)}_i + \sum_j W^{(1)}_{ij} \cdot x_j$$
         \item Activated hidden layer:
-        $$h(x) = f(a(x))$$
+        $$h(x) = \sigma(a(x))$$
         \item Output layer:
-        $$ o(x) = o\left(b^{(2)} + W^{(2)}h^{(1)}x \right) $$
+        $$ o(x) = o\left(b^{(2)} + W^{(2)}h^{(1)}(x) \right) $$
     \end{itemize}
     \endminipage
     \hfill
@@ -253,7 +234,7 @@ subsubsectionstyle=show/shaded/hide]
         \item Let $h^0_i = x_i$ for $i \in \{1, 2, \ldots, n  \}$
         \item For $\ell \in \{0, 1, \ldots, L \}$:
         $$a^{(\ell+1)}_j = b^{(\ell)}_j + \sum_i W^{(\ell)}_{ij}\cdot h^{(\ell)}_i$$
-        $$h^{(\ell+1)}_j = f(a^{(\ell+1)}_j)$$
+        $$h^{(\ell+1)}_j = \sigma(a^{(\ell+1)}_j)$$
 
         \item Learnable parameters:
         $$b^{(\ell)}_j, W^{(\ell)}_{ij}$$
@@ -272,8 +253,8 @@ subsubsectionstyle=show/shaded/hide]
 
 \begin{frame}[t]{Deep Neural Network Architecture}
 \begin{itemize}
-    \item More than a few hidden layers: Deep Neural Network (DNN)
-    \item Designing a neural network architecture is more of an art than a science.
+    \item More than a few hidden layers: \textbf{Deep Neural Network (DNN)}
+    \item Designing a neural network architecture is \textbf{more of an art than a science}.
         \begin{figure}[bh]
             \includegraphics[keepaspectratio, scale=0.3]{pic/3/huge-nn.png}
         \end{figure}
@@ -319,26 +300,16 @@ subsubsectionstyle=show/shaded/hide]
     \begin{itemize}
         \item This is the pass where we send input data through the network to make a prediction (likely inaccurate at first).
         \item The prediction is made by calculating weighted sums and applying an activation function at each layer
-        $$ o = a^{(L)} = f^{(L)}\left( b^{(L)} + W^{(L)} \cdot f^{(L-1)}\left( \ldots f^{(1)}(b^{(1)} + W^{(1)x})  \ldots \right) \right) $$
+        $$ o = a^{(L)} = \sigma^{(L)}\left( b^{(L)} + W^{(L)}  \sigma^{(L-1)}\left( \ldots f^{(1)}(b^{(1)} + W^{(1)}  x)  \ldots \right) \right) $$
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Forward Propagation Cont.}
-    \minipage{.45\textwidth}
-        \begin{figure}[bh]
-            \includegraphics[width=\linewidth]{pic/4/before-forward.png}
-            {\scriptsize Before producing predictions. Adapted from \href{https://mlu-explain.github.io/neural-networks/}{mlu-explain}.}
+        \begin{figure}[h]
+            \includegraphics[width=\linewidth]{pic/4/tensorflow0.png}\\
+            {\scriptsize Before producing predictions. Adapted from \href{playground.tensorflow.org}{TensorFlow playground: Daniel Smilkov and Shan Carter}.}
         \end{figure}
-    \endminipage
-    \hfill
-    \minipage{.45\textwidth}
-        \begin{figure}[bh]
-            \includegraphics[width=\linewidth]{pic/4/after-forward.png}
-            {\scriptsize After producing predictions. Adapted from \href{https://mlu-explain.github.io/neural-networks/}{mlu-explain}.}
-        \end{figure}
-    \endminipage
 \end{frame}
-
 
 \begin{frame}[t]{Forward Propagation Cont.}
     \begin{itemize}
@@ -346,8 +317,8 @@ subsubsectionstyle=show/shaded/hide]
         \item The loss is calculated after the forward pass, telling us how far off our predictions are from the true values
         \begin{figure}[bh]
             \centering
-            \includegraphics[keepaspectratio, scale=0.25]{pic/4/loss-values.png} \\
-            {\scriptsize Loss values for predictions. Adapted from \href{https://mlu-explain.github.io/neural-networks/}{mlu-explain}.}
+            \includegraphics[width=\linewidth]{pic/4/tensorflow2.png} \\
+            {\scriptsize Loss values for predictions. Adapted from \href{playground.tensorflow.org}{TensorFlow playground: Daniel Smilkov and Shan Carter}.}
         \end{figure}
     \end{itemize}
 \end{frame}
@@ -359,8 +330,8 @@ subsubsectionstyle=show/shaded/hide]
         \item This will be explained in more detail in the next lecture
         \begin{figure}[bh]
             \centering
-            \includegraphics[keepaspectratio, scale=0.25]{pic/4/after-backprop.png} \\
-            {\scriptsize Predictions get better as the weights get updated. Adapted from \href{https://mlu-explain.github.io/neural-networks/}{mlu-explain}.}
+            \includegraphics[width=\linewidth]{pic/4/tensorflow3.png} \\
+            {\scriptsize Predictions get better as the weights get updated. Adapted from \href{playground.tensorflow.org}{TensorFlow playground: Daniel Smilkov and Shan Carter}.}
         \end{figure}
     \end{itemize}
 \end{frame}
@@ -368,12 +339,21 @@ subsubsectionstyle=show/shaded/hide]
 
 \section{References}
 
-% \begin{frame}[allowframebreaks]
-% \bibliography{ref}
-%    \bibliographystyle{ieeetr}
-%     \nocite{*} % used here because no citation happens in slides
-%    % if there are too many try use：
-%     % \tiny\bibliographystyle{alpha}
-%  \end{frame}
+\begin{frame}{Contributions}
+\textbf{These slides are authored by:}
+    \begin{itemize}
+        \item Sogand Salehi
+        \item Erfan Sobhaei
+    \end{itemize}
+    
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]
+   \bibliographystyle{ieeetr} % Place the style before bibliography
+   \bibliography{ref.bib} % Point to your .bib file
+   \nocite{*} % Include all references even if not cited
+\end{frame}
+
 
 \end{document}
