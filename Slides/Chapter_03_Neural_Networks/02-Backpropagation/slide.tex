@@ -29,7 +29,6 @@
 
 
 
-
 \author{Ali Sharifi-Zarchi}
 \title{Machine Learning (CE 40717)}
 \subtitle{Fall 2024}
@@ -113,11 +112,17 @@
 
 \begin{frame}{How to Update Weights?}
 
-    
     \begin{center}
         \includegraphics[width=10cm]{pic/ball.png}  
     \end{center}
 \end{frame}
+
+%\begin{frame}{Effect of Learning Rate on Gradient Descent}
+%    \begin{center}
+%        \includegraphics[width=\textwidth]{pic/11111.png}
+%    \end{center}
+%\end{frame}
+
 
 \begin{frame}{Gradient Descent: Concept and Weight Updates}
     \textbf{Gradient Descent}: Minimizes the loss function by updating weights based on the gradient.
@@ -148,7 +153,7 @@
     
     \textbf{Example}: For \( x = 3 \), \( y = 10 \), and \( w_0 = 2 \),
     \[
-    \frac{\partial L}{\partial w} = -36, \quad w_{\text{new}} = 5.6
+    \frac{\partial L}{\partial w} = -24, \quad w_{\text{new}} = 4.4
     \]
 \end{frame}
 
@@ -171,6 +176,26 @@
     \end{flushright}
 
 \end{frame}
+
+\begin{frame}{Identifying an Optimal Learning Rate}
+    \begin{columns}[T] % Aligning the columns at the top
+        \begin{column}{0.5\textwidth}
+            \begin{itemize}
+                \item Look for a \textbf{smooth, gradual} decrease in loss over time.
+                \item Avoid a learning rate that causes \textbf{erratic fluctuations} in the loss function.
+                \item Ensure that the learning rate is \textbf{not too small}, leading to \textbf{slow} convergence.
+                \item A good learning rate often shows a \textbf{steady, reliable} trend without large spikes.
+                \item More details later.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/1_rcmvCjQvsxrJi8Y4HpGcCw.png}
+            \end{center}
+        \end{column}
+    \end{columns}
+\end{frame}
+
 
 
 \section{Backpropagation}
@@ -204,12 +229,6 @@
     \end{figure}
 \end{frame}
 
-\begin{frame}{Backward Pass}
-    \begin{figure}
-        \vspace{-0.3cm}
-        \includegraphics[width=.9\linewidth, height=\textheight, keepaspectratio]{pic/5.png}
-    \end{figure}
-\end{frame}
 
 \begin{frame}{Backpropagation: a simple example}
         % Start of the columns environment
@@ -1317,6 +1336,12 @@
     \end{center}
 \end{frame}
 
+\begin{frame}{Chain Rule – Matrix-Vector Multiply}
+    \begin{center}
+        \includegraphics[width=12cm]{pic/chain6.png}  
+    \end{center}
+\end{frame}
+
 \subsection{Chain Rule}
 \begin{frame}{Chain Rule – Matrix-Vector Multiply}
     \begin{center}
@@ -1348,11 +1373,7 @@
     \end{center}
 \end{frame}
 
-\begin{frame}{Chain Rule – Matrix-Vector Multiply}
-    \begin{center}
-        \includegraphics[width=12cm]{pic/chain6.png}  
-    \end{center}
-\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  vector
 
@@ -1367,7 +1388,7 @@
         \column{0.55\textwidth}
              \textbf{Example:} Imagine a network where all weights are initialized to zero.
     
-    \textbf{Issue:} If all weights are zero, each neuron in a layer will produce identical outputs. This symmetry prevents the network from learning distinct features, as every neuron updates identically.
+    \textbf{Issue:} If all weights are zero, each neuron in a layer will produce \textbf{identical} outputs. This symmetry prevents the network from learning \textbf{distinct features}, as every neuron updates identically.
     
             \textbf{Solution:} To break this symmetry, weights need to be initialized with small random values, allowing neurons to learn unique features and avoid identical updates.
         
@@ -1407,7 +1428,7 @@
                 \draw[->, color=gray] (H3) -- (O) node[midway, above] {0};
 
                 % Add annotation below the diagram
-                \node[align=center] at (2.5, -3) {\textbf{All weights initialized to zero}};
+                \node[align=center] at (2.5, -3) {All weights initialized to zero};
             \end{tikzpicture}
     \end{columns}
 
@@ -1418,43 +1439,114 @@
     
     \textbf{Importance:}
     \begin{itemize}
-        \item Proper initialization ensures faster convergence and improves training stability.
-        \item Prevents issues like vanishing or exploding gradients, which can make training slow or unstable.
+        \item Proper \textbf{initialization} ensures \textbf{faster convergence} and improves  \textbf{training stability}.
+        \item Prevents issues like \textbf{vanishing} or \textbf{exploding gradients}, which can make training slow or unstable.
     \end{itemize}
     
-    \textbf{Question:} How can we initialize weights to maximize learning efficiency and prevent gradient problems?
+    \textbf{Question:} How can we initialize weights to maximize \textbf{learning efficiency} and prevent gradient problems?
     
 \end{frame}
 
-\begin{frame}{Key Initialization Techniques}
+\begin{frame}{Zero Initialization and Random Initialization}
+\textbf{Zero Initialization}
+\begin{itemize}
+     
 
+   \item \textbf{Description:} Set all weights to zero.
+    
+   \item \textbf{Key Point:} Rarely used, as it leads to identical updates for all neurons, preventing the network from learning distinct features.
+    \end{itemize}
+    \textbf{Random Initialization}
+\begin{itemize}
+   \item \textbf{Description:} Assign small random values to weights.
+    
+    \item \textbf{Distribution:} Typically, weights are initialized using a uniform or normal distribution.
+    
+    \[
+    w \sim \mathcal{U}(-\epsilon, \epsilon) \quad \text{or} \quad w \sim \mathcal{N}(0, \sigma^2)
+    \]
+    
+   \item \textbf{Key Point:} Helps break symmetry but can still cause issues with gradient magnitudes.
+   \end{itemize}
+   
+\end{frame}
+\begin{frame}{Xavier Initialization}
+    \textbf{Description:} 
+    Xavier Initialization is designed to keep the variance of activations consistent across layers, ideal for sigmoid and tanh activations.
+
+    \textbf{Objective:} 
+    Prevents the shrinking or exploding of signal magnitudes during forward and backward propagation.
+
+    \textbf{Condition:}
+    \[
+    \frac{1}{n_l} \, \text{Var}[w] = 1
+    \]
+
+    \textbf{Initialization Scheme:}
+    \[
+    w \sim \mathcal{U}\left(-\sqrt{\frac{1}{n_l}}, \sqrt{\frac{1}{n_l}}\right)
+    \]
+
+    This results in a uniform distribution within the range \(-\sqrt{\frac{1}{n_l}}\) to \(\sqrt{\frac{1}{n_l}}\), ensuring stable signal variance across layers.
+\end{frame}
+
+\begin{frame}{He Initialization}
+    \textbf{Description:} 
+    He Initialization (or Kaiming Initialization) is designed for neural networks with ReLU activations, considering the non-linearity of these functions.
+    
+    \textbf{Objective:} 
+    Aims to prevent the exponential growth or reduction of input signal magnitudes through layers.
+
+    \textbf{Condition:}
+    \[
+    \frac{1}{2} n_l \, \text{Var}[w] = 1
+    \]
+    
+    \textbf{Initialization Scheme:}
+    \[
+    w_l \sim \mathcal{N}\left(0, \frac{2}{n_l}\right)
+    \]
+    
+    This implies a zero-centered Gaussian distribution with a standard deviation of \( \sqrt{\frac{2}{n_l}} \), where biases are initialized to 0.
+\end{frame}
+
+\begin{frame}{Key Point Summary}
+    Proper initialization:
     \begin{itemize}
-        \item \textbf{Zero Initialization:} Set all weights to zero. 
-        \begin{itemize}
-            \item Rarely used, as it leads to identical updates for all neurons.
-        \end{itemize}
-        
-        \item \textbf{Random Initialization:} Assign small random values to weights.
-        \begin{itemize}
-            \item Helps break symmetry, but can still cause issues with gradient magnitudes.
-        \end{itemize}
-        
-        \item \textbf{Xavier Initialization:} 
-        \begin{itemize}
-            \item Scales weights by \(\sqrt{\frac{1}{\text{number of input neurons}}}\).
-            \item Maintains variance across layers for efficient learning, suitable for sigmoid and tanh activations.
-        \end{itemize}
-        
-        \item \textbf{He Initialization:} 
-        \begin{itemize}
-            \item Scales weights by \(\sqrt{\frac{2}{\text{number of input neurons}}}\).
-            \item Optimized for ReLU activation functions to prevent vanishing/exploding gradients.
-        \end{itemize}
-        
-        \item \textbf{Key Point:} Proper initialization reduces the risk of gradient issues and helps the network converge faster.
+        \item Reduces the risk of gradient issues (vanishing/exploding gradients).
+        \item Helps the network converge faster.
     \end{itemize}
-    
 \end{frame}
+
+% \begin{frame}{Key Initialization Techniques}
+
+%     \begin{itemize}
+%         \item \textbf{Zero Initialization:} Set all weights to zero. 
+%         \begin{itemize}
+%             \item Rarely used, as it leads to identical updates for all neurons.
+%         \end{itemize}
+        
+%         \item \textbf{Random Initialization:} Assign small random values to weights.
+%         \begin{itemize}
+%             \item Helps break symmetry, but can still cause issues with gradient magnitudes.
+%         \end{itemize}
+        
+%         \item \textbf{Xavier Initialization:} 
+%         \begin{itemize}
+%             \item Scales weights by \(\sqrt{\frac{1}{\text{number of input neurons}}}\).
+%             \item Maintains variance across layers for efficient learning, suitable for sigmoid and tanh activations.
+%         \end{itemize}
+        
+%         \item \textbf{He Initialization:} 
+%         \begin{itemize}
+%             \item Scales weights by \(\sqrt{\frac{2}{\text{number of input neurons}}}\).
+%             \item Optimized for ReLU activation functions to prevent vanishing/exploding gradients.
+%         \end{itemize}
+        
+%         \item \textbf{Key Point:} Proper initialization reduces the risk of gradient issues and helps the network converge faster.
+%     \end{itemize}
+    
+% \end{frame}
 \begin{frame}{Xavier vs He}
     \begin{center}
         \includegraphics[width=10cm]{pic/Evolution-of-loss-term-for-Xavier-weight-initialization-and-He-weight-initialization.png}  
@@ -1501,22 +1593,171 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
 
 
 \subsection{Loss Functions}
-\begin{frame}{Overview of Loss Functions}
-    \textbf{Types of Loss Functions:}
+
+% \begin{frame}{Overview of Loss Functions}
+%     \textbf{Types of Loss Functions:}
+%     \begin{itemize}
+%         \item \textbf{Mean Squared Error (MSE):} Used in regression to minimize the squared difference between predicted and true values.
+%         \item \textbf{Mean Absolute Error (MAE):} Also for regression, minimizing absolute differences between predicted and true values.
+%         \item \textbf{Binary Cross-Entropy:} Used for binary classification to minimize the difference between predicted probabilities and binary labels.
+%         \item \textbf{Categorical Cross-Entropy:} For multi-class classification, comparing predicted probabilities across multiple classes.
+%     \end{itemize}
+% \end{frame}
+% \begin{frame}{Mean Squared Error (MSE) – Multiple Samples}
+
+%     \textbf{Mean Squared Error (MSE):}
+%     \[
+%     \text{MSE} = \frac{1}{N} \sum_{i=1}^{N} \left( y_i - \hat{y}_i \right)^2
+%     \]
+
+%     \textbf{Example:}
+%     \begin{itemize}
+%         \item Predicted values: \( \hat{y} = [4.2, 3.8, 5.1] \)
+%         \item True values: \( y = [5.0, 4.0, 4.9] \)
+%         \item Calculation:
+%         \[
+%         \text{MSE} = \frac{1}{3} \left[ (5.0 - 4.2)^2 + (4.0 - 3.8)^2 + (4.9 - 5.1)^2 \right]
+%         \]
+%         \[
+%         \text{MSE} = \frac{1}{3} \left[ 0.64 + 0.04 + 0.04 \right] = \frac{0.72}{3} = 0.24
+%         \]
+%     \end{itemize}
+% \end{frame}
+
+% \begin{frame}{Mean Absolute Error (MAE) – Multiple Samples}
+
+%     \textbf{Mean Absolute Error (MAE):}
+%     \[
+%     \text{MAE} = \frac{1}{N} \sum_{i=1}^{N} \left| y_i - \hat{y}_i \right|
+%     \]
+
+%     \textbf{Example:}
+%     \begin{itemize}
+%         \item Predicted values: \( \hat{y} = [4.2, 3.8, 5.1] \)
+%         \item True values: \( y = [5.0, 4.0, 4.9] \)
+%         \item Calculation:
+%         \[
+%         \text{MAE} = \frac{1}{3} \left( |5.0 - 4.2| + |4.0 - 3.8| + |4.9 - 5.1| \right)
+%         \]
+%         \[
+%         \text{MAE} = \frac{1}{3} (0.8 + 0.2 + 0.2) = \frac{1.2}{3} \approx 0.4
+%         \]
+%     \end{itemize}
+% \end{frame}
+
+%^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+% \begin{frame}{\textbf{Mean Squared Error (MSE)}}
+%     \textbf{Definition:}
+%     \[
+%     \text{MSE} = \frac{1}{N} \sum_{i=1}^{N} \left( y_i - \hat{y}_i \right)^2
+%     \]
+
+%     \textbf{Characteristics:}
+%     \begin{itemize}
+%         \item Highly sensitive to outliers due to the squared term.
+%         \item Penalizes large errors more heavily, leading to significant penalization of outliers.
+%     \end{itemize}
+% \end{frame}
+
+% \begin{frame}{\textbf{Example of MSE Calculation}}
+%     \textbf{Example:}
+%     \begin{itemize}
+%         \item Predicted values: \( \hat{y} = [4.2, 3.8, 5.1] \)
+%         \item True values: \( y = [5.0, 4.0, 4.9] \)
+%         \item Calculation:
+%         \[
+%         \text{MSE} = \frac{1}{3} \left[ (5.0 - 4.2)^2 + (4.0 - 3.8)^2 + (4.9 - 5.1)^2 \right]
+%         \]
+%         \[
+%         = \frac{1}{3} \left[ 0.64 + 0.04 + 0.04 \right] = \frac{0.72}{3} = 0.24
+%         \]
+%     \end{itemize}
+% \end{frame}
+
+% \begin{frame}{\textbf{Mean Absolute Error (MAE)}}
+%     \textbf{Definition:}
+%     \[
+%     \text{MAE} = \frac{1}{N} \sum_{i=1}^{N} \left| y_i - \hat{y}_i \right|
+%     \]
+
+%     \textbf{Characteristics:}
+%     \begin{itemize}
+%         \item Less sensitive to outliers as it uses the absolute value.
+%         \item Provides a linear measure of error, treating all deviations equally.
+%     \end{itemize}
+% \end{frame}
+
+% \begin{frame}{\textbf{Example of MAE Calculation}}
+%     \textbf{Example:}
+%     \begin{itemize}
+%         \item Predicted values: \( \hat{y} = [4.2, 3.8, 5.1] \)
+%         \item True values: \( y = [5.0, 4.0, 4.9] \)
+%         \item Calculation:
+%         \[
+%         \text{MAE} = \frac{1}{3} \left( |5.0 - 4.2| + |4.0 - 3.8| + |4.9 - 5.1| \right)
+%         \]
+%         \[
+%         = \frac{1}{3} (0.8 + 0.2 + 0.2) = \frac{1.2}{3} \approx 0.4
+%         \]
+%     \end{itemize}
+% \end{frame}
+
+% \begin{frame}{\textbf{Impact on Model Outputs}}
+%     \textbf{MSE Impact:}
+%     \begin{itemize}
+%         \item Amplifies larger errors, leading to smooth outputs.
+%         \item In autoencoders, high MSE values often result in blurrier images.
+%         \item Reducing MSE (e.g., from 0.1 to 0.01) can improve detail, refining blurry images to clearer ones.
+%     \end{itemize}
+    
+%     \textbf{MAE Impact:}
+%     \begin{itemize}
+%         \item Treats errors uniformly, often resulting in sharper outputs.
+%         \item Less prone to outlier distortion, preserving details without averaging.
+%     \end{itemize}
+% \end{frame}
+
+% \begin{frame}{\textbf{Gradient and Optimization Differences}}
+%     \begin{itemize}
+%         \item \textbf{MSE} provides a quadratic gradient, promoting faster convergence for large errors but slowing down as errors decrease.
+%         \item \textbf{MAE} has a constant gradient, making optimization stable but slower compared to MSE when dealing with large errors.
+%     \end{itemize}
+% \end{frame}
+
+% \begin{frame}{\textbf{Summary}}
+%     \begin{itemize}
+%         \item \textbf{MSE} is suitable for models that benefit from penalizing large errors heavily.
+%         \item \textbf{MAE} is better for robust models that handle outliers and avoid smoothing effects.
+%         \item Choice of loss function affects the accuracy and characteristics of model outputs.
+%     \end{itemize}
+% \end{frame}
+
+
+
+%vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+% -----------
+
+\begin{frame}{\textbf{Types of Loss Functions}}
     \begin{itemize}
-        \item \textbf{Mean Squared Error (MSE):} Used in regression to minimize the squared difference between predicted and true values.
-        \item \textbf{Mean Absolute Error (MAE):} Also for regression, minimizing absolute differences between predicted and true values.
-        \item \textbf{Binary Cross-Entropy:} Used for binary classification to minimize the difference between predicted probabilities and binary labels.
+        \item \textbf{Mean Squared Error (MSE):} Used in regression to minimize squared differences between predicted and true values.
+        \item \textbf{Mean Absolute Error (MAE):} Minimizes absolute differences, also for regression tasks.
+        \item \textbf{Binary Cross-Entropy:} Used for binary classification to compare predicted probabilities with binary labels.
         \item \textbf{Categorical Cross-Entropy:} For multi-class classification, comparing predicted probabilities across multiple classes.
     \end{itemize}
 \end{frame}
-\begin{frame}{Mean Squared Error (MSE) – Multiple Samples}
 
-    \textbf{Mean Squared Error (MSE):}
+\begin{frame}{\textbf{Mean Squared Error (MSE)}}
+    \textbf{Definition:}
     \[
     \text{MSE} = \frac{1}{N} \sum_{i=1}^{N} \left( y_i - \hat{y}_i \right)^2
     \]
+    \textbf{Characteristics:}
+    \begin{itemize}
+        \item Amplifies larger errors due to squaring, making it sensitive to outliers.
+    \end{itemize}
+\end{frame}
 
+\begin{frame}{\textbf{Example of MSE Calculation}}
     \textbf{Example:}
     \begin{itemize}
         \item Predicted values: \( \hat{y} = [4.2, 3.8, 5.1] \)
@@ -1526,18 +1767,23 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
         \text{MSE} = \frac{1}{3} \left[ (5.0 - 4.2)^2 + (4.0 - 3.8)^2 + (4.9 - 5.1)^2 \right]
         \]
         \[
-        \text{MSE} = \frac{1}{3} \left[ 0.64 + 0.04 + 0.04 \right] = \frac{0.72}{3} = 0.24
+        = \frac{1}{3} \left[ 0.64 + 0.04 + 0.04 \right] = \frac{0.72}{3} = 0.24
         \]
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Mean Absolute Error (MAE) – Multiple Samples}
-
-    \textbf{Mean Absolute Error (MAE):}
+\begin{frame}{\textbf{Mean Absolute Error (MAE)}}
+    \textbf{Definition:}
     \[
     \text{MAE} = \frac{1}{N} \sum_{i=1}^{N} \left| y_i - \hat{y}_i \right|
     \]
+    \textbf{Characteristics:}
+    \begin{itemize}
+        \item Provides a linear measure of error, treating all deviations equally.
+    \end{itemize}
+\end{frame}
 
+\begin{frame}{\textbf{Example of MAE Calculation}}
     \textbf{Example:}
     \begin{itemize}
         \item Predicted values: \( \hat{y} = [4.2, 3.8, 5.1] \)
@@ -1547,13 +1793,37 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
         \text{MAE} = \frac{1}{3} \left( |5.0 - 4.2| + |4.0 - 3.8| + |4.9 - 5.1| \right)
         \]
         \[
-        \text{MAE} = \frac{1}{3} (0.8 + 0.2 + 0.2) = \frac{1.2}{3} \approx 0.4
+        = \frac{1}{3} (0.8 + 0.2 + 0.2) = \frac{1.2}{3} \approx 0.4
         \]
     \end{itemize}
 \end{frame}
 
+\begin{frame}{\textbf{Impact on Model Outputs}}
+    \textbf{MSE Impact:}
+    \begin{itemize}
+        \item Penalizes large errors heavily, leading to smoother outputs, useful in cases like refining blurry autoencoder images.
+    \end{itemize}
+    
+    \textbf{MAE Impact:}
+    \begin{itemize}
+        \item Treats errors uniformly, often resulting in sharper outputs and better handling of outliers.
+    \end{itemize}
+\end{frame}
 
+\begin{frame}{\textbf{Gradient and Optimization Differences}}
+    \begin{itemize}
+        \item \textbf{MSE} promotes faster convergence for large errors due to its quadratic gradient.
+        \item \textbf{MAE} provides a constant gradient, making optimization stable but slower with large errors.
+    \end{itemize}
+\end{frame}
 
+\begin{frame}{\textbf{Summary}}
+    \begin{itemize}
+        \item \textbf{MSE} is suitable for models where large errors need higher penalization.
+        \item \textbf{MAE} is better for robust models that handle outliers and avoid smoothing effects.
+        \item Choice of loss function affects model behavior and output characteristics.
+    \end{itemize}
+\end{frame}
 \begin{frame}{Binary Classification Loss – Binary Cross-Entropy}
 
     \textbf{Binary Cross-Entropy:}
@@ -1567,7 +1837,16 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
         \item True labels: \( y = [1, 0, 1] \)
         \item Calculation:
         \[
-        \mathcal{L}_{\text{BCE}} = -\frac{1}{3} \left[ \log(0.7) + \log(0.7) + \log(0.9) \right]
+        \mathcal{L}_{\text{BCE}} = -\frac{1}{3} \left[ 1 \cdot \log(0.7) + (1 - 1) \cdot \log(1 - 0.7) \right.
+        \]
+        \[
+        + 0 \cdot \log(0.3) + (1 - 0) \cdot \log(1 - 0.3) 
+        \]
+        \[
+        \left. + 1 \cdot \log(0.9) + (1 - 1) \cdot \log(1 - 0.9) \right]
+        \]
+        \[
+        \approx -\frac{1}{3} \left( \log(0.7) + \log(0.7) + \log(0.9) \right)
         \]
         \[
         \approx -\frac{1}{3} \left( -0.357 + -0.357 + -0.105 \right) \approx 0.273
@@ -1577,32 +1856,93 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
     
 \end{frame}
 
-\begin{frame}{Multi-Class Classification Loss – Categorical Cross-Entropy}
 
-    \textbf{Categorical Cross-Entropy:}
+% \begin{frame}{Multi-Class Classification Loss – Categorical Cross-Entropy}
+
+%     \textbf{Categorical Cross-Entropy:}
+%     \[
+%     \mathcal{L}_{\text{CCE}} = -\sum_{i=1}^{n} \sum_{c=1}^{C} y_{i,c} \log(\hat{y}_{i,c})
+%     \]
+
+%     \textbf{Example (3-Class):}
+%     \begin{itemize}
+%         \item True labels (One-hot): Class 2, Class 1, Class 3
+%         \item Predicted probabilities:
+%         \[
+%         \hat{y} = \left[ [0.1, 0.7, 0.2], [0.6, 0.3, 0.1], [0.1, 0.6, 0.3] \right]
+%         \]
+%         \item Calculation:
+%         \[
+%         \mathcal{L}_{\text{CCE}} = -\frac{1}{3} \left( \log(0.7) + \log(0.6) + \log(0.3) \right)
+%         \]
+%         \[
+%         \approx -\frac{1}{3} (-0.357 - 0.511 - 1.204) \approx 0.691
+%         \]
+%     \end{itemize}
+%     Optimizes multi-class classification by matching predicted probabilities to true classes.
+    
+% \end{frame}
+
+\begin{frame}{Categorical Cross-Entropy}
+    \textbf{Categorical Cross-Entropy Formula:}
     \[
-    \mathcal{L}_{\text{CCE}} = -\sum_{i=1}^{n} \sum_{c=1}^{C} y_{i,c} \log(\hat{y}_{i,c})
+    L_{CCE} = - \frac{1}{n} \sum_{i=1}^{n} \sum_{c=1}^{C} y_{i,c} \log(\hat{y}_{i,c})
     \]
+\end{frame}
 
-    \textbf{Example (3-Class):}
+\begin{frame}{One-Hot Encoding}
+    One-hot encoding represents categorical variables as binary vectors, with a 1 indicating the actual class and 0s elsewhere.
+    
+    \textbf{Example:} \\
+    \begin{itemize}
+        \item Class 1: \([1, 0, 0]\)
+        \item Class 2: \([0, 1, 0]\)
+        \item Class 3: \([0, 0, 1]\)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example Calculation (3-Class)}
+    \textbf{Given:}
     \begin{itemize}
         \item True labels (One-hot): Class 2, Class 1, Class 3
         \item Predicted probabilities:
         \[
-        \hat{y} = \left[ [0.1, 0.7, 0.2], [0.6, 0.3, 0.1], [0.1, 0.6, 0.3] \right]
+        \hat{y} = \begin{bmatrix} 
+        0.1 & 0.7 & 0.2 \\ 
+        0.6 & 0.3 & 0.1 \\ 
+        0.1 & 0.6 & 0.3 
+        \end{bmatrix}
+        \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Solution}
+    \begin{enumerate}
+        \item True labels:
+        \[
+        \begin{bmatrix} 
+        0 & 1 & 0 \\ 
+        1 & 0 & 0 \\ 
+        0 & 0 & 1 
+        \end{bmatrix}
         \]
         \item Calculation:
         \[
-        \mathcal{L}_{\text{CCE}} = -\frac{1}{3} \left( \log(0.7) + \log(0.6) + \log(0.3) \right)
+        L_{CCE} = -\frac{1}{3} \left( \log(0.7) + \log(0.6) + \log(0.3) \right)
         \]
-        \[
-        \approx -\frac{1}{3} (-0.357 - 0.511 - 1.204) \approx 0.691
-        \]
-    \end{itemize}
-    Optimizes multi-class classification by matching predicted probabilities to true classes.
-    
+    \end{enumerate}
 \end{frame}
 
+\begin{frame}{Solution Continued}
+    \textbf{Compute Log Terms:}
+    \[
+    \log(0.7) \approx -0.357, \quad \log(0.6) \approx -0.511, \quad \log(0.3) \approx -1.204
+    \]
+        The categorical cross-entropy loss for the given data is:
+    \[
+    L_{CCE} = \frac{1}{3} \times 2.072 \approx 0.691
+    \]
+\end{frame}
 
 % \begin{frame}{Loss Functions}
 %     \textbf{Types of Loss Functions:}
@@ -1821,309 +2161,6 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
     \textbf{The Problem:} Linear activation lacks non-linearity, restricting the model to simple linear relationships.
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% act %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-\begin{frame}
-    \frametitle{Sigmoid}
-
-    \textbf{Characteristics of Sigmoid:}
-    \begin{equation*}
-              \sigma(z) = \frac{1}{1 + e^{-z}}
-    \end{equation*}
-    \begin{itemize}
-        \item Squashes the input between 0 and 1, which makes it useful in probabilistic interpretations (e.g., logistic regression).
-        \item Often used in output layers for binary classification problems.
-    \end{itemize}
-
-    \begin{center}
-    \begin{tikzpicture}
-        % Sigmoid function plot
-        \begin{axis}[
-            width=5cm, height=4cm,
-            xlabel={$z$}, ylabel={$\sigma(z)$},
-            grid=major, xmin=-6, xmax=6, ymin=0, ymax=1.2
-        ]
-        \addplot[color=blue, thick, domain=-6:6, samples=100] {1/(1+exp(-x))};
-        \end{axis}
-    \end{tikzpicture}
-    \end{center}
-\end{frame}
-
-\begin{frame}
-    \frametitle{Model: Sigmoid Decision Surface}
-
-        \begin{figure}
-        \centering
-        \includegraphics[width=0.8\textwidth]{pic/sig.png}  
-    \end{figure}
-\end{frame}
-
-\begin{frame}{Classification: Tumor Detection (Malignant vs. Benign)}
-    \textbf{Sigmoid Activation:} Useful for binary classification!
-    
-    \begin{itemize}
-        \item Example: For \( z = 5.7 \),
-        \[
-        \sigma(5.7) \approx 0.9966
-        \]
-    \end{itemize}
-    \vspace{-8mm}
-    % Start of TikZ Diagram
-    \begin{center}
-    \begin{tikzpicture}[
-         scale=0.8,
-         every node/.style={scale=0.8},
-        neuron/.style={circle, draw=black, thick, minimum size=1.5cm},
-        activation/.style={rectangle, draw=black, thick, minimum size=1.5cm},
-        decision/.style={ellipse, draw=black, thick, minimum size=1.5cm},
-        ->, thick
-    ]
-    
-    % Input
-    \node at (2,0) (input) {$\mathbf{x}$};
-    
-    % Neuron
-    \node[neuron] at (4,0) (neuron) {Neuron};
-    
-    % Raw Output of Neuron
-    \node at (6.5,0) (raw) {$z = 5.7$};
-    
-    % Sigmoid Activation Box
-    \node[activation] at (9,0) (activation) {Sigmoid};
-    
-    % Sigmoid Output
-    \node at (12,0) (prob) {$\sigma(5.7) = 0.9966$};
-    
-    % Classification Decision: Malignant vs. Benign
-    \node[decision] at (15,1.2) (malignant) {Malignant};
-    \node[decision] at (15,-1.2) (benign) {Benign};
-    
-    % Arrows
-    \draw[->] (input) -- (neuron);
-    \draw[->] (neuron) -- (raw);
-    \draw[->] (raw) -- (activation);
-    \draw[->] (activation) -- (prob);
-    
-    % Probability-based decision arrows
-    \draw[->] (prob) -- (malignant);
-    \draw[->, dashed] (prob) -- (benign);
-    
-    % Labels
-    \node at (4, -1.2) {\small Weighted Sum};
-    \node at (9, -1.2) {\small Sigmoid Activation};
-    \node at (15, 2.2) {\small 99.66\% probability};
-    
-    \end{tikzpicture}
-    \end{center}
-    
-\end{frame}
-
-\begin{frame}{Sigmoid}
-    \textbf{Limitations of Sigmoid:}
-    \begin{itemize}
-        \item \textbf{Gradient Saturation:} When \( z \) is very large or very small, the gradient becomes nearly zero, causing slow learning (vanishing gradient problem).
-        \item \textbf{Not Zero-Centered:} The output is not zero-centered, which can make optimization more difficult.
-    \end{itemize}
-
-    \textbf{Question:}
-    \begin{itemize}
-        \item Why does the vanishing gradient problem occur with Sigmoid during backpropagation? (To be discussed in more detail later)
-    \end{itemize}
-\end{frame}
-
-
-\begin{frame}{Problem: Multi-Class Tumor Classification}
-    \textbf{Scenario:} We want to classify a tumor into one of three categories:
-    \begin{itemize}
-        \item \textbf{Class 0}: Benign
-        \item \textbf{Class 1}: Malignant
-        \item \textbf{Class 2}: Pre-cancerous
-    \end{itemize}
-    
-    \textbf{Goal:} Given a set of tumor features, predict which class the tumor belongs to.
-    
-    This is a \textbf{multi-class classification problem}, and we will use the \textbf{Softmax activation function} to assign probabilities to each class.
-    
-            \begin{figure}
-\centerline{\includegraphics[scale=.4]{pic/cancer.jpg}}
-
-\label{fig}
-\end{figure}
-\end{frame}
-\begin{frame}{Softmax Activation: The Model}
-    In multi-class classification, Softmax is used to convert raw outputs (logits) into probabilities for each class.
-    
-    \textbf{Softmax Function:}
-    \[
-    P(y = i | X) = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}
-    \]
-    Where:
-    \begin{itemize}
-        \item \( z_i \) is the raw output (logit) for class \( i \).
-        \item \( K \) is the number of classes (in this case, 3: benign, malignant, pre-cancerous).
-    \end{itemize}
-    
-    The Softmax function ensures that the sum of the probabilities for all classes is 1, and the class with the highest probability is chosen as the prediction.
-\end{frame}
-
-\begin{frame}{Example: Softmax Calculation}
-    Consider a tumor with the following logits from a neural network:
-    \begin{itemize}
-        \item Logit for Benign (Class 0): \( z_0 = 1.5 \)
-        \item Logit for Malignant (Class 1): \( z_1 = 0.8 \)
-        \item Logit for Pre-Cancerous (Class 2): \( z_2 = -0.5 \)
-    \end{itemize}
-    
-    \textbf{Step 1: Exponentiate the logits}
-    \[
-    e^{z_0} = e^{1.5} \approx 4.48, \quad e^{z_1} = e^{0.8} \approx 2.23, \quad e^{z_2} = e^{-0.5} \approx 0.61
-    \]
-    
-    \textbf{Step 2: Compute the sum of exponentials}
-    \[
-    \text{Sum} = e^{z_0} + e^{z_1} + e^{z_2} = 4.48 + 2.23 + 0.61 = 7.32
-    \]
-\end{frame}
-
-\begin{frame}{Example: Softmax Probabilities}
-    \textbf{Step 3: Calculate Softmax probabilities for each class}
-    \[
-    P(\text{Benign}) = \frac{4.48}{7.32} \approx 0.612, \quad P(\text{Malignant}) = \frac{2.23}{7.32} \approx 0.305, \quad P(\text{Pre-Cancerous}) = \frac{0.61}{7.32} \approx 0.083
-    \]
-    
-    \textbf{Step 4: Make a classification decision}
-    \begin{itemize}
-        \item The highest probability is \( 0.612 \) for the \textbf{Benign} class.
-        \item Therefore, the model predicts that the tumor is \textbf{Benign} (Class 0).
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Conclusion: Softmax Activation for Classification}
-    \textbf{Key Points:}
-    \begin{itemize}
-        \item Softmax is used in the output layer for \textbf{multi-class classification}.
-        \item It converts logits into a \textbf{probability distribution} across classes.
-        \item The class with the highest probability is selected as the prediction.
-    \end{itemize}
-    
-    \textbf{Main Idea:} Softmax ensures all outputs sum to 1, making it ideal for choosing one class out of multiple options.
-\end{frame}
-
-
-
-\begin{frame}
-    \frametitle{Tanh (Hyperbolic Tangent)}
-
-    \textbf{Characteristics of Tanh:}
-    \begin{equation*}
-        \tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}
-    \end{equation*}
-    \begin{itemize}
-        \item Squashes input between -1 and 1, making it zero-centered (Balanced Updates $\rightarrow$ Reduced Bias in Gradient Descent $\rightarrow$ Faster Convergence)
-    \end{itemize}
-
-    \textbf{Advantages of Tanh:}
-    \begin{itemize}
-        \item \textbf{Zero-Centered}: Output ranges from -1 to 1, making optimization easier.
-        \item Better for \textbf{hidden layers} than Sigmoid due to zero-centered output.
-    \end{itemize}
-
-    \textbf{Limitations:}
-    \begin{itemize}
-        \item Similar saturation issues as Sigmoid: large input values push gradients towards zero (vanishing gradient problem).
-    \end{itemize}
-
-\end{frame}
-
-\begin{frame}{Tanh (Hyperbolic Tangent)}
-     \begin{center}
-    \begin{tikzpicture}
-        % Tanh function plot
-        \begin{axis}[
-            width=7cm, height=5cm,
-            xlabel={$z$}, ylabel={$\tanh(z)$},
-            grid=major, xmin=-6, xmax=6, ymin=-1.5, ymax=1.5
-        ]
-        \addplot[color=red, thick, domain=-6:6, samples=100] {tanh(x)};
-        \end{axis}
-    \end{tikzpicture}
-    \end{center}
-
-    \textbf{Question:}
-    \begin{itemize}
-        \item How does Tanh help with faster convergence compared to Sigmoid?
-    \end{itemize}   
-\end{frame}
-\begin{frame}{Comparison: Sigmoid vs Tanh}
-    \centering
-    \begin{tikzpicture}
-    \begin{axis}[
-        width=8cm, height=5cm,
-        xlabel={$x$}, ylabel={$y$},
-        title={Derivative of activation functions},
-        grid=major,
-        xmin=-10, xmax=10, ymin=0, ymax=1,
-        legend pos=north east,
-        legend style={draw=none},
-    ]
-    
-    % Sigmoid derivative plot
-    \addplot[color=red, thick] 
-        plot[domain=-10:10, samples=100] 
-        {exp(-x)/(1+exp(-x))^2};
-    \addlegendentry{sigmoid}
-    
-    % Tanh derivative plot
-    \addplot[color=blue, thick] 
-        plot[domain=-10:10, samples=100] 
-        {1 - tanh(x)^2};
-    \addlegendentry{tanh}
-    
-    \end{axis}
-\end{tikzpicture}
-\begin{itemize}
-    \item The derivative of the Tanh function has a much steeper slope at $x=0$, meaning it provides a larger gradient for backpropagation compared to the Sigmoid function.
-\end{itemize}
-
-\end{frame}
-\begin{frame}
-    \frametitle{Comparison: Sigmoid vs Tanh}
-
-    \textbf{Key Differences:}
-    \begin{itemize}
-        \item \textbf{Sigmoid}: Maps input to [0, 1]. Output is not zero-centered.
-        \item \textbf{Tanh}: Maps input to [-1, 1]. Output is zero-centered, leading to easier optimization.
-    \end{itemize}
-
-    \begin{center}
-    \begin{tikzpicture}
-        % Comparison of Sigmoid and Tanh
-        \begin{axis}[
-            width=7cm, height=5cm,
-            xlabel={$z$}, ylabel={$\sigma(z)$ or $\tanh(z)$},
-            grid=major, xmin=-6, xmax=6, ymin=-1.5, ymax=1.5,
-            legend pos=south east
-        ]
-        \addplot[color=blue, thick, domain=-6:6, samples=100] {1/(1+exp(-x))};
-        \addlegendentry{Sigmoid}
-        \addplot[color=red, thick, domain=-6:6, samples=100] {tanh(x)};
-        \addlegendentry{Tanh}
-        \end{axis}
-    \end{tikzpicture}
-    \end{center}
-
-\end{frame}
-\begin{frame}{Comparison: Sigmoid vs Tanh}
-        \textbf{When to Use:}
-    \begin{itemize}
-        \item \textbf{Sigmoid}: Best for binary classification tasks, particularly in the output layer.
-        \item \textbf{Tanh}: More suitable for hidden layers due to its centered output, allowing faster training.
-    \end{itemize}
-    \textbf{Question:}
-    \begin{itemize}
-        \item In what scenario might Sigmoid be preferred over Tanh, despite its limitations?
-    \end{itemize}
-\end{frame}
 \begin{frame}{Neural Networks: Why is the Max Operator Important?}
   \begin{itemize}
       \item \textbf{Before:} Linear score function:
@@ -2295,6 +2332,306 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
             \centering
             \textbf{ELU:} Smoother than ReLU for negative values.
 \end{frame}
+
+\begin{frame}
+    \frametitle{Sigmoid}
+
+    \textbf{Characteristics of Sigmoid:}
+    \begin{equation*}
+              \sigma(z) = \frac{1}{1 + e^{-z}}
+    \end{equation*}
+    \begin{itemize}
+        \item Squashes the input between 0 and 1, which makes it useful in probabilistic interpretations (e.g., logistic regression).
+        \item Often used in output layers for binary classification problems.
+    \end{itemize}
+
+    \begin{center}
+    \begin{tikzpicture}
+        % Sigmoid function plot
+        \begin{axis}[
+            width=5cm, height=4cm,
+            xlabel={$z$}, ylabel={$\sigma(z)$},
+            grid=major, xmin=-6, xmax=6, ymin=0, ymax=1.2
+        ]
+        \addplot[color=blue, thick, domain=-6:6, samples=100] {1/(1+exp(-x))};
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+%\begin{frame}
+%    \frametitle{Model: Sigmoid Decision Surface}
+%
+%        \begin{figure}
+%        \centering
+%        \includegraphics[width=0.8\textwidth]{pic/sig.png}  
+%    \end{figure}
+%\end{frame}
+
+\begin{frame}{Classification: Tumor Detection (Malignant vs. Benign)}
+    \textbf{Sigmoid Activation:} Useful for binary classification!
+    
+    \begin{itemize}
+        \item Example: For \( z = 5.7 \),
+        \[
+        \sigma(5.7) \approx 0.9966
+        \]
+    \end{itemize}
+    \vspace{-8mm}
+    % Start of TikZ Diagram
+    \begin{center}
+    \begin{tikzpicture}[
+         scale=0.8,
+         every node/.style={scale=0.8},
+        neuron/.style={circle, draw=black, thick, minimum size=1.5cm},
+        activation/.style={rectangle, draw=black, thick, minimum size=1.5cm},
+        decision/.style={ellipse, draw=black, thick, minimum size=1.5cm},
+        ->, thick
+    ]
+    
+    % Input
+    \node at (2,0) (input) {$\mathbf{x}$};
+    
+    % Neuron
+    \node[neuron] at (4,0) (neuron) {Neuron};
+    
+    % Raw Output of Neuron
+    \node at (6.5,0) (raw) {$z = 5.7$};
+    
+    % Sigmoid Activation Box
+    \node[activation] at (9,0) (activation) {Sigmoid};
+    
+    % Sigmoid Output
+    \node at (12,0) (prob) {$\sigma(5.7) = 0.9966$};
+    
+    % Classification Decision: Malignant vs. Benign
+    \node[decision] at (15,1.2) (malignant) {Malignant};
+    \node[decision] at (15,-1.2) (benign) {Benign};
+    
+    % Arrows
+    \draw[->] (input) -- (neuron);
+    \draw[->] (neuron) -- (raw);
+    \draw[->] (raw) -- (activation);
+    \draw[->] (activation) -- (prob);
+    
+    % Probability-based decision arrows
+    \draw[->] (prob) -- (malignant);
+    \draw[->, dashed] (prob) -- (benign);
+    
+    % Labels
+    \node at (4, -1.2) {\small Weighted Sum};
+    \node at (9, -1.2) {\small Sigmoid Activation};
+    \node at (15, 2.2) {\small 99.66\% probability};
+    
+    \end{tikzpicture}
+    \end{center}
+    
+\end{frame}
+
+\begin{frame}{Sigmoid}
+    \textbf{Limitations of Sigmoid:}
+    \begin{itemize}
+        \item \textbf{Gradient Saturation:} When \( z \) is very large or very small, the gradient becomes nearly zero, causing slow learning (vanishing gradient problem).
+        \item \textbf{Not Zero-Centered:} The output is not zero-centered, which can make optimization more difficult.
+    \end{itemize}
+
+    \textbf{Question:}
+    \begin{itemize}
+        \item Why does the vanishing gradient problem occur with Sigmoid during backpropagation? (To be discussed in more detail later)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}
+    \frametitle{Tanh (Hyperbolic Tangent)}
+
+    \textbf{Characteristics of Tanh:}
+    \begin{equation*}
+        \tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}
+    \end{equation*}
+    \begin{itemize}
+        \item Squashes input between -1 and 1, making it zero-centered (Balanced Updates $\rightarrow$ Reduced Bias in Gradient Descent $\rightarrow$ Faster Convergence)
+    \end{itemize}
+
+    \textbf{Advantages of Tanh:}
+    \begin{itemize}
+        \item \textbf{Zero-Centered}: Output ranges from -1 to 1, making optimization easier.
+        \item Better for \textbf{hidden layers} than Sigmoid due to zero-centered output.
+    \end{itemize}
+
+    \textbf{Limitations:}
+    \begin{itemize}
+        \item Similar saturation issues as Sigmoid: large input values push gradients towards zero (vanishing gradient problem).
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Tanh (Hyperbolic Tangent)}
+     \begin{center}
+    \begin{tikzpicture}
+        % Tanh function plot
+        \begin{axis}[
+            width=7cm, height=5cm,
+            xlabel={$z$}, ylabel={$\tanh(z)$},
+            grid=major, xmin=-6, xmax=6, ymin=-1.5, ymax=1.5
+        ]
+        \addplot[color=red, thick, domain=-6:6, samples=100] {tanh(x)};
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+
+    \textbf{Question:}
+    \begin{itemize}
+        \item How does Tanh help with faster convergence compared to Sigmoid?
+    \end{itemize}   
+\end{frame}
+\begin{frame}{Comparison: Sigmoid vs Tanh}
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=8cm, height=5cm,
+        xlabel={$x$}, ylabel={$y$},
+        title={Derivative of activation functions},
+        grid=major,
+        xmin=-10, xmax=10, ymin=0, ymax=1,
+        legend pos=north east,
+        legend style={draw=none},
+    ]
+    
+    % Sigmoid derivative plot
+    \addplot[color=red, thick] 
+        plot[domain=-10:10, samples=100] 
+        {exp(-x)/(1+exp(-x))^2};
+    \addlegendentry{sigmoid}
+    
+    % Tanh derivative plot
+    \addplot[color=blue, thick] 
+        plot[domain=-10:10, samples=100] 
+        {1 - tanh(x)^2};
+    \addlegendentry{tanh}
+    
+    \end{axis}
+\end{tikzpicture}
+\begin{itemize}
+    \item The derivative of the Tanh function has a much steeper slope at $x=0$, meaning it provides a larger gradient for backpropagation compared to the Sigmoid function.
+\end{itemize}
+
+\end{frame}
+\begin{frame}
+    \frametitle{Comparison: Sigmoid vs Tanh}
+
+    \textbf{Key Differences:}
+    \begin{itemize}
+        \item \textbf{Sigmoid}: Maps input to [0, 1]. Output is not zero-centered.
+        \item \textbf{Tanh}: Maps input to [-1, 1]. Output is zero-centered, leading to easier optimization.
+    \end{itemize}
+
+    \begin{center}
+    \begin{tikzpicture}
+        % Comparison of Sigmoid and Tanh
+        \begin{axis}[
+            width=7cm, height=5cm,
+            xlabel={$z$}, ylabel={$\sigma(z)$ or $\tanh(z)$},
+            grid=major, xmin=-6, xmax=6, ymin=-1.5, ymax=1.5,
+            legend pos=south east
+        ]
+        \addplot[color=blue, thick, domain=-6:6, samples=100] {1/(1+exp(-x))};
+        \addlegendentry{Sigmoid}
+        \addplot[color=red, thick, domain=-6:6, samples=100] {tanh(x)};
+        \addlegendentry{Tanh}
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+
+\end{frame}
+\begin{frame}{Comparison: Sigmoid vs Tanh}
+        \textbf{When to Use:}
+    \begin{itemize}
+        \item \textbf{Sigmoid}: Best for binary classification tasks, particularly in the output layer.
+        \item \textbf{Tanh}: More suitable for hidden layers due to its centered output, allowing faster training.
+    \end{itemize}
+    \textbf{Question:}
+    \begin{itemize}
+        \item In what scenario might Sigmoid be preferred over Tanh, despite its limitations?
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Problem: Multi-Class Tumor Classification}
+    \textbf{Scenario:} We want to classify a tumor into one of three categories:
+    \begin{itemize}
+        \item \textbf{Class 0}: Benign
+        \item \textbf{Class 1}: Malignant
+        \item \textbf{Class 2}: Pre-cancerous
+    \end{itemize}
+    
+    \textbf{Goal:} Given a set of tumor features, predict which class the tumor belongs to.
+    
+    This is a \textbf{multi-class classification problem}, and we will use the \textbf{Softmax activation function} to assign probabilities to each class.
+    
+            \begin{figure}
+\centerline{\includegraphics[scale=.4]{pic/cancer.jpg}}
+
+\label{fig}
+\end{figure}
+\end{frame}
+\begin{frame}{Softmax Activation: The Model}
+    In multi-class classification, Softmax is used to convert raw outputs (logits) into probabilities for each class.
+    
+    \textbf{Softmax Function:}
+    \[
+    P(y = i | X) = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}
+    \]
+    Where:
+    \begin{itemize}
+        \item \( z_i \) is the raw output (logit) for class \( i \).
+        \item \( K \) is the number of classes (in this case, 3: benign, malignant, pre-cancerous).
+    \end{itemize}
+    
+    The Softmax function ensures that the sum of the probabilities for all classes is 1, and the class with the highest probability is chosen as the prediction.
+\end{frame}
+
+\begin{frame}{Example: Softmax Calculation}
+    Consider a tumor with the following logits from a neural network:
+    \begin{itemize}
+        \item Logit for Benign (Class 0): \( z_0 = 1.5 \)
+        \item Logit for Malignant (Class 1): \( z_1 = 0.8 \)
+        \item Logit for Pre-Cancerous (Class 2): \( z_2 = -0.5 \)
+    \end{itemize}
+    
+    \textbf{Step 1: Exponentiate the logits}
+    \[
+    e^{z_0} = e^{1.5} \approx 4.48, \quad e^{z_1} = e^{0.8} \approx 2.23, \quad e^{z_2} = e^{-0.5} \approx 0.61
+    \]
+    
+    \textbf{Step 2: Compute the sum of exponentials}
+    \[
+    \text{Sum} = e^{z_0} + e^{z_1} + e^{z_2} = 4.48 + 2.23 + 0.61 = 7.32
+    \]
+\end{frame}
+
+\begin{frame}{Example: Softmax Probabilities}
+    \textbf{Step 3: Calculate Softmax probabilities for each class}
+    \[
+    P(\text{Benign}) = \frac{4.48}{7.32} \approx 0.612, \quad P(\text{Malignant}) = \frac{2.23}{7.32} \approx 0.305, \quad P(\text{Pre-Cancerous}) = \frac{0.61}{7.32} \approx 0.083
+    \]
+    
+    \textbf{Step 4: Make a classification decision}
+    \begin{itemize}
+        \item The highest probability is \( 0.612 \) for the \textbf{Benign} class.
+        \item Therefore, the model predicts that the tumor is \textbf{Benign} (Class 0).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Conclusion: Softmax Activation for Classification}
+    \textbf{Key Points:}
+    \begin{itemize}
+        \item Softmax is used in the output layer for \textbf{multi-class classification}.
+        \item It converts logits into a \textbf{probability distribution} across classes.
+        \item The class with the highest probability is selected as the prediction.
+    \end{itemize}
+    
+    \textbf{Main Idea:} Softmax ensures all outputs sum to 1, making it ideal for choosing one class out of multiple options.
+\end{frame}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% act %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
