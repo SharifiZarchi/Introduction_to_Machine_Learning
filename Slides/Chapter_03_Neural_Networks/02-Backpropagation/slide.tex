@@ -83,15 +83,18 @@
     \begin{figure}[!htb]
   \begin{minipage}{0.3\textwidth}
      \centering
-     \includegraphics[width=.9\linewidth]{pic/gd1.png}
+     \includegraphics[width=.9\linewidth]{pic/gd1.png}\\
+            {\scriptsize Visualizing parameter space with random initial points.}
   \end{minipage}\hfill
     \begin{minipage}{0.3\textwidth}
      \centering
-     \includegraphics[width=.9\linewidth]{pic/gd2.png}
+     \includegraphics[width=.9\linewidth]{pic/gd2.png}\\
+            {\scriptsize Random search approach in high-dimensional space.}
   \end{minipage}\hfill
   \begin{minipage}{0.3\textwidth}
      \centering
-     \includegraphics[width=.9\linewidth]{pic/gd3.png}
+     \includegraphics[width=.8\linewidth]{pic/gd3.png}\\
+            {\scriptsize Challenges in finding optimal weights using random search.}
   \end{minipage}
 \end{figure}
 \end{frame}
@@ -113,7 +116,8 @@
 \begin{frame}{How to Update Weights?}
 
     \begin{center}
-        \includegraphics[width=10cm]{pic/ball.png}  
+        \includegraphics[width=10cm]{pic/ball.png}\\
+        {Gradient descent: adjusting weights to minimize cost by following the gradient.}
     \end{center}
 \end{frame}
 
@@ -173,6 +177,7 @@
     \vspace{-2cm} % Adjust vertical space to shift the text up
     \begin{flushright}
         \includegraphics[scale=0.3]{pic/GD.png} % Scale the image and place it to the Southeast
+        \\{Gradient descent process\\ visualized on a loss surface.}
     \end{flushright}
 
 \end{frame}
@@ -185,12 +190,11 @@
                 \item Avoid a learning rate that causes \textbf{erratic fluctuations} in the loss function.
                 \item Ensure that the learning rate is \textbf{not too small}, leading to \textbf{slow} convergence.
                 \item A good learning rate often shows a \textbf{steady, reliable} trend without large spikes.
-                \item More details later.
             \end{itemize}
         \end{column}
         \begin{column}{0.5\textwidth}
             \begin{center}
-                \includegraphics[width=\textwidth, keepaspectratio]{pic/1_rcmvCjQvsxrJi8Y4HpGcCw.png}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/1_rcmvCjQvsxrJi8Y4HpGcCw.png}\\{Impact of different learning rates on the loss over epochs.}
             \end{center}
         \end{column}
     \end{columns}
@@ -228,7 +232,17 @@
         \includegraphics[width=.9\linewidth, height=\textheight, keepaspectratio]{pic/3.png}
     \end{figure}
 \end{frame}
+\begin{frame}{Backward Pass}
 
+    \begin{figure}
+
+        \vspace{-0.3cm}
+
+        \includegraphics[width=.9\linewidth, height=\textheight, keepaspectratio]{pic/5.png}
+
+    \end{figure}
+
+\end{frame}
 
 \begin{frame}{Backpropagation: a simple example}
         % Start of the columns environment
@@ -1336,12 +1350,6 @@
     \end{center}
 \end{frame}
 
-\begin{frame}{Chain Rule – Matrix-Vector Multiply}
-    \begin{center}
-        \includegraphics[width=12cm]{pic/chain6.png}  
-    \end{center}
-\end{frame}
-
 \subsection{Chain Rule}
 \begin{frame}{Chain Rule – Matrix-Vector Multiply}
     \begin{center}
@@ -1373,8 +1381,11 @@
     \end{center}
 \end{frame}
 
-
-
+\begin{frame}{Chain Rule – Matrix-Vector Multiply}
+    \begin{center}
+        \includegraphics[width=12cm]{pic/chain6.png}  
+    \end{center}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  vector
 
 \section{Foundations in Detail: Initialization, Loss, and Activation}
@@ -1518,35 +1529,6 @@
     \end{itemize}
 \end{frame}
 
-% \begin{frame}{Key Initialization Techniques}
-
-%     \begin{itemize}
-%         \item \textbf{Zero Initialization:} Set all weights to zero. 
-%         \begin{itemize}
-%             \item Rarely used, as it leads to identical updates for all neurons.
-%         \end{itemize}
-        
-%         \item \textbf{Random Initialization:} Assign small random values to weights.
-%         \begin{itemize}
-%             \item Helps break symmetry, but can still cause issues with gradient magnitudes.
-%         \end{itemize}
-        
-%         \item \textbf{Xavier Initialization:} 
-%         \begin{itemize}
-%             \item Scales weights by \(\sqrt{\frac{1}{\text{number of input neurons}}}\).
-%             \item Maintains variance across layers for efficient learning, suitable for sigmoid and tanh activations.
-%         \end{itemize}
-        
-%         \item \textbf{He Initialization:} 
-%         \begin{itemize}
-%             \item Scales weights by \(\sqrt{\frac{2}{\text{number of input neurons}}}\).
-%             \item Optimized for ReLU activation functions to prevent vanishing/exploding gradients.
-%         \end{itemize}
-        
-%         \item \textbf{Key Point:} Proper initialization reduces the risk of gradient issues and helps the network converge faster.
-%     \end{itemize}
-    
-% \end{frame}
 \begin{frame}{Xavier vs He}
     \begin{center}
         \includegraphics[width=10cm]{pic/Evolution-of-loss-term-for-Xavier-weight-initialization-and-He-weight-initialization.png}  
@@ -1594,150 +1576,7 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
 
 \subsection{Loss Functions}
 
-% \begin{frame}{Overview of Loss Functions}
-%     \textbf{Types of Loss Functions:}
-%     \begin{itemize}
-%         \item \textbf{Mean Squared Error (MSE):} Used in regression to minimize the squared difference between predicted and true values.
-%         \item \textbf{Mean Absolute Error (MAE):} Also for regression, minimizing absolute differences between predicted and true values.
-%         \item \textbf{Binary Cross-Entropy:} Used for binary classification to minimize the difference between predicted probabilities and binary labels.
-%         \item \textbf{Categorical Cross-Entropy:} For multi-class classification, comparing predicted probabilities across multiple classes.
-%     \end{itemize}
-% \end{frame}
-% \begin{frame}{Mean Squared Error (MSE) – Multiple Samples}
-
-%     \textbf{Mean Squared Error (MSE):}
-%     \[
-%     \text{MSE} = \frac{1}{N} \sum_{i=1}^{N} \left( y_i - \hat{y}_i \right)^2
-%     \]
-
-%     \textbf{Example:}
-%     \begin{itemize}
-%         \item Predicted values: \( \hat{y} = [4.2, 3.8, 5.1] \)
-%         \item True values: \( y = [5.0, 4.0, 4.9] \)
-%         \item Calculation:
-%         \[
-%         \text{MSE} = \frac{1}{3} \left[ (5.0 - 4.2)^2 + (4.0 - 3.8)^2 + (4.9 - 5.1)^2 \right]
-%         \]
-%         \[
-%         \text{MSE} = \frac{1}{3} \left[ 0.64 + 0.04 + 0.04 \right] = \frac{0.72}{3} = 0.24
-%         \]
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Mean Absolute Error (MAE) – Multiple Samples}
-
-%     \textbf{Mean Absolute Error (MAE):}
-%     \[
-%     \text{MAE} = \frac{1}{N} \sum_{i=1}^{N} \left| y_i - \hat{y}_i \right|
-%     \]
-
-%     \textbf{Example:}
-%     \begin{itemize}
-%         \item Predicted values: \( \hat{y} = [4.2, 3.8, 5.1] \)
-%         \item True values: \( y = [5.0, 4.0, 4.9] \)
-%         \item Calculation:
-%         \[
-%         \text{MAE} = \frac{1}{3} \left( |5.0 - 4.2| + |4.0 - 3.8| + |4.9 - 5.1| \right)
-%         \]
-%         \[
-%         \text{MAE} = \frac{1}{3} (0.8 + 0.2 + 0.2) = \frac{1.2}{3} \approx 0.4
-%         \]
-%     \end{itemize}
-% \end{frame}
-
-%^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-% \begin{frame}{\textbf{Mean Squared Error (MSE)}}
-%     \textbf{Definition:}
-%     \[
-%     \text{MSE} = \frac{1}{N} \sum_{i=1}^{N} \left( y_i - \hat{y}_i \right)^2
-%     \]
-
-%     \textbf{Characteristics:}
-%     \begin{itemize}
-%         \item Highly sensitive to outliers due to the squared term.
-%         \item Penalizes large errors more heavily, leading to significant penalization of outliers.
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{\textbf{Example of MSE Calculation}}
-%     \textbf{Example:}
-%     \begin{itemize}
-%         \item Predicted values: \( \hat{y} = [4.2, 3.8, 5.1] \)
-%         \item True values: \( y = [5.0, 4.0, 4.9] \)
-%         \item Calculation:
-%         \[
-%         \text{MSE} = \frac{1}{3} \left[ (5.0 - 4.2)^2 + (4.0 - 3.8)^2 + (4.9 - 5.1)^2 \right]
-%         \]
-%         \[
-%         = \frac{1}{3} \left[ 0.64 + 0.04 + 0.04 \right] = \frac{0.72}{3} = 0.24
-%         \]
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{\textbf{Mean Absolute Error (MAE)}}
-%     \textbf{Definition:}
-%     \[
-%     \text{MAE} = \frac{1}{N} \sum_{i=1}^{N} \left| y_i - \hat{y}_i \right|
-%     \]
-
-%     \textbf{Characteristics:}
-%     \begin{itemize}
-%         \item Less sensitive to outliers as it uses the absolute value.
-%         \item Provides a linear measure of error, treating all deviations equally.
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{\textbf{Example of MAE Calculation}}
-%     \textbf{Example:}
-%     \begin{itemize}
-%         \item Predicted values: \( \hat{y} = [4.2, 3.8, 5.1] \)
-%         \item True values: \( y = [5.0, 4.0, 4.9] \)
-%         \item Calculation:
-%         \[
-%         \text{MAE} = \frac{1}{3} \left( |5.0 - 4.2| + |4.0 - 3.8| + |4.9 - 5.1| \right)
-%         \]
-%         \[
-%         = \frac{1}{3} (0.8 + 0.2 + 0.2) = \frac{1.2}{3} \approx 0.4
-%         \]
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{\textbf{Impact on Model Outputs}}
-%     \textbf{MSE Impact:}
-%     \begin{itemize}
-%         \item Amplifies larger errors, leading to smooth outputs.
-%         \item In autoencoders, high MSE values often result in blurrier images.
-%         \item Reducing MSE (e.g., from 0.1 to 0.01) can improve detail, refining blurry images to clearer ones.
-%     \end{itemize}
-    
-%     \textbf{MAE Impact:}
-%     \begin{itemize}
-%         \item Treats errors uniformly, often resulting in sharper outputs.
-%         \item Less prone to outlier distortion, preserving details without averaging.
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{\textbf{Gradient and Optimization Differences}}
-%     \begin{itemize}
-%         \item \textbf{MSE} provides a quadratic gradient, promoting faster convergence for large errors but slowing down as errors decrease.
-%         \item \textbf{MAE} has a constant gradient, making optimization stable but slower compared to MSE when dealing with large errors.
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{\textbf{Summary}}
-%     \begin{itemize}
-%         \item \textbf{MSE} is suitable for models that benefit from penalizing large errors heavily.
-%         \item \textbf{MAE} is better for robust models that handle outliers and avoid smoothing effects.
-%         \item Choice of loss function affects the accuracy and characteristics of model outputs.
-%     \end{itemize}
-% \end{frame}
-
-
-
-%vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-% -----------
-
-\begin{frame}{\textbf{Types of Loss Functions}}
+\begin{frame}{Types of Loss Functions}
     \begin{itemize}
         \item \textbf{Mean Squared Error (MSE):} Used in regression to minimize squared differences between predicted and true values.
         \item \textbf{Mean Absolute Error (MAE):} Minimizes absolute differences, also for regression tasks.
@@ -1746,7 +1585,7 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
     \end{itemize}
 \end{frame}
 
-\begin{frame}{\textbf{Mean Squared Error (MSE)}}
+\begin{frame}{Mean Squared Error (MSE)}
     \textbf{Definition:}
     \[
     \text{MSE} = \frac{1}{N} \sum_{i=1}^{N} \left( y_i - \hat{y}_i \right)^2
@@ -1757,7 +1596,7 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
     \end{itemize}
 \end{frame}
 
-\begin{frame}{\textbf{Example of MSE Calculation}}
+\begin{frame}{Example of MSE Calculation}
     \textbf{Example:}
     \begin{itemize}
         \item Predicted values: \( \hat{y} = [4.2, 3.8, 5.1] \)
@@ -1772,7 +1611,7 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
     \end{itemize}
 \end{frame}
 
-\begin{frame}{\textbf{Mean Absolute Error (MAE)}}
+\begin{frame}{Mean Absolute Error (MAE)}
     \textbf{Definition:}
     \[
     \text{MAE} = \frac{1}{N} \sum_{i=1}^{N} \left| y_i - \hat{y}_i \right|
@@ -1783,7 +1622,7 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
     \end{itemize}
 \end{frame}
 
-\begin{frame}{\textbf{Example of MAE Calculation}}
+\begin{frame}{Example of MAE Calculation}
     \textbf{Example:}
     \begin{itemize}
         \item Predicted values: \( \hat{y} = [4.2, 3.8, 5.1] \)
@@ -1798,7 +1637,7 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
     \end{itemize}
 \end{frame}
 
-\begin{frame}{\textbf{Impact on Model Outputs}}
+\begin{frame}{Impact on Model Outputs}
     \textbf{MSE Impact:}
     \begin{itemize}
         \item Penalizes large errors heavily, leading to smoother outputs, useful in cases like refining blurry autoencoder images.
@@ -1810,14 +1649,14 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
     \end{itemize}
 \end{frame}
 
-\begin{frame}{\textbf{Gradient and Optimization Differences}}
+\begin{frame}{Gradient and Optimization Differences}
     \begin{itemize}
         \item \textbf{MSE} promotes faster convergence for large errors due to its quadratic gradient.
         \item \textbf{MAE} provides a constant gradient, making optimization stable but slower with large errors.
     \end{itemize}
 \end{frame}
 
-\begin{frame}{\textbf{Summary}}
+\begin{frame}{Summary}
     \begin{itemize}
         \item \textbf{MSE} is suitable for models where large errors need higher penalization.
         \item \textbf{MAE} is better for robust models that handle outliers and avoid smoothing effects.
@@ -1827,6 +1666,7 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
 \begin{frame}{Binary Classification Loss – Binary Cross-Entropy}
 
     \textbf{Binary Cross-Entropy:}
+    \vspace{-0.5cm}
     \[
     \mathcal{L}_{\text{BCE}} = -\frac{1}{n} \sum_{i=1}^{n} \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]
     \]
@@ -1835,53 +1675,22 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
     \begin{itemize}
         \item Predicted probabilities: \( \hat{y} = [0.7, 0.3, 0.9] \)
         \item True labels: \( y = [1, 0, 1] \)
-        \item Calculation:
+        \vspace{-0.4cm}
         \[
         \mathcal{L}_{\text{BCE}} = -\frac{1}{3} \left[ 1 \cdot \log(0.7) + (1 - 1) \cdot \log(1 - 0.7) \right.
         \]
         \[
         + 0 \cdot \log(0.3) + (1 - 0) \cdot \log(1 - 0.3) 
-        \]
-        \[
         \left. + 1 \cdot \log(0.9) + (1 - 1) \cdot \log(1 - 0.9) \right]
         \]
         \[
         \approx -\frac{1}{3} \left( \log(0.7) + \log(0.7) + \log(0.9) \right)
-        \]
-        \[
         \approx -\frac{1}{3} \left( -0.357 + -0.357 + -0.105 \right) \approx 0.273
         \]
     \end{itemize}
     Used to minimize the error between predicted probabilities and binary labels.
     
 \end{frame}
-
-
-% \begin{frame}{Multi-Class Classification Loss – Categorical Cross-Entropy}
-
-%     \textbf{Categorical Cross-Entropy:}
-%     \[
-%     \mathcal{L}_{\text{CCE}} = -\sum_{i=1}^{n} \sum_{c=1}^{C} y_{i,c} \log(\hat{y}_{i,c})
-%     \]
-
-%     \textbf{Example (3-Class):}
-%     \begin{itemize}
-%         \item True labels (One-hot): Class 2, Class 1, Class 3
-%         \item Predicted probabilities:
-%         \[
-%         \hat{y} = \left[ [0.1, 0.7, 0.2], [0.6, 0.3, 0.1], [0.1, 0.6, 0.3] \right]
-%         \]
-%         \item Calculation:
-%         \[
-%         \mathcal{L}_{\text{CCE}} = -\frac{1}{3} \left( \log(0.7) + \log(0.6) + \log(0.3) \right)
-%         \]
-%         \[
-%         \approx -\frac{1}{3} (-0.357 - 0.511 - 1.204) \approx 0.691
-%         \]
-%     \end{itemize}
-%     Optimizes multi-class classification by matching predicted probabilities to true classes.
-    
-% \end{frame}
 
 \begin{frame}{Categorical Cross-Entropy}
     \textbf{Categorical Cross-Entropy Formula:}
@@ -1943,166 +1752,6 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
     L_{CCE} = \frac{1}{3} \times 2.072 \approx 0.691
     \]
 \end{frame}
-
-% \begin{frame}{Loss Functions}
-%     \textbf{Types of Loss Functions:}
-    
-%     \begin{itemize}
-%         \item \textbf{Mean Squared Error (MSE):} Commonly used for regression tasks.
-%         \[
-%         \text{MSE} = \frac{1}{n} \sum_{i=1}^{n} \left( y_i - \hat{y}_i \right)^2
-%         \]
-%         \item \textbf{Cross-Entropy Loss:} Used for classification tasks.
-%         \[
-%         \mathcal{L}_{\text{CE}} = -\sum_{i=1}^{n} y_i \log(\hat{y}_i)
-%         \]
-%     \end{itemize}
-%     \vspace{-1cm}
-% \begin{center}
-% \begin{tikzpicture}[
-%     font=\scriptsize,
-%     scale=0.9,
-%     every node/.style={scale=0.9},
-%     neuron/.style={circle, draw=black, thick, minimum size=0.7cm},
-%     loss/.style={rectangle, draw=black, thick, minimum size=0.7cm},
-%     output/.style={rectangle, draw=black, thick, minimum size=0.7cm},
-%     ->, thick
-% ]
-
-% % Input
-% \node at (0,0) (input) {Input Features};
-
-% % Neural Network
-% \node[neuron] at (2.5,0) (neuron) {NN};
-
-% % Output of Neural Network for Regression
-% \node[output] at (5,0.7) (pred_reg) {$\hat{y}_{\text{reg}} = 4.2$};
-% \node at (7.5,0.7) (true_reg) {$y_{\text{reg}} = 5.0$};
-
-% % Output of Neural Network for Classification
-% \node[output] at (5,-1) (pred_class) {$\hat{y}_{\text{class}} = 0.7$};
-% \node at (7.5,-1) (true_class) {$y_{\text{class}} = 1$};
-
-% % Loss Function for Regression
-% \node[loss] at (10,0.7) (mse) {MSE Loss};
-
-% % Loss Function for Classification
-% \node[loss] at (10,-1) (cross_entropy) {Cross-Entropy Loss};
-
-% % Arrows for Regression
-% \draw[->] (input) -- (neuron);
-% \draw[->] (neuron) -- (pred_reg);
-% \draw[->] (pred_reg) -- (true_reg);
-% \draw[->] (true_reg) -- (mse);
-
-% % Arrows for Classification
-% \draw[->] (neuron) -- (pred_class);
-% \draw[->] (pred_class) -- (true_class);
-% \draw[->] (true_class) -- (cross_entropy);
-
-% % Labels
-% \node at (2.5,1) {Neural Network};
-% \node at (10,1.5) {Error Calculation};
-
-% \end{tikzpicture}
-% \end{center}
-
-% \end{frame}
-
-% \begin{frame}{Diagram Explanation}
-%     \begin{itemize}
-               
-%         \item \textbf{Regression Prediction:}
-%         \begin{itemize}
-%             \item Predicted value: \( \hat{y}_{\text{reg}} = 4.2 \) (for example, predicting house price).
-%             \item True value: \( y_{\text{reg}} = 5.0 \).
-%             \item \textbf{Mean Squared Error (MSE)}:
-%             \[
-%             \text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
-%             \]
-%             \[
-%             \text{MSE} = (5.0 - 4.2)^2 = 0.64
-%             \]
-%             The model needs to minimize this error to improve predictions.
-%         \end{itemize}
-%     \end{itemize}
-%            \begin{itemize}
-%         \item \textbf{Classification Prediction:}
-%         \begin{itemize}
-%             \item Predicted probability: \( \hat{y}_{\text{class}} = 0.7 \) (70\% chance of the input being in class 1).
-%             \item True label: \( y_{\text{class}} = 1 \) (the actual class is 1).
-%             \item \textbf{Cross-Entropy Loss}:
-%             \[
-%             \mathcal{L}_{\text{CE}} = - \left( y \log(\hat{y}) \right)
-%             \]
-%             \[
-%             \mathcal{L}_{\text{CE}} = -\left( 1 \cdot \log(0.7) \right) \approx 0.357
-%             \]
-%             The model needs to minimize this loss to correctly classify inputs.
-%         \end{itemize}
-%         \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Mean Absolute Error (MAE)}
-%     \textbf{Mean Absolute Error (MAE):} Commonly used for regression tasks, this loss function measures the average absolute differences between predicted and actual values.
-
-%     \[
-%     \text{MAE} = \frac{1}{n} \sum_{i=1}^{n} \left| y_i - \hat{y}_i \right|
-%     \]
-
-%     \textbf{Example:}
-%     \begin{itemize}
-%         \item Predicted value: \( \hat{y}_{\text{reg}} = 4.2 \)
-%         \item True value: \( y_{\text{reg}} = 5.0 \)
-%         \item \textbf{Calculation:}
-%         \[
-%         \text{MAE} = \left| 5.0 - 4.2 \right| = 0.8
-%         \]
-%         The model aims to minimize the MAE to improve the prediction accuracy.
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Binary Cross-Entropy Loss}
-%     \textbf{Binary Cross-Entropy Loss:} Used for binary classification tasks where the output is either 0 or 1. It measures the difference between predicted and true binary labels.
-
-%     \[
-%     \mathcal{L}_{\text{BCE}} = -\frac{1}{n} \sum_{i=1}^{n} \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]
-%     \]
-
-%     \textbf{Example:}
-%     \begin{itemize}
-%         \item Predicted probability: \( \hat{y} = 0.7 \) (70\% chance of being class 1)
-%         \item True label: \( y = 1 \)
-%         \item \textbf{Calculation:}
-%         \[
-%         \mathcal{L}_{\text{BCE}} = - \left( 1 \cdot \log(0.7) + 0 \cdot \log(0.3) \right) \approx 0.357
-%         \]
-%         The model minimizes this loss to correctly classify binary outputs.
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Categorical Cross-Entropy Loss (Multi-Class)}
-%     \textbf{Categorical Cross-Entropy Loss:} Used for multi-class classification tasks where each output corresponds to a class. It measures the difference between the predicted probabilities and the true class labels.
-
-%     \[
-%     \mathcal{L}_{\text{CCE}} = -\sum_{i=1}^{n} \sum_{c=1}^{C} y_{i,c} \log(\hat{y}_{i,c})
-%     \]
-
-%     \textbf{Example (3-class Classification):}
-%     \begin{itemize}
-%         \item True label: Class 2 (One-hot encoded as [0, 1, 0])
-%         \item Predicted probabilities: [0.1, 0.7, 0.2]
-%         \item \textbf{Calculation:}
-%         \[
-%         \mathcal{L}_{\text{CCE}} = -\left( 0 \cdot \log(0.1) + 1 \cdot \log(0.7) + 0 \cdot \log(0.2) \right)
-%         \]
-%         \[
-%         \approx -\log(0.7) \approx 0.357
-%         \]
-%         The model minimizes this loss to accurately predict multi-class outputs.
-%     \end{itemize}
-% \end{frame}
-
 
 \subsection{Activation Functions}
 \begin{frame}{Linear Activation - A Limitation}
@@ -2183,8 +1832,7 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
   \end{itemize}
 \end{frame}
 
-\begin{frame}
-    \frametitle{ReLU}
+\begin{frame}{ReLU}
     \textbf{Characteristics of ReLU:}
      \begin{equation*}
       \text{ReLU}(z) = \max(0, z) 
@@ -2225,8 +1873,7 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
 
 \end{frame}
 
-\begin{frame}
-    \frametitle{Variants of ReLU: Leaky ReLU, PReLU, ELU}
+\begin{frame}{Variants of ReLU: Leaky ReLU, PReLU, ELU}
     \centering
 \begin{tikzpicture}
     \begin{axis}[
@@ -2256,8 +1903,7 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
 
     
 \end{frame}
-\begin{frame}
-    \frametitle{Variants of ReLU: Leaky ReLU}
+\begin{frame}{Variants of ReLU: Leaky ReLU}
     \begin{itemize}
         \item Allows a small, non-zero gradient for negative inputs.
         \begin{equation*}
@@ -2333,8 +1979,7 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
             \textbf{ELU:} Smoother than ReLU for negative values.
 \end{frame}
 
-\begin{frame}
-    \frametitle{Sigmoid}
+\begin{frame}{Sigmoid}
 
     \textbf{Characteristics of Sigmoid:}
     \begin{equation*}
@@ -2441,8 +2086,7 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
     \end{itemize}
 \end{frame}
 
-\begin{frame}
-    \frametitle{Tanh (Hyperbolic Tangent)}
+\begin{frame}{Tanh (Hyperbolic Tangent)}
 
     \textbf{Characteristics of Tanh:}
     \begin{equation*}
@@ -2516,8 +2160,7 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
 \end{itemize}
 
 \end{frame}
-\begin{frame}
-    \frametitle{Comparison: Sigmoid vs Tanh}
+\begin{frame}{Comparison: Sigmoid vs Tanh}
 
     \textbf{Key Differences:}
     \begin{itemize}
@@ -2569,6 +2212,8 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
     
             \begin{figure}
 \centerline{\includegraphics[scale=.4]{pic/cancer.jpg}}
+\\
+{Microscopic images of tumor tissue, classified into grades representing different severity levels.}
 
 \label{fig}
 \end{figure}
@@ -2633,9 +2278,6 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
 \end{frame}
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% act %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-
 
 
 \section{References}
@@ -2646,8 +2288,8 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
 \begin{itemize}
     \setlength{\itemsep}{10pt} % Adjust the value to control the spacing
     \item \href{https://github.com/DnyaNvB/}{Donya Navabi}
+    \item \href{https://github.com/mohmmadweb}{Mohammad Aghaei}
     \item \href{https://github.com/sogandstormesalehi/}{Sogand Salehi}
-    item \href{https://github.com/}{Mohammad Aghaei}
 \end{itemize}
 \end{itemize}
 
