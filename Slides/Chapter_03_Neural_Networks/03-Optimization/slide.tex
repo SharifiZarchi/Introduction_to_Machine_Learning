@@ -73,17 +73,20 @@ subsubsectionstyle=show/shaded/hide]
 
 \begin{frame}{Problem Definition}
     \begin{itemize}%[<+-| alert@+>] % stepwise alerts
-        \item \textbf{Goal}: Given a function $f(x)$ of some variable $x$, find the value of $x$ where $f(x)$ is minimum or maximum
+        \item \textbf{Goal}: Given a function $f(x)$ of some variable $x$, find the value of $x$ where $f(x)$ is \textbf{minimum} or \textbf{maximum}
         \item In neural networks, the goal is to make the prediction error as small as possible
-        \item We want to find the network weights $W^*$ that result in the lowest loss
+        \item We want to find the network weights $W^*$ that result in the \textbf{lowest loss}:
     \end{itemize}
     
+    % \[
+    % \mathcal{L} = \frac{1}{N} \sum_{i=1}^{N} \ell(y_i, \hat{y}_i)
+    % \]
     \[
-    \mathcal{L} = \frac{1}{N} \sum_{i=1}^{N} \ell(y_i, \hat{y}_i)
+    w^* = \arg\min_{w} J(w)
     \]
-    \[
-    \mathbf{W}^* = \arg\min_{\mathbf{W}} \frac{1}{N} \sum_{i=1}^{n} \ell(y_i, \hat{y}_i)
-    \]
+
+
+    
 \end{frame}
 \begin{frame}{Problem Definition}
     \begin{itemize}
@@ -177,7 +180,7 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{Gradient Descent}
     \begin{itemize}
         \item As introduced earlier, Gradient Descent is an iterative method for minimizing the error by updating network weights in the direction of the steepest descent (negative gradient)
-        \[\theta_{t} = \theta_{t-1} - \eta \nabla_{\theta} J(\theta)\]\\
+        \[w_{t+1} = w_t - \eta \nabla J(w_t)\]\\
         where:
         \begin{itemize}
             \item $\eta$ is called the 'learning rate' or 'step size'
@@ -351,17 +354,17 @@ Some noise remains \\
 
 \begin{frame}{First Momentum}
     \begin{itemize}
-        \item The first momentum, denoted as $m_t$, is essentially \textbf{the moving average of the gradients}. The update rule is:
-        \[m_t = \beta_1 m_{t-1} + (1 - \beta_1) \nabla_{\theta}J(\theta_{t-1})\]
-        \[\theta_t = \theta_{t-1} - \eta m_t\]\\
+        \item The first momentum, denoted as $m_{t}$, is essentially \textbf{the moving average of the gradients}. The update rule is:
+        \[m_{t+1} = \beta_1 m_t + (1 - \beta_1) \nabla_w J(w_t)\]
+        \[w_{t+1} = w_t - \eta m_{t+1}\]
         where:
         \begin{itemize}
-            \item $m_t$ is the first moment
-            \item $\beta_1$ is the decay rate, which controls how much of the past gradients to include (typically 0.9 or 0.99)\\
-            %\item $\eta$ is the learning rate\\ 
-            \item $\nabla_{\theta}J(\theta_t)$ is the gradient
+            \item $m_{t+1}$ is the first moment at time step $t+1$
+            \item $\beta_1$ is the decay rate, which controls how much of the past gradients to include (typically 0.9 or 0.99)
+            \item $\nabla_w J(w_t)$ is the gradient at time step $t$
         \end{itemize}
     \end{itemize}
+    
     \textbf{Why use the first moment?}
     \begin{itemize}
         \item Inspired by physics, it keeps us moving due to accumulated momentum, like a ball rolling in a frictionless bowl 
@@ -370,18 +373,18 @@ Some noise remains \\
 
 \begin{frame}{Second Momentum}
     \begin{itemize}
-        \item The second momentum, denoted as $v_t$, is a \textbf{moving average of the squared gradients}. 
+        \item The second momentum, denoted as $v_{t}$, is a \textbf{moving average of the squared gradients}. 
         \item It helps us track how large the gradients have been over time. The update rule is:
-        \[v_t = \beta_2 v_{t-1} + (1 - \beta_2) (\nabla_{\theta} J(\theta_t))^2\]
-        \[\theta_t = \theta_{t-1} - \eta v_t\]
+        \[v_{t+1} = \beta_2 v_t + (1 - \beta_2) (\nabla_w J(w_t))^2\]
+        \[w_{t+1} = w_t - \eta v_{t+1}\]
         where:
         \begin{itemize}
-            \item $v_t$ is the second moment
+            \item $v_{t+1}$ is the second moment at time step $t+1$
             \item $\beta_2$ is the decay rate
-            \item $\nabla_{\theta} J(\theta_t)$ is the gradient
+            \item $\nabla_w J(w_t)$ is the gradient at time step $t$
         \end{itemize}
     \end{itemize}
-    
+
     \textbf{Why use the second moment?}
     \begin{itemize}
         \item The second moment helps \textbf{control the size of updates} by adjusting for consistently large or small gradients, preventing overshooting or slow learning
@@ -391,11 +394,11 @@ Some noise remains \\
 
 \begin{frame}{Moment Bias Correction}
     \begin{itemize}
-        \item \textbf{Problem}: When we start training, both $m_t$ and $v_t$ are initialized to zero, causing their estimates to be biased toward zero in the early steps, especially when gradients are small.
-        \item \textbf{Solution}: We use bias-corrected versions of $m_t$ and $v_t$ to fix this:
-        \[\hat{m}_t = \frac{m_t}{1 - \beta_1^t}, \quad 
-        \hat{v}_t = \frac{v_t}{1 -\beta_2^t}\]
-        \item These corrections compensate for the bias by scaling $m_t$ and $v_t$ upward, especially in the early steps when $t$ is small, ensuring more accurate estimates of the moments.
+        \item \textbf{Problem}: When we start training, both $m_{t}$ and $v_{t}$ are initialized to zero, causing their estimates to be biased toward zero in the early steps, especially when gradients are small.
+        \item \textbf{Solution}: We use bias-corrected versions of $m_{t}$ and $v_{t}$ to fix this:
+        \[\hat{m}_{t} = \frac{m_{t}}{1 - \beta_1^{t}}, \quad 
+        \hat{v}_{t} = \frac{v_{t}}{1 -\beta_2^{t}}\]
+        \item These corrections compensate for the bias by scaling $m_{t}$ and $v_{t}$ upward, especially in the early steps when $t$ is small, ensuring more accurate estimates of the moments.
     \end{itemize}
 \end{frame}
 
@@ -476,20 +479,21 @@ Some noise remains \\
 
 \begin{frame}{Adam}
     \begin{itemize}
-        \item The update rule for Adam optimizer at step $t$ is denoted by $\theta_t$:
-        \[\theta_t = \theta_{t-1} - \eta \frac{\hat{m}_{t-1}}{\sqrt{\hat{v}_{t-1}} +\epsilon}\]\\
-        \[m_t = \beta_1 m_{t-1} + (1 - \beta_1) \nabla_{\theta} J(\theta_t)\]
-        \[v_t = \beta_2 v_{t-1} + (1 - \beta_2) (\nabla_{\theta} J(\theta_t) \odot \nabla J(\theta_t)\]
-        \[\hat{m}_t = \frac{m_t}{1 - \beta_1^t}, \quad 
-        \hat{v}_t = \frac{v_t}{1 -\beta_2^t}\]
+        \item The update rule for the Adam optimizer at step $t+1$ is denoted by $w_{t+1}$:
+        \[m_{t+1} = \beta_1 m_t + (1 - \beta_1) \nabla_w J(w_t)\]
+        \[v_{t+1} = \beta_2 v_t + (1 - \beta_2) (\nabla_w J(w_t)^2\]
+        \[\hat{m}_{t+1} = \frac{m_{t+1}}{1 - \beta_1^{t+1}}, \quad 
+        \hat{v}_{t+1} = \frac{v_{t+1}}{1 - \beta_2^{t+1}}\]
+        \[w_{t+1} = w_t - \eta \frac{\hat{m}_t}{\sqrt{\hat{v}_t} + \epsilon}\]
         where:
         \begin{itemize}
-            \item $m_t$ and $v_t$ are the first and second moments
+            \item $m_{t+1}$ and $v_{t+1}$ are the first and second moments at step $t+1$
             \item $\beta_1$ and $\beta_2$ are decay rates for the first and second moments
-            \item $\hat{m_t}$ and $\hat{v_t}$ are bias-corrected estimates of the first and second moments
+            \item $\hat{m}_{t+1}$ and $\hat{v}_{t+1}$ are bias-corrected estimates of the first and second moments
             \item $\epsilon$ is a small constant to prevent division by zero
         \end{itemize}
     \end{itemize}
+
 \end{frame}
 
 \begin{frame}{Comparison of Momentum Methods}
@@ -515,12 +519,12 @@ Some noise remains \\
         \end{center}
     \end{minipage}
 \end{frame}
-% \section{References}
+\section{References}
 % \begin{frame}[allowframebreaks]
 %     \bibliography{ref}
 %     \bibliographystyle{ieeetr}
 %     \nocite{*} % used here because no citation happens in slides
 %     % if there are too many try use：
-%     % \tiny\bibliographystyle{alpha}
+%     %\tiny\bibliographystyle{alpha}
 % \end{frame}
 \end{document}
