@@ -214,9 +214,9 @@ subsubsectionstyle=show/shaded/hide]
         \item Hidden layer pre-activation:
         $$a_i(x) = b^{(1)}_i + \sum_j W^{(1)}_{ij} \cdot x_j$$
         \item Activated hidden layer:
-        $$h(x) = \sigma(a(x))$$
+        $$h(x) = \sigma^{(1)}(a(x))$$
         \item Output layer:
-        $$ o(x) = o\left(b^{(2)} + W^{(2)}h^{(1)}(x) \right) $$
+        $$ o(x) = \sigma^{(2)}\left(b^{(2)} + W^{(2)}h^{(1)}(x) \right) $$
     \end{itemize}
     \endminipage
     \hfill
@@ -234,7 +234,7 @@ subsubsectionstyle=show/shaded/hide]
         \item Let $h^0_i = x_i$ for $i \in \{1, 2, \ldots, n  \}$
         \item For $\ell \in \{0, 1, \ldots, L \}$:
         $$a^{(\ell+1)}_j = b^{(\ell)}_j + \sum_i W^{(\ell)}_{ij}\cdot h^{(\ell)}_i$$
-        $$h^{(\ell+1)}_j = \sigma(a^{(\ell+1)}_j)$$
+        $$h^{(\ell+1)}_j = \sigma^{(\ell+1)}(a^{(\ell+1)}_j)$$
 
         \item Learnable parameters:
         $$b^{(\ell)}_j, W^{(\ell)}_{ij}$$
@@ -300,7 +300,7 @@ subsubsectionstyle=show/shaded/hide]
     \begin{itemize}
         \item This is the pass where we send input data through the network to make a prediction (likely inaccurate at first).
         \item The prediction is made by calculating weighted sums and applying an activation function at each layer
-        $$ o = a^{(L)} = \sigma^{(L)}\left( b^{(L)} + W^{(L)}  \sigma^{(L-1)}\left( \ldots f^{(1)}(b^{(1)} + W^{(1)}  x)  \ldots \right) \right) $$
+        $$ o(x) = a^{(L)} = \sigma^{(L)}\left( b^{(L)} + W^{(L)}  \sigma^{(L-1)}\left( \ldots \sigma^{(1)}(b^{(1)} + W^{(1)}  x)  \ldots \right) \right) $$
     \end{itemize}
 \end{frame}
 
