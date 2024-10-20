@@ -80,6 +80,7 @@
         \item Imagine training a large model like ChatGPT. It has billions of parameters that need to be adjusted.
         \item If we used \textbf{random search} to update these weights, it would take an astronomical number of trials to find good parameters.
         \item How to make training feasible at this massive scale?
+        \item Image adapted from \href{https://medium.com/@brijesh_soni/understanding-the-adagrad-optimization-algorithm-an-adaptive-learning-rate-approach-9dfaae2077bb}{Medium: AdaGrad Optimization Algorithm}
     \end{itemize}
     \begin{figure}[!htb]
   \begin{minipage}{0.3\textwidth}
@@ -171,6 +172,7 @@
         \item Compute the gradient of the loss function.
         \item Update the weights using the update rule.
         \item Repeat until convergence.
+        \item Image adapted from \href{https://datascience.stackexchange.com/questions/90204/gradient-descent-around-optimal-loss-surface}{Data Science Stack Exchange}
     \end{itemize}
     
     \vspace{-2cm} % Adjust vertical space to shift the text up
@@ -192,6 +194,7 @@
                 \item Look for a \textbf{smooth, gradual} decrease in loss over time.
                 \item Very low learning rate -> slow convergence
                 \item Very high learning rate -> erratic fluctuations
+                \item Image adapted from \href{https://towardsdatascience.com/understanding-learning-rates-and-how-it-improves-performance-in-deep-learning-d0d4059c1c10}{Towards Data Science: Understanding Learning Rates and How It Improves Performance in Deep Learning}
             \end{itemize}
         \end{column}
         \begin{column}{0.5\textwidth}
@@ -258,7 +261,7 @@
         % Right column: Computational graph (TikZ diagram)
         \begin{column}{0.7\textwidth}
                     \begin{center}
-                \includegraphics[width=\textwidth, keepaspectratio]{pic/Conversion output 2.jpg}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/Conversion output 2.png}
             \end{center}
         \end{column}
 
@@ -865,10 +868,14 @@
 \end{frame}
 
 \begin{frame}{Xavier vs He}
+\begin{itemize}
+\item Evolution of loss term for Xavier weight initialization and He weight initialization.
+\item Image adapted from \href{https://www.researchgate.net/publication/363843256_A_Knowledge-driven_Physics-Informed_Neural_Network_model_Pyrolysis_and_Ablation_of_Polymers}{A Knowledge-driven Physics-Informed Neural Network model; Pyrolysis and Ablation of Polymers}
+\end{itemize}
     \begin{center}
         \includegraphics[width=10cm]{pic/Evolution-of-loss-term-for-Xavier-weight-initialization-and-He-weight-initialization.png}  
     \end{center}
-Evolution of loss term for Xavier weight initialization and He weight initialization.
+ 
 \end{frame}
 \begin{frame}{Choosing the Right Initialization – Examples}
 
@@ -1548,7 +1555,7 @@ Evolution of loss term for Xavier weight initialization and He weight initializa
             \begin{figure}
 \centerline{\includegraphics[scale=.3]{pic/cancer.jpg}}
 \\
-{Microscopic images of tumor tissue, classified into grades representing different severity levels.}
+{Microscopic images of tumor tissue, classified into grades representing different severity levels. Image adapted from \href{https://www.researchgate.net/publication/342658460_Visual_Analytics_in_Digital_Computational_Pathology?_tp=eyJjb250ZXh0Ijp7ImZpcnN0UGFnZSI6Il9kaXJlY3QiLCJwYWdlIjoiX2RpcmVjdCJ9fQ}{Visual Analytics in Digital & Computational Pathology}}
 
 \label{fig}
 \end{figure}
