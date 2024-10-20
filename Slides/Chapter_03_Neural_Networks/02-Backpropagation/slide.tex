@@ -25,6 +25,7 @@
 \usepackage{amsmath}   % For equations
 \usepackage{array}     % For tables
 \usepackage{url}
+\usepackage{xcolor}
 \pgfplotsset{compat=1.16}
 
 
@@ -103,7 +104,7 @@
  \textbf{Options for Updating Weights:}
     \begin{itemize}
         \item \textbf{Random Search:} Tries values randomly—inefficient and impractical.
-        \item \textcolor{green}{Gradient Descent:} Follows the slope of the loss function—efficient and guided.
+        \item \textbf{\textcolor{blue}{Gradient Descent:}} Follows the slope of the loss function—efficient and guided.
     \end{itemize}
     
     \textbf{Why Gradient Descent?}
@@ -116,16 +117,13 @@
 \begin{frame}{How to Update Weights?}
 
     \begin{center}
-        \includegraphics[width=10cm]{pic/ball.png}\\
-        {Gradient descent: adjusting weights to minimize cost by following the gradient.}
+            \begin{figure}[h]
+            \centering
+            \includegraphics[height=.6\textheight]{pic/ball.png}
+            \caption{\footnotesize Gradient descent: adjusting weights to minimize cost by following the gradient. \url{https://sebastianraschka.com/images/faq/gradient-optimization/ball.png}}
+        \end{figure}
     \end{center}
 \end{frame}
-
-%\begin{frame}{Effect of Learning Rate on Gradient Descent}
-%    \begin{center}
-%        \includegraphics[width=\textwidth]{pic/11111.png}
-%    \end{center}
-%\end{frame}
 
 
 \begin{frame}{Gradient Descent: Concept and Weight Updates}
@@ -147,7 +145,9 @@
     \begin{itemize}
         \item Initial weight: \( w_0 = 2 \)
         \item Learning rate: \( \eta = 0.1 \)
-        \item Loss function: \( L(w) = (y - wx)^2 \)
+        \item Loss function: \( L(w) = (y - wx)^2 \) \\
+        \textbf{Example}: For \( x = 3 \), \( y = 10 \), and \( w_0 = 2 \),
+
     \end{itemize}
     
     \textbf{Gradient Calculation}:
@@ -155,7 +155,6 @@
     \frac{\partial L}{\partial w} = -2x(y - wx)
     \]
     
-    \textbf{Example}: For \( x = 3 \), \( y = 10 \), and \( w_0 = 2 \),
     \[
     \frac{\partial L}{\partial w} = -24, \quad w_{\text{new}} = 4.4
     \]
@@ -177,24 +176,27 @@
     \vspace{-2cm} % Adjust vertical space to shift the text up
     \begin{flushright}
         \includegraphics[scale=0.3]{pic/GD.png} % Scale the image and place it to the Southeast
-        \\{Gradient descent process\\ visualized on a loss surface.}
+        \begin{tikzpicture}[overlay]
+            \node at (-0.5, 0.5) {\textcolor{red}{$w_0$}};  
+            \node at (-3.1, -0.2) {\textcolor{red}{$w_1$}};
+            \node at (-5.2, 1.5) {\textcolor{red}{$Loss$}};
+        \end{tikzpicture}
     \end{flushright}
-
 \end{frame}
+
 
 \begin{frame}{Identifying an Optimal Learning Rate}
     \begin{columns}[T] % Aligning the columns at the top
         \begin{column}{0.5\textwidth}
             \begin{itemize}
                 \item Look for a \textbf{smooth, gradual} decrease in loss over time.
-                \item Avoid a learning rate that causes \textbf{erratic fluctuations} in the loss function.
-                \item Ensure that the learning rate is \textbf{not too small}, leading to \textbf{slow} convergence.
-                \item A good learning rate often shows a \textbf{steady, reliable} trend without large spikes.
+                \item Very low learning rate -> slow convergence
+                \item Very high learning rate -> erratic fluctuations
             \end{itemize}
         \end{column}
         \begin{column}{0.5\textwidth}
             \begin{center}
-                \includegraphics[width=\textwidth, keepaspectratio]{pic/1_rcmvCjQvsxrJi8Y4HpGcCw.png}\\{Impact of different learning rates on the loss over epochs.}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/1_rcmvCjQvsxrJi8Y4HpGcCw.png}
             \end{center}
         \end{column}
     \end{columns}
@@ -204,6 +206,396 @@
 
 \section{Backpropagation}
 \subsection{Forward and Backward Passes}
+
+
+\begin{frame}{A Simple Example}
+
+    % Start of the columns environment
+    \begin{columns}
+       
+        % Left column: Steps with equations
+        \begin{column}{0.3\textwidth}
+            \vspace{-0.4cm} % Adjusted to maintain the same formatting
+            \textbf{Function:} 
+            \[
+            f(x, y, z) = (x + y)z
+            \]
+        \end{column}
+
+        % Right column: Computational graph (TikZ diagram)
+        \begin{column}{0.7\textwidth}
+                    \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/b1.jpg}
+            \end{center}
+        \end{column}
+
+    \end{columns}
+\end{frame}
+
+\begin{frame}{A Simple Example: Forward Pass}
+
+    % Start of the columns environment
+    \begin{columns}
+       
+        % Left column: Steps with equations
+        \begin{column}{0.3\textwidth}
+            \vspace{-0.4cm} % Added 'cm' as a unit
+            \textbf{Function:} 
+            \[
+            f(x, y, z) = (x + y)z
+            \]
+            \textbf{Example:}
+            \[
+            x = -2, \quad y = 5, \quad z = -4
+            \]
+            \textbf{Steps:}
+            \begin{itemize}
+                \item \( \mathbf{q = x + y = 3} \)
+                \item \( \mathbf{f = q \times z = -12} \)
+            \end{itemize}
+        \end{column}
+
+        % Right column: Computational graph (TikZ diagram)
+        \begin{column}{0.7\textwidth}
+                    \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/Conversion output 2.jpg}
+            \end{center}
+        \end{column}
+
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Chain Rule for Gradients}
+    The \textbf{chain rule} helps us find the gradient of a function that is composed of other functions.
+
+    \vspace{10pt}
+    \textbf{Example:}
+    \[
+    z = f(g(x))
+    \]
+    \begin{itemize}
+        \item \( f \) is a function of \( g(x) \)
+        \item \( g(x) \) is a function of \( x \)
+    \end{itemize}
+    
+    \vspace{10pt}
+    To find \( \frac{\partial z}{\partial x} \), we use the chain rule:
+    \[
+    \frac{\partial z}{\partial x} = \frac{\partial f}{\partial g} \times \frac{\partial g}{\partial x}
+    \]
+    
+    \vspace{10pt}
+    This means we multiply the gradient of the outer function by the gradient of the inner function.
+\end{frame}
+
+
+\begin{frame}{Finite Difference Method}
+    To approximate the gradient \( \frac{\partial L}{\partial w_i} \):
+    \begin{itemize}
+        \item Change \( w_i \) by a small value \( \epsilon \).
+        \item Approximate the gradient as:
+        \[
+        \frac{\partial L}{\partial w_i} \approx \frac{L(w_i + \epsilon) - L(w_i)}{\epsilon}
+        \]
+        \item Simple but inefficient.
+    \end{itemize}
+    
+    \vspace{10pt}
+    \textbf{Problem:} \\
+    Complexity is \( \Theta(n^2) \) for \( n \) weights, which is slow for large models.
+\end{frame}
+
+% Slide 2: Backpropagation Method
+\begin{frame}{Backpropagation}
+    A more efficient method:
+    \begin{itemize}
+        \item Use the chain rule to compute all gradients in one backward pass.
+        \item This method avoids changing each weight separately.
+    \end{itemize}
+    
+    \vspace{10pt}
+    \textbf{Advantages:}
+    \begin{itemize}
+        \item Complexity is reduced to \( \Theta(n) \).
+        \item Much faster, especially for large neural networks.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Backpropagation: A Simple Example}
+
+    % Start of the columns environment
+    \begin{columns}
+        % Left column: Steps with equations
+        \begin{column}{0.3\textwidth}
+            \vspace{-0.4cm} % Adjusted to maintain the same formatting
+            \textbf{Function:} 
+            \[
+            f(x, y, z) = (x + y)z
+            \]
+            \textbf{Example:} 
+            \[
+            x = -2, \quad y = 5, \quad z = -4
+            \]
+        \end{column}
+
+        % Right column: Computational graph (TikZ diagram)
+        \begin{column}{0.7\textwidth}
+                    \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/b2.jpg}
+            \end{center}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}{A Simple Example: Backpropagation}
+
+    % Start of the columns environment
+    \begin{columns}
+       
+        % Left column: Steps with equations
+        \begin{column}{0.3\textwidth}
+            \vspace{-0.4cm} % Adjusted to maintain the same formatting
+            \textbf{Function:} 
+            \[
+            f(x, y, z) = (x + y)z
+            \]
+            \textbf{Example:} 
+            \[
+            x = -2, \quad y = 5, \quad z = -4
+            \]
+            \textcolor{blue}{\textbf{Step 1:}}
+            \[
+            \frac{\partial f}{\partial f} = 1
+            \]
+        \end{column}
+
+        % Right column: Computational graph (TikZ diagram)
+        \begin{column}{0.7\textwidth}
+                    \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/b3.jpg}
+            \end{center}
+        \end{column}
+
+    \end{columns}
+
+\end{frame}
+
+
+\begin{frame}{A Simple Example: Backpropagation}
+
+    % Start of the columns environment
+    \begin{columns}
+       
+        % Left column: Steps with equations
+        \begin{column}{0.3\textwidth}
+            \vspace{-0.4cm}
+            \textbf{Function:} 
+            \[
+            f(x, y, z) = (x + y)z
+            \]
+            \textbf{Example:} 
+            \[
+            x = -2, \quad y = 5, \quad z = -4
+            \]
+             \vspace{-0.4cm}
+            % Step 1
+            \textcolor{blue}{\textbf{Step 1:}}
+            \[
+            \frac{\partial f}{\partial f} = 1
+            \]
+             \vspace{-0.4cm}
+            % Step 2
+            \textcolor{blue}{\textbf{Step 2:}}
+            \[
+            f = qz, \quad
+            \frac{\partial f}{\partial q} = z = -4, \quad \frac{\partial f}{\partial z} = q = 3
+            \]
+        \end{column}
+
+        % Right column: Computational graph (TikZ diagram)
+        \begin{column}{0.7\textwidth}
+                    \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/b4.jpg}
+            \end{center}
+        \end{column}
+
+    \end{columns}
+
+\end{frame}
+
+\begin{frame}{A Simple Example: Backpropagation}
+
+    % Start of the columns environment
+    \begin{columns}
+       
+        % Left column: Steps with equations
+        \begin{column}{0.3\textwidth}
+            \vspace{-0.4cm}
+            \textbf{Function:} 
+            \[
+            f(x, y, z) = (x + y)z
+            \]
+            \textbf{Example:} 
+            \[
+            x = -2, \quad y = 5, \quad z = -4
+            \]
+             \vspace{-0.4cm}
+            % Step 1
+            \textcolor{blue}{\textbf{Step 1:}}
+            \[
+            \frac{\partial f}{\partial f} = 1
+            \]
+             \vspace{-0.4cm}
+            % Step 2
+            \textcolor{blue}{\textbf{Step 2:}}
+            \[
+            f = qz, \quad
+            \frac{\partial f}{\partial q} = z = -4, \quad \frac{\partial f}{\partial z} = q = 3
+            \]
+        \end{column}
+
+        % Right column: Computational graph (TikZ diagram)
+        \begin{column}{0.7\textwidth}
+                    \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/b5.jpg}
+            \end{center}
+        \end{column}
+
+    \end{columns}
+
+\end{frame}
+
+\begin{frame}{A Simple Example: Backpropagation}
+
+    % Start of the columns environment
+    \begin{columns}
+       
+        % Left column: Steps with equations
+        \begin{column}{0.3\textwidth}
+            \vspace{-0.4cm}
+            \textbf{Function:} 
+            \[
+            f(x, y, z) = (x + y)z
+            \]
+            \textbf{Example:} 
+            \[
+            x = -2, \quad y = 5, \quad z = -4
+            \]
+            \vspace{-0.4cm}
+            % Step 1
+            \textcolor{blue}{\textbf{Step 1:}}
+            \[
+             q = x + y, \quad
+            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1
+            \]
+            \vspace{-0.2cm}
+            % Step 2
+            \textcolor{blue}{\textbf{Step 2:}}
+            \[
+            \frac{\partial f}{\partial y} =  \frac{\partial f}{\partial q}
+            \frac{\partial q}{\partial y} = -4 \cdot 1 = -4
+            \]
+        \end{column}
+
+        % Right column: Computational graph (TikZ diagram)
+        \begin{column}{0.7\textwidth}
+                    \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/b6.jpg}
+            \end{center}
+        \end{column}
+
+    \end{columns}
+
+\end{frame}
+\begin{frame}{A Simple Example: Backpropagation}
+
+    % Start of the columns environment
+    \begin{columns}
+       
+        % Left column: Steps with equations
+        \begin{column}{0.3\textwidth}
+            \vspace{-0.4cm}
+            \textbf{Function:} 
+            \[
+            f(x, y, z) = (x + y)z
+            \]
+            \textbf{Example:} 
+            \[
+            x = -2, \quad y = 5, \quad z = -4
+            \]
+            \vspace{-0.4cm}
+            % Step 1
+            \textcolor{blue}{\textbf{Step 1:}}
+            \[
+             q = x + y, \quad
+            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1
+            \]
+            \vspace{-0.2cm}
+            % Step 2
+            \textcolor{blue}{\textbf{Step 2:}}
+            \[
+            \frac{\partial f}{\partial x} =  \frac{\partial f}{\partial q}
+            \frac{\partial q}{\partial x} = -4 \cdot 1 = -4
+            \]
+        \end{column}
+
+        % Right column: Computational graph (TikZ diagram)
+        \begin{column}{0.7\textwidth}
+                    \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/b7.jpg}
+            \end{center}
+        \end{column}
+
+    \end{columns}
+
+\end{frame}
+
+\begin{frame}{A Simple Example: Backpropagation}
+
+    % Start of the columns environment
+    \begin{columns}
+       
+        % Left column: Steps with equations
+        \begin{column}{0.3\textwidth}
+            \vspace{-0.4cm}
+            \textbf{Function:} 
+            \[
+            f(x, y, z) = (x + y)z
+            \]
+            \textbf{Example:} 
+            \[
+            x = -2, \quad y = 5, \quad z = -4
+            \]
+            \vspace{-0.4cm}
+            % Step 1
+            \textcolor{blue}{\textbf{Step 1:}}
+            \[
+             q = x + y, \quad
+            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1
+            \]
+            \vspace{-0.2cm}
+            % Step 2
+            \textcolor{blue}{\textbf{Step 2:}}
+            \[
+            \frac{\partial f}{\partial x} =  \frac{\partial f}{\partial q}
+            \frac{\partial q}{\partial x} = -4 \cdot 1 = -4
+            \]
+        \end{column}
+
+        % Right column: Computational graph (TikZ diagram)
+        \begin{column}{0.7\textwidth}
+                    \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/b8.jpg}
+            \end{center}
+            
+        \end{column}
+
+    \end{columns}
+
+\end{frame}
+
+
 \begin{frame}{Example: One Neuron}
     \begin{figure}
         \vspace{-0.3cm}
@@ -241,1062 +633,6 @@
         \includegraphics[width=.9\linewidth, height=\textheight, keepaspectratio]{pic/5.png}
 
     \end{figure}
-
-\end{frame}
-
-\begin{frame}{Backpropagation: a simple example}
-        % Start of the columns environment
-    \begin{columns}
-       
-        % Left column: Steps with equations
-        \begin{column}{0.4\textwidth}
-            \vspace{-0.4cm} % Added 'cm' as a unit
-            \textbf{Function:} 
-            \[
-            f(x, y, z) = (x + y)z
-            \]
-            
-        \end{column}
-
-        % Right column: Computational graph (TikZ diagram)
-        \begin{column}{0.6\textwidth}
-            \begin{center}
-            \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.8}]
-                
-                % Nodes
-                \node at (0,0) (x) {\(x = -2\)};
-                \node at (0,-1.5) (y) {\(y = 5\)};
-                \node at (2,-0.75) (sum) [draw, circle] {\(+\)};
-                \node at (3.5,-0.75) (q) {\(q = 3\)};
-                \node at (5,-2) (z) {\(z = -4\)};
-                \node at (7,-1) (mult) [draw, circle] {\(\times\)};
-                \node at (8.5,-1) (f) {\(f = -12\)};
-
-                % Arrows
-                \draw[->] (x) -- (sum);
-                \draw[->] (y) -- (sum);
-                \draw[->] (sum) -- (q);
-                \draw[->] (q) -- (mult);
-                \draw[->] (z) -- (mult);
-                \draw[->] (mult) -- (f);
-            \end{tikzpicture}
-            \end{center}
-        \end{column}
-
-    \end{columns}
-\end{frame}
-
-
-\begin{frame}{Backpropagation: a simple example}
-        % Start of the columns environment
-    \begin{columns}
-       
-        % Left column: Steps with equations
-        \begin{column}{0.4\textwidth}
-            \vspace{-0.4cm}
-            \textbf{Function:} 
-            \[
-            f(x, y, z) = (x + y)z
-            \]
-            \textbf{Example:} 
-            \[
-            x = -2, \quad y = 5, \quad z = -4
-            \]
-        \end{column}
-
-        % Right column: Computational graph (TikZ diagram)
-        \begin{column}{0.6\textwidth}
-            \begin{center}
-            \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.8}]
-                
-                % Nodes
-                \node at (0,0) (x) {\(x = -2\)};
-                \node at (0,-1.5) (y) {\(y = 5\)};
-                \node at (2,-0.75) (sum) [draw, circle] {\(+\)};
-                \node at (3.5,-0.75) (q) {\(q = 3\)};
-                \node at (5,-2) (z) {\(z = -4\)};
-                \node at (7,-1) (mult) [draw, circle] {\(\times\)};
-                \node at (8.5,-1) (f) {\(f = -12\)};
-
-                % Arrows
-                \draw[->] (x) -- (sum);
-                \draw[->] (y) -- (sum);
-                \draw[->] (sum) -- (q);
-                \draw[->] (q) -- (mult);
-                \draw[->] (z) -- (mult);
-                \draw[->] (mult) -- (f);
-            \end{tikzpicture}
-            \end{center}
-        \end{column}
-
-    \end{columns}
-\end{frame}
-
-\begin{frame}{Backpropagation: a simple example}
-        % Start of the columns environment
-    \begin{columns}
-       
-        % Left column: Steps with equations
-        \begin{column}{0.4\textwidth}
-            \vspace{-0.4cm}
-            \textbf{Function:} 
-            \[
-            f(x, y, z) = (x + y)z
-            \]
-            \textbf{Example:} 
-            \[
-            x = -2, \quad y = 5, \quad z = -4
-            \]
-            
-            % Step 1
-            \textcolor{green}{\textbf{Step 1:}}
-            \[
-             q = x + y, \quad
-            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1
-            \]
-        \end{column}
-
-        % Right column: Computational graph (TikZ diagram)
-        \begin{column}{0.6\textwidth}
-            \begin{center}
-            \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.8}]
-                
-                % Nodes
-                \node at (0,0) (x) {\(x = -2\)};
-                \node at (0,-1.5) (y) {\(y = 5\)};
-                \node at (2,-0.75) (sum) [draw, circle] {\(+\)};
-                \node at (3.5,-0.75) (q) {\(q = 3\)};
-                \node at (5,-2) (z) {\(z = -4\)};
-                \node at (7,-1) (mult) [draw, circle] {\(\times\)};
-                \node at (8.5,-1) (f) {\(f = -12\)};
-
-                % Arrows
-                \draw[->] (x) -- (sum);
-                \draw[->] (y) -- (sum);
-                \draw[->] (sum) -- (q);
-                \draw[->] (q) -- (mult);
-                \draw[->] (z) -- (mult);
-                \draw[->] (mult) -- (f);
-            \end{tikzpicture}
-            \end{center}
-        \end{column}
-
-    \end{columns}
-\end{frame}
-
-\begin{frame}{Backpropagation: a simple example}
-        % Start of the columns environment
-    \begin{columns}
-       
-        % Left column: Steps with equations
-        \begin{column}{0.4\textwidth}
-            \vspace{-0.4cm}
-            \textbf{Function:} 
-            \[
-            f(x, y, z) = (x + y)z
-            \]
-            \textbf{Example:} 
-            \[
-            x = -2, \quad y = 5, \quad z = -4
-            \]
-            
-            % Step 1
-            \textcolor{green}{\textbf{Step 1:}}
-            \[
-             q = x + y, \quad
-            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1
-            \]
-            
-            % Step 2
-            \textcolor{green}{\textbf{Step 2:}}
-
-            \[
-            f = qz, \quad
-            \frac{\partial f}{\partial q} = z, \quad \frac{\partial f}{\partial z} = q
-            \]
-        \end{column}
-
-        % Right column: Computational graph (TikZ diagram)
-        \begin{column}{0.6\textwidth}
-            \begin{center}
-            \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.8}]
-                
-                % Nodes
-                \node at (0,0) (x) {\(x = -2\)};
-                \node at (0,-1.5) (y) {\(y = 5\)};
-                \node at (2,-0.75) (sum) [draw, circle] {\(+\)};
-                \node at (3.5,-0.75) (q) {\(q = 3\)};
-                \node at (5,-2) (z) {\(z = -4\)};
-                \node at (7,-1) (mult) [draw, circle] {\(\times\)};
-                \node at (8.5,-1) (f) {\(f = -12\)};
-
-                % Arrows
-                \draw[->] (x) -- (sum);
-                \draw[->] (y) -- (sum);
-                \draw[->] (sum) -- (q);
-                \draw[->] (q) -- (mult);
-                \draw[->] (z) -- (mult);
-                \draw[->] (mult) -- (f);
-            \end{tikzpicture}
-            \end{center}
-        \end{column}
-    \end{columns}
-\end{frame}
-
-\begin{frame}{Backpropagation: a simple example}
-        % Start of the columns environment
-    \begin{columns}
-       
-        % Left column: Steps with equations
-        \begin{column}{0.4\textwidth}
-            \vspace{-0.4cm}
-            \textbf{Function:} 
-            \[
-            f(x, y, z) = (x + y)z
-            \]
-            \textbf{Example:} 
-            \[
-            x = -2, \quad y = 5, \quad z = -4
-            \]
-            
-            % Step 1
-            \textcolor{green}{\textbf{Step 1:}}
-            \[
-             q = x + y, \quad
-            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1
-            \]
-            
-            % Step 2
-            \textcolor{green}{\textbf{Step 2:}}
-
-            \[
-            f = qz, \quad
-            \frac{\partial f}{\partial q} = z, \quad \frac{\partial f}{\partial z} = q
-            \]
-        \end{column}
-
-        % Right column: Computational graph (TikZ diagram)
-        \begin{column}{0.6\textwidth}
-            \begin{center}
-            \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.8}]
-                
-                % Nodes
-                \node at (0,0) (x) {\(x = -2\)};
-                \node at (0,-1.5) (y) {\(y = 5\)};
-                \node at (2,-0.75) (sum) [draw, circle] {\(+\)};
-                \node at (3.5,-0.75) (q) {\(q = 3\)};
-                \node at (5,-2) (z) {\(z = -4\)};
-                \node at (7,-1) (mult) [draw, circle] {\(\times\)};
-                \node at (8.5,-1) (f) {\(f = -12\)};
-
-                % Arrows
-                \draw[->] (x) -- (sum);
-                \draw[->] (y) -- (sum);
-                \draw[->] (sum) -- (q);
-                \draw[->] (q) -- (mult);
-                \draw[->] (z) -- (mult);
-                \draw[->] (mult) -- (f);
-            \end{tikzpicture}
-            \end{center}
-            \textcolor{red}{ 
-            \[
-            want \quad
-            \frac{\partial f}{\partial x}, \quad \frac{\partial f}{\partial y}, \quad
-            \frac{\partial f}{\partial z}
-            \] 
-            }
-        \end{column}
-    \end{columns}
-\end{frame}
-
-\begin{frame}{Backpropagation: a simple example}
-
-    % Start of the columns environment
-    \begin{columns}
-       
-        % Left column: Steps with equations
-        \begin{column}{0.4\textwidth}
-            \vspace{-0.4cm}
-            \textbf{Function:} 
-            \[
-            f(x, y, z) = (x + y)z
-            \]
-            \textbf{Example:} 
-            \[
-            x = -2, \quad y = 5, \quad z = -4
-            \]
-            
-            % Step 1
-            \textcolor{green}{\textbf{Step 1:}}
-            \[
-             q = x + y, \quad
-            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1
-            \]
-            
-            % Step 2
-            \textcolor{green}{\textbf{Step 2:}}
-
-            \[
-            f = qz, \quad
-            \frac{\partial f}{\partial q} = z, \quad \frac{\partial f}{\partial z} = q
-            \]
-        \end{column}
-
-        % Right column: Computational graph (TikZ diagram)
-        \begin{column}{0.6\textwidth}
-            \begin{center}
-            \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.8}]
-                
-                % Nodes
-                \node at (0,0) (x) {\(x = -2\)};
-                \node at (0,-1.5) (y) {\(y = 5\)};
-                \node at (2,-0.75) (sum) [draw, circle] {\(+\)};
-                \node at (3.5,-0.75) (q) {\(q = 3\)};
-                \node at (5,-2) (z) {\(z = -4\)};
-                \node at (7,-1) (mult) [draw, circle] {\(\times\)};
-                \node at (8.5,-1) (f) {\(f = -12\)};
-
-                % Arrows
-                \draw[->] (x) -- (sum);
-                \draw[->] (y) -- (sum);
-                \draw[->] (sum) -- (q);
-                \draw[->] (q) -- (mult);
-                \draw[->] (z) -- (mult);
-                \draw[->] (mult) -- (f);
-
-                % Pink Element: Arrow and Derivative (df/df)
-                \node at (8.2,-0.3) (dfdf_text) {\(\frac{\partial f}{\partial f}\)};
-                \draw[->, thick, magenta] (dfdf_text) -- (7.7,-0.9);
-
-            \end{tikzpicture}
-            \end{center}
-            \textcolor{red}{ 
-            \[
-            want \quad
-            \frac{\partial f}{\partial x}, \quad \frac{\partial f}{\partial y}, \quad
-            \frac{\partial f}{\partial z}
-            \] 
-            }
-        \end{column}
-
-    \end{columns}
-
-\end{frame}
-
-\begin{frame}{Backpropagation: a simple example}
-
-    % Start of the columns environment
-    \begin{columns}
-       
-        % Left column: Steps with equations
-        \begin{column}{0.4\textwidth}
-            \vspace{-0.4cm}
-            \textbf{Function:} 
-            \[
-            f(x, y, z) = (x + y)z
-            \]
-            \textbf{Example:} 
-            \[
-            x = -2, \quad y = 5, \quad z = -4
-            \]
-            
-            % Step 1
-            \textcolor{green}{\textbf{Step 1:}}
-            \[
-             q = x + y, \quad
-            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1
-            \]
-            
-            % Step 2
-            \textcolor{green}{\textbf{Step 2:}}
-
-            \[
-            f = qz, \quad
-            \frac{\partial f}{\partial q} = z, \quad \frac{\partial f}{\partial z} = q
-            \]
-        \end{column}
-
-        % Right column: Computational graph (TikZ diagram)
-        \begin{column}{0.6\textwidth}
-            \begin{center}
-            \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.8}]
-                
-                % Nodes
-                \node at (0,0) (x) {\(x = -2\)};
-                \node at (0,-1.5) (y) {\(y = 5\)};
-                \node at (2,-0.75) (sum) [draw, circle] {\(+\)};
-                \node at (3.5,-0.75) (q) {\(q = 3\)};
-                \node at (5,-2) (z) {\(z = -4\)};
-                \node at (7,-1) (mult) [draw, circle] {\(\times\)};
-                \node at (8.5,-1) (f) {\(f = -12\)};
-                \textcolor{red}{\node at (7.9,-0.3) (one) {\(1\)};}  % 
-
-                % Arrows
-                \draw[->] (x) -- (sum);
-                \draw[->] (y) -- (sum);
-                \draw[->] (sum) -- (q);
-                \draw[->] (q) -- (mult);
-                \draw[->] (z) -- (mult);
-                \draw[->] (mult) -- (f);
-
-                % Pink Element: Arrow and Derivative (df/df)
-                \node at (8.2,-0.3) (dfdf_text) {\(\frac{\partial f}{\partial f}\)};
-                \draw[->, thick, magenta] (dfdf_text) -- (7.7,-0.9);
-
-            \end{tikzpicture}
-            \end{center}
-            \textcolor{red}{ 
-            \[
-            want \quad
-            \frac{\partial f}{\partial x}, \quad \frac{\partial f}{\partial y}, \quad
-            \frac{\partial f}{\partial z}
-            \] 
-            }
-        \end{column}
-
-    \end{columns}
-
-\end{frame}
-
-\begin{frame}{Backpropagation: a simple example}
-
-    % Start of the columns environment
-    \begin{columns}
-       
-        % Left column: Steps with equations
-        \begin{column}{0.4\textwidth}
-            \vspace{-0.4cm}
-            \textbf{Function:} 
-            \[
-            f(x, y, z) = (x + y)z
-            \]
-            \textbf{Example:} 
-            \[
-            x = -2, \quad y = 5, \quad z = -4
-            \]
-            
-            % Step 1
-            \textcolor{green}{\textbf{Step 1:}}
-            \[
-             q = x + y, \quad
-            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1
-            \]
-            
-            % Step 2
-            \textcolor{green}{\textbf{Step 2:}}
-
-            \[
-            f = qz, \quad
-            \frac{\partial f}{\partial q} = z, \quad \frac{\partial f}{\partial z} = q
-            \]
-        \end{column}
-
-        % Right column: Computational graph (TikZ diagram)
-        \begin{column}{0.6\textwidth}
-            \begin{center}
-            \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.8}]
-                
-                % Nodes
-                \node at (0,0) (x) {\(x = -2\)};
-                \node at (0,-1.5) (y) {\(y = 5\)};
-                \node at (2,-0.75) (sum) [draw, circle] {\(+\)};
-                \node at (3.5,-0.75) (q) {\(q = 3\)};
-                \node at (5,-2) (z) {\(z = -4\)};
-                \node at (7,-1) (mult) [draw, circle] {\(\times\)};
-                \node at (8.5,-1) (f) {\(f = -12\)};
-                \textcolor{red}{\node at (7.9,-0.3) (one) {\(1\)};} 
-
-                % Arrows
-                \draw[->] (x) -- (sum);
-                \draw[->] (y) -- (sum);
-                \draw[->] (sum) -- (q);
-                \draw[->] (q) -- (mult);
-                \draw[->] (z) -- (mult);
-                \draw[->] (mult) -- (f);
-
-                % Pink Element for df/dz: Add arrow and derivative box
-                \node at (6.5, -2) (dfdz_text) {\(\frac{\partial f}{\partial z}\)};
-                \draw[->, thick, magenta] (dfdz_text) -- (5.7, -1.8);  % Arrow pointing from the text to z = -4
-
-
-            \end{tikzpicture}
-            \end{center}
-            \textcolor{red}{ 
-            \[
-            want \quad
-            \frac{\partial f}{\partial x}, \quad \frac{\partial f}{\partial y}, \quad
-            \frac{\partial f}{\partial z}
-            \] 
-            }
-        \end{column}
-
-    \end{columns}
-
-\end{frame}
-
-\begin{frame}{Backpropagation: a simple example}
-
-    % Start of the columns environment
-    \begin{columns}
-       
-        % Left column: Steps with equations
-        \begin{column}{0.4\textwidth}
-            \vspace{-0.4cm}
-            \textbf{Function:} 
-            \[
-            f(x, y, z) = (x + y)z
-            \]
-            \textbf{Example:} 
-            \[
-            x = -2, \quad y = 5, \quad z = -4
-            \]
-            
-            % Step 1
-            \textcolor{green}{\textbf{Step 1:}}
-            \[
-             q = x + y, \quad
-            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1
-            \]
-            
-            % Step 2
-            \textcolor{green}{\textbf{Step 2:}}
-
-            \[
-            f = qz, \quad
-            \frac{\partial f}{\partial q} = z, \quad \frac{\partial f}{\partial z} = q
-            \]
-        \end{column}
-
-        % Right column: Computational graph (TikZ diagram)
-        \begin{column}{0.6\textwidth}
-            \begin{center}
-            \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.8}]
-                
-                % Nodes
-                \node at (0,0) (x) {\(x = -2\)};
-                \node at (0,-1.5) (y) {\(y = 5\)};
-                \node at (2,-0.75) (sum) [draw, circle] {\(+\)};
-                \node at (3.5,-0.75) (q) {\(q = 3\)};
-                \node at (5,-2) (z) {\(z = -4\)};
-                \node at (7,-1) (mult) [draw, circle] {\(\times\)};
-                \node at (8.5,-1) (f) {\(f = -12\)};
-                \textcolor{red}{\node at (7.9,-0.3) (one) {\(1\)};} 
-                \textcolor{red}{\node at (6,-1.7) (three) {\(3\)};} 
-
-                % Arrows
-                \draw[->] (x) -- (sum);
-                \draw[->] (y) -- (sum);
-                \draw[->] (sum) -- (q);
-                \draw[->] (q) -- (mult);
-                \draw[->] (z) -- (mult);
-                \draw[->] (mult) -- (f);
-
-                % Pink Element for df/dz: Add arrow and derivative box
-                \node at (6.5, -2) (dfdz_text) {\(\frac{\partial f}{\partial z}\)};
-                \draw[->, thick, magenta] (dfdz_text) -- (5.7, -1.8);  % Arrow pointing from the text to z = -4
-
-
-            \end{tikzpicture}
-            \end{center}
-            \textcolor{red}{ 
-            \[
-            want \quad
-            \frac{\partial f}{\partial x}, \quad \frac{\partial f}{\partial y}, \quad
-            \frac{\partial f}{\partial z}
-            \] 
-            }
-        \end{column}
-
-    \end{columns}
-
-\end{frame}
-
-\begin{frame}{Backpropagation: a simple example}
-
-    % Start of the columns environment
-    \begin{columns}
-       
-        % Left column: Steps with equations
-        \begin{column}{0.4\textwidth}
-            \vspace{-0.4cm}
-            \textbf{Function:} 
-            \[
-            f(x, y, z) = (x + y)z
-            \]
-            \textbf{Example:} 
-            \[
-            x = -2, \quad y = 5, \quad z = -4
-            \]
-            
-            % Step 1
-            \textcolor{green}{\textbf{Step 1:}}
-            \[
-             q = x + y, \quad
-            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1
-            \]
-            
-            % Step 2
-            \textcolor{green}{\textbf{Step 2:}}
-
-            \[
-            f = qz, \quad
-            \frac{\partial f}{\partial q} = z, \quad \frac{\partial f}{\partial z} = q
-            \]
-        \end{column}
-
-        % Right column: Computational graph (TikZ diagram)
-        \begin{column}{0.6\textwidth}
-            \begin{center}
-            \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.8}]
-                
-                % Nodes
-                \node at (0,0) (x) {\(x = -2\)};
-                \node at (0,-1.5) (y) {\(y = 5\)};
-                \node at (2,-0.75) (sum) [draw, circle] {\(+\)};
-                \node at (3.5,-0.75) (q) {\(q = 3\)};
-                \node at (5,-2) (z) {\(z = -4\)};
-                \node at (7,-1) (mult) [draw, circle] {\(\times\)};
-                \node at (8.5,-1) (f) {\(f = -12\)};
-                \textcolor{red}{\node at (7.9,-0.3) (one) {\(1\)};} 
-                \textcolor{red}{\node at (6,-1.7) (three) {\(3\)};} 
-
-                % Arrows
-                \draw[->] (x) -- (sum);
-                \draw[->] (y) -- (sum);
-                \draw[->] (sum) -- (q);
-                \draw[->] (q) -- (mult);
-                \draw[->] (z) -- (mult);
-                \draw[->] (mult) -- (f);
-
-                % Pink Element for df/dz: Add arrow and derivative box
-                \node at (3.3, -2) (dfdz_text) {\(\frac{\partial f}{\partial q}\)};
-                \draw[->, thick, magenta] (dfdz_text) -- (2.9, -1); 
-
-
-            \end{tikzpicture}
-            \end{center}
-            \textcolor{red}{ 
-            \[
-            want \quad
-            \frac{\partial f}{\partial x}, \quad \frac{\partial f}{\partial y}, \quad
-            \frac{\partial f}{\partial z}
-            \] 
-            }
-        \end{column}
-
-    \end{columns}
-
-\end{frame}
-\begin{frame}{Backpropagation: a simple example}
-
-    % Start of the columns environment
-    \begin{columns}
-       
-        % Left column: Steps with equations
-        \begin{column}{0.4\textwidth}
-            \vspace{-0.4cm}
-            \textbf{Function:} 
-            \[
-            f(x, y, z) = (x + y)z
-            \]
-            \textbf{Example:} 
-            \[
-            x = -2, \quad y = 5, \quad z = -4
-            \]
-            
-            % Step 1
-            \textcolor{green}{\textbf{Step 1:}}
-            \[
-             q = x + y, \quad
-            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1
-            \]
-            
-            % Step 2
-            \textcolor{green}{\textbf{Step 2:}}
-
-            \[
-            f = qz, \quad
-            \frac{\partial f}{\partial q} = z, \quad \frac{\partial f}{\partial z} = q
-            \]
-        \end{column}
-
-        % Right column: Computational graph (TikZ diagram)
-        \begin{column}{0.6\textwidth}
-            \begin{center}
-            \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.8}]
-                
-                % Nodes
-                \node at (0,0) (x) {\(x = -2\)};
-                \node at (0,-1.5) (y) {\(y = 5\)};
-                \node at (2,-0.75) (sum) [draw, circle] {\(+\)};
-                \node at (3.5,-0.75) (q) {\(q = 3\)};
-                \node at (5,-2) (z) {\(z = -4\)};
-                \node at (7,-1) (mult) [draw, circle] {\(\times\)};
-                \node at (8.5,-1) (f) {\(f = -12\)};
-                \textcolor{red}{\node at (7.9,-0.3) (one) {\(1\)};} 
-                \textcolor{red}{\node at (6,-1.7) (three) {\(3\)};} 
-                \textcolor{red}{\node at (2.7,-0.9) (minus four) {\(-4\)};} 
-
-                % Arrows
-                \draw[->] (x) -- (sum);
-                \draw[->] (y) -- (sum);
-                \draw[->] (sum) -- (q);
-                \draw[->] (q) -- (mult);
-                \draw[->] (z) -- (mult);
-                \draw[->] (mult) -- (f);
-
-                % Pink Element for df/dz: Add arrow and derivative box
-                \node at (3.3, -2) (dfdz_text) {\(\frac{\partial f}{\partial q}\)};
-                \draw[->, thick, magenta] (dfdz_text) -- (2.9, -1); 
-
-
-            \end{tikzpicture}
-            \end{center}
-            \textcolor{red}{ 
-            \[
-            want \quad
-            \frac{\partial f}{\partial x}, \quad \frac{\partial f}{\partial y}, \quad
-            \frac{\partial f}{\partial z}
-            \] 
-            }
-        \end{column}
-
-    \end{columns}
-
-\end{frame}
-
-\begin{frame}{Backpropagation: a simple example}
-
-    % Start of the columns environment
-    \begin{columns}
-       
-        % Left column: Steps with equations
-        \begin{column}{0.4\textwidth}
-            \vspace{-0.4cm}
-            \textbf{Function:} 
-            \[
-            f(x, y, z) = (x + y)z
-            \]
-            \textbf{Example:} 
-            \[
-            x = -2, \quad y = 5, \quad z = -4
-            \]
-            
-            % Step 1
-            \textcolor{green}{\textbf{Step 1:}}
-            \[
-             q = x + y, \quad
-            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1
-            \]
-            
-            % Step 2
-            \textcolor{green}{\textbf{Step 2:}}
-
-            \[
-            f = qz, \quad
-            \frac{\partial f}{\partial q} = z, \quad \frac{\partial f}{\partial z} = q
-            \]
-        \end{column}
-
-        % Right column: Computational graph (TikZ diagram)
-        \begin{column}{0.6\textwidth}
-            \begin{center}
-            \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.8}]
-                
-                % Nodes
-                \node at (0,0) (x) {\(x = -2\)};
-                \node at (0,-1.5) (y) {\(y = 5\)};
-                \node at (2,-0.75) (sum) [draw, circle] {\(+\)};
-                \node at (3.5,-0.75) (q) {\(q = 3\)};
-                \node at (5,-2) (z) {\(z = -4\)};
-                \node at (7,-1) (mult) [draw, circle] {\(\times\)};
-                \node at (8.5,-1) (f) {\(f = -12\)};
-                \textcolor{red}{\node at (7.9,-0.3) (one) {\(1\)};} 
-                \textcolor{red}{\node at (6,-1.7) (three) {\(3\)};} 
-                \textcolor{red}{\node at (2.7,-0.9) (minus four) {\(-4\)};} 
-                
-
-                % Arrows
-                \draw[->] (x) -- (sum);
-                \draw[->] (y) -- (sum);
-                \draw[->] (sum) -- (q);
-                \draw[->] (q) -- (mult);
-                \draw[->] (z) -- (mult);
-                \draw[->] (mult) -- (f);
-
-                % Pink Element for df/dz: Add arrow and derivative box
-                \node at (1.5, -2.5) (dfdz_text) {\(\frac{\partial f}{\partial y}\)};
-                \draw[->, thick, magenta] (dfdz_text) -- (1, -1.5); 
-
-            \end{tikzpicture}
-            \end{center}
-            
-            \[
-            \textcolor{red}{ 
-            want \quad
-            \frac{\partial f}{\partial x}, \quad \frac{\partial f}{\partial y}, \quad
-            \frac{\partial f}{\partial z}, \quad
-            }
-            Chain\quad rule \quad
-            \frac{\partial f}{\partial y} =  \frac{\partial f}{\partial q}
-            \frac{\partial q}{\partial y}
-            \] 
-            
-        \end{column}
-
-    \end{columns}
-
-\end{frame}
-
-\begin{frame}{Backpropagation: a simple example}
-
-    % Start of the columns environment
-    \begin{columns}
-       
-        % Left column: Steps with equations
-        \begin{column}{0.4\textwidth}
-            \vspace{-0.4cm}
-            \textbf{Function:} 
-            \[
-            f(x, y, z) = (x + y)z
-            \]
-            \textbf{Example:} 
-            \[
-            x = -2, \quad y = 5, \quad z = -4
-            \]
-            
-            % Step 1
-            \textcolor{green}{\textbf{Step 1:}}
-            \[
-             q = x + y, \quad
-            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1
-            \]
-            
-            % Step 2
-            \textcolor{green}{\textbf{Step 2:}}
-
-            \[
-            f = qz, \quad
-            \frac{\partial f}{\partial q} = z, \quad \frac{\partial f}{\partial z} = q
-            \]
-        \end{column}
-
-        % Right column: Computational graph (TikZ diagram)
-        \begin{column}{0.6\textwidth}
-            \begin{center}
-            \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.8}]
-                
-                % Nodes
-                \node at (0,0) (x) {\(x = -2\)};
-                \node at (0,-1.5) (y) {\(y = 5\)};
-                \node at (2,-0.75) (sum) [draw, circle] {\(+\)};
-                \node at (3.5,-0.75) (q) {\(q = 3\)};
-                \node at (5,-2) (z) {\(z = -4\)};
-                \node at (7,-1) (mult) [draw, circle] {\(\times\)};
-                \node at (8.5,-1) (f) {\(f = -12\)};
-                \textcolor{red}{\node at (7.9,-0.3) (one) {\(1\)};} 
-                \textcolor{red}{\node at (6,-1.7) (three) {\(3\)};} 
-                \textcolor{red}{\node at (2.7,-0.9) (minus four) {\(-4\)};} 
-                \textcolor{red}{\node at (0.9,-1.3) (minus four) {\(-4\)};} 
-                
-
-                % Arrows
-                \draw[->] (x) -- (sum);
-                \draw[->] (y) -- (sum);
-                \draw[->] (sum) -- (q);
-                \draw[->] (q) -- (mult);
-                \draw[->] (z) -- (mult);
-                \draw[->] (mult) -- (f);
-
-                % Pink Element for df/dz: Add arrow and derivative box
-                \node at (1.5, -2.5) (dfdz_text) {\(\frac{\partial f}{\partial y}\)};
-                \draw[->, thick, magenta] (dfdz_text) -- (1, -1.5); 
-
-            \end{tikzpicture}
-            \end{center}
-            
-            \[
-            \textcolor{red}{ 
-            want \quad
-            \frac{\partial f}{\partial x}, \quad \frac{\partial f}{\partial y}, \quad
-            \frac{\partial f}{\partial z}, \quad
-            }
-            Chain\quad rule \quad
-            \frac{\partial f}{\partial y} =  \frac{\partial f}{\partial q}
-            \frac{\partial q}{\partial y}
-            \] 
-            
-        \end{column}
-
-    \end{columns}
-
-\end{frame}
-
-\begin{frame}{Backpropagation: a simple example}
-
-    % Start of the columns environment
-    \begin{columns}
-       
-        % Left column: Steps with equations
-        \begin{column}{0.4\textwidth}
-            \vspace{-0.4cm}
-            \textbf{Function:} 
-            \[
-            f(x, y, z) = (x + y)z
-            \]
-            \textbf{Example:} 
-            \[
-            x = -2, \quad y = 5, \quad z = -4
-            \]
-            
-            % Step 1
-            \textcolor{green}{\textbf{Step 1:}}
-            \[
-             q = x + y, \quad
-            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1
-            \]
-            
-            % Step 2
-            \textcolor{green}{\textbf{Step 2:}}
-
-            \[
-            f = qz, \quad
-            \frac{\partial f}{\partial q} = z, \quad \frac{\partial f}{\partial z} = q
-            \]
-        \end{column}
-
-        % Right column: Computational graph (TikZ diagram)
-        \begin{column}{0.6\textwidth}
-            \begin{center}
-            \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.8}]
-                
-                % Nodes
-                \node at (0,0) (x) {\(x = -2\)};
-                \node at (0,-1.5) (y) {\(y = 5\)};
-                \node at (2,-0.75) (sum) [draw, circle] {\(+\)};
-                \node at (3.5,-0.75) (q) {\(q = 3\)};
-                \node at (5,-2) (z) {\(z = -4\)};
-                \node at (7,-1) (mult) [draw, circle] {\(\times\)};
-                \node at (8.5,-1) (f) {\(f = -12\)};
-                \textcolor{red}{\node at (7.9,-0.3) (one) {\(1\)};} 
-                \textcolor{red}{\node at (6,-1.7) (three) {\(3\)};} 
-                \textcolor{red}{\node at (2.7,-0.9) (minus four) {\(-4\)};} 
-                \textcolor{red}{\node at (0.9,-1.3) (minus four) {\(-4\)};} 
-
-                
-
-                % Arrows
-                \draw[->] (x) -- (sum);
-                \draw[->] (y) -- (sum);
-                \draw[->] (sum) -- (q);
-                \draw[->] (q) -- (mult);
-                \draw[->] (z) -- (mult);
-                \draw[->] (mult) -- (f);
-
-                % Pink Element for df/dz: Add arrow and derivative box
-                \node at (1.5, -2.5) (dfdz_text) {\(\frac{\partial f}{\partial x}\)};
-                \draw[->, thick, magenta] (dfdz_text) -- (1, -0.5); 
-
-            \end{tikzpicture}
-            \end{center}
-            
-            \[
-            \textcolor{red}{ 
-            want \quad
-            \frac{\partial f}{\partial x}, \quad \frac{\partial f}{\partial y}, \quad
-            \frac{\partial f}{\partial z}, \quad
-            }
-            Chain\quad rule \quad
-            \frac{\partial f}{\partial x} =  \frac{\partial f}{\partial q}
-            \frac{\partial q}{\partial x}
-            \] 
-            
-        \end{column}
-
-    \end{columns}
-
-\end{frame}
-\begin{frame}{Backpropagation: a simple example}
-
-    % Start of the columns environment
-    \begin{columns}
-       
-        % Left column: Steps with equations
-        \begin{column}{0.4\textwidth}
-            \vspace{-0.4cm}
-            \textbf{Function:} 
-            \[
-            f(x, y, z) = (x + y)z
-            \]
-            \textbf{Example:} 
-            \[
-            x = -2, \quad y = 5, \quad z = -4
-            \]
-            
-            % Step 1
-            \textcolor{green}{\textbf{Step 1:}}
-            \[
-             q = x + y, \quad
-            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1
-            \]
-            
-            % Step 2
-            \textcolor{green}{\textbf{Step 2:}}
-
-            \[
-            f = qz, \quad
-            \frac{\partial f}{\partial q} = z, \quad \frac{\partial f}{\partial z} = q
-            \]
-        \end{column}
-
-        % Right column: Computational graph (TikZ diagram)
-        \begin{column}{0.6\textwidth}
-            \begin{center}
-            \begin{tikzpicture}[scale=0.9, every node/.style={scale=0.8}]
-                
-                % Nodes
-                \node at (0,0) (x) {\(x = -2\)};
-                \node at (0,-1.5) (y) {\(y = 5\)};
-                \node at (2,-0.75) (sum) [draw, circle] {\(+\)};
-                \node at (3.5,-0.75) (q) {\(q = 3\)};
-                \node at (5,-2) (z) {\(z = -4\)};
-                \node at (7,-1) (mult) [draw, circle] {\(\times\)};
-                \node at (8.5,-1) (f) {\(f = -12\)};
-                \textcolor{red}{\node at (7.9,-0.3) (one) {\(1\)};} 
-                \textcolor{red}{\node at (6,-1.7) (three) {\(3\)};} 
-                \textcolor{red}{\node at (2.7,-0.9) (minus four) {\(-4\)};} 
-                \textcolor{red}{\node at (0.9,-0.2) (minus four) {\(-4\)};} 
-                \textcolor{red}{\node at (0.9,-1.3) (minus four) {\(-4\)};} 
-
-                % Arrows
-                \draw[->] (x) -- (sum);
-                \draw[->] (y) -- (sum);
-                \draw[->] (sum) -- (q);
-                \draw[->] (q) -- (mult);
-                \draw[->] (z) -- (mult);
-                \draw[->] (mult) -- (f);
-
-                % Pink Element for df/dz: Add arrow and derivative box
-                \node at (1.5, -2.5) (dfdz_text) {\(\frac{\partial f}{\partial x}\)};
-                \draw[->, thick, magenta] (dfdz_text) -- (1, -0.5); 
-
-            \end{tikzpicture}
-            \end{center}
-            
-            \[
-            \textcolor{red}{ 
-            want \quad
-            \frac{\partial f}{\partial x}, \quad \frac{\partial f}{\partial y}, \quad
-            \frac{\partial f}{\partial z}, \quad
-            }
-            Chain\quad rule \quad
-            \frac{\partial f}{\partial x} =  \frac{\partial f}{\partial q}
-            \frac{\partial q}{\partial x}
-            \] 
-            
-        \end{column}
-
-    \end{columns}
 
 \end{frame}
 
@@ -1350,7 +686,6 @@
     \end{center}
 \end{frame}
 
-\subsection{Chain Rule}
 \begin{frame}{Chain Rule – Matrix-Vector Multiply}
     \begin{center}
         \includegraphics[width=12cm]{pic/chain1.png}  
