@@ -83,7 +83,7 @@ subsubsectionstyle=show/shaded/hide]
     \begin{picture}(0,0)
             \put(200,-150){\includegraphics[width=7cm]{pic/1/neuron.png}} % Adjust path and size
     \end{picture}
-    The building block of each neural network is Perceptron:
+    The building block of each neural network is the perceptron:
     \begin{itemize}
         \item $\{x_1, x_2, \dots, x_k\}$ : input features
         \item $\{w_1, w_2, \dots, w_k\}$ : feature weights
@@ -101,12 +101,12 @@ subsubsectionstyle=show/shaded/hide]
         \begin{itemize}
             \item $\Delta x = \dfrac{1}{2}a\cdot t^2 + v_0 \cdot t$
         \end{itemize}
-        \item We can model some problems assuming simple relationships (classical machine learning)
+        \item We can model some problems by assuming simple relationships (classical machine learning)
         \begin{itemize}
             \item House price as a linear function of its features
             \item $y = a_1 \cdot x_1 + a_2 \cdot x_2 + \ldots + a_p \cdot x_p$
         \end{itemize}
-        \item How about classifying these images?
+        \item How can we classify these images?
         \begin{center}
             \includegraphics[keepaspectratio, scale=0.1]{pic/1/fashion-mnist.png}
         \end{center}
@@ -120,9 +120,9 @@ subsubsectionstyle=show/shaded/hide]
     \end{picture}
     
     \begin{itemize}
-        \item No explicit formula exists to recognize a sneaker
-        \item We recognize any sneaker intuitively
-        \item Our brains use a complex function for this recognition
+        \item \textbf{No explicit formula} exists to recognize a sneaker
+        \item We intuitively recognize any sneaker
+        \item Our brains use a\textbf{ complex function} for this recognition
         \item \textbf{Deep neural networks} can learn this complex function
     \end{itemize}
 \end{frame}
@@ -191,9 +191,9 @@ subsubsectionstyle=show/shaded/hide]
     \begin{columns}
         \begin{column}{0.6\textwidth}
             \begin{itemize}
-                \item Increasing \textbf{width and depth} allows us to approximate \textbf{complex decision boundaries}
-                \item An \textbf{activation function} makes a neuron’s output \textbf{non-linear}, allowing the network to learn complex data
-                \item \textbf{Not limited} to Boolean or step functions
+                \item Increasing \textbf{width and depth} allow us to approximate \textbf{complex decision boundaries}
+                \item An \textbf{activation function} makes a neuron’s output \textbf{non-linear}, allowing the network to learn complex pattern
+                \item It is \textbf{not limited} to Boolean or step functions
                 \item With appropriate activation functions, neural networks can \textbf{approximate any real-valued function} (More details later)
             \end{itemize}
         \end{column}
@@ -254,7 +254,7 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}[t]{Deep Neural Network Architecture}
 \begin{itemize}
     \item More than a few hidden layers: \textbf{Deep Neural Network (DNN)}
-    \item Designing a neural network architecture is \textbf{more of an art than a science}.
+    \item Designing neural network architecture is \textbf{more of an art than a science}.
         \begin{figure}[bh]
             \includegraphics[keepaspectratio, scale=0.3]{pic/3/huge-nn.png}
         \end{figure}
@@ -286,9 +286,9 @@ subsubsectionstyle=show/shaded/hide]
 \section{Training Neural Networks}
 \begin{frame}{Training Phases}
     \begin{itemize}
-        \item \textbf{Initialize weights and biases}: These values control how the network initially processes information (More details later)
+        \item \textbf{Initialize weights and biases}: These values control how the network initially processes information (more details later)
         \item \textbf{Forward pass}: Pass the input through the network to get an output
-        \item \textbf{Calculate the error}: Compare the network's output to the correct answer to measure the difference (called the 'loss' - More details later) 
+        \item \textbf{Calculate the error}: Compare the network's output to the correct answer to measure the difference (called the 'loss' -- more details later) 
         \item \textbf{Backpropagation}: Use the loss value to adjust the weights and biases to improve the network's accuracy
     \end{itemize}
     \begin{figure}[bh]
@@ -299,7 +299,7 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}[t]{Forward Propagation}
     \begin{itemize}
         \item This is the pass where we send input data through the network to make a prediction (likely inaccurate at first).
-        \item The prediction is made by calculating weighted sums and applying an activation function at each layer
+        \item The prediction is made by calculating weighted sums and applying an activation function in each layer
         $$ o(x) = a^{(L)} = \sigma^{(L)}\left( b^{(L)} + W^{(L)}  \sigma^{(L-1)}\left( \ldots \sigma^{(1)}(b^{(1)} + W^{(1)}  x)  \ldots \right) \right) $$
     \end{itemize}
 \end{frame}
@@ -307,14 +307,14 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{Forward Propagation Cont.}
         \begin{figure}[h]
             \includegraphics[width=\linewidth]{pic/4/tensorflow0.png}\\
-            {\scriptsize Before producing predictions. Adapted from \href{playground.tensorflow.org}{TensorFlow playground: Daniel Smilkov and Shan Carter}.}
+            {\scriptsize Before making predictions. Adapted from \href{playground.tensorflow.org}{TensorFlow playground: Daniel Smilkov and Shan Carter}.}
         \end{figure}
 \end{frame}
 
 \begin{frame}[t]{Forward Propagation Cont.}
     \begin{itemize}
         \item The goal is to adjust the network’s parameters to improve the predictions
-        \item The loss is calculated after the forward pass, telling us how far off our predictions are from the true values
+        \item The loss is calculated after the forward pass, indicating how far off our predictions are from the true values
         \begin{figure}[bh]
             \centering
             \includegraphics[width=\linewidth]{pic/4/tensorflow2.png} \\
@@ -325,13 +325,13 @@ subsubsectionstyle=show/shaded/hide]
 
 \begin{frame}[t]{BackPropagation and Parameter Update}
     \begin{itemize}
-        \item The network uses the \textbf{loss} to adjust its \textbf{weights and biases} through a process called \textbf{backpropagation}
+        \item The network uses the \textbf{loss} to adjust its \textbf{weights and biases} through a process known as \textbf{backpropagation}
         \item Backpropagation calculates how much weights should change to reduce the error
-        \item This will be explained in more detail in the next lecture
+        \item This will be explained in more detail in the following lecture
         \begin{figure}[bh]
             \centering
             \includegraphics[width=\linewidth]{pic/4/tensorflow3.png} \\
-            {\scriptsize Predictions get better as the weights get updated. Adapted from \href{playground.tensorflow.org}{TensorFlow playground: Daniel Smilkov and Shan Carter}.}
+            {\scriptsize Predictions improve as the weights get updated. Adapted from \href{playground.tensorflow.org}{TensorFlow playground: Daniel Smilkov and Shan Carter}.}
         \end{figure}
     \end{itemize}
 \end{frame}
