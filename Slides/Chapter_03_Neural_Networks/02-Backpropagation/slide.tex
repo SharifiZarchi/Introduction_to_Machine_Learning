@@ -211,7 +211,21 @@
 \section{Backpropagation}
 \subsection{Forward and Backward Passes}
 
+\begin{frame}{Multi-Layer Neural Network}
+        The diagram below illustrates a three-layer neural network
 
+    \vspace{0.3cm}
+    \begin{center}
+
+            \begin{figure}
+\centerline{\includegraphics[scale=1.3]{pic/Our-neural-network-settings-weight-matrix-W-and-bias-b-are-recalibrated-in-the-learning.png}}
+\\
+{Neural Network \href{https://www.researchgate.net/figure/Our-neural-network-settings-weight-matrix-W-and-bias-b-are-recalibrated-in-the-learning_fig1_335468765}{}}
+\end{figure}
+    \end{center}
+        How should \(\frac{\partial L}{\partial w}\) be calculated for each weight \( w \) in this neural network?
+
+\end{frame}
 \begin{frame}{A Simple Example}
 
     % Start of the columns environment
@@ -229,7 +243,7 @@
         % Right column: Computational graph (TikZ diagram)
         \begin{column}{0.7\textwidth}
                     \begin{center}
-                \includegraphics[width=\textwidth, keepaspectratio]{pic/b1.jpg}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/one.jpg}
             \end{center}
         \end{column}
 
@@ -262,11 +276,43 @@
         % Right column: Computational graph (TikZ diagram)
         \begin{column}{0.7\textwidth}
                     \begin{center}
-                \includegraphics[width=\textwidth, keepaspectratio]{pic/Conversion output 2.png}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/two.jpg}
             \end{center}
         \end{column}
 
     \end{columns}
+\end{frame}
+
+\begin{frame}{Finite Difference Method}
+    To approximate the gradient \( \frac{\partial L}{\partial w_i} \):
+    \begin{itemize}
+        \item Change \( w_i \) by a small value \( \epsilon \).
+        \item Approximate the gradient as:
+        \[
+        \frac{\partial L}{\partial w_i} \approx \frac{L(w_i + \epsilon) - L(w_i)}{\epsilon}
+        \]
+        \item Simple but inefficient.
+    \end{itemize}
+    
+    \vspace{10pt}
+    \textbf{Problem:} \\
+    Complexity is \( \Theta(n^2) \) for \( n \) weights, which is slow for large models.
+\end{frame}
+
+% Slide 2: Backpropagation Method
+\begin{frame}{Backpropagation}
+    \textbf{A more efficient method:}
+    \begin{itemize}
+        \item Use the chain rule to compute all gradients in one backward pass.
+        \item This method avoids changing each weight separately.
+    \end{itemize}
+    
+    \vspace{10pt}
+    \textbf{Advantages:}
+    \begin{itemize}
+        \item Complexity is reduced to \( \Theta(n) \).
+        \item Much faster, especially for large neural networks.
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{Chain Rule for Gradients}
@@ -292,39 +338,6 @@
     This means we multiply the gradient of the outer function by the gradient of the inner function.
 \end{frame}
 
-
-\begin{frame}{Finite Difference Method}
-    To approximate the gradient \( \frac{\partial L}{\partial w_i} \):
-    \begin{itemize}
-        \item Change \( w_i \) by a small value \( \epsilon \).
-        \item Approximate the gradient as:
-        \[
-        \frac{\partial L}{\partial w_i} \approx \frac{L(w_i + \epsilon) - L(w_i)}{\epsilon}
-        \]
-        \item Simple but inefficient.
-    \end{itemize}
-    
-    \vspace{10pt}
-    \textbf{Problem:} \\
-    Complexity is \( \Theta(n^2) \) for \( n \) weights, which is slow for large models.
-\end{frame}
-
-% Slide 2: Backpropagation Method
-\begin{frame}{Backpropagation}
-    A more efficient method:
-    \begin{itemize}
-        \item Use the chain rule to compute all gradients in one backward pass.
-        \item This method avoids changing each weight separately.
-    \end{itemize}
-    
-    \vspace{10pt}
-    \textbf{Advantages:}
-    \begin{itemize}
-        \item Complexity is reduced to \( \Theta(n) \).
-        \item Much faster, especially for large neural networks.
-    \end{itemize}
-\end{frame}
-
 \begin{frame}{Backpropagation: A Simple Example}
 
     % Start of the columns environment
@@ -345,7 +358,7 @@
         % Right column: Computational graph (TikZ diagram)
         \begin{column}{0.7\textwidth}
                     \begin{center}
-                \includegraphics[width=\textwidth, keepaspectratio]{pic/b2.jpg}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/three.jpg}
             \end{center}
         \end{column}
     \end{columns}
@@ -377,7 +390,7 @@
         % Right column: Computational graph (TikZ diagram)
         \begin{column}{0.7\textwidth}
                     \begin{center}
-                \includegraphics[width=\textwidth, keepaspectratio]{pic/b3.jpg}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/four.jpg}
             \end{center}
         \end{column}
 
@@ -402,25 +415,18 @@
             \[
             x = -2, \quad y = 5, \quad z = -4
             \]
-             \vspace{-0.4cm}
-            % Step 1
-            \textcolor{blue}{\textbf{Step 1:}}
-            \[
-            \frac{\partial f}{\partial f} = 1
-            \]
-             \vspace{-0.4cm}
             % Step 2
             \textcolor{blue}{\textbf{Step 2:}}
             \[
             f = qz, \quad
-            \frac{\partial f}{\partial q} = z = -4, \quad \frac{\partial f}{\partial z} = q = 3
+            \frac{\partial f}{\partial z} = q = 3
             \]
         \end{column}
 
         % Right column: Computational graph (TikZ diagram)
         \begin{column}{0.7\textwidth}
                     \begin{center}
-                \includegraphics[width=\textwidth, keepaspectratio]{pic/b4.jpg}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/five.jpg}
             \end{center}
         \end{column}
 
@@ -444,25 +450,21 @@
             \[
             x = -2, \quad y = 5, \quad z = -4
             \]
-             \vspace{-0.4cm}
-            % Step 1
-            \textcolor{blue}{\textbf{Step 1:}}
-            \[
-            \frac{\partial f}{\partial f} = 1
-            \]
-             \vspace{-0.4cm}
             % Step 2
             \textcolor{blue}{\textbf{Step 2:}}
             \[
             f = qz, \quad
-            \frac{\partial f}{\partial q} = z = -4, \quad \frac{\partial f}{\partial z} = q = 3
+            \frac{\partial f}{\partial z} = q = 3
+            \]
+            \[
+            \frac{\partial f}{\partial q} = z = -4
             \]
         \end{column}
 
         % Right column: Computational graph (TikZ diagram)
         \begin{column}{0.7\textwidth}
                     \begin{center}
-                \includegraphics[width=\textwidth, keepaspectratio]{pic/b5.jpg}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/six.jpg}
             \end{center}
         \end{column}
 
@@ -486,16 +488,11 @@
             \[
             x = -2, \quad y = 5, \quad z = -4
             \]
-            \vspace{-0.4cm}
             % Step 1
-            \textcolor{blue}{\textbf{Step 1:}}
+            \textcolor{blue}{\textbf{Step 3:}}
             \[
              q = x + y, \quad
-            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1
-            \]
-            \vspace{-0.2cm}
-            % Step 2
-            \textcolor{blue}{\textbf{Step 2:}}
+            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1\]
             \[
             \frac{\partial f}{\partial y} =  \frac{\partial f}{\partial q}
             \frac{\partial q}{\partial y} = -4 \cdot 1 = -4
@@ -505,7 +502,7 @@
         % Right column: Computational graph (TikZ diagram)
         \begin{column}{0.7\textwidth}
                     \begin{center}
-                \includegraphics[width=\textwidth, keepaspectratio]{pic/b6.jpg}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/seven.jpg}
             \end{center}
         \end{column}
 
@@ -530,14 +527,10 @@
             \]
             \vspace{-0.4cm}
             % Step 1
-            \textcolor{blue}{\textbf{Step 1:}}
+            \textcolor{blue}{\textbf{Step 3:}}
             \[
              q = x + y, \quad
-            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1
-            \]
-            \vspace{-0.2cm}
-            % Step 2
-            \textcolor{blue}{\textbf{Step 2:}}
+            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1\]
             \[
             \frac{\partial f}{\partial x} =  \frac{\partial f}{\partial q}
             \frac{\partial q}{\partial x} = -4 \cdot 1 = -4
@@ -547,7 +540,7 @@
         % Right column: Computational graph (TikZ diagram)
         \begin{column}{0.7\textwidth}
                     \begin{center}
-                \includegraphics[width=\textwidth, keepaspectratio]{pic/b7.jpg}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/eight.jpg}
             \end{center}
         \end{column}
 
@@ -576,11 +569,7 @@
             \textcolor{blue}{\textbf{Step 1:}}
             \[
              q = x + y, \quad
-            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1
-            \]
-            \vspace{-0.2cm}
-            % Step 2
-            \textcolor{blue}{\textbf{Step 2:}}
+            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1\]
             \[
             \frac{\partial f}{\partial x} =  \frac{\partial f}{\partial q}
             \frac{\partial q}{\partial x} = -4 \cdot 1 = -4
@@ -590,7 +579,7 @@
         % Right column: Computational graph (TikZ diagram)
         \begin{column}{0.7\textwidth}
                     \begin{center}
-                \includegraphics[width=\textwidth, keepaspectratio]{pic/b8.jpg}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/nine.jpg}
             \end{center}
             
         \end{column}
