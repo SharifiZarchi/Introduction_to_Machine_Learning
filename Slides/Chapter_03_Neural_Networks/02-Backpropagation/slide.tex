@@ -653,7 +653,7 @@
 
 \begin{frame}{Vectorized Backpropagation}
     \begin{center}
-        \includegraphics[width=10cm]{pic/vec3.png}  
+        \includegraphics[width=11cm]{pic/vec3.jpg}  
     \end{center}
 \end{frame}
 
@@ -818,7 +818,7 @@
 \end{frame}
 \begin{frame}{Xavier Initialization}
     \textbf{Description:} 
-    Xavier Initialization is designed to keep the variance of activations consistent across layers, ideal for sigmoid and tanh activations.
+    Xavier Initialization is designed to keep the variance of activations consistent across layers, ideal for \textbf{sigmoid} and \textbf{tanh} activations.
 
     \textbf{Objective:} 
     Prevents the shrinking or exploding of signal magnitudes during forward and backward propagation.
@@ -827,18 +827,19 @@
     \[
     \frac{1}{n_l} \, \text{Var}[w] = 1
     \]
+    \text{where \(n_l\) is the number of neurons in layer \(l\).}
 
     \textbf{Initialization Scheme:}
     \[
     w \sim \mathcal{U}\left(-\sqrt{\frac{1}{n_l}}, \sqrt{\frac{1}{n_l}}\right)
     \]
-
     This results in a uniform distribution within the range \(-\sqrt{\frac{1}{n_l}}\) to \(\sqrt{\frac{1}{n_l}}\), ensuring stable signal variance across layers.
 \end{frame}
 
+
 \begin{frame}{He Initialization}
     \textbf{Description:} 
-    He Initialization (or Kaiming Initialization) is designed for neural networks with ReLU activations, considering the non-linearity of these functions.
+    He Initialization (or Kaiming Initialization) is designed for neural networks with \textbf{ReLU} activations, considering the non-linearity of these functions.
     
     \textbf{Objective:} 
     Aims to prevent the exponential growth or reduction of input signal magnitudes through layers.
@@ -856,24 +857,19 @@
     This implies a zero-centered Gaussian distribution with a standard deviation of \( \sqrt{\frac{2}{n_l}} \), where biases are initialized to 0.
 \end{frame}
 
-\begin{frame}{Key Point Summary}
-    Proper initialization:
-    \begin{itemize}
-        \item Reduces the risk of gradient issues (vanishing/exploding gradients).
-        \item Helps the network converge faster.
-    \end{itemize}
+\begin{frame}{Xavier vs. He}
+\begin{itemize}
+    \item Evolution of loss term for Xavier and He weight initialization.
+\end{itemize}
+    \begin{figure}
+\centerline{\includegraphics[width=10cm]{pic/Evolution-of-loss-term-for-Xavier-weight-initialization-and-He-weight-initialization.png}}
+\\
+{\tiny{Image adapted from} \href{https://www.researchgate.net/publication/363843256_A_Knowledge-driven_Physics-Informed_Neural_Network_model_Pyrolysis_and_Ablation_of_Polymers}{\tiny{A Knowledge-driven Physics-Informed Neural Network model; Pyrolysis and Ablation of Polymers}}}
+
+\label{fig}
+\end{figure}
 \end{frame}
 
-\begin{frame}{Xavier vs He}
-\begin{itemize}
-\item Evolution of loss term for Xavier weight initialization and He weight initialization.
-\item Image adapted from \href{https://www.researchgate.net/publication/363843256_A_Knowledge-driven_Physics-Informed_Neural_Network_model_Pyrolysis_and_Ablation_of_Polymers}{A Knowledge-driven Physics-Informed Neural Network model; Pyrolysis and Ablation of Polymers}
-\end{itemize}
-    \begin{center}
-        \includegraphics[width=10cm]{pic/Evolution-of-loss-term-for-Xavier-weight-initialization-and-He-weight-initialization.png}  
-    \end{center}
- 
-\end{frame}
 \begin{frame}{Choosing the Right Initialization – Examples}
 
     \begin{itemize}
@@ -888,8 +884,7 @@
             \item \textbf{Best Choice:} Xavier Initialization.
             \item \textbf{Reason:} Keeps variance balanced, which is crucial for non-ReLU activations.
         \end{itemize}
-        
-        \item \textbf{Experiment:} Try initializing with zeros and random weights to see how it impacts training speed and performance.
+    
     \end{itemize}
     
 \end{frame}
@@ -926,9 +921,10 @@
 
 \begin{frame}{Mean Squared Error (MSE)}
     \textbf{Definition:}
-    \[
-    \text{MSE} = \frac{1}{N} \sum_{i=1}^{N} \left( y_i - \hat{y}_i \right)^2
-    \]
+\[
+    \text{MSE} = \frac{1}{N} \sum_{i=1}^{N} \left( y^{(i)} - \hat{y}^{(i)} \right)^2
+\]
+
     \textbf{Characteristics:}
     \begin{itemize}
         \item Amplifies larger errors due to squaring, making it sensitive to outliers.
@@ -952,9 +948,9 @@
 
 \begin{frame}{Mean Absolute Error (MAE)}
     \textbf{Definition:}
-    \[
-    \text{MAE} = \frac{1}{N} \sum_{i=1}^{N} \left| y_i - \hat{y}_i \right|
-    \]
+\[
+    \text{MAE} = \frac{1}{N} \sum_{i=1}^{N} \left| y^{(i)} - \hat{y}^{(i)} \right|
+\]
     \textbf{Characteristics:}
     \begin{itemize}
         \item Provides a linear measure of error, treating all deviations equally.
@@ -976,40 +972,28 @@
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Impact on Model Outputs}
-    \textbf{MSE Impact:}
+\begin{frame}{Impact on Model Outputs and Optimization}
+    \textbf{MSE (Mean Squared Error):}
     \begin{itemize}
-        \item Penalizes large errors heavily, leading to smoother outputs, useful in cases like refining blurry autoencoder images.
+        \item Heavily penalizes large errors, promoting smoother outputs.
+        \item Its quadratic gradient leads to faster convergence for large errors, but it can be sensitive to outliers.
     \end{itemize}
     
-    \textbf{MAE Impact:}
+    \textbf{MAE (Mean Absolute Error):}
     \begin{itemize}
-        \item Treats errors uniformly, often resulting in sharper outputs and better handling of outliers.
+        \item Treats all errors uniformly, resulting in sharper outputs and better handling of outliers.
+        \item Its constant gradient ensures stable optimization but can slow convergence with large errors.
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Gradient and Optimization Differences}
-    \begin{itemize}
-        \item \textbf{MSE} promotes faster convergence for large errors due to its quadratic gradient.
-        \item \textbf{MAE} provides a constant gradient, making optimization stable but slower with large errors.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Summary}
-    \begin{itemize}
-        \item \textbf{MSE} is suitable for models where large errors need higher penalization.
-        \item \textbf{MAE} is better for robust models that handle outliers and avoid smoothing effects.
-        \item Choice of loss function affects model behavior and output characteristics.
-    \end{itemize}
-\end{frame}
 \begin{frame}{Binary Classification Loss – Binary Cross-Entropy}
 
     \textbf{Binary Cross-Entropy:}
     \vspace{-0.5cm}
     \[
-    \mathcal{L}_{\text{BCE}} = -\frac{1}{n} \sum_{i=1}^{n} \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i) \right]
+    \mathcal{L}_{\text{BCE}} = -\frac{1}{n} \sum_{i=1}^{n} \left[ y^{(i)} \log(\hat{y}^{(i)}) + (1 - y^{(i)}) \log(1 - \hat{y}^{(i)}) \right]
     \]
-
+    
     \textbf{Example:}
     \begin{itemize}
         \item Predicted probabilities: \( \hat{y} = [0.7, 0.3, 0.9] \)
@@ -1023,7 +1007,7 @@
         \left. + 1 \cdot \log(0.9) + (1 - 1) \cdot \log(1 - 0.9) \right]
         \]
         \[
-        \approx -\frac{1}{3} \left( \log(0.7) + \log(0.7) + \log(0.9) \right)
+        = -\frac{1}{3} \left( \log(0.7) + \log(0.7) + \log(0.9) \right)
         \approx -\frac{1}{3} \left( -0.357 + -0.357 + -0.105 \right) \approx 0.273
         \]
     \end{itemize}
@@ -1034,12 +1018,13 @@
 \begin{frame}{Categorical Cross-Entropy}
     \textbf{Categorical Cross-Entropy Formula:}
     \[
-    L_{CCE} = - \frac{1}{n} \sum_{i=1}^{n} \sum_{c=1}^{C} y_{i,c} \log(\hat{y}_{i,c})
+    \mathcal{L}_{CCE} = - \frac{1}{n} \sum_{i=1}^{n} \sum_{c=1}^{C} y^{(i)}_c \log(\hat{y}^{(i)}_c)
     \]
 \end{frame}
 
+
 \begin{frame}{One-Hot Encoding}
-    One-hot encoding represents categorical variables as binary vectors, with a 1 indicating the actual class and 0s elsewhere.
+    \textbf{One-hot} encoding represents categorical variables as binary vectors, with a 1 indicating the actual class and 0s elsewhere.
     
     \textbf{Example:} \\
     \begin{itemize}
@@ -1048,21 +1033,23 @@
         \item Class 3: \([0, 0, 1]\)
     \end{itemize}
 \end{frame}
-
 \begin{frame}{Example Calculation (3-Class)}
     \textbf{Given:}
     \begin{itemize}
         \item True labels (One-hot): Class 2, Class 1, Class 3
         \item Predicted probabilities:
-        \[
-        \hat{y} = \begin{bmatrix} 
-        0.1 & 0.7 & 0.2 \\ 
-        0.6 & 0.3 & 0.1 \\ 
-        0.1 & 0.6 & 0.3 
-        \end{bmatrix}
-        \]
     \end{itemize}
+    \begin{center}
+        \(\hat{y} = \underbrace{\begin{bmatrix} 
+            0.1 & 0.7 & 0.2 \\ 
+            0.6 & 0.3 & 0.1 \\ 
+            0.1 & 0.6 & 0.3 
+            \end{bmatrix}}_{\text{Classes}}\)
+        \quad \text{Samples}
+    \end{center} 
 \end{frame}
+
+
 
 \begin{frame}{Solution}
     \begin{enumerate}
@@ -1076,20 +1063,16 @@
         \]
         \item Calculation:
         \[
-        L_{CCE} = -\frac{1}{3} \left( \log(0.7) + \log(0.6) + \log(0.3) \right)
+        \mathcal{L}_{CCE} = -\frac{1}{3} \left( \log(0.7) + \log(0.6) + \log(0.3) \right)
         \]
+        \item Compute log terms:
+            \[
+            \log(0.7) \approx -0.357, \quad \log(0.6) \approx -0.511, \quad \log(0.3) \approx -1.204
+            \]
+            \[
+           \mathcal{L}_{CCE} = \frac{1}{3} \times 2.072 \approx 0.691
+            \]
     \end{enumerate}
-\end{frame}
-
-\begin{frame}{Solution Continued}
-    \textbf{Compute Log Terms:}
-    \[
-    \log(0.7) \approx -0.357, \quad \log(0.6) \approx -0.511, \quad \log(0.3) \approx -1.204
-    \]
-        The categorical cross-entropy loss for the given data is:
-    \[
-    L_{CCE} = \frac{1}{3} \times 2.072 \approx 0.691
-    \]
 \end{frame}
 
 \subsection{Activation Functions}
@@ -1324,10 +1307,11 @@
     \begin{equation*}
               \sigma(z) = \frac{1}{1 + e^{-z}}
     \end{equation*}
-    \begin{itemize}
-        \item Squashes the input between 0 and 1, which makes it useful in probabilistic interpretations (e.g., logistic regression).
-        \item Often used in output layers for binary classification problems.
-    \end{itemize}
+\begin{itemize}
+    \item $\sigma'(z) = \sigma(z)(1 - \sigma(z))$
+    \item Squashes the input between 0 and 1, which makes it useful in probabilistic interpretations (e.g., logistic regression).
+    \item Often used in output layers for binary classification problems.
+\end{itemize}
 
     \begin{center}
     \begin{tikzpicture}
@@ -1406,6 +1390,7 @@
     \node at (4, -1.2) {\small Weighted Sum};
     \node at (9, -1.2) {\small Sigmoid Activation};
     \node at (15, 2.2) {\small 99.66\% probability};
+    \node at (15, -0.2) {\small 0.34\% probability};
     
     \end{tikzpicture}
     \end{center}
@@ -1525,17 +1510,6 @@
     \end{center}
 
 \end{frame}
-\begin{frame}{Comparison: Sigmoid vs Tanh}
-        \textbf{When to Use:}
-    \begin{itemize}
-        \item \textbf{Sigmoid}: Best for binary classification tasks, particularly in the output layer.
-        \item \textbf{Tanh}: More suitable for hidden layers due to its centered output, allowing faster training.
-    \end{itemize}
-    \textbf{Question:}
-    \begin{itemize}
-        \item In what scenario might Sigmoid be preferred over Tanh, despite its limitations?
-    \end{itemize}
-\end{frame}
 
 \begin{frame}{Problem: Multi-Class Tumor Classification}
     \textbf{Scenario:} We want to classify a tumor into one of three categories:
@@ -1558,7 +1532,7 @@
 \end{figure}
 \end{frame}
 \begin{frame}{Softmax Activation: The Model}
-    In multi-class classification, Softmax is used to convert raw outputs (logits) into probabilities for each class.
+    In multi-class classification, the Softmax function is used to convert raw outputs (logits) into probabilities for each class.
     
     \textbf{Softmax Function:}
     \[
@@ -1566,12 +1540,14 @@
     \]
     Where:
     \begin{itemize}
+        \item \( P(y = i | X) \) is the probability of the sample \( X \) belonging to class \( i \).
         \item \( z_i \) is the raw output (logit) for class \( i \).
-        \item \( K \) is the number of classes (in this case, 3: benign, malignant, pre-cancerous).
+        \item \( K \) is the number of classes (e.g., benign, malignant, pre-cancerous).
     \end{itemize}
     
     The Softmax function ensures that the sum of the probabilities for all classes is 1, and the class with the highest probability is chosen as the prediction.
 \end{frame}
+
 
 \begin{frame}{Example: Softmax Calculation}
     Consider a tumor with the following logits from a neural network:
