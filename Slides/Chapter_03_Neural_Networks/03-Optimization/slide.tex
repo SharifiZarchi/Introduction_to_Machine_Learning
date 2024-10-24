@@ -93,10 +93,16 @@ subsubsectionstyle=show/shaded/hide]
         \item Simply put, we want to find the direction to step in that will \textbf{reduce our loss} as quickly as possible
         \item In other words, \textbf{which way is downhill?}
     \end{itemize}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.5\linewidth]{pic/downhill_feifei_rouhan.png}
+        \caption{Visualization from CS231n, Stanford University}
+        \label{fig:enter-label}
+    \end{figure}
 \end{frame}
 
 \subsection{Convexity and Optimization}
-\begin{frame}{Convexity and Optimization}
+\begin{frame}{Convexity}
     \begin{minipage}{0.6\linewidth}
         \begin{itemize}
             \item \textbf{Definition}: A function is \textbf{convex} if, for any two points on the curve, the line segment connecting them lies above or on the curve
@@ -117,7 +123,8 @@ subsubsectionstyle=show/shaded/hide]
     \end{minipage}
 \end{frame}
 
-\begin{frame}{Convexity and Optimization}
+\begin{frame}{Convexity}
+    \begin{minipage}{0.5\linewidth}
     \begin{itemize}
         \item \textbf{Definition}: a function is \textbf{non-convex} if it has multiple local minima and maxima
         \begin{itemize}
@@ -127,12 +134,17 @@ subsubsectionstyle=show/shaded/hide]
         \end{itemize}
         \item Non-convex functions make finding the \textbf{global minimum} complicated
     \end{itemize}
-    \begin{center}
-        \begin{minipage}{0.5\linewidth}
+    \end{minipage}%
+    % \begin{center}
+    \begin{minipage}{0.5\linewidth}
+        \begin{figure}[h]
             \centering
-            \includegraphics[height=.5\textheight]{pic/Saddle_point.jpg}
-        \end{minipage}
-    \end{center}
+            % \includegraphics[height=.5\textheight]{pic/Saddle_point.jpg}
+            \includegraphics[height=.70\textheight]{pic/convex_nonconvex.png}
+            \caption{\footnotesize Convex (above) and non-convex (below) functions. From 11-785 Introduction to Deep Learning, CMU, Fall 2024}
+        \end{figure}
+    \end{minipage}
+    % \end{center}
 \end{frame}
 
 \section{The Loss Surface}
@@ -161,7 +173,7 @@ subsubsectionstyle=show/shaded/hide]
         \item How can we optimize a non-convex loss function?
         \item \textbf{Strategy}: Instead of randomly searching for a good direction, we calculate the \textbf{best direction} to reduce the loss
         \begin{itemize}
-            \item  This is mathematically guaranteed to be the direction of the steepest descent
+            \item  Mathematically, this is guaranteed to be the direction of the steepest descent
         \end{itemize}
     \end{itemize}
     \end{minipage}%
@@ -217,7 +229,7 @@ Noisy updates \newline
 May not converge smoothly \\ 
 \midrule
 \textbf{Mini-Batch}   & 
-Faster than batch, more stable than SGD \newline 
+Faster than batch gradient descent, more stable than stochastic gradient descent (SGD) \newline 
 Efficient for larger datasets & 
 Requires tuning batch size \newline 
 Some noise remains \\ 
@@ -242,7 +254,7 @@ Some noise remains \\
     \begin{center}
         \begin{figure}
             \includegraphics[width=1\linewidth]{pic/sgd_stanford.png}
-            \caption{\footnotesize SGD visualization from CS231n: Convolutional Neural Networks for Visual Recognition}
+            \caption{\footnotesize SGD visualization from CS231n, Stanford University}
         \end{figure}
     \end{center}
  %   \end{minipage}
@@ -289,7 +301,7 @@ Some noise remains \\
     \begin{itemize}
         \item Why not just use mini-batches?
         \begin{itemize}
-            \item Even though mini-batch gradient descent helps \textbf{reduce the noise}, It can still have a \textbf{slow convergence} and might \textbf{get stuck} in regions where the gradients are small (like plateaus or valleys), which makes learning inefficient
+            \item Even though mini-batch gradient descent helps \textbf{reduce the noise}, It can still converge \textbf{slowly} and might \textbf{get stuck} in regions where the gradients are small (like plateaus or valleys), which makes learning inefficient
         \end{itemize}
         \item In addition, using the same learning rate for all dimensions can lead to:
         \begin{itemize}
@@ -315,7 +327,7 @@ Some noise remains \\
 \begin{frame}{Problem Definition}
     \begin{itemize}
         \item \textbf{Goal}: Choose an appropriate learning rate to avoid slow convergence and getting stuck in local minima while not overshooting or becoming unstable
-        \item \textbf{Naive Approach}: Try lots of different learning rates and see what works "just right"
+        \item \textbf{Naive Approach}: Test many different learning rates to find the one that works "just right"
         \begin{itemize}
             \item This can be inefficient and time-consuming
         \end{itemize}
@@ -337,9 +349,9 @@ Some noise remains \\
         \begin{itemize}
             \item \textbf{Goal}: Speed up convergence by using past gradients to smooth out oscillations and avoid getting stuck
             \begin{itemize}
-                \item Keep moving in the same general direction as previous steps
+                \item Continue moving in the same general direction as the previous steps
             \end{itemize}
-            \item \textbf{Benefit}: Accelerates learning in important directions while reducing oscillations in irrelevant ones
+            \item \textbf{Benefit}: It accelerates learning in significant directions while reducing oscillations in less important ones
         \end{itemize}
     \end{minipage}%
     \begin{minipage}{0.5\linewidth}
@@ -360,21 +372,21 @@ Some noise remains \\
         where:
         \begin{itemize}
             \item $m_{t+1}$ is the first moment at time step $t+1$
-            \item $\beta_1$ is the decay rate, which controls how much of the past gradients to include (typically 0.9 or 0.99)
+            \item $\beta_1$ is the decay rate, controlling how much of the past gradients to include (typically 0.9 or 0.99)
             \item $\nabla_w J(w_t)$ is the gradient at time step $t$
         \end{itemize}
     \end{itemize}
     
     \textbf{Why use the first moment?}
     \begin{itemize}
-        \item Inspired by physics, it keeps us moving due to accumulated momentum, like a ball rolling in a frictionless bowl 
+        \item Inspired by physics, it maintains movement due to accumulated momentum, similar to a ball rolling down a frictionless bowl 
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Second Momentum}
     \begin{itemize}
         \item The second momentum, denoted as $v_{t}$, is a \textbf{moving average of the squared gradients}. 
-        \item It helps us track how large the gradients have been over time. The update rule is:
+        \item It helps track the magnitude of the gradients over time. The update rule is:
         \[v_{t+1} = \beta_2 v_t + (1 - \beta_2) (\nabla_w J(w_t))^2\]
         \[w_{t+1} = w_t - \eta v_{t+1}\]
         where:
@@ -387,7 +399,7 @@ Some noise remains \\
 
     \textbf{Why use the second moment?}
     \begin{itemize}
-        \item The second moment helps \textbf{control the size of updates} by adjusting for consistently large or small gradients, preventing overshooting or slow learning
+        \item The second moment helps \textbf{regulate update sizes} by adjusting for consistently large or small gradients, preventing overshooting or slow learning
     \end{itemize}
 \end{frame}
 
@@ -395,7 +407,7 @@ Some noise remains \\
 \begin{frame}{Moment Bias Correction}
     \begin{itemize}
         \item \textbf{Problem}: When we start training, both $m_{t}$ and $v_{t}$ are initialized to zero, causing their estimates to be biased toward zero in the early steps, especially when gradients are small.
-        \item \textbf{Solution}: We use bias-corrected versions of $m_{t}$ and $v_{t}$ to fix this:
+        \item \textbf{Solution}: We use bias-corrected versions of $m_{t}$ and $v_{t}$ to address this:
         \[\hat{m}_{t} = \frac{m_{t}}{1 - \beta_1^{t}}, \quad 
         \hat{v}_{t} = \frac{v_{t}}{1 -\beta_2^{t}}\]
         \item These corrections compensate for the bias by scaling $m_{t}$ and $v_{t}$ upward, especially in the early steps when $t$ is small, ensuring more accurate estimates of the moments.
@@ -468,10 +480,10 @@ Some noise remains \\
 \subsection{Adam}
 \begin{frame}{Adam}
     \begin{itemize}
-        \item Adaptive Moment Estimation, or \textbf{Adam}, combines the concepts of \textbf{momentum} and \textbf{adaptive learning rate} by maintaining an exponentially decaying average of both past gradients and squared gradients
-        \item Adam adapts the learning rate for each parameter based on the gradient history
+        \item \textbf{Adaptive Moment Estimation (Adam)} combines \textbf{momentum} and \textbf{adaptive learning rates} by maintaining an exponentially decaying average of both past gradients and squared gradients
+        \item Adam adjusts the learning rate for each parameter based on the gradient history
         \begin{itemize}
-            \item Larger gradients lead to smaller update steps, and vice versa
+            \item Larger gradients result in smaller update steps, and vice versa
         \end{itemize}
     \end{itemize}
 \end{frame}
@@ -488,7 +500,7 @@ Some noise remains \\
         where:
         \begin{itemize}
             \item $m_{t+1}$ and $v_{t+1}$ are the first and second moments at step $t+1$
-            \item $\beta_1$ and $\beta_2$ are decay rates for the first and second moments
+            \item $\beta_1$ and $\beta_2$ are the decay rates for the first and second moments
             \item $\hat{m}_{t+1}$ and $\hat{v}_{t+1}$ are bias-corrected estimates of the first and second moments
             \item $\epsilon$ is a small constant to prevent division by zero
         \end{itemize}
