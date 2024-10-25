@@ -706,17 +706,203 @@
 	\end{frame}
 	
 	
-	\section{Back propagation}
-	\begin{frame}
-		content...
+	\section{Backpropagation}
+	\begin{frame}{What we have}
+		\centering
+		\includegraphics[keepaspectratio, scale=0.7]{pic/car.png}
+	\end{frame}
+	
+	\begin{frame}{Training (1)}
+		\centering
+		\includegraphics[keepaspectratio, scale=0.6]{pic/training.png}
+		\smallskip
+		\begin{itemize}
+			\item Training is as in the case of the regular MLP
+			\item Training examples of (Image, class) are provided
+			\item A divergence between the desired output and the true output of the network in response to any input
+			\item \textbf{Network parameters are trained through variants of gradient descent}
+			\item \textbf{Gradients are computed through backpropagation}
+		\end{itemize}
+	\end{frame}
+	\begin{frame}{Training (2)}
+		\centering
+		\includegraphics[keepaspectratio, scale=0.6]{pic/training1.png}
+		\smallskip
+		\begin{itemize}
+			\item Backpropagation continues in the usual manner until the computation of the derivative of the divergence w.r.t the inputs to the first ``flat'' layer
+		\end{itemize}
+		
+	\end{frame}
+	\begin{frame}{Training (3)}
+		
+		\centering
+		\includegraphics[keepaspectratio, scale=0.6]{pic/training2.png}
+		\smallskip
+		
+		\begin{itemize}
+				\item Backpropagation from the flat MLP requires special consideration of:
+				\begin{itemize}
+					\item The pooling layers (particularly Maxout)
+					\item The shared computation in the convolution layers
+				\end{itemize}
+			
+			
+		\end{itemize}
+		
+		
+	\end{frame}
+	\begin{frame}{Backpropagation maxout (1)}
+		\centering
+		\includegraphics[keepaspectratio, scale=0.6]{pic/training3.png}
+		\smallskip
+		
+		\begin{itemize}
+			\item The derivative w.r.t \textcolor{red}{\( U^{(n)}_m (i,j) \)} can be computed via backprop.
+			\item But this cannot be propagated backwards to compute the derivative w.r.t. \textcolor{blue}{\( Y^{(n)}_m (k,l) \)}.
+			\item \textcolor{red}{\textbf{Max and argmax are not differentiable.}}
+		\end{itemize}
+		
+	\end{frame}
+	\begin{frame}{Backpropagation maxout (2)}
+		\centering
+		\includegraphics[keepaspectratio, scale=0.6]{pic/training4.png}
+		\smallskip
+		
+		\begin{itemize}
+			\item \[
+			\frac{dDiv(O(X), d(X))}{dY^{(n)}_m (k,l)} = 
+			\begin{cases} 
+				\frac{dDiv(O(X), d(X))}{dU^{(n)}_m (i,j)} & \text{if } (k,l) = P^{(n)}_m (i,j) \\
+				\textcolor{red}{0} & \text{otherwise}
+			\end{cases}
+			\]
+			\item \textbf{Approximation:} Derivative w.r.t the \textcolor{blue}{Y} terms that did not contribute to the maxout map is 0.
+		\end{itemize}
+		
+	\end{frame}
+	\begin{frame}{Backpropagation weights}
+		\centering
+		\includegraphics[keepaspectratio, scale=0.6]{pic/training5.png}
+		\smallskip
+		
+		\begin{itemize}
+			\item \textbf{Note:} each weight contributes to \textit{every} position in the map at the output of the convolutional layer.
+			\item \textcolor{red}{\textbf{Every position will contribute to the derivative of the weight}}
+			\begin{itemize}
+				\item \textcolor{red}{Shared parameter updates}
+			
+			\end{itemize}
+		\end{itemize}
+		
+		
+	\end{frame}
+
+
+	
+	\begin{frame}{Learning the network}
+		\centering
+		\includegraphics[keepaspectratio, scale=0.6]{pic/training6.png}
+		\smallskip
+		
+		\begin{itemize}
+			\item Have shown the derivative of divergence w.r.t every intermediate output, and every free parameter (filter weights).
+			\item Can now be embedded in the gradient descent framework to learn the network.
+		\end{itemize}
+		
+	
+	
+	\end{frame}	
+
+	\begin{frame}{A Problem}
+		
+		\centering
+		\includegraphics[keepaspectratio, scale=0.6]{pic/training7.png}
+		\smallskip
+		
+	
+		
+		\begin{flushleft}
+			\textbf{Question:} How can we improve generalization?
+			\bigskip
+			\textbf{Answer:} Rotation, Translation, Rescaling, Flipping, etc.
+			
+		\end{flushleft}
+		
+	\end{frame}
+	\begin{frame}{Design Choices}
+		
+		\begin{itemize}
+			\item \textbf{Number of convolutional and downsampling layers}
+			\begin{itemize}
+				\item And arrangement (order in which they follow one another)
+			\end{itemize}
+			
+			\item \textbf{For each convolution layer:}
+			\begin{itemize}
+				\item Number of filters $d^l$
+				\item Spatial extent of filter $F^l \times F^l$
+				\begin{itemize}
+					\item The "depth" of the filter is fixed by the number of filters in the previous layer $d^{l-1}$
+				\end{itemize}
+				\item The stride $S^l$
+			\end{itemize}
+			
+			\item \textbf{For each downsampling/pooling layer:}
+			\begin{itemize}
+				\item Spatial extent of filter $P^l \times P^l$
+				\item The stride $S^l$
+			\end{itemize}
+			
+			\item \textbf{For the final MLP:}
+			\begin{itemize}
+				\item Number of layers, and number of neurons in each layer
+			\end{itemize}
+			
+		\end{itemize}
+		
 	\end{frame}
 	
 	
-	
-	
+	\begin{frame}{Typical Architecture for CNNs}
+		
+		\begin{itemize}
+			\item \texttt{[(CONV-RELU)*N – POOL?]*M – (FC-RELU)*K – SOFTMAX}
+			\begin{itemize}
+				\item Where N is usually up to $\sim 5$
+				\item M is large
+				\item $0 \leq K \leq 2$
+			\end{itemize}
+		\end{itemize}
+		
+		\bigskip
+		
+		\textbf{But recent advances such as ResNet and GoogleNet challenge this paradigm!}
+		
+	\end{frame}
 
 	
+	\begin{frame}{Conclusion}
+		
+		\begin{itemize}
+			\item Highly structured nature of image data
+			\item Local correlations are important
+			\item CNNs have local and shared connections
+			\item CNNs make strong inductive biases
+			\item To exploit the two-dimensional structure of image data to create inductive biases, we can use four interrelated concepts:
+			\begin{itemize}
+				\item Hierarchy
+				\item Locality
+				\item Invariance 
+			\end{itemize}
+		\end{itemize}
+		
+	\end{frame}
 	
-	
-	
+	\section{References}
+	\begin{frame}
+		content...
+	\end{frame}
+
+
+
 \end{document}
