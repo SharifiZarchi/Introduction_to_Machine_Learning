@@ -84,11 +84,11 @@ subsubsectionstyle=show/shaded/hide]
         \item Simply put: determine the \textbf{direction to step} that will quickly \textbf{reduce loss}.
     \end{itemize}
     
-    \begin{figure}[h]
-        \centering
-        \includegraphics[width=0.3\linewidth]{pic/downhill_feifei_rouhan.png}
-        \caption{Which way is downhill? (CS231n, Stanford)}
-    \end{figure}
+    % \begin{figure}[h]
+    %     \centering
+    %     \includegraphics[width=0.3\linewidth]{pic/downhill_feifei_rouhan.png}
+    %     \caption{Which way is downhill? (CS231n, Stanford)}
+    % \end{figure}
 \end{frame}
 
 \begin{frame}{Convexity and Optimization}
@@ -130,7 +130,6 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 \section{The Loss Surface}
-
 \begin{frame}{Loss Surface Definition}
     \begin{itemize}
         \item The \textbf{loss surface} shows how error changes based on network weights.
@@ -157,56 +156,117 @@ subsubsectionstyle=show/shaded/hide]
             \item This method identifies the steepest descent direction to guide the optimization process.
         \end{itemize}
     \end{itemize}
-    % \begin{figure}[h]
-    %     \centering
-    %     \includegraphics[height=0.4\textheight]{pic/gradient_descent_blog.skz.dev.png}
-    %     \caption{\footnotesize Visualization of Gradient Descent. Source: \url{https://blog.skz.dev/gradient-descent}}
-    % \end{figure}
 \end{frame}
 
-\section{Newton's Method}
-\begin{frame}{Overview of Newton's Optimization Method}
-\begin{minipage}{0.65\linewidth}
+\section{Newton's optimization Method}
+\subsection{Newton's Method}
+\begin{frame}{Newton's Method}
+\begin{itemize}
+    \item Newton method is originally intended to \textbf{find the root(s)} of an equation.
+    \item \textbf{Example:} for the equation $x^2 - 1 = 0$, we can find the roots by decomposing $(x-1)(x+1)=0$ which gives $x=1, x=-1$
+    \item \textbf{But, what about complex equations?}
     \begin{itemize}
-        \item \textbf{Origin}: 
-        \begin{itemize}
-            \item Developed from classical physics and calculus, Newton's method aims to optimize functions by leveraging \textbf{curvature} information.
-            \item Named after Sir Isaac Newton, who introduced the idea of using \textbf{second derivatives} to predict the behavior of functions.
-        \end{itemize}
-        
-        \item \textbf{Objective}:
-        \begin{itemize}
-            \item Directly find optimal weights by considering both gradients (first derivative) and curvature (second derivative) of the loss surface.
-        \end{itemize}
+        \item We can use \textbf{numerical method} to find the root of an equation, one of them is by using \textbf{Newton’s method}
     \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Definition}
+\begin{minipage}{0.55\linewidth}
+\begin{itemize}
+    \item \textbf{Objective:} Derive Newton’s method by finding the tangent line of \( f(x) \) at \( x_0 \).
+    \item \textbf{Tangent Line Equation:} Given a point \( x_0 \) where \( f(x_0) \neq 0 \), the tangent line at \( x_0 \) is:
+    \[
+    y = mx_0 + c
+    \]
+    \item \textbf{Gradient:} The slope \( m \) matches the derivative of \( f(x) \) at \( x_0 \):
+    \[
+    m = f'(x_0)
+    \]
+\end{itemize}
 \end{minipage}%
-\begin{minipage}{0.25\linewidth}
+\begin{minipage}{0.35\linewidth}
     \begin{figure}
         \centering
-        \includegraphics[width=1\linewidth]{pic/sgd vs newton_wiki.png}
-        \caption{A comparison of gradient descent (green) and Newton's method (red) for minimizing a function. Source: Wikipedia}
+        \includegraphics[width=1\linewidth]{pic/newton_raphson_ardianumam.jpg}
+        \caption{Finding root location by using Newton’s method. Source: https://ardianumam.wordpress.com}
     \end{figure}
 \end{minipage}
 \end{frame}
 
-\begin{frame}{Newton's Optimization Method: Mathematical Formulation}
-    \begin{itemize}
-        \item \textbf{Core Mechanism}:
-        \begin{itemize}
-            \item Newton's method adjusts weight updates using the Hessian matrix, incorporating second-order derivative information to account for local curvature.
-        \end{itemize}
+\begin{frame}{Formulating the Tangent Line}
+\begin{itemize}
+    \item \textbf{Finding \( c \) :} Substitute \( (x_0, f(x_0)) \) into \( y = mx + c \), where \( y = f(x_0) \) and \( m = f'(x_0) \):
+    \[
+    f(x_0) = f'(x_0)x_0 + c \Rightarrow c = f(x_0) - f'(x_0)x_0
+    \]
+    \item \textbf{Tangent Line Equation:} Substitute \( m = f'(x_0) \) and \( c \) back:
+    \[
+    y = f'(x_0)x + f(x_0) - f'(x_0)x_0
+    \]
+    \item Simplify to get:
+    \[
+    y = f(x_0) + f'(x_0)(x - x_0)
+    \]
+\end{itemize}
+\end{frame}
 
-        \item \textbf{Update Rule}:
+\begin{frame}{Newton's Iterative Step}
+\begin{itemize}
+    \item To approximate the root, set \( y = 0 \) in the tangent equation:
+    \[
+    0 = f(x_0) + f'(x_0)(x_1 - x_0)
+    \]
+    \item Rearrange to solve for \( x_1 \):
+    \[
+    x_1 = x_0 - \frac{f(x_0)}{f'(x_0)}
+    \]
+    \item \textbf{Iteration:} Repeat this step to approximate the root.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Newton's Method for Optimization}
+\begin{itemize}
+    \item Newton’s method for finding roots is based on a first-order approximation (tangent line).
+    \item For optimization, we use a second-order Taylor approximation to find the minimum.
+    \item \textbf{Second-order Taylor expansion} of \( f(x) \) around \( x = x_0 \):
+    \[
+    f(x) \approx f(x_0) + f'(x_0)(x - x_0) + \frac{f''(x_0)}{2}(x - x_0)^2
+    \]
+    \item Rearranged for minimal value location:
+    \[
+    f(x) \approx \frac{1}{2}f''(x_0)x^2 + [f'(x_0) - f''(x_0)x_0]x + [f(x_0) - f'(x_0)x_0 + \frac{1}{2}f''(x_0)x_0^2]
+    \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Deriving the Update Formula for Minimization}
+\begin{minipage}{0.7\linewidth}
+    \begin{itemize}
+        \item To locate the minimum, take the derivative with respect to \( x \) and set it to zero:
+        \[
+        \frac{d}{dx} f(x) \approx f''(x_0)x + [f'(x_0) - f''(x_0)x_0] = 0
+        \]
+        \item Solving for \( x \) yields:
+        \[
+        x = x_0 - \frac{f'(x_0)}{f''(x_0)}
+        \]
+        \item This is the update step for Newton’s method in optimization, guiding us to the minimum. The general update rule is:
         \[
         w_{t+1} = w_t - H^{-1} \nabla_w J(w_t)
         \]
-        where:
-        \begin{itemize}
-            \item \( H \) is the Hessian matrix of second-order partial derivatives, capturing curvature information.
-            \item \( \nabla_w J(w_t) \) is the gradient of the cost function \( J \) at time \( t \).
-        \end{itemize}
     \end{itemize}
+\end{minipage}%
+\begin{minipage}{0.3\linewidth}
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.2\linewidth]{pic/newton_ardianumam.jpg}
+        \caption{Finding root using Taylor's expansion and Newton's method}
+    \end{figure}
+\end{minipage}
+
 \end{frame}
+
 
 \begin{frame}{Newton's Method: Advantages and Disadvantages}
     \begin{itemize}
@@ -320,23 +380,23 @@ subsubsectionstyle=show/shaded/hide]
             \item \textbf{Speeds Up Convergence}: Particularly effective in narrow valleys or flat regions, where standard gradient descent may struggle or oscillate, causing slow progress.
         \end{itemize}
         
-        \item \textbf{Mechanism}: 
-        \begin{itemize}
-            \item Achieves improvements by adding a "velocity" term to gradient descent, facilitating consistent directional movement and balancing update sizes for faster and more reliable convergence.
-        \end{itemize}
+        % \item \textbf{Mechanism}: 
+        % \begin{itemize}
+        %     \item Achieves improvements by adding a "velocity" term to gradient descent, facilitating consistent directional movement and balancing update sizes for faster and more reliable convergence.
+        % \end{itemize}
     \end{itemize}
 \end{frame}
 
-\begin{frame}{How Momentum Accelerates Learning}
-    \begin{itemize}
-        \item In momentum-based optimization, updates are influenced by a weighted combination of the current gradient and previous updates.
-        \item \textbf{Why Use Momentum?}
-        \begin{itemize}
-            \item \textbf{Reduces Oscillations}: Momentum softens oscillations along steeper directions while preserving progress in directions with smaller gradients, resulting in a balanced path.
-            \item \textbf{Increases Efficiency}: By "accelerating" updates in directions of consistent gradient descent, momentum minimizes unnecessary steps and decreases overall convergence time.
-        \end{itemize}
-    \end{itemize}
-\end{frame}
+% \begin{frame}{How Momentum Accelerates Learning}
+%     \begin{itemize}
+%         \item In momentum-based optimization, updates are influenced by a weighted combination of the current gradient and previous updates.
+%         \item \textbf{Why Use Momentum?}
+%         \begin{itemize}
+%             \item \textbf{Reduces Oscillations}: Momentum softens oscillations along steeper directions while preserving progress in directions with smaller gradients, resulting in a balanced path.
+%             \item \textbf{Increases Efficiency}: By "accelerating" updates in directions of consistent gradient descent, momentum minimizes unnecessary steps and decreases overall convergence time.
+%         \end{itemize}
+%     \end{itemize}
+% \end{frame}
 
 \subsection{First Moment (Momentum)}
 \begin{frame}{First Moment (Momentum)}
@@ -362,6 +422,23 @@ subsubsectionstyle=show/shaded/hide]
     \end{itemize}
 \end{frame}
 
+\begin{frame}{Example of First Moment}
+    \begin{minipage}{0.45\linewidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.75\linewidth]{pic/Without_momentum.png}
+            \caption{Stochastic gradient descent without momentum stops at a local minimum. Source: Akash Ajagekar (SYSEN 6800 Fall 2021)}
+        \end{figure}
+    \end{minipage}%
+    \begin{minipage}{0.45\linewidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.75\linewidth]{pic/With_momentum.png}
+            \caption{Stochastic gradient descent with momentum stops at the global minimum. Source: Akash Ajagekar (SYSEN 6800 Fall 2021)}
+        \end{figure}
+    \end{minipage}
+\end{frame}
+
 \subsection{Second Moment (Variance)}
 \begin{frame}{Second Moment (Variance)}
     \begin{itemize}
@@ -381,7 +458,6 @@ subsubsectionstyle=show/shaded/hide]
         \item \textbf{Why Use Second Momentum?}
         \begin{itemize}
             \item Adjusts step size based on gradient magnitude, preventing large steps when gradients are large and accelerating learning when they are small.
-            \item Useful in adaptive methods like Adam, where the combination of first and second moments allows stable and efficient convergence across various scenarios.
         \end{itemize}
     \end{itemize}
 \end{frame}
@@ -448,57 +524,48 @@ subsubsectionstyle=show/shaded/hide]
             w_{t+1} = w_t - \eta \frac{\hat{m}_{t+1}}{\sqrt{\hat{v}_{t+1}} + \epsilon}
             \]
         \end{itemize}
-        where \(\beta_1\), \(\beta_2\) are decay rates, and \(\epsilon\) is a small constant to prevent division by zero.
+        % where \(\beta_1\), \(\beta_2\) are decay rates, and \(\epsilon\) is a small constant to prevent division by zero.
     \end{itemize}
 \end{frame}
 
-% \begin{frame}{Advantages and Convergence of Adam}
-%     \begin{itemize}
-%         \item \textbf{Benefits of Adam}:
-%         \begin{itemize}
-%             \item Combines the benefits of \textbf{momentum} (to reduce oscillations) and \textbf{RMSprop} (to adapt learning rates), making it particularly effective in noisy and sparse gradients.
-%             \item \textbf{Fast Convergence}: Adam adapts learning rates per parameter, providing faster convergence in many cases.
-%             \item \textbf{Reduced Hyperparameter Tuning}: By automatically adjusting update sizes, Adam requires less hyperparameter tuning than SGD.
-%         \end{itemize}
-%         \item \textbf{Convergence}:
-%         \begin{itemize}
-%             \item The original Adam paper guarantees convergence by using \textbf{decaying learning rates} and adjusting for biases in moment estimation.
-%             \item Empirically shown to be effective across a wide range of problems and architectures.
-%         \end{itemize}
-%     \end{itemize}
-% \end{frame}
+\begin{frame}{Adam Pseudo-code}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\linewidth]{adam_pseudocode.jpg}
+        \caption{Adam Pseudo-code. Source: kingma2014adam}
 
-
-% \begin{frame}{Comparison of Momentum Methods}
-%     \begin{minipage}{0.5\textwidth}
-%         \centering
-%         \begin{center}
-%         \begin{figure}
-%         \centering
-%             \includegraphics[width=1\linewidth]{pic/gd_comparison.png}
-%             \caption{\footnotesize GD comparison from \url{https://github.com/ilguyi/optimizers.numpy}}
-%         \end{figure}
-%         \end{center}
-%     \end{minipage}%
-%     \begin{minipage}{0.5\textwidth}
-%         \centering
-%         \begin{center}
-%         \begin{figure}
-%         \centering
-%             \includegraphics[width=0.9\linewidth]{pic/Adam_training_kingma2015.png}
-%             \caption{\footnotesize GD comparison on MNIST from \url{kingma2014adam}}
-%             %\cite{kingma2014adam}
-%         \end{figure}
-%         \end{center}
-%     \end{minipage}
-% \end{frame}
-
-\section{References}
-\begin{frame}[allowframebreaks]
-    \bibliography{ref}
-    %\bibliographystyle{ieeetr}
-    \nocite{*} % used here because no citation happens in slides
-    % if there are too many try use：
-    \tiny\bibliographystyle{ieeetr}
+    \end{figure}
 \end{frame}
+
+\begin{frame}{Comparison of Momentum Methods}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \begin{center}
+        \begin{figure}
+        \centering
+            \includegraphics[width=1\linewidth]{pic/gd_comparison.png}
+            \caption{\footnotesize GD comparison from \url{https://github.com/ilguyi/optimizers.numpy}}
+        \end{figure}
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \begin{center}
+        \begin{figure}
+        \centering
+            \includegraphics[width=0.9\linewidth]{pic/Adam_training_kingma2015.png}
+            \caption{\footnotesize GD comparison on MNIST from \url{kingma2014adam}}
+        \end{figure}
+        \end{center}
+    \end{minipage}
+\end{frame}
+
+% \section{References}
+% \begin{frame}[allowframebreaks]
+%     \bibliography{ref}
+%     %\bibliographystyle{ieeetr}
+%     \nocite{*} % used here because no citation happens in slides
+%     % if there are too many try use：
+%     \tiny\bibliographystyle{ieeetr}
+% \end{frame}
 \end{document}
