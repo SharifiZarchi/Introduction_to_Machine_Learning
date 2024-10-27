@@ -18,6 +18,9 @@
 \usepackage{graphicx,pstricks,listings,stackengine}
 \usepackage{lipsum}
 
+\usepackage{pgffor}
+
+
 \author{Ali Sharifi-Zarchi}
 \title{Machine Learning (CE 40717)}
 \subtitle{Fall 2024}
@@ -30,6 +33,9 @@
 \usepackage{SUTstyle}
 \usepackage{amsmath}
 \usepackage{amssymb}
+
+%\usepackage{multicol}
+
 % defs
 \def\cmd#1{\texttt{\color{red}\footnotesize $\backslash$#1}}
 \def\env#1{\texttt{\color{blue}\footnotesize #1}}
@@ -50,8 +56,8 @@
 }
 
 \begin{document}
-
-
+	
+	
 	
 	\begin{frame}
 		\titlepage
@@ -81,7 +87,7 @@
 	\begin{frame}{What computers ‘see’: images as numbers}
 		\centering
 		\includegraphics[keepaspectratio, scale=0.35]{pic/what.png}
-		\\{An image is just a matrix of numbers [0,255].i.e., $1080 \times 1080 \times 3$ for an RGB image.\\ Question: is this Lincoln? Washington? Jefferson? Obama?
+		\\{An image is just a matrix of numbers .i.e., $1080 \times 1080 \times 3$ for an RGB image.\\ Question: is this Lincoln? Washington? Jefferson? Obama?
 			How can the computer answer this question?}
 	\end{frame}
 	\begin{frame}{What is computer vision? (1)}
@@ -131,9 +137,14 @@
 	
 	\section{CNN vs. FCN}
 	\begin{frame}{FCNs on images}
-		\textcolor{red}{Dense} Vector Multiplication
+		\begin{itemize}
+			\item What we've been using?
+			\begin{itemize}
+				\item \textcolor{red}{Dense} Vector Multiplication
+			\end{itemize}
+		\end{itemize}
 		\begin{center}
-			\includegraphics[keepaspectratio, scale=0.2]{pic/Processing images.jpg}
+			\includegraphics[keepaspectratio, scale=0.18]{pic/Processing images.jpg}
 		\end{center}
 	\end{frame}
 	\begin{frame}{Fully connected layers}
@@ -146,20 +157,25 @@
 			
 			\bigskip
 			
-			\item \textbf{Regular Neural Nets don’t scale well to full images}
+			\item \textcolor{red}{Regular Neural Nets don’t scale well to full images}
 			\begin{itemize}
 				\item Parameters would add up quickly!
 				\item Full connectivity is wasteful and the huge number of parameters would quickly lead to overfitting.
 			\end{itemize}
 		\end{itemize}
 	\end{frame}
-	\begin{frame}{Invariance vs equivariance}
+	\begin{frame}{Solution?}
+		\centering
+		\large \textcolor{red}{What can we do?}
+	\end{frame}
+	
+	\begin{frame}{Invariance vs. equivariance}
 		\begin{center}
 			\includegraphics[keepaspectratio, scale=0.28]{pic/invariance_vs_equivariance.jpg}
 		\end{center}
 		\begin{itemize}
-			\item \textbf{Invariance:} The output remains the same when the input undergoes a transformation.
-			\item \textbf{Equivariance:} The output varies predictably when the input undergoes a transformation.
+			\item \textbf{Invariance:} \small The output remains the same when the input undergoes a transformation.
+			\item \textbf{Equivariance:} \small The output varies predictably when the input undergoes a transformation.
 			
 		\end{itemize}
 	\end{frame}
@@ -224,6 +240,24 @@
 		\end{itemize}
 		
 	\end{frame}	
+\begin{frame}
+	\centering
+	% Left column with one centered image
+	\begin{minipage}{0.5\textwidth}
+		\centering
+		\includegraphics[keepaspectratio, scale=0.55]{pic/param.png}
+	\end{minipage}
+	\hfill
+	% Right column with two images stacked on top of each other
+	\begin{minipage}{0.4\textwidth}
+		\centering
+		\includegraphics[keepaspectratio, scale=0.4]{pic/FCN.png} \\
+		\vspace{0.3cm} % Space between the two images on the right
+		\includegraphics[keepaspectratio, scale=0.4]{pic/CNn.png}
+	\end{minipage}
+\end{frame}
+
+
 	\begin{frame}{What is cnn?}
 		\begin{itemize}
 			\item It is a class of deep learning.
@@ -345,14 +379,75 @@
 			It's simply a neuron with local connectivity!
 		\end{flushleft}
 	\end{frame}
-	\begin{frame}{Convolution process (1)}
-		\centering
-		\includegraphics[keepaspectratio, scale=0.7]{pic/img2.png}
-		\includegraphics[keepaspectratio, scale=0.7]{pic/img3.png}
-		\includegraphics[keepaspectratio, scale=0.7]{pic/img4.png}	
-		
+	
+	%\begin{frame}{Convolution process (1)}
+	%	\centering
+	%	\includegraphics[keepaspectratio, scale=0.7]{pic/img2.png}
+	%	\includegraphics[keepaspectratio, scale=0.7]{pic/img3.png}
+	%	\includegraphics[keepaspectratio, scale=0.7]{pic/img4.png}	
+	%	
+	%\end{frame}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\frame{\frametitle{Convolution process (1)}
+		\begin{itemize}
+			\item \normalsize Consider this as the filter we are going to use:
+		\end{itemize}
+		\begin{figure}
+			\centering
+			\includegraphics[keepaspectratio, scale=0.4]{pic/kernel5.png}
+		\end{figure}
+	}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\foreach \i in {0,...,8}
+	{
+		\frame{\frametitle{Convolution process (\the\numexpr2+\i\relax)}
+			\begin{itemize}
+				\item \normalsize This is how we calculate the convolutional layer's output:
+			\end{itemize}
+			\small
+			\begin{equation*}
+				\text{Convolved Feature}(i, j) = (I * K)(i, j) = \sum_{a=0}^{k_h - 1} \sum_{b=0}^{k_w - 1} I(i+a, j+b) K(a, b)
+			\end{equation*}
+			I: Input Image\newline
+			K: Our Kernel\newline
+			$k_h$ and $k_w$: The height and width of the Kernel
+			
+			\begin{figure}
+				\centering
+				\begin{minipage}{.1\textwidth}
+					\centering
+					\includegraphics[keepaspectratio, scale=0.1]{pic/kernel6-1.png}
+				\end{minipage}%
+				\begin{minipage}{.9\textwidth}
+					\centering
+					\includegraphics[keepaspectratio, scale=0.2]{pic/kernel-frame-\i.png}
+				\end{minipage}
+				\begin{flushleft}
+					\small Convoluting a 5x5x1 image with a 3x3x1 kernel to get a 3x3x1 convolved feature
+				\end{flushleft}
+			\end{figure}
+		}
+	}
+	
+	\begin{frame}{To summarize}
+			\normalsize
+				\begin{itemize}
+				\item We apply the same filter on different regions of the input.
+				\item Convolutional filters learn to make decisions based on local spatial input, which is an important attribute when working with images.
+				\item Uses a lot fewer parameters compared to Fully Connected Layers.
+			\end{itemize}
+			\begin{figure}
+				    \includegraphics[keepaspectratio, scale=0.25]{pic/CNN2.png}
+				\hspace{3cm}  % Adjust the distance as needed
+				\includegraphics[keepaspectratio, scale=0.25]{pic/kernel2.png}
+			\end{figure}
 	\end{frame}
-	\begin{frame}{Convolution process (2)}
+	
+	\begin{frame}{Convolution outlook (1)}
 		\centering
 		\includegraphics[keepaspectratio, scale=0.75]{pic/img5.png}
 		\smallskip
@@ -361,19 +456,24 @@
 		\end{flushleft}
 		
 	\end{frame}
-	\begin{frame}{Convolution process (3)}
+	\begin{frame}{Convolution outlook (2)}
 		\centering
-		\includegraphics[keepaspectratio, scale=0.8]{pic/img6.png}
+		\includegraphics[keepaspectratio, scale=0.7]{pic/img6.png}
+				\smallskip
+	\begin{flushleft}
+		\small Multiple filters can be applied, each with its own bias, to extract different features from the input.
+	\end{flushleft}
+
 	\end{frame}
-	\begin{frame}{Convolution process (4)}
+	\begin{frame}{Convolution outlook (3)}
 		\centering
 		\includegraphics[keepaspectratio, scale=0.7]{pic/img7.png}
 		\smallskip
 		\begin{flushleft}
-			Batching input images can provide a more generalized representation, as described above.
+			\small Batching input images can provide a more generalized representation, as described above.
 		\end{flushleft}		
 	\end{frame}
-	\begin{frame}{A different view}
+	\begin{frame}{A different notation}
 		\centering
 		\includegraphics[keepaspectratio, scale=0.9]{pic/diff_view.png}
 		
@@ -381,7 +481,7 @@
 		\[ z(i,j,s) = \underbrace{\sum_p \underbrace{\sum_{k=1}^{L} \sum_{l=1}^{L} w(k,l,p,s) a(i+l-1, j+k-1, p)}_{\text{One map}}}_{\text{All maps}} + b(s) \]
 		
 	\end{frame}
-	\begin{frame}{Stride (1)}
+	\begin{frame}{What is stride}
 		\centering
 		\includegraphics[keepaspectratio, scale=0.9]{pic/stride.png}
 		\begin{itemize}
@@ -400,48 +500,232 @@
 			\item This can happen at any layer
 		\end{itemize}
 	\end{frame}
-	\begin{frame}{Stride (2)}
-		\includegraphics[keepaspectratio, scale=0.5]{pic/stride11.png}
-		\includegraphics[keepaspectratio, scale=0.5]{pic/stride12.png}
-		\includegraphics[keepaspectratio, scale=0.5]{pic/stride13.png}
+	%\begin{frame}{Stride (2)}
+	%	\includegraphics[keepaspectratio, scale=0.5]{pic/stride11.png}
+	%	\includegraphics[keepaspectratio, scale=0.5]{pic/stride12.png}
+	%	\includegraphics[keepaspectratio, scale=0.5]{pic/stride13.png}
+		%
+	%	\smallskip	
+	%	\begin{itemize}
+	%		\item Stride: 1
+	%		\item output dimension : 5 $\times$ 5
+	%	\end{itemize}
+	%\end{frame}
+	%\begin{frame}{Stride (3)}
+	%	\includegraphics[keepaspectratio, scale=0.5]{pic/stride21.png}
+	%	\includegraphics[keepaspectratio, scale=0.5]{pic/stride22.png}
+	%	\includegraphics[keepaspectratio, scale=0.5]{pic/stride23.png}
+	%	
+	%	\smallskip	
+	%	\begin{itemize}
+	%		\item stride : 2
+	%		\item output dimension : 3 $\times$ 3
+	%	\end{itemize}
+	%\end{frame}
+	%\begin{frame}{Stride (4)}
+	%	\centering
+	%	\includegraphics[keepaspectratio, scale=0.5]{pic/strideComp.png}
+	%	\smallskip		
+	%	\begin{itemize}
+	%		\item We can't choose any stride blindly!
+	%		\item The output dimensions must be integers.
+	%		\item This is why padding comes into the picture.
+	%	\end{itemize}
 		
-		\smallskip	
-		\begin{itemize}
-			\item Stride: 1
-			\item output dimension : 5 $\times$ 5
-		\end{itemize}
-	\end{frame}
-	\begin{frame}{Stride (3)}
-		\includegraphics[keepaspectratio, scale=0.5]{pic/stride21.png}
-		\includegraphics[keepaspectratio, scale=0.5]{pic/stride22.png}
-		\includegraphics[keepaspectratio, scale=0.5]{pic/stride23.png}
+	%\end{frame}
+	
+	\begin{frame}{Stride-1 (1)}
+		\vspace{0.5cm}
 		
-		\smallskip	
+		\normalsize \textcolor{red}{Closer look}
 		\begin{itemize}
-			\item stride : 2
-			\item output dimension : 3 $\times$ 3
+			\item 7x7 input with 3x3 filter
 		\end{itemize}
-	\end{frame}
-	\begin{frame}{Stride (4)}
+		
 		\centering
-		\includegraphics[keepaspectratio, scale=0.5]{pic/strideComp.png}
-		\smallskip		
+		\includegraphics[keepaspectratio, scale=0.25]{pic/Stride1.png}
+	\end{frame}
+	\begin{frame}{Stride-1 (2)}
+		\vspace{0.5cm}
+		
+		\normalsize Closer look
 		\begin{itemize}
-			\item We can't choose any stride blindly!
-			\item The output dimensions must be integers.
-			\item This is why padding comes into the picture.
+			\item 7x7 input with 3x3 filter
 		\end{itemize}
 		
+		\centering
+		\includegraphics[keepaspectratio, scale=0.25]{pic/Stride2.png}
 	\end{frame}
+	\begin{frame}{Stride-1 (3)}
+		\vspace{0.5cm}
+		
+		\normalsize Closer look
+		\begin{itemize}
+			\item 7x7 input with 3x3 filter
+		\end{itemize}
+		
+		\centering
+		\includegraphics[keepaspectratio, scale=0.25]{pic/Stride3.png}
+	\end{frame}
+	\begin{frame}{Stride-1 (4)}
+		\vspace{0.5cm}
+		
+		\normalsize Closer look
+		\begin{itemize}
+			\item 7x7 input with 3x3 filter
+		\end{itemize}
+		
+		\centering
+		\includegraphics[keepaspectratio, scale=0.25]{pic/Stride4.png}
+	\end{frame}
+	\begin{frame}{Stride-1 (5)}
+		\vspace{0.5cm}
+		
+		\normalsize Closer look
+		\begin{itemize}
+			\item 7x7 input with 3x3 filter
+			\item This was a Stride 1 filter
+			\item=> Outputs 5x5
+		\end{itemize}
+		
+		\centering
+		\includegraphics[keepaspectratio, scale=0.25]{pic/Stride5.png}
+	\end{frame}
+	
+	\begin{frame}{Strides-2 (1)}
+		\vspace{0.5cm}
+		
+		\normalsize \color{red}Now let's use Stride 2
+		\begin{itemize}
+			\item 7x7 input with 3x3 filter
+		\end{itemize}
+		
+		\centering
+		\includegraphics[keepaspectratio, scale=0.25]{pic/Stride6.png}
+	\end{frame}
+		
+	\begin{frame}{Strides-2 (2)}
+		\vspace{0.5cm}
+		
+		\normalsize Now let's use Stride 2
+		\begin{itemize}
+			\item 7x7 input with 3x3 filter
+		\end{itemize}
+		
+		\centering
+		\includegraphics[keepaspectratio, scale=0.25]{pic/Stride7.png}
+	\end{frame}
+		
+	\begin{frame}{Strides-2 (3)}
+		\vspace{0.5cm}
+		
+		\normalsize Now let's use Stride 2
+		\begin{itemize}
+			\item 7x7 input with 3x3 filter
+			\item This was a Stride 2 filter
+			\item=> Outputs 3x3
+		\end{itemize}
+		
+		\centering
+		\includegraphics[keepaspectratio, scale=0.25]{pic/Stride8.png}
+	\end{frame}
+	
+	
+	\begin{frame}{Strides-3}
+		\vspace{0.5cm}
+		
+		\normalsize \color{red}Stride 3?
+		\begin{itemize}
+			\item 7x7 input with 3x3 filter
+		\end{itemize}
+		
+		\centering
+		\includegraphics[keepaspectratio, scale=0.15]{pic/Stride9.png}
+		\hspace{0.2cm}
+		\includegraphics[keepaspectratio, scale=0.15]{pic/Stride10.png}
+		\hspace{0.2cm}
+		\includegraphics[keepaspectratio, scale=0.15]{pic/Stride11.png}
+	\end{frame}
+	
+	
+\begin{frame}{Strides Formula}
+	
+	\begin{minipage}{0.4\textwidth}
+		\centering
+		\includegraphics[keepaspectratio, scale=0.25]{pic/Stride12.png}
+	\end{minipage}%
+	\hspace{0.5cm}  % Adjust spacing between image and text
+	\begin{minipage}{0.55\textwidth}
+		\textcolor{red}{\large $Output Size = \frac{(N - F)}{\text{Stride}} + 1$}
+		
+		\vspace{0.3cm}
+		
+		\( N = 7, F = 3 \Rightarrow \)
+		\begin{itemize}
+			\item Stride 1: \( (7 - 3) / 1 + 1 = 5 \)
+			\item Stride 2: \( (7 - 3) / 2 + 1 = 3 \)
+			\item \textcolor{red}{Stride 3: \( (7 - 3) / 3 + 1 = 2.33 \) !!!}
+		\end{itemize}
+	\end{minipage}
+	
+\end{frame}
+
+	
+	\begin{frame}{A problem?}
+		\begin{center}
+			\LARGE What could cause us problems?
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Problem (1)}
+		
+		\begin{itemize}
+			\item \color{red} \Large 1. Borders don't get enough attention.
+			\item \Large 2. Outputs shrink!
+		\end{itemize}
+		
+		\centering
+		\includegraphics[keepaspectratio, scale=0.4]{pic/padding1.png}
+		
+		\small Pixel utilization for convolutions of size $1 \times 1$, $2 \times 2$, and $3 \times 3$ respectively.
+	\end{frame}
+		
+	\begin{frame}{Problem (2)}
+		
+		\begin{itemize}
+			\item \Large 1. Borders don't get enough attention.
+			\item \color{red} \Large 2. Outputs shrink!
+		\end{itemize}
+		
+		\centering
+		\includegraphics[keepaspectratio, scale=0.25]{pic/Padding2.png}
+		\smallskip
+		\small 32x32 input shrinks to 28x28 output. (information loss)
+	\end{frame}
+	
+	
+	\begin{frame}{Solution?}
+		\begin{center}
+			\LARGE What is the solution?
+		\end{center}
+	\end{frame}
+	
+	\begin{frame}{Padding}
+		\begin{center}
+			\LARGE \textcolor{red}{Padding}: the secret ingredient to keep strides in line!
+		\end{center}
+	\end{frame}
+	
+	
 	\begin{frame}{Padding (1)}
 		
 		\begin{minipage}{0.28\textwidth} % Adjust width to your liking
 			\includegraphics[keepaspectratio, scale=0.6]{pic/zeropad.png}
 		\end{minipage}
 		\begin{minipage}{0.67\textwidth} % Adjust width to your liking
-			In practice, it is common to zero-pad the border.
+			In practice, it is common to zero-pad the border. \\
 			\smallskip
-			\textbf{Recall:} The original formula for convolution without padding:
+			\textbf{Recall:}The original formula for convolution without padding:
 			\[
 			\frac{N - F}{\text{stride}} + 1
 			\]
@@ -572,51 +856,86 @@
 		\includegraphics[keepaspectratio, scale=0.5]{pic/pooling.png}
 		\smallskip
 		\begin{flushleft}
-			Convolution \& activation layers are followed intermittently by pooling layers.
 			\begin{itemize}
-				\item Often, they alternate with convolution, though this is not necessary.
+				\item Convolution \& activation layers are followed intermittently by pooling layers.
+				\begin{itemize}
+					\item Often, they alternate with convolution, though this is not necessary.
+				\end{itemize}
 			\end{itemize}
+			
 		\end{flushleft}
 	\end{frame}
 	\begin{frame}{Pooling (2)}
-		\centering 
-		\includegraphics[keepaspectratio, scale=0.4]{pic/pooling1.png}
-		\smallskip
-		\begin{itemize}
-			\item Reduce the spatial size of the representation.
+		\begin{minipage}{0.4\textwidth}
+			\centering
+			\includegraphics[keepaspectratio, scale=0.4]{pic/pooling1.png}
+		\end{minipage}%
+		\hspace{0.5cm}  % Adjust spacing as needed
+		\begin{minipage}{0.55\textwidth}
+			\smallskip
 			\begin{itemize}
-				\item To reduce the number of parameters and computational demands within the network.
-				\item To control overfitting.
+				\item Reduce the spatial size of the representation.
+				\begin{itemize}
+					\item To reduce the number of parameters and computational demands within the network.
+					\item To reduce variance.
+				\end{itemize}
+				\item Helps the network become invariant to small translations or distortions.
+				\item Operates over each activation map independently.
 			\end{itemize}
-			\item Help the network to become invariant to small translations or distortions.
-			\item Operates over each activation map independently.
-		\end{itemize}
-		
+		\end{minipage}
 	\end{frame}
-	\begin{frame}{Pooling (3)}
+
+	\begin{frame}{Pooling type (1)}
 		\centering
-		\includegraphics[keepaspectratio, scale=0.6]{pic/pooling2.png}
+		\includegraphics[keepaspectratio, scale=0.5]{pic/pooling2.png}
 		\begin{flushleft}
 			\textbf{Two Primary Types of Pooling:}
 			\begin{itemize}		
-				\item \textbf{Max Pooling:}  Selects the maximum value from each patch of the feature map.
-				\item \textbf{Average Pooling:} Computes the average of the values in each patch of the feature map.
+				\item \textbf{Max Pooling:}  \small Selects the maximum value from each patch of the feature map.
+				\item \textbf{Min Pooling:}  \small Selects the minimum value from each patch of the feature map.
+				\item \textbf{Average Pooling:} \small Computes the average of the values in each patch of the feature map.
 			\end{itemize}
 		\end{flushleft}
 	\end{frame}
-\begin{frame}{Parameter setting (1)}
-	\textbf{Question:} \\
-	How does a pooling layer affect the dimensions of the input image?
 	
-	\bigskip
+	\begin{frame}{Pooling type (2)}
+		\begin{itemize}
+			\item Max Pooling: performs well when the background is light, and the object is dark
+			\item Min Pooling: performs well when the background is dark, and the object is light
+			\item Average Pooling: smooths the image
+		\end{itemize}
+		
+		\centering
+		\includegraphics[keepaspectratio, scale=0.15]{pic/Pooling_3.png}
+	\end{frame}
 	
-	\textbf{Answer:} \\
-	\begin{itemize}
-		\item An $N \times N$ picture compressed by a $P \times P$ pooling filter with stride $S$ results in an output map of side $\left\lceil \frac{(N - P)}{S} \right\rceil + 1$.
-		\item Typically, pooling layers do not use zero-padding.
-	\end{itemize}
-\end{frame}
-
+	
+	
+	\begin{frame}{Pooling advantage}
+		
+		\centering
+		\includegraphics[keepaspectratio, scale=0.3]{pic/Pooling_4.png}
+		\bigskip
+		\begin{itemize}
+			\item Most common type of pooling layer
+			\item Invariance to small translations
+		\end{itemize}
+		
+	\end{frame}
+	
+	\begin{frame}{Parameter setting (1)}
+		\textbf{Question:} \\
+		How does a pooling layer affect the dimensions of the input image?
+		
+		\bigskip
+		
+		\textbf{Answer:} \\
+		\begin{itemize}
+			\item An $N \times N$ picture compressed by a $P \times P$ pooling filter with stride $S$ results in an output map of side $\left\lceil \frac{(N - P)}{S} \right\rceil + 1$.
+			\item Typically, pooling layers do not use zero-padding.
+		\end{itemize}
+	\end{frame}
+	
 	\begin{frame}{Parameter setting (2)}
 		\begin{itemize}
 			\item Pooling accepts a volume of size $W_1 \times H_1 \times D_1$
@@ -640,9 +959,104 @@
 		\includegraphics[keepaspectratio, scale=0.55]{pic/pooling3.png}
 		\smallskip
 		\begin{flushleft}
-			Downsampling  be done by a simple convolution layer with stride larger than 1, Replacing the max pooling layer with a convolution layer.
+			Downsampling can be done by a simple convolution layer with stride larger than 1, Replacing the max pooling layer with a convolution layer.
 		\end{flushleft}
 	\end{frame}
+
+	
+	\begin{frame}{Pooling Summary}
+		\begin{minipage}{0.5\textwidth}
+			\centering
+			\includegraphics[keepaspectratio, scale=0.25]{pic/Pooling_2.png}
+			
+			\vspace{0.3cm}
+			\small Max pooling layer (2 $\times$ 2 pooling kernel, stride 2, no padding)
+		\end{minipage}%
+		\hspace{0.4cm}  % Adjust horizontal space between the columns if needed
+		\begin{minipage}{0.45\textwidth}
+			\begin{itemize}
+				\item Goal is to sub-sample the input to reduce:
+				\begin{itemize}
+					\item Computational load
+					\item Memory usage
+					\item Number of parameters
+					\item Risk of overfitting
+				\end{itemize}
+			\end{itemize}
+		\end{minipage}
+	\end{frame}
+	
+	\begin{frame}{Question}
+		\centering
+		\begin{itemize}
+			\item \Large What if we want to increase the size?
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Up-sampling CNN}
+		\vspace{0.5cm}
+		\begin{itemize}
+			\item Resizing feature maps is a common operation in many neural networks, especially those that perform some kind of image segmentation task.
+			\item This kind of architecture is famously known as the Encoder-Decoder network.
+		\end{itemize}
+		
+		\centering
+		\includegraphics[keepaspectratio, scale=0.2]{pic/Upsamlpe_0.png}
+				
+	\end{frame}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\begin{frame}{Nearest Neighbors}
+		\vspace{0.5cm}
+		\begin{itemize}
+			\item {Nearest Neighbors}: In Nearest Neighbors, as the name suggests, we take an input pixel value and copy it to the K-Nearest Neighbors, where \( K \) depends on the expected output.
+		\end{itemize}
+		
+		\centering
+		\includegraphics[keepaspectratio, scale=0.4]{pic/Upsamlpe_1.png}
+	\end{frame}
+
+	
+	\begin{frame}{Bi-Linear Interpolation}
+		\vspace{0.5cm}
+		\begin{itemize}
+			\item {Bi-Linear Interpolation}: In Bi-Linear Interpolation, we take the 4 nearest pixel values of the input pixel and perform a weighted average based on the distance of the four nearest cells, smoothing the output.
+		\end{itemize}
+		
+		\centering
+		\includegraphics[keepaspectratio, scale=0.4]{pic/Upsamlpe_2.png}
+		
+	\end{frame}
+	
+
+	\begin{frame}{Bed Of Nails}
+		\vspace{0.5cm}
+		\begin{itemize}
+			\item {Bed Of Nails}: In Bed of Nails, we copy the value of the input pixel at the corresponding position in the output image and fill zeros in the remaining positions.
+		\end{itemize}
+		
+		\centering
+		\includegraphics[keepaspectratio, scale=0.4]{pic/Upsamlpe_3.png}
+		
+	\end{frame}
+	
+	\begin{frame}{Max-Unpooling}
+		\vspace{0.5cm}
+		\begin{itemize}
+			\item {Max-Unpooling}: To perform max-unpooling, first, the index of the maximum value is saved for every max-pooling layer during the encoding step. The saved index is then used during the decoding step where the input pixel is mapped to the saved index, filling zeros everywhere else.
+		\end{itemize}
+		
+		\centering
+		\includegraphics[keepaspectratio, scale=0.3]{pic/Upsamlpe_4.png}
+	\end{frame}
+	
+
+
+	
+
+	\section{Receptive field \& inductive bias}
+	
 	\begin{frame}{Receptive field (1)}
 		\centering
 		\includegraphics[keepaspectratio, scale=0.6]{pic/receptive1.png}
@@ -685,10 +1099,32 @@
 			Both options achieve a receptive field of 7; however, using multiple smaller filters reduces the number of parameters, introduces more nonlinearity, and generally leads to a more efficient, expressive model.
 		\end{flushleft}
 	\end{frame}
-	\section{Inductive bias \& Receptive field}
 	
+	\begin{frame}{Question}
+			\item \textcolor{red}{\textbf{Question:}} In a convolutional neural network, each layer increases the receptive field size. 
+			Suppose a network has 3 convolutional layers, each with a kernel size of \( K = 3 \) and a stride of \( S = 1 \).
+			\begin{itemize}
+				\item Calculate the receptive field size after each layer, starting from an initial receptive field size of \( 1 \).
+				\item How large is the receptive field after the third layer?
+				\item Why is the growing receptive field important in deeper layers?
+			\end{itemize}
+	\end{frame}
 	
-	% Slide 1: Inductive Bias in CNNs
+	\begin{frame}{Answer}
+			\item \textbf{\textcolor{red}{Answer:}}
+			\begin{itemize}
+				\item The receptive field size increases by \( K - 1 \) with each layer.
+				\begin{itemize}
+					\item After the 1st layer: \( 1 + (3 - 1) = 3 \)
+					\item After the 2nd layer: \( 3 + (3 - 1) = 5 \)
+					\item After the 3rd layer: \( 5 + (3 - 1) = 7 \)
+				\end{itemize}
+				\item Thus, the receptive field after the third layer is \( 7 \).
+				\item A larger receptive field allows neurons in deeper layers to capture more context from the input image, which is essential for understanding higher-level patterns.
+			\end{itemize}
+	\end{frame}
+	
+
 	\begin{frame}{Inductive bias in CNNS}
 		\textbf{Inductive Bias:} \\
 		Refers to the assumptions a model incorporates to generalize from training data to unseen data.
@@ -711,7 +1147,7 @@
 	\section{Backpropagation}
 	\begin{frame}{Summary of concepts}
 		\centering
-		\includegraphics[keepaspectratio, scale=0.65]{pic/car.png}
+		\includegraphics[keepaspectratio, scale=0.5]{pic/car.png}
 	\end{frame}
 	
 	\begin{frame}{Training (1)}
@@ -864,21 +1300,20 @@
 		
 	\end{frame}
 	
-	
-	\begin{frame}{Typical architecture for CNNS}
+	\begin{frame}{Typical Architecture for CNNs}
 		
 		\begin{itemize}
-			\item \texttt{[(CONV-RELU)*N – POOL?]*M – (FC-RELU)*K – SOFTMAX}
+			\item [(CONV-RELU)*N – POOL?]*M – (FC-RELU)*K – SOFTMAX
 			\begin{itemize}
-				\item Where N is usually up to $\sim 5$
-				\item M is a large number
-				\item $0 \leq K \leq 2$
+				\item Where \( N \) is usually up to \( \sim 5 \)
+				\item \( M \) is a large number
+				\item \( 0 \leq K \leq 2 \)
 			\end{itemize}
 		\end{itemize}
 		
 		\bigskip
 		
-		\textbf{But recent advances such as ResNet and GoogleNet challenge this paradigm!}
+		\textbf{But recent advances, such as ResNet and GoogleNet, challenge this paradigm!}
 		
 	\end{frame}
 	
@@ -895,6 +1330,7 @@
 				\item Hierarchy
 				\item Locality
 				\item Invariance 
+				\item Sharing
 			\end{itemize}
 		\end{itemize}
 		
