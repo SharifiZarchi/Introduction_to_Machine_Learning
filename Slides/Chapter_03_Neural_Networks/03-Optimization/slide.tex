@@ -258,6 +258,17 @@ subsubsectionstyle=show/shaded/hide]
     \end{itemize}
 \end{frame}
 
+% \begin{frame}{How Momentum Accelerates Learning}
+%     \begin{itemize}
+%         \item In momentum-based optimization, updates are influenced by a weighted combination of the current gradient and previous updates.
+%         \item \textbf{Why Use Momentum?}
+%         \begin{itemize}
+%             \item \textbf{Reduces Oscillations}: Momentum softens oscillations along steeper directions while preserving progress in directions with smaller gradients, resulting in a balanced path.
+%             \item \textbf{Increases Efficiency}: By "accelerating" updates in directions of consistent gradient descent, momentum minimizes unnecessary steps and decreases overall convergence time.
+%         \end{itemize}
+%     \end{itemize}
+% \end{frame}
+
 \subsection{First Moment (Momentum)}
 \begin{frame}{First Moment (Momentum)}
     \begin{itemize}
@@ -413,6 +424,17 @@ subsubsectionstyle=show/shaded/hide]
         \includegraphics[width=0.5\linewidth]{pic/comparison.jpg}
         \caption{\footnotesize Comparison of 5 gradient descent methods on a surface: gradient descent (cyan), momentum (magenta), AdaGrad (white), RMSProp (green), Adam (blue). Left well is the global minimum; right well is a local minimum. Source: \href{https://towardsdatascience.com/a-visual-explanation-of-gradient-descent-methods-momentum-adagrad-rmsprop-adam-f898b102325c}{Towards Data Science}}
     \end{figure}
+    % \end{minipage}%
+    % \begin{minipage}{0.5\textwidth}
+    %     \centering
+    %     \begin{center}
+    %     \begin{figure}
+    %     \centering
+    %         \includegraphics[width=0.9\linewidth]{pic/Adam_training_kingma2015.png}
+    %         \caption{\footnotesize GD comparison on MNIST from \url{kingma2014adam}}
+    %     \end{figure}
+    %     \end{center}
+    % \end{minipage}
 \end{frame}
 
 \section{Newton's optimization Method}
@@ -510,7 +532,7 @@ subsubsectionstyle=show/shaded/hide]
         \]
         \item This is the update step for Newton’s method in optimization, guiding us to the minimum. The general update rule is:
         \[
-        w_{t+1} = w_t - H^{-1} \nabla_w J(w_t)
+        x_{t+1} = x_t - H^{-1} \nabla_x f(x_t)
         \]
     \end{itemize}
 \end{minipage}%
@@ -522,6 +544,72 @@ subsubsectionstyle=show/shaded/hide]
     \end{figure}
 \end{minipage}
 \end{frame}
+
+\begin{frame}{Hessian Matrix and Newton's Method for Optimization}
+\begin{minipage}{0.5\linewidth}
+    \begin{itemize}
+        \item The Hessian matrix, \( H(\theta) \), is a square matrix of second-order partial derivatives of a scalar-valued function \( f(\theta) \):
+        \[
+        H(\theta) = 
+        \begin{bmatrix}
+            \frac{\partial^2 f}{\partial \theta_1^2} & \frac{\partial^2 f}{\partial \theta_1 \partial \theta_2} & \cdots & \frac{\partial^2 f}{\partial \theta_1 \partial \theta_n} \\
+            \frac{\partial^2 f}{\partial \theta_2 \partial \theta_1} & \frac{\partial^2 f}{\partial \theta_2^2} & \cdots & \frac{\partial^2 f}{\partial \theta_2 \partial \theta_n} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \frac{\partial^2 f}{\partial \theta_n \partial \theta_1} & \frac{\partial^2 f}{\partial \theta_n \partial \theta_2} & \cdots & \frac{\partial^2 f}{\partial \theta_n^2}
+        \end{bmatrix}
+        \]
+
+        \item In Newton's method for optimization, the update rule for parameters \( \theta \) is:
+        \[
+        \theta_{t+1} = \theta_t - H^{-1}(\theta_t) \nabla f(\theta_t)
+        \]
+        % where \( \nabla f(\theta_t) \) is the gradient vector, and \( H(\theta_t) \) is the Hessian matrix at \( \theta_t \).
+    \end{itemize}
+\end{minipage}%
+\begin{minipage}{0.5\linewidth}
+    \begin{itemize}
+    \item \textbf{Example:}
+    \end{itemize}
+        \[
+        f(\theta_1, \theta_2) = \theta_1^2 + 2 \theta_1 \theta_2 + \theta_2^2
+        \]
+        % \item **Gradient** \( \nabla f \):
+        \[
+        \nabla f = 
+        \begin{bmatrix}
+            \frac{\partial f}{\partial \theta_1} \\
+            \frac{\partial f}{\partial \theta_2}
+        \end{bmatrix} =
+        \begin{bmatrix}
+            2\theta_1 + 2\theta_2 \\
+            2\theta_1 + 2\theta_2
+        \end{bmatrix} =
+        \begin{bmatrix}
+            2(\theta_1 + \theta_2) \\
+            2(\theta_1 + \theta_2)
+        \end{bmatrix}
+        \]
+
+        % \item Hessian Matrix \( H(\theta) \):
+        \[
+        H(\theta) = 
+        \begin{bmatrix}
+            \frac{\partial^2 f}{\partial \theta_1^2} & \frac{\partial^2 f}{\partial \theta_1 \partial \theta_2} \\
+            \frac{\partial^2 f}{\partial \theta_2 \partial \theta_1} & \frac{\partial^2 f}{\partial \theta_2^2}
+        \end{bmatrix} =
+        \begin{bmatrix}
+            2 & 2 \\
+            2 & 2
+        \end{bmatrix}
+        \]
+        % \item Using Newton's method, the update rule for \( \theta \) would be:
+        \[
+        \theta_{t+1} = \theta_t - H^{-1} \nabla f(\theta_t)
+        \]
+    % \end{itemize}
+\end{minipage}
+\end{frame}
+
 
 \begin{frame}{Newton's Method: Advantages and Disadvantages}
     \begin{itemize}
@@ -551,12 +639,21 @@ subsubsectionstyle=show/shaded/hide]
     \end{table}
 \end{frame}
 
-% \section{References}
-% \begin{frame}[allowframebreaks]
-%     \bibliography{ref}
-%     %\bibliographystyle{ieeetr}
-%     \nocite{*} % used here because no citation happens in slides
-%     % if there are too many try use：
-%     \tiny\bibliographystyle{ieeetr}
-% \end{frame}
+\section{References}
+\begin{frame}{Contribution}
+    \begin{itemize}
+        \item \textbf{These slides were prepared with contributions from: }
+        \begin{itemize}
+            \item Alireza Sabounchi
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+    \bibliography{ref}
+    %\bibliographystyle{ieeetr}
+    \nocite{*} % used here because no citation happens in slides
+    % if there are too many try use：
+    \tiny\bibliographystyle{ieeetr}
+\end{frame}
 \end{document}
