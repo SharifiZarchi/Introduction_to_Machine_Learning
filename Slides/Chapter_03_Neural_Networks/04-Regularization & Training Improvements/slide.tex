@@ -90,13 +90,133 @@ subsubsectionstyle=show/shaded/hide]
         \end{itemize}
 
         \begin{figure}
-                \includegraphics[width=0.85\textwidth]{pic/overfitting-vs-underfitting__AIE.png}
+                \includegraphics[width=0.9\textwidth]{pic/overfitting-vs-underfitting__AIE.png}
                 \label{fig:overfitting-vs-underfitting}
-                \caption{\href{https://analystprep.com/study-notes/cfa-level-2/quantitative-method/overfitting-methods-addressing/}{\textcolor{orange}{\textbf{Source}}}}
         \end{figure}
 
     \end{itemize} 
 \end{frame}
+
+
+\subsection{Bias-Variance Tradeoff in Neural Networks}
+
+\begin{frame}{Understanding the Bias-Variance Tradeoff}
+    \begin{itemize}
+        \item \textbf{Motivation:} 
+            \begin{itemize}
+                \item Balancing bias and variance is essential for training neural networks that \textbf{generalize} well to \textbf{unseen data}.
+                \item In neural networks, model complexity can be increased with more layers or neurons, impacting both bias and variance.
+            \end{itemize}
+        \item \textbf{Core Concepts:} 
+            \begin{itemize}
+                \item \textbf{Bias:} Systematic error due to overly simplified assumptions.
+                    \begin{itemize}
+                        \item High-bias networks (e.g., shallow networks) may \textbf{underfit}, failing to capture complex patterns.
+                    \end{itemize}
+                \item \textbf{Variance:} Sensitivity to small changes in training data.
+                    \begin{itemize}
+                        \item High-variance networks (e.g., deep networks) may \textbf{overfit}, capturing noise in the data.
+                    \end{itemize}
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Visualizing the Bias-Variance Tradeoff}
+    \begin{itemize}
+        \item \textbf{Tradeoff in Neural Networks:} Increasing layers and parameters can reduce bias but increase variance.
+        \item \textbf{Finding the Balance:} \textbf{Regularization} methods help control this tradeoff by \textbf{adjusting model complexity}.
+    \end{itemize}
+\begin{figure}
+        \centering
+        \includegraphics[width=0.4\textwidth]{pic/bv.png}
+        \caption{Adapted from \href{en.wikipedia.org/wiki/Bias–variance_tradeoff}{Wikipedia}}
+    \end{figure}
+\end{frame}
+
+
+\subsection{Inductive Bias in Neural Networks}
+
+\begin{frame}{Inductive Bias in Neural Networks}
+    \begin{itemize}
+        \item \textbf{Definition:} 
+            \begin{itemize}
+                \item Inductive bias refers to \textbf{assumptions} embedded in the neural network's design to help it generalize to new, unseen data.
+            \end{itemize}
+        \item \textbf{Why it Matters:} 
+            \begin{itemize}
+            \item Translation invariance can hurt CNN performance when object position matters—a phenomenon known as the Picasso effect, where object parts are \textbf{present but misarranged}.
+                \item Without inductive bias, networks would require \textbf{enormous data} to generalize effectively.
+                \item In deep learning, architectural choices like convolutional layers (for spatial data) and recurrent layers (for sequential data) embody inductive biases.
+            \end{itemize}
+        \item \textbf{Classical Example:} 
+            \begin{itemize}
+                \item \textit{Occam's Razor}: Favoring simpler hypotheses (e.g., shallow networks) is an inductive bias that often aids generalization.
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Visualizing Inductive Bias}
+\begin{figure}
+        \centering
+        \includegraphics[width=0.85\textwidth]{pic/invariant-variant.png}
+        \caption{Adapted from \href{https://samiraabnar.github.io/articles/2020-05/indist}{Distilling Inductive Biases}}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Visualizing Inductive Bias}
+\begin{figure}
+        \centering
+        \includegraphics[width=0.85\textwidth]{pic/inductive.png}
+        \caption{Adapted from \href{https://velog.io/@euisuk-chung/Paper-Review-Transferring-Inductive-Bias-Through-Knowledge-Distillation-33}{Transferring Inductive Bias Through Knowledge Distillation}}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Visualizing Inductive Bias}
+A drawing of how inductive biases can affect models' preferences to converge to different local minima. The inductive biases are shown by colored regions (green and yellow) which indicates regions that models prefer to explore.
+\begin{figure}
+        \centering
+        \includegraphics[width=0.5\textwidth]{pic/inductive_bias_distilation_example_1.png}
+        \caption{Adapted from \href{https://samiraabnar.github.io/articles/2020-05/indist}{Distilling Inductive Biases}}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Types of Inductive Bias in Neural Networks}
+    \begin{itemize}
+        \item \textbf{Convolutional Neural Networks (CNNs):} Designed with \textbf{locality and translation-invariance bias}. \\
+              \textit{Example:} CNNs excel in image classification because nearby pixels often share related features.
+              
+        \item \textbf{Recurrent Neural Networks (RNNs):} Designed with \textbf{temporal continuity} bias, making them suitable for sequential data. \\
+              \textit{Example:} RNNs work well for time series and natural language processing, where current information depends on previous data points.
+              
+        \item \textbf{Transformer Models:} Use attention mechanisms to capture \textbf{dependencies across positions} in data, embodying a flexible bias suitable for diverse tasks. \\
+                            \textit{Example:} Transformers are highly effective in language modeling and tasks requiring understanding of long-range dependencies.
+
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Adaptive Inductive Bias in Neural Networks}
+    \begin{itemize}
+        \item \textbf{Bias Shifting During Training:}
+            \begin{itemize}
+                \item Neural networks can adapt inductive bias as they learn, \textbf{dynamically adjusting} feature extraction layers.
+            \end{itemize}
+        \item \textbf{Implications in Transfer Learning:}
+            \begin{itemize}
+                \item Pre-trained networks on large datasets (e.g., ImageNet) carry learned inductive biases that can be \textbf{fine-tuned for specific applications}.
+            \end{itemize}
+        \item \textbf{Example in Practice:}
+            \begin{itemize}
+                \item Transfer learning in medical imaging, where pre-trained CNNs learn \textbf{domain-specific biases with limited labeled data}.
+            \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+
 
 \subsection{Regularization in Neural Networks}
 
@@ -109,7 +229,7 @@ subsubsectionstyle=show/shaded/hide]
     \begin{figure}
         \centering
         \includegraphics[width=0.5\textwidth]{pic/Regularization-intuition.png}
-        \caption{Regularization prevents overfitting by avoiding fitting noise in the data [1].}
+        \caption{Regularization prevents overfitting by avoiding fitting noise in the data.}
         \label{fig:Regularization-intuition}
     \end{figure}
 \end{frame}
@@ -149,10 +269,67 @@ J_\lambda(w) = \underbrace{J(w)}_{{\substack{\vphantom{\text{Prevent the model}}
 \end{frame}
 
 \begin{frame}{Key Regularization Techniques}
+\begin{itemize}[<+-| alert@+>]
+
+    \item \textbf{Lasso Regression (L1 Regularization):} Ideal for feature selection by setting some coefficients to zero.
+    \begin{itemize}
+        \item \textbf{Example:} Predicting house prices with many features. Lasso simplifies the model by focusing on key predictors (e.g., location, size).
+        \item \textbf{Application:} Useful in NLP, where it identifies significant words by reducing others to zero.
+    \end{itemize}
+    
+    \item \textbf{Ridge Regression (L2 Regularization):} Suitable when all features contribute meaningfully, minimizing overfitting without eliminating features.
+    \begin{itemize}
+        \item \textbf{Example:} Medical research using gene expression data, where every feature holds predictive power.
+        \item \textbf{Application:} Ideal for multicollinear data, like predicting product sales with multiple correlated predictors.
+    \end{itemize}
+    
+    \item \textbf{Elastic Net (L1 + L2):} Balances feature selection and generalization, effective with high feature correlation.
+    \begin{itemize}
+        \item \textbf{Example:} Financial models where predictors are correlated. Elastic Net combines Lasso’s selection with Ridge’s handling of multicollinearity.
+    \end{itemize}
+    
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Key Regularization Techniques}
+\begin{table}[]
+    \centering
+    \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|}
+        \hline
+        \textbf{Characteristic} & \textbf{Ridge Regression} & \textbf{Lasso Regression} \\ \hline
+        \textbf{Penalty Type} & L2 (squared coefficient magnitudes) & L1 (absolute coefficient magnitudes) \\ \hline
+        \textbf{Coefficient Shrinkage} & Shrinks coefficients without setting to zero & Can shrink coefficients exactly to zero \\ \hline
+        \textbf{Feature Selection} & Retains all features & Selects features by setting some to zero \\ \hline
+        \textbf{Solution Path} & Coefficients generally non-zero & Many coefficients can be zero \\ \hline
+        \textbf{Model Complexity} & Includes all features, higher complexity & Simplifies model by excluding features \\ \hline
+    \end{tabular}
+    \caption{Comparison of Ridge and Lasso Regression Techniques}
+    \label{tab:ridge_vs_lasso}
+\end{table}
+\end{frame}
+
+\begin{frame}{Key Regularization Techniques}
+\begin{table}[]
+    \centering
+    \begin{tabular}{|p{4cm}|p{4cm}|p{4cm}|}
+        \hline
+        \textbf{Impact on Prediction} & Good for multicollinear data & Reduces model complexity, aiding high-dimensional data \\ \hline
+        \textbf{Interpretability} & Less interpretable; all features retained & More interpretable; excludes irrelevant features \\ \hline
+        \textbf{Best for} & When all features are relevant & When identifying key features among many \\ \hline
+        \textbf{Bias-Variance Tradeoff} & Adds bias, reduces variance & Similar to Ridge, but with higher bias from exclusion \\ \hline
+        \textbf{Computation} & Faster without feature selection & Slightly slower due to feature selection \\ \hline
+    \end{tabular}
+    \caption{Comparison of Ridge and Lasso Regression Techniques}
+    \label{tab:ridge_vs_lasso}
+\end{table}
+\end{frame}
+
+
+\begin{frame}{Key Regularization Techniques}
 
             \begin{figure}
                 \includegraphics[width=0.4\textwidth]{pic/Regularization.png}
-                 \caption{Lasso, Ridge, and Elastic net Comparision. \href{https://analyticsindiamag.com/ai-mysteries/hands-on-tutorial-on-elasticnet-regression/}{\textcolor{orange}{\textbf{Source}}}}
+                 \caption{Lasso, Ridge, and Elastic net Comparision}
                 \label{fig:Regularization}
             \end{figure}
 
@@ -169,84 +346,140 @@ J_\lambda(w) = \underbrace{J(w)}_{{\substack{\vphantom{\text{Prevent the model}}
 
             \begin{figure}
                 \includegraphics[width=0.45\textwidth]{pic/Early-Stopping.png}
-                 \caption{\href{https://www.kaggle.com/code/ryanholbrook/overfitting-and-underfitting}{\textcolor{orange}{\textbf{Source}}}}
+                 % \caption{}
                 \label{fig:Early-Stopping}
             \end{figure}
             
     \end{itemize}
 \end{frame}
-
-\begin{frame}{Key Regularization Techniques}
-\begin{itemize}
-    \item Dropout
+\begin{frame}{Background and Motivation for Dropout}
     \begin{itemize}
-            \item Randomly deactivates some of the neurons \textbf{during training}.
-            \item Reduces neuron dependency and co-adaptation, thereby helping to prevent overfitting.
+        \item \textbf{Ensemble Learning}
+            \begin{itemize}
+                \item Combines \textbf{multiple models} to increase model capacity and reduce overfitting.
+                \item However, training multiple large models can be computationally \textbf{expensive}.
+            \end{itemize}
+        \item \textbf{Bayesian Regularization}
+            \begin{itemize}
+                \item Assumes a \textbf{prior distribution} on parameters, balancing data fit with model complexity.
+                \item Prevents overfitting by \textbf{limiting model reliance} on specific parameter values.
+            \end{itemize}
+        \item \textbf{Inspiration from Nature}
+            \begin{itemize}
+                \item In evolution, genes are mixed randomly in each generation, creating robust organisms by avoiding dependency on specific gene combinations.
+                \item Similarly, dropout \textbf{reduces neural dependencies}, encouraging robust, generalizable features.
+            \end{itemize}
     \end{itemize}
+\end{frame}
+
+\begin{frame}{Concept of Dropout}
+    \begin{itemize}
+        \item Dropout is a regularization technique that reduces overfitting in neural networks.
+        \begin{itemize}
+            \item \textbf{Randomly deactivates} neurons in each layer during training.
+            \item Effectively trains \textbf{multiple “thinned” sub-networks}, then averages them at test time.
+        \end{itemize}
+        \item This makes neurons more robust, as they cannot rely on specific other neurons to perform well.
     \end{itemize}
-                \begin{figure}
-            \includegraphics[width=0.55\textwidth]{pic/Dropout.png}
+    \begin{figure}
+            \includegraphics[width=0.6\textwidth]{pic/Dropout.png}
             \label{fig:Dropout}
-        \caption{\href{https://miro.medium.com/v2/resize:fit:640/format:webp/0*EY8R7nS10y5kQzOx}{\textcolor{orange}{\textbf{Source}}}}
         \end{figure}
-
 \end{frame}
 
-\begin{frame}{Mechanism of Dropout}
+
+\begin{frame}{Mechanics of Dropout: Training vs. Inference}
+    \begin{columns}
+        % Left column for text
+        \begin{column}{0.5\textwidth}
+            \begin{itemize}
+                \item \textbf{During Training}
+                \begin{itemize}
+                    \item A fraction of neurons is randomly set to zero in each layer (dropout rate typically 0.5 for hidden layers).
+                    \item Only \textbf{active neurons} contribute to forward pass and backpropagation.
+                \end{itemize}
+                \item \textbf{During Inference}
+                \begin{itemize}
+                    \item All neurons are active.
+                    \item To balance the increase in neuron count, \textbf{scale the weights} by the dropout probability.
+                    \item Weight scaling compensates for the increase in neuron count, maintaining consistent output expectations.
+                \end{itemize}
+            \end{itemize}
+        \end{column}
+        
+        % Right column for image
+        \begin{column}{0.5\textwidth}
+            \begin{figure}
+                \includegraphics[width=\textwidth]{pic/dropout/test-train.png}
+                \caption{Training vs. Inference in Dropout adapted from \textit{Dropout: A Simple Way to Prevent Neural Networks from Overfitting}}
+                \label{fig:Dropout}
+            \end{figure}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}{Why Dropout Prevents Overfitting}
     \begin{itemize}
-        \item \textbf{During Training}
+        \item \textbf{Breaks Co-Adaptations}
             \begin{itemize}
-                \item A fraction (e.g., 20\%-50\%) of neurons in each layer is randomly set to zero during each forward pass.
-                \item This fraction is called the \texttt{dropout rate}.
-                \item The \texttt{dropout rate} is a value between 0 and 1. For example, if 30\% of neurons are deactivated, the \texttt{dropout rate} equals 0.3.
-                \item Neurons are dropped out independently, and their weights are not updated during backpropagation.
+                \item Forces neurons to \textbf{operate independently}, creating more generalizable feature representations.
             \end{itemize}
-        \item \textbf{During Inference}
+        \item \textbf{Acts as Model Averaging}
             \begin{itemize}
-                \item All neurons are active.
-                \item But the final weights will be larger than expected!
+                \item Randomly sampling neuron subsets is akin to training an ensemble of networks.
+                \item Inference combines these sub-networks, improving model performance on unseen data.
             \end{itemize}
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Mechanism of Dropout}
-    \begin{itemize} [<+-| alert@+>] % stepwise alerts
-        \item<1-> \textbf{Challenge}
-            \begin{itemize}
-                \item<1-> During training, the network learns with a subset of neurons, leading to different activation patterns.
-                \item<1-> During inference, when all neurons are active, the network’s learned weights might cause activations to differ from training due to the sudden increase in neuron count.
-            \end{itemize}
-        \item<2-> \textbf{Solution}
-            \begin{itemize}
-                \item The activations of all neurons during inference will be multiplied by \texttt{dropout rate}. This adjustment maintains the expected sum of activations, allowing the model to make predictions \textcolor{green}{comparable} to those during training.
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Why is Dropout a Good Regularization Idea?}
+\begin{frame}{Real-World Impact of Dropout}
+\begin{columns}
+    
+        \begin{column}{0.5\textwidth}
     \begin{itemize}
-        \item \textbf{Prevents Overfitting} 
-        \begin{itemize}
-            \item Dropout forces the network to learn more robust features by preventing over-reliance on specific neurons.
-            \item Randomly deactivating neurons during training reduces the risk of overfitting the training data.
-        \end{itemize}
-
-        \item \textbf{Acts as an Ensemble}
-        \begin{itemize}
-            \item Dropout effectively trains an ensemble of different sub-networks by sampling different neuron combinations in each iteration.
-            \item During inference, these sub-networks are combined, resulting in a more generalized model that performs better on unseen data.
-        \end{itemize}
+        \item \textbf{Applications in Image Recognition}
+            \begin{itemize}
+                \item Enhanced performance on MNIST, CIFAR-10, and ImageNet, helping models generalize to varied visual inputs.
+            \end{itemize}
+        \item \textbf{Speech Recognition and Text Classification}
+            \begin{itemize}
+                \item Reduced error rates on TIMIT speech dataset and improved document classification on Reuters.
+            \end{itemize}
+        \item \textbf{Computational Biology}
+            \begin{itemize}
+                \item Used for gene splicing prediction, dropout helps extract robust features from small genetic datasets.
+            \end{itemize}
     \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+            \begin{figure}
+                \includegraphics[width=0.9\textwidth]{pic/dropout/effect-of-dropout.png}
+                \caption{Effect of dropout for different architectures: adapted from \textit{Dropout: A Simple Way to Prevent Neural Networks from Overfitting}}
+                \label{fig:Dropout}
+            \end{figure}
+        \end{column}
+\end{columns}
 \end{frame}
+
+\begin{frame}{Dropout Algorithm}
+    \begin{figure}
+                \includegraphics[width=0.8\textwidth]{pic/dropout/algorithm.png}
+                \caption{Dropout Algorithm in Feedforward Networks: adapted from \textit{Dropout: A Simple Way to Prevent Neural Networks from Overfitting}}
+                \label{fig:Dropout}
+            \end{figure}
+\end{frame}
+
 
 
 \begin{frame}{Dropout Best Practices}
     \begin{itemize}
-        \item \textbf{Dropout Rate:} Typically 0.5 for hidden layers, but it should be tuned based on the network architecture and problem complexity.
-        \item \textbf{Where to Apply:} Commonly used in fully connected layers. For \textcolor{red}{convolutional layers} (discussed in the next chapter), spatial dropout is often preferred.
-        \item \textbf{Use Sparingly:} Excessive dropout can cause underfitting or overly sparse networks.
+        \item \textbf{Dropout Rate:} 0.5 for hidden layers is a common starting point, but the rate should be tuned for each model.
+        \item \textbf{Where to Apply:} Often applied in fully connected layers; for convolutional layers, spatial dropout is preferred.
+        \item \textbf{Avoiding Underfitting:} Avoid using too high of a dropout rate, as this may cause excessive sparsity and underfitting.
     \end{itemize}
 \end{frame}
+
 
 
 
@@ -426,7 +659,7 @@ J_\lambda(w) = \underbrace{J(w)}_{{\substack{\vphantom{\text{Prevent the model}}
 \begin{frame}{Introduction to Hyperparameter Tuning}
     \begin{itemize}
         \item \textbf{Definition:} Hyperparameters are settings external to the model that control the training process and model capacity. They cannot be learned from the data.
-        \item \textbf{Examples:} Learning rate, batch size, number of layers, number of neurons per layer, \textcolor{green}{dropout rate}, etc.
+        \item \textbf{Examples:} Learning rate, batch size, number of layers, number of neurons per layer, dropout rate, etc.
         \item \textbf{Impact:} Choosing the right hyperparameters can significantly enhance model performance, while poor choices may cause underfitting or overfitting.
     \end{itemize}
 \end{frame}
@@ -454,26 +687,20 @@ J_\lambda(w) = \underbrace{J(w)}_{{\substack{\vphantom{\text{Prevent the model}}
     \begin{figure}
         \centering
         \includegraphics[width=0.3\textwidth]{pic/grid_vs_random_search.png}
-        \caption{Grid Search vs. Random Search in Hyperparameter Tuning. \href{https://inria.github.io/scikit-learn-mooc/_images/grid_vs_random_search.svg}{\textcolor{orange}{\textbf{Source}}}}
+        \caption{Grid Search vs. Random Search in Hyperparameter Tuning.}
         \label{fig:hyperparameter_tuning}
     \end{figure}
 \end{frame}
 
 \begin{frame}{Hyperparameter Tuning Best Practices}
-    \begin{enumerate}
-        \item \textbf{Start Simple:} Start by tuning a smaller subset of key hyperparameters (e.g., learning rate, batch size).
+    \begin{itemize}
+        \item \textbf{Start Simple:} Begin with tuning a smaller subset of key hyperparameters (e.g., learning rate, batch size).
         \item \textbf{Use Cross-Validation:} Instead of a single validation set, use techniques like k-fold cross-validation to ensure performance is not dependent on a specific train-validation split.
         \item \textbf{Automate:} Leverage frameworks like \texttt{scikit-learn} to automate and parallelize the tuning process.
-    \end{enumerate}
-\end{frame}
-
-\begin{frame}{Hyperparameter Tuning Best Practices}
-    \begin{enumerate}
-        \setcounter{enumi}{3}
         \item \textbf{Track Experiments:} Use tools like \texttt{Wandb} to systematically track hyperparameters, training metrics, and results.
         \item \textbf{Use Learning Curves:} Plot learning curves to monitor the model's performance over time and detect overfitting or underfitting early.
         \item \textbf{Budget Time and Resources:} Set limits on tuning (e.g., time, number of iterations) to avoid excessive computational costs.
-    \end{enumerate}
+    \end{itemize}
 \end{frame}
 
 
