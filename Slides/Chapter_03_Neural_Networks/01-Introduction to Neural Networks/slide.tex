@@ -61,298 +61,299 @@
 \begin{document}
 
 \begin{frame}
-    \titlepage
-    \vspace*{-0.6cm}
-    \begin{figure}[htpb]
-        \begin{center}
-            \includegraphics[keepaspectratio, scale=0.25]{pic/sharif-main-logo.png}
-        \end{center}
-    \end{figure}
+	\titlepage
+	\vspace*{-0.6cm}
+	\begin{figure}[htpb]
+		\begin{center}
+			\includegraphics[keepaspectratio, scale=0.25]{pic/sharif-main-logo.png}
+		\end{center}
+	\end{figure}
 \end{frame}
 
 \begin{frame}    
-\tableofcontents[sectionstyle=show,
-subsectionstyle=show/shaded/hide,
-subsubsectionstyle=show/shaded/hide]
+	\tableofcontents[sectionstyle=show,
+		subsectionstyle=show/shaded/hide,
+	subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 % ============================ Introduction ============================ 
 \section{Introduction}
 
 \begin{frame}{Perceptron Reminder}
-    \begin{picture}(0,0)
-            \put(200,-150){\includegraphics[width=7cm]{pic/1/neuron.png}} % Adjust path and size
-    \end{picture}
-    The building block of each neural network is Perceptron:
-    \begin{itemize}
-        \item $\{x_1, x_2, \dots, x_k\}$ : input features
-        \item $\{w_1, w_2, \dots, w_k\}$ : feature weights
-        \item $b$ : bias term
-        \item $\sigma(\cdot)$ : activation function
-        \item $y$ : output of the neuron
-    \end{itemize}
+	\begin{picture}(0,0)
+		\put(200,-150){\includegraphics[width=7cm]{pic/1/neuron.png}}
+	\end{picture}
+	The building block of each neural network is the perceptron:
+	\begin{itemize}
+		\item $\{x_1, x_2, \dots, x_k\}$ : input features
+		\item $\{w_1, w_2, \dots, w_k\}$ : feature weights
+		\item $b$ : bias term
+		\item $\sigma(\cdot)$ : activation function
+		\item $y$ : output of the neuron
+	\end{itemize}
 \end{frame}
-
-
 
 \begin{frame}{Why Neural Networks?}
-    \begin{itemize}
-        \item We can find explicit formulas for some problems (no machine learning)
-        \begin{itemize}
-            \item $\Delta x = \dfrac{1}{2}a\cdot t^2 + v_0 \cdot t$
-        \end{itemize}
-        \item We can model some problems assuming simple relationships (classical machine learning)
-        \begin{itemize}
-            \item House price as a linear function of its features
-            \item $y = a_1 \cdot x_1 + a_2 \cdot x_2 + \ldots + a_p \cdot x_p$
-        \end{itemize}
-        \item How about classifying these images?
-        \begin{center}
-            \includegraphics[keepaspectratio, scale=0.1]{pic/1/fashion-mnist.png}
-        \end{center}
-    \end{itemize}
+	\begin{itemize}
+		\item We can find explicit formulas for some problems (no machine learning)
+		      \begin{itemize}
+		      	\item $\Delta x = \dfrac{1}{2}a\cdot t^2 + v_0 \cdot t$
+		      \end{itemize}
+		\item We can model some problems by assuming simple relationships (classical machine learning)
+		      \begin{itemize}
+		      	\item House price as a linear function of its features
+		      	\item $y = a_1 \cdot x_1 + a_2 \cdot x_2 + \ldots + a_p \cdot x_p$
+		      \end{itemize}
+		\item How can we classify these images?
+		      \begin{center}
+		      	\includegraphics[keepaspectratio, scale=0.1]{pic/1/fashion-mnist.png}
+		      \end{center}
+	\end{itemize}
 \end{frame}
-
 
 \begin{frame}[t]{Why Neural Networks? Cont.}
-    \begin{picture}(0,0)
-            \put(200, -150){\includegraphics[width=7cm]{pic/1/sneakers.png}}
-    \end{picture}
-    
-    \begin{itemize}
-        \item No explicit formula exists to recognize a sneaker
-        \item We recognize any sneaker intuitively
-        \item Our brains use a complex function for this recognition
-        \item \textbf{Deep neural networks} can learn this complex function
-    \end{itemize}
+	\begin{picture}(0,0)
+		\put(200, -150){\includegraphics[width=7cm]{pic/1/sneakers.png}}
+	\end{picture}
+	    
+	\begin{itemize}
+		\item \textbf{No explicit formula} exists to recognize a sneaker
+		\item We intuitively recognize any sneaker
+		\item Our brains use a\textbf{ complex function} for this recognition
+		\item \textbf{Deep neural networks} can learn this complex function
+	\end{itemize}
 \end{frame}
 
-%
+
+% ============================ Multi-Layer Perceptron (MLP) ============================ 
 \section{Multi-Layer Perceptron (MLP)}
 
 \begin{frame}{Example: MLP for Complex Patterns}
-    \begin{itemize}
-        \item What network to learn this area?
-        \item Example is adapted from [1].
-        \begin{figure}[htpb]
-        \begin{center}
-            \includegraphics[keepaspectratio, scale=0.25]{pic/2/ex1.png}
-        \end{center}
-    \end{figure}
-    \end{itemize}
+	\begin{itemize}
+		\item What network to learn this area?
+		\item Example is adapted from \cite{cmu_deep_learning_2023}.
+		      \begin{figure}[htpb]
+		      	\begin{center}
+		      		\includegraphics[keepaspectratio, scale=0.25]{pic/2/ex1.png}
+		      	\end{center}
+		      \end{figure}
+	\end{itemize}
 \end{frame}
 
 
 \begin{frame}{Example: MLP for Complex Patterns Cont.}
-        \begin{figure}[htpb]
-        \begin{center}
-            \includegraphics[keepaspectratio, scale=0.25]{pic/2/ex2.png}
-        \end{center}
-    \end{figure}
+	\begin{figure}[htpb]
+		\begin{center}
+			\includegraphics[keepaspectratio, scale=0.25]{pic/2/ex2.png}
+		\end{center}
+	\end{figure}
 \end{frame}
 
 
 \begin{frame}{Example: MLP for Complex Patterns Cont.}
-        \begin{figure}[htpb]
-        \begin{center}
-            \includegraphics[keepaspectratio, scale=0.25]{pic/2/ex3.png}
-        \end{center}
-    \end{figure}
+	\begin{figure}[htpb]
+		\begin{center}
+			\includegraphics[keepaspectratio, scale=0.25]{pic/2/ex3.png}
+		\end{center}
+	\end{figure}
 \end{frame}
 
 
 \begin{frame}{Example: MLP for Complex Patterns Cont.}
-        \begin{figure}[htpb]
-        \begin{center}
-            \includegraphics[keepaspectratio, scale=0.25]{pic/2/ex4.png}
-        \end{center}
-    \end{figure}
+	\begin{figure}[htpb]
+		\begin{center}
+			\includegraphics[keepaspectratio, scale=0.25]{pic/2/ex4.png}
+		\end{center}
+	\end{figure}
 \end{frame}
 
 
 \begin{frame}{Example: MLP for Complex Patterns Cont.}
-        \begin{figure}[htpb]
-        \begin{center}
-            \includegraphics[keepaspectratio, scale=0.25]{pic/2/ex5.png}
-        \end{center}
-    \end{figure}
+	\begin{figure}[htpb]
+		\begin{center}
+			\includegraphics[keepaspectratio, scale=0.25]{pic/2/ex5.png}
+		\end{center}
+	\end{figure}
 \end{frame}
 
 
 \begin{frame}{Example: MLP for Complex Patterns Cont.}
-        \begin{figure}[htpb]
-        \begin{center}
-            \includegraphics[keepaspectratio, scale=0.25]{pic/2/ex6.png}
-        \end{center}
-    \end{figure}
+	\begin{figure}[htpb]
+		\begin{center}
+			\includegraphics[keepaspectratio, scale=0.25]{pic/2/ex6.png}
+		\end{center}
+	\end{figure}
 \end{frame}
 
 \begin{frame}{MLP Capacity}
-    \begin{columns}
-        \begin{column}{0.6\textwidth}
-            \begin{itemize}
-                \item Increasing \textbf{width and depth} allows us to approximate \textbf{complex decision boundaries}
-                \item An \textbf{activation function} makes a neuron’s output \textbf{non-linear}, allowing the network to learn complex data
-                \item \textbf{Not limited} to Boolean or step functions
-                \item With appropriate activation functions, neural networks can \textbf{approximate any real-valued function} (More details later)
-            \end{itemize}
-        \end{column}
-        \begin{column}{0.4\textwidth}
-            \includegraphics[width=\textwidth]{pic/2/activations.png} \\
-            \begin{center}
-            {\scriptsize Adapted from \href{https://sefiks.com/2020/02/02/dance-moves-of-deep-learning-activation-functions/}{Sefiks}}
-            \end{center}
-        \end{column}
-    \end{columns}
+	\begin{columns}
+		\begin{column}{0.6\textwidth}
+			\begin{itemize}
+				\item Increasing \textbf{width and depth} allow us to approximate \textbf{complex decision boundaries}
+				\item An \textbf{activation function} makes a neuron’s output \textbf{non-linear}, allowing the network to learn complex pattern
+				\item It is \textbf{not limited} to Boolean or step functions
+				\item With appropriate activation functions, neural networks can \textbf{approximate any real-valued function} (More details later)
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.4\textwidth}
+			\includegraphics[width=\textwidth]{pic/2/activations.png} \\
+			\begin{center}
+				{\scriptsize Adapted from \href{https://sefiks.com/2020/02/02/dance-moves-of-deep-learning-activation-functions/}{Sefiks}}
+			\end{center}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 
+% ============================ Neural Networks ============================ 
 \section{Neural Networks}
 \begin{frame}{Single Hidden Layer Neural Network}
-    \minipage{.5\textwidth}
-    \begin{itemize}
-        \item Hidden layer pre-activation:
-        $$a_i(x) = b^{(1)}_i + \sum_j W^{(1)}_{ij} \cdot x_j$$
-        \item Activated hidden layer:
-        $$h(x) = \sigma^{(1)}(a(x))$$
-        \item Output layer:
-        $$ o(x) = \sigma^{(2)}\left(b^{(2)} + W^{(2)}h^{(1)}(x) \right) $$
-    \end{itemize}
-    \endminipage
-    \hfill
-    \minipage{.48\textwidth}
-        \begin{figure}[bh]
-            \includegraphics[width=\linewidth]{pic/2/single-hidden_nn.png}
-        \end{figure}
-    \endminipage
+	\minipage{.5\textwidth}
+	\begin{itemize}
+		\item Hidden layer pre-activation:
+		      $$a_i(x) = b^{(1)}_i + \sum_j W^{(1)}_{ij} \cdot x_j$$
+		\item Activated hidden layer:
+		      $$h(x) = \sigma^{(1)}(a(x))$$
+		\item Output layer:
+		      $$ o(x) = \sigma^{(2)}\left(b^{(2)} + W^{(2)}h^{(1)}(x) \right) $$
+	\end{itemize}
+	\endminipage
+	\hfill
+	\minipage{.48\textwidth}
+	\begin{figure}[bh]
+		\includegraphics[width=\linewidth]{pic/2/single-hidden_nn.png}
+	\end{figure}
+	\endminipage
 \end{frame}
 
 
 \begin{frame}{Multi-Hidden Layer Neural Network}
-    \minipage{.4\textwidth}
-    \begin{itemize}
-        \item Let $h^0_i = x_i$ for $i \in \{1, 2, \ldots, n  \}$
-        \item For $\ell \in \{0, 1, \ldots, L \}$:
-        $$a^{(\ell+1)}_j = b^{(\ell)}_j + \sum_i W^{(\ell)}_{ij}\cdot h^{(\ell)}_i$$
-        $$h^{(\ell+1)}_j = \sigma^{(\ell+1)}(a^{(\ell+1)}_j)$$
-
-        \item Learnable parameters:
-        $$b^{(\ell)}_j, W^{(\ell)}_{ij}$$
-
-        \item Number of learnable parameters:
-        $$(n+1)m_1 + (m_1 + 1)m_2 + ... + (m_L + 1)k$$
-    \end{itemize}
-    \endminipage
-    \hfill
-    \minipage{.6\textwidth}
-        \begin{figure}[bh]
-            \includegraphics[width=\linewidth]{pic/2/multi-hidden-nn.png}
-        \end{figure}
-    \endminipage
+	\minipage{.4\textwidth}
+	\begin{itemize}
+		\item Let $h^0_i = x_i$ for $i \in \{1, 2, \ldots, n  \}$
+		\item For $\ell \in \{0, 1, \ldots, L \}$:
+		      $$a^{(\ell+1)}_j = b^{(\ell)}_j + \sum_i W^{(\ell)}_{ij}\cdot h^{(\ell)}_i$$
+		      $$h^{(\ell+1)}_j = \sigma^{(\ell+1)}(a^{(\ell+1)}_j)$$
+		      
+		\item Learnable parameters:
+		      $$b^{(\ell)}_j, W^{(\ell)}_{ij}$$
+		      
+		\item Number of learnable parameters:
+		      $$(n+1)m_1 + (m_1 + 1)m_2 + ... + (m_L + 1)k$$
+	\end{itemize}
+	\endminipage
+	\hfill
+	\minipage{.6\textwidth}
+	\begin{figure}[bh]
+		\includegraphics[width=\linewidth]{pic/2/multi-hidden-nn.png}
+	\end{figure}
+	\endminipage
 \end{frame}
 
 \begin{frame}[t]{Deep Neural Network Architecture}
-\begin{itemize}
-    \item More than a few hidden layers: \textbf{Deep Neural Network (DNN)}
-    \item Designing a neural network architecture is \textbf{more of an art than a science}.
-        \begin{figure}[bh]
-            \includegraphics[keepaspectratio, scale=0.3]{pic/3/huge-nn.png}
-        \end{figure}
-\end{itemize}
+	\begin{itemize}
+		\item More than a few hidden layers: \textbf{Deep Neural Network (DNN)}
+		\item Designing neural network architecture is \textbf{more of an art than a science}.
+		      \begin{figure}[bh]
+		      	\includegraphics[keepaspectratio, scale=0.3]{pic/3/huge-nn.png}
+		      \end{figure}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{Network Width and Depth}
-    \begin{columns}
-        \begin{column}{0.6\textwidth}
-            \begin{itemize}
-                \item \textbf{Width:} More neurons, more complexity
-                \item \textbf{Depth:} More layers, more abstraction
-                \item \textbf{Balance:} 
-                \begin{itemize}
-                    \item Too narrow/shallow: risk of underfitting
-                    \item Too wide/deep: risk of overfitting
-                \end{itemize}
-            \end{itemize}
-        \end{column}
-        \begin{column}{0.5\textwidth}
-            \begin{center}
-                \includegraphics[keepaspectratio, width=\textwidth]{pic/3/complexity.png} \\
-                {\scriptsize Adapted from \href{https://towardsdatascience.com/overfitting-and-underfitting-principles-ea8964d9c45c}{Towards Data Science}}
-            \end{center}
-        \end{column}
-    \end{columns}
+	\begin{columns}
+		\begin{column}{0.6\textwidth}
+			\begin{itemize}
+				\item \textbf{Width:} More neurons, more complexity
+				\item \textbf{Depth:} More layers, more abstraction
+				\item \textbf{Balance:} 
+				      \begin{itemize}
+				      	\item Too narrow/shallow: risk of underfitting
+				      	\item Too wide/deep: risk of overfitting
+				      \end{itemize}
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{center}
+				\includegraphics[keepaspectratio, width=\textwidth]{pic/3/complexity.png} \\
+				{\scriptsize Adapted from \href{https://towardsdatascience.com/overfitting-and-underfitting-principles-ea8964d9c45c}{Towards Data Science}}
+			\end{center}
+		\end{column}
+	\end{columns}
 \end{frame}
 
+% ============================ Training Neural Networks ============================ 
 \section{Training Neural Networks}
 \begin{frame}{Training Phases}
-    \begin{itemize}
-        \item \textbf{Initialize weights and biases}: These values control how the network initially processes information (More details later)
-        \item \textbf{Forward pass}: Pass the input through the network to get an output
-        \item \textbf{Calculate the error}: Compare the network's output to the correct answer to measure the difference (called the 'loss' - More details later) 
-        \item \textbf{Backpropagation}: Use the loss value to adjust the weights and biases to improve the network's accuracy
-    \end{itemize}
-    \begin{figure}[bh]
-            \includegraphics[keepaspectratio, scale=0.2]{pic/4/training-phases.png}
-    \end{figure}
+	\begin{itemize}
+		\item \textbf{Initialize weights and biases}: These values control how the network initially processes information (more details later)
+		\item \textbf{Forward pass}: Pass the input through the network to get an output
+		\item \textbf{Calculate the error}: Compare the network's output to the correct answer to measure the difference (called the 'loss' -- more details later) 
+		\item \textbf{Backpropagation}: Use the loss value to adjust the weights and biases to improve the network's accuracy
+	\end{itemize}
+	\begin{figure}[bh]
+		\includegraphics[keepaspectratio, scale=0.2]{pic/4/training-phases.png}
+	\end{figure}
 \end{frame}
 
 \begin{frame}[t]{Forward Propagation}
-    \begin{itemize}
-        \item This is the pass where we send input data through the network to make a prediction (likely inaccurate at first).
-        \item The prediction is made by calculating weighted sums and applying an activation function at each layer
-        $$ o(x) = a^{(L)} = \sigma^{(L)}\left( b^{(L)} + W^{(L)}  \sigma^{(L-1)}\left( \ldots \sigma^{(1)}(b^{(1)} + W^{(1)}  x)  \ldots \right) \right) $$
-    \end{itemize}
+	\begin{itemize}
+		\item This is the pass where we send input data through the network to make a prediction (likely inaccurate at first).
+		\item The prediction is made by calculating weighted sums and applying an activation function in each layer
+		      $$ o(x) = a^{(L)} = \sigma^{(L)}\left( b^{(L)} + W^{(L)}  \sigma^{(L-1)}\left( \ldots \sigma^{(1)}(b^{(1)} + W^{(1)}  x)  \ldots \right) \right) $$
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Forward Propagation Cont.}
-        \begin{figure}[h]
-            \includegraphics[width=\linewidth]{pic/4/tensorflow0.png}\\
-            {\scriptsize Before producing predictions. Adapted from \href{playground.tensorflow.org}{TensorFlow playground: Daniel Smilkov and Shan Carter}.}
-        \end{figure}
+	\begin{figure}[h]
+		\includegraphics[width=\linewidth]{pic/4/tensorflow0.png}\\
+		{\scriptsize Before making predictions. Adapted from \href{playground.tensorflow.org}{TensorFlow playground: Daniel Smilkov and Shan Carter}.}
+	\end{figure}
 \end{frame}
 
 \begin{frame}[t]{Forward Propagation Cont.}
-    \begin{itemize}
-        \item The goal is to adjust the network’s parameters to improve the predictions
-        \item The loss is calculated after the forward pass, telling us how far off our predictions are from the true values
-        \begin{figure}[bh]
-            \centering
-            \includegraphics[width=\linewidth]{pic/4/tensorflow2.png} \\
-            {\scriptsize Loss values for predictions. Adapted from \href{playground.tensorflow.org}{TensorFlow playground: Daniel Smilkov and Shan Carter}.}
-        \end{figure}
-    \end{itemize}
+	\begin{itemize}
+		\item The goal is to adjust the network’s parameters to improve the predictions
+		\item The loss is calculated after the forward pass, indicating how far off our predictions are from the true values
+		      \begin{figure}[bh]
+		      	\centering
+		      	\includegraphics[width=\linewidth]{pic/4/tensorflow2.png} \\
+		      	{\scriptsize Loss values for predictions. Adapted from \href{playground.tensorflow.org}{TensorFlow playground: Daniel Smilkov and Shan Carter}.}
+		      \end{figure}
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[t]{BackPropagation and Parameter Update}
-    \begin{itemize}
-        \item The network uses the \textbf{loss} to adjust its \textbf{weights and biases} through a process called \textbf{backpropagation}
-        \item Backpropagation calculates how much weights should change to reduce the error
-        \item This will be explained in more detail in the next lecture
-        \begin{figure}[bh]
-            \centering
-            \includegraphics[width=\linewidth]{pic/4/tensorflow3.png} \\
-            {\scriptsize Predictions get better as the weights get updated. Adapted from \href{playground.tensorflow.org}{TensorFlow playground: Daniel Smilkov and Shan Carter}.}
-        \end{figure}
-    \end{itemize}
+	\begin{itemize}
+		\item The network uses the \textbf{loss} to adjust its \textbf{weights and biases} through a process known as \textbf{backpropagation}
+		\item Backpropagation calculates how much weights should change to reduce the error
+		\item This will be explained in more detail in the following lecture
+		      \begin{figure}[bh]
+		      	\centering
+		      	\includegraphics[width=\linewidth]{pic/4/tensorflow3.png} \\
+		      	{\scriptsize Predictions improve as the weights get updated. Adapted from \href{playground.tensorflow.org}{TensorFlow playground: Daniel Smilkov and Shan Carter}.}
+		      \end{figure}
+	\end{itemize}
 \end{frame}
 
 
+% ============================ References ============================ 
 \section{References}
 
 \begin{frame}{Contributions}
-\textbf{These slides are authored by:}
-    \begin{itemize}
-        \item Sogand Salehi
-        \item Erfan Sobhaei
-    \end{itemize}
-    
+	\textbf{These slides are authored by:}
+	\begin{itemize}
+		\item Sogand Salehi
+		\item Erfan Sobhaei
+	\end{itemize}
+	    
 \end{frame}
 
 
 \begin{frame}[allowframebreaks]
-   \bibliographystyle{ieeetr} % Place the style before bibliography
-   \bibliography{ref.bib} % Point to your .bib file
-   \nocite{*} % Include all references even if not cited
+	\bibliographystyle{ieeetr}
+	\bibliography{ref.bib}
+	\nocite{*}
 \end{frame}
 
 

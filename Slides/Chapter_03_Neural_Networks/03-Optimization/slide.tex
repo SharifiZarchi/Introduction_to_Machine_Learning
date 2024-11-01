@@ -69,462 +69,591 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 \section{Optimization}
-\subsection{Problem Definition}
 
-\begin{frame}{Problem Definition}
-    \begin{itemize}%[<+-| alert@+>] % stepwise alerts
-        \item \textbf{Goal}: Given a function $f(x)$ of some variable $x$, find the value of $x$ where $f(x)$ is \textbf{minimum} or \textbf{maximum}
-        \item In neural networks, the goal is to make the prediction error as small as possible
-        \item We want to find the network weights $W^*$ that result in the \textbf{lowest loss}:
+\begin{frame}{Optimization Problem}
+    \begin{itemize}
+        \item \textbf{Goal}: Find the value of $x$ where $f(x)$ is at a \textbf{minimum} or \textbf{maximum}.
+        \item In neural networks, we aim to minimize \textbf{prediction error} by finding the optimal weights $w^*$:
     \end{itemize}
     
-    % \[
-    % \mathcal{L} = \frac{1}{N} \sum_{i=1}^{N} \ell(y_i, \hat{y}_i)
-    % \]
     \[
     w^* = \arg\min_{w} J(w)
     \]
-
-
     
-\end{frame}
-\begin{frame}{Problem Definition}
     \begin{itemize}
-        \item Simply put, we want to find the direction to step in that will \textbf{reduce our loss} as quickly as possible
-        \item In other words, \textbf{which way is downhill?}
+        \item Simply put: determine the \textbf{direction to step} that will quickly \textbf{reduce loss}.
     \end{itemize}
+    
+    % \begin{figure}[h]
+    %     \centering
+    %     \includegraphics[width=0.3\linewidth]{pic/downhill_feifei_rouhan.png}
+    %     \caption{Which way is downhill? (CS231n, Stanford)}
+    % \end{figure}
 \end{frame}
 
-\subsection{Convexity and Optimization}
 \begin{frame}{Convexity and Optimization}
-    \begin{minipage}{0.6\linewidth}
+\begin{minipage}{0.6\linewidth}
+    \begin{itemize}
+        \item \textbf{Convex Functions}:
         \begin{itemize}
-            \item \textbf{Definition}: A function is \textbf{convex} if, for any two points on the curve, the line segment connecting them lies above or on the curve
-            \begin{itemize}
-                \item \textbf{Example}: Bowl-shaped curves
-            \end{itemize}
-            \item \textbf{Convex functions} are easier to optimize because they have only \textbf{one global minimum} (the lowest point)
-            \begin{itemize}
-                \item Analytical solutions $(\nabla f(x) = 0)$ and second-order methods $(\nabla^2 f(x) > 0)$ can be used for faster and more accurate convergence
-                \item \textbf{Gradient descent} is guaranteed to converge to the global minimum in convex functions
-            \end{itemize}
+            \item A function is \textbf{convex} if any line segment between points on the curve lies \textbf{above or on} the curve.\\
+            \item Convex functions are easier to optimize, as they have a single \textbf{global minimum}.\\
+            \item Numerical methods like \textbf{Gradient Descent} are guaranteed to reach the global minimum in convex functions.
         \end{itemize}
-    \end{minipage}%
-    \hfill
-    \begin{minipage}{0.4\linewidth}
+    \end{itemize}
+\end{minipage}%
+\begin{minipage}{0.3\linewidth}
+    \begin{figure}[h]
         \centering
-        \includegraphics[height=.6\textheight]{pic/loss_convex.jpg}
-    \end{minipage}
+        \includegraphics[height=0.7\textheight]{pic/loss_convex.jpg}
+        \caption{\footnotesize Example of convex function (bowl shape)}
+    \end{figure}
+\end{minipage}
 \end{frame}
 
-\begin{frame}{Convexity and Optimization}
+\begin{frame}{Non-Convex Functions and Challenges}
+\begin{minipage}{0.65\linewidth}
     \begin{itemize}
-        \item \textbf{Definition}: a function is \textbf{non-convex} if it has multiple local minima and maxima
+        \item \textbf{Non-Convex Functions}:
         \begin{itemize}
-            \item \textbf{Global Minimum}: The very lowest point across the whole curve
-            \item \textbf{Local Minimum}:  A point that's lower than nearby points, but not the lowest overall
-            \item \textbf{Saddle Points}: A flat region where the slope is almost zero. It can go up in some directions and down in others
+            \item Characterized by multiple \textbf{local minima} and \textbf{saddle points}.
+            \item \textbf{Global Minimum}: Overall lowest point.
+            \item \textbf{Local Minimum}: Lower than nearby points, but not the lowest overall.
+            \item \textbf{Saddle Points}: Regions where the gradient is close to zero but can increase or decrease in other directions.
         \end{itemize}
-        \item Non-convex functions make finding the \textbf{global minimum} complicated
+        \item Finding the \textbf{global minimum} is more complex in non-convex functions.
     \end{itemize}
-    \begin{center}
-        \begin{minipage}{0.5\linewidth}
-            \centering
-            \includegraphics[height=.5\textheight]{pic/Saddle_point.jpg}
-        \end{minipage}
-    \end{center}
+\end{minipage}%
+\begin{minipage}{0.25\linewidth}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[height=0.65\textheight]{pic/convex_nonconvex.png}
+        \caption{\footnotesize Convex (top) vs. Non-Convex (bottom) functions. Source: (CMU, 11-785)}
+    \end{figure}
+\end{minipage}
 \end{frame}
 
 \section{The Loss Surface}
-\begin{frame}{Definition}
-\begin{minipage}{0.5\linewidth}
+\begin{frame}{Loss Surface Definition}
+\begin{minipage}{0.6\linewidth}
     \begin{itemize}
-        \item The loss surface represents how the error changes based on the network's weights
-        \item The loss surface of a neural network is typically \textbf{non-convex} due to multiple layers, nonlinear activation functions, and complex interactions between parameters, resulting in multiple local minima and saddle points
-        \item In large networks, most local minima give similar error values and are close to the \textbf{global minimum}. This isn't true for smaller networks
+        \item The \textbf{loss surface} shows how error changes based on network weights.
+        \item For neural networks, the loss surface is typically \textbf{non-convex} due to multiple layers, nonlinear activations, and complex parameter interactions, resulting in \textbf{multiple local minima} and \textbf{saddle points}.
+        \item In large networks, most local minima yield similar error values close to the \textbf{global minimum}; this is less true in smaller networks.
     \end{itemize}
 \end{minipage}%
-%\begin{center}
-\begin{minipage}{0.5\linewidth}
+\begin{minipage}{0.3\linewidth}
     \begin{figure}[h]
         \centering
-        \includegraphics[height=.5\textheight]{pic/resnet56_noshort_small.jpg}
-        \caption{\footnotesize ResNet56 from \url{https://github.com/tomgoldstein/loss-landscape}}
+        \includegraphics[height=0.6\textheight]{pic/resnet56_noshort_small.jpg}
+        \caption{\footnotesize Loss surface of ResNet56. Source: \href{https://github.com/tomgoldstein/loss-landscape}{GitHub: Loss Landscape}}
     \end{figure}
 \end{minipage}
-%\end{center}
 \end{frame}
 
 \begin{frame}{Loss Optimization}
-    \begin{minipage}{0.5\linewidth}
     \begin{itemize}
-        \item How can we optimize a non-convex loss function?
-        \item \textbf{Strategy}: Instead of randomly searching for a good direction, we calculate the \textbf{best direction} to reduce the loss
+        \item \textbf{Goal}: How can we optimize a non-convex loss function effectively?
+        \item \textbf{Gradient Descent}:
         \begin{itemize}
-            \item  This is mathematically guaranteed to be the direction of the steepest descent
+            \item This method identifies the \textbf{steepest descent direction} to guide the optimization process.
+        \end{itemize}
+        \item \textbf{Newton's Method}:
+        \begin{itemize}
+            \item This method looks for \textbf{critical points} where the derivative \( f'(x) = 0 \), which may indicate minima, maxima, or saddle points.
+            \item Newton's Method uses the second derivative (Hessian) to adjust step sizes, which can lead to faster convergence compared to Gradient Descent.
         \end{itemize}
     \end{itemize}
-    \end{minipage}%
-    \begin{minipage}{0.5\linewidth}
-        \begin{figure}[h]
-            \centering
-            \includegraphics[height=.6\textheight]{pic/gradient_descent_blog.skz.dev.png}
-            \caption{\footnotesize Gradient Descent visualization from \url{https://blog.skz.dev/gradient-descent}}
-        \end{figure}
-    \end{minipage}
 \end{frame}
-
 
 \section{Gradient Descent}
-\subsection{Recap of Gradient Descent}
-\begin{frame}{Gradient Descent}
+\begin{frame}{Gradient Descent Overview}
     \begin{itemize}
-        \item As introduced earlier, Gradient Descent is an iterative method for minimizing the error by updating network weights in the direction of the steepest descent (negative gradient)
-        \[w_{t+1} = w_t - \eta \nabla J(w_t)\]\\
-        where:
-        \begin{itemize}
-            \item $\eta$ is called the 'learning rate' or 'step size'
-        \end{itemize}
-        \item The goal is to keep adjusting the weights until we reach a point where the error is as low as possible (a local or global minimum)
+        \item \textbf{Gradient Descent}: As mentioned earlier in this course, Gradient Descent is an iterative method to minimize error by updating weights in the direction of the \textbf{negative gradient}:
+        \[
+        w_{t+1} = w_t - \eta \nabla J(w_t)
+        \]
+        where $\eta$ is the \textbf{learning rate}.
     \end{itemize}
-\end{frame}
-
-\begin{frame}{Types of Gradient Descent}
     \begin{itemize}
-        \item \textbf{Batch Gradient Descent}: Uses the entire dataset to calculate the gradient. This gives smooth updates but can be slow
-        \item \textbf{Stochastic Gradient Descent (SGD)}: Uses one data point at a time, leading to faster but noisier updates
-        \item \textbf{Mini-batch Gradient Descent}: Uses small groups (batches) of data points. This is a balance between batch and stochastic, combining speed with more stable updates
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Types of Gradient Descent}
-\begin{table}[h!]
-\centering
-\begin{tabularx}{\textwidth}{@{} lX X @{}}
-\toprule
-\textbf{Type} & \textbf{Advantages} & \textbf{Disadvantages} \\ 
-\midrule
-\textbf{Batch}   & 
-Stable convergence \newline 
-Accurate gradient estimate  & 
-Computationally expensive \newline 
-Slow for large datasets \\ 
-\midrule
-\textbf{Stochastic (SGD)}   & 
-Fast updates \newline 
-Can escape local minima & 
-Noisy updates \newline 
-May not converge smoothly \\ 
-\midrule
-\textbf{Mini-Batch}   & 
-Faster than batch, more stable than SGD \newline 
-Efficient for larger datasets & 
-Requires tuning batch size \newline 
-Some noise remains \\ 
-\bottomrule
-\end{tabularx}
-\caption{\footnotesize Comparison of Gradient Descent Types}
-\end{table}
-\end{frame}
-
-\subsection{Problems with Gradient Descent}
-\begin{frame}{Problem 1}
-    \begin{itemize}
-        \item \textbf{SGD} is fast and can escape local minima, but it faces some issues
-        \item What if the loss changes quickly in one direction but slowly in another?
+        \item \textbf{Types of Gradient Descent}:
         \begin{itemize}
-            \item \textbf{Slow} progress along the shallow dimension, \textbf{jitter} along the steep direction
-        \end{itemize}
-    \end{itemize}
-    \hfill
-    \hfill
- %   \begin{minipage}{0.5\textwidth}
-    \begin{center}
-        \begin{figure}
-            \includegraphics[width=1\linewidth]{pic/sgd_stanford.png}
-            \caption{\footnotesize SGD visualization from CS231n: Convolutional Neural Networks for Visual Recognition}
-        \end{figure}
-    \end{center}
- %   \end{minipage}
-\end{frame}
-
-\begin{frame}{Problem 2}
-    \begin{minipage}{0.4\textwidth}
-        \begin{itemize}
-        \item What if the loss function has a local minima or saddle point?
-        \begin{itemize}
-            \item The algorithm may settle for \textbf{sub-optimal solutions} or take a \textbf{long time} to make significant progress
-        \end{itemize}
-        \end{itemize}
-    \end{minipage}%
-    \begin{minipage}{0.6\textwidth}
-        \centering
-        \begin{center}
-        \begin{figure}
-        \centering
-            \includegraphics[width=0.75\linewidth]{pic/saddle_wiki.png}
-            \caption{\footnotesize Saddle point from \url{https://en.wikipedia.org/wiki/Saddle_point}}
-        \end{figure}
-        \end{center}
-    \end{minipage}
-\end{frame}
-
-\begin{frame}{Problem 3}
-    \begin{minipage}{0.4\textwidth}
-        \begin{itemize}
-        \item Gradients that come from single data points or mini-batches can be \textbf{noisy}
-        \end{itemize}
-    \end{minipage}%
-    \begin{minipage}{0.6\textwidth}
-        \centering
-        \begin{figure}
-            \centering
-            \includegraphics[width=0.6\linewidth]{pic/sgd_mlexplained.png}
-            \caption{\footnotesize SGD visualization from \url{https://laptrinhx.com/understanding-optimization-algorithms-3818430905/}}
-        \end{figure}
-    \end{minipage}
-\end{frame}
-
-\begin{frame}{Problem 4}
-    \begin{itemize}
-        \item Why not just use mini-batches?
-        \begin{itemize}
-            \item Even though mini-batch gradient descent helps \textbf{reduce the noise}, It can still have a \textbf{slow convergence} and might \textbf{get stuck} in regions where the gradients are small (like plateaus or valleys), which makes learning inefficient
-        \end{itemize}
-        \item In addition, using the same learning rate for all dimensions can lead to:
-        \begin{itemize}
-            \item Smooth convergence in some directions
-            \item Oscillations or divergence in other directions
+            \item \textbf{Batch}: Full dataset for stable but slow updates.
+            \item \textbf{Stochastic (SGD)}: One data point for fast, noisy updates.
+            \item \textbf{Mini-Batch}: Small batches, balancing speed and stability.
         \end{itemize}
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Problem Definition}
+\begin{frame}{Problems with Gradient Descent}
     \begin{itemize}
-        \item So, how can we improve the vanilla Gradient Descent algorithm? 
-        \item \textbf{Proposal}:
-        \begin{itemize}
-            \item Track oscillations in each direction
-            \item Increase steps in stable directions
-            \item Decrease steps in oscillating directions
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-
-
-\begin{frame}{Problem Definition}
-    \begin{itemize}
-        \item \textbf{Goal}: Choose an appropriate learning rate to avoid slow convergence and getting stuck in local minima while not overshooting or becoming unstable
-        \item \textbf{Naive Approach}: Try lots of different learning rates and see what works "just right"
-        \begin{itemize}
-            \item This can be inefficient and time-consuming
-        \end{itemize}
-        \item \textbf{Smarter Approach}: Design an adaptive learning rate that adapts to the loss surface
-        \begin{itemize}
-            \item We can achieve this by incorporating \textbf{Momentum}
-        \end{itemize}
+        \item \textbf{High Variability (SGD)}: Quick in steep directions but slow in shallow ones, causing \textbf{jitter and slow progress}.
+        \item \textbf{Local Minima and Saddle Points}: Risk of \textbf{sub-optimal solutions} or long convergence times in flat regions.
+        \item \textbf{Noisy Updates}: Using individual points or mini-batches introduces noise, affecting stable convergence.
     \end{itemize}
     \vfill
-    \begin{center}
-        \includegraphics[width=0.6\linewidth]{pic/compare_momentum.png}
-    \end{center}
+    \begin{minipage}{0.5\linewidth}
+        \begin{figure}[h]
+        \centering
+        \includegraphics[width=1\linewidth]{pic/sgd_stanford.png}
+        \caption{\footnotesize SGD Variability (CS231n, Stanford)}
+        \end{figure}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.5\linewidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.5\linewidth]{pic/saddle_wiki.png}
+            \caption{\footnotesize Saddle Point. Source: \href{https://en.wikipedia.org/wiki/Saddle_point}{Wikipedia}}
+        \end{figure}
+    \end{minipage}
 \end{frame}
 
 \section{Momentum}
-\subsection{Momentum Definition and Types}
-\begin{frame}{Momentum}
-    \begin{minipage}{0.5\textwidth}
+\begin{frame}{Problem Definition}
+    \begin{minipage}{0.6\textwidth}
+    \begin{itemize}
+        \item \textbf{Objective}: \textbf{Enhance} the vanilla Gradient Descent algorithm to improve convergence and stability.
+        \item \textbf{Challenges}:
         \begin{itemize}
-            \item \textbf{Goal}: Speed up convergence by using past gradients to smooth out oscillations and avoid getting stuck
-            \begin{itemize}
-                \item Keep moving in the same general direction as previous steps
-            \end{itemize}
-            \item \textbf{Benefit}: Accelerates learning in important directions while reducing oscillations in irrelevant ones
+            \item Selecting \textbf{an appropriate learning rate} is crucial to avoid slow convergence and getting stuck in local minima.
         \end{itemize}
+        \item \textbf{Proposed Solution}:
+        \begin{itemize}
+            \item Instead of testing multiple learning rates, incorporate \textbf{Momentum} to adaptively adjust the learning rate based on oscillations:
+            \begin{itemize}
+                \item Increase steps in stable directions.
+                \item Decrease steps in oscillating directions.
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
     \end{minipage}%
-    \begin{minipage}{0.5\linewidth}
-    \begin{figure}[h]
-        \centering
-        \includegraphics[height=.25\textheight]{pic/momentum_paperswithcode.jpg}
-        \caption{\footnotesize SGD comparison from \url{https://paperswithcode.com/method/sgd-with-momentum}}
-    \end{figure}
+    \begin{minipage}{0.3\textwidth}
+        \begin{figure}[h]
+            \centering
+            \includegraphics[height=0.2\textheight]{pic/momentum_paperswithcode.jpg}
+            \caption{\footnotesize Momentum smooths oscillations and accelerates progress. Source: \href{https://paperswithcode.com/method/sgd-with-momentum}{Papers with Code}}
+        \end{figure}
     \end{minipage}
 \end{frame}
 
-
-\begin{frame}{First Momentum}
+\begin{frame}{Introduction to Momentum in Optimization}
     \begin{itemize}
-        \item The first momentum, denoted as $m_{t}$, is essentially \textbf{the moving average of the gradients}. The update rule is:
-        \[m_{t+1} = \beta_1 m_t + (1 - \beta_1) \nabla_w J(w_t)\]
-        \[w_{t+1} = w_t - \eta m_{t+1}\]
-        where:
+        \item \textbf{Origin of Momentum}: 
         \begin{itemize}
-            \item $m_{t+1}$ is the first moment at time step $t+1$
-            \item $\beta_1$ is the decay rate, which controls how much of the past gradients to include (typically 0.9 or 0.99)
-            \item $\nabla_w J(w_t)$ is the gradient at time step $t$
+            \item Inspired by Newtonian physics, momentum in optimization uses \textbf{the concept of velocity in motion}, accumulating gradient history to smooth the learning trajectory, akin to an object moving based on past inertia.
+            \item Initially introduced to tackle challenges in gradient descent, where \textbf{inconsistent gradients or noisy updates} lead to erratic and slow convergence.
         \end{itemize}
-    \end{itemize}
-    
-    \textbf{Why use the first moment?}
-    \begin{itemize}
-        \item Inspired by physics, it keeps us moving due to accumulated momentum, like a ball rolling in a frictionless bowl 
+        
+        \item \textbf{Purpose of Momentum}: 
+        \begin{itemize}
+            \item \textbf{Dampens Oscillations}: Utilizes prior gradients to minimize oscillations along steep or erratic regions, resulting in a smoother and more stable path.
+            \item \textbf{Speeds Up Convergence}: Particularly effective in narrow valleys or flat regions, where standard gradient descent may struggle or oscillate, causing slow progress.
+        \end{itemize}
+        
+        % \item \textbf{Mechanism}: 
+        % \begin{itemize}
+        %     \item Achieves improvements by adding a "velocity" term to gradient descent, facilitating consistent directional movement and balancing update sizes for faster and more reliable convergence.
+        % \end{itemize}
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Second Momentum}
+% \begin{frame}{How Momentum Accelerates Learning}
+%     \begin{itemize}
+%         \item In momentum-based optimization, updates are influenced by a weighted combination of the current gradient and previous updates.
+%         \item \textbf{Why Use Momentum?}
+%         \begin{itemize}
+%             \item \textbf{Reduces Oscillations}: Momentum softens oscillations along steeper directions while preserving progress in directions with smaller gradients, resulting in a balanced path.
+%             \item \textbf{Increases Efficiency}: By "accelerating" updates in directions of consistent gradient descent, momentum minimizes unnecessary steps and decreases overall convergence time.
+%         \end{itemize}
+%     \end{itemize}
+% \end{frame}
+
+\subsection{First Moment (Momentum)}
+\begin{frame}{First Moment (Momentum)}
     \begin{itemize}
-        \item The second momentum, denoted as $v_{t}$, is a \textbf{moving average of the squared gradients}. 
-        \item It helps us track how large the gradients have been over time. The update rule is:
-        \[v_{t+1} = \beta_2 v_t + (1 - \beta_2) (\nabla_w J(w_t))^2\]
-        \[w_{t+1} = w_t - \eta v_{t+1}\]
+        \item \textbf{Definition}: The first moment, \( m_t \), represents a moving average of past gradients. It builds "velocity" that propels learning in a consistent direction.
+        \item \textbf{Update Rule}:
+        \[
+        m_{t+1} = \beta_1 m_t + (1 - \beta_1) \nabla_w J(w_t)
+        \]
+        \[
+        w_{t+1} = w_t - \eta m_{t+1}
+        \]
         where:
         \begin{itemize}
-            \item $v_{t+1}$ is the second moment at time step $t+1$
-            \item $\beta_2$ is the decay rate
-            \item $\nabla_w J(w_t)$ is the gradient at time step $t$
+            \item \( \beta_1 \): Decay rate, usually 0.9 or 0.99, which controls the weight of past gradients.
+            \item \( \eta \): Learning rate.
         \end{itemize}
-    \end{itemize}
-
-    \textbf{Why use the second moment?}
-    \begin{itemize}
-        \item The second moment helps \textbf{control the size of updates} by adjusting for consistently large or small gradients, preventing overshooting or slow learning
+        \item \textbf{Why Use First Momentum?}
+        \begin{itemize}
+            \item Inspired by the idea of rolling momentum, it smooths and accelerates learning by sustaining direction from prior gradients.
+            \item This type of momentum is ideal for traversing narrow valleys or regions where standard gradient descent would oscillate.
+        \end{itemize}
     \end{itemize}
 \end{frame}
 
+\begin{frame}{Example of First Moment}
+    \begin{minipage}{0.45\linewidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.75\linewidth]{pic/Without_momentum.png}
+            \caption{\footnotesize Stochastic gradient descent without momentum stops at a local minimum. Source: Akash Ajagekar (SYSEN 6800 Fall 2021)}
+        \end{figure}
+    \end{minipage}%
+    \begin{minipage}{0.45\linewidth}
+        \begin{figure}
+            \centering
+            \includegraphics[width=0.75\linewidth]{pic/With_momentum.png}
+            \caption{\footnotesize Stochastic gradient descent with momentum stops at the global minimum. Source: Akash Ajagekar (SYSEN 6800 Fall 2021)}
+        \end{figure}
+    \end{minipage}
+\end{frame}
+
+\subsection{Second Moment (Variance)}
+\begin{frame}{Second Moment (Variance)}
+    \begin{itemize}
+        \item \textbf{Definition}: The second moment, \( v_t \), represents the moving average of squared gradients. It measures the gradient magnitude over time.
+        \item \textbf{Update Rule}:
+        \[
+        v_{t+1} = \beta_2 v_t + (1 - \beta_2) (\nabla_w J(w_t))^2
+        \]
+        \[
+        w_{t+1} = w_t - \frac{\eta}{\sqrt{v_{t+1} + \epsilon}} \nabla_w J(w_t)
+        \]
+        where:
+        \begin{itemize}
+            \item \( \beta_2 \): Decay rate for variance (usually 0.99 or 0.999).
+            \item \( \epsilon \): Small constant to prevent division by zero.
+        \end{itemize}
+        \item \textbf{Why Use Second Momentum?}
+        \begin{itemize}
+            \item Adjusts step size based on gradient magnitude, preventing large steps when gradients are large and accelerating learning when they are small.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
 
 \begin{frame}{Moment Bias Correction}
     \begin{itemize}
-        \item \textbf{Problem}: When we start training, both $m_{t}$ and $v_{t}$ are initialized to zero, causing their estimates to be biased toward zero in the early steps, especially when gradients are small.
-        \item \textbf{Solution}: We use bias-corrected versions of $m_{t}$ and $v_{t}$ to fix this:
+        \item \textbf{Problem}: When we start training, both $m_{t}$ and $v_{t}$ are initialized to zero, causing their estimates to be \textbf{biased toward zero in the early steps}, especially when gradients are small.
+        \item \textbf{Solution}: We use bias-corrected versions of $m_{t}$ and $v_{t}$ to address this:
         \[\hat{m}_{t} = \frac{m_{t}}{1 - \beta_1^{t}}, \quad 
         \hat{v}_{t} = \frac{v_{t}}{1 -\beta_2^{t}}\]
         \item These corrections compensate for the bias by scaling $m_{t}$ and $v_{t}$ upward, especially in the early steps when $t$ is small, ensuring more accurate estimates of the moments.
     \end{itemize}
 \end{frame}
 
-
-% \begin{frame}{Momentum update}
-%     \begin{minipage}{0.5\textwidth}
-%     \begin{itemize}
-%     \item Momentum update steps involve two stages:
-%     \begin{enumerate}
-%         \item Take a step in the opposite direction of the gradient at the current position
-%         \item Add a scaled version of the previous step to this move
-%     \end{enumerate}
-%     \item Reversing these steps leads to a more optimal approach, known as \textit{Nesterov's Accelerated Gradient (NAG)}.
-%     \end{itemize}
-% \end{minipage}%
-% \begin{minipage}{0.5\textwidth}
-%     \begin{figure}[h]
-%         \centering
-%         \includegraphics[height=.3\textheight]{pic/momentum_update.png}
-%         \caption{\footnotesize Momentum update from \url{https://deeplearning.cs.cmu.edu/F24/document/slides/lec6.pdf}}
-%     \end{figure}
-% \end{minipage}
-% \end{frame}
-
-% \begin{frame}{Problem Definition}
-%     \begin{itemize}
-%         \item \textbf{New Goal}: Automatically adjust the learning rate based on gradient magnitudes to improve convergence, especially in non-convex error surfaces (e.g., in neural networks)
-%         \item One of the most famous optimizers that achieves this, is the \textbf{Adam optimizer}
-%     \end{itemize}
-% \end{frame}
-
-% \subsection{AdaGrad}
-% \begin{frame}{AdaGrad}
-%        \begin{itemize}
-%     \item The Adaptive Gradient algorithm, or \textbf{AdaGrad} for short, adjusts the learning rate for each feature based on the cumulative sum of squared gradients
-%     \item Features that are updated frequently receive a progressively smaller learning rate, allowing sparse features that update slowly to catch up
-%         \begin{align*}
-%         G_t &= G_{t-1} + \nabla J(\theta_t) \odot \nabla J(\theta_t) \\
-%         \theta_{t} &= \theta_{t-1}- \frac{\eta}{\sqrt{G_{t-1}} + \epsilon} \nabla J(\theta_{t-1})
-%         \end{align*}
-%         Where:
-%         \begin{itemize}
-%             \item $G_t$ is the cumulative sum of squared gradients at time step $t$
-%             \item $\epsilon$ is a small constant added for numerical stability
-%         \end{itemize}
-%     \end{itemize}
-% \end{frame}
-
-% \subsection{RMSProp}
-% \begin{frame}{RMSProp}
-%     \begin{itemize}
-%         \item The problem with AdaGrad is that it becomes incredibly slow. This is because the sum of squared gradients only grows and never shrinks
-%         \item \textbf{RMSProp} (Root Mean Square Propagation) addresses AdaGrad's slow convergence by introducing a \textbf{decay factor}, allowing only the most recent squared gradients to contribute to the update, which prevents the accumulation of excessively large values
-
-%         \begin{align*}
-%         v_t &= \beta v_{t-1} + (1 - \beta) \nabla J(\theta_t) \odot \nabla J(\theta_t) \\
-%         \theta_{t} &= \theta_{t-1}- \frac{\eta}{\sqrt{v_{t-1}} + \epsilon} \nabla J(\theta_{t-1})
-%         \end{align*}
-%         Where:
-%         \begin{itemize}
-%             \item $v_t$ is the \textbf{weighted} cumulative sum of squared gradients at time step $t$ and is equal to the second moment
-%             \item $\epsilon$ is a small constant added for numerical stability
-%         \end{itemize}
-%     \end{itemize}
-% \end{frame}
-
-\subsection{Adam}
-\begin{frame}{Adam}
+\subsection{Adam: Adaptive Moment Estimation}
+\begin{frame}{Introduction to Adam Optimizer}
     \begin{itemize}
-        \item Adaptive Moment Estimation, or \textbf{Adam}, combines the concepts of \textbf{momentum} and \textbf{adaptive learning rate} by maintaining an exponentially decaying average of both past gradients and squared gradients
-        \item Adam adapts the learning rate for each parameter based on the gradient history
+        \item \textbf{Origin and Purpose}: 
         \begin{itemize}
-            \item Larger gradients lead to smaller update steps, and vice versa
+            \item Proposed in 2014 by Diederik Kingma and Jimmy Ba, Adam (Adaptive Moment Estimation) addresses key limitations in earlier optimization methods by combining aspects of \textbf{momentum} and \textbf{adaptive learning rates}.
+            \item Adam is designed to handle sparse gradients and noisy updates by adjusting the learning rate for each parameter based on historical gradients.
+        \end{itemize}
+        \item \textbf{Core Idea}:
+        \begin{itemize}
+            \item Adam optimizes by maintaining two moving averages — the \textbf{first moment (mean of gradients)} and the \textbf{second moment (variance of gradients)} — allowing it to \textbf{adapt learning rates for each parameter individually}.
         \end{itemize}
     \end{itemize}
 \end{frame}
 
-
-\begin{frame}{Adam}
+\begin{frame}{Adam’s Adaptive Learning Rate Mechanism}
     \begin{itemize}
-        \item The update rule for the Adam optimizer at step $t+1$ is denoted by $w_{t+1}$:
-        \[m_{t+1} = \beta_1 m_t + (1 - \beta_1) \nabla_w J(w_t)\]
-        \[v_{t+1} = \beta_2 v_t + (1 - \beta_2) (\nabla_w J(w_t)^2\]
-        \[\hat{m}_{t+1} = \frac{m_{t+1}}{1 - \beta_1^{t+1}}, \quad 
-        \hat{v}_{t+1} = \frac{v_{t+1}}{1 - \beta_2^{t+1}}\]
-        \[w_{t+1} = w_t - \eta \frac{\hat{m}_t}{\sqrt{\hat{v}_t} + \epsilon}\]
-        where:
+        \item \textbf{Why Adaptive Rates?}
         \begin{itemize}
-            \item $m_{t+1}$ and $v_{t+1}$ are the first and second moments at step $t+1$
-            \item $\beta_1$ and $\beta_2$ are decay rates for the first and second moments
-            \item $\hat{m}_{t+1}$ and $\hat{v}_{t+1}$ are bias-corrected estimates of the first and second moments
-            \item $\epsilon$ is a small constant to prevent division by zero
+            \item Unlike traditional SGD, Adam adapts the learning rate for \textbf{each parameter} based on recent gradient magnitudes.
+            \item \textbf{Large gradients} lead to \textbf{reduced} update sizes, while \textbf{smaller gradients} allow \textbf{larger} updates, balancing convergence speed and stability.
+        \end{itemize}
+        \item \textbf{Moment Tracking}
+        \begin{itemize}
+            \item The \textbf{first moment} ($m_t$) tracks the mean of gradients to provide momentum.
+            \item The \textbf{second moment} ($v_t$) tracks squared gradients, enabling Adam to normalize updates and prevent sudden changes in direction.
         \end{itemize}
     \end{itemize}
+\end{frame}
+
+\begin{frame}{Mathematical Formulation of Adam}
+    \begin{itemize}
+        \item \textbf{Adam Update Rules}:
+        \begin{itemize}
+            \item First moment estimate:
+            \[
+            m_{t+1} = \beta_1 m_t + (1 - \beta_1) \nabla_w J(w_t)
+            \]
+            \item Second moment estimate:
+            \[
+            v_{t+1} = \beta_2 v_t + (1 - \beta_2) (\nabla_w J(w_t))^2
+            \]
+            \item Bias-corrected moments to address initialization bias:
+            \[
+            \hat{m}_{t+1} = \frac{m_{t+1}}{1 - \beta_1^{t+1}}, \quad 
+            \hat{v}_{t+1} = \frac{v_{t+1}}{1 - \beta_2^{t+1}}
+            \]
+            \item Update step for parameter \( w_t \):
+            \[
+            w_{t+1} = w_t - \eta \frac{\hat{m}_{t+1}}{\sqrt{\hat{v}_{t+1}} + \epsilon}
+            \]
+        \end{itemize}
+        % where \(\beta_1\), \(\beta_2\) are decay rates, and \(\epsilon\) is a small constant to prevent division by zero.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Adam Pseudo-code}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\linewidth]{adam_pseudocode.jpg}
+        \caption{\footnotesize Adam Pseudo-code. Source: kingma2014adam}
+
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Adam Visualization}
+\begin{figure}
+    \centering
+    \includegraphics[width=0.65\linewidth]{pic/adam_towardsdatascience.jpg}
+    \caption{\footnotesize Step-by-step illustration of Adam descent. Source: \href{https://towardsdatascience.com/a-visual-explanation-of-gradient-descent-methods-momentum-adagrad-rmsprop-adam-f898b102325c}{Towards Data Science}}
+\end{figure}
 
 \end{frame}
 
 \begin{frame}{Comparison of Momentum Methods}
-    \begin{minipage}{0.5\textwidth}
+    \centering
+    \begin{figure}
         \centering
-        \begin{center}
-        \begin{figure}
-        \centering
-            \includegraphics[width=1\linewidth]{pic/gd_comparison.png}
-            \caption{\footnotesize GD comparison from \url{https://github.com/ilguyi/optimizers.numpy}}
-        \end{figure}
-        \end{center}
-    \end{minipage}%
-    \begin{minipage}{0.5\textwidth}
-        \centering
-        \begin{center}
-        \begin{figure}
-        \centering
-            \includegraphics[width=0.9\linewidth]{pic/Adam_training_kingma2015.png}
-            \caption{\footnotesize GD comparison on MNIST from \url{kingma2014adam}}
-            %\cite{kingma2014adam}
-        \end{figure}
-        \end{center}
-    \end{minipage}
+        \includegraphics[width=0.5\linewidth]{pic/comparison.jpg}
+        \caption{\footnotesize Comparison of 5 gradient descent methods on a surface: gradient descent (cyan), momentum (magenta), AdaGrad (white), RMSProp (green), Adam (blue). Left well is the global minimum; right well is a local minimum. Source: \href{https://towardsdatascience.com/a-visual-explanation-of-gradient-descent-methods-momentum-adagrad-rmsprop-adam-f898b102325c}{Towards Data Science}}
+    \end{figure}
+    % \end{minipage}%
+    % \begin{minipage}{0.5\textwidth}
+    %     \centering
+    %     \begin{center}
+    %     \begin{figure}
+    %     \centering
+    %         \includegraphics[width=0.9\linewidth]{pic/Adam_training_kingma2015.png}
+    %         \caption{\footnotesize GD comparison on MNIST from \url{kingma2014adam}}
+    %     \end{figure}
+    %     \end{center}
+    % \end{minipage}
 \end{frame}
+
+\section{Newton's optimization Method}
+\subsection{Newton's Method}
+\begin{frame}{Newton's Method}
+\begin{itemize}
+    \item Newton method is originally intended to \textbf{find the root(s)} of an equation.
+    \item \textbf{Example:} for the equation $x^2 - 1 = 0$, we can find the roots by decomposing $(x-1)(x+1)=0$ which gives $x=1, x=-1$
+    \item \textbf{But, what about complex equations?}
+    \begin{itemize}
+        \item We can use \textbf{numerical method} to find the root of an equation, one of them is by using \textbf{Newton’s method}
+    \end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Definition}
+\begin{minipage}{0.55\linewidth}
+\begin{itemize}
+    \item \textbf{Objective:} Derive Newton’s method by finding the tangent line of \( f(x) \) at \( x_0 \).
+    \item \textbf{Tangent Line Equation:} Given a point \( x_0 \) where \( f(x_0) \neq 0 \), the tangent line at \( x_0 \) is:
+    \[
+    y = mx_0 + c
+    \]
+    \item \textbf{Gradient:} The slope \( m \) matches the derivative of \( f(x) \) at \( x_0 \):
+    \[
+    m = f'(x_0)
+    \]
+\end{itemize}
+\end{minipage}%
+\begin{minipage}{0.35\linewidth}
+    \begin{figure}
+        \centering
+        \includegraphics[width=1\linewidth]{pic/newton_raphson_ardianumam.jpg}
+        \caption{\footnotesize Finding root location by using Newton’s method. Source: \href{https://ardianumam.wordpress.com}{Ardian Umam's Blog}}
+    \end{figure}
+\end{minipage}
+\end{frame}
+
+\begin{frame}{Formulating the Tangent Line}
+\begin{itemize}
+    \item \textbf{Finding \( c \) :} Substitute \( (x_0, f(x_0)) \) into \( y = mx + c \), where \( y = f(x_0) \) and \( m = f'(x_0) \):
+    \[
+    f(x_0) = f'(x_0)x_0 + c \Rightarrow c = f(x_0) - f'(x_0)x_0
+    \]
+    \item \textbf{Tangent Line Equation:} Substitute \( m = f'(x_0) \) and \( c \) back:
+    \[
+    y = f'(x_0)x + f(x_0) - f'(x_0)x_0
+    \]
+    \item Simplify to get:
+    \[
+    y = f(x_0) + f'(x_0)(x - x_0)
+    \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Newton's Iterative Step}
+\begin{itemize}
+    \item To approximate the root, set \( y = 0 \) in the tangent equation:
+    \[
+    0 = f(x_0) + f'(x_0)(x_1 - x_0)
+    \]
+    \item Rearrange to solve for \( x_1 \):
+    \[
+    x_1 = x_0 - \frac{f(x_0)}{f'(x_0)}
+    \]
+    \item \textbf{Iteration:} Repeat this step to approximate the root.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Newton's Method for Optimization}
+\begin{itemize}
+    \item Newton’s method for finding roots is based on a first-order approximation (tangent line).
+    \item For optimization, we use a second-order Taylor approximation to find the minimum.
+    \item \textbf{Second-order Taylor expansion} of \( f(x) \) around \( x = x_0 \):
+    \[
+    f(x) \approx f(x_0) + f'(x_0)(x - x_0) + \frac{f''(x_0)}{2}(x - x_0)^2
+    \]
+    \item Rearranged for minimal value location:
+    \[
+    f(x) \approx \frac{1}{2}f''(x_0)x^2 + [f'(x_0) - f''(x_0)x_0]x + [f(x_0) - f'(x_0)x_0 + \frac{1}{2}f''(x_0)x_0^2]
+    \]
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Deriving the Update Formula for Minimization}
+\begin{minipage}{0.7\linewidth}
+    \begin{itemize}
+        \item To locate the minimum, take the derivative with respect to \( x \) and set it to zero:
+        \[
+        \frac{d}{dx} f(x) \approx f''(x_0)x + [f'(x_0) - f''(x_0)x_0] = 0
+        \]
+        \item Solving for \( x \) yields:
+        \[
+        x = x_0 - \frac{f'(x_0)}{f''(x_0)}
+        \]
+        \item This is the update step for Newton’s method in optimization, guiding us to the minimum. The general update rule is:
+        \[
+        x_{t+1} = x_t - H^{-1} \nabla_x f(x_t)
+        \]
+    \end{itemize}
+\end{minipage}%
+\begin{minipage}{0.3\linewidth}
+    \begin{figure}
+        \centering
+        \includegraphics[width=1.2\linewidth]{pic/newton_ardianumam.jpg}
+        \caption{\footnotesize Finding root using Taylor's expansion and Newton's method. Source: \href{https://ardianumam.wordpress.com}{Ardian Umam's Blog}}
+    \end{figure}
+\end{minipage}
+\end{frame}
+
+\begin{frame}{Hessian Matrix and Newton's Method for Optimization}
+\begin{minipage}{0.5\linewidth}
+    \begin{itemize}
+        \item The Hessian matrix, \( H(\theta) \), is a square matrix of second-order partial derivatives of a scalar-valued function \( f(\theta) \):
+        \[
+        H(\theta) = 
+        \begin{bmatrix}
+            \frac{\partial^2 f}{\partial \theta_1^2} & \frac{\partial^2 f}{\partial \theta_1 \partial \theta_2} & \cdots & \frac{\partial^2 f}{\partial \theta_1 \partial \theta_n} \\
+            \frac{\partial^2 f}{\partial \theta_2 \partial \theta_1} & \frac{\partial^2 f}{\partial \theta_2^2} & \cdots & \frac{\partial^2 f}{\partial \theta_2 \partial \theta_n} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \frac{\partial^2 f}{\partial \theta_n \partial \theta_1} & \frac{\partial^2 f}{\partial \theta_n \partial \theta_2} & \cdots & \frac{\partial^2 f}{\partial \theta_n^2}
+        \end{bmatrix}
+        \]
+
+        \item In Newton's method for optimization, the update rule for parameters \( \theta \) is:
+        \[
+        \theta_{t+1} = \theta_t - H^{-1}(\theta_t) \nabla f(\theta_t)
+        \]
+        % where \( \nabla f(\theta_t) \) is the gradient vector, and \( H(\theta_t) \) is the Hessian matrix at \( \theta_t \).
+    \end{itemize}
+\end{minipage}%
+\begin{minipage}{0.5\linewidth}
+    \begin{itemize}
+    \item \textbf{Example:}
+    \end{itemize}
+        \[
+        f(\theta_1, \theta_2) = \theta_1^2 + 2 \theta_1 \theta_2 + \theta_2^2
+        \]
+        % \item **Gradient** \( \nabla f \):
+        \[
+        \nabla f = 
+        \begin{bmatrix}
+            \frac{\partial f}{\partial \theta_1} \\
+            \frac{\partial f}{\partial \theta_2}
+        \end{bmatrix} =
+        \begin{bmatrix}
+            2\theta_1 + 2\theta_2 \\
+            2\theta_1 + 2\theta_2
+        \end{bmatrix} =
+        \begin{bmatrix}
+            2(\theta_1 + \theta_2) \\
+            2(\theta_1 + \theta_2)
+        \end{bmatrix}
+        \]
+
+        % \item Hessian Matrix \( H(\theta) \):
+        \[
+        H(\theta) = 
+        \begin{bmatrix}
+            \frac{\partial^2 f}{\partial \theta_1^2} & \frac{\partial^2 f}{\partial \theta_1 \partial \theta_2} \\
+            \frac{\partial^2 f}{\partial \theta_2 \partial \theta_1} & \frac{\partial^2 f}{\partial \theta_2^2}
+        \end{bmatrix} =
+        \begin{bmatrix}
+            2 & 2 \\
+            2 & 2
+        \end{bmatrix}
+        \]
+        % \item Using Newton's method, the update rule for \( \theta \) would be:
+        \[
+        \theta_{t+1} = \theta_t - H^{-1} \nabla f(\theta_t)
+        \]
+    % \end{itemize}
+\end{minipage}
+\end{frame}
+
+
+\begin{frame}{Newton's Method: Advantages and Disadvantages}
+    \begin{itemize}
+        \item Newton's method offers various benefits but also has limitations, especially in large-scale machine learning. Below is a summary:
+    \end{itemize}
+    \begin{table}[]
+        \centering
+        \small % Reduce font size
+        \begin{tabular}{|c|c|}
+            \hline
+            \textbf{Advantages} & \textbf{Disadvantages} \\
+            \hline
+            \textbf{Faster Convergence} & \textbf{Computationally Expensive} \\
+            Quadratic convergence enables reaching & Requires Hessian calculation, making it\\
+            minima faster in convex problems. & costly in high-dimensional models. \\
+            \hline
+            \textbf{Adaptive Step Sizes} & \textbf{Memory Intensive} \\
+            Curvature-based step adjustment avoids & Storing the Hessian matrix is memory-intensive\\
+            slow progress in shallow regions. & for models with millions of parameters. \\
+            \hline
+            \textbf{Reduced Oscillations} & \textbf{Convergence Challenges} \\
+            Curvature information stabilizes paths & May converge to saddle points in non-convex\\
+            in oscillatory regions. & functions common in machine learning. \\
+            \hline
+        \end{tabular}
+        \caption{Advantages and Disadvantages of Newton's Method}
+    \end{table}
+\end{frame}
+
 \section{References}
-% \begin{frame}[allowframebreaks]
-%     \bibliography{ref}
-%     \bibliographystyle{ieeetr}
-%     \nocite{*} % used here because no citation happens in slides
-%     % if there are too many try use：
-%     %\tiny\bibliographystyle{alpha}
-% \end{frame}
+\begin{frame}{Contribution}
+    \begin{itemize}
+        \item \textbf{These slides were prepared with contributions from: }
+        \begin{itemize}
+            \item Alireza Sabounchi
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}[allowframebreaks]
+    \bibliography{ref}
+    %\bibliographystyle{ieeetr}
+    \nocite{*} % used here because no citation happens in slides
+    % if there are too many try use：
+    \tiny\bibliographystyle{ieeetr}
+\end{frame}
 \end{document}
