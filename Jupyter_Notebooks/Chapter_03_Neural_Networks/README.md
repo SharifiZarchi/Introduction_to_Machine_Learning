@@ -17,7 +17,7 @@ Additionally we experiment with different optimizers such as `SGD`, `AdaGrad`, `
 [![Open In kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://raw.githubusercontent.com/SharifiZarchi/Introduction_to_Machine_Learning/main/Jupyter_Notebooks/Chapter_03_Neural_Networks/NNs_with_torch.ipynb)
 
 
-# [3. More on Neural Networs with PyTorch](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_03_Neural_Networks/More_on_NNs_with_Torch.ipynb)
+# [3. More on Neural Networks with PyTorch](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_03_Neural_Networks/More_on_NNs_with_Torch.ipynb)
 In this notebook we are going to explore some of the more advanced features of PyTorch. 
 This includes working with `Dataset`s, `DataLoader`s, saving and loading models and more.
 
