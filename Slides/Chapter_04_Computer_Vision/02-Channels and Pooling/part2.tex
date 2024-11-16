@@ -81,8 +81,8 @@
 		\newline
 		\begin{itemize}
 			\item Pixel values range from 0 to 255.
-			\item We \textbf{cannot} represent all the colors in a picture with only one channel of numbers from 0 to 255.
-			\item So we represent them in \textbf{3 channels}.
+			\item It is not possible to represent all the colors in a picture using only a single channel of numbers from 0 to 255.
+			\item Thus, we represent them using \textbf{three channels}.
 		\end{itemize}
 		\centering
 		\includegraphics[keepaspectratio, scale=0.2]{pic/channels1.jpeg}
@@ -110,6 +110,27 @@
 		\end{center}
 	\end{frame}
 	
+	
+	\begin{frame}{Channels}
+		\begin{itemize}
+			\item Each filter produces \textbf{one output channel}. By applying multiple filters, we can create multiple output channels, allowing each channel to learn \textbf{distinct} features.
+		\end{itemize}
+		
+		\begin{center}
+			\begin{figure}
+				\centering
+				\includegraphics[width=0.7\columnwidth]{pic/channels5.png}
+				\vfill
+				\begin{tikzpicture}[remember picture,overlay]
+					\node[anchor=south west, xshift=0.5cm, yshift=0.5cm] at (current page.south west) {
+						\scriptsize Figure adapted from \href{https://indoml.com/2018/03/07/student-notes-convolutional-neural-networks-cnn-introduction/}{Source}
+					};
+				\end{tikzpicture}
+			\end{figure}
+		\end{center}
+	\end{frame}
+	
+	
 	\begin{frame}
 		\large \centering
 		\textbf{Let's take a closer look at the calculations} 
@@ -130,25 +151,6 @@
 			\end{figure}
 		\end{frame}
 	}
-	
-	\begin{frame}{Channels}
-		\begin{itemize}
-			\item Each filter produces \textbf{one output channel}. By applying multiple filters, we can create multiple output channels, allowing each channel to learn \textbf{distinct} features.
-		\end{itemize}
-		
-		\begin{center}
-			\begin{figure}
-				\centering
-				\includegraphics[width=0.7\columnwidth]{pic/channels5.png}
-				\vfill
-				\begin{tikzpicture}[remember picture,overlay]
-					\node[anchor=south west, xshift=0.5cm, yshift=0.5cm] at (current page.south west) {
-						\scriptsize Figure adapted from \href{https://indoml.com/2018/03/07/student-notes-convolutional-neural-networks-cnn-introduction/}{Source}
-					};
-				\end{tikzpicture}
-			\end{figure}
-		\end{center}
-	\end{frame}
 	\section{Pooling}
 	\begin{frame}{Review}
 		\textbf{Three Main Types of Layers}
@@ -157,7 +159,7 @@
 			\begin{itemize}
 				\item Neurons' outputs are connected to local regions in the input.
 				\item Applying the same filter across the entire image.
-				\item The CONV layer's parameters include a set of learnable filters.
+				\item The parameters of the CONV layer include a set of learnable filters.
 			\end{itemize}
 			\item \textbf{Pooling Layer}
 			\begin{itemize}
@@ -174,7 +176,7 @@
 			\item Convolution and activation layers are often followed by pooling layers intermittently.
 			
 			\begin{itemize}
-				\item Often, they alternate with convolution, though this is not necessary.
+				\item Pooling layers often alternate with convolution layers, although this is not mandatory.
 			\end{itemize}
 		\end{itemize}
 		\centering
@@ -192,10 +194,9 @@
 				\item Reduces the \textbf{spatial size} of the representation.
 				\begin{itemize}
 					\item To reduce the number of parameters and computational demands within the network.
-					\item To \textbf{reduce variance}.
+					\item To \textbf{reduce variability}.
 				\end{itemize}
 				\item Enables the network to be invariant to small translations or distortions.
-				\item Operates independently over each activation map.
 			\end{itemize}
 		\end{minipage}
 		\vfill
@@ -227,20 +228,20 @@
 	\begin{frame}{Pooling Type}
 		\begin{itemize}
 			\item Max Pooling works well \textbf{when the background is light}, and the object is dark.
-			\item Min Pooling: performs well \textbf{when the background is dark}, and the object is light.
+			\item Min Pooling works well \textbf{when the background is dark}, and the object is light.
 			\item Average Pooling: \textbf{smooths} the feature map.
 		\end{itemize}
 		
 		\centering
 		\includegraphics[keepaspectratio, scale=0.15]{pic/Pooling_3.png}
 	\end{frame}
-	\begin{frame}{Pooling Advantage}
+	\begin{frame}{Max Pooling}
 		
 		\centering
 		\includegraphics[keepaspectratio, scale=0.3]{pic/Pooling_4.png}
 		\bigskip
 		\begin{itemize}
-			\item The most common type of pooling layer.
+			\item This is the most common type of pooling layer.
 			\item Provides invariance to small translations.
 		\end{itemize}
 		
@@ -253,7 +254,7 @@
 		
 		\textbf{Answer:} \\
 		\begin{itemize}
-			\item An $N \times N$ image compressed by a $P \times P$ pooling filter with stride $S$ produces an output map with side length $\left\lceil \frac{(N - P)}{S} \right\rceil + 1$.
+			\item An $N \times N$ image, when compressed by a $P \times P$ pooling filter with a stride of $S$, produces an output map with side length $\left\lceil \frac{(N - P)}{S} \right\rceil + 1$.
 			
 		\end{itemize}
 	\end{frame}
@@ -262,20 +263,20 @@
 			\item Pooling takes in a volume of size $W_1 \times H_1 \times D_1$
 			\item Requires two hyperparameters:
 			\begin{itemize}
-				\item Their spatial extent $F$,
+				\item Their spatial extent $P$,
 				\item The stride $S$.
 			\end{itemize}
-			\item Outputs a volume of size $W_2 \times H_2 \times D_2$ where:
+			\item Produces an output volume of size $W_2 \times H_2 \times D_2$, where:
 			\begin{itemize}
-				\item $W_2 = \frac{(W_1 - F)}{S} + 1$
-				\item $H_2 = \frac{(H_1 - F)}{S} + 1$
+				\item $W_2 = \frac{(W_1 - P)}{S} + 1$
+				\item $H_2 = \frac{(H_1 - P)}{S} + 1$
 				\item $D_2 = D_1$
 			\end{itemize}
 			\item Introduces \textbf{zero parameters} since it computes a fixed function of the input.
 			\item Using zero-padding for pooling layers is \textbf{uncommon}.
 		\end{itemize}
 	\end{frame}
-	\begin{frame}{Alternative To Pooling}
+	\begin{frame}{Downsampling}
 		\centering
 		\includegraphics[keepaspectratio, scale=0.55]{pic/pooling3.png}
 		\smallskip
@@ -316,7 +317,7 @@
 		\vspace{0.5cm}
 		\begin{itemize}
 			\item Resizing feature maps is a \textbf{common} operation in neural networks, especially those used for image segmentation tasks.
-			\item This architecture is commonly known as the \textbf{Encoder-Decoder} network.
+			\item This architecture is often referred to as an \textbf{Encoder-Decoder} network.
 		\end{itemize}
 		\bigskip
 		\centering
@@ -345,7 +346,7 @@
 	\begin{frame}{Bed Of Nails}
 		\vspace{0.5cm}
 		\begin{itemize}
-			\item \textbf{Bed Of Nails}: In Bed of Nails, the input pixel value is copied to the corresponding position in the output image, with zeros filling the remaining positions.
+			\item \textbf{Bed Of Nails}: In this method, the input pixel value is copied to the corresponding position in the output image, with zeros filling the remaining positions.
 		\end{itemize}
 		
 		\centering
@@ -363,6 +364,49 @@
 	\end{frame}
 	
 	
+	
+	
+	
+	
+	\begin{frame}{Backpropagation With Pooling Layers}
+		\large
+		In our previous discussions, we explored the process of backpropagation in CNNs without considering pooling layers. Now, let's discuss how to adapt our algorithm to include pooling layers.
+		
+		\begin{itemize}
+			\item 	The primary task is to handle the gradients effectively during backpropagation through pooling layers.
+			\item In both cases, the gradients from the next layer are \textbf{passed back} to the previous layer through the pooling operation.
+			
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}{Case 1}
+		\centering
+		\includegraphics[keepaspectratio, scale=0.7]{pic/pconv1.png}
+	\end{frame}
+	
+	\begin{frame}{Case 1}
+		For \textbf{Max Pooling:}
+		\begin{itemize}
+			\item The gradient is propagated only through the \textbf{indices of the maximum values} identified during the forward pass.
+			\item All other positions receive a gradient of \textbf{zero}.
+		\end{itemize}
+		\centering
+		\includegraphics[keepaspectratio, scale=0.5]{pic/pconv2.png}
+	\end{frame}
+	
+	\begin{frame}{Case 2}
+		\centering
+		\includegraphics[keepaspectratio, scale=0.7]{pic/pconv3.png}
+	\end{frame}
+	
+	\begin{frame}{Case 2}
+		For \textbf{Average Pooling:}
+		\begin{itemize}
+			\item The gradients are \textbf{uniformly distributed} across the pooled region.
+		\end{itemize}
+		\centering
+		\includegraphics[keepaspectratio, scale=0.5]{pic/pconv4.png}
+	\end{frame}
 	
 	
 	
@@ -413,7 +457,7 @@
 		\end{minipage}
 		\bigskip
 		\begin{flushleft}
-			Both options achieve a receptive field of 7; however, using \textbf{multiple smaller filters} reduces the number of \textbf{parameters}, introduces more \textbf{nonlinearity}, and generally leads to a \textbf{more efficient}, expressive model.
+			Both options achieve a receptive field of 7. However, using \textbf{multiple smaller filters} reduces the number of \textbf{parameters}, introduces more \textbf{nonlinearity}, and generally leads to a \textbf{more efficient}, expressive model.
 		\end{flushleft}
 	\end{frame}	
 	\begin{frame}{Question}
@@ -436,7 +480,7 @@
 				\item After the 3rd layer: \( 5 + (3 - 1) = 7 \)
 			\end{itemize}
 			\item Consequently, the receptive field size after the third layer is \( 7 \).
-			\item A larger receptive field enables neurons in deeper layers to capture more context from the input, crucial for recognizing higher-level patterns.
+			\item A larger receptive field allows neurons in deeper layers to capture more context from the input, crucial for recognizing higher-level patterns.
 		\end{itemize}
 	\end{frame}
 	\begin{frame}{Inductive Bias In CNNs}
@@ -453,7 +497,6 @@
 			CNNs utilize small filters (e.g., $3 \times 3$) that concentrate on local regions, aligning well with image data where local structures are significant.
 			
 			\item CNNs are more sample-efficient than FCNs due to their inductive biases.
-			\item CNNs reduce sample complexity from $O(d^2)$ in fully connected networks (FCNs) to $O(\log^2 d)$.
 		\end{itemize}
 	\end{frame}
 	
