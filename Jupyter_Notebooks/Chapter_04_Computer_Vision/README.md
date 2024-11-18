@@ -31,7 +31,7 @@ Additionally we observe how transfer learning can help us improve the training p
 
 
 
-# [4. AutoEncoders](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_04_Computer_Vision/Improving_NNs.ipynb)
+# [4. AutoEncoders](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_04_Computer_Vision/AutoEncoders.ipynb)
 In this notebook we experiment with AutoEncoders and observe how they can reduce the dimensionality of the data by visualizing their latent space.
 We also work with Denoising AutoEncoders and see how AutoEncoders can be used for getting rid of unwanted noise.
 
