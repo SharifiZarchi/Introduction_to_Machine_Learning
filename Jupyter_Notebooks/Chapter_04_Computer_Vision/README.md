@@ -44,7 +44,7 @@ We also work with Denoising AutoEncoders and see how AutoEncoders can be used fo
 # [5. UNet](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_04_Computer_Vision/UNet.ipynb)
 In this notebook we introduce the U - Net architecture and investigate its use cases in different tasks of computer vision.
 
-<!--
+
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_04_Computer_Vision/UNet.ipynb)
 [![Open In kaggle](https://kaggle.com/static/images/open-in-kaggle.svg)](https://kaggle.com/kernels/welcome?src=https://raw.githubusercontent.com/SharifiZarchi/Introduction_to_Machine_Learning/main/Jupyter_Notebooks/Chapter_04_Computer_Vision/UNet.ipynb)
--->
+
