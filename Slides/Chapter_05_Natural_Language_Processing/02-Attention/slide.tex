@@ -1,0 +1,569 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% A Beamer template for University of Wollongong     %
+% Based on THU beamer theme                          %
+% Author: Qiuyu Lu                                   %
+% Date: July 2024                                    %
+% LPPL Licensed.                                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Customized for Sharif University of Technology     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[serif, aspectratio=169]{beamer}
+\usepackage{pgfplots} % Required for plotting
+\pgfplotsset{compat=1.17} % Compatibility level
+%\documentclass[serif]{beamer}  % for 4:3 ratio
+\usepackage[T1]{fontenc} 
+\usepackage{fourier} % see "http://faq.ktug.org/wiki/uploads/MathFonts.pdf" for other options
+\usepackage{hyperref}
+\usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
+\usepackage{graphicx,pstricks,listings,stackengine}
+\usepackage{lipsum}
+\usepackage{array}      
+
+
+\author{Ali Sharifi-Zarchi}
+\title{Machine Learning (CE 40477)}
+\subtitle{Fall 2024}
+\institute{
+    CE Department \\
+    Sharif University of Technology
+}
+%\date{\small \today}
+% \usepackage{UoWstyle}
+\usepackage{SUTstyle}
+
+% defs
+\def\cmd#1{\texttt{\color{red}\footnotesize $\backslash$#1}}
+\def\env#1{\texttt{\color{blue}\footnotesize #1}}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{RGB}{153,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{halfgray}{gray}{0.55}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\bfseries\color{deepblue},
+    emphstyle=\ttfamily\color{deepred},    % Custom highlighting style
+    stringstyle=\color{deepgreen},
+    numbers=left,
+    numberstyle=\small\color{halfgray},
+    rulesepcolor=\color{red!20!green!20!blue!20},
+    frame=shadowbox,
+}
+
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+    \vspace*{-0.6cm}
+    \begin{figure}[htpb]
+        \begin{center}
+            \includegraphics[keepaspectratio, scale=0.25]{pic/sharif-main-logo.png}
+        \end{center}
+    \end{figure}
+\end{frame}
+
+\begin{frame}    
+\tableofcontents[sectionstyle=show,
+subsectionstyle=show/shaded/hide,
+subsubsectionstyle=show/shaded/hide]
+\end{frame}
+
+\section{Contextualized Word Embeddings}
+
+\subsection{Limitations of word2vec}
+
+\begin{frame}{Limitations of word2vec}
+    \begin{itemize} 
+    
+        \item One vector for each word type
+        
+        \item Word2vec has challenges in polysemous words, e.g. \texttt{Light}
+       % {شیر جنگل، شیر خوراکی و شیر آب}
+        \item Words don’t appear in isolation. The word use (e.g., syntax and semantics) depends on its context.
+        
+        \item \textbf{Why not learn the representations for each word in its context?}
+
+        \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Contextualized Word Embeddings}
+
+    \begin{itemize}
+        \item Build a vector for each word conditioned on its \textbf{context}.
+    \end{itemize}
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{pic/Contextualized-word-embedding.png}
+        \caption{representation for each token is a function of the entire input sentence}
+        \label{fig:Contextualized-word-embedding}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Contextualized Word Embeddings}
+	Compute contextual vector:
+	\[
+	\mathbf{c_k} = f(w_k \mid w_1, w_2, \dots, w_n) \in \mathbb{R}^d
+	\]
+	\noindent Examples:
+	\vspace{-5pt}
+	\[
+	f(\textcolor{green}{light} \mid \text{Please turn off the }\overbrace{\textcolor{green}{light}}^{\includegraphics[height=3em]{pic/1.png}}\text{.})
+	\]
+	\[\neq\]
+	\[
+	f(\textcolor{orange}{light} \mid \text{This box is very }\underbrace{\textcolor{orange}{light}}_{\includegraphics[height=4em]{pic/Flux-light-weight.jpeg}}\text{ to carry.})
+	\]
+	\textbf{How do we implement the context function $f$?}
+	\vspace{5pt}
+\end{frame}
+
+
+\begin{frame}{Enter Recurrent Neural Networks}
+    \begin{itemize}
+        \item RNNs: Natural choice for contextual representations.
+        \item Process words sequentially, maintaining context.
+        \item Each hidden state captures information about:
+        \begin{itemize}
+            \item Current word
+            \item All previous words in sequence
+        \end{itemize}
+    \end{itemize}
+%    \begin{equation*}
+%        h_t = f(W_{hh}h_{t-1} + W_{xh}x_t + b)
+%    \end{equation*}
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{pic/image-RNN.png}
+        \caption{where $h_t$ can serve as our contextualized representation.}
+        \label{fig:image-RNN}
+    \end{figure}
+    
+\end{frame}
+
+\subsection{Recurrent Neural Networks}
+\begin{frame}{RNN hidden state update}
+    \begin{itemize}
+        \item Process sequences by maintaining a hidden state.
+        \item Updates state sequentially: $h_t = f_W(h_{t-1}, x_t)$
+        \item This recurrence formula is applied at each time step to process a sequence of vectors x.
+        \item The same function and the same set of parameters are used at every time step.
+        
+    \end{itemize}
+     \begin{figure}
+         \centering
+         \includegraphics[width=0.4\textwidth]{pic/RNN-2.png}
+     \end{figure}
+\end{frame}
+
+\begin{frame}{RNN Output Generation}
+	\begin{itemize}
+		\item After updating the hidden state, RNNs generate outputs at each time step.
+		\item The output \( y_t \) is typically computed as a function of the current hidden state \( h_t \), often passed through a layer (like a softmax layer) for classification or regression tasks.
+	\end{itemize}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.4\textwidth]{pic/RNN-out.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{(Vanilla) Recurrent Neural Network}
+	\begin{itemize}
+		\item The state of the RNN consists of a single "hidden" vector \( h_t \), which updates as new inputs are processed.
+	\end{itemize}
+	\vspace{-35pt}
+	\begin{figure}
+		\includegraphics[width=0.7\textwidth]{pic/RNN-final.png}
+		\caption{RNN hidden state update at time \( t \), where \( h_t \) represents the current context.}
+	\end{figure}
+	\vspace{-100pt}
+	\begin{align*}
+		h_t &= f_W(h_{t-1}, x_t) \\ 
+		\downarrow \\
+		h_t &= f(W_{hh} h_{t-1} + W_{xh} x_t + b) \\ 
+		y_t &= W_{hy} h_t
+	\end{align*}
+\end{frame}
+
+\begin{frame}{Challenges of RNNs}
+	\begin{itemize}
+		\item While improved versions of vanilla RNNs attempt to resolve some issues, they still struggle with:
+		\begin{itemize}
+			\item Long-term dependencies
+			\item Sequential computation (can't parallelize)
+%			\item Vanishing/exploding gradients (attempted to be resolved in improved versions, but this remains an issue in some cases)
+		\end{itemize}
+		\item \textbf{So, what solutions do we have?}
+	\end{itemize}
+\end{frame}
+
+\section{Attention Mechanism}
+
+\begin{frame}{Attention is all you need!}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.9\linewidth]{pic/attention-is-all-you-need.pdf}
+		\label{fig:attention-01}
+	\end{figure}
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[anchor=south west, xshift=0.09cm, yshift=0.3cm] at (current page.south west) {\tiny \href{https://arxiv.org/abs/1706.03762}{https://arxiv.org/abs/1706.03762}};
+	\end{tikzpicture}
+\end{frame}
+\newpage
+
+\subsection{Why Attention}
+\begin{frame}{Why Attention?}
+	\begin{itemize}
+		\item Enhances the model's ability to focus on relevant parts of the input.
+		\item Can compute relationships between inputs regardless of their position.
+		\item Inspired by human visual attention.
+		\item \textbf{Key Idea}
+		\begin{itemize}
+			\item Let the model learn which parts of the input are important for each output.
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\subsection{RNNs with Attention Mechanism}
+\begin{frame}{Motivation for Attention in RNNs}
+	
+	\textbf{Attention Mechanism}
+	\begin{itemize}
+		\item Helps RNNs focus on important parts of the sequence.
+		\item Allows model to “attend” the most relevant information from the entire sequence, rather than relying solely on the hidden state at the current time step.
+		\item Improves the model's ability to handle long-range dependencies by:
+		\begin{itemize}
+			\item Directly accessing key information at any position in the input sequence.
+			\item Avoiding the need to compress all information into a single hidden state.
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{How Attention Works?}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.415\textwidth]{pic/Attention-1.png}
+        \label{fig:Attention-1}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Attention as a Soft, Averaging Lookup Table}
+\begin{figure}[!htb]
+    \centering
+    \begin{minipage}{0.4\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pic/attention-3.png}
+        \caption{In a \textcolor{orange}{lookup table}, we have a table of keys that map to values. The query matches one of the keys, returning its value.}
+        \label{fig:attention-4}
+        
+    \end{minipage}%
+    \hfill
+    {\vrule width 1pt}
+    \hfill
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pic/attention-4.png}
+                \caption{In the \textcolor{green}{attention}, the query matches all keys softly, to a weight between 0 and 1. The keys' values are multiplied and summed by the weights.}
+        \label{fig:attention-3}
+    \end{minipage}
+\end{figure}
+    
+\end{frame}
+
+\begin{frame}{Attention Mechanism: Basic Formula}
+    \begin{itemize}
+        \item Query (Q): What we're looking for
+        \item Key (K): What we match against
+        \item Value (V): What we retrieve
+    \end{itemize}
+    \begin{equation*}
+        \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+    \end{equation*}
+    \begin{itemize}
+        \item $d_k$: dimension of keys (scaling factor)
+        \item Softmax converts scores to probabilities
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Attention Mechanism: Basic Formula}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.61\textwidth]{pic/attention-2__AIE.png}
+        \label{fig:attention-2}
+    \end{figure}
+\end{frame}
+
+\section{Types of Attention}
+\begin{frame}{Self-Attention vs Cross-Attention}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \textbf{Self-Attention}
+        \begin{itemize}
+            \item Q, K, V from the same sequence
+            \item Each position attends to all positions
+            \item Used in encoder and decoder
+        \end{itemize}
+        \vspace{0.5em}
+        \includegraphics[width=\textwidth]{pic/self-attention.png}
+        
+        \column{0.5\textwidth}
+        \textbf{Cross-Attention}
+        \begin{itemize}
+            \item Q from one sequence
+            \item K, V from another
+            \item Used in encoder-decoder attention
+        \end{itemize}
+        \vspace{0.5em}
+        \includegraphics[width=\textwidth]{pic/cross-attention.png}
+    \end{columns}
+\end{frame}
+
+\section{Self-Attention Deep Dive}
+
+\begin{frame}{Self-Attention: Core Theorem}
+    \textcolor{blue}{\textbf{Self-Attention Properties}}
+    \newline
+        Self-attention layers can model dependencies between all elements in an input sequence in parallel, capturing long-range relationships efficiently.
+
+    \begin{itemize}
+            \item Global connectivity
+            \item Parallel computation
+            \item Position-independent weighting
+            \item $O(n^2)$ complexity for sequence length $n$
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Self-Attention: Mathematical Foundation}
+    \begin{itemize}
+        \item Input sequence: $X = [x_1, x_2, ..., x_n] \in \mathbb{R}^{n \times d}$
+        \item Linear projections:
+        \begin{align*}
+            Q &= XW^Q \in \mathbb{R}^{n \times d_k} \\
+            K &= XW^K \in \mathbb{R}^{n \times d_k} \\
+            V &= XW^V \in \mathbb{R}^{n \times d_v}
+        \end{align*}
+        \item Attention computation:
+        \begin{equation*}
+            \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
+        \end{equation*}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Proof Component 1: Parallel Processing}
+    \begin{itemize}
+        \item Matrix multiplication enables parallel computation:
+        \begin{equation*}
+            S = QK^T = \begin{bmatrix}
+            (q_1k_1^T) & \cdots & (q_1k_n^T) \\
+            \vdots & \ddots & \vdots \\
+            (q_nk_1^T) & \cdots & (q_nk_n^T)
+            \end{bmatrix}
+        \end{equation*}
+        \item All $n^2$ interactions computed simultaneously
+        \item No sequential dependencies between computations
+    \end{itemize}
+    \textcolor{blue}{\textbf{Key Insight}}
+    \newline
+        Unlike RNNs, there is no need to wait for previous timesteps
+\end{frame}
+
+\begin{frame}{Proof Component 2: Global Dependencies}
+    \begin{itemize}
+        \item Attention weights between positions $i$ and $j$:
+        \begin{equation*}
+            \alpha_{ij} = \frac{\exp(q_i^Tk_j/\sqrt{d_k})}{\sum_{l=1}^n \exp(q_i^Tk_l/\sqrt{d_k})}
+        \end{equation*}
+        \begin{itemize}
+            \item Properties:
+            \item $\alpha_{ij}$ depends only on compatibility of $i$ and $j$
+            \item No distance-based attenuation
+            \item Softmax ensures $\sum_j \alpha_{ij} = 1$
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Proof Component 2: Global Dependencies}
+        \begin{figure}
+        \centering
+        \includegraphics[width=0.85\textwidth]{pic/attention-weights.png}
+        \caption{Attention weight visualization}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Proof Component 3: Computational Efficiency}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \textbf{Complexity Analysis}
+        \begin{itemize}
+            \item Matrix multiply: $O(n^2d)$
+            \item Softmax: $O(n^2)$
+            \item Total: $O(n^2d)$
+        \end{itemize}
+        
+        \column{0.5\textwidth}
+        \textbf{Optimizations}
+        \begin{itemize}
+            \item Sparse attention
+            \item Linear attention
+            \item Sliding window
+        \end{itemize}
+    \end{columns}
+
+    \vspace{0.5cm}
+    \textcolor{blue}{\textbf{Memory-Computation Tradeoff}}
+    
+    \vspace{0.2cm}
+    More memory than RNNs ($O(n)$), but enables parallelization.
+    
+\end{frame}
+
+\begin{frame}{Implementation Details}
+    \begin{itemize}
+        \item Practical considerations:
+        \begin{itemize}
+            \item Scale factor $\sqrt{d_k}$ prevents vanishing gradients
+            \item Mask for causal attention (decoder)
+            \item Dropout for regularization
+        \end{itemize}
+    \end{itemize}
+    \begin{equation*}
+        \text{MaskedAttention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}} + M\right)V
+    \end{equation*}
+    where $M_{ij} = -\infty$ for masked positions
+\end{frame}
+
+\begin{frame}{Formal Proof Conclusion}
+    \textcolor{blue}{\textbf{Theorem Verification}}
+    \newline
+        Self-attention satisfies all claimed properties:
+        \begin{enumerate}
+            \item Parallel computation: Matrix operations
+            \item Global dependencies: Direct pairwise attention
+            \item Efficient computation: $O(n^2d)$ complexity
+            \item Learnable patterns: Attention weights
+        \end{enumerate}
+    \textcolor{blue}{\textbf{Important Note}}
+    \newline
+        These properties make self-attention particularly suitable for:
+        \begin{itemize}
+            \item Natural language processing
+            \item Graph neural networks
+            \item Computer vision (with modifications)
+        \end{itemize}
+\end{frame}
+
+\section{Positional Encoding}
+\begin{frame}{Positional Encoding}
+    \begin{itemize}
+        \item Problem: Attention is position-agnostic
+        \item Solution: Add position information to embeddings
+        \item Using sinusoidal functions:
+    \end{itemize}
+    \begin{equation*}
+        PE_{(pos,2i)} = \sin(pos/10000^{2i/d_{model}})
+    \end{equation*}
+    \begin{equation*}
+        PE_{(pos,2i+1)} = \cos(pos/10000^{2i/d_{model}})
+    \end{equation*}
+
+    \begin{itemize}
+        \item Allows model to learn relative positions
+        \item Works for sequences of any length
+    \end{itemize}
+    
+\end{frame}
+
+
+\begin{frame}{Positional Encoding}
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.45\textwidth]{pic/positional-encoding-1.png}
+        \label{fig:positional-encoding-1}
+    \end{figure}
+\end{frame}
+
+\section{Multi-Head Attention}
+
+\begin{frame}{Multi-Head Attention}
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.7\textwidth]{pic/multihead-attention-1.png}
+        \label{fig:multihead_attention-1}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Multi-Head Attention}
+    \begin{itemize}
+        \item Instead of single attention, use multiple heads
+        \item Each head can focus on different aspects
+        \item Process in parallel and concatenate
+    \end{itemize}
+    \begin{equation*}
+        \text{MultiHead}(Q,K,V) = \text{Concat}(head_1,\ldots,head_h)W^O
+    \end{equation*}
+    \begin{equation*}
+        head_i = \text{Attention}(QW^Q_i,KW^K_i,VW^V_i)
+    \end{equation*}
+\end{frame}
+
+\begin{frame}{Multi-Head Attention}
+
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.35\textwidth]{pic/multihead-attention-2.png}
+        \label{fig:multihead_attention}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Multi-Head Attention Benefits}
+    \begin{itemize}
+        \item Multiple representation subspaces
+        \item Can capture different types of relationships:
+        \begin{itemize}
+            \item Syntactic dependencies
+            \item Semantic relationships
+            \item Long-range dependencies
+        \end{itemize}
+        \item Improves model capacity and stability
+    \end{itemize}
+    % \begin{figure}
+    %     \centering
+    %     \includegraphics[width=0.7\textwidth]{pic/multihead-attention.png}
+    %     \caption{Multi-head attention architecture}
+    % \end{figure}
+\end{frame}
+
+\begin{frame}{Contributions}
+	\textbf{These slides are authored by:}
+	\begin{itemize}
+		\item Faezeh Sarlakifar
+	\end{itemize}
+	
+\end{frame}
+
+
+\section{References}
+
+\begin{frame}[allowframebreaks]
+    \bibliography{ref}
+    \bibliographystyle{ieeetr}
+    \nocite{*} % used here because no citation happens in slides
+    % if there are too many try use：
+    % \tiny\bibliographystyle{alpha}
+\end{frame}
+
+
+\begin{frame}
+    \begin{center}
+        {\Huge Any Questions?}
+    \end{center}
+\end{frame}
+
+\end{document}
