@@ -48,7 +48,7 @@ In this notebook we learn about Logistic Regression and repurpose Regeression to
 
 
 
-# [4. K-Nearest Neighbours](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_01_Supervised_Learning/04-kNN/04-kNN.ipynb)
+# [4. K-Nearest Neighbors](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_01_Supervised_Learning/04-kNN/04-kNN.ipynb)
 In this notebook we use implement the kNN algorithm from scratch and use it for classification. 
 
 
