@@ -1,0 +1,25 @@
+\section{Why Transformers for Vision?}
+
+\begin{frame}{Why Look Beyond CNNs?}
+    \begin{itemize}
+        \item From Local to Global %CNNs are great for capturing local details, but often struggle with understanding the global context due to their local receptive fields and pooling layers.
+	    \item NLP to Vision % In NLP, Transformers have shown a new way of capturing relationships over long sequences using self-attention, which can be adapted to capture relationships between parts of an image.
+	    \item Global Dependency %Explain that self-attention mechanisms, like those used in Transformers, can overcome CNN limitations by modeling global relationships between all parts of an image, regardless of their distance.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{What Makes Transformers Powerful?}
+    \begin{itemize}
+        \item Self-Attention Mechanism: Explain the core of the Transformer architecture: the self-attention mechanism, which allows each token (or patch in ViT) to weigh its relationship with every other token. This helps the model learn global context.
+        \item Global Context from the Start: Unlike CNNs, which build local-to-global context layer by layer, Transformers have global context awareness from the very first layer.
+        \item Parallelization: Unlike sequential processing in CNNs, Transformers allow parallel processing of image patches, speeding up training on large datasets.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Transformers: From NLP to Vision}
+    \begin{itemize}
+        \item No Need for Hand-Crafted Convolutions: Explain that Transformers don’t rely on convolutions or pooling, which are manually crafted for images. Instead, they apply the same attention mechanism used in NLP.
+	    \item Adaptability to Different Domains: Discuss how the Transformer’s architecture is flexible and adaptable to multiple domains (e.g., vision, audio, NLP) without the need for task-specific layers.
+    \end{itemize}
+\end{frame}
