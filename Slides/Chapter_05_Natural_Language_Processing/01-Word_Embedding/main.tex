@@ -226,22 +226,20 @@ subsubsectionstyle=show/shaded/hide]
 
 
 
-\begin{frame}{Motivation}
-    \begin{itemize}
-        \item Traditional models use methods like one-hot encoding, which lacks semantic understanding and cannot capture relationships between words.
-        \item We need better word representations that are both dense and semantic.
-    \end{itemize}
-\end{frame}
-
-
-
-\begin{frame}{Definition of One-Hot Encoding}
+\begin{frame}{Motivation and One-Hot Encoding}
 	\begin{itemize}
-		\item One-hot encoding is a straightforward method for representing categorical data, such as words, as discrete vectors.
-		\item Each word is represented as a binary vector with the same length as the vocabulary size.
-		\item All vector elements are set to 0 except for one position, which is set to 1, identifying the word's unique position in the vocabulary.
+		\item Traditional models like one-hot encoding lack semantic understanding and fail to capture word relationships.
+		\item One-hot encoding represents words as binary vectors where only one position is 1, making the representation sparse and non-semantic.
+		\item We need dense, semantic word representations to improve natural language processing tasks.
 	\end{itemize}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.7\textwidth]{pic/one_hot_example.png}
+	\end{figure}
+	\hspace{-1.0cm}
+	{\tiny \textcolor{gray}{Figure adapted from medium.com/@kalyan45/natural-language-processing-one-hot-encoding-5b31f76b09a0}}
 \end{frame}
+
 
 \begin{frame}{Example of One-Hot Encoding}
 	\begin{itemize}
@@ -266,14 +264,13 @@ subsubsectionstyle=show/shaded/hide]
 		\end{itemize}
 		\item \textbf{Limitations:}
 		\begin{itemize}
-			\item One-hot encoding does not capture any semantic relationships between words.
-			\item The vectors are sparse, containing mostly zeros, which is inefficient for large vocabularies.
-			\item Similar words (like \texttt{hotel} and \texttt{motel}) appear completely unrelated in this representation.
+			\item One-hot encoding does not capture semantic relationships, so similar words (e.g., \texttt{hotel} and \texttt{motel}) appear unrelated.
+			\item The vectors are sparse, containing mostly zeros, making it inefficient for large vocabularies and prone to overfitting due to the large number of parameters in downstream models.
 		\end{itemize}
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Example: Similar Words, 0 Cosine Similarity}
+\begin{frame}{Example: Similar Words, Zero Cosine Similarity}
 	\begin{itemize}
 		\item Consider the following one-hot vectors:
 		\begin{itemize}
@@ -289,12 +286,28 @@ subsubsectionstyle=show/shaded/hide]
 	\end{itemize}
 \end{frame}
 
-\begin{frame}{Conclusion: Why Move Beyond One-Hot?}
+\begin{frame}{Example: One-Hot Encoding for Different Words}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\textwidth]{pic/onehot encode_space.png}
+	\end{figure}
 	\begin{itemize}
-		\item While one-hot encoding is a simple and effective method for certain applications, it fails to capture word meanings or relationships.
-		\item More advanced methods, such as word embeddings, address these limitations by representing words in a dense, meaningful vector space.
+		\item Different words can be perpendicular to each other in space regardless of their meanings.
 	\end{itemize}
+	\vspace{1.6cm}
+	\hspace{-1.0cm}
+	{\tiny \textcolor{gray}{Figure adapted from andreaperlato.com/theorypost/introduction-to-word2vec/}}
 \end{frame}
+
+
+
+
+%\begin{frame}{Conclusion: Why Move Beyond One-Hot?}
+%	\begin{itemize}
+%		\item While one-hot encoding is a simple and effective method for certain applications, it fails to capture word meanings or relationships.
+%		\item More advanced methods, such as word embeddings, address these limitations by representing words in a dense, meaningful vector space.
+%	\end{itemize}
+%\end{frame}
 
 
 %\begin{frame}{Word Embedding and Semantic Analysis}
@@ -426,14 +439,28 @@ subsubsectionstyle=show/shaded/hide]
 
 \section{Word2Vec}
 
-\begin{frame}{Why Learn Word Vectors?} 
+\begin{frame}{Word Embedding} 
 	
-	\begin{itemize} \item To process text data, we need to represent words in a form that a machine can understand—numerical vectors. \item Word2Vec uses a neural network to learn word embeddings that capture semantic similarities. \item These embeddings allow words with similar meanings to be represented by vectors close to each other in a high-dimensional space. 
+	\begin{itemize} \item To process text data, we need to represent words in a form that a machine can understand—numerical vectors. \item Word2Vec uses a neural network to learn \textbf{word embedding}s that capture semantic similarities. \item These embeddings allow words with similar meanings to be represented by vectors close to each other in a high-dimensional space. 
 	\end{itemize} 
 \end{frame}
 
+\begin{frame}{Example: Word Embedding}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\textwidth]{pic/word_embedding.png}
+	\end{figure}
+%	\begin{itemize}
+%		\item Representation of the words in 2D space using word embedding.
+%	\end{itemize}
+%	\vspace{1.6cm}
+	\hspace{-1.0cm}
+	{\tiny \textcolor{gray}{Figure adapted from classes.engr.oregonstate.edu/eecs/fall2023/ai534-400/unit4/word_embeddings.html}}
+\end{frame}
+
+
 \begin{frame}{Word2Vec as a Neural Network}
-	 \begin{itemize} \item Word2Vec operates like a shallow neural network, with an input, hidden, and output layer. \item It takes in a target word and learns to predict either the surrounding context words or the target word from a set of context words. \item Through training, the network adjusts weights to create meaningful vector representations of words. 
+	 \begin{itemize} \item Word2Vec is a shallow neural network, with an input, hidden, and output layer. \item It takes in a target word and learns to predict either the surrounding context words or the target word from a set of context words. \item Through training, the network adjusts weights to create meaningful vector representations of words. 
 	 \end{itemize} 
 \end{frame}
 
@@ -441,12 +468,11 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{Word2Vec as a Neural Network}
 	\begin{figure}
 		\centering
-		\includegraphics[width=0.6\textwidth]{pic/word2vec_nn.png}
-		\caption*{Word2Vec as a two layer neural network}
+		\includegraphics[width=0.7\textwidth]{pic/word2vec_nn.png}
 	\end{figure}
 	\vspace{0.4cm}
 	\hspace{-1.0cm}
-	{\tiny \textcolor{gray}{Figure adapted from medium.com/@manansuri/a-dummys-guide-to-word2vec-456444f3c673}}
+	{\tiny \textcolor{gray}{Figure adapted from machinelearningcoban.com/tabml_book/ch_embedding/word2vec.html}}
 \end{frame}
 
 \begin{frame}{Expected Outcome of Word2Vec}
@@ -508,6 +534,16 @@ subsubsectionstyle=show/shaded/hide]
     \end{itemize}
 \end{frame}
 
+\begin{frame}{Example: Continuous Bag of Words}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\textwidth]{pic/cbow.png}
+	\end{figure}
+	\vspace{0.4cm}
+	\hspace{-1.0cm}
+	{\tiny \textcolor{gray}{Figure adapted from geeksforgeeks.org/continuous-bag-of-words-cbow-in-nlp/}}
+\end{frame}
+
 \subsection{Skip-gram Model}
 
 \begin{frame}{Skip-gram: How It Works}
@@ -517,6 +553,14 @@ subsubsectionstyle=show/shaded/hide]
         \item Example: If the center word is “jumps,” Skip-gram predicts the context words “the,” “brown,” “fox,” and “over.”
         \item Skip-gram is better suited for larger datasets and can capture rare words more effectively.
     \end{itemize}
+\end{frame}
+
+\begin{frame}{Why Skip-gram?}
+	\begin{itemize}
+		\item Skip-gram is preferred for large datasets because it handles rare words more effectively than CBOW.
+		\item It captures detailed information about the surrounding words, leading to better word representations in the vector space.
+		\item Word2Vec embeddings from Skip-gram have been widely adopted in various NLP tasks such as machine translation, sentiment analysis, and document classification.
+	\end{itemize}
 \end{frame}
 
 
@@ -531,14 +575,47 @@ subsubsectionstyle=show/shaded/hide]
     {\tiny \textcolor{gray}{Figure adapted from tensorflow.org/text/tutorials/word2vec}}
 \end{frame}
 
+\begin{frame}{Skip-gram as a Neural Network}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\textwidth]{pic/skip_nn.png}
+		\caption*{Skip-gram Model as Neural Network}
+	\end{figure}
+	\vspace{1.0cm}
+	\hspace{-1.0cm}
+	{\tiny \textcolor{gray}{Figure adapted from towardsdatascience.com/word2vec-explained-49c52b4ccb71}}
+\end{frame}
 
+
+
+
+\begin{frame}{CBOW vs. Skip-gram}
+	\begin{itemize}
+		\item CBOW and Skip-gram are the two primary architectures for Word2Vec.
+		\item \textbf{CBOW} predicts a target word given its surrounding context, making it efficient and effective for smaller datasets.
+		\item \textbf{Skip-gram}, on the other hand, predicts the surrounding words for a given target word. It is well-suited for larger datasets and can handle rare words more effectively.
+		\item In essence, the Skip-gram model captures more detailed word relationships and is robust in large vocabularies.
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}{CBOW vs. Skip-gram}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.7\textwidth]{pic/skip_vs_cbow1.png}
+		\caption*{Difference between CBOW and Skip-gram}
+	\end{figure}
+	\vspace{0.4cm}
+	\hspace{-1.0cm}
+	{\tiny \textcolor{gray}{Figure adapted from kavita-ganesan.com/comparison-between-cbow-skipgram-subword/}}
+\end{frame}
 
 \begin{frame}{Skip-gram: Objective Function}
     \begin{itemize}
         \item The objective of Skip-gram is to maximize the likelihood of predicting context words \(w_o\) given a center word \(w_c\).
         \item The probability of a context word \(w_o\) given a center word \(w_c\) is defined as:
         \[
-        P(w_o | w_c) = \frac{\exp(v_{w_o} \cdot v_{w_c})}{\sum_{w \in V} \exp(v_w \cdot v_{w_c})}
+        P(w_o | w_c) = \frac{\exp(v_{w_o} \cdot v_{w_c})}{\sum_x \exp(v_x \cdot v_{w_c})}
         \]
         \item \(v_{w_o}\) and \(v_{w_c}\) are the word vectors for the context and center words, respectively.
     \end{itemize}
@@ -548,23 +625,23 @@ subsubsectionstyle=show/shaded/hide]
     \begin{itemize}
         \item The goal is to minimize the negative log-likelihood over the entire training corpus:
         \[
-        J(\theta) = -\frac{1}{T} \sum_{t=1}^{T} \sum_{-m \leq j \leq m, j \neq 0} \log P(w_{t+j} | w_t)
+        J(\theta) = -\frac{1}{C} \sum_{c=1}^{C} \sum_{-m \leq j \leq m, j \neq 0} \log P(w_{c+j} | w_c)
         \]
         \item Here, \(T\) is the total number of words, and \(m\) is the window size.
-        \item Skip-gram adjusts the word vectors to maximize the probability of observing the context words around the center word.
+        \item Skip-gram adjusts the word embeddings to maximize the probability of observing the context words around the center word.
     \end{itemize}
 \end{frame}
 
 
-\begin{frame}{Skip-gram: Gradient Calculation}
-    \begin{itemize}
-        \item To update the word vectors during training, we calculate the gradient of the objective function.
-        \item The gradient with respect to the word vector \(v_I\) is:
-        \[
-        \frac{\partial \log P(w_o | w_I)}{\partial v_I} = u_o - \sum_x P(w_x | w_I) u_x
-        \]
-    \end{itemize}
-\end{frame}
+%\begin{frame}{Skip-gram: Gradient Calculation}
+%    \begin{itemize}
+%        \item To update the word vectors during training, we calculate the gradient of the objective function.
+%        \item The gradient with respect to the word vector \(v_{w_c}\) is:
+%        \[
+%        \frac{\partial \log P(w_o | w_c)}{\partial v_{w_c}} = v_{w_o} - \sum_x P(w_x | w_c) v_x
+%        \]
+%    \end{itemize}
+%\end{frame}
 
 
 
@@ -572,33 +649,50 @@ subsubsectionstyle=show/shaded/hide]
     \begin{itemize}
         \item The detailed steps for the gradient calculation are:
         \[
-        \frac{\partial \log P(w_o | w_I)}{\partial v_I} = \frac{\partial}{\partial v_I} \log \frac{e^{u_o^T v_I}}{\sum_x e^{u_x^T v_I}}
+        \frac{\partial \log P(w_o | w_c)}{\partial v_{w_c}} = \frac{\partial}{\partial v_{w_c}} \log \frac{e^{v_{w_o}^T v_{w_c}}}{\sum_x e^{v_x^T v_{w_c}}}
         \]
         \[
-        = \frac{\partial}{\partial v_I} \left( \log e^{u_o^T v_I} - \log \sum_x e^{u_x^T v_I} \right)
+        = \frac{\partial}{\partial v_{w_c}} \left( \log e^{v_{w_o}^T v_{w_c}} - \log \sum_x e^{v_x^T v_{w_c}} \right)
         \]
         \[
-        = u_o - \frac{1}{\sum_x e^{u_x^T v_I}} \sum_x u_x e^{u_x^T v_I}
+        = v_{w_o} - \frac{1}{\sum_x e^{v_x^T v_{w_c}}} \sum_x v_x e^{v_x^T v_{w_c}}
         \]
         \[
-        = u_o - \sum_x P(w_x | w_I) u_x
+        = v_{w_o} - \sum_x P(w_x | w_c) v_x
         \]
         \item The update rule for \(v_{w_c}\) is:
         \[
-        v_{w_c} \leftarrow v_{w_c} + \eta \left( v_{w_o} - \sum_{w \in V} P(w | w_c) v_w \right)
+        v_{w_c} \leftarrow v_{w_c} + \eta \left( v_{w_o} - \sum_x P(w_x | w_c) v_x \right)
         \]
         \item Here, \(\eta\) is the learning rate.
     \end{itemize}
 \end{frame}
 
 
-\begin{frame}{Skip-gram Example}
-    \begin{itemize}
-        \item Consider the sentence: "The quick brown fox jumps over the lazy dog."
-        \item If the center word is "jumps", the model predicts context words such as "quick", "brown", "fox", "over", and "the".
-        \item The model iteratively adjusts word vectors to predict these context words, learning a meaningful representation for "jumps."
-    \end{itemize}
+%\begin{frame}{Skip-gram Example}
+%    \begin{itemize}
+%        \item Consider the sentence: "The quick brown fox jumps over the lazy dog."
+%        \item If the center word is "jumps", the model predicts context words such as "quick", "brown", "fox", "over", and "the".
+%        \item The model iteratively adjusts word vectors to predict these context words, learning a meaningful representation for "jumps."
+%    \end{itemize}
+%\end{frame}
+
+\begin{frame}{Skip-gram Example with Gradient Calculation}
+	\begin{itemize}
+		\item Consider the sentence: "Cats chase mice in the dark night."
+		\item If the center word is "chase", the model predicts context words such as "cats", "mice", "in", "the", and "dark".
+		\item Skip-gram calculates the probability of a context word \(w_o\) given the center word \(w_c\)
+		\item Example:
+		\begin{itemize}
+			\item Word vectors: \(v_{chase} = [0.1, 0.2]\), \(v_{cats} = [0.3, 0.4]\), \(v_{mice} = [0.2, 0.5]\).
+			\item For \(w_o = "cats"\): Compute dot product \(v_{w_o}^T v_{w_c} = (0.3)(0.1) + (0.4)(0.2) = 0.11\).
+			\item Softmax denominator: \(\exp(0.11) + \exp((0.2)(0.1) + (0.5)(0.2)) = 1.116 + 1.148 = 2.264\).
+			\item Probability: \(P("cats" | "chase") = \frac{1.116}{2.264} \approx 0.493\).
+		\end{itemize}
+		\item Gradient for \(v_{chase}\): \(\nabla v_{w_c} = \sum_{w} \left(P(w | w_o) - y_w\right)v_w\), where \(y_w = 1\) if \(w = w_c\), else 0.
+	\end{itemize}
 \end{frame}
+
 
 
 
@@ -634,48 +728,31 @@ subsubsectionstyle=show/shaded/hide]
 
 
 
-\begin{frame}{CBOW vs. Skip-gram}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.8\textwidth]{pic/skip_vs_cbow.png}
-        \caption*{Difference between CBOW and Skip-gram}
-    \end{figure}
-    \vspace{0.6cm}
-    \hspace{-1.0cm}
-    {\tiny \textcolor{gray}{Figure adapted from researchgate.net/figure/llustration-of-the-Skip-gram-and-Continuous-Bag-of-Word-CBOW-models_fig1_281812760}}
-\end{frame}
+%\begin{frame}{CBOW vs. Skip-gram}
+%    \begin{figure}
+%        \centering
+%        \includegraphics[width=0.7\textwidth]{pic/skip_vs_cbow.png}
+%        \caption*{Difference between CBOW and Skip-gram}
+%    \end{figure}
+%    \vspace{0.6cm}
+%    \hspace{-1.0cm}
+%    {\tiny \textcolor{gray}{Figure adapted from researchgate.net/figure/llustration-of-the-Skip-gram-and-Continuous-Bag-of-Word-CBOW-models_fig1_281812760}}
+%\end{frame}
 
 
-\begin{frame}{CBOW vs. Skip-gram}
-	\begin{itemize}
-		\item CBOW and Skip-gram are the two primary architectures for Word2Vec.
-		\item \textbf{CBOW} predicts a target word given its surrounding context, making it efficient and effective for smaller datasets.
-		\item \textbf{Skip-gram}, on the other hand, predicts the surrounding words for a given target word. It is well-suited for larger datasets and can handle rare words more effectively.
-		\item In essence, the Skip-gram model captures more detailed word relationships and is robust in large vocabularies.
-	\end{itemize}
-\end{frame}
 
 
-\begin{frame}{Skip-gram as a Neural Network}
-    \begin{itemize}
-        \item The Skip-gram model functions as a two-layer neural network. 
-        \item The input layer consists of a one-hot encoded target word vector, while the hidden layer is a dense embedding layer that learns the word representation.
-        \item The output layer uses softmax to calculate the probability distribution over all words in the vocabulary, given the context.
-        \item The Skip-gram model iteratively adjusts weights to maximize the likelihood of predicting the correct context words, ultimately learning meaningful word embeddings.
-    \end{itemize}
-\end{frame}
+%\begin{frame}{Skip-gram as a Neural Network}
+%    \begin{itemize}
+%        \item The Skip-gram model functions as a two-layer neural network. 
+%        \item The input layer consists of a one-hot encoded target word vector, while the hidden layer is a dense embedding layer that learns the word representation.
+%        \item The output layer uses softmax to calculate the probability distribution over all words in the vocabulary, given the context.
+%        \item The Skip-gram model iteratively adjusts weights to maximize the likelihood of predicting the correct context words, ultimately learning meaningful word embeddings.
+%    \end{itemize}
+%\end{frame}
 
 
-\begin{frame}{Skip-gram as a Neural Network}
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.8\textwidth]{pic/skip_nn.png}
-		\caption*{Skip-gram Model as Neural Network}
-	\end{figure}
-	\vspace{1.0cm}
-	\hspace{-1.0cm}
-	{\tiny \textcolor{gray}{Figure adapted from towardsdatascience.com/word2vec-explained-49c52b4ccb71}}
-\end{frame}
+
 
 \begin{frame}{Why Do We Need Negative Sampling?}
     \begin{itemize}
@@ -687,9 +764,8 @@ subsubsectionstyle=show/shaded/hide]
 
 \begin{frame}{Skip-gram: Negative Sampling}
     \begin{itemize}
-        \item In \textbf{negative sampling}, we sample a few "negative" words that do not appear in the context of the target word.
-        \item For each positive pair (center word and context word), we sample \(k\) negative words that are not in the context.
-        \item Instead of maximizing the probability of all words in the vocabulary, we only maximize the probability of the context words and minimize the probability of the sampled negative words.
+        \item \textbf{Negative sampling} involves sampling \(k\) "negative" words that do not appear in the context of the target word for each positive pair (center word and context word).
+        \item Instead of maximizing the probability of all words in the vocabulary, we only maximize the probability of the context words and minimize the probability of the negative sampled words.
         \item Example: If the center word is "cat", and the context word is "cute", we sample negative words like "computer", "sky", and "table" to minimize their probability in this context.
     \end{itemize}
 \end{frame}
@@ -700,19 +776,13 @@ subsubsectionstyle=show/shaded/hide]
 		\includegraphics[width=0.8\textwidth]{pic/skip_negative.png}
 		\caption*{Negative sampling}
 	\end{figure}
-	\vspace{0.6cm}
+	\vspace{0.1cm}
 	\hspace{-1.0cm}
-	{\tiny \textcolor{gray}{Figure adapted from jalammar.github.io/illustrated-word2vec/}}
+	{\tiny \textcolor{gray}{Figure adapted from amitness.com/posts/fasttext-embeddings}}
 \end{frame}
 
 
-\begin{frame}{Why Skip-gram?}
-    \begin{itemize}
-        \item Skip-gram is preferred for large datasets because it handles rare words more effectively than CBOW.
-        \item It captures detailed information about the surrounding words, leading to better word representations in the vector space.
-        \item Word2Vec embeddings from Skip-gram have been widely adopted in various NLP tasks such as machine translation, sentiment analysis, and document classification.
-    \end{itemize}
-\end{frame}
+
 
 \subsection{Word Embedding Visualization}
 
@@ -726,9 +796,12 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{Visualizing Words in 2D}
 	\begin{figure}
 		\centering
-		\includegraphics[width=0.6\textwidth]{pic/3.png}
+		\includegraphics[width=0.6\textwidth]{pic/word2vec_embedding.png}
 		\caption*{Words represented in a 2D space after dimensionality reduction}
 	\end{figure}
+	\vspace{0.6cm}
+	\hspace{-1.0cm}
+	{\tiny \textcolor{gray}{Figure adapted from jramkiss.github.io/2019/08/21/word-embeddings/}}
 \end{frame}
 
 \subsection{Word Analogy}
@@ -743,6 +816,25 @@ subsubsectionstyle=show/shaded/hide]
         \item The analogy is solved by finding the word vector closest to \( \mathbf{v}_{king} - \mathbf{v}_{man} + \mathbf{v}_{woman} \).
     \end{itemize}
 \end{frame}
+
+
+\begin{frame}{Word Analogy Formula}
+	\begin{itemize}
+		\item The formal formula for solving word analogies is:
+		\[
+		d = \arg\max_i \frac{(x_b - x_a + x_c)^T x_i}{\|x_b - x_a + x_c\|}
+		\]
+		\item Definitions:
+		\begin{itemize}
+			\item \(x_a\): Vector for the first word (e.g., "man").
+			\item \(x_b\): Vector for the second word (e.g., "woman").
+			\item \(x_c\): Vector for the third word (e.g., "king").
+			\item \(x_i\): Candidate word vectors in the vocabulary.
+		\end{itemize}
+		\item Example: To solve "man is to woman as king is to ?", the formula computes a vector closest to \(x_b - x_a + x_c\) (e.g., "queen").
+	\end{itemize}
+\end{frame}
+
 
 \begin{frame}{Word Analogy Example}
     \begin{itemize}
@@ -763,15 +855,7 @@ subsubsectionstyle=show/shaded/hide]
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Word Analogy Formula}
-    \begin{itemize}
-        \item The formal formula for solving word analogies is:
-        \[
-        d = \arg\max_i \frac{(x_b - x_a + x_c)^T x_i}{\|x_b - x_a + x_c\|}
-        \]
-        \item This finds the word \(x_i\) whose vector is closest to the result of the vector arithmetic.
-    \end{itemize}
-\end{frame}
+
 
 
 
@@ -782,9 +866,18 @@ subsubsectionstyle=show/shaded/hide]
 
 \section{References}
 
+\begin{frame}{Contribution}
+	\begin{itemize}
+		\item \textbf{These slides were prepared with contribution from:}
+		\begin{itemize}
+			\item Omid Daliran
+		\end{itemize}
+	\end{itemize}
+\end{frame}
 
 
-\begin{frame}[allowframebreaks]
+
+\begin{frame}{Refrences}[allowframebreaks]
     \bibliography{ref}
     \bibliographystyle{ieeetr}
     \nocite{*}

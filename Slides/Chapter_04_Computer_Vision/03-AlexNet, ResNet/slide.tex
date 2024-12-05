@@ -14,7 +14,7 @@
 \usepackage{fourier} % see "http://faq.ktug.org/wiki/uploads/MathFonts.pdf" for other options
 \usepackage{hyperref}
 \usepackage[absolute,overlay]{textpos}
-\usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
+\usepackage{latexsym, amsmath, xcolor, multicol, booktabs, calligra}
 \usepackage{graphicx, pstricks, listings, stackengine, caption, subcaption}
 \usepackage{lipsum}
 
@@ -87,16 +87,45 @@ subsubsectionstyle=show/shaded/hide]
 
 \begin{frame}{Intuition}
 	\begin{itemize}
-		\item Let's consider ReLU networks. Let $m(x)$ be the piecewise linear function that is $2x$ if $x \in [0,0.5]$, $2-2x$ if $x \in[0.5,1]$, and $0$ otherwise. This can be computed exactly by a two- or three-layer network (depending on your notational preferences), by the expression: $\sigma (2 \sigma(x) - 4 \sigma(x - 0.5))$.
-		\item Or in terms of the activation function:
+		\item Let's consider ReLU networks. Let $m(x)$ be the \newline piecewise linear function as below: 
+	\end{itemize}
+	
+	\begin{textblock*}{5cm}(2.8cm, 2.7cm)
+		$$		
+		\begin{aligned}
+			m(x) = 
+			\begin{cases}
+				2x & 0 \le x \le 0.5\\
+				2-2x & 0.5 \le x \le 1\\
+				0 & o.w.\\
+			\end{cases}
+		\end{aligned}
+		$$
+	\end{textblock*}
+	
+	\vspace{2cm}
+	\begin{itemize}
+		\item This can be computed exactly by a two- or three- \newline layer network (depending on your notational \newline preferences), by the expression:
 	\end{itemize}
 
-	\begin{center}
-		\begin{figure}
-			\includegraphics[keepaspectratio, scale=0.3]{pic/depth_sep_relu}
-			\caption*{\scriptsize Function $m$ is slightly offset for visual clarity}
-		\end{figure}
-	\end{center}
+	\begin{textblock*}{5cm}(3.6cm, 6.7cm)
+		$\sigma (2 \sigma(x) - 4 \sigma(x - 0.5))$
+	\end{textblock*}
+	
+	\vspace{0.5cm}
+	\begin{itemize}
+		\item Figure on the right shows it in terms of ReLU \newline activation functions
+	\end{itemize}
+
+	\begin{textblock*}{5cm}(10.3cm, 2.5cm)
+		\begin{center}
+			\begin{figure}
+				\includegraphics[keepaspectratio, scale=0.3]{pic/depth_sep_relu}
+				\caption*{\tiny \hspace{1em} Function $m$ is slightly offset for visual clarity}
+			\end{figure}
+		\end{center}
+	\end{textblock*}
+
 \end{frame}
 
 \begin{frame}{Intuition}
@@ -182,22 +211,20 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 \begin{frame}{ReLU}
-	\setbeamercolor{itemize subitem}{fg=red}
-	\setbeamercolor{itemize subsubitem}{fg=red}
 	\textbf{ReLU}
 	\begin{itemize}
 		\item Does not saturate (in the positive region)
 		\item Very computationally efficient
 		\item Converges much faster than sigmoid/tanh \newline in practice (e.g. 6x)
 		\item Actually more biologically plausible than sigmoid
-		\item[\textcolor{red}{$\bullet$}] \color{red} \textbf{Problems:}
+		\item[{$\bullet$}] \textbf{Problems:}
 		\setbeamertemplate{itemize subitem}{$\rightarrow$}
 		\begin{itemize}
-			\item \color{red} Not zero-centered output
-			\item \color{red} An annoyance:
+			\item Not zero-centered output
+			\item An annoyance:
 			\setbeamertemplate{itemize subsubitem}{$\star$}
 			\begin{itemize}
-				\item \color{red} Hint: "what is the gradient when x < 0?"
+				\item Hint: "what is the gradient when x < 0?"
 			\end{itemize}
 		\end{itemize}
 	\end{itemize}
@@ -228,7 +255,7 @@ subsubsectionstyle=show/shaded/hide]
 	\]
 	\begin{itemize}
 		\item Enhance the generalization of the model
-		\item Encourages competition between adjacent features Where:
+		\item Encourages competition between adjacent features
 		\vspace{1em}
 		\begin{itemize}
 			\item \( b_{x, y}^i \): Normalized activation at spatial location \((x, y)\) in the \(i\)-th channel.
@@ -300,7 +327,7 @@ subsubsectionstyle=show/shaded/hide]
 	
 	\begin{itemize}
 		\item \textbf{Solution:} Use network layers to fit a residual mapping rather than directly fitting the desired underlying mapping.
-		\item Identity mapping: $H(\mathbb{x}) = \mathbb{x} \  \text{if} \ F(\mathbb{x}) = 0$
+		\item Identity mapping: $H(\mathbf{x}) = \mathbf{x} \ \text{if} \  F(\mathbf{x}) = 0$
 	\end{itemize}
 	
 	\begin{figure}[htpb]
@@ -691,7 +718,7 @@ import albumentations as A
 	\begin{figure}[htpb]
 		\begin{center}
 			\includegraphics[keepaspectratio, scale=0.25]{pic/TL_cnn}
-			\caption*{\scriptsize Donahue et al, “DeCAF: A Deep Convolutional Activation Feature for Generic Visual Recognition”, ICML 2014 \newline Razavian et al, “CNN Features Off-the-Shelf: An Astounding Baseline for Recognition”, CVPR Workshops 2014}
+			\caption*{\scriptsize Donahue et al, (ICML 2014), Razavian et al, (CVPR Workshops 2014)}
 		\end{center}
 	\end{figure}
 \end{frame}

@@ -1,0 +1,62 @@
+\section{Introduction}
+
+\begin{frame}{Recap: Self-Attention Mechanism}
+
+\textbf{Inputs:}\\
+Input vectors: $\mathbf{x}$ (shape: $N \times D$)
+
+\vspace{0.5cm}
+
+\textbf{Operations:}
+\begin{align*}
+\text{Key vectors:} & \quad \mathbf{k} = \mathbf{W}_K^T \mathbf{x} \\
+\text{Value vectors:} & \quad \mathbf{v} = \mathbf{W}_V^T \mathbf{x} \\
+\text{Query vectors:} & \quad \mathbf{q} = \mathbf{W}_Q^T \mathbf{x} \\
+\text{Alignment:} & \quad e_{i,j} = \frac{\mathbf{q}_j \cdot \mathbf{k}_i}{\sqrt{D}} \\
+\text{Attention:} & \quad a = \text{softmax}(e) \\
+\text{Output:} & \quad \mathbf{y}_j = \sum_i a_{i,j} \mathbf{v}_i
+\end{align*}
+
+\vspace{0.5cm}
+
+\textbf{Outputs:}\\
+Context vectors: $\mathbf{y}$ (shape: $D_o$)
+
+\vspace{0.5cm}
+
+\textbf{Diagram of Self-Attention:}
+
+
+\end{frame}
+
+\begin{frame}{}
+    \begin{itemize}%[<+-| alert@+>] % stepwise alerts
+        \item Self-attention-based architectures, in particular Transformers, have become the model of choice in natural language processing (NLP).
+        \item The dominant approach is to pre-train on a large text corpus and then fine-tune on a smaller task-specific dataset.
+        \item In computer vision, however, convolutional architectures remain dominant.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Strengths of CNNs}
+    \begin{itemize}
+        \item \emph{Local Feature Extraction:} CNNs excel at extracting local patterns through convolutions, detecting edges, textures, and shapes in a hierarchical manner.
+        \item \emph{Translation Invariance:} The use of convolution and pooling layers helps CNNs detect features regardless of their position in the image.
+        \item \emph{Efficient Computation:} Weight sharing in convolutional layers makes CNNs computationally efficient compared to fully connected networks for images.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Limitations of CNNs}
+    \begin{itemize}
+        \item \emph{Limited Receptive Field:} Early convolutional layers only see a small portion of the image at a time (local features), while later layers expand the receptive field, but still require deep architectures to model long-range dependencies.
+        \item \emph{Pooling Information Loss:} Pooling layers (e.g., max-pooling) help reduce computational costs but can lose important spatial details, especially for global image understanding.
+        \item \emph{Struggle with Global Context:} CNNs focus more on local spatial hierarchies and have difficulty capturing global relationships between distant parts of an image.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{CNNs Struggle with Global Context}
+    \begin{itemize}
+        \item Why it matters: For tasks that require understanding the entire image (e.g., image classification, where the relationship between distant parts of the image may be important), CNNs often require deep architectures to get the full picture.
+        \item Feature Hierarchy: CNNs build a hierarchical structure of features but rely on many layers to achieve global understanding, leading to more complexity.
+    \end{itemize}
+\end{frame}
+
