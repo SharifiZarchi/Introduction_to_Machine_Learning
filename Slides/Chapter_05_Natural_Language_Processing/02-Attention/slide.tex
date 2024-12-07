@@ -71,11 +71,32 @@ subsectionstyle=show/shaded/hide,
 subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
+\begin{frame}{Attention is All You Need!}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.9\linewidth]{pic/attention-is-all-you-need.pdf}
+		\label{fig:attention-01}
+	\end{figure}
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[anchor=south west, xshift=0.09cm, yshift=0.3cm] at (current page.south west) {\tiny \href{https://arxiv.org/abs/1706.03762}{https://arxiv.org/abs/1706.03762}};
+	\end{tikzpicture}
+\end{frame}
+\newpage
+
+\begin{frame}{Attention: A Game-Changer in NLP}
+	\begin{itemize} 
+		
+		\item Imagine trying to read a book while your attention is scattered. You’d miss crucial details.
+		\item Attention mechanism solve this problem in Neural Networks.
+		\item Allows model to \textbf{“attend”} the most relevant information from the entire sequence
+		
+	\end{itemize}
+\end{frame}
+
 \section{Contextualized Word Embeddings}
 
-\subsection{Limitations of word2vec}
 
-\begin{frame}{Limitations of word2vec}
+\begin{frame}{Limitations of Word2vec}
     \begin{itemize} 
     
         \item One vector for each word type
@@ -91,18 +112,21 @@ subsubsectionstyle=show/shaded/hide]
 
 
 \begin{frame}{Contextualized Word Embeddings}
-
-    \begin{itemize}
-        \item Build a vector for each word conditioned on its \textbf{context}.
-    \end{itemize}
-
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.6\textwidth]{pic/Contextualized-word-embedding.png}
-        \caption{representation for each token is a function of the entire input sentence}
-        \label{fig:Contextualized-word-embedding}
-    \end{figure}
+		
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.95\textwidth]{pic/example-2.png}
+		\label{fig:Contextualized-word-embedding-1}
+	\end{figure}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.27\textwidth]{pic/Flux-1.png}
+		\label{fig:Contextualized-word-embedding-1}
+	\end{figure}
+	
 \end{frame}
+
 
 \begin{frame}{Contextualized Word Embeddings}
 	Compute contextual vector:
@@ -122,37 +146,56 @@ subsubsectionstyle=show/shaded/hide]
 	\vspace{5pt}
 \end{frame}
 
+\section{Recurrent Neural Networks}
 
-\begin{frame}{Enter Recurrent Neural Networks}
-    \begin{itemize}
-        \item RNNs: Natural choice for contextual representations.
-        \item Process words sequentially, maintaining context.
-        \item Each hidden state captures information about:
-        \begin{itemize}
-            \item Current word
-            \item All previous words in sequence
-        \end{itemize}
-    \end{itemize}
-%    \begin{equation*}
-%        h_t = f(W_{hh}h_{t-1} + W_{xh}x_t + b)
-%    \end{equation*}
-
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.6\textwidth]{pic/image-RNN.png}
-        \caption{where $h_t$ can serve as our contextualized representation.}
-        \label{fig:image-RNN}
-    \end{figure}
-    
+\begin{frame}{Limitations of Word2vec}
+	\begin{itemize} 
+		
+		\item One vector for each word type
+		
+		\item Word2vec has challenges in polysemous words, e.g. \texttt{Light}
+		% {شیر جنگل، شیر خوراکی و شیر آب}
+		\item Words don’t appear in isolation. The word use (e.g., syntax and semantics) depends on its context.
+		
+		\item \textbf{Why not learn the representations for each word in its context?}
+		
+	\end{itemize}
 \end{frame}
 
-\subsection{Recurrent Neural Networks}
-\begin{frame}{RNN hidden state update}
+\begin{frame}{Recurrent Neural Networks}
+	\begin{itemize}
+		\item To process each word, we need to remember the previous words.
+		\item How do we create this memory? By maintaining a \textbf{hidden state}.
+		\item Each hidden state captures information about:
+		\begin{itemize}
+			\item Current word
+			\item All previous words in the sequence
+		\end{itemize}
+	\end{itemize}
+	
+	%    \begin{equation*}
+		%        h_t = f(W_{hh}h_{t-1} + W_{xh}x_t + b)
+		%    \end{equation*}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.6\textwidth]{pic/image-RNN.png}
+		\label{fig:image-RNN}
+	\end{figure}
+	
+	\begin{center}
+		where $h_t$ serves as contextualized representation, containing memory of previous words.
+	\end{center}
+	
+\end{frame}
+
+
+\begin{frame}{RNN's Hidden State Update}
     \begin{itemize}
         \item Process sequences by maintaining a hidden state.
-        \item Updates state sequentially: $h_t = f_W(h_{t-1}, x_t)$
+        \item Update state sequentially: $h_t = f_W(h_{t-1}, x_t)$
         \item This recurrence formula is applied at each time step to process a sequence of vectors x.
-        \item The same function and the same set of parameters are used at every time step.
+        \item The same function and the same set of parameters are used for each word.
         
     \end{itemize}
      \begin{figure}
@@ -163,7 +206,7 @@ subsubsectionstyle=show/shaded/hide]
 
 \begin{frame}{RNN Output Generation}
 	\begin{itemize}
-		\item After updating the hidden state, RNNs generate outputs at each time step.
+		\item After updating the hidden state, RNN generates outputs at each time step.
 		\item The output \( y_t \) is typically computed as a function of the current hidden state \( h_t \), often passed through a layer (like a softmax layer) for classification or regression tasks.
 	\end{itemize}
 	\begin{figure}
@@ -204,19 +247,6 @@ subsubsectionstyle=show/shaded/hide]
 
 \section{Attention Mechanism}
 
-\begin{frame}{Attention is all you need!}
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.9\linewidth]{pic/attention-is-all-you-need.pdf}
-		\label{fig:attention-01}
-	\end{figure}
-	\begin{tikzpicture}[remember picture,overlay]
-		\node[anchor=south west, xshift=0.09cm, yshift=0.3cm] at (current page.south west) {\tiny \href{https://arxiv.org/abs/1706.03762}{https://arxiv.org/abs/1706.03762}};
-	\end{tikzpicture}
-\end{frame}
-\newpage
-
-\subsection{Why Attention}
 \begin{frame}{Why Attention?}
 	\begin{itemize}
 		\item Enhances the model's ability to focus on relevant parts of the input.
@@ -229,20 +259,20 @@ subsubsectionstyle=show/shaded/hide]
 	\end{itemize}
 \end{frame}
 
-\subsection{RNNs with Attention Mechanism}
-\begin{frame}{Motivation for Attention in RNNs}
-	
-	\textbf{Attention Mechanism}
-	\begin{itemize}
-		\item Helps RNNs focus on important parts of the sequence.
-		\item Allows model to “attend” the most relevant information from the entire sequence, rather than relying solely on the hidden state at the current time step.
-		\item Improves the model's ability to handle long-range dependencies by:
-		\begin{itemize}
-			\item Directly accessing key information at any position in the input sequence.
-			\item Avoiding the need to compress all information into a single hidden state.
-		\end{itemize}
-	\end{itemize}
-\end{frame}
+%\subsection{RNNs with Attention Mechanism}
+%\begin{frame}{Motivation for Attention in RNNs}
+%	
+%	\textbf{Attention Mechanism}
+%	\begin{itemize}
+%		\item Helps RNNs focus on important parts of the sequence.
+%		\item Allows model to “attend” the most relevant information from the entire sequence, rather than relying solely on the hidden state at the current time step.
+%		\item Improves the model's ability to handle long-range dependencies by:
+%		\begin{itemize}
+%			\item Directly accessing key information at any position in the input sequence.
+%			\item Avoiding the need to compress all information into a single hidden state.
+%		\end{itemize}
+%	\end{itemize}
+%\end{frame}
 
 \begin{frame}{How Attention Works?}
     \begin{figure}
@@ -258,7 +288,7 @@ subsubsectionstyle=show/shaded/hide]
     \begin{minipage}{0.4\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pic/attention-3.png}
-        \caption{In a \textcolor{orange}{lookup table}, we have a table of keys that map to values. The query matches one of the keys, returning its value.}
+        In a \textcolor{orange}{lookup table}, we have a table of keys that map to values. The query matches one of the keys, returning its value.
         \label{fig:attention-4}
         
     \end{minipage}%
@@ -268,7 +298,7 @@ subsubsectionstyle=show/shaded/hide]
     \begin{minipage}{0.48\textwidth}
         \centering
         \includegraphics[width=\textwidth]{pic/attention-4.png}
-                \caption{In the \textcolor{green}{attention}, the query matches all keys softly, to a weight between 0 and 1. The keys' values are multiplied and summed by the weights.}
+                In the \textcolor{green}{attention}, the query matches all keys softly, to a weight between 0 and 1. The keys' values are multiplied and summed by the weights.
         \label{fig:attention-3}
     \end{minipage}
 \end{figure}
@@ -290,40 +320,51 @@ subsubsectionstyle=show/shaded/hide]
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Attention Mechanism: Basic Formula}
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.61\textwidth]{pic/attention-2__AIE.png}
-        \label{fig:attention-2}
-    \end{figure}
-\end{frame}
+%\begin{frame}{Attention Mechanism: Basic Formula}
+%    \begin{figure}
+%        \centering
+%        \includegraphics[width=0.61\textwidth]{pic/attention-2__AIE.png}
+%        \label{fig:attention-2}
+%    \end{figure}
+%\end{frame}
 
-\section{Types of Attention}
-\begin{frame}{Self-Attention vs Cross-Attention}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \textbf{Self-Attention}
-        \begin{itemize}
-            \item Q, K, V from the same sequence
-            \item Each position attends to all positions
-            \item Used in encoder and decoder
-        \end{itemize}
-        \vspace{0.5em}
-        \includegraphics[width=\textwidth]{pic/self-attention.png}
-        
-        \column{0.5\textwidth}
-        \textbf{Cross-Attention}
-        \begin{itemize}
-            \item Q from one sequence
-            \item K, V from another
-            \item Used in encoder-decoder attention
-        \end{itemize}
-        \vspace{0.5em}
-        \includegraphics[width=\textwidth]{pic/cross-attention.png}
-    \end{columns}
-\end{frame}
+\section{Self-Attention}
 
-\section{Self-Attention Deep Dive}
+\begin{frame}{Self-Attention vs RNN}
+	
+%	\begin{figure}
+%		\centering
+%		\includegraphics[width=0.95\textwidth]{pic/rnn-self-attention-1.jpg}
+%	\end{figure}
+	\begin{columns}
+		\column{0.55\textwidth}
+		 \begin{figure}
+			\centering
+			\includegraphics[width=0.7\textwidth]{pic/self-attention--1.jpg}
+		\end{figure}
+		\textbf{Self-Attention:}
+		\begin{itemize}
+			\item Directly accesses key information at any position in the input sequence.
+			\item Allows the model to \textbf{``attend''} to the most relevant information in the sequence.
+%			\item Avoids compressing all information into a single hidden state.
+%			\item Naturally captures relationships between distant elements in the sequence.
+		\end{itemize}
+		
+		\column{0.52\textwidth}
+		\begin{figure}
+			\centering
+			\includegraphics[width=0.7\textwidth]{pic/rnn-1.jpg}
+		\end{figure}
+		\textbf{RNN:}
+		\begin{itemize}
+			\item Processes input sequentially, making distant information harder to access.
+			\item Relies on the hidden state at the current time step to propagate information.
+%			\item Compresses all information into a single hidden state, which can lead to loss of details.
+%			\item Struggles with capturing relationships between distant elements due to vanishing gradients.
+		\end{itemize}
+	\end{columns}
+
+\end{frame}
 
 \begin{frame}{Self-Attention: Core Theorem}
     \textcolor{blue}{\textbf{Self-Attention Properties}}
@@ -391,7 +432,7 @@ subsubsectionstyle=show/shaded/hide]
         \begin{figure}
         \centering
         \includegraphics[width=0.85\textwidth]{pic/attention-weights.png}
-        \caption{Attention weight visualization}
+        %\caption{Attention weight visualization}
     \end{figure}
 \end{frame}
 
@@ -457,6 +498,29 @@ subsubsectionstyle=show/shaded/hide]
         \end{itemize}
 \end{frame}
 
+\section{Types of Attention}
+\begin{frame}{Self-Attention vs Cross-Attention}
+	\begin{columns}
+		\column{0.5\textwidth}
+		\textbf{Self-Attention}
+		\begin{itemize}
+			\item Queries, Keys, and Values are derived from the same sequence.
+			\item Each position attends to all other positions in the sequence.
+		\end{itemize}
+		\vspace{0.5em}
+		\includegraphics[width=\textwidth]{pic/self-attention.png}
+		
+		\column{0.5\textwidth}
+		\textbf{Cross-Attention}
+		\begin{itemize}
+			\item Queries come from one sequence.
+			\item Keys and Values come from another sequence.
+		\end{itemize}
+		\vspace{0.5em}
+		\includegraphics[width=\textwidth]{pic/cross-attention.png}
+	\end{columns}
+\end{frame}
+
 \section{Positional Encoding}
 \begin{frame}{Positional Encoding}
     \begin{itemize}
@@ -483,7 +547,7 @@ subsubsectionstyle=show/shaded/hide]
 
     \begin{figure}
         \centering
-        \includegraphics[width=0.45\textwidth]{pic/positional-encoding-1.png}
+        \includegraphics[width=0.47\textwidth]{pic/positional-encoding-1.png}
         \label{fig:positional-encoding-1}
     \end{figure}
 \end{frame}
