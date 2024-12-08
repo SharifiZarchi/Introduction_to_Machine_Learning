@@ -818,14 +818,39 @@ subsubsectionstyle=show/shaded/hide]
 	\end{itemize}
 \end{frame}
 
+%\begin{frame}{Positional Encoding}
+%
+%    \begin{figure}
+%        \centering
+%        \includegraphics[width=0.47\textwidth]{pic/positional-encoding-1.png}
+%        \label{fig:positional-encoding-1}
+%    \end{figure}
+%\end{frame}
 
-\begin{frame}{Positional Encoding}
-
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.47\textwidth]{pic/positional-encoding-1.png}
-        \label{fig:positional-encoding-1}
-    \end{figure}
+\begin{frame}{Positional Encoding Dimension Dependency}
+	\begin{itemize}
+			\item The effect of \( d_{model} \) on positional encoding can be seen in the following image.
+			\item In the provided image:
+				\begin{itemize}
+					\item The period of the first two indexes remains constant as \( d_{model} \) changes.
+					\item For indexes beyond the first two, the period expands as \( d_{model} \) decreases.
+				\end{itemize}
+			\item 
+		
+	\end{itemize}
+	\vspace{-5pt}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.61\textwidth]{pic/dimension-comparision.png}
+		\label{fig:positional-encoding-1-1}
+	\end{figure}
+	\vspace{5pt}
+	\vfill
+\begin{tikzpicture}[remember picture,overlay]
+	\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
+		\tiny Figure adapted from Kemal Erdem, Understanding Positional Encoding in Transformers, erdem.pl blog
+	};
+\end{tikzpicture}
 \end{frame}
 
 \section{Multi-Head Attention}
@@ -837,7 +862,7 @@ subsubsectionstyle=show/shaded/hide]
         \includegraphics[width=0.7\textwidth]{pic/multihead-attention-1.png}
         \label{fig:multihead_attention-1}
     \end{figure}
-    \vspace{2pt}
+    \vspace{4pt}
 	\vfill
 \begin{tikzpicture}[remember picture,overlay]
 	\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
