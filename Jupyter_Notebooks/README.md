@@ -85,12 +85,15 @@ In this notebook we introduce the U-Net architecture and investigate its use cas
 
 ----
 
-# [Chapter 5: Natural Languaget Processing](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_05_Natural_Language_Processing)
+# [Chapter 5: Natural Language Processing](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_05_Natural_Language_Processing)
 In this chapter we over the basics of Natural Language Processing, exploring how neural networks can be modified to solve different problems in NLP.
 To learn more about notebooks from this chapter check out [here](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_05_Natural_Language_Processing/README.md).
 
 ## [1. Word Embeddings](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_05_Natural_Language_Processing/01-Word%20Embedding/Word%20Embedding.ipynb)
 In this notebook we explore how words can be embedded as a dense representation in the form of numeric vectors.
+
+## [2. Attention and Transformers](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_05_Natural_Language_Processing/Attention.ipynb)
+In this notebook, we are going to implement the Attention layers from scratch using PyTorch and learn more about Transformers.
 
 ----
 
