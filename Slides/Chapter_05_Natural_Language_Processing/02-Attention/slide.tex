@@ -393,12 +393,12 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{Scaled Dot-Product Attention}
 	\vspace{-5pt}
 	\begin{center}
-		\textbf{Output}
+		     \hspace{14pt}\textbf{Output}
 	\end{center}
 	\vspace{-7pt}
 	\begin{figure}
 		\centering
-		\includegraphics[width=0.35\textwidth]{pic/Attention-s.png}
+		\includegraphics[width=0.3\textwidth]{pic/Attention-s-1.png}
 		\label{fig:attention-2}
 	\end{figure}
 	\vspace{-10pt}
@@ -446,10 +446,10 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{General Attention Layer}
 	\begin{columns}
 		
-		\column{0.4\textwidth}
-		\includegraphics[width=0.8\textwidth]{pic/General-Attention-Layer.png}
+		\column{0.42\textwidth}
+		\includegraphics[width=0.95\textwidth]{pic/General-Attention-Layer-1.png}
 		
-		\column{0.6\textwidth}
+		\column{0.58\textwidth}
 		\textbf{Outputs:} \\
 		Context vectors: $\mathbf{y}$ (\textit{shape: } $D_v$) \\[1em]
 		
@@ -856,19 +856,45 @@ subsubsectionstyle=show/shaded/hide]
 \section{Multi-Head Attention}
 
 \begin{frame}{Multi-Head Attention}
-
-    \begin{figure}
-        \centering
-        \includegraphics[width=0.7\textwidth]{pic/multihead-attention-1.png}
-        \label{fig:multihead_attention-1}
-    \end{figure}
-    \vspace{4pt}
+	
+%	\begin{figure}
+%		\centering
+%		% Left image
+%		\begin{minipage}{0.5\textwidth}
+%			\centering
+%			\includegraphics[width=0.9\textwidth]{pic/multihead-attention-2.png}
+%			\label{fig:image1-1}
+%		\end{minipage}
+%		\hfill
+%		% Right image
+%		\begin{minipage}{0.5\textwidth}
+%			\centering
+%			\includegraphics[width=0.9\textwidth]{pic/multihead-dragon.png}
+%			\label{fig:image2-2}
+%		\end{minipage}
+%	\end{figure}
+	
+	
+	    \begin{columns}[c]
+		% Left column
+		\column{0.5\textwidth}
+		\centering
+		\includegraphics[width=0.7\textwidth]{pic/multihead-attention-2.png}
+		
+		% Right column
+		\column{0.45\textwidth}
+		\centering
+		\includegraphics[width=0.85\textwidth]{pic/multihead-dragon.png}
+	\end{columns}
+	
+	\vspace{2pt}
+	
 	\vfill
-\begin{tikzpicture}[remember picture,overlay]
-	\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-		\tiny Figure adapted from Abby Morgan, explainable-ai-visualizing-attention-in-transformers, mlops.community
-	};
-\end{tikzpicture}
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
+			\tiny Figure adapted from Ashish Vaswani et al. Attention is All You Need paper | Kucedra : The 7 headed dragon, MythLok 
+		};
+	\end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Multi-Head Attention}
@@ -883,38 +909,52 @@ subsubsectionstyle=show/shaded/hide]
     \begin{equation*}
         head_i = \text{Attention}(QW^Q_i,KW^K_i,VW^V_i)
     \end{equation*}
-\end{frame}
-
-\begin{frame}{Multi-Head Attention}
-
+    
     \begin{figure}
-        \centering
-        \includegraphics[width=0.35\textwidth]{pic/multihead-attention-2.png}
-        \label{fig:multihead_attention}
+    	\centering
+    	\includegraphics[width=0.5\textwidth]{pic/multi-head-attention__AIE.png}
+    	\label{fig:multihead_attention-3}
     \end{figure}
-        	\vfill
+    \vfill
     \begin{tikzpicture}[remember picture,overlay]
     	\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-    		\tiny Figure adapted from Ashish Vaswani et al. Attention is All You Need paper 
+    		\tiny Figure adapted from Attention Mechanisms and Transformers D2L.ai Course
     	};
     \end{tikzpicture}
+    
 \end{frame}
 
 \begin{frame}{Multi-Head Attention}
 	
 	\begin{figure}
 		\centering
-		\includegraphics[width=0.38\textwidth]{pic/multihead--1.jpg}
-		\label{fig:multihead_attention-2}
+		\includegraphics[width=0.54\textwidth]{pic/multihead-attention-s.png}
+		\label{fig:multihead_attention-1}
 	\end{figure}
-	\vspace{9pt}
+	\vspace{2pt}
 	\vfill
 	\begin{tikzpicture}[remember picture,overlay]
 		\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-			\tiny Figure adapted from Soran Ghaderi, Transformers-in-action-attention-is-all-you-need, TowardsDataScience blog
+			\tiny Figure adapted from Ashish Vaswani et al. Attention is All You Need paper
 		};
 	\end{tikzpicture}
 \end{frame}
+
+%\begin{frame}{Multi-Head Attention}
+%	
+%	\begin{figure}
+%		\centering
+%		\includegraphics[width=0.38\textwidth]{pic/multihead--1.jpg}
+%		\label{fig:multihead_attention-2}
+%	\end{figure}
+%	\vspace{9pt}
+%	\vfill
+%	\begin{tikzpicture}[remember picture,overlay]
+%		\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
+%			\tiny Figure adapted from Soran Ghaderi, Transformers-in-action-attention-is-all-you-need, TowardsDataScience blog
+%		};
+%	\end{tikzpicture}
+%\end{frame}
 
 \begin{frame}{Multi-Head Attention Benefits}
     \begin{itemize}
@@ -923,7 +963,7 @@ subsubsectionstyle=show/shaded/hide]
         \begin{itemize}
             \item Syntactic dependencies
             \item Semantic relationships
-            \item Long-range dependencies
+            \item ...
         \end{itemize}
         \item Improves model capacity and stability
     \end{itemize}
