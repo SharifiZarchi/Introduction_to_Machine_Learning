@@ -629,27 +629,27 @@ subsubsectionstyle=show/shaded/hide]
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Global Dependencies}
-        \begin{figure}
-        \centering
-        \includegraphics[width=0.85\textwidth]{pic/attention-weights.png}
-        %\caption{Attention weight visualization}
-    \end{figure}
-\vspace{7pt}   
-\vfill
-\begin{tikzpicture}[remember picture,overlay]
-	\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-		\tiny Figure adapted from Navaneeth Malingan, Attention Mechanism in Deep Learning, Scaler Topics
-	};
-\end{tikzpicture}
-\end{frame}
+%\begin{frame}{Global Dependencies}
+%        \begin{figure}
+%        \centering
+%        \includegraphics[width=0.85\textwidth]{pic/attention-weights.png}
+%        %\caption{Attention weight visualization}
+%    \end{figure}
+%\vspace{7pt}   
+%\vfill
+%\begin{tikzpicture}[remember picture,overlay]
+%	\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
+%		\tiny Figure adapted from Navaneeth Malingan, Attention Mechanism in Deep Learning, Scaler Topics
+%	};
+%\end{tikzpicture}
+%\end{frame}
 
 \begin{frame}{Computational Efficiency}
     \begin{columns}
         \column{0.5\textwidth}
         \textbf{Complexity Analysis}
         \begin{itemize}
-            \item Matrix multiply: $O(n^2d)$
+            \item Matrix multiplication: $O(n^2d)$
             \item Softmax: $O(n^2)$
             \item Total: $O(n^2d)$
         \end{itemize}
@@ -800,10 +800,29 @@ subsubsectionstyle=show/shaded/hide]
 		\end{equation*}
 
     \begin{itemize}
-        \item Allows model to learn relative positions
-        \item Works for sequences of any length
-    \end{itemize}
+	\item \textbf{Definitions:}
+	\begin{itemize}
+		\item \( \texttt{pos} \): The position of a word in the input sequence.
+		\item \( \texttt{i} \): The index of the feature in the embedding vector.
+		\item \( \texttt{$d_{model}$} \): The dimensionality of the model's embedding space.
+	\end{itemize}
+\end{itemize}
     
+\end{frame}
+
+\begin{frame}{Positional Encoding Dimension Dependency}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.77\textwidth]{pic/example.png}
+		\label{fig:positional-encoding-1-1-1}
+	\end{figure}
+	\vspace{5pt}
+	\vfill
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
+			\tiny Figure adapted from Mehreen Saeed, 'A Gentle Introduction to Positional Encoding in Transformer Models,' Machine-Learning Mastery blog
+		};
+	\end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Incorporating Positional Encoding in Self-Attention}
@@ -835,14 +854,13 @@ subsubsectionstyle=show/shaded/hide]
 					\item The period of the first two indexes remains constant as \( d_{model} \) changes.
 					\item For indexes beyond the first two, the period expands as \( d_{model} \) decreases.
 				\end{itemize}
-			\item 
 		
 	\end{itemize}
 	\vspace{-5pt}
 	\begin{figure}
 		\centering
-		\includegraphics[width=0.61\textwidth]{pic/dimension-comparision.png}
-		\label{fig:positional-encoding-1-1}
+		\includegraphics[width=0.63\textwidth]{pic/dimension-comparision.png}
+		\label{fig:positional-encoding-1-1-2}
 	\end{figure}
 	\vspace{5pt}
 	\vfill
@@ -851,6 +869,43 @@ subsubsectionstyle=show/shaded/hide]
 		\tiny Figure adapted from Kemal Erdem, Understanding Positional Encoding in Transformers, erdem.pl blog
 	};
 \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Positional Encoding}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.77\textwidth]{pic/positional-encoding--s--1.png}
+		\label{fig:positional-encoding-1-1-3}
+	\end{figure}
+	\vspace{5pt}
+	\vfill
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
+			\tiny Figure adapted from Kemal Erdem, Understanding Positional Encoding in Transformers, erdem.pl blog
+		};
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Positional Encoding}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.75\textwidth]{pic/positional-encoding--s--2.png}
+		\label{fig:positional-encoding-1-1-4}
+	\end{figure}
+	\vspace{5pt}
+	\vfill
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
+			\tiny Figure adapted from Kemal Erdem, Understanding Positional Encoding in Transformers, erdem.pl blog
+		};
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Positional Encoding}
+	\begin{itemize}
+		\item Allows the model to learn relative positions.
+		\item Works for sequences of any length.
+	\end{itemize}
 \end{frame}
 
 \section{Multi-Head Attention}
@@ -925,13 +980,103 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 \begin{frame}{Multi-Head Attention}
+	\begin{equation*}
+		\text{MultiHead}(Q,K,V) = \text{Concat}(head_1,\ldots,head_h)W^O
+	\end{equation*}
 	
 	\begin{figure}
 		\centering
-		\includegraphics[width=0.54\textwidth]{pic/multihead-attention-s.png}
+		\includegraphics[width=0.7\textwidth]{pic/multihead-attention-in-d-1.png}
+		\label{fig:multihead_attention-3-3-3}
+	\end{figure}
+	\vfill
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
+			\tiny Figure adapted from Damien Benveniste, 'The Multi-head Attention Mechanism Explained,' The AIEdge Newsletter
+		};
+	\end{tikzpicture}
+	
+\end{frame}
+
+
+\begin{frame}{Multi-Head Attention}
+	\begin{equation*}
+		head_i = \text{Attention}(QW^Q_i,KW^K_i,VW^V_i)
+	\end{equation*}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.7\textwidth]{pic/multihead-attention-in-d-2.png}
+		\label{fig:multihead_attention-3-3-4}
+	\end{figure}
+	\vfill
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
+			\tiny Figure adapted from Damien Benveniste, 'The Multi-head Attention Mechanism Explained,' The AIEdge Newsletter
+		};
+	\end{tikzpicture}
+	
+\end{frame}
+
+
+\begin{frame}{Multihead Attention Mathematical Formulation}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\textbf{Attention Head Computation:}
+			\begin{equation*}
+				head_i = \text{Attention}\left(
+				\begin{aligned}
+					&QW^Q_i, \\
+					&KW^K_i, \\
+					&VW^V_i
+				\end{aligned}
+				\right)
+			\end{equation*}
+			
+			\textbf{Projection Matrices:}
+			\begin{itemize}
+				\item $W^Q_i \in \mathbb{R}^{d_{model} \times d_k}$
+				\item $W^K_i \in \mathbb{R}^{d_{model} \times d_k}$
+				\item $W^V_i \in \mathbb{R}^{d_{model} \times d_v}$
+			\end{itemize}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\textbf{Final Projection:}
+			\begin{equation*}
+				W^O \in \mathbb{R}^{hd_v \times d_{model}}
+			\end{equation*}
+			
+			\textbf{Definitions:}
+			\begin{itemize}
+				\item $h$: Number of attention heads
+				\item $d_k$: Key/Query dimension
+				\item $d_v$: Value dimension
+				\item $d_{model}$: Model dimension
+			\end{itemize}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Multi-Head Attention}
+	
+    \begin{columns}
+	\column{0.5\textwidth}
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{pic/multihead-attention-s-1.png}
 		\label{fig:multihead_attention-1}
 	\end{figure}
-	\vspace{2pt}
+	
+
+	\column{0.45\textwidth}
+    \begin{itemize}
+			\item Different attention heads seem to focus on different parts of the sentence.
+			\item We show two examples from different heads.
+			\item Each head appears to have learned a different task.
+			\end{itemize}
+\end{columns}
+
+%	\vspace{2pt}
 	\vfill
 	\begin{tikzpicture}[remember picture,overlay]
 		\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
@@ -959,11 +1104,10 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{Multi-Head Attention Benefits}
     \begin{itemize}
         \item Multiple representation subspaces
-        \item Can capture different types of relationships:
+        \item Can capture different types of relationships like:
         \begin{itemize}
             \item Syntactic dependencies
             \item Semantic relationships
-            \item ...
         \end{itemize}
         \item Improves model capacity and stability
     \end{itemize}
