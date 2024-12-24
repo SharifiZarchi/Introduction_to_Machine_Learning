@@ -19,6 +19,7 @@
 \usepackage{graphicx,pstricks,listings,stackengine}
 \usepackage{lipsum}
 \usepackage{outlines}
+\usepackage{media9}
 
 \author{Ali Sharifi-Zarchi}
 \title{Machine Learning (CE 40717)}
@@ -75,7 +76,7 @@ subsubsectionstyle=show/shaded/hide]
 
 \section{Large Language Models}
 
-\begin{frame}{Language Moldels}
+\begin{frame}{Language models}
     \begin{itemize}
         \item 
             \large{Definition of a Language Model (LM)}
@@ -90,7 +91,7 @@ subsubsectionstyle=show/shaded/hide]
      
 \end{frame}
 
-\begin{frame}{Language Moldels}
+\begin{frame}{Language models}
     \begin{itemize}
         \item  
             \large{Purpose of Language Models}
@@ -105,7 +106,7 @@ subsubsectionstyle=show/shaded/hide]
     \end{itemize}
 \end{frame}
     
-\begin{frame}{Language Moldels}
+\begin{frame}{Language models}
     \begin{exampleblock}{Example of Language Model Prediction}
         \begin{itemize}
             \item 
@@ -120,30 +121,303 @@ subsubsectionstyle=show/shaded/hide]
     \end{exampleblock}
 \end{frame}
 
-\begin{frame}{Large Language Moldels}
+\begin{frame}{Language models}
+    \begin{exampleblock}{The LLM Era – Paradigm Shift in Machine Learning}
+        \hspace{2.8cm}
+        \begin{figure*}
+        \centering
+        \includegraphics[width=0.6\textwidth]{pic/llm.png}
+        \caption{}
+        \end{figure*}
+    \end{exampleblock}
+\end{frame}
+
+\begin{frame}{Generalizing to Unseen Tasks}
+    \vspace{0.5cm}
+    \begin{itemize}
+        \item
+            \large{LMs can be used for different tasks by pre-training a “base” model and then fine-tuning for the task(s) of interest}
+            \vspace{0.3cm}
+        \item 
+            \large{Practical Issues:}
+            \vspace{0.1cm}
+            \begin{outline}
+                \1 Too many copies of the model
+                \1 Need for large-scale labeled data for fine-tuning
+            \end{outline}
+        \item 
+            \large{Multi-task Training?}
+            \vspace{0.1cm}
+            \begin{outline}
+                \1 Data remains a challenge 
+                \1  Humans don’t need such large volumes of data to learn – can we do better?
+            \end{outline}
+        \item 
+            \large{Train a model that can perform NLP tasks in a zero-shot manner}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Task Specifications}
+    \vspace{0.5cm}
+    \begin{itemize}
+        \item
+            \large{Primary shift comes from modeling assumptions from single-task to general model}\\
+            \vspace{0.3cm}
+            \hspace{2cm}
+            \begin{figure*}
+            \centering
+            \includegraphics[width=0.7\textwidth]{pic/task specification.png}
+            \caption{}
+            \end{figure*}
+        \item 
+            \large{Task descriptions may be provided as text – for example, translate this French text to English}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Perplexity }
+    \vspace{0.5cm}
+    \begin{itemize}
+        \item
+            \large{Perplexity as a measure of uncertainty:} Perplexity is the exponentiation of the average negative log-likelihood of a probability distribution, representing the uncertainty of a model in predicting the next item in a sequence.\\
+    \end{itemize}
+    \vspace{0.5cm}
+    \[
+        \text{Perplexity}(P) = \exp\left( -\frac{1}{N} \sum_{i=1}^{N} \log P(w_i) \right)
+    \]
+    \begin{outline}
+        \1 \( N \) is the number of words (or tokens) in the dataset,
+        \1 \( P(w_i) \) is the probability of the \( i \)-th word in the sequence.
+    \end{outline}
+\end{frame}
+
+\begin{frame}{Scaling}
+    \vspace{0.5cm}
+    \begin{itemize}
+        \item
+            \large{Scaling improves the perplexity of the LM and improves performance}\\
+            \vspace{0.3cm}
+            \hspace{2.8cm}
+            \begin{figure*}
+            \centering
+            \includegraphics[width=0.4\textwidth]{pic/scaling gpt2.png}
+            \caption{}
+            \end{figure*}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Power-Law Scaling}
+    \Large{Why is this interesting? Look at data scaling}
+    \begin{itemize}
+        \item
+            \large{Loss and dataset size is linear on a log-log plot}\\
+            \vspace{0.1cm}
+        \item 
+            \large{This is “power-law scaling”}
+            \vspace{}
+    \end{itemize}
+    \hspace{2cm}
+    \begin{figure*}
+        \centering
+        \includegraphics[width=0.75\textwidth]{pic/power low.png}
+        \caption{}
+    \end{figure*}
+\end{frame}
+
+\begin{frame}{NLP Moore's Law}
+    \hspace{1.5cm}
+    \begin{figure*}
+        \centering
+        \includegraphics[width=0.75\textwidth]{pic/gpt3vs2.png}
+        \caption{}
+    \end{figure*}
+\end{frame}
+
+\begin{frame}{Large Language models}
     \begin{itemize}
         \item  
             \large{What are Large Language Models (LLMs)?}
-            \vspace{0.5cm}
             \begin{outline}
-                \1 Large Language Models (LLMs) are powerful AI systems trained on vast text data, designed to understand and generate human language at scale.
-                \vspace{0.2cm}
-                \1 LLMs can process entire sentences, paragraphs, and documents, capturing complex language patterns and context.
+                \1 Large Language Models (LLMs) are advanced statistical models based on neural networks designed to process and generate natural language. Formally, an LLM can be defined as:
+                \[
+                P(w_1, w_2, \dots, w_N) = \prod_{i=1}^{N} P(w_i \mid w_1, w_2, \dots, w_{i-1})
+                \]
+                
+                where:
+                \begin{itemize}
+                    \item \( w_1, w_2, \dots, w_N \) are words (or tokens) in a sequence,
+                    \item \( P(w_i \mid w_1, w_2, \dots, w_{i-1}) \) represents the conditional probability of the \( i \)-th word given the previous words.
+                \end{itemize}
+            \end{outline}
+            \item  
+            \large{Key Characteristics of LLMs}
+            \begin{outline}
+                \1 \textbf{Architecture:} LLMs are typically built using Transformer-based architectures, where attention mechanisms are used to capture dependencies across the input sequence.
+                \1 \textbf{Parameterization:} "Large" models have millions to billions of parameters (\( \theta \)), optimized using a loss function.
+                \1 \textbf{Training:} Trained on massive text corpora with unsupervised tasks like next-word prediction or masked token prediction.
+                \end{outline}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Generative Pre-Training (GPT)}
+    GPT: Based on Transformer decoder layers\\
+    \hspace{1.50cm}
+    \begin{figure*}
+        \centering
+        \includegraphics[width=0.9\textwidth]{pic/decoder only.png}
+        \caption{}
+    \end{figure*}
+\end{frame}
+
+\begin{frame}{GPTs}
+    \hspace{2.90cm}
+    \begin{figure*}
+        \centering
+        \includegraphics[width=0.55\textwidth]{pic/GPTS.png}
+        \caption{}
+    \end{figure*}
+\end{frame}
+
+\begin{frame}{GPT-2}
+    \hspace{0.4cm}
+    \begin{figure*}
+        \centering
+        \includegraphics[width=0.99\textwidth]{pic/GPT-2.png}
+        \caption{}
+    \end{figure*}
+\end{frame}
+
+\begin{frame}{GPT-3}
+    \hspace{0.4cm}
+    \begin{figure*}
+        \centering
+        \includegraphics[width=0.95\textwidth]{pic/GPT-3.png}
+        \caption{}
+    \end{figure*}
+\end{frame}
+
+\begin{frame}{GPT-3}
+    \Large{Emergent Abilities}
+    \vspace{0.5cm}
+    \begin{itemize}
+        \item
+            \large{Emergent abilities:}
+                \begin{outline}
+                    \1 not present in smaller models but is present in larger models
+                    \1 Do LLMs like GPT3 have these ?
+                \end{outline}   
+            \vspace{0.1cm}
+        \item
+            \large{Findings:}
+            \begin{outline}
+                \1 GPT-3 trained on text can do arithmetic problems like addition and subtraction
+                \1 Different abilities “emerge” at different scales
+                \1 Model scale is not the only contributor to emergence – for 14 BIG-Bench tasks, LaMDA 137B and GPT-3 175B models perform at near-random, but PaLM 62B achieves above-random performanceb
+                \1 Problems LLMs can’t solve today may be emergent for future LLMs
+            \end{outline}
+    \end{itemize}
+\end{frame}
+
+\begin{comment}
+\begin{frame}{Large Language models}
+    \Large{Architecture}
+    \begin{itemize}
+        \item  
+            \large{Encoder-only (BERT)}
+            \begin{outline}
+                \1 Pre-training : Masked Language Modeling (MLM)
+                \1 Great for classification tasks, but hard to do generation
             \end{outline}
             \vspace{0.3cm}
         \item 
-            \large{Size and Parameters of LLMs}
-            \vspace{0.5cm}
+            \large{Decoder-only (GPT)}
             \begin{outline}
-                \1 "Large" refers to models with a high number of parameters, which are weights learned during training. 
-                \2 Examples include BERT (110 million parameters) and PaLM 2 (up to 340 billion parameters).
+                \1 Pre-training: Auto-regressive Language Modeling 
+                \1 Stable training, faster convergence
+                \1 Better generalization after pre-training
+            \end{outline}
+            \vspace{0.3cm}
+        \item 
+            \large{Encoder-decoder (T0/T5)}
+            \begin{outline}
+                \1 Pre-training : Masked Span Prediction
+                \1 Good for tasks like MT, summarization 
             \end{outline}
     \end{itemize}
-    
+\end{frame}
+\end{comment}
+
+\begin{frame}{Attention patterns}
+    \hspace{2cm}
+    \begin{figure*}
+        \centering
+        \includegraphics[width=0.7\textwidth]{pic/attention.png}
+        \caption{}
+    \end{figure*}
+    \begin{itemize}
+        \item Causal decoder -- each token attends to the previous tokens only. 
+        \item In both non-causal decoder and encoder-decoder, attention is allowed to be bidirectional on any conditioning information.
+        \item For the encoder-decoder, that conditioning is fed into the encoder part of the model. 
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Llama 2 Architecture}
+    \begin{itemize}
+        \item Decoder-only model
+        \item Changes in transformer module:
+            \begin{outline}
+                \1 Norm after sublayer -> Norm before sublayer
+                \1 LayerNorm -> RMSNorm for stability
+                \1 Activation: ReLU -> SwiGLU(x)
+                \1 Position Embedding: Absolute/Relative -> RoPE (Rotary PE)
+                \1 Long contexts : Multi-head attention -> Grouped-query attention
+            \end{outline}  
+    \end{itemize}
+    \hspace{2.5cm}
+    \begin{figure*}
+        \centering
+        \includegraphics[width=0.6\textwidth]{pic/llama.png}
+        \caption{}
+    \end{figure*}
+\end{frame}
+
+\begin{frame}{Llama 2 Architecture}
+    \hspace{1.65cm}
+    \begin{figure*}
+        \centering
+        \includegraphics[width=0.75\textwidth]{pic/llamavstras.png}
+        \caption{}
+    \end{figure*}
+\end{frame}
+
+\begin{frame}{Training of Decoder-only LLMs – Llama 2}
+    \begin{itemize}
+        \item Auto-regressive Pre-training - Train to predict the next token on very large scale corpora ( ~3 trillion tokens)
+        \item Instruction Fine-tuning/ Supervised Fine-tuning (SFT) - Fine-tune the pretrained model with pairs of (instruction+input,output) with large dataset and then with small high-quality dataset
+        \item Safety / RLHF - Design a reward model based on human feedback and use
+        policy gradient methods with the trained reward model to update LLM parameters so that outputs align with human values
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{RLHF}
+    \hspace{2.5cm}
+    \begin{figure*}
+        \centering
+        \includegraphics[width=0.6\textwidth]{pic/RLHF.png}
+        \caption{}
+    \end{figure*}
+\end{frame}
+
+\begin{frame}{Model Fine-tuning for RLHF}
+    \hspace{1.5cm}
+    \begin{figure*}
+        \centering
+        \includegraphics[width=0.8\textwidth]{pic/train RLHF.png}
+        \caption{}
+    \end{figure*}
 \end{frame}
 
 \section{Adaptation}
-
 \begin{frame}{Pre-training and adaptation}
     \begin{itemize}
         \item  
@@ -190,8 +464,7 @@ subsubsectionstyle=show/shaded/hide]
             \vspace{0.3cm}
     \end{itemize}
 \end{frame}
-
-
+    
 \begin{frame}{}
     \begin{columns}
         \begin{column}{0.5\textwidth}
@@ -210,7 +483,7 @@ subsubsectionstyle=show/shaded/hide]
         \begin{column}{0.5\textwidth}
             \begin{figure}
                 \centering
-                \includegraphics[width=0.75\textwidth, height=0.85\textheight]{pic/PEFTvsFT.PNG}
+                \includegraphics[width=0.75\textwidth]{pic/PEFTvsFT.png}
             \end{figure}
         \end{column}
     \end{columns}
@@ -238,7 +511,7 @@ subsubsectionstyle=show/shaded/hide]
         \begin{column}{0.5\textwidth}
             \begin{figure}
                 \centering
-                \includegraphics[width=0.85\textwidth, height=0.85\textheight]{pic/last layer.PNG}
+                \includegraphics[width=0.85\textwidth]{pic/last layer.PNG}
             \end{figure}
         \end{column}
 
@@ -267,7 +540,7 @@ subsubsectionstyle=show/shaded/hide]
         \begin{column}{0.5\textwidth}
             \begin{figure}
                 \centering
-                \includegraphics[width=1\textwidth, height=0.85\textheight]{pic/Adaptor.PNG}
+                \includegraphics[width=1.04\textwidth]{pic/Adaptor.PNG}
             \end{figure}
         \end{column}
 
@@ -299,13 +572,13 @@ subsubsectionstyle=show/shaded/hide]
         \begin{column}{0.5\textwidth}
             \begin{figure}
                 \centering
-                \includegraphics[width=0.75\textwidth, height=0.85\textheight]{pic/Adaptor 2.PNG}
+                \includegraphics[width=0.68\textwidth]{pic/Adaptor 2.PNG}
             \end{figure}
         \end{column}
 
     \end{columns}
 \end{frame}
-
+\begin{comment}
 \begin{frame}{Compacters}
             \begin{itemize}
                 \item  
@@ -338,11 +611,11 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{Compacters}
     \begin{figure}
         \centering
-        \includegraphics[width=0.75\textwidth, height=0.65\textheight]{pic/compacter.png}
+        \includegraphics[width=0.6\textwidth, height=0.65\textheight]{pic/compacter.png}
         \caption{The compacter replaces the linear down and up projection of the bottleneck adapter with a phm layer. The phm layer obtains its weights by computing the kronecker product of two smaller matrices.}
     \end{figure}
 \end{frame}
-
+\end{comment}
 \subsection{Bias-terms Fine-tuning (BitFit)}
 \begin{frame}{BitFit}
     \begin{columns} % Begin the columns environment
@@ -406,7 +679,7 @@ subsubsectionstyle=show/shaded/hide]
         \begin{column}{0.5\textwidth}
             \begin{figure}
             \centering
-            \includegraphics[width=0.9\textwidth, height=0.8\textheight]{pic/LoRA.jpg}
+            \includegraphics[width=0.95\textwidth]{pic/LoRA.jpg}
             \end{figure}
         \end{column}
 
@@ -470,7 +743,7 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{QLoRA}
     \begin{figure}
         \centering
-        \includegraphics[width=0.80\textwidth, height=0.70\textheight]{pic/QLoRA.PNG}
+        \includegraphics[width=0.75\textwidth]{pic/QLoRA.PNG}
         \caption{Different finetuning methods and their memory requirements. QLORA improves over LoRA by quantizing the transformer model to 4-bit precision and using paged optimizers to handle memory spikes.}
     \end{figure}
 \end{frame}
@@ -484,14 +757,14 @@ subsubsectionstyle=show/shaded/hide]
     \end{itemize}
     \begin{figure}
         \centering
-        \includegraphics[width=0.7\textwidth, height=0.60\textheight]{pic/prefix-tuning.png}
+        \includegraphics[width=0.43\textwidth]{pic/prefix-tuning.png}
     \end{figure}
 \end{frame}
 
 \begin{frame}{Prefix Tuning}
     \begin{figure}
         \centering
-        \includegraphics[width=0.9\textwidth, height=0.8\textheight]{pic/Prefix tuning.png}
+        \includegraphics[width=0.9\textwidth]{pic/Prefix tuning.png}
     \end{figure}
 \end{frame}
 
@@ -509,12 +782,14 @@ subsubsectionstyle=show/shaded/hide]
         \begin{column}{0.5\textwidth}
             \begin{figure}
             \centering
-            \includegraphics[width=0.9\textwidth, height=0.75\textheight]{pic/Prefix tuning1.PNG}
+            \includegraphics[width=0.7\textwidth]{pic/Prefix tuning1.PNG}
             \end{figure}
         \end{column}
 
     \end{columns}
 \end{frame}
+
+\begin{comment}
 
 \section{ULMFit}
 \begin{frame}{Universal Language Model Fine-Tuning Principle (ULMFit)}
@@ -540,7 +815,7 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{Universal Language Model Fine-Tuning Principle (ULMFit)}
     \begin{figure}
         \centering
-        \includegraphics[width=0.8\textwidth, height=0.7\textheight]{pic/ULMFit.PNG}
+        \includegraphics[width=0.85\textwidth]{pic/ULMFit.PNG}
         \caption*{\fontsize{6}{7}\selectfont
         ULMFiT consists of three stages: a) The LM is trained on a general-domain corpus to capture
         general features of the language in different layers. b) The full LM is fine-tuned on target task data using
@@ -567,7 +842,7 @@ subsubsectionstyle=show/shaded/hide]
         \end{outline}
     \end{itemize}
 \end{frame}
-
+\end{comment}
 
 \section{References}
 
