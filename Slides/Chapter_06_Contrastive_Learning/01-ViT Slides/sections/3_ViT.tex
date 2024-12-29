@@ -3,16 +3,16 @@
 \begin{frame}{Processing Text}
     \begin{itemize}
         \item \textbf{Token Embeddings}: The input text is broken down into individual tokens. 
-	    \item \textbf{Word Embeddings}: Each token is converted into a fixed-length vector representation.
-	    \item \textbf{Self-Attention on Tokens}: The transformer's self-attention mechanism is applied to these word embeddings. 
+	\item \textbf{Word Embeddings}: Each token is converted into a fixed-length vector representation.
+	\item \textbf{Self-Attention on Tokens}: The transformer's self-attention mechanism is applied to these word embeddings. 
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Processing Images}
     \begin{itemize}
         \item \textbf{Patch Embeddings}: ViT splits an image into fixed-size patches (e.g., $16\times16$ pixels). Each patch is treated like a token in NLP, much like words in a sentence.
-	    \item \textbf{Linear Embedding}: Each patch is flattened into a 1D vector and then linearly projected to a fixed-length embedding.
-	    \item \textbf{Self-Attention on Patches}: The Transformer’s self-attention mechanism is then applied to these patch embeddings, allowing the model to learn relationships between patches.
+	\item \textbf{Linear Embedding}: Each patch is flattened into a 1D vector and then linearly projected to a fixed-length embedding.
+	\item \textbf{Self-Attention on Patches}: The Transformer’s self-attention mechanism is then applied to these patch embeddings, allowing the model to learn relationships between patches.
     \end{itemize}
 \end{frame}
 
