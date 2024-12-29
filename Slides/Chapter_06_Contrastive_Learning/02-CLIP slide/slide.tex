@@ -244,6 +244,57 @@ classification)
   \end{itemize}
 \end{frame}
 
+
+\begin{frame}{Applications}
+    \begin{itemize}
+        \item \textbf{NLP}
+        \begin{itemize}
+            \item Models like BERT, GPT, and T5 are based on SSL. They are pre-trained on massive text corpora using tasks like masked language modeling.
+            \item Improving machine translation quality with SSL-based pre-training on multilingual corpora. 
+        \end{itemize}
+
+        \item \textbf{Computer Vision}
+        \begin{itemize}
+            \item Models like \textbf{SimCLR} and BYOL achieve state-of-the-art performance in image classification by learning from unlabeled images.
+            \item Learning representations for tasks like disease diagnosis from limited annotated medical datasets.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Applications (Cont.)}
+    \begin{itemize}
+        \item \textbf{Speech and Audio Processing}
+        \begin{itemize}
+            \item Models like Wav2Vec and HuBERT use SSL in speech recognition task to learn representations from raw audio data. It's especially useful for languages with limited data.
+            \item Identifying individuals using voice features learned through SSL in speaker identification.
+        \end{itemize}
+
+        \item \textbf{Robotics}
+        \begin{itemize}
+            \item Leveraging SSL in reinforcement learning helps learn useful state representations for control tasks, enabling robots to perform complex actions.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Applications (Cont.)}
+    \begin{itemize}
+        \item \textbf{Healthcare}
+        \begin{itemize}
+            \item Learning representations of DNA sequences to predict mutations or functional regions.
+            \item Identifying diseases from clinical notes, imaging data, or time-series data such as ECGs.
+        \end{itemize}
+
+        \item \textbf{Autonomous Vehicles}
+        \begin{itemize}
+            \item Integrating data from cameras, LiDAR, and radar through SSL.
+            \item Using SSL for anomaly detection in vehicle systems.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
 \section{Multimodality}
 
 
@@ -311,12 +362,7 @@ classification)
             \item Bring similar data points closer in the embedding space.
             \item Push dissimilar data points farther apart.
         \end{itemize}
-    \end{itemize}
-\end{frame}
 
-
-\begin{frame}{Definition (Cont.)}
-    \begin{itemize}
         \item \textbf{Purpose:} Learn meaningful representations for downstream tasks like classification, clustering, or retrieval
         \item \textbf{Widely Used In:} Representation learning across domains such as computer vision, NLP, and multi-modal tasks.
     \end{itemize}
@@ -333,12 +379,7 @@ classification)
         
         \item \textbf{Positive Pairs:} Data points that are semantically similar.
         \item \textbf{Negative Pairs:} Data points that are semantically different.
-    \end{itemize}
-\end{frame}
 
-
-\begin{frame}{Key Concepts (Cont.)}
-    \begin{itemize}
         \item \textbf{Objectives}
         \begin{itemize}
             \item Minimize the distance between the embeddings of positive pairs.
@@ -368,7 +409,7 @@ D_W\left(\vec{X}_1, \vec{X}_2\right)=\left\|G_W\left(\vec{X}_1\right)-G_W\left(\
 
     \begin{itemize}
         \item $D_W\left(\vec{X}_1, \vec{X}_2\right)$ is dissimilarity between the two data points $\vec{X}_1$ and $\vec{X}_2$.
-        \item $G_W$ is a transformation function (e.g., a neural network) parameterized by $W$.
+        \item $G_W$ is an embedding function parameterized by $W$.
         \item Generally, $D_W$ can be any metric that indicates the dissimilarity between $\vec{X}_1$ and $\vec{X}_2$.
     \end{itemize}
 \end{frame}
@@ -376,7 +417,9 @@ D_W\left(\vec{X}_1, \vec{X}_2\right)=\left\|G_W\left(\vec{X}_1\right)-G_W\left(\
 
 \begin{frame}{Loss Functions - Contrastive Loss (Cont.)}
 \begin{equation*}
-L\left(W,\left(Y, \vec{X}_1, \vec{X}_2\right)^i\right)=(1-Y) L_S\left(D_W^i\right)+Y L_D\left(D_W^i\right)
+L\left(W,\left(Y, \vec{X}_1, \vec{X}_2\right)^i\right)=(1-Y)
+L_S\left(D_W(\vec{X}_1^i, \vec{X}_2^i)\right)+
+Y L_D\left(D_W(\vec{X}_1^i, \vec{X}_2^i)\right)
 \end{equation*}
 
     \begin{itemize}
@@ -384,7 +427,7 @@ L\left(W,\left(Y, \vec{X}_1, \vec{X}_2\right)^i\right)=(1-Y) L_S\left(D_W^i\righ
         \item $Y=0$ if $\vec{X}_1$ and $\vec{X}_2$ are deemed similar, and $Y=1$ if they are deemed dissimilar.
         \item $L_S$ is the partial loss function for a pair of similar points.
         \item $L_D$ is the partial loss function for a pair of dissimilar points.
-        \item $L_S$ and $L_D$ must be properly designed to reduce $L$.
+        \item $L_S$ and $L_D$ must be designed such that minimizing $L$ with respect to $W$ would result in low values of $D_W$ for similar pairs and high values of $D_W$ for dissimilar pairs.
     \end{itemize}
 \end{frame}
 
@@ -405,12 +448,6 @@ square of the number of samples).
      \begin{itemize}
          \item First, we'll explore this loss from a theoretical perspective which has been discussed in its original paper.
          \item Next, we'll discuss how it can be applied in practice.
-     \end{itemize}
- \end{frame}
-
-
-\begin{frame}{Loss Functions - InfoNCE Loss (Cont.)}
-     \begin{itemize}
          \item It's the loss in its original paper:
      \end{itemize}
 
@@ -420,7 +457,7 @@ square of the number of samples).
          {\sum_{x_j \in X} \frac{p\left(x_{t} \mid c_t\right)}{p\left(x_{t}\right)}}
          \right]
      \end{equation*}
-\end{frame}
+ \end{frame}
 
 
 \begin{frame}{Loss Functions - InfoNCE Loss (Cont.)}
@@ -731,19 +768,34 @@ square of the number of samples).
 \end{frame}
 
 
-\begin{frame}{Zero-Shot Classification}
-\begin{itemize}
-\item (Put Zero-Shot and Applications Slides here)
-\end{itemize}
+\begin{frame}{Applications}
+    \begin{itemize}
+        \item CLIP enables searching for images by interpreting natural language descriptions.
+        \item It classifies images into categories defined at inference using textual prompts (e.g., "This is a photo of a [label]").
+        \item Visual Question Answering (VQA) becomes possible with CLIP’s text-image alignment.
+        \item Integrated into DALL·E or Stable Diffusion, it improves image generation with scoring and feedback loops.
+        \item CLIP enhances robot-human interaction by understanding instructions about objects or scenes.
+    \end{itemize}
 \end{frame}
+
+
+\begin{frame}{Applications}
+    \begin{itemize}
+        \item It matches user queries with product images for seamless search and discovery in e-commerce.
+       \item The model enables zero-shot classification to identify new or rare medical conditions.
+        \item CLIP detects anomalies in manufacturing processes or equipment visuals to ensure quality.
+        \item It personalizes digital experiences based on user preferences described in natural language.
+    \end{itemize}
+\end{frame}
+
 
 \section{References}
 
 \begin{frame}{Contributions}
 \textbf{These slides are authored by:}
     \begin{itemize}
-        \item Amir Mohammad Fakhimi
         \item Hooman Zolfaghari
+        \item Amir Mohammad Fakhimi
     \end{itemize}
     
 \end{frame}
