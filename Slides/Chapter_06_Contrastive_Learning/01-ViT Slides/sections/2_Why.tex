@@ -1,25 +1,59 @@
-\section{Why Transformers for Vision?}
+\section{Transformers for Vision}
 
-\begin{frame}{Why Look Beyond CNNs?}
+\begin{frame}{Transformers: From Language to Vision}
     \begin{itemize}
-        \item From Local to Global %CNNs are great for capturing local details, but often struggle with understanding the global context due to their local receptive fields and pooling layers.
-	    \item NLP to Vision % In NLP, Transformers have shown a new way of capturing relationships over long sequences using self-attention, which can be adapted to capture relationships between parts of an image.
-	    \item Global Dependency %Explain that self-attention mechanisms, like those used in Transformers, can overcome CNN limitations by modeling global relationships between all parts of an image, regardless of their distance.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{What Makes Transformers Powerful?}
-    \begin{itemize}
-        \item Self-Attention Mechanism: Explain the core of the Transformer architecture: the self-attention mechanism, which allows each token (or patch in ViT) to weigh its relationship with every other token. This helps the model learn global context.
-        \item Global Context from the Start: Unlike CNNs, which build local-to-global context layer by layer, Transformers have global context awareness from the very first layer.
-        \item Parallelization: Unlike sequential processing in CNNs, Transformers allow parallel processing of image patches, speeding up training on large datasets.
+        \item The Transformer architecture was designed for \textbf{sequence-to-sequence learning}.
+        \item Transformers have revolutionized NLP and become the model of choice.
+        % \item In the field of \textbf{Computer Vision} however, the dominant architecture has remained the CNN.
+	\item Is it possible to adapt the Transformer for image data?
     \end{itemize}
 \end{frame}
 
 
-\begin{frame}{Transformers: From NLP to Vision}
+\begin{frame}{Idea \#1: Add Attention to Existing CNNs}
     \begin{itemize}
-        \item No Need for Hand-Crafted Convolutions: Explain that Transformers don’t rely on convolutions or pooling, which are manually crafted for images. Instead, they apply the same attention mechanism used in NLP.
-	    \item Adaptability to Different Domains: Discuss how the Transformer’s architecture is flexible and adaptable to multiple domains (e.g., vision, audio, NLP) without the need for task-specific layers.
+        \item Model is still a CNN!
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=\linewidth]{pic/framework}
+        % \caption{Add Self-Attention blocks between existing ResNet blocks.}
+        \label{fig:idea1}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Idea \#2: Replace Convolution with “Local Attention”}
+    \begin{itemize}
+        \item Lots of tricky details, hard to implement, only marginally better than ResNets.
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=\linewidth]{pic/idea2}
+        % \caption{Replace all convolutional layers in CNNs with local attention.}
+        \label{fig:idea1}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Idea \#3: Standard Transformers on Pixels}
+    \begin{itemize}
+        \item Insane memory usage!
+    \end{itemize}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.5\linewidth]{pic/idea3}
+        % \caption{Treat each image pixel as an input token for the transformer.}
+        \label{fig:idea1}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Idea \#4: Standard Transformer on Patches}
+    \begin{itemize}
+        % \item Follow the original Transformer as closely as possible.
+        \item Fixes idea \#1 by entirely replacing convolutional layers.
+        \item Fixes idea \#2 by simplifying implementation.
+        \item Fixes idea \#3 by reducing memory usage.
+        \item This is the main idea behind \textbf{Vision Transformers}!
     \end{itemize}
 \end{frame}
