@@ -197,7 +197,7 @@ subsubsectionstyle=show/shaded/hide]
 
 
 
-\begin{frame}{Evaluation Cont.}
+\begin{frame}{Evaluation (Cont.)}
         
      \begin{flushleft}
            \includegraphics[keepaspectratio, scale=0.5]{pic/Evaluation-1.jpg}
@@ -206,7 +206,7 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 
-\begin{frame}{Evaluation Cont.}
+\begin{frame}{Evaluation (Cont.)}
         \begin{figure}[htpb]
    
            \includegraphics[keepaspectratio, scale=0.5]{pic/Evaluation-2.jpg}
@@ -423,27 +423,6 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 
-\begin{frame}{Architectures}
-  \begin{itemize}
-\item There many veriations and structures
-  \end{itemize}
- \begin{minipage}{0.48\textwidth} % Adjust the width as needed
-        \begin{figure}
-	\centering
-        \includegraphics[width=\textwidth]{pic/SSL-MM-var1.jpg} % Replace with your image path
-        \caption{Figure 1 masked prediction frameworks} % Optional
-   \end{figure}
-    \end{minipage} \hfill % Add some space between the two images
-    \begin{minipage}{0.48\textwidth}
-   \begin{figure}
-        \centering
-        \includegraphics[width=\textwidth]{pic/SSL-MM-var2.jpg} % Replace with your image path
-        \caption{Figure 2 instance discrimination objectives} % Optional
-   \end{figure}
-    \end{minipage}
-\end{frame}
-
-
 \begin{frame}{SimCLR
 \footnote{\href{https://arxiv.org/pdf/2002.05709}{A Simple Framework for Contrastive Learning of Visual Representations}}
 \footnote{\href{https://towardsdatascience.com/paper-explained-a-simple-framework-for-contrastive-learning-of-visual-representations-6a2a63bfa703}{Paper explained: A Simple Framework for Contrastive Learning of Visual Representations}}}
@@ -506,8 +485,8 @@ subsubsectionstyle=show/shaded/hide]
         \setlength{\abovecaptionskip}{0pt}
         \setlength{\belowcaptionskip}{1pt}
         \centering
-        \includegraphics[width=0.9\textwidth]{pic/simclr/6.png}
-        \caption{Illustrations of the studied data augmentation operators.}
+        \includegraphics[width=0.7\textwidth]{pic/simclr/6.png}
+        \caption{Illustrations of the studied data augmentation operators. Each augmentation can transform data stochastically with some internal parameters (e.g. rotation degree, noise level). Note that we only test these operators in ablation, the augmentation policy used to train our models only includes random crop (with flip and resize), color distortion, and Gaussian blur. (Original image cc-by: Von.grzanka)}
    \end{figure}
 \end{frame}
 
@@ -531,7 +510,29 @@ subsubsectionstyle=show/shaded/hide]
 \end{itemize}
 \end{frame}
 
-\begin{frame}{CLIP Cont.}
+
+\begin{frame}{Architectures}
+  \begin{itemize}
+\item There many veriations and structures
+  \end{itemize}
+ \begin{minipage}{0.48\textwidth} % Adjust the width as needed
+        \begin{figure}
+	\centering
+        \includegraphics[width=\textwidth]{pic/SSL-MM-var1.jpg} % Replace with your image path
+        \caption{Figure 1 masked prediction frameworks} % Optional
+   \end{figure}
+    \end{minipage} \hfill % Add some space between the two images
+    \begin{minipage}{0.48\textwidth}
+   \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{pic/SSL-MM-var2.jpg} % Replace with your image path
+        \caption{Figure 2 instance discrimination objectives} % Optional
+   \end{figure}
+    \end{minipage}
+\end{frame}
+
+
+\begin{frame}{CLIP (Cont.)}
 \begin{itemize}
 \item Image Encoder: a Vision Transformer (ViT) or a ResNet.
 \item Text Encoder: A Transformer model 
