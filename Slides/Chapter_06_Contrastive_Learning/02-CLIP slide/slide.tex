@@ -78,34 +78,41 @@ subsubsectionstyle=show/shaded/hide]
 
 % ============================ Introduction ============================ 
 \section{Introduction}
+%
+%\begin{frame}{Self-Supervised Learning}
+%    \begin{picture}(0,0)
+%            \put(200,-150){\includegraphics[width=7cm]{pic/1/neuron.png}} % Adjust path and size
+%    \end{picture}
+%     “the dark matter of intelligence” \footnote{\url{https://ai.meta.com/blog/self-supervised-learning-the-dark-matter-of-intelligence/}}
+%    \begin{itemize}
+%        \item $\{x_1, x_2, \dots, x_k\}$ : input features
+%        \item $\{w_1, w_2, \dots, w_k\}$ : feature weights
+%        \item $b$ : bias term
+%        \item $\sigma(\cdot)$ : activation function
+%        \item $y$ : output of the neuron
+%    \end{itemize}
+%\end{frame}
+%
+%\begin{frame}{Self-Supervised Learning}
+%    \begin{center}
+%        \includegraphics[width=0.6\textwidth]{pic/Intro.png} % Replace with the path to your image
+%        \\[1cm] % Adds space between image and quote
+%        \textit{“the dark matter of intelligence”}\footnote{\scriptsize \url{https://ai.meta.com/blog/self-supervised-learning-the-dark-matter-of-intelligence/}}
+%    \end{center}
+%\end{frame}
 
-\begin{frame}{Self-Supervised Learning}
-    \begin{picture}(0,0)
-            \put(200,-150){\includegraphics[width=7cm]{pic/1/neuron.png}} % Adjust path and size
-    \end{picture}
-     “the dark matter of intelligence” \footnote{\url{https://ai.meta.com/blog/self-supervised-learning-the-dark-matter-of-intelligence/}}
-    \begin{itemize}
-        \item $\{x_1, x_2, \dots, x_k\}$ : input features
-        \item $\{w_1, w_2, \dots, w_k\}$ : feature weights
-        \item $b$ : bias term
-        \item $\sigma(\cdot)$ : activation function
-        \item $y$ : output of the neuron
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Self-Supervised Learning}
+\begin{frame}{Setting}
     \begin{center}
-        \includegraphics[width=0.6\textwidth]{pic/Intro.png} % Replace with the path to your image
-        \\[1cm] % Adds space between image and quote
-        \textit{“the dark matter of intelligence”}\footnote{\scriptsize \url{https://ai.meta.com/blog/self-supervised-learning-the-dark-matter-of-intelligence/}}
-    \end{center}
+	        \includegraphics[width=\textwidth]{pic/SSL-Comparison.jpg} % Replace with the path to your image
+	        [reference]
+	    \end{center}
 \end{frame}
 
-\begin{frame}{Why Neural Networks?}
+\begin{frame}{What is SSL}
     \begin{itemize}
-        \item  Self-supervised learning defines a \textbf{pretext} task based on unlabeled inputs to produce descriptive and intelligible representations [Hastie et al., 2009, Goodfellow et al., 2016]
+        \item  Self-supervised learning defines a "pretext" task based on unlabeled inputs to produce descriptive and intelligible representations [Hastie et al., 2009, Goodfellow et al., 2016]
         \begin{itemize}
-            \item Learn with supervised learning objectives, e.g., classification, regression.
+%            \item Learn with supervised learning objectives, e.g., classification, regression.
 	\item Labels of these pretext tasks are generated \textit{automatically}
 	\item Can be used in other downstream tasks.
         \end{itemize}
@@ -113,103 +120,82 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 
-\begin{frame}[t]{Example Workflow}
-    
-    \begin{itemize}
-\item Training objective: predicting the context surrounding a word
-\item encourages the model to capture relationships among words
-\item The same SSL model representations can be used across a range
- of downstream tasks. e.g.
-        \begin{itemize}
-	\item translating text across languages
-	\item summarizing
-	\item generating text
-        \end{itemize}
-    \end{itemize}
-
-\end{frame}
-
 \begin{frame}[t]{Motivation}
-  
-    \begin{itemize}
-        \item Problem: Supervised Learning is Expensive!
-            \begin{itemize}
-        \item Labeling data is costly
-\item SSL: Use signals that can be created automatically from data.
-    \end{itemize}
-\item Labled data is harder to find. There is much more unlabled data.
-\item Supervised Learning is not how \textbf{we} learn
-  \begin{itemize}
- \item Babies don’t get supervision for everything they see!
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{pic/Cherry on top.png} % Replace with the path to your image
+	[reference]
+\end{center}
 
-     \end{itemize}
+\end{frame}
 
-    \end{itemize}
+
+\begin{frame}[t]{General Pipeline}
+    
+\begin{center}
+	\includegraphics[width=0.8\textwidth]{pic/SSL-pipline.jpg} % Replace with the path to your image
+	[reference]
+\end{center}
 
 \end{frame}
 
 
 
-\begin{frame}[t]{Comparison}
-Methods that learn from data without annotations.
-    \begin{itemize}
-        
-\item \textbf{ Unsupervised Learning}: Model isn’t told what to predict. Older 
-terminology, not used as much today.
- \item \textbf{ Self-Supervised Learning}: Model is trained to predict some naturally
-occurring signal in the raw data rather than human annotations.
- \item \textbf{  Semi-Supervised Learning}: Train jointly with some labeled data and (a lot)
- of unlabeled data
-    \end{itemize}
-\end{frame}
-
-\iffalse
-\begin{frame}{Comparison of Learning Paradigms}
-
-    \begin{center}
-        \begin{tabular}{|c|c|c|c|}
-            \hline
-            \textbf{Aspect} & \textbf{Supervised} & \textbf{Unsupervised} & \textbf{Self-Supervised} \\ \hline
-            \textbf{Data Labels} & Required & Not Required & Pseudo-Labels \\ \hline
-            \textbf{Goal} & Predict labels & Find patterns/structure & Learn representations \\ \hline
-            \textbf{Example Tasks} & Classification, Regression & Clustering, Dimensionality Reduction & Pretraining for downstream tasks \\ \hline
-            \textbf{Examples} & Image classification, spam detection & K-means, PCA & BERT, SimCLR \\ \hline
-            \textbf{Strengths} & Accurate when data is labeled & Useful when labels are scarce & Leverages unlabeled data effectively \\ \hline
-            \textbf{Weaknesses} & Requires labeled data & Limited to pattern discovery & Requires complex pseudo-label generation \\ \hline
-        \end{tabular}
-    \end{center}
-\end{frame}
-\fi
-
-\iffalse
-\begin{frame}{Comparison of Learning Paradigms}
-(COMMENTED SLIDE)
-    \begin{center}
-        \begin{tabular}{l l l l}
-            \textbf{Aspect} & \textbf{Supervised} & \textbf{Unsupervised} & \textbf{Self-Supervised} \\[0.3cm]
-            \hline \\[-0.3cm]
-            \textbf{Data Labels} & Required & Not Required & Pseudo-Labels \\[0.3cm]
-            \textbf{Goal} & Predict labels & Find patterns/structure & Learn representations \\[0.3cm]
-            \textbf{Example Tasks} & Classification, Regression & Clustering, Dimensionality Reduction & Pretraining for downstream tasks \\[0.3cm]
-            \textbf{Examples} & Image classification, spam detection & K-means, PCA & BERT, SimCLR \\[0.3cm]
-            \textbf{Strengths} & Accurate when data is labeled & Useful when labels are scarce & Leverages unlabeled data effectively \\[0.3cm]
-            \textbf{Weaknesses} & Requires labeled data & Limited to pattern discovery & Requires complex pseudo-label generation \\[0.3cm]
-        \end{tabular}
-    \end{center}
-\end{frame}
-\fi
-
-%
 
 
-\begin{frame}{Evaluation}
-    \begin{itemize}
-       \item We usually don’t care about the performance of the self-supervised learning task, e.g., we don’t care if the model learns to predict image 
-rotation perfectly.
- \item Evaluate the learned feature encoders on downstream target tasks
+%\begin{frame}[t]{Isn't this Unsupervised ?}
+%Methods that learn from data without annotations.
+%    \begin{itemize}
+%        
+%\item \textbf{ Unsupervised Learning}: Model isn’t told what to predict. Older 
+%terminology, not used as much today.
+% \item \textbf{ Self-Supervised Learning}: Model is trained to predict some naturally
+%occurring signal in the raw data rather than human annotations.
+% \item \textbf{  Semi-Supervised Learning}: Train jointly with some labeled data and (a lot)
+% of unlabeled data
+%    \end{itemize}
+%\end{frame}
 
-    \end{itemize}
-\end{frame}
+% \iffalse
+% \begin{frame}{Comparison of Learning Paradigms}
+
+%     \begin{center}
+%         \begin{tabular}{|c|c|c|c|}
+%             \hline
+%             \textbf{Aspect} & \textbf{Supervised} & \textbf{Unsupervised} & \textbf{Self-Supervised} \\ \hline
+%             \textbf{Data Labels} & Required & Not Required & Pseudo-Labels \\ \hline
+%             \textbf{Goal} & Predict labels & Find patterns/structure & Learn representations \\ \hline
+%             \textbf{Example Tasks} & Classification, Regression & Clustering, Dimensionality Reduction & Pretraining for downstream tasks \\ \hline
+%             \textbf{Examples} & Image classification, spam detection & K-means, PCA & BERT, SimCLR \\ \hline
+%             \textbf{Strengths} & Accurate when data is labeled & Useful when labels are scarce & Leverages unlabeled data effectively \\ \hline
+%             \textbf{Weaknesses} & Requires labeled data & Limited to pattern discovery & Requires complex pseudo-label generation \\ \hline
+%         \end{tabular}
+%     \end{center}
+% \end{frame}
+% \fi
+
+% \iffalse
+% \begin{frame}{Comparison of Learning Paradigms}
+% (COMMENTED SLIDE)
+%     \begin{center}
+%         \begin{tabular}{l l l l}
+%             \textbf{Aspect} & \textbf{Supervised} & \textbf{Unsupervised} & \textbf{Self-Supervised} \\[0.3cm]
+%             \hline \\[-0.3cm]
+%             \textbf{Data Labels} & Required & Not Required & Pseudo-Labels \\[0.3cm]
+%             \textbf{Goal} & Predict labels & Find patterns/structure & Learn representations \\[0.3cm]
+%             \textbf{Example Tasks} & Classification, Regression & Clustering, Dimensionality Reduction & Pretraining for downstream tasks \\[0.3cm]
+%             \textbf{Examples} & Image classification, spam detection & K-means, PCA & BERT, SimCLR \\[0.3cm]
+%             \textbf{Strengths} & Accurate when data is labeled & Useful when labels are scarce & Leverages unlabeled data effectively \\[0.3cm]
+%             \textbf{Weaknesses} & Requires labeled data & Limited to pattern discovery & Requires complex pseudo-label generation \\[0.3cm]
+%         \end{tabular}
+%     \end{center}
+% \end{frame}
+% \fi
+
+% %
+
+
+
+
 
 \begin{frame}{Evaluation Cont.}
         
@@ -226,22 +212,6 @@ rotation perfectly.
            \includegraphics[keepaspectratio, scale=0.5]{pic/Evaluation-2.jpg}
 
     \end{figure}
-\end{frame}
-
-
-\begin{frame}{Example}
-      \begin{itemize}
- \item Pretext task: predict rotations
-\item  Hypothesis: a model could recognize the correct rotation of an object 
-only if it has the “visual commonsense” of what the object should look 
-like unperturbed.
-\item The model learns to 
-predict which rotation 
-is applied (4-way 
-classification)
-\item (This slide will be ellaborated on and expanded with diagrams)
-
-  \end{itemize}
 \end{frame}
 
 
@@ -295,17 +265,64 @@ classification)
 \end{frame}
 
 
+\begin{frame}{Applications - Rotation (Cont.)
+\footnote{\href{https://www.cnblogs.com/wangxiaocvpr/p/11838766.html}{Some great examples}}
+\footnote{\href{https://arxiv.org/abs/1803.07728}{Unsupervised Representation Learning by Predicting Image Rotations}}}    
+    \begin{figure}
+        \setlength{\abovecaptionskip}{0pt}
+        \setlength{\belowcaptionskip}{1pt}
+        \centering
+        \includegraphics[width=0.7\textwidth]{pic/ssl-applications/rotation.png}
+        \caption{The model learns to predict which rotation is applied.}
+   \end{figure}
+\end{frame}
+
+
+\begin{frame}{Applications - Patches (Cont.)
+\footnote{\href{https://www.cnblogs.com/wangxiaocvpr/p/11838766.html}{Some great examples}}
+\footnote{\href{https://arxiv.org/abs/1505.05192}{Unsupervised Visual Representation Learning by Context Prediction}}}    
+    \begin{figure}
+        \setlength{\abovecaptionskip}{0pt}
+        \setlength{\belowcaptionskip}{1pt}
+        \centering
+        \includegraphics[width=0.9\textwidth]{pic/ssl-applications/patches.png}
+        \caption{The model learns to predict the relative position of two random patches.}
+   \end{figure}
+\end{frame}
+
+
+\begin{frame}{Applications - Patches (Cont.)
+\footnote{\href{https://www.cnblogs.com/wangxiaocvpr/p/11838766.html}{Some great examples}}
+\footnote{\href{https://arxiv.org/abs/1603.09246}{Unsupervised Learning of Visual Representations by Solving Jigsaw Puzzles.}}}    
+    \begin{figure}
+        \setlength{\abovecaptionskip}{0pt}
+        \setlength{\belowcaptionskip}{1pt}
+        \centering
+        \includegraphics[width=\textwidth]{pic/ssl-applications/patches2.png}
+        \caption{The model learns to solve jigsaw puzzle}
+   \end{figure}
+\end{frame}
+
+
+\begin{frame}{Applications - Tracking (Cont.)
+\footnote{\href{https://www.cnblogs.com/wangxiaocvpr/p/11838766.html}{Some great examples}}
+\footnote{\href{https://arxiv.org/abs/1505.00687}{Unsupervised Learning of Visual Representations using Videos}}}    
+    \begin{figure}
+        \setlength{\abovecaptionskip}{0pt}
+        \setlength{\belowcaptionskip}{1pt}
+        \centering
+        \includegraphics[width=0.4\textwidth]{pic/ssl-applications/tracking.png}
+        \caption{The model learns to track objects in videos.}
+   \end{figure}
+\end{frame}
+
+
 \section{Multimodality}
 
 
 \begin{frame}{Idea}
      
  \begin{itemize}
- % \item    Many papers would pretrain on (unlabeled) ImageNet, then evaluate on ImageNet!
- %     \begin{itemize}
- %         \item Potential bias
- %         \item Does not truly test the generalizability of the learned representations
- %     \end{itemize}
  \item  Don’t learn from isolated images -- take images together with some \textbf{context}
 \item \textbf{Video}: Image together with adjacent video frames
  \item \textbf{Sound}: Image with audio track from video
@@ -385,9 +402,162 @@ classification)
             \item Minimize the distance between the embeddings of positive pairs.
             \item Maximize the distance between the embeddings of negative pairs.
         \end{itemize}
-
-        \item \textbf{Loss Functions:} We'll discuss 2 most commonly used loss functions in contrastive learning in the following slides.
     \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Common Components}
+    \begin{itemize}
+        \item Dataset :
+\begin{itemize}
+\item supervised:  $D_m = \{ (x_1^1, \cdots, x_M^1, y^1), \cdots, (x_1^n, \cdots, x_M^n, y^n)  \}$
+\item self-supervised:  $D_m = \{ (x_1^1, \cdots, x_M^1), \cdots, (x_1^n, \cdots, x_M^n)  \}$
+\end{itemize}
+\item The psudo-label or signal generated for SSL can be denoted as $z = P(x_1,\cdot,x_M)$.
+
+        \item Modality Encoder(s): $c = e_k(x_k^i; \theta_k)$ for each modality $k$.
+	\item Fusion Module: $f_\psi$ to integrate the encoded information of different modalities
+	\item Pretext task head (like a predictive head) : $g_\gamma$ and some SSL loss $\mathcal{L}_{SSL}$
+
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Architectures}
+  \begin{itemize}
+\item There many veriations and structures
+  \end{itemize}
+ \begin{minipage}{0.48\textwidth} % Adjust the width as needed
+        \begin{figure}
+	\centering
+        \includegraphics[width=\textwidth]{pic/SSL-MM-var1.jpg} % Replace with your image path
+        \caption{Figure 1 masked prediction frameworks} % Optional
+   \end{figure}
+    \end{minipage} \hfill % Add some space between the two images
+    \begin{minipage}{0.48\textwidth}
+   \begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{pic/SSL-MM-var2.jpg} % Replace with your image path
+        \caption{Figure 2 instance discrimination objectives} % Optional
+   \end{figure}
+    \end{minipage}
+\end{frame}
+
+
+\begin{frame}{SimCLR
+\footnote{\href{https://arxiv.org/pdf/2002.05709}{A Simple Framework for Contrastive Learning of Visual Representations}}
+\footnote{\href{https://towardsdatascience.com/paper-explained-a-simple-framework-for-contrastive-learning-of-visual-representations-6a2a63bfa703}{Paper explained: A Simple Framework for Contrastive Learning of Visual Representations}}}
+    \begin{figure}
+        \setlength{\abovecaptionskip}{0pt}
+        \setlength{\belowcaptionskip}{1pt}
+        \centering
+        \includegraphics[width=0.45\textwidth]{pic/simclr/1.png}
+        \caption{ImageNet Top-1 accuracy of linear classifiers trained on representations learned with different self-supervised methods (pretrained on ImageNet). Gray cross indicates supervised ResNet-50. SimCLR, is shown in bold.}
+   \end{figure}
+\end{frame}
+
+
+\begin{frame}{SimCLR (Cont.)}
+    \begin{figure}
+        \setlength{\abovecaptionskip}{0pt}
+        \setlength{\belowcaptionskip}{1pt}
+        \centering
+        \includegraphics[width=0.6\textwidth]{pic/simclr/2.png}
+        \caption{An illustration of the SimCLR training procedure.}
+   \end{figure}
+\end{frame}
+
+
+\begin{frame}{SimCLR (Cont.)}
+    \begin{figure}
+        \setlength{\abovecaptionskip}{0pt}
+        \setlength{\belowcaptionskip}{1pt}
+        \centering
+        \includegraphics[width=0.55\textwidth]{pic/simclr/3.png}
+        \caption{SimCLR overview}
+   \end{figure}
+\end{frame}
+
+
+\begin{frame}{SimCLR (Cont.)}
+    \begin{figure}
+        \setlength{\abovecaptionskip}{0pt}
+        \setlength{\belowcaptionskip}{1pt}
+        \centering
+        \includegraphics[width=0.8\textwidth]{pic/simclr/4.png}
+        \caption{Solid rectangles are images, dashed rectangles are random crops. By randomly cropping images, we sample contrastive prediction tasks that include global to local view $\left(B \xrightarrow{} A\right)$ or adjacent view $\left(D \xrightarrow{} C\right)$ prediction.}
+   \end{figure}
+\end{frame}
+
+
+\begin{frame}{SimCLR (Cont.)}
+    \begin{figure}
+        \setlength{\abovecaptionskip}{0pt}
+        \setlength{\belowcaptionskip}{1pt}
+        \centering
+        \includegraphics[width=0.35\textwidth]{pic/simclr/5.png}
+        \caption{Summarization of SimCLR method.}
+   \end{figure}
+\end{frame}
+
+
+\begin{frame}{SimCLR (Cont.)}
+    \begin{figure}
+        \setlength{\abovecaptionskip}{0pt}
+        \setlength{\belowcaptionskip}{1pt}
+        \centering
+        \includegraphics[width=0.9\textwidth]{pic/simclr/6.png}
+        \caption{Illustrations of the studied data augmentation operators.}
+   \end{figure}
+\end{frame}
+
+
+\begin{frame}{SimCLR (Cont.)}
+    \begin{figure}
+        \setlength{\abovecaptionskip}{0pt}
+        \setlength{\belowcaptionskip}{1pt}
+        \centering
+        \includegraphics[width=0.6\textwidth]{pic/simclr/7.png}
+        \caption{Linear evaluation (ImageNet top-1 accuracy) under individual or composition of data augmentations, applied only to one branch. For all columns but the last, diagonal entries correspond to single transformation, and off-diagonals correspond to composition of two transformations (applied sequentially). The last column reflects the average over the row.}
+   \end{figure}
+\end{frame}
+
+
+\begin{frame}{CLIP}
+\begin{itemize}
+\item Connecting text and images
+\item Contrastive Language–Image Pre-training
+\item CLIP $\implies$ a shared representation(embedding) between two modalities (text and images) by training on a large dataset of image-text pairs.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{CLIP Cont.}
+\begin{itemize}
+\item Image Encoder: a Vision Transformer (ViT) or a ResNet.
+\item Text Encoder: A Transformer model 
+\end{itemize}
+\begin{figure}[hb]
+        \begin{center}
+            \includegraphics[keepaspectratio, scale=0.5]{pic/clip-overview.jpg}
+        \end{center}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{CLIP Goals}
+\begin{itemize}
+\item CLIP was designed to mitigate a number of major problems:
+\item Costly datasets: Deep learning needs a lot of data, manually labeled datasets are expensive to construct.
+\begin{itemize}
+\item CLIP learns from text–image pairs that are already publicly available on the internet
+\end{itemize}
+\item Narrow: An ImageNet model excels at predicting the 1000 ImageNet categories but requires additional data and fine-tuning for other tasks. 
+
+\begin{itemize}
+\item CLIP can be adapted to perform a wide variety of visual classification tasks without needing additional training examples. 
+\end{itemize}
+\end{itemize}
+
 \end{frame}
 
 
@@ -404,27 +574,26 @@ classification)
 
 \begin{frame}{Loss Functions - Contrastive Loss (Cont.)}
 \begin{equation*}
-D_W\left(\vec{X}_1, \vec{X}_2\right)=\left\|G_W\left(\vec{X}_1\right)-G_W\left(\vec{X}_2\right)\right\|_2
+D_W\left(x'^{\left(i\right)}, x''^{\left(i\right)}\right)=\left\|G_W\left(x'^{\left(i\right)}\right)-G_W\left(x''^{\left(i\right)}\right)\right\|_2
 \end{equation*}
 
     \begin{itemize}
-        \item $D_W\left(\vec{X}_1, \vec{X}_2\right)$ is dissimilarity between the two data points $\vec{X}_1$ and $\vec{X}_2$.
+        \item $D_W\left(x'^{\left(i\right)}, x''^{\left(i\right)}\right)$ is dissimilarity between the two data points $x'^{\left(i\right)}$ and $x''^{\left(i\right)}$.
         \item $G_W$ is an embedding function parameterized by $W$.
-        \item Generally, $D_W$ can be any metric that indicates the dissimilarity between $\vec{X}_1$ and $\vec{X}_2$.
+        \item Generally, $D_W$ can be any metric that indicates the dissimilarity between $x'^{\left(i\right)}$ and $x''^{\left(i\right)}$.
     \end{itemize}
 \end{frame}
 
 
 \begin{frame}{Loss Functions - Contrastive Loss (Cont.)}
 \begin{equation*}
-L\left(W,\left(Y, \vec{X}_1, \vec{X}_2\right)^i\right)=(1-Y)
-L_S\left(D_W(\vec{X}_1^i, \vec{X}_2^i)\right)+
-Y L_D\left(D_W(\vec{X}_1^i, \vec{X}_2^i)\right)
+L\left(W, y^i, x'^{\left(i\right)}, x''^{\left(i\right)}\right)=(1-y^i)
+L_S\left(D_W(x'^{\left(i\right)}, x''^{\left(i\right)})\right)+y^i L_D\left(D_W(x'^{\left(i\right)}, x''^{\left(i\right)})\right)
 \end{equation*}
 
     \begin{itemize}
-        \item $\left(Y, \vec{X}_1, \vec{X}_2\right)^i$ is the $i$-th labeled sample pair.
-        \item $Y=0$ if $\vec{X}_1$ and $\vec{X}_2$ are deemed similar, and $Y=1$ if they are deemed dissimilar.
+        \item $\left(y^i, x'^{\left(i\right)}, x''^{\left(i\right)}\right)$ is the $i$-th labeled sample pair.
+        \item $Y=0$ if $x'^{\left(i\right)}$ and $x''^{\left(i\right)}$ are deemed similar, and $Y=1$ if they are deemed dissimilar.
         \item $L_S$ is the partial loss function for a pair of similar points.
         \item $L_D$ is the partial loss function for a pair of dissimilar points.
         \item $L_S$ and $L_D$ must be designed such that minimizing $L$ with respect to $W$ would result in low values of $D_W$ for similar pairs and high values of $D_W$ for dissimilar pairs.
@@ -434,7 +603,7 @@ Y L_D\left(D_W(\vec{X}_1^i, \vec{X}_2^i)\right)
 
 \begin{frame}{Loss Functions - Contrastive Loss (Cont.)}
 \begin{equation*}
-\mathcal{L}(W)=\sum_{i=1}^P L\left(W,\left(Y, \vec{X}_1, \vec{X}_2\right)^i\right)
+\mathcal{L}(W)=\sum_{i=1}^P L\left(W,y^i, x'^{\left(i\right)}, x''^{\left(i\right)}\right)
 \end{equation*}
 
     \begin{itemize}
@@ -688,83 +857,6 @@ square of the number of samples).
         \mathcal{L}_{\mathrm{N}}=-{\mathbb{E}_X}\left[\log \frac{f_k\left(x_{t+k}, c_t\right)}{\sum_{x_j \in X} f_k\left(x_j, c_t\right)}\right] \approx
         -\frac{1}{N} \sum_{i=1}^N \log \frac{\exp \left(\operatorname{sim}\left(x_i, c_i\right) / \tau\right)}{\sum_{j=1}^N \exp \left(\operatorname{sim}\left(x_i, c_j\right) / \tau\right)}
     \end{equation*}
-\end{frame}
-
-
-
-\begin{frame}{Common Components}
-    \begin{itemize}
-        \item Dataset :
-\begin{itemize}
-\item supervised:  $D_m = \{ (x_1^1, \cdots, x_M^1, y^1), \cdots, (x_1^n, \cdots, x_M^n, y^n)  \}$
-\item self-supervised:  $D_m = \{ (x_1^1, \cdots, x_M^1), \cdots, (x_1^n, \cdots, x_M^n)  \}$
-\end{itemize}
-\item The psudo-label or signal generated for SSL can be denoted as $z = P(x_1,\cdot,x_M)$.
-
-        \item Modality Encoder(s): $c = e_k(x_k^i; \theta_k)$ for each modality $k$.
-	\item Fusion Module: $f_\psi$ to integrate the encoded information of different modalities
-	\item Pretext task head (like a predictive head) : $g_\gamma$ and some SSL loss $\mathcal{L}_{SSL}$
-
-    \end{itemize}
-\end{frame}
-
-
-\begin{frame}{Architectures}
-  \begin{itemize}
-\item There many veriations and structures
-  \end{itemize}
- \begin{minipage}{0.48\textwidth} % Adjust the width as needed
-        \begin{figure}
-	\centering
-        \includegraphics[width=\textwidth]{pic/SSL-MM-var1.jpg} % Replace with your image path
-        \caption{Figure 1 masked prediction frameworks} % Optional
-   \end{figure}
-    \end{minipage} \hfill % Add some space between the two images
-    \begin{minipage}{0.48\textwidth}
-   \begin{figure}
-        \centering
-        \includegraphics[width=\textwidth]{pic/SSL-MM-var2.jpg} % Replace with your image path
-        \caption{Figure 2 instance discrimination objectives} % Optional
-   \end{figure}
-    \end{minipage}
-\end{frame}
-
-
-\begin{frame}{CLIP}
-\begin{itemize}
-\item Connecting text and images
-\item Contrastive Language–Image Pre-training
-\item CLIP $\implies$ a shared representation(embedding) between two modalities (text and images) by training on a large dataset of image-text pairs.
-\end{itemize}
-\end{frame}
-
-\begin{frame}{CLIP Cont.}
-\begin{itemize}
-\item Image Encoder: a Vision Transformer (ViT) or a ResNet.
-\item Text Encoder: A Transformer model 
-\end{itemize}
-\begin{figure}[hb]
-        \begin{center}
-            \includegraphics[keepaspectratio, scale=0.5]{pic/clip-overview.jpg}
-        \end{center}
-    \end{figure}
-\end{frame}
-
-
-\begin{frame}{CLIP Goals}
-\begin{itemize}
-\item CLIP was designed to mitigate a number of major problems:
-\item Costly datasets: Deep learning needs a lot of data, manually labeled datasets are expensive to construct.
-\begin{itemize}
-\item CLIP learns from text–image pairs that are already publicly available on the internet
-\end{itemize}
-\item Narrow: An ImageNet model excels at predicting the 1000 ImageNet categories but requires additional data and fine-tuning for other tasks. 
-
-\begin{itemize}
-\item CLIP can be adapted to perform a wide variety of visual classification tasks without needing additional training examples. 
-\end{itemize}
-\end{itemize}
-
 \end{frame}
 
 
