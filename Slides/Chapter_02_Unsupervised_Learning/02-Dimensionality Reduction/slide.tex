@@ -91,7 +91,6 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{High Dimensional Data}
     \begin{itemize}
         \item Social media
-        \hspace{0.5}
         \begin{figure}[htpb]
             \begin{center}
       \includegraphics[keepaspectratio, scale=0.4]{pic/social.png}
@@ -191,23 +190,11 @@ subsubsectionstyle=show/shaded/hide]
         \begin{figure}[htpb]
                 \begin{center}
                     \includegraphics[keepaspectratio, scale=0.45]{pic/global_relation.PNG}
-                  \caption{\href{https://pair-code.github.io/understanding-umap/#:~:text=The}{Figure reference}}
+                  \caption{\href{https://pair-code.github.io/understanding-umap/}{Figure reference}}
                 \end{center}
         \end{figure}
     \end{itemize}
 \end{frame}
-
-% \begin{frame}{Purpose: Statistical Independence}
-%     \begin{itemize}
-%         \item Maximize retention of  \textbf{important information} while reducing dimensionality
-%         \item \textbf{Information:} Statistical independence of projections directions
-%         \begin{figure}[htpb]
-%                 \begin{center}
-%                     \includegraphics[keepaspectratio, scale=0.25]{pic/dim_red_independent.JPG}
-%                 \end{center}
-%         \end{figure}
-%     \end{itemize}
-% \end{frame}
 
 \section{Principal Component Analysis (PCA)}
 
@@ -319,74 +306,6 @@ x_{N1} & x_{N2} & \hdots & x_{Nd} \\
     
 \end{frame}
 
-% \begin{frame}{Equivalence of the  Interpretations}
-%     Interpretation 1. Maximizes variance of projected data\\[0.3cm]
-%     \begin{itemize}
-%         \item Based on the assumption, $\frac{1}{N} \sum_{i=1}^{N} X_i = 0$
-%         $$\nu^T(\frac{1}{N} \sum_{i=1}^{N} X_i) = 0 \quad \longrightarrow \quad \frac{1}{N} \sum_{i=1}^{N} \nu_1^T X_i = 0$$
-%         \item So,
-%         $$\text{Var}(\Pi) = \frac{1}{N} \sum_{i=1}^{N} (\nu_1^T X_i)^2$$
-%         \item To find $\nu_1$ that maximizes the variance
-%         $$\begin{aligned}
-%             \argmax_{\nu_1} \quad & \frac{1}{N} \sum_{i=1}^{N} (\nu_1^T X_i)^2\\
-%             \textrm{s.t.} \quad & \nu_1^T\nu_1 = 1\\
-%         \end{aligned}$$
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Equivalence of the Interpretations}
-%     Interpretation 2. Minimizes the sum of squared distances to the line\\[0.3cm]
-%     \minipage{0.54\textwidth}
-%     \begin{itemize}
-%         \item Squared distance of one point to the line $$\left\| X_i - (\nu_1^{T}X_i) \nu_1 \right\|_2^2 \quad \text{which } \nu_1^TX_i \text{ is scalar.}$$
-%         \item Sum of squared distances $$L_1 = \frac{1}{N} \sum_{i=1}^{N} \left\| X_i - (\nu_1^{T}X_i) \nu_1 \right\|_2^2$$
-%     \end{itemize}
-%     \endminipage
-%     \hfill
-%     \minipage{0.42\linewidth}
-%     \begin{figure}[htpb]
-%             \begin{center}
-%                 \includegraphics[keepaspectratio, scale=0.7]{pic/varpic.jpg}
-%             \end{center}
-%         \end{figure}
-%     \endminipage
-%     \vspace{0.1cm}
-%     \begin{itemize}
-%         \item By Pythagorean theorem $$L_1 = \frac{1}{N} \sum_{i=1}^{N} (\left\| X_i \right\|^2 - (\nu_1^{T}X_i)^2 \left\|\nu_1 \right\|_2^2) = \underbrace{\frac{1}{N} \sum_{i=1}^{N} (\left\| X_i \right\|^2)}_{\text{constant}} - \frac{1}{N} \sum_{i=1}^{N} ((\nu_1^{T}X_i)^2 \left\|\nu_1 \right\|_2^2) $$
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Equivalence of the Interpretations}
-%     \textcolor{gray}{Interpretation 2.} Minimizes the sum of squared distances to the line\\[0.2cm]
-%     \begin{itemize}
-%         \item Removing constant to minimize
-%         \item Based on orthonormality, $||V_1||_2^2 = 1$
-%         \item To find $\nu_1$ that minimizes the sum of squared distances
-%     \end{itemize}
-%     \vspace{0.2cm}
-%     \minipage{0.45\textwidth}
-%     $$\begin{aligned}
-%             \argmin_{\nu_1} \quad & -\frac{1}{N} \sum_{i=1}^{N} (\nu_1^T X_i)^2\\
-%             \textrm{s.t.} \quad & \nu_1^T\nu_1 = 1\\
-%         \end{aligned}$$
-%     \endminipage
-%     \hfill
-%     \minipage{0.1\textwidth}
-%     $$\equiv$$
-%     \endminipage
-%     \hfill
-%     \minipage{0.45\linewidth}
-%     $$\begin{aligned}
-%             \argmax_{\nu_1} \quad & \frac{1}{N} \sum_{i=1}^{N} (\nu_1^T X_i)^2\\
-%             \textrm{s.t.} \quad & \nu_1^T\nu_1 = 1\\
-%         \end{aligned}$$
-%     \endminipage
-%     \vspace{0.5cm}
-%     \begin{itemize}
-%         \item So, the two \textcolor{gray}{interpretations} are equivalent.
-%     \end{itemize} 
-% \end{frame}
-
 \begin{frame}{Pre-processing}
     \begin{itemize}
         \item \textbf{Mean-center the data.}
@@ -401,19 +320,6 @@ x_{N1} & x_{N2} & \hdots & x_{Nd} \\
             \end{itemize}
     \end{itemize}
 \end{frame}
-
-
-% \begin{frame}{Pre-processing}
-%     \begin{itemize}
-%         \item Scaling to normalize each feature may affect the final result!
-%         \begin{figure}[htpb]
-%             \begin{center}
-%                 \includegraphics[keepaspectratio, scale=0.6]{pic/pcaScaling.JPG}
-%             \end{center}
-%         \end{figure}
-%     \end{itemize}
-% \end{frame}
-
 
 \begin{frame}{Background}
     \begin{itemize}
@@ -585,17 +491,6 @@ $
     \end{itemize}
 \end{frame}
 
-% \begin{frame}{What is Covariance?}
-%     \begin{itemize}         
-%         \item Covariance shows the correlation between variables.
-%         \begin{figure}[htpb]
-%             \begin{center}
-%                   \includegraphics[keepaspectratio, scale=0.8]{pic/covariance.PNG} \caption{\href{https://byjus.com/maths/covariance/}{Figure reference}}
-%             \end{center}
-%         \end{figure}
-%     \end{itemize}
-% \end{frame}
-
 \begin{frame}{What is a Covariance Matrix?}
     \begin{itemize}         
         \item A \textbf{covariance matrix} generalizes the concept of covariance to multiple features.
@@ -711,17 +606,6 @@ b & d
     \end{itemize}
 \end{frame}
 
-
-% \begin{frame}{Deriving the Sample Covariance Matrix}
-%     \begin{itemize}         
-%         \item  Center the data by subtracting the mean of each variable from the corresponding observations:
-%         $$X_centered = X - \bar{X} $$
-%         \item Multiply the centered data by its transpose to compute the covariance.
-%     \end{itemize}
-% \end{frame}
-
-
-
 \begin{frame}{Example Calculation of Sample Covariance Matrix}
     \begin{itemize}         
         \item Suppose we have the following three samples each one having two features F$_1$ and F$_2$:
@@ -757,32 +641,7 @@ b & d
     \end{itemize}
 \end{frame}
 
-% \begin{frame}{Properties of the Covariance Matrix}
-%     \begin{itemize}         
-%       \item \textbf{Symmetry:} $\Sigma$ is always symmetric: $\Sigma = \Sigma^T$
-%       \item \textbf{Positive Semi-Definite:} For any vector $v$, $v\Sigma v^T \geq 0$
-%       \item \textbf{Diagonal Elements:}         Variances of each variable.
-%       \item \textbf{Off-diagonal Elements:} Covariances between variables.
-%     \end{itemize}
-% \end{frame}
-
 \subsubsection{Lagrangian multiplier}
-
-% \begin{frame}{Optimization with Constraints}
-%     \begin{itemize}
-%         \item Optimization seeks to find maximum or minimum values of a function.
-%         \item In constrained optimization, the function is subject to one or more restrictions.
-%     \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}{Lagrange Multiplier: The Concept}
-%     \begin{itemize}
-%         \item The Lagrange multiplier is a method used to find local maxima or minima of a function $f(x)$ subject to equality constraints $g(x) = 0$.
-%         \item It helps in solving optimization problems by converting them into a system of equations.
-        
-%     \end{itemize}
-% \end{frame}
 
 \begin{frame}{Lagrange Multiplier: Geometrical Interpretation}
     \begin{itemize}
@@ -812,25 +671,6 @@ b & d
         \end{itemize}
     \end{itemize}
 \end{frame}
-
-
-% \begin{frame}{The Lagrangian Function}
-%     \begin{itemize}
-%         \item The Lagrangian is a function that incorporates both the objective function and the constraint.
-%         \item It allows us to find critical points where both the function and the constraint behave optimally.
-%         $$ \mathcal{L}(x_1, x_2, \cdots, \lambda) = f(x_1, x_2, \cdots, x_n) - \lambda g(x_1, x_2, \cdots, x_n)$$
-%     \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}{The Lagrangian Function}
-%     \begin{enumerate}
-%         \item Write the Lagrangian function $\mathcal{L}(x, \lambda) = f(x) - \lambda g(x)$
-%          \item Take partial derivatives \( \frac{\partial \mathcal{L}}{\partial x_i} \) and \( \frac{\partial \mathcal{L}}{\partial \lambda} \).
-%          \item Solve the system of equations \( \nabla \mathcal{L} = 0 \).
-%          \item Find \( x \) and \( \lambda \), then evaluate \( f(x) \) for optimal values.
-%     \end{enumerate}
-% \end{frame}
 
 \begin{frame}{Example Problem}
 \begin{itemize}
@@ -880,71 +720,6 @@ x_1 = x_2 = \dfrac{1}{\sqrt{2}}, \quad f_{\text{max}} = x_1 + x_2 = \sqrt{2}
 
 \end{frame}
 
-% \begin{frame}{Example Problem}
-%     \begin{enumerate}
-%         \item Maximize following function with given constraints:
-%         $$f(x_1, x_2) = x_1 + x_2$$
-%         $$g(x, y) = x_1^2 + x_2^2 - 1 = 0$$
-%         \item Solution of the following problem:
-%         $$\mathcal{L}(x, y, \lambda) = xy - \lambda(x^2 + y^2 - 1)$$
-%         \item Take derivative of $x$, $y$, and $\lambda$:
-%         $$\frac{\partial \mathcal{L}}{\partial x} = y - 2 \lambda x = 0$$
-%         $$\frac{\partial \mathcal{L}}{\partial y} = x - 2 \lambda y = 0$$
-%         $$\frac{\partial \mathcal{L}}{\partial \lambda} = -(x^2 + y^2 - 1) = 0$$
-
-%     \end{enumerate}
-% \end{frame}
-
-% \begin{frame}{Example Problem (Continued)}
-%     \begin{itemize}
-%         \item After solving above system of equations, we have:
-%         $$\lambda = \pm \frac{1}{2}$$
-%         \item Case 1: $\lambda = \frac{1}{2}$:
-%         $$y = 2 \times \frac{1}{2} x \rightarrow y = x$$
-%         $$x^2 + x^2 = 1 \rightarrow x = \pm \frac{1}{\sqrt{2}}$$
-%         $$(x, y) = \left( \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}} \right) \text{ or } \left( \frac{-1}{\sqrt{2}}, \frac{-1}{\sqrt{2}} \right)$$
-%     \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}{Example Problem (Continued)}
-%     \begin{itemize}
-%         \item Case 2: $\lambda = -\frac{1}{2}$:
-%         $$y = 2 \times -\frac{1}{2} x \rightarrow y = -x$$
-%         $$x^2 + x^2 = 1 \rightarrow x = \pm \frac{1}{\sqrt{2}}$$
-%         $$(x, y) = \left( \frac{1}{\sqrt{2}}, \frac{-1}{\sqrt{2}} \right) \text{ or } \left( \frac{-1}{\sqrt{2}}, \frac{1}{\sqrt{2}} \right)$$
-        
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Example Problem (Continued)}
-%     \begin{itemize}
-%         \item Now, we should evaluate the results:
-%         \begin{itemize}
-%             \item If $(x, y) = \left( \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}} \right)$, then $f(x, y) = \frac{1}{2}$
-%             \item If $(x, y) = \left( \frac{-1}{\sqrt{2}}, \frac{-1}{\sqrt{2}} \right)$, then $f(x, y) = \frac{1}{2}$
-%             \item If $(x, y) = \left( \frac{-1}{\sqrt{2}}, \frac{1}{\sqrt{2}} \right)$, then $f(x, y) = \frac{-1}{2}$
-%             \item If $(x, y) = \left( \frac{1}{\sqrt{2}}, \frac{-1}{\sqrt{2}} \right)$, then $f(x, y) = \frac{-1}{2}$
-%         \end{itemize}
-%         \item So, when $(x, y) = \left( \frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}} \right)$ or $\left( \frac{-1}{\sqrt{2}}, \frac{-1}{\sqrt{2}} \right)$, $f(x, y)$ maximizes according to constraints.
-%     \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}{Geometrical Interpretation}
-%     \begin{itemize}
-%         \item   The gradient of the objective function $\nabla f(x, y)$ is parallel to the gradient of the constraint $\nabla g(x, y)$.
-%         \item This means the constraint \textbf{touches} the level curve of the objective function at optimal points.
-%         \begin{figure}[htpb]
-%             \begin{center}
-%          \includegraphics[keepaspectratio, scale=0.2]{pic/lagrange3d.png}
-%          \caption{\href{https://www.khanacademy.org/math/multivariable-calculus/applications-of-multivariable-derivatives/constrained-optimization/a/lagrange-multipliers-examples}{Figure reference}}
-%             \end{center}
-%         \end{figure}
-%     \end{itemize}
-% \end{frame}
-
-
 \begin{frame}{Generalization to Multiple Constraints}
     \begin{itemize}
     \item The Lagrange multiplier method can be extended to cases with more than one constraint.
@@ -955,142 +730,8 @@ x_1 = x_2 = \dfrac{1}{\sqrt{2}}, \quad f_{\text{max}} = x_1 + x_2 = \sqrt{2}
     \end{itemize}
 \end{frame}
 
-
-% \begin{frame}{Algorithms}
-%     \begin{itemize}
-%         \item Algorithm 1: sequential
-%         \item Algorithm 2: sample covariance matrix
-%     \end{itemize}
-% \end{frame}
-
-% \subsection{Sequential Algorithm}
-
-% \begin{frame}{Sequential Algorithm}
-
-%         \begin{itemize}
-%             \item Find directions with the maximum variations
-%              $$
-%         \argmax_{v_1} \frac{1}{N} \sum_{n=1}^{N} (v_1^T x_n)^2 = \frac{1}{N} \sum_{n=1}^{N} v_1^T (x_n x_n^T) v_1 = v_1^T \left( \frac{1}{N} \sum_{n=1}^{N}(x_n x_n^T) \right) v_1 = v_1^T S {v_1}
-%         $$
-%         $$ \text{s.t. } v_1^{T}{v_1}  = 1$$
-%         \item $S$ is sample covariance matrix.
-%         \item Using Lagrangian multiplier technique:
-%         $$\nabla \mathcal{L}(x_1, \lambda_1) = v_1^T S v_1 + \lambda (1 - v_1^Tv_1)$$
-%         $$\frac{\partial \mathcal{L}}{\partial v_1} = 0 \rightarrow 2Sv_1 - 2\lambda_1 v_1 = 0$$
-%         $$\rightarrow Sv_1 = \lambda_1 v_1$$
-%         \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Sequential Algorithm}
-%     \begin{itemize}
-%         \item Find directions with the maximum variations
-%         $$
-%         \argmax_{v_1} \frac{1}{N} \sum_{n=1}^{N} (v_1^T x_n)^2 = \frac{1}{N} \sum_{n=1}^{N} v_1^T (x_n x_n^T) v_1 = v_1^T \left( \frac{1}{N} \sum_{n=1}^{N}(x_n x_n^T) \right) v_1 = v_1^T S {v_1}
-%         $$
-%         $$ \text{s.t. } v_1^{T}{v_1}  = 1$$
-%         \item   Using Lagrangian multiplier technique
-%         $$ L(v_1, \lambda) = v_1^T S v_1 + \lambda (1 - v_1^T v_1) $$
-%         $$ \frac{\partial L}{\partial v_1} = 0 \Rightarrow 2Sv_1 - 2\lambda v_1 = 0$$
-%         $$ \Rightarrow Sv_1 = \lambda v_1 $$
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Sequential Algorithm}
-%     \begin{itemize}
-%         \item To find $v_2$, we maximize the variance of the projection in the residual subspace
-% $$
-% v_2 = \argmax_{v_2} \left( \frac{1}{N} \sum_{i=1}^{N} v_2^T\left( x_i - v_1^T x_i \right)^2 \right)
-% $$
-% $$ \text{s.t. } v_2^{T}{v_2}  = 1$$
-%           \item To find $v_k$, we maximize the variance of the projection in the residual subspace
-% $$
-% v_k = \argmax_{v_k} \left( \frac{1}{N} \sum_{i=1}^{N} v_k^T\left( x_i - \sum_{j=1}^{k-1} v_j^T x_i \right)^2 \right)
-% $$      
-% $$\text{s.t. } v_k^{T}{v_k}  = 1$$
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Sequential Algorithm}
-%     \begin{itemize}
-%         \item Second view
-%         \begin{itemize}
-%             \item Find directions with the minimum reconstruction error 
-%         \end{itemize}
-%         $$
-%         \min_{v1} \sum_{n=1}^{N} \lVert x_n - (v_{1}^{T} x_n)v_{1} \rVert_2^{2}
-%         $$
-%         $$ \text{s.t. } v_1^{T}{v_1}  = 1$$
-%         \item Show this has an equal solution with the first view
-
-%         \begin{figure}[htpb]
-%             \begin{center}
-%                 \includegraphics[keepaspectratio, scale=0.55]{pic/var_vs_rec.JPG}
-%             \end{center}
-%         \end{figure}
-
-%     \end{itemize}
-% \end{frame}
-
-
-% \begin{frame}{Sequential Algorithm}
-%     \begin{itemize}
-%       \item As we have $S v_j = \lambda_j v_j$,
-
-%     $$\Rightarrow \text{var}(v_j^T x) = v_j^T x x^{T} v_j =
-%       v_j^T S v_j =
-%       \lambda_j v_j^T v_j =
-%       \lambda_j$$.
-    
-%     \item The variance along an eigenvector  $v_j \text{ equals the eigenvalue } \lambda_j. $
-        
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Sequential Algorithm}
-%     \begin{itemize}
-%       \item Eigenvalues: $\lambda_1 \geq \lambda_2 \geq \lambda_3 \geq ... \geq 0 $
-%         \begin{itemize}
-%             \item The first PC, $v_1$, is the the eigenvector of the sample covariance matrix $S$ associated with the largest eigenvalue
-%             \item The 2nd PC, $v_2$, is the the eigenvector of the sample covariance matrix $S$ associated with the second largest eigenvalue
-%             \item And so on ...
-%         \end{itemize}
-%          \item To reduce the dimension of the data to $k$, we select eigenvectors with the top $k$ eigenvalues
-        
-%     \end{itemize}
-% \end{frame}
-
-
 \subsection{Sample Covariance Matrix Algorithm}
 
-% \begin{frame}{Sample Covariance Matrix Algorithm}
-%     \begin{itemize}
-%         \item Given data ${x_1, …, x_n}$, compute covariance matrix $\Sigma$
-%         $$\Sigma = \frac{1}{n - 1} \sum_{i=1}^{n} (x_i - \bar{x})(x_i - \bar{x})^T \text{ where }  \bar{x} = \frac{1}{n} \sum_{i=1}^{N} x_i $$
-%         \item PCA basis vectors = the eigenvectors of $\Sigma$
-%         \item Larger eigenvalue $\rightarrow$ more important eigenvectors
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Principal Component Analysis Review}
-%     \begin{itemize}
-%         \item Goal: Maximize the variance of the projected data.
-%         \item Given a dataset \( X \in \mathbb{R}^{n \times d} \), where \( n \) is the number of samples and \( d \) is the number of features.
-%         \item The data is centered, meaning the mean of each feature is 0.
-%     \end{itemize}
-% \end{frame}
-
-% Slide 2 - Covariance Matrix Definition
-% \begin{frame}{Covariance Matrix}
-%     \begin{itemize}
-%         \item The covariance matrix of the dataset \( X \) is defined as:
-%         \[
-%         \Sigma = \frac{1}{n} X^\top X \in \mathbb{R}^{d \times d}
-%         \]
-%         \item We seek a direction \( v \in \mathbb{R}^d \) such that \( \|v\| = 1 \), maximizing the variance of the projected data \( Xv \).
-%     \end{itemize}
-% \end{frame}
-
-% Slide 3 - Step 1: Variance Expression
 \begin{frame}{Step 1: Expression for Variance}
     \begin{itemize}
         \item The variance of the projected data onto the direction \( v \) is:
@@ -1104,7 +745,6 @@ x_1 = x_2 = \dfrac{1}{\sqrt{2}}, \quad f_{\text{max}} = x_1 + x_2 = \sqrt{2}
     \end{itemize}
 \end{frame}
 
-% Slide 4 - Step 2: Maximization Problem
 \begin{frame}{Step 2: Maximization Problem}
     \begin{itemize}
         \item We aim to maximize the variance \( v^\top \Sigma v \) under the constraint that \( \|v\| = 1 \).
@@ -1115,7 +755,6 @@ x_1 = x_2 = \dfrac{1}{\sqrt{2}}, \quad f_{\text{max}} = x_1 + x_2 = \sqrt{2}
     \end{itemize}
 \end{frame}
 
-% Slide 5 - Step 3: Lagrange Multipliers
 \begin{frame}{Step 3: Use of Lagrange Multipliers}
     \begin{itemize}
         \item We introduce a Lagrange multiplier \( \lambda \) and define the Lagrangian:
@@ -1134,7 +773,6 @@ x_1 = x_2 = \dfrac{1}{\sqrt{2}}, \quad f_{\text{max}} = x_1 + x_2 = \sqrt{2}
     \end{itemize}
 \end{frame}
 
-% Slide 6 - Step 4: Interpretation
 \begin{frame}{Step 4: Interpretation}
     \begin{itemize}
         \item The variance \( v^\top \Sigma v \) is maximized when \( v \) is the eigenvector corresponding to the largest eigenvalue of \( \Sigma \).
@@ -1143,65 +781,17 @@ x_1 = x_2 = \dfrac{1}{\sqrt{2}}, \quad f_{\text{max}} = x_1 + x_2 = \sqrt{2}
     \end{itemize}
 \end{frame}
 
-% \begin{frame}{}
-%     \begin{itemize}
-%         \item Input: $N * d$ data matrix $X$ (each row contain a $d$ dimensional data point)
-%         \begin{itemize}
-%             \item $\bar{x} = \frac{1}{N} \sum_{i=1}^{N} x_i$
-%             \item $\tilde{X} \leftarrow $ Mean value of data points is subtracted from rows of $X$
-%             \item $S = \frac{1}{N}\tilde{X}^{T}\tilde{X} \text{(Covariance matrix)}$
-%             \item Calculate eigenvalue and eigenvectors of $S$
-%             \item Pick $K$ eigenvectors corresponding to the largest eigenvalues
-% and put them in the columns of $A = [v_1, ... , v_k]$
-%             \item $X' = XA$
-%         \end{itemize}
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Sample Covariance Matrix}
-%     Sample covariance matrix 
-%     \begin{itemize}
-%         \item It is symmetric $\Rightarrow$ Eigenvectors are \textbf{orthogonal}
-%         \item It is symmetric $\Rightarrow$ Eigenvalues are \textbf{real}
-%         \item It is positive semidefinite $\Rightarrow$ Eigenvalues are \textbf{non-negative}
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Sample Covariance Matrix}
-%     Principal component analysis
-%     \begin{itemize}
-%         \item Principal components are \textbf{orthonormal} 
-%         \item Variances along each principal component are \textbf{real}
-%         \item Variances along each principal component are \textbf{non-negative}
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Sample Covariance Matrix}
-%     Principal component analysis and sample covariance matrix
-%     \begin{itemize}
-%         \item Principal components are \textbf{eigenvectors} 
-%         \item Variance of each principal component is the \textbf{eigenvalue} of the corresponding eigen-vector
-%     \end{itemize}
-% \end{frame}
-
 \begin{frame}{Sample Covariance Matrix}
     \begin{algorithm}[H]
     \caption{Sample Covariance Matrix}\label{alg:Sample Covariance Matrix}
     \begin{algorithmic}[1]
-         \State \textbf{Input:} $X \in \mathbb{R}^{N \times d}$ (data matrix with $N$ data points and $d$ dimensions)
-        \State Compute the mean of each feature: 
-        \LeftComment{$\bar{x} = \frac{1}{N} \sum_{i=1}^{N} x_i$}
-        \State Subtract the mean from each data point (center the data): 
-        \LeftComment{$\tilde{X} \leftarrow X - \bar{x}^{T}$}
-        \State Compute the covariance matrix: 
-        \LeftComment{$\Sigma = \frac{1}{N - 1} \tilde{X}^{T} \tilde{X}$}
-
-        \State Compute the eigenvalues and eigenvectors of $\Sigma$: 
-        \LeftComment{$[\lambda_1, \lambda_2, \dots, \lambda_d],  [v_1, v_2, \dots, v_d] = \text{eig}(\Sigma)$}
-        \State Select the top $k$ eigenvectors corresponding to the largest eigenvalues: 
-        \LeftComment{$A \leftarrow [v_1, v_2, \dots, v_k]$}
-        \State Transform the data into the new subspace:
-        \LeftComment{$X' \leftarrow X \cdot A$}
+        \State \textbf{Input:} $X \in \mathbb{R}^{N \times d}$ (data matrix with $N$ data points and $d$ dimensions)
+        \State Compute the mean of each feature:  $\bar{x} = \frac{1}{N} \sum_{i=1}^{N} x_i$
+        \State Subtract the mean from each data point (center the data): $\tilde{X} \leftarrow X - \bar{x}^{T}$
+        \State Compute the covariance matrix: $\Sigma = \frac{1}{N - 1} \tilde{X}^{T} \tilde{X}$
+        \State Compute the eigenvalues and eigenvectors of $\Sigma$: $[\lambda_1, \lambda_2, \dots, \lambda_d], [v_1, v_2, \dots, v_d] = \text{eig}(\Sigma)$
+        \State Select the top $k$ eigenvectors corresponding to the largest eigenvalues: $A \leftarrow [v_1, v_2, \dots, v_k]$
+        \State Transform the data into the new subspace: $X' \leftarrow X \cdot A$
         \State \textbf{Output:} $X' \in \mathbb{R}^{N \times k}$ (transformed data with reduced dimensions)
     \end{algorithmic}
     \end{algorithm}
@@ -1241,13 +831,13 @@ x_1 = x_2 = \dfrac{1}{\sqrt{2}}, \quad f_{\text{max}} = x_1 + x_2 = \sqrt{2}
 \section{Applications}
 
 \begin{frame}{Image Compression}
-       \begin{itemize}
-           \item Divide the original $372 \times 492$ image into patches.
+      \begin{itemize}
+          \item Divide the original $372 \times 492$ image into patches.
 \begin{itemize}
     \item Each patch is an instance containing $12 \times 12$ pixels on a grid.
 \end{itemize}
             \item Consider each as a 144-D vector.
-       \end{itemize}
+      \end{itemize}
         \begin{figure}[htpb]
             \begin{center}
                 \includegraphics[width=8cm, height=5cm]{pic/original.JPG}
@@ -1256,9 +846,9 @@ x_1 = x_2 = \dfrac{1}{\sqrt{2}}, \quad f_{\text{max}} = x_1 + x_2 = \sqrt{2}
 \end{frame}
 
 \begin{frame}{Image Compression}
-       \begin{itemize}
-           \item 144D to 60D
-       \end{itemize}
+      \begin{itemize}
+          \item 144D to 60D
+      \end{itemize}
         \begin{figure}[htpb]
             \begin{center}
                 \includegraphics[width=8cm, height=5cm]{pic/60d.JPG}
@@ -1267,9 +857,9 @@ x_1 = x_2 = \dfrac{1}{\sqrt{2}}, \quad f_{\text{max}} = x_1 + x_2 = \sqrt{2}
 \end{frame}
 
 \begin{frame}{Image Compression}
-       \begin{itemize}
-           \item 144D to 16D
-       \end{itemize}
+      \begin{itemize}
+          \item 144D to 16D
+      \end{itemize}
         \begin{figure}[htpb]
             \begin{center}
                 \includegraphics[width=8cm, height=5cm]{pic/16d.JPG}
@@ -1279,9 +869,9 @@ x_1 = x_2 = \dfrac{1}{\sqrt{2}}, \quad f_{\text{max}} = x_1 + x_2 = \sqrt{2}
 
 
 \begin{frame}{Image Compression}
-       \begin{itemize}
-           \item The 16 most important eigenvectors
-       \end{itemize}
+      \begin{itemize}
+          \item The 16 most important eigenvectors
+      \end{itemize}
         \begin{figure}[htpb]
             \begin{center}
                 \includegraphics[width=8cm, height=5cm]{pic/16_most.JPG}
@@ -1291,9 +881,9 @@ x_1 = x_2 = \dfrac{1}{\sqrt{2}}, \quad f_{\text{max}} = x_1 + x_2 = \sqrt{2}
 
 
 \begin{frame}{Image Compression}
-       \begin{itemize}
-           \item 144D to 3D
-       \end{itemize}
+      \begin{itemize}
+          \item 144D to 3D
+      \end{itemize}
         \begin{figure}[htpb]
             \begin{center}
                 \includegraphics[width=8cm, height=5cm]{pic/3d.JPG}
@@ -1303,9 +893,9 @@ x_1 = x_2 = \dfrac{1}{\sqrt{2}}, \quad f_{\text{max}} = x_1 + x_2 = \sqrt{2}
 
 
 \begin{frame}{Image Compression}
-       \begin{itemize}
-           \item The 3 most important eigenvectors
-       \end{itemize}
+      \begin{itemize}
+          \item The 3 most important eigenvectors
+      \end{itemize}
         \begin{figure}[htpb]
             \begin{center}
                 \includegraphics[width=8cm, height=5cm]{pic/3_most.JPG}
@@ -1315,9 +905,9 @@ x_1 = x_2 = \dfrac{1}{\sqrt{2}}, \quad f_{\text{max}} = x_1 + x_2 = \sqrt{2}
 
 
 \begin{frame}{Image Compression}
-       \begin{itemize}
-           \item $L^2$ error and PCA dimensions
-       \end{itemize}
+      \begin{itemize}
+          \item $L^2$ error and PCA dimensions
+      \end{itemize}
         \begin{figure}[htpb]
             \begin{center}
                 \includegraphics[width=8cm, height=5cm]{pic/error.JPG}
@@ -1367,11 +957,6 @@ x_1 = x_2 = \dfrac{1}{\sqrt{2}}, \quad f_{\text{max}} = x_1 + x_2 = \sqrt{2}
             \item Generally faster than t-SNE and scales better to large datasets.
             \item Can capture more complex structures in the data.
         \end{itemize}
-        % \item \textbf{PCA:}
-        % \begin{itemize}
-        %     \item Linear method; captures the directions of maximum variance.
-        %     \item The plot may show overlapping clusters due to its linear nature.
-        % \end{itemize}
     \end{itemize}
 \end{frame}
 
@@ -1414,13 +999,12 @@ x_1 = x_2 = \dfrac{1}{\sqrt{2}}, \quad f_{\text{max}} = x_1 + x_2 = \sqrt{2}
 
 \begin{frame}{Contributions}
     \begin{itemize}
-    \itemsep1em
-    \justifying
-        \item \textbf{This slide has been prepared thanks to:}
-    \begin{itemize}
         \itemsep1em
-        \item \href{https://github.com/MohammadMow/}{Mohammad Mowlavi}
-    \end{itemize}
+        \item \textbf{This slide has been prepared thanks to:}
+        \begin{itemize}
+            \itemsep1em
+            \item \href{https://github.com/MohammadMow/}{Mohammad Mowlavi}
+        \end{itemize}
     \end{itemize}
 \end{frame}
 
