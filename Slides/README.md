@@ -37,8 +37,9 @@ In this chapter we over the basics of Computer Vision, exploring how neural netw
 
 ## [4.1. Convolutional Neural Networks](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/raw/main/Slides/Chapter_04_Computer_Vision/01-CNN/CNN.pdf)
 ## [4.2. Channels and Pooling](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/raw/main/Slides/Chapter_04_Computer_Vision/02-Channels%20and%20Pooling/Channels%20and%20Pooling.pdf)
-## 4.3. Coming Soon!
-## [4.4. AutoEncoders and U-Net](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/raw/main/Slides/Chapter_04_Computer_Vision/04-Autoencoders%20and%20Unet/slide.pdf)
+## [4.3. AlexNet and ResNet](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/raw/main/Slides/Chapter_04_Computer_Vision/03-AlexNet%2C%20ResNet/03-AlexNet_ResNet.pdf)
+## [4.4. AutoEncoders](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/raw/main/Slides/Chapter_04_Computer_Vision/04-Autoencoder/04-Autoencoder.pdf)
+## [4.5. Semantic Segmentation](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/raw/main/Slides/Chapter_04_Computer_Vision/05-Semantic%20Segmentation/Slide.pdf)
 
 ----
 
@@ -48,10 +49,12 @@ In this chapter we over the basics of Natural Language Processing, exploring how
 ## [5.1. Word Embeddings](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/raw/main/Slides/Chapter_05_Natural_Language_Processing/01-Word_Embedding/Word%20Embedding.pdf)
 ## [5.2. Attention Mechanism](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/raw/main/Slides/Chapter_05_Natural_Language_Processing/02-Attention/Attention.pdf)
 ## [5.3. Bidirectional Encoder Representations from Transformers (BERT)](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/raw/main/Slides/Chapter_05_Natural_Language_Processing/03-BERT/slide.pdf)
+## [5.4. Large Language Models (LLM) and Adaptations](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/raw/main/Slides/Chapter_05_Natural_Language_Processing/04-LLM%26Adaptation/LLM%26Adaptation.pdf)
 
 ----
 
 # Chapter 6: Contrastive Learning
 In this chapter we over the basics of Contrastive Learning, exploring how models trained on images and languages can be used together to enhance the performance of our models.
 
-## Coming Soon!
+## [6.1. Vision Transformers (ViT)](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/raw/main/Slides/Chapter_06_Contrastive_Learning/01-ViT%20Slides/ViT_Slides.pdf)
+## [6.2. Contrastive Language–Image Pre-training (CLIP)](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/raw/main/Slides/Chapter_06_Contrastive_Learning/02-CLIP%20slide/CLIP.pdf)
