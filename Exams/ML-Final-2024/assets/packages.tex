@@ -1,0 +1,92 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{tikz}
+\usepackage[bottom]{footmisc}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+\usepackage{fullpage,amsmath,hyperref,color,clrscode,amsfonts,graphicx,textcomp}
+\usepackage{tabularx}
+\usepackage{adjustbox}
+\usepackage{setspace}
+\usepackage{upgreek}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage[inline]{enumitem}
+\usepackage{pgfplots}
+\usetikzlibrary{calc}
+\newcommand{\drawaline}[4]{
+	\draw [extended line=1cm,stealth-stealth] (#1,#2)--(#3,#4);
+}
+\usepackage{float}
+\usetikzlibrary {positioning}
+%\usepackage {xcolor}
+%\definecolor {processblue}{cmyk}{0.96,0,0,0}
+\definecolor {processblue}{cmyk}{1,1,1,0}
+\usetikzlibrary{automata,arrows.meta}
+\usepackage{hyperref}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{neuralnetwork}
+\usepackage{tkz-graph}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=red,
+	filecolor=blue,      
+	urlcolor=magenta,
+}
+
+
+\usetikzlibrary{arrows, positioning}
+\usepackage{xepersian}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.95}
+
+\lstdefinestyle{mystyle}{
+	backgroundcolor=\color{backcolour},   
+	commentstyle=\color{codegreen},
+	keywordstyle=\color{magenta},
+	numberstyle=\tiny\color{codegray},
+	stringstyle=\color{codepurple},
+	basicstyle=\ttfamily\footnotesize,
+	breakatwhitespace=false,         
+	breaklines=true,                 
+	captionpos=b,                    
+	keepspaces=true,                 
+	numbers=left,                    
+	numbersep=5pt,                  
+	showspaces=false,                
+	showstringspaces=false,
+	showtabs=false,                  
+	tabsize=2
+}
+
+\lstset{style=mystyle}
+
+\settextfont[Path="./fonts/",Scale=0.99 , BoldFont = XB Zar bold.ttf]{XB Zar.ttf}
+\setlatintextfont[Path="./fonts/"]{Times New Roman.ttf}
+
+\addtolength{\textwidth}{0.2in}
+\addtolength{\oddsidemargin}{-0.1in}
+\addtolength{\evensidemargin}{-0.1in}
+
+\addtolength{\textheight}{0.5in}
+\addtolength{\topmargin}{-0.25in}
+\defpersianfont\iranic[Path="./fonts/",Scale=1]{XB Zar.ttf} 	
+\newcommand{\IP}{\mathbb{P}}
+
+\makeatletter
+\def\LTRfootnote{\@ifnextchar[\@xLTRfootnote{\stepcounter\@mpfn
+		\protected@xdef\@thefnmark{\persianfont\thempfn}%
+		\@footnotemark\@LTRfootnotetext}}
+\makeatother	
+\setdigitfont[Path="./fonts/",Scale=1]{XB Zar.ttf} 
+\setmathdigitfont[Path="./fonts/",Scale=1]{XB Zar.ttf} 

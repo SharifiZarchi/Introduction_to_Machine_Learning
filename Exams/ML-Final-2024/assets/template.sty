@@ -1,0 +1,57 @@
+
+\newcommand{\header}[5]{
+	\parindent=0em
+	\includegraphics[width=2cm, height=2cm]{images/logo.png}
+	
+	\vspace{0em}
+	{\scriptsize\bf دانشگاه صنعتی شریف }
+	\\
+	{\scriptsize\bf دانشکده‌ی مهندسی کامپیوتر}
+	\\[-1.4em]
+	\leftline{\hfill\small
+		گردآورندگان: #4
+	}\\[-2.9em]
+	\leftline{\hfill\small
+	استاد: علی شریفی زارچی
+	}\\[-3.8em]
+	\leftline{\hfill\Large\bf
+		یادگیری ماشین
+	}\\[0.1em]
+	\leftline{\small\hfill\bf
+		پاییز ۱۴۰۳
+	}\\[2em]
+	\hrule height .12em
+	\normalsize
+	\vspace{1mm}
+	\makebox[5cm][r]{#1}
+	\hfill
+	\makebox[5cm][c]{\large #2}
+	\hfill
+	\makebox[5cm][l]{\small #3}
+	\vspace{1mm}
+	\hrule height .05em
+}
+
+\newcommand{\question}[2]{
+	\item
+	(#2 نمره)
+	\input{#1}
+}
+\newcommand{\solution}[2]{
+	\ifthenelse{\isundefined{\hidesolutions}}%
+	{\textcolor{blue}{
+		حل.
+		\input{#1}
+	}}%
+	{}%
+	
+}
+
+\newcommand{\partheader}[2]{
+	\hrule height .12em
+	\vspace{0.5em}
+	{\large
+		#1 (#2 نمره)
+	}\\[-0.6em]
+	\hrule height .05em
+}
