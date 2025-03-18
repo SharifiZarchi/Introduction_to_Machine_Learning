@@ -1,0 +1,37 @@
+\textbf{پاسخ}
+
+
+\begin{center}
+\setLR
+\begin{tabular}{|l|l|l|}
+\hline
+\lr{Layer} & \lr{Activation Volume Dimensions} & \lr{Number of parameters} \\
+\hline
+\lr{Input} & $32 \times 32 \times 3$ & $0$ \\
+\hline
+\lr{CONV3-8} & $32 \times 32 \times 8$ & $8 \times (3 \times 3 \times 3+1)=224$ \\
+\hline
+\lr{Leaky ReLU} & $32 \times 32 \times 8$ & $0$ \\
+\hline
+\lr{POOL-2} & $16 \times 16 \times 8$ & $0$ \\
+\hline
+\lr{BATCHNORM} & $16 \times 16 \times 8$ & $2 \times 8$ \\
+\hline
+\lr{CONV3-16} & $16 \times 16 \times 16$ & $16 \times (3 \times 3 \times 8+1)=1168$ \\
+\hline
+\lr{Leaky ReLU} & $16 \times 16 \times 16$ & $0$ \\
+\hline
+\lr{POOL-2} & $8 \times 8 \times 16$ & $0$ \\
+\hline
+\lr{FLATTEN} & 1024 & $0$ \\
+\hline
+\lr{FC-10} & $10$ & $(8 \times 8 \times 16+1) \times 10=10250$ \\
+\hline
+\end{tabular}
+\end{center}
+
+
+
+
+
+

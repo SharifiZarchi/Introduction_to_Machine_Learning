@@ -1,0 +1,106 @@
+\textbf{پاسخ}
+(الف) $Ausgmentation$ های مختلف یکی از جواب ها است.
+
+(ب)
+\begin{equation}
+z_1 = \begin{bmatrix}
+0.2&0.4&-0.5 \\
+-0.3&0.1&0.2
+\end{bmatrix} 
+\begin{bmatrix}
+1 \\
+0 \\
+1
+\end{bmatrix} + \begin{bmatrix}
+-0.4\\
+0.2
+\end{bmatrix} = \begin{bmatrix}
+-0.7\\
+0.1
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+a_1=\begin{bmatrix}
+0.\\
+0.1
+\end{bmatrix}
+\end{equation}
+
+\begin{equation}
+z_2 = \begin{bmatrix}
+-0.3&0.2 \\
+\end{bmatrix} 
+\begin{bmatrix}
+0 \\
+0.1
+\end{bmatrix} + \begin{bmatrix}
+0.1
+\end{bmatrix} = 0.08
+\end{equation}
+
+\begin{equation}
+    \hat{y}(i) = \frac{1}{1+\epsilon^{-0.08}}\approx 0.52
+\end{equation}
+\begin{equation}
+    L(i) = 0.5(log0.52) \approx 0.142
+\end{equation}
+
+(ج) وزن دهی به اینکه هرکلاس چقدر در تابع ضرر مشارکت دارد می تواند به نزول گرادیان کمک کند، زیرا شبکه هنگام یادگیری از نمونه های کلاس کم تعدادتر، قدم های بزرگتری خواهد داشت.
+$\alpha = 0.1$ و $\beta = 1$ بطور تقریبی، نسبت باید جایی در حدود $\beta =10 \cdot a $ باشد، اما نه خیلی بزرگ یا کوچک باشد.
+
+(د) 
+
+\begin{equation}
+    \frac{\partial j}{\partial \hat{y}} = -\frac{1}{m} \sum_{i} \delta_1^{(i)}    
+\end{equation}
+که در آن :
+\begin{equation}
+    \delta_1^{(i)} = a \cdot y^{(i)}/ \hat{y}^{(i)} - \beta \cdot (1-y^{(i)})/(1-\hat{y}^{(i)})
+\end{equation}
+
+\begin{equation}
+    \frac{\partial \hat{y}^{(i)}}{\partial z_2} = \delta_2 = \sigma(z_2)(1-\sigma(z_2))
+\end{equation}
+
+\begin{equation}
+    \frac{\partial z_2}{\partial a_1}=\delta_3=W_2
+\end{equation}
+\begin{equation}
+    \frac{\partial z_2}{\partial W_2}=\delta^\prime_3=a^T_1
+\end{equation}
+\begin{equation}
+    \frac{\partial z_1}{\partial W_1}=\delta_4= 
+    \begin{cases}
+    0&  z_1<0\\
+    1& z_1\geq 0
+\end{cases}
+\end{equation}
+\begin{equation}
+    \frac{\partial z_1}{\partial W_1}=x^{(i)T}
+\end{equation}
+\begin{equation}
+    \frac{\partial J}{\partial W_1}=\delta_6=-\frac{1}{m} \sum_i \delta_1^{(i)}\cdot \delta_2 \cdot (\delta_3 \odot \delta_4) \cdot \delta_5
+\end{equation}
+\begin{equation}
+    \frac{\partial J}{\partial W_2}=\delta_7=-\frac{1}{m} \sum_i \delta_1^{(i)}\cdot \delta_2 \delta^\prime_3
+\end{equation}
+که در آن $\delta_1^{(i)}$ و $\delta_2$ اسکالر هستند و $\delta_3 , \delta_4 \in \mathbb{R}^{D_{w1} \times 1}$ و $\delta_5 \in \mathbb{R}^{1 \times D_x}$
+\begin{equation}
+    W_1^{(0)} = W_1 - \eta \cdot \frac{\partial J}{\partial W_1}
+\end{equation}
+\begin{equation}
+    W_2^{(0)} = W_2 - \eta \cdot \frac{\partial J}{\partial W_2}
+\end{equation}
+
+(ه)
+
+\begin{equation}
+    J2 = - \sum_i (\alpha \cdot (1-y^{(i)}).log(1-\hat{y}^{(i)})+\beta \cdot y^{(i)} \cdot log(\hat{y}^{(i)})) + \frac{1}{2}||W_2||_2^2+\frac{1}{2}||W_1||_2^2
+\end{equation}
+\begin{equation}
+    J1 = - \sum_i (\alpha \cdot (1-y^{(i)}).log(1-\hat{y}^{(i)})+\beta \cdot y^{(i)} \cdot log(\hat{y}^{(i)})) + \frac{1}{2}||W_2||_1+\frac{1}{2}||W_1||_1
+\end{equation}
+\begin{equation}
+    W_1^{(0)} = W_1 -\eta \cdot (\frac{\partial j}{\partial W_1}+2 \cdot W_1)
+\end{equation}

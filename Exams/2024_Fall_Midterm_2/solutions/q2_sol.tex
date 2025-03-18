@@ -1,0 +1,47 @@
+
+آ) می‌توانیم مقادیر  را به صورت زیر بازنویسی کنیم:
+
+\begin{align*}
+& y_1 = \frac{x_1+x_2}{2} + \frac{|x_1-x_2|}{2} \\
+& y_2 = \frac{x_1+x_2}{2} - \frac{|x_1-x_2|}{2}
+\end{align*}
+
+یعنی داریم:
+
+$$
+\rightarrow \begin{cases}
+x_1 \ge x_2 \rightarrow \begin{cases} y_1 =  \frac{x_1+x_2}{2} + \frac{x_1-x_2}{2} = x_1 = \max(x_1, x_2) \\
+y_2 = \frac{x_1+x_2}{2} - \frac{x_1 - x_2}{2} = x_2 = \min(x_1, x_2) \end{cases}\\
+
+x_1 < x_2 \rightarrow \begin{cases} y_1 =  \frac{x_1+x_2}{2} - \frac{x_1-x_2}{2} = x_2 = \max(x_1, x_2) \\
+y_2 = \frac{x_1+x_2}{2} + \frac{x_1 - x_2}{2} = x_1 = \min(x_1, x_2) \end{cases}
+\end{cases}$$
+
+در این صورت می‌توان گفت:
+
+\begin{align*}
+W^{(1)} &= \begin{bmatrix}1 & 1 \\ 1 & -1\end{bmatrix}
+& b^{(1)} &= \begin{bmatrix}0 \\ 0\end{bmatrix}
+& \phi^{(1)}(x) &= \begin{bmatrix}x_1 \\ |x_2|\end{bmatrix} \\
+W^{(2)} &= \begin{bmatrix} 0.5 & 0.5 \\ 0.5 & -0.5\end{bmatrix}
+&b^{(2)} &= \begin{bmatrix}0 \\ 0\end{bmatrix}
+&\phi^{(2)}(x) &= \begin{bmatrix}x_1 \\ x_2\end{bmatrix}
+\end{align*}
+
+ب) با استفاده از ماژول پیاده‌سازی شده در بخش پیش داریم:
+
+$$
+\begin{bmatrix}
+y_1 \\ y_2 \ \\ y_3 \ \\ y_4 \ 
+\end{bmatrix} =
+\begin{bmatrix}
+\max \left(\max(x_1, x_2),~\max(x_3, x_4) \right)\\
+
+\max \left(\min \left(\max(x_1, x_2),~\max(x_3, x_4) \right),~\max \left(\min(x_1, x_2),~\min(x_3, x_4) \right) \right)\\
+
+\min \left(\min \left(\max(x_1, x_2),~\max(x_3, x_4) \right),~\max \left(\min(x_1, x_2),~\min(x_3, x_4) \right) \right)\\
+
+\min \left(\min(x_1, x_2),~\min(x_3, x_4) \right)\\
+
+\end{bmatrix} 
+$$

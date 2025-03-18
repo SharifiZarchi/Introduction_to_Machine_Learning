@@ -1,0 +1,78 @@
+\textbf{انتشار به عقب(28 نمره)}
+
+1- در این مسئله میخواهیم یک دسته بندی دوکلاسه انجام دهیم.اما دادگان ما بصورت نامتوازن هستند به صورتی که 2000 داده از کلاس اول و 200 داده از کلاس دوم داریم.
+
+(الف) یک راه حل برای حل عدم توازن دادگان ارایه دهید.
+
+\vspace{2cm}
+
+معماری شبکه استفاده شده بصورت زیر است (از چپ به راست):
+
+\begin{equation}
+z_{1} = W_1 x^{(i)}+b_1 
+\qquad
+a_{1} = ReLU(z_1)
+\qquad
+z_{2} = W_2 a_1+b_2 
+\end{equation}
+
+\begin{equation}
+\hat{y}^{(i)} = \sigma(z_2)
+\qquad
+L^{(i)} = \alpha . y^{(i)} . log(\hat{y}^{(i)})+ \beta  .(1-y^{(i)})log (1-\hat{y}^{(i)})
+\end{equation}
+\begin{equation}
+J = -\frac{1}{m} \sum_{i=1}^{m} L^{i}
+\end{equation}
+
+ابعاد به شرح زیر است :
+\begin{equation}
+\hat{y}^{(i)} \in \mathbb{R}, \space  y^{(i)} \in \mathbb{R}, \space x^{(i)} \in \mathbb{R}^{D_x \times 1}, \space w_1 \in \mathbb{R}^{D_{w1} \times D_x}, \space w_2 \in \mathbb{R}^{ 1 \times D_{w2}}
+\end{equation}
+توجه داشته باشد که $m$ اندازه مجموعه داده ها است و دادگان بردار هایی با طول $D_x$ هستند.
+
+(ب) برای مقادیر زیر و به ازای ورودی داده شده خروجی شبکه را بدست آورید.
+
+\begin{equation}
+x = \begin{bmatrix}
+1 \\
+0 \\
+1
+\end{bmatrix}, \space
+w_1 = \begin{bmatrix}
+0.2&0.4&-0.5 \\
+-0.3&0.1&0.2
+\end{bmatrix}, \space
+w_2 = \begin{bmatrix}
+-0.3&-0.2 \\
+\end{bmatrix}, \space
+b_1 = \begin{bmatrix}
+-0.4\\
+0.2
+\end{bmatrix}, \space
+b_2 = \begin{bmatrix}
+0.1\\
+\end{bmatrix}, \space
+\end{equation}
+
+\begin{equation}
+y=1, \space\alpha = \beta =0.5
+\end{equation}
+
+
+
+
+\pagebreak
+
+(ج) چرا $\alpha$ و $\beta$ مفید هستند ؟ یک جفت مقدار معقول برای $\alpha$ و $\beta$ در این مسئله چیست؟ مقادیر مشخصی برای این وزن ها ارایه دهید.
+
+\vspace{2cm}
+
+(د) محاسبات مربوطه به الگوریتم انتشار به عقب را ابتدا بصورت پارامتری برای یک گام انجام داده و سپس وزن های داده شده را به ازای مقادیر داده شده اپدیت کنید. (همراه با نرخ یادگیری برابر با 1.0)
+
+
+\vspace{17cm}
+(ه) شما تصمیم میگیرید که به مدل $L_2 Regularization$ اضافه کنید. تابع هزینه جدید خود را بنویسید و با استفاده از این تابع هزینه جدید، قانون بروزرسانی را برای $w_1$ بنویسید. 
+اگر از $L_1 Regularization$ استفاده میشد تابع هزینه چگونه میشد؟
+
+\pagebreak

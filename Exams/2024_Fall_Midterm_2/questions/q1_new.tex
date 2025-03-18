@@ -1,0 +1,44 @@
+\textbf{تعداد پارامتر(18 نمره)}
+
+
+
+یک شبکه‌ی عصبی کانولوشنی تعریف‌شده توسط لایه‌های زیر در جدول ارائه شده است. ابعاد خروجی هر لایه و تعداد پارامترهای مربوط به آن را محاسبه کنید. می‌توانید شکل خروجی‌های فعال‌سازی را در قالب $(H, W, C)$ بنویسید که در آن $H$ ارتفاع، $W$ عرض و $C$ تعداد کانال‌ها را نشان می‌دهد. فرض کنید \lr{pad} برابر ۱ و \lr{stride} برابر ۱ است (مگر اینکه مشخص شده باشد).
+\begin{itemize}
+\item \lr{CONVx-N} یک لایه‌ی کانولوشن با $N$ فیلتر با ابعاد $x \times x$ است.
+\item \lr{POOL-n} یک لایه‌ی \lr{max-pooling} با ابعاد $n \times n$   با گام یا stride برابر با $n$ و بدون \lr{pad} است.
+\item \lr{FLATTEN} داده‌های ورودی را تخت می‌کند (کل داده ها را به صورت یک وکتور در می‌آورد).
+\item \lr{FC-N} یک لایه‌ی کاملاً متصل با $N$ نورون است.
+\end{itemize}
+
+
+\setlength\extrarowheight{15pt}
+
+\begin{center}
+\setLR
+\begin{tabular}{|l|p{0.35\textwidth}|p{0.45\textwidth}|}
+\hline
+\lr{Layer} & \lr{Activation Volume Dimensions} & \lr{Number of parameters} \\
+\hline
+\lr{Input} & $32 \times 32 \times 3$ & $0$ \\
+\hline
+\lr{CONV3-8} & & \\
+\hline
+\lr{Leaky ReLU} & & \\
+\hline
+\lr{POOL-2} & & \\
+\hline
+\lr{BATCHNORM} & & \\
+\hline
+\lr{CONV3-16} & & \\
+\hline
+\lr{Leaky ReLU} & & \\
+\hline
+\lr{POOL-2} & & \\
+\hline
+\lr{FLATTEN} & & \\
+\hline
+\lr{FC-10} & & \\
+\hline
+\end{tabular}
+\end{center}
+
