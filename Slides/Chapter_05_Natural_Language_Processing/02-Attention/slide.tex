@@ -495,7 +495,7 @@ subsubsectionstyle=show/shaded/hide]
 				\begin{itemize}
 					\item Key vectors: $\mathbf{k} = W_k^T \mathbf{x}$
 					\item Value vectors: $\mathbf{v} = W_v^T \mathbf{x}$
-					\item \textcolor{blue}{Query vectors: $\mathbf{q} &= W_q^T \mathbf{x}$}
+					\item \textcolor{blue}{Query vectors: $\mathbf{q} = W_q^T \mathbf{x}$}
 					\item \textbf{Alignment}: $e_{i,j} = \frac{\mathbf{q}_j \cdot \mathbf{k}_i}{\sqrt{D_k}}$
 					\item \textbf{Attention}: $\mathbf{a} = \texttt{softmax}(\mathbf{e})$
 					\item Output: $y_j = \sum_i a_{i,j} \mathbf{v}_i$
@@ -545,7 +545,7 @@ subsubsectionstyle=show/shaded/hide]
 			\begin{itemize}
 				\item Key vectors: $\mathbf{k} = W_k^T \mathbf{x}$
 				\item Value vectors: $\mathbf{v} = W_v^T \mathbf{x}$
-				\item \textcolor{blue}{Query vectors: $\mathbf{q} &= W_q^T \mathbf{x}$}
+				\item \textcolor{blue}{Query vectors: $\mathbf{q} = W_q^T \mathbf{x}$}
 				\item \textbf{Alignment}: $e_{i,j} = \frac{\mathbf{q}_j \cdot \mathbf{k}_i}{\sqrt{D_k}}$
 				\item \textbf{Attention}: $\mathbf{a} = \texttt{softmax}(\mathbf{e})$
 				\item Output: $y_j = \sum_i a_{i,j} \mathbf{v}_i$
@@ -767,7 +767,7 @@ subsubsectionstyle=show/shaded/hide]
 			%			\item Struggles with capturing relationships between distant elements due to vanishing gradients.
 		\end{itemize}
 	\end{columns}
-	\vspace{6}
+	\vspace{6 pt}
 	\vfill
 	\begin{tikzpicture}[remember picture,overlay]
 		\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
