@@ -486,24 +486,7 @@ subsubsectionstyle=show/shaded/hide]
     \end{itemize}
 \end{frame}
 
-
-\subsection{Batch Normalization Pros \& Cons}
-
-\begin{frame}{Batch Normalization Pros}
-
-    \textbf{Pros}
-    
-    \begin{itemize}
-
-        \item \textbf{Faster Convergence:}  Empirical results support that models with batch normalization converge faster and achieve higher accuracy, even with \textbf{higher learning rates}.
-        \item \textbf{Reduced Sensitivity to  Weight Initialization:} Mitigate the dependency on careful weight initialization.
-        \item \textbf{Acts as Regularization:} Batch normalization can help reduce overfitting.
-        \item \textbf{Reduces Vanishing/Exploding Gradients:} Maintains stable gradients throughout deep networks.
-
-
-    \end{itemize}
-\end{frame}
-
+\subsection{Batch Normalization During Inference Mode}
 
 \begin{frame}{Batch Normalization During Inference Mode}
 	
@@ -511,7 +494,37 @@ subsubsectionstyle=show/shaded/hide]
 	
 	\begin{itemize}
 		
-		\item During inference (when predicting new data), batch statistics (mean and variance) are replaced with moving averages collected during training.
+		\item During inference (when predicting new data), batch statistics (mean and variance) are replaced with \textbf{moving averages} collected during training.
+		
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{What is a Moving Average?}
+	\begin{itemize}
+		\item A \textbf{moving average} tracks the average of a value (like batch mean or variance) over time.
+		\item At each training step, it updates using:
+		\[
+		\mu_{\text{moving}} \leftarrow (1 - \alpha)\mu_{\text{moving}} + \alpha\mu_{\text{batch}}
+		\]
+		\item Here, $\alpha$ is a momentum parameter (e.g., 0.1), controlling how much weight to give to the new batch's value.
+		\item This ``momentum'' is a hyperparameter that is used only for Batch Norm moving averages and should not be confused with the momentum that is used in the Optimizer.
+		\item These moving averages approximate the global statistics used during inference.
+	\end{itemize}
+\end{frame}
+
+\subsection{Batch Normalization Pros \& Cons}
+
+\begin{frame}{Batch Normalization Pros}
+	
+	\textbf{Pros}
+	
+	\begin{itemize}
+		
+		\item \textbf{Faster Convergence:}  Empirical results support that models with batch normalization converge faster and achieve higher accuracy, even with \textbf{higher learning rates}.
+		\item \textbf{Reduced Sensitivity to  Weight Initialization:} Mitigate the dependency on careful weight initialization.
+		\item \textbf{Acts as Regularization:} Batch normalization can help reduce overfitting.
+		\item \textbf{Reduces Vanishing/Exploding Gradients:} Maintains stable gradients throughout deep networks.
+		
 		
 	\end{itemize}
 \end{frame}
