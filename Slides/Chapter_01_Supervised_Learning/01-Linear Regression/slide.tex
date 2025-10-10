@@ -15,7 +15,7 @@
 \usepackage{fourier} % see "http://faq.ktug.org/wiki/uploads/MathFonts.pdf" for other options
 \usepackage{hyperref}
 \usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
-\usepackage{graphicx,pstricks,listings,stackengine}
+\usepackage{graphicx,listings,stackengine}
 \usepackage{lipsum}
 \usepackage{tikz}
 
@@ -23,13 +23,11 @@
 \author{Ali Sharifi-Zarchi}
 % \author{CE Department}
 \title{Machine Learning (CE 40477)}
-\subtitle{Fall 2024}
+\subtitle{Fall 2025}
 \institute{
     CE Department \\
     Sharif University of Technology
 }
-%\date{\small \today}
-% \usepackage{UoWstyle}
 \usepackage{SUTstyle}
 
 % defs
@@ -57,43 +55,84 @@
     \titlepage
     \vspace*{-0.6cm}
     \begin{figure}[htpb]
-        \begin{center}
-            \includegraphics[keepaspectratio, scale=0.25]{pic/sharif-main-logo.png}
-        \end{center}
-    \end{figure}
+    \begin{center}
+        \includegraphics[keepaspectratio, scale=0.25]{pic/sharif-main-logo.png}
+    \end{center}
+\end{figure}
+
 \end{frame}
 
-\begin{frame}    
-\tableofcontents[sectionstyle=show,
-subsectionstyle=show/shaded/hide,
-subsubsectionstyle=show/shaded/hide]
-\end{frame}
 
-\section{Course Overview}
-\begin{frame}{Introduction to Machine Learning}
 
-\textbf{Course Overview}
 
+\begin{frame}{Teaching Team}
+\textbf{Teaching Team}
 \begin{itemize}
-    \item \textbf{Supervised Learning}
-    \item \textbf{Unsupervised Learning}
-    \item \textbf{Neural Networks}
-    \item \textbf{Computer Vision}
-    \item \textbf{Natural Language Processing}
-    \item \textbf{Contrastive Language-Image Pretraining}
-
+    \item \textbf{Instructor:} Dr. Ali Sharifi Zarchi \\
+          \texttt{asharifi@sharif.edu}
+    \item \textbf{Team Captain:} Alireza Mirrokni \\
+          \texttt{alirezamirrokni28@gmail.com}
 \end{itemize}
+\textbf{Course Information}
+\begin{itemize}
+    \item \textbf{Course Website:} \texttt{}
+    \item \textbf{Quera:} \texttt{}
+    \item \textbf{Final Exam:} 5 Bahman - 15:00 pm
+    \item \textbf{Lectures:} Sundays and Tuesdays, 10:30-12:00
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Course Grading Plan}
+\textbf{Course Grading Plan}
+
+\begin{table}[h!]
+\centering
+\renewcommand{\arraystretch}{1.2}
+\begin{tabular}{l c c}
+\textbf{Component} & \textbf{Details} & \textbf{Points} \\ \hline
+Theoretical Assignments &  (5 required + 1 bonus) & 3.5 + 0.5 \\
+Practical Assignments &  (5 required + 1 bonus) & 3.5 + 0.5 \\
+Midterm Exam & Chapters 1-3 & 4 \\
+Final Exam & Chapters 4-6 + review of 1-3 & 4 \\
+Quizzes & 5 total (350 required + 150 bonus) & 3.5 + bonus \\
+Project & -- & 2 \\ \hline
+\textbf{Total} &  & \textbf{21.5 + bonus} \\
+\end{tabular}
+\end{table}
 
 \end{frame}
+
+
+
+
+
+\begin{frame}{Course Overview}
+\textbf{Course Overview}
+\begin{itemize}
+    \item Supervised Learning
+    \item Unsupervised Learning
+    \item Neural Networks
+    \item Computer Vision
+    \item Natural Language Processing
+    \item Additional chapter
+\end{itemize}
+\end{frame}
+
+
+
+
 
 
 \begin{frame}{Supervised Learning}
 \textbf{Learn to predict outcomes using labeled data.}
 
 \begin{itemize}
-    \item Real estate agencies predict house prices using historical data.
-    \item Features like size, location, and number of rooms are used.
+    \item Predict house prices from past sales data.
+    \item Use features such as size, location, and room count.
 \end{itemize}
+
 
 \begin{center}
     \centering
@@ -105,45 +144,49 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 \begin{frame}{Unsupervised Learning}
-    \begin{itemize}
-        \item Find patterns in unlabeled data
-    \end{itemize}
-    \vspace{0.5cm}
-    \begin{center}
-    \includegraphics[width=0.6\linewidth]{pic/be2.jpg} 
-    \end{center}
-    \begin{center}
-        \textit{Example: Customer segmentation, news clustering.}
-    \end{center}
+\textbf{Discover hidden structures within unlabeled data.}
+
+\begin{itemize}
+    \item Identify groups or patterns without predefined labels.
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{pic/be2.png}
+\end{center}
+
+\begin{center}
+\textit{Example: Image clustering.}
+\end{center}
 \end{frame}
+
+
 
 \begin{frame}{Neural Networks}
     \begin{itemize}
-        \item Mimic the human brain to solve complex tasks
+        \item Designed to mimic the human brain in order to solve complex tasks
     \end{itemize}
-    \vspace{0.5cm}
+    \vspace{0.4cm}
     \begin{center}
         \includegraphics[width=0.7\linewidth]{pic/be3.png}
     \end{center}
-    % \vspace{0.5cm}
+    \vspace{0.3cm}
     \begin{center}
-        \textit{Example: Facial recognition, voice assistants.}
+        \textit{Examples: Facial recognition, voice assistants.}
     \end{center}
 \end{frame}
 
 \begin{frame}{Computer Vision}
     \begin{itemize}
-        \item Enable machines to see and interpret images
+        \item Enables machines to perceive and interpret visual information
     \end{itemize}
-    \vspace{0.5cm}
     \begin{center}
-    \includegraphics[width=0.7\linewidth]{pic/be4.png} 
+        \includegraphics[width=0.7\linewidth]{pic/be4.png} 
     \end{center}
-    % \vspace{0.5cm}
     \begin{center}
-        \textit{Example: Factory quality control, medical image analysis.}
+        \textit{Examples: Factory quality control, medical image analysis.}
     \end{center}
 \end{frame}
+
 
 \begin{frame}{Natural Language Processing (NLP)}
     \begin{itemize}
@@ -151,7 +194,7 @@ subsubsectionstyle=show/shaded/hide]
     \end{itemize}
     \vspace{0.5cm}
     \begin{center}
-        \includegraphics[width=0.6\linewidth]{pic/be5.jpg}
+        \includegraphics[width=0.6\linewidth]{pic/be5.png}
     \end{center}
     % \vspace{0.5cm}
     \begin{center}
@@ -159,111 +202,35 @@ subsubsectionstyle=show/shaded/hide]
     \end{center}
 \end{frame}
 
-\begin{frame}{Contrastive Language-Image Pretraining (CLIP)}
-    \begin{itemize}
-        \item Connecting text and images.
-    \end{itemize}
-    \vspace{0.5cm}
-    \begin{center}
-        \includegraphics[width=0.45\linewidth]{pic/be6.png}
-    \end{center}
-    % \vspace{0.5cm}
-    % \begin{center}
-    %     % \textit{Example: CLIP.}
-    %     \textit{Figure adapted from [6]}
-    % \end{center}
-    \vfill
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figure adapted from [6]
-        };
-    \end{tikzpicture}
-\end{frame}
 
 
-\section{Introduction}
 
-\begin{frame}{Definition of Machine Learning (ML)}
-    \begin{itemize}
-        \item \textbf{Machine Learning}: A field of study that enables computers to learn from data without being explicitly programmed.
-        \item Involves constructing algorithms that generalize patterns from data.
-        \item Focuses on predicting outcomes, classification, or uncovering hidden structures.
-    \end{itemize}
-\end{frame}
-\begin{frame}{Tom M. Mitchell's Definition of Machine Learning}
-    \begin{itemize}
-        \item A well-known definition of machine learning comes from \textbf{Tom M. Mitchell}:
-    \end{itemize}
-        \begin{quote}
-        "A computer program is said to learn from experience E with respect to some class of tasks T and performance measure P, if its performance at tasks in T, as measured by P, improves with experience E."
-        \end{quote}
-\end{frame}
 
-\begin{frame}{Definition of Machine Learning (cont.)}
+\begin{frame}{What is Machine Learning (ML)?}
     \begin{itemize}
-        \item \textbf{Goal}: Develop models that make accurate predictions based on past data.
-        \item Formal definition: Given a task \(T\), performance measure \(P\), and experience \(E\):
-        \[
-        \text{Learning Problem} = (T, P, E)
-        \]
-        \item Example: Predicting house prices based on previous data.
+        \item \textbf{Machine Learning}: Enables computers to learn patterns from data without explicit programming.
+        \item Focuses on predicting outcomes, classification, or discovering hidden structures.
+    \vspace{4mm}
+
+        \item \textbf{Goal}: Build models that make accurate predictions from past data.
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Example Usage of ML}
-\begin{minipage}{0.4\textwidth}
-\begin{itemize}
-    \item \textbf{Real-world examples}:
+
+
+\begin{frame}{Tom M. Mitchell's Definition of ML}
+    \begin{quote}
+    "A computer program is said to learn from experience $E$ with respect to some class of tasks $T$ and performance measure $P$, if its performance at tasks in $T$, as measured by $P$, improves with experience $E$."
+    \end{quote}
+    \vspace{2mm}
     \begin{itemize}
-        \item Fake News Detection (classification problem)
-        \item Predicting House Prices (regression problem)
-        \item Self-driving cars (real-time decision making)
+        \item Formally: $\text{Learning Problem} = (T, P, E)$
+        \item Example: Predicting house prices using past data.
     \end{itemize}
-    \item Application domains: finance, healthcare, robotics, etc.
-\end{itemize}
-\end{minipage}%
-\begin{minipage}{0.6\textwidth}
-    \centering
-    \includegraphics[width=0.8\textwidth]{pic/propaganda_detection.jpg}
-\end{minipage}
-\end{frame}
-
-\begin{frame}{Example Usage of ML: Home Price}
-    \begin{minipage}{0.5\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{pic/1.png}
-    \end{minipage}%
-    \begin{minipage}{0.5\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{pic/2.png}
-    \end{minipage}
-    \vfill
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
-        };
-    \end{tikzpicture}
 \end{frame}
 
 
-\begin{frame}{Example Usage of ML: Applicant approval}
-    \begin{minipage}{0.48\textwidth}
-        \begin{itemize}
-            \item Applicant form as the input.
-            \item Output: approving or denying the request.
-        \end{itemize}
-    \end{minipage}%
-    \begin{minipage}{0.48\textwidth}
-        \centering
-        \includegraphics[width=0.9\textwidth]{pic/3.png}
-    \end{minipage}
-    \vfill
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figure adapted from slides of Dr. Soleymani, Machine Learning course, Sharif University of technology.
-        };
-    \end{tikzpicture}
-\end{frame}
+
 
 \begin{frame}{Paradigms of ML}
 
@@ -288,7 +255,8 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 
-\section{Supervised Learning }
+
+
 
 \begin{frame}{Supervised Learning}
     \begin{itemize}
@@ -321,6 +289,7 @@ subsubsectionstyle=show/shaded/hide]
     
 \end{frame}
 
+
 \begin{frame}{Components of (Supervised) Learning (cont.)}
     \begin{minipage}{0.95\textwidth}
         \begin{figure}[h]
@@ -335,6 +304,7 @@ subsubsectionstyle=show/shaded/hide]
         };
     \end{tikzpicture}
 \end{frame}
+
 
 
 \begin{frame}{Supervised Learning: Regression vs. Classification}
@@ -354,7 +324,6 @@ subsubsectionstyle=show/shaded/hide]
 
 
 
-\subsection{Linear regression}
 \begin{frame}{Solution Components - Learning Model}
     \begin{itemize}
         \item The \textbf{Learning Model} consists of:
@@ -367,6 +336,9 @@ subsubsectionstyle=show/shaded/hide]
     \end{itemize}
     \vspace{0.5cm}
 \end{frame}
+
+
+
 
 \begin{frame}{Hypothesis Space Overview}
     \begin{itemize}
@@ -386,6 +358,10 @@ subsubsectionstyle=show/shaded/hide]
     \end{itemize}
 \end{frame}
 
+
+
+
+
 \begin{frame}{Linear Hypothesis Representation}
     \begin{itemize}
         \item \textbf{Linear Hypothesis Space}:
@@ -402,6 +378,7 @@ subsubsectionstyle=show/shaded/hide]
         \end{itemize}
     \end{itemize}
 \end{frame}
+
 
 \begin{frame}{Understanding Cost Functions}
     \begin{itemize}
@@ -441,6 +418,10 @@ subsubsectionstyle=show/shaded/hide]
     \end{itemize}
 \end{frame}
 
+
+
+
+
 \begin{frame}{How to measure the error}
 
     \begin{minipage}{0.5\textwidth}
@@ -464,7 +445,7 @@ subsubsectionstyle=show/shaded/hide]
     \end{tikzpicture}
 \end{frame}
 
-\subsection{Analytical solution}
+
 \begin{frame}{The learning algorithm}
 
     \begin{itemize}
@@ -486,6 +467,8 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 
+
+
 \begin{frame}{Cost function optimization: univariate}
     \[
     J(w) = \sum_{i=1}^{n} \left( y^{(i)} - w_0 - w_1 x^{(i)} \right)^2
@@ -502,6 +485,8 @@ subsubsectionstyle=show/shaded/hide]
     \end{itemize}
 
 \end{frame}
+
+
 
 
 \begin{frame}{Optimality conditions: univariate}
@@ -524,6 +509,10 @@ subsubsectionstyle=show/shaded/hide]
 
 \end{frame}
 
+
+
+
+
 \begin{frame}{Linear regression example: TV Advertising and Sales}
     This is a real-world example of how businesses can use linear regression to make decisions about marketing budgets. The following table shows the amount of TV advertising budget spend and respective average sales of houses in Boston:
     \begin{table}[h!]
@@ -544,6 +533,10 @@ subsubsectionstyle=show/shaded/hide]
 \href{https://www.kaggle.com/datasets/yasserh/advertising-sales-dataset}{Advertising Sales Dataset}
 \end{frame}
 
+
+
+
+
 \begin{frame}{Linear regression example: TV Advertising and Sales (cont.)}
     \begin{itemize}
         \item In this problem, Sales per TV advertising is need thus the amount spend is considered as input \( x \) and sales is considered as output \( y \). 
@@ -560,6 +553,10 @@ subsubsectionstyle=show/shaded/hide]
         \]
     \end{itemize}
 \end{frame}
+
+
+
+
 
 \begin{frame}{Linear regression example: TV Advertising and Sales (cont.)}
 \begin{minipage}{0.4\textwidth}
@@ -698,9 +695,8 @@ subsubsectionstyle=show/shaded/hide]
 
 \end{frame}
 
-\section{Optimization}
 
-\subsection{Gradient descent}
+
 \begin{frame}{Gradient Descent}
 
     \begin{itemize}
@@ -812,6 +808,8 @@ subsubsectionstyle=show/shaded/hide]
         };
     \end{tikzpicture}
 \end{frame}
+
+
 
 \begin{frame}{Gradient descent overview (cont.)}
     \begin{minipage}{0.5\textwidth}
@@ -958,7 +956,7 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 
-\subsection{Stochastic gradient descent}
+
 
 \begin{frame}{Variants of gradient descent}
     \begin{itemize}
@@ -1042,7 +1040,9 @@ subsubsectionstyle=show/shaded/hide]
 
 \end{frame}
 
-\section{Polynomial Regression}
+
+
+
 
 \begin{frame}{Limitations of linear regression}
     \begin{itemize}
@@ -1215,7 +1215,8 @@ subsubsectionstyle=show/shaded/hide]
 %     \]
 % \end{frame}
 
-\section{Generalization}
+
+
 \begin{frame}{Generalization Overview}
     \textbf{Main Idea}: The ability of a model to perform well on unseen data
     \begin{itemize}
@@ -1279,499 +1280,9 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 
-\begin{frame}{Generalization: polynomial regression}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \begin{figure}[h]
-        \includegraphics[width=0.8\textwidth]{pic/Polynomial_regression/degree_1.png}
-        \end{figure}
-        \begin{center}
-            Degree of 1
-        \end{center}
-    \end{minipage}%
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \begin{figure}[h]
-        \includegraphics[width=0.8\textwidth]{pic/Polynomial_regression/degree_3.png}
-        \end{figure}
-        \begin{center}
-            Degree of 3
-        \end{center}
-    \end{minipage}
-    \vfill
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Example adapted from slides of Dr. Soleymani, ML course, Sharif University of technology.
-        };
-    \end{tikzpicture}
-    % \vfill
-    % \begin{center}
-    %     \tiny Example adapted from slides of Dr. Soleymani, Machine Learning course, Sharif University of technology.
-    % \end{center}
-\end{frame}
-
-\begin{frame}{Overfitting: polynomial regression}
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \begin{figure}[h]
-        \includegraphics[width=0.8\textwidth]{pic/Polynomial_regression/degree_5.png}
-        \end{figure}
-        \begin{center}
-            Degree of 5
-        \end{center}
-    \end{minipage}%
-    \begin{minipage}{0.45\textwidth}
-        \centering
-        \begin{figure}[h]
-        \includegraphics[width=0.8\textwidth]{pic/Polynomial_regression/degree_7.png}
-        \end{figure}
-        \begin{center}
-            Degree of 7
-        \end{center}
-    \end{minipage}
-    \vfill
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Example adapted from slides of Dr. Soleymani, ML course, Sharif University of technology.
-        };
-    \end{tikzpicture}
-\end{frame}
-
-% \begin{frame}{Example: Regression using polynomial curve}
-% \begin{minipage}{0.45\textwidth}
-%         \includegraphics[width=\linewidth]{pic/10.png}
-%         \captionof{Figure adapted from Machine Learning and Pattern Recognition, Bishop.}
-%     \end{minipage}%
-% \begin{minipage}{0.3\textwidth}
-%     \vspace{0.5cm} % Adjust vertical alignment of the text if needed
-%     \begin{itemize}
-%             \item \[t = \sin(2 \pi x) + \epsilon\]
-%         \end{itemize}
-% \end{minipage}
-% \end{frame}
-
-\begin{frame}{Polynomial regression with various degrees: example}
-    \begin{minipage}{0.95\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{pic/Polynomial_regression/pr_low_degrees.png}
-    \end{minipage}
-    % \vfill
-    % \[ t = sin(2\pi x) + \epsilon \]
-    % \vfill
-    % \begin{center}
-    %     \tiny Figures adapted from Machine Learning and Pattern Recognition, Bishop
-    % \end{center}
-    \vfill
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figures adapted from Machine Learning and Pattern Recognition, Bishop
-        };
-    \end{tikzpicture}
-\end{frame}
-
-\begin{frame}{Polynomial regression with various degrees: example (cont.)}
-    \begin{minipage}{0.95\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{pic/Polynomial_regression/pr_high_degrees.png}
-    \end{minipage}
-    % \vfill
-    % \[ t = sin(2\pi x) + \epsilon \]
-    % \vfill
-    % \begin{center}
-    %     \tiny Figures adapted from Machine Learning and Pattern Recognition, Bishop
-    % \end{center}
-    \vfill
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figures adapted from Machine Learning and Pattern Recognition, Bishop
-        };
-    \end{tikzpicture}
-\end{frame}
-
-\begin{frame}{Root mean squared error}
-    \begin{minipage}{0.45\textwidth}
-        \centering 
-        \includegraphics[width=0.9\textwidth]{pic/Polynomial_regression/erms_polynomial_regression.png}
-    \end{minipage}%
-    \begin{minipage}{0.45\textwidth}
-        \[ 
-        E_{RMS} = \sqrt{\dfrac{\sum_{i=1}^n \left( y^{(i)} - f(\mathbf{x}^{(i)}; \mathbf{w} \right)^2}{n}}
-        \]
-    \end{minipage}
-    % \vfill
-    % \begin{center}
-    %     \tiny Figure adapted from Machine Learning and Pattern Recognition, Bishop
-    % \end{center}
-    \vfill
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figures adapted from Machine Learning and Pattern Recognition, Bishop
-        };
-    \end{tikzpicture}
-\end{frame}
-
-\begin{frame}{Bias-Variance Decomposition}
-    \textbf{Generalization error decomposition}:
-    \[
-    \mathbb{E}[(y - h_w(x))^2] = (\text{Bias})^2 + \text{Variance} + \text{Noise}
-    \]
-    \begin{itemize}
-        \item \textbf{Bias}: Error due to simplifying assumptions in the model
-        \[
-        \text{Bias}(x) = \mathbb{E}[h_w(x)] - f(x)
-        \]
-        \item \textbf{Variance}: Sensitivity of the model to training data
-        \[
-        \text{Variance}(x) = \mathbb{E}[(h_w(x) - \mathbb{E}[h_w(x)])^2]
-        \]
-        \item \textbf{Noise}: Irreducible error from the inherent randomness in data
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{High Bias in Simple Models}
-    \textbf{Explanation}: Simple models, such as linear regression, often underfit
-    \[
-    h_w(x) = w_0 + w_1 x
-    \]
-    \begin{itemize}
-        \item Bias remains large even with infinite data
-        \[
-        \text{Bias}^2 \gg \text{Variance}
-        \]
-        \item Leads to large generalization error
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{High Variance in Complex Models}
-    \textbf{Explanation}: Complex models tend to overfit
-    \[
-    h_w(x) = w_0 + w_1 x + w_2 x^2 + \dots + w_m x^m
-    \]
-    \begin{itemize}
-        \item Variance dominates when the model is too complex
-        \[
-        \text{Variance} \gg \text{Bias}
-        \]
-        \item Fits noise, leading to high test error
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Bias-Variance Tradeoff}
-    \textbf{Tradeoff}: Balancing between bias and variance is key for optimal performance
-    \begin{itemize}
-        \item Low complexity: High bias, low variance
-        \item High complexity: Low bias, high variance
-    \end{itemize}
-    \[
-    % \text{Generalization error} = (\text{Bias})^2 + \text{Variance} + \text{Noise}
-    \]
-\end{frame}
-
-\begin{frame}{Regularization}
-    \textbf{Purpose}: Prevent overfitting by penalizing large weights
-    \[
-    J_{\lambda}(w) = J(w) + \lambda R(w)
-    \]
-    \begin{itemize}
-        % \item Common regularizer: \( R(w) = ||w||_2^2 \) (L2 norm)
-        \item Common regularizers: L1 and L2 norms
-        \item \( \lambda \) controls the balance between fit and simplicity
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Effect of Regularization Parameter \( \lambda \)}
-    \textbf{Balancing Fit and Complexity}:
-    \[
-    J_{\lambda}(w) = J(w) + \lambda \sum_{j=1}^{m} w_j^2 = J(w) + \lambda \mathbf{w}^T\mathbf{w}
-    \]
-    \begin{itemize}
-        \item Large \( \lambda \): Forces smaller weights, reduces complexity, increases bias, decreases variance
-        \item Small \( \lambda \): Allows larger weights, increases complexity, reduces bias, increases variance
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Effect of Regularization parameter \( \lambda \)}
-    \begin{minipage}{0.32\textwidth}
-        \centering
-        \includegraphics[width=1.0\textwidth]{pic/Regularization/regularization_0.png}
-    \end{minipage} %
-    \begin{minipage}{0.32\textwidth}
-        \centering
-        \includegraphics[width=1.0\textwidth]{pic/Regularization/regularization_18.png}
-    \end{minipage} %
-    \begin{minipage}{0.32\textwidth}
-        \centering
-        \includegraphics[width=1.0\textwidth]{pic/Regularization/regularization_inf.png}
-    \end{minipage}
-    \vfill
-    \[
-    J_{\lambda}(w) = \sum_{i=1}^n \left( t^{(i)} - f(\mathbf{x}^{(i)}; \mathbf{w}) \right)^2 + \lambda \mathbf{w}^T\mathbf{w}
-    \]
-    \[ 
-    f(\mathbf{x}^{(n)}; \mathbf{w}) = w_0 + w_1 x + \dots + w_9 x^9
-    \]
-    % \vfill
-    % \begin{center}
-    %     \tiny Figures adapted from Machine Learning and Pattern Recognition, Bishop.
-    % \end{center}
-    \vfill
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figures adapted from Machine Learning and Pattern Recognition, Bishop
-        };
-    \end{tikzpicture}
-\end{frame}
-
-\begin{frame}{Effect of regularization on weights}
-    \begin{minipage}{0.9\textwidth}
-        \centering
-        \includegraphics[width=0.7\textwidth]{pic/Regularization/weights.png}
-    \end{minipage}
-    % \vfill
-    % \begin{center}
-    %     \tiny Figure adapted from Machine Learning and Pattern Recognition, Bishop.
-    % \end{center}
-    \vfill
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Table adapted from Machine Learning and Pattern Recognition, Bishop
-        };
-    \end{tikzpicture}
-\end{frame}
-
-\begin{frame}{Regularization parameter}
-    \begin{minipage}{0.45\textwidth}
-    \centering
-    \includegraphics[width=1\textwidth]{pic/Regularization/regularization_parameter_erms.png}
-    \end{minipage} %
-    \begin{minipage}{0.45\textwidth}
-    \begin{itemize}
-        \item \( \lambda \) controls the effective complexity of the model
-        \item hence the degree of overfitting
-    \end{itemize}
-    \end{minipage}
-    % \vfill
-    % \begin{center}
-    %     \tiny Figure adapted from Machine Learning and Pattern Recognition, Bishop.
-    % \end{center}
-    \vfill
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figures adapted from Machine Learning and Pattern Recognition, Bishop
-        };
-    \end{tikzpicture}
-\end{frame}
 
 
 
-% \section{Cross-validation}
-% \begin{frame}{Cross-Validation Concept}
-%     \textbf{Purpose}: Estimate model performance and prevent overfitting
-%     \[
-%     J_v(w) = \frac{1}{v_{\text{set}}} \sum_{i \in v_{\text{set}}} (y_i - h_w(x^{(i)}))^2
-%     \]
-%     \begin{itemize}
-%         \item Use validation error \( J_v(w) \) to select the best model
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{k-Fold Cross-Validation (CV)}
-%     \textbf{k-Fold Procedure}:
-%     \[
-%     \text{For each } i = 1 \text{ to } k, \text{train on all except } i\text{-th part, validate on } i\text{-th part.}
-%     \]
-%     \begin{itemize}
-%         \item Average performance across \( k \) runs
-%         \item Common choices: \( k = 5 \), \( k = 10 \)
-%     \end{itemize}
-% \end{frame}
-
-\section{Probabilistic regression}
-\begin{frame}{Introduction to Regression (Probabilistic Perspective)}
-    \begin{itemize}
-        \item \textbf{Objective:} Model the relationship between input \( \mathbf{x} \) and output \( y \).
-        \item \textbf{Uncertainty:} Output \( y \) has an associated uncertainty modeled by a probability distribution.
-        \item \textbf{Example:}
-        \[
-        y = f(\mathbf{x}; \mathbf{w}) + \epsilon \quad , \quad \epsilon \sim \mathcal{N}(0, \sigma^2)
-        \]
-        \item The goal is to learn \( f(\mathbf{x}; \mathbf{w}) \) to predict \( y \).
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Curve Fitting with Noise}
-    \begin{itemize}
-        \item In real-world scenarios, observed output \( y \) is noisy.
-        \item \textbf{Model: True output plus noise}
-        % \[
-        % y = f(\mathbf{x}; \mathbf{w}) + \epsilon, \quad \epsilon \sim \mathcal{N}(0, \sigma^2)
-        % \]
-        \[
-        y = f(\mathbf{x}; \mathbf{w}) + \epsilon
-        \]
-        \item Noise represents unknown or unmodeled factors.
-        \item \textbf{Example:} Predicting house prices based on features with inherent unpredictability.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Expected Value of Output}
-    \begin{itemize}
-        \item Best Estimate: The conditional expectation of \( y \) given \( \mathbf{x} \).
-        \[
-        \mathbb{E}[y | \mathbf{x}] = f(\mathbf{x}; \mathbf{w})
-        \]
-        \item Goal: Learn a function \( f(\mathbf{x}; \mathbf{w}) \) that represents the average behavior of the data.
-        \item Key Point: The model captures the mean of the target variable given input \( \mathbf{x} \).
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Maximum Likelihood Estimation (MLE)}
-    \begin{itemize}
-        \item \textbf{MLE:} A method to estimate parameters that maximize the likelihood of the data.
-        \item Given data \( \mathcal{D} = \{ (\mathbf{x}_i, y_i) \}_{i=1}^n \), MLE maximizes:
-        \[
-        L(\mathcal{D}; \mathbf{w}, \sigma^2) = \prod_{i=1}^n p(y_i | \mathbf{x}_i, \mathbf{w}, \sigma^2)
-        \]
-        \item MLE finds parameters \( \mathbf{w} \) and \( \sigma^2 \) that best explain the data.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Maximum Likelihood Estimation (cont.)}
-    \begin{itemize}
-        \item Instead of maximizing the likelihood, it is often easier to maximize the log-likelihood:
-        \[
-        \log L(\mathcal{D}; \mathbf{w}, \sigma^2) = \sum_{i=1}^n \log  p(y_i | \mathbf{x}_i, \mathbf{w}, \sigma^2)
-        \]
-        \item It is because \( \log f(x) \) preserves the behaviour of \( f(x) \).
-        \item It is also easier to find derivative on summation of terms.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Univariate Linear Function Example}
-    \begin{itemize}
-        \item Assuming Gaussian noise with parameters \( (0, \sigma^2) \), probability of observing real output value \( y \) is:
-        \[
-        p(y | \mathbf{x}, \mathbf{w}, \sigma^2) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left( - \frac{(y - f(\mathbf{x}; \mathbf{w}))^2}{2\sigma^2} \right)
-        \]
-
-        \item For a simple linear model \( f(\mathbf{x}; \mathbf{w}) = w_0 + w_1 x \) we have:
-        \[
-        p(y | x, \mathbf{w}, \sigma^2) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left( - \frac{(y - w_0 - w_1 x)^2}{2\sigma^2} \right)
-        \]
-        % \item MLE Objective: Maximize the likelihood of the data points fitting the model.
-        \item \textbf{Key Observation:} Points far from the fitted line will have a low likelihood value.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Log-Likelihood and Sum of Squares}
-    \begin{itemize}
-        \item Using log-likelihood we have:
-        \[
-        \log L(\mathcal{D}; \mathbf{w}, \sigma^2) = -n \log \sigma - \frac{n}{2} \log(2\pi) - \frac{1}{2\sigma^2} \sum_{i=1}^n (y^{(i)} - f(\mathbf{x}^{(i)}; \mathbf{w}))^2
-        \]
-        \item Since the objective of MLE is to optimize with regards to random variables, we can rule out the constants:
-        \[
-        \log L(\mathcal{D}; \mathbf{w}, \sigma^2) \sim - \sum_{i=1}^n (y^{(i)} - f(\mathbf{x}^{(i)}; \mathbf{w}))^2
-        \]
-        \item \textbf{Equivalence:} Maximizing the log-likelihood is equivalent to minimizing the Sum of Squared Errors (SSE):
-        \[
-        J(\mathbf{w}) = \sum_{i=1}^n (y^{(i)} - f(\mathbf{x}^{(i)}; \mathbf{w}))^2
-        \]
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Estimating \( \sigma^2 \)}
-    \begin{itemize}
-        \item The maximum likelihood estimate of the noise variance \( \sigma^2 \):
-        \[
-        \hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n \left( y^{(i)} - f(\mathbf{x}^{(i)}; \hat{\mathbf{w}}) \right)^2
-        \]
-        \item Interpretation: Mean squared error of the predictions.
-        \item Note: \( \sigma^2 \) reflects the noise level in the observations.
-    \end{itemize}
-\end{frame}
-
-% \begin{frame}{Maximum a Posteriori (MAP) Estimation}
-%     \begin{itemize}
-%         \item \textbf{MAP:} Incorporates \textbf{prior information} about parameters.
-%         \[
-%         \mathbf{w}_{MAP} = \arg \max_{\mathbf{w}} p(\mathbf{w} | \mathcal{D}) = \arg \max_{\mathbf{w}} p(\mathcal{D} | \mathbf{w}) p(\mathbf{w})
-%         \]
-%         \item Prior Distribution:
-%         \[
-%         p(\mathbf{w}) = \mathcal{N}(0, \alpha^2 I)
-%         \]
-%         \item Posterior Distribution:
-%         \[
-%         p(\mathbf{w} | \mathcal{D})
-%         \]
-%         \item Key Difference: Unlike MLE, MAP includes a prior to regularize the solution.
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{MAP as Regularized Least Squares}
-%     \begin{itemize}
-%         \item MAP estimation is equivalent to minimizing a regularized SSE:
-%         \[
-%         \mathbf{w}_{MAP} = \arg \min_{\mathbf{w}} \frac{1}{\sigma^2} \sum_{i=1}^n (y_i - f(\mathbf{x}_i; \mathbf{w}))^2 + \frac{1}{\alpha^2} \mathbf{w}^\top \mathbf{w}
-%         \]
-%         \item Regularization Term: \( \lambda = \frac{\sigma^2}{\alpha^2} \) controls how strongly the model is regularized.
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Bayesian Approach}
-%     \begin{itemize}
-%         \item The Bayesian approach integrates over the distribution of parameters:
-%         \[
-%         p(y | \mathbf{x}, \mathcal{D}) = \int p(y | \mathbf{x}, \mathbf{w}) p(\mathbf{w} | \mathcal{D}) d\mathbf{w}
-%         \]
-%         \item This approach incorporates uncertainty in the parameters into the predictions.
-%         \item Benefit: Provides a probabilistic interpretation of the model’s predictions.
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Predictive Distribution}
-%     \begin{itemize}
-%         \item In Bayesian linear regression, the predictive distribution is Gaussian:
-%         \[
-%         p(y | \mathbf{x}, \mathcal{D}) = \mathcal{N}(m_N^\top \mathbf{x}, \sigma_N^2(\mathbf{x}))
-%         \]
-%         \item \( m_N \): Posterior mean.
-%         \item \( \sigma_N^2(\mathbf{x}) \): Predictive variance.
-%         \item Key Point: This captures both the prediction and the uncertainty around it.
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Prior and Posterior Distributions}
-%     \begin{itemize}
-%         \item Prior: Before seeing data, we assume a prior distribution on \( \mathbf{w} \):
-%         \[
-%         p(\mathbf{w}) = \mathcal{N}(0, \alpha^2 I)
-%         \]
-%         \item Posterior: After observing data, we compute the posterior distribution \( p(\mathbf{w} | \mathcal{D}) \).
-%         \item Bayesian Prediction: Integrates over the posterior to account for uncertainty.
-%     \end{itemize}
-% \end{frame}
-
-% \begin{frame}{Example of Predictive Distribution}
-% \small Example: Sinusoidal data with 9 Gaussian basis functions.
-
-% \vspace{0.3cm}
-% \begin{minipage}{0.65\textwidth}
-%     \centering
-%     \includegraphics[width=0.9\textwidth]{pic/9.png}
-%     \caption{\scriptsize \textit{Figure adapted from Machine Learning and Pattern Recognition, Bishop.}}
-% \end{minipage}%
-% \begin{minipage}{0.3\textwidth}
-%     \vspace{0.5cm} % Adjust vertical alignment of the text if needed
-%     \begin{itemize}
-%         \item \textbf{Red curve}: Mean of the predictive distribution.
-%         \item \textbf{Pink region}: One standard deviation from the mean.
-%     \end{itemize}
-% \end{minipage}
-% \end{frame}
-
-\section{References}
 
 \begin{frame}{Contributions}
 \begin{itemize}
@@ -1785,10 +1296,13 @@ subsubsectionstyle=show/shaded/hide]
 
 \end{frame}
 
-\begin{frame}[allowframebreaks]
-    \bibliography{ref}
-    \bibliographystyle{ieeetr}
-    \nocite{*}
-\end{frame}
 
 \end{document}
+
+
+
+
+
+
+
+
