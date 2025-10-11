@@ -1,0 +1,1627 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% A Beamer template for University of Wollongong     %
+% Based on THU beamer theme                          %
+% Author: Qiuyu Lu                                   %
+% Date: July 2024                                    %
+% LPPL Licensed.                                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Customized for Sharif University of Technology     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[serif, aspectratio=169]{beamer}
+%\documentclass[serif]{beamer}  % for 4:3 ratio
+\usepackage[T1]{fontenc} 
+\usepackage{fourier} % see "http://faq.ktug.org/wiki/uploads/MathFonts.pdf" for other options
+\usepackage{hyperref}
+\usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
+\usepackage{graphicx,pstricks,listings,stackengine}
+\usepackage{lipsum}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{shapes.geometric} % Add this to include ellipse shapes
+\usepackage{amsmath}
+\usepackage{pgfplots}  % For plots
+\usepackage{amsmath}   % For equations
+\usepackage{array}     % For tables
+\usepackage{url}
+\usepackage{xcolor}
+\pgfplotsset{compat=1.16}
+
+
+
+\author{Ali Sharifi-Zarchi}
+\title{Machine Learning (CE 40717)}
+\subtitle{Fall 2024}
+\institute{
+    CE Department \\
+    Sharif University of Technology
+}
+%\date{\small \today}
+% \usepackage{UoWstyle}
+\usepackage{SUTstyle}
+
+% defs
+\def\cmd#1{\texttt{\color{red}\footnotesize $\backslash$#1}}
+\def\env#1{\texttt{\color{blue}\footnotesize #1}}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{RGB}{153,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{halfgray}{gray}{0.55}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\bfseries\color{deepblue},
+    emphstyle=\ttfamily\color{deepred},    % Custom highlighting style
+    stringstyle=\color{deepgreen},
+    numbers=left,
+    numberstyle=\small\color{halfgray},
+    rulesepcolor=\color{red!20!green!20!blue!20},
+    frame=shadowbox,
+}
+
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+    \vspace*{-0.6cm}
+    \begin{figure}[htpb]
+        \begin{center}
+            \includegraphics[keepaspectratio, scale=0.25]{pic/sharif-main-logo.png}
+        \end{center}
+    \end{figure}
+\end{frame}
+
+\section{Gradient Descent}
+
+\begin{frame}{How to Update Weights?}
+    \begin{itemize}
+        \item Imagine training a large model like ChatGPT. It has billions of parameters that need to be adjusted.
+        \item If we used \textbf{random search} to update these weights, it would take an astronomical number of trials to find good parameters.
+        \item How to make training feasible at this massive scale?
+        \item Image adapted from \href{https://medium.com/@brijesh_soni/understanding-the-adagrad-optimization-algorithm-an-adaptive-learning-rate-approach-9dfaae2077bb}{Medium: AdaGrad Optimization Algorithm}
+    \end{itemize}
+    \begin{figure}[!htb]
+  \begin{minipage}{0.3\textwidth}
+     \centering
+     \includegraphics[width=.9\linewidth]{pic/gd1.png}\\
+            {\scriptsize Visualizing parameter space with random initial points.}
+  \end{minipage}\hfill
+    \begin{minipage}{0.3\textwidth}
+     \centering
+     \includegraphics[width=.9\linewidth]{pic/gd2.png}\\
+            {\scriptsize Random search approach in high-dimensional space.}
+  \end{minipage}\hfill
+  \begin{minipage}{0.3\textwidth}
+     \centering
+     \includegraphics[width=.8\linewidth]{pic/gd3.png}\\
+            {\scriptsize Challenges in finding optimal weights using random search.}
+  \end{minipage}
+\end{figure}
+\end{frame}
+
+\begin{frame}{How to Update Weights?}
+ \textbf{Options for Updating Weights:}
+    \begin{itemize}
+        \item \textbf{Random Search:} Tries values randomly—inefficient and impractical.
+        \item \textbf{\textcolor{blue}{Gradient Descent:}} Follows the slope of the loss function—efficient and guided.
+    \end{itemize}
+    
+    \textbf{Why Gradient Descent?}
+    \begin{itemize}
+        \item It updates weights by following the slope, reducing error with each step.
+        \item Controlled, stepwise updates ensure we move closer to minimizing the loss effectively.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{How to Update Weights?}
+
+    \begin{center}
+            \begin{figure}
+            \centering
+            \includegraphics[height=.6\textheight]{pic/ball.png}
+            \\
+{Gradient descent: adjusting weights to minimize cost by following the gradient.} \href{https://sebastianraschka.com/images/faq/gradient-optimization/ball.png}{Gradient optimization image}
+        \end{figure}
+    \end{center}
+\end{frame}
+
+
+\begin{frame}{Gradient Descent: Concept and Weight Updates}
+    \textbf{Gradient Descent}: Minimizes the loss function by updating weights based on the gradient.
+
+    \textbf{Weight Update Rule}:
+    \[
+    w_{\text{new}} = w_{\text{old}} - \eta \cdot \frac{\partial L}{\partial w}
+    \]
+    Where:
+    \begin{itemize}
+        \item \( \eta \) is the learning rate (step size).
+        \item \( \frac{\partial L}{\partial w} \) is the gradient of the loss function with respect to \( w \).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example: Gradient Descent and Updating Weights}
+    \textbf{Example Problem}:
+    \begin{itemize}
+        \item Initial weight: \( w_0 = 2 \)
+        \item Learning rate: \( \eta = 0.1 \)
+        \item Loss function: \( L(w) = (y - wx)^2 \) \\
+        \textbf{Example}: For \( x = 3 \), \( y = 10 \), and \( w_0 = 2 \),
+
+    \end{itemize}
+    
+    \textbf{Gradient Calculation}:
+    \[
+    \frac{\partial L}{\partial w} = -2x(y - wx)
+    \]
+    
+    \[
+    \frac{\partial L}{\partial w} = -24, \quad w_{\text{new}} = 4.4
+    \]
+\end{frame}
+
+\begin{frame}{Gradient Descent: Formula and Process}
+    \textbf{Weight Update Formula}:
+    \[
+    w_{\text{new}} = w_{\text{old}} - \eta \cdot \frac{\partial L}{\partial w}
+    \]
+
+    \textbf{Steps in Gradient Descent}:
+    \begin{itemize}
+        \item Compute the gradient of the loss function.
+        \item Update the weights using the update rule.
+        \item Repeat until convergence.
+        \item Image adapted from \href{https://datascience.stackexchange.com/questions/90204/gradient-descent-around-optimal-loss-surface}{Data Science Stack Exchange}
+    \end{itemize}
+    
+    \vspace{-2cm} % Adjust vertical space to shift the text up
+    \begin{flushright}
+        \includegraphics[scale=0.3]{pic/GD.png} % Scale the image and place it to the Southeast
+        \begin{tikzpicture}[overlay]
+            \node at (-0.5, 0.5) {\textcolor{red}{$w_0$}};  
+            \node at (-3.1, -0.2) {\textcolor{red}{$w_1$}};
+            \node at (-5.2, 1.5) {\textcolor{red}{$Loss$}};
+        \end{tikzpicture}
+    \end{flushright}
+\end{frame}
+
+
+\begin{frame}{Identifying an Optimal Learning Rate}
+    \begin{columns}[T] % Aligning the columns at the top
+        \begin{column}{0.5\textwidth}
+            \begin{itemize}
+                \item Look for a \textbf{smooth, gradual} decrease in loss over time.
+                \item Very low learning rate -> slow convergence
+                \item Very high learning rate -> erratic fluctuations
+                \item Image adapted from \href{https://towardsdatascience.com/understanding-learning-rates-and-how-it-improves-performance-in-deep-learning-d0d4059c1c10}{Towards Data Science: Understanding Learning Rates and How It Improves Performance in Deep Learning}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.5\textwidth}
+            \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/1_rcmvCjQvsxrJi8Y4HpGcCw.png}
+            \end{center}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+
+\section{Backpropagation}
+\subsection{Forward and Backward Passes}
+
+\begin{frame}{Multi-Layer Neural Network}
+        The diagram below illustrates a three-layer neural network
+
+    \vspace{0.3cm}
+    \begin{center}
+
+            \begin{figure}
+\centerline{\includegraphics[scale=1.3]{pic/Our-neural-network-settings-weight-matrix-W-and-bias-b-are-recalibrated-in-the-learning.png}}
+\\
+{Neural Network \href{https://www.researchgate.net/figure/Our-neural-network-settings-weight-matrix-W-and-bias-b-are-recalibrated-in-the-learning_fig1_335468765}{}}
+\end{figure}
+    \end{center}
+        How should \(\frac{\partial L}{\partial w}\) be calculated for each weight \( w \) in this neural network?
+
+\end{frame}
+\begin{frame}{A Simple Example}
+
+    % Start of the columns environment
+    \begin{columns}
+       
+        % Left column: Steps with equations
+        \begin{column}{0.3\textwidth}
+            \vspace{-0.4cm} % Adjusted to maintain the same formatting
+            \textbf{Function:} 
+            \[
+            f(x, y, z) = (x + y)z
+            \]
+        \end{column}
+
+        % Right column: Computational graph (TikZ diagram)
+        \begin{column}{0.7\textwidth}
+                    \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/one.jpg}
+            \end{center}
+        \end{column}
+
+    \end{columns}
+\end{frame}
+
+\begin{frame}{A Simple Example: Forward Pass}
+
+    % Start of the columns environment
+    \begin{columns}
+       
+        % Left column: Steps with equations
+        \begin{column}{0.3\textwidth}
+            \vspace{-0.4cm} % Added 'cm' as a unit
+            \textbf{Function:} 
+            \[
+            f(x, y, z) = (x + y)z
+            \]
+            \textbf{Example:}
+            \[
+            x = -2, \quad y = 5, \quad z = -4
+            \]
+            \textbf{Steps:}
+            \begin{itemize}
+                \item \( \mathbf{q = x + y = 3} \)
+                \item \( \mathbf{f = q \times z = -12} \)
+            \end{itemize}
+        \end{column}
+
+        % Right column: Computational graph (TikZ diagram)
+        \begin{column}{0.7\textwidth}
+                    \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/two.jpg}
+            \end{center}
+        \end{column}
+
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Finite Difference Method}
+    To approximate the gradient \( \frac{\partial L}{\partial w_i} \):
+    \begin{itemize}
+        \item Change \( w_i \) by a small value \( \epsilon \).
+        \item Approximate the gradient as:
+        \[
+        \frac{\partial L}{\partial w_i} \approx \frac{L(w_i + \epsilon) - L(w_i)}{\epsilon}
+        \]
+        \item Simple but inefficient.
+    \end{itemize}
+    
+    \vspace{10pt}
+    \textbf{Problem:} \\
+    Complexity is \( \Theta(n^2) \) for \( n \) weights, which is slow for large models.
+\end{frame}
+
+% Slide 2: Backpropagation Method
+\begin{frame}{Backpropagation}
+    \textbf{A more efficient method:}
+    \begin{itemize}
+        \item Use the chain rule to compute all gradients in one backward pass.
+        \item This method avoids changing each weight separately.
+    \end{itemize}
+    
+    \vspace{10pt}
+    \textbf{Advantages:}
+    \begin{itemize}
+        \item Complexity is reduced to \( \Theta(n) \).
+        \item Much faster, especially for large neural networks.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Chain Rule for Gradients}
+    The \textbf{chain rule} helps us find the gradient of a function that is composed of other functions.
+
+    \vspace{10pt}
+    \textbf{Example:}
+    \[
+    z = f(g(x))
+    \]
+    \begin{itemize}
+        \item \( f \) is a function of \( g(x) \)
+        \item \( g(x) \) is a function of \( x \)
+    \end{itemize}
+    
+    \vspace{10pt}
+    To find \( \frac{\partial z}{\partial x} \), we use the chain rule:
+    \[
+    \frac{\partial z}{\partial x} = \frac{\partial f}{\partial g} \times \frac{\partial g}{\partial x}
+    \]
+    
+    \vspace{10pt}
+    This means we multiply the gradient of the outer function by the gradient of the inner function.
+\end{frame}
+
+\begin{frame}{Backpropagation: A Simple Example}
+
+    % Start of the columns environment
+    \begin{columns}
+        % Left column: Steps with equations
+        \begin{column}{0.3\textwidth}
+            \vspace{-0.4cm} % Adjusted to maintain the same formatting
+            \textbf{Function:} 
+            \[
+            f(x, y, z) = (x + y)z
+            \]
+            \textbf{Example:} 
+            \[
+            x = -2, \quad y = 5, \quad z = -4
+            \]
+        \end{column}
+
+        % Right column: Computational graph (TikZ diagram)
+        \begin{column}{0.7\textwidth}
+                    \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/three.jpg}
+            \end{center}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}{A Simple Example: Backpropagation}
+
+    % Start of the columns environment
+    \begin{columns}
+       
+        % Left column: Steps with equations
+        \begin{column}{0.3\textwidth}
+            \vspace{-0.4cm} % Adjusted to maintain the same formatting
+            \textbf{Function:} 
+            \[
+            f(x, y, z) = (x + y)z
+            \]
+            \textbf{Example:} 
+            \[
+            x = -2, \quad y = 5, \quad z = -4
+            \]
+            \textcolor{blue}{\textbf{Step 1:}}
+            \[
+            \frac{\partial f}{\partial f} = 1
+            \]
+        \end{column}
+
+        % Right column: Computational graph (TikZ diagram)
+        \begin{column}{0.7\textwidth}
+                    \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/four.jpg}
+            \end{center}
+        \end{column}
+
+    \end{columns}
+
+\end{frame}
+
+
+\begin{frame}{A Simple Example: Backpropagation}
+
+    % Start of the columns environment
+    \begin{columns}
+       
+        % Left column: Steps with equations
+        \begin{column}{0.3\textwidth}
+            \vspace{-0.4cm}
+            \textbf{Function:} 
+            \[
+            f(x, y, z) = (x + y)z
+            \]
+            \textbf{Example:} 
+            \[
+            x = -2, \quad y = 5, \quad z = -4
+            \]
+            % Step 2
+            \textcolor{blue}{\textbf{Step 2:}}
+            \[
+            f = qz, \quad
+            \frac{\partial f}{\partial z} = q = 3
+            \]
+        \end{column}
+
+        % Right column: Computational graph (TikZ diagram)
+        \begin{column}{0.7\textwidth}
+                    \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/five.jpg}
+            \end{center}
+        \end{column}
+
+    \end{columns}
+
+\end{frame}
+
+\begin{frame}{A Simple Example: Backpropagation}
+
+    % Start of the columns environment
+    \begin{columns}
+       
+        % Left column: Steps with equations
+        \begin{column}{0.3\textwidth}
+            \vspace{-0.4cm}
+            \textbf{Function:} 
+            \[
+            f(x, y, z) = (x + y)z
+            \]
+            \textbf{Example:} 
+            \[
+            x = -2, \quad y = 5, \quad z = -4
+            \]
+            % Step 2
+            \textcolor{blue}{\textbf{Step 2:}}
+            \[
+            f = qz, \quad
+            \frac{\partial f}{\partial z} = q = 3
+            \]
+            \[
+            \frac{\partial f}{\partial q} = z = -4
+            \]
+        \end{column}
+
+        % Right column: Computational graph (TikZ diagram)
+        \begin{column}{0.7\textwidth}
+                    \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/six.jpg}
+            \end{center}
+        \end{column}
+
+    \end{columns}
+
+\end{frame}
+
+\begin{frame}{A Simple Example: Backpropagation}
+
+    % Start of the columns environment
+    \begin{columns}
+       
+        % Left column: Steps with equations
+        \begin{column}{0.3\textwidth}
+            \vspace{-0.4cm}
+            \textbf{Function:} 
+            \[
+            f(x, y, z) = (x + y)z
+            \]
+            \textbf{Example:} 
+            \[
+            x = -2, \quad y = 5, \quad z = -4
+            \]
+            % Step 1
+            \textcolor{blue}{\textbf{Step 3:}}
+            \[
+             q = x + y, \quad
+            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1\]
+            \[
+            \frac{\partial f}{\partial y} =  \frac{\partial f}{\partial q}
+            \frac{\partial q}{\partial y} = -4 \cdot 1 = -4
+            \]
+        \end{column}
+
+        % Right column: Computational graph (TikZ diagram)
+        \begin{column}{0.7\textwidth}
+                    \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/seven.jpg}
+            \end{center}
+        \end{column}
+
+    \end{columns}
+
+\end{frame}
+\begin{frame}{A Simple Example: Backpropagation}
+
+    % Start of the columns environment
+    \begin{columns}
+       
+        % Left column: Steps with equations
+        \begin{column}{0.3\textwidth}
+            \vspace{-0.4cm}
+            \textbf{Function:} 
+            \[
+            f(x, y, z) = (x + y)z
+            \]
+            \textbf{Example:} 
+            \[
+            x = -2, \quad y = 5, \quad z = -4
+            \]
+            \vspace{-0.4cm}
+            % Step 1
+            \textcolor{blue}{\textbf{Step 3:}}
+            \[
+             q = x + y, \quad
+            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1\]
+            \[
+            \frac{\partial f}{\partial x} =  \frac{\partial f}{\partial q}
+            \frac{\partial q}{\partial x} = -4 \cdot 1 = -4
+            \]
+        \end{column}
+
+        % Right column: Computational graph (TikZ diagram)
+        \begin{column}{0.7\textwidth}
+                    \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/eight.jpg}
+            \end{center}
+        \end{column}
+
+    \end{columns}
+
+\end{frame}
+
+\begin{frame}{A Simple Example: Backpropagation}
+
+    % Start of the columns environment
+    \begin{columns}
+       
+        % Left column: Steps with equations
+        \begin{column}{0.3\textwidth}
+            \vspace{-0.4cm}
+            \textbf{Function:} 
+            \[
+            f(x, y, z) = (x + y)z
+            \]
+            \textbf{Example:} 
+            \[
+            x = -2, \quad y = 5, \quad z = -4
+            \]
+            \vspace{-0.4cm}
+            % Step 1
+            \textcolor{blue}{\textbf{Step 1:}}
+            \[
+             q = x + y, \quad
+            \frac{\partial q}{\partial x} = 1, \quad \frac{\partial q}{\partial y} = 1\]
+            \[
+            \frac{\partial f}{\partial x} =  \frac{\partial f}{\partial q}
+            \frac{\partial q}{\partial x} = -4 \cdot 1 = -4
+            \]
+        \end{column}
+
+        % Right column: Computational graph (TikZ diagram)
+        \begin{column}{0.7\textwidth}
+                    \begin{center}
+                \includegraphics[width=\textwidth, keepaspectratio]{pic/nine.jpg}
+            \end{center}
+            
+        \end{column}
+
+    \end{columns}
+
+\end{frame}
+
+
+\begin{frame}{Example: One Neuron}
+    
+\begin{figure}
+\centerline{\includegraphics[width=.9\linewidth, height=\textheight, keepaspectratio]{pic/1.jpg}}
+\\
+{\tiny{Image adapted from} \href{https://datamapu.com/posts/deep_learning/backpropagation}{\tiny{“Deep learning backpropagation” Web article}}}
+
+\label{fig}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Forward Pass}
+    \begin{figure}
+        \vspace{-0.3cm}
+        \includegraphics[width=.9\linewidth, height=\textheight, keepaspectratio]{pic/2.jpg}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Backward Pass}
+    \begin{figure}
+        \vspace{-0.3cm}
+        \includegraphics[width=.9\linewidth, height=\textheight, keepaspectratio]{pic/3.jpg}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Backward Pass}
+    \begin{figure}
+        \vspace{-0.3cm}
+        \includegraphics[width=.9\linewidth, height=\textheight, keepaspectratio]{pic/4.jpg}
+    \end{figure}
+\end{frame}
+\begin{frame}{Backward Pass}
+
+    \begin{figure}
+
+        \vspace{-0.3cm}
+
+        \includegraphics[width=.9\linewidth, height=\textheight, keepaspectratio]{pic/5.jpg}
+    \end{figure}
+
+\end{frame}
+
+\subsection{Vectorized Backpropagation}
+\begin{frame}{Vectorized Backpropagation}
+    The faster you compute gradients, the quicker each parameter update in gradient descent.
+   \\ \textbf{Derivative of a Vector by a Vector}: leveraging matrix operations for faster computation.
+    \begin{center}
+        \includegraphics[width=11cm]{pic/vec2.png}  
+        \\
+{\tiny{Image adapted from} \href{https://people.ece.ubc.ca/bradq/ELEC502Slides/ELEC502-Part5VectorizedBackpropagation.pdf}{\tiny{Elec502 vectorized backpropagation slides}}}
+    \end{center}
+    
+\end{frame}
+
+\begin{frame}{Vectorized Backpropagation}
+    Local Derivatives are Jacobian Matrices
+    \begin{center}
+        \includegraphics[width=11cm]{pic/vec.png}  
+    \end{center}
+\end{frame}
+
+\begin{frame}{Vectorized Backpropagation}
+    \begin{center}
+        \includegraphics[width=11cm]{pic/vec3.jpg}  
+    \end{center}
+\end{frame}
+
+\begin{frame}{Vectorized Backpropagation}
+    \begin{center}
+        \includegraphics[width=11cm]{pic/vec4.png}  
+    \end{center}
+\end{frame}
+
+
+\begin{frame}{Vectorized Backpropagation}
+
+    \begin{center}
+        \includegraphics[width=11cm]{pic/vec5.png}  
+    \end{center}
+    Apply chain rule like before!
+\end{frame}
+
+\begin{frame}{Vectorized Backpropagation}
+    \begin{center}
+        \includegraphics[width=11cm]{pic/vec6.png}  
+    \end{center}
+    Applying the chain rule involves matrix-vector multiplication
+\end{frame}
+
+\begin{frame}{Vectorized Backpropagation}
+    \begin{center}
+        \includegraphics[width=11cm]{pic/chain10.jpg}  
+    \end{center}
+        \includegraphics[width=7cm]{pic/chainn.jpg}  
+\end{frame}
+
+\begin{frame}{Chain Rule – Matrix-Vector Multiply}
+    \begin{center}
+        \includegraphics[width=12cm]{pic/chain1.png}  
+    \end{center}
+\end{frame}
+
+\begin{frame}{Chain Rule – Matrix-Vector Multiply}
+    \begin{center}
+        \includegraphics[width=12cm]{pic/chain2.png}  
+    \end{center}
+\end{frame}
+
+\begin{frame}{Chain Rule – Matrix-Vector Multiply}
+    \begin{center}
+        \includegraphics[width=12cm]{pic/chain3.png}  
+    \end{center}
+\end{frame}
+
+\begin{frame}{Chain Rule – Matrix-Vector Multiply}
+    \begin{center}
+        \includegraphics[width=12cm]{pic/chain4.png}  
+    \end{center}
+\end{frame}
+
+\begin{frame}{Chain Rule – Matrix-Vector Multiply}
+    \begin{center}
+        \includegraphics[width=12cm]{pic/chain5.png}  
+    \end{center}
+\end{frame}
+
+\begin{frame}{Chain Rule – Matrix-Vector Multiply}
+    \begin{center}
+        \includegraphics[width=12cm]{pic/chain6.png}  
+    \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  vector
+
+\section{Foundations in Detail: Initialization, Loss, and Activation}
+\subsection{Weight Initialization}
+
+
+\begin{frame}{Weight Initialization}
+
+    % Diagram in the Right Column
+    \begin{columns}[onlytextwidth]
+        \column{0.55\textwidth}
+             \textbf{Example:} Imagine a network where all weights are initialized to zero.
+    
+    \textbf{Issue:} If all weights are zero, each neuron in a layer will produce \textbf{identical} outputs. This symmetry prevents the network from learning \textbf{distinct features}, as every neuron updates identically.
+    
+            \textbf{Solution:} To break this symmetry, weights need to be initialized with small random values, allowing neurons to learn unique features and avoid identical updates.
+        
+        \column{0.45\textwidth}
+        \hspace{1cm}
+            \begin{tikzpicture}[
+                node distance=1.0cm, 
+                >=stealth, 
+                scale=0.8, 
+                every node/.style={scale=0.8},
+                % Define styles for nodes
+                input neuron/.style={circle, draw=black, fill=blue!15, minimum size=0.8cm},
+                hidden neuron/.style={circle, draw=black, fill=green!15, minimum size=0.8cm},
+                output neuron/.style={circle, draw=black, fill=red!15, minimum size=0.8cm}
+            ]
+                
+                % Define nodes
+                \node[input neuron] (I1) at (0,2) {Input 1};
+                \node[input neuron] (I2) at (0,0) {Input 2};
+
+                \node[hidden neuron] (H1) at (2,3) {Hidden 1};
+                \node[hidden neuron] (H2) at (2.5,1) {Hidden 2};
+                \node[hidden neuron] (H3) at (2,-1) {Hidden 3};
+
+                \node[output neuron] (O) at (5,1) {Output};
+
+                % Draw connections with zero weights
+                \draw[->, color=gray] (I1) -- (H1) node[midway, above] {0};
+                \draw[->, color=gray] (I1) -- (H2) node[midway, above] {0};
+                \draw[->, color=gray] (I1) -- (H3) node[midway, above] {0};
+                \draw[->, color=gray] (I2) -- (H1) node[midway, above] {0};
+                \draw[->, color=gray] (I2) -- (H2) node[midway, above] {0};
+                \draw[->, color=gray] (I2) -- (H3) node[midway, above] {0};
+                
+                \draw[->, color=gray] (H1) -- (O) node[midway, above] {0};
+                \draw[->, color=gray] (H2) -- (O) node[midway, above] {0};
+                \draw[->, color=gray] (H3) -- (O) node[midway, above] {0};
+
+                % Add annotation below the diagram
+                \node[align=center] at (2.5, -3) {All weights initialized to zero};
+            \end{tikzpicture}
+    \end{columns}
+
+\end{frame}
+
+\begin{frame}{Why Weight Initialization Matters}
+
+    
+    \textbf{Importance:}
+    \begin{itemize}
+        \item Proper \textbf{initialization} ensures \textbf{faster convergence} and improves  \textbf{training stability}.
+        \item Prevents issues like \textbf{vanishing} or \textbf{exploding gradients}, which can make training slow or unstable.
+    \end{itemize}
+    
+    \textbf{Question:} How can we initialize weights to maximize \textbf{learning efficiency} and prevent gradient problems?
+    
+\end{frame}
+
+\begin{frame}{Zero Initialization and Random Initialization}
+\textbf{Zero Initialization}
+\begin{itemize}
+     
+
+   \item \textbf{Description:} Set all weights to zero.
+    
+   \item \textbf{Key Point:} Rarely used, as it leads to identical updates for all neurons, preventing the network from learning distinct features.
+    \end{itemize}
+    \textbf{Random Initialization}
+\begin{itemize}
+   \item \textbf{Description:} Assign small random values to weights.
+    
+    \item \textbf{Distribution:} Typically, weights are initialized using a uniform or normal distribution.
+    
+    \[
+    w \sim \mathcal{U}(-\epsilon, \epsilon) \quad \text{or} \quad w \sim \mathcal{N}(0, \sigma^2)
+    \]
+    
+   \item \textbf{Key Point:} Helps break symmetry but can still cause issues with gradient magnitudes.
+   \end{itemize}
+   
+\end{frame}
+\begin{frame}{Xavier Initialization}
+    \textbf{Description:} 
+    Xavier Initialization is designed to keep the variance of activations consistent across layers, ideal for \textbf{sigmoid} and \textbf{tanh} activations.
+
+    \textbf{Objective:} 
+    Prevents the shrinking or exploding of signal magnitudes during forward and backward propagation.
+
+    \textbf{Condition:}
+    \[
+    \frac{1}{n_l} \, \text{Var}[w] = 1
+    \]
+    \text{where \(n_l\) is the number of neurons in layer \(l\).}
+
+    \textbf{Initialization Scheme:}
+    \[
+    w \sim \mathcal{U}\left(-\sqrt{\frac{1}{n_l}}, \sqrt{\frac{1}{n_l}}\right)
+    \]
+    This results in a uniform distribution within the range \(-\sqrt{\frac{1}{n_l}}\) to \(\sqrt{\frac{1}{n_l}}\), ensuring stable signal variance across layers.
+\end{frame}
+
+
+\begin{frame}{He Initialization}
+    \textbf{Description:} 
+    He Initialization (or Kaiming Initialization) is designed for neural networks with \textbf{ReLU} activations, considering the non-linearity of these functions.
+    
+    \textbf{Objective:} 
+    Aims to prevent the exponential growth or reduction of input signal magnitudes through layers.
+
+    \textbf{Condition:}
+    \[
+    \frac{1}{2} n_l \, \text{Var}[w] = 1
+    \]
+    
+    \textbf{Initialization Scheme:}
+    \[
+    w_l \sim \mathcal{N}\left(0, \frac{2}{n_l}\right)
+    \]
+    
+    This implies a zero-centered Gaussian distribution with a standard deviation of \( \sqrt{\frac{2}{n_l}} \), where biases are initialized to 0.
+\end{frame}
+
+\begin{frame}{Xavier vs. He}
+\begin{itemize}
+    \item Evolution of loss term for Xavier and He weight initialization.
+\end{itemize}
+    \begin{figure}
+\centerline{\includegraphics[width=10cm]{pic/Evolution-of-loss-term-for-Xavier-weight-initialization-and-He-weight-initialization.png}}
+\\
+{\tiny{Image adapted from} \href{https://www.researchgate.net/publication/363843256_A_Knowledge-driven_Physics-Informed_Neural_Network_model_Pyrolysis_and_Ablation_of_Polymers}{\tiny{A Knowledge-driven Physics-Informed Neural Network model; Pyrolysis and Ablation of Polymers}}}
+
+\label{fig}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Choosing the Right Initialization – Examples}
+
+    \begin{itemize}
+        \item \textbf{Scenario 1:} Using ReLU activation functions in a deep network.
+        \begin{itemize}
+            \item \textbf{Best Choice:} He Initialization.
+            \item \textbf{Reason:} Helps maintain gradient flow through the layers.
+        \end{itemize}
+        
+        \item \textbf{Scenario 2:} Using Sigmoid activation functions in a shallow network.
+        \begin{itemize}
+            \item \textbf{Best Choice:} Xavier Initialization.
+            \item \textbf{Reason:} Keeps variance balanced, which is crucial for non-ReLU activations.
+        \end{itemize}
+    
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{Transition to Loss and Activation Functions}
+
+    \textbf{Recap:} Proper weight initialization:
+    \begin{itemize}
+        \item Ensures stability during training by maintaining gradient magnitudes.
+        \item Helps the network converge faster and learn more effectively.
+    \end{itemize}
+    
+    \textbf{Next Steps:}
+    \begin{itemize}
+        \item Once weights are initialized, the network needs a measure of error — this is where \textbf{loss functions} come in.
+        \item After initializing weights, \textbf{activation functions} determine the output of each neuron, enabling the network to learn complex patterns.
+    \end{itemize}
+    
+    \textbf{Question:} How do we measure the error in predictions and adjust our weights to minimize it?
+    
+\end{frame}
+
+
+\subsection{Loss Functions}
+
+\begin{frame}{Types of Loss Functions}
+    \begin{itemize}
+        \item \textbf{Mean Squared Error (MSE):} Used in regression to minimize squared differences between predicted and true values.
+        \item \textbf{Mean Absolute Error (MAE):} Minimizes absolute differences, also for regression tasks.
+        \item \textbf{Binary Cross-Entropy:} Used for binary classification to compare predicted probabilities with binary labels.
+        \item \textbf{Categorical Cross-Entropy:} For multi-class classification, comparing predicted probabilities across multiple classes.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Mean Squared Error (MSE)}
+    \textbf{Definition:}
+\[
+    \text{MSE} = \frac{1}{N} \sum_{i=1}^{N} \left( y^{(i)} - \hat{y}^{(i)} \right)^2
+\]
+
+    \textbf{Characteristics:}
+    \begin{itemize}
+        \item Amplifies larger errors due to squaring, making it sensitive to outliers.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example of MSE Calculation}
+    \textbf{Example:}
+    \begin{itemize}
+        \item Predicted values: \( \hat{y} = [4.2, 3.8, 5.1] \)
+        \item True values: \( y = [5.0, 4.0, 4.9] \)
+        \item Calculation:
+        \[
+        \text{MSE} = \frac{1}{3} \left[ (5.0 - 4.2)^2 + (4.0 - 3.8)^2 + (4.9 - 5.1)^2 \right]
+        \]
+        \[
+        = \frac{1}{3} \left[ 0.64 + 0.04 + 0.04 \right] = \frac{0.72}{3} = 0.24
+        \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Mean Absolute Error (MAE)}
+    \textbf{Definition:}
+\[
+    \text{MAE} = \frac{1}{N} \sum_{i=1}^{N} \left| y^{(i)} - \hat{y}^{(i)} \right|
+\]
+    \textbf{Characteristics:}
+    \begin{itemize}
+        \item Provides a linear measure of error, treating all deviations equally.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Example of MAE Calculation}
+    \textbf{Example:}
+    \begin{itemize}
+        \item Predicted values: \( \hat{y} = [4.2, 3.8, 5.1] \)
+        \item True values: \( y = [5.0, 4.0, 4.9] \)
+        \item Calculation:
+        \[
+        \text{MAE} = \frac{1}{3} \left( |5.0 - 4.2| + |4.0 - 3.8| + |4.9 - 5.1| \right)
+        \]
+        \[
+        = \frac{1}{3} (0.8 + 0.2 + 0.2) = \frac{1.2}{3} \approx 0.4
+        \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Impact on Model Outputs and Optimization}
+    \textbf{MSE (Mean Squared Error):}
+    \begin{itemize}
+        \item Heavily penalizes large errors, promoting smoother outputs.
+        \item Its quadratic gradient leads to faster convergence for large errors, but it can be sensitive to outliers.
+    \end{itemize}
+    
+    \textbf{MAE (Mean Absolute Error):}
+    \begin{itemize}
+        \item Treats all errors uniformly, resulting in sharper outputs and better handling of outliers.
+        \item Its constant gradient ensures stable optimization but can slow convergence with large errors.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Binary Classification Loss – Binary Cross-Entropy}
+
+    \textbf{Binary Cross-Entropy:}
+    \vspace{-0.5cm}
+    \[
+    \mathcal{L}_{\text{BCE}} = -\frac{1}{n} \sum_{i=1}^{n} \left[ y^{(i)} \log(\hat{y}^{(i)}) + (1 - y^{(i)}) \log(1 - \hat{y}^{(i)}) \right]
+    \]
+    
+    \textbf{Example:}
+    \begin{itemize}
+        \item Predicted probabilities: \( \hat{y} = [0.7, 0.3, 0.9] \)
+        \item True labels: \( y = [1, 0, 1] \)
+        \vspace{-0.4cm}
+        \[
+        \mathcal{L}_{\text{BCE}} = -\frac{1}{3} \left[ 1 \cdot \log(0.7) + (1 - 1) \cdot \log(1 - 0.7) \right.
+        \]
+        \[
+        + 0 \cdot \log(0.3) + (1 - 0) \cdot \log(1 - 0.3) 
+        \left. + 1 \cdot \log(0.9) + (1 - 1) \cdot \log(1 - 0.9) \right]
+        \]
+        \[
+        = -\frac{1}{3} \left( \log(0.7) + \log(0.7) + \log(0.9) \right)
+        \approx -\frac{1}{3} \left( -0.357 + -0.357 + -0.105 \right) \approx 0.273
+        \]
+    \end{itemize}
+    Used to minimize the error between predicted probabilities and binary labels.
+    
+\end{frame}
+
+\begin{frame}{Categorical Cross-Entropy}
+    \textbf{Categorical Cross-Entropy Formula:}
+    \[
+    \mathcal{L}_{CCE} = - \frac{1}{n} \sum_{i=1}^{n} \sum_{c=1}^{C} y^{(i)}_c \log(\hat{y}^{(i)}_c)
+    \]
+\end{frame}
+
+
+\begin{frame}{One-Hot Encoding}
+    \textbf{One-hot} encoding represents categorical variables as binary vectors, with a 1 indicating the actual class and 0s elsewhere.
+    
+    \textbf{Example:} \\
+    \begin{itemize}
+        \item Class 1: \([1, 0, 0]\)
+        \item Class 2: \([0, 1, 0]\)
+        \item Class 3: \([0, 0, 1]\)
+    \end{itemize}
+\end{frame}
+\begin{frame}{Example Calculation (3-Class)}
+    \textbf{Given:}
+    \begin{itemize}
+        \item True labels (One-hot): Class 2, Class 1, Class 3
+        \item Predicted probabilities:
+    \end{itemize}
+    \begin{center}
+        \(\hat{y} = \underbrace{\begin{bmatrix} 
+            0.1 & 0.7 & 0.2 \\ 
+            0.6 & 0.3 & 0.1 \\ 
+            0.1 & 0.6 & 0.3 
+            \end{bmatrix}}_{\text{Classes}}\)
+        \quad \text{Samples}
+    \end{center} 
+\end{frame}
+
+
+
+\begin{frame}{Solution}
+    \begin{enumerate}
+        \item True labels:
+        \[
+        \begin{bmatrix} 
+        0 & 1 & 0 \\ 
+        1 & 0 & 0 \\ 
+        0 & 0 & 1 
+        \end{bmatrix}
+        \]
+        \item Calculation:
+        \[
+        \mathcal{L}_{CCE} = -\frac{1}{3} \left( \log(0.7) + \log(0.6) + \log(0.3) \right)
+        \]
+        \item Compute log terms:
+            \[
+            \log(0.7) \approx -0.357, \quad \log(0.6) \approx -0.511, \quad \log(0.3) \approx -1.204
+            \]
+            \[
+           \mathcal{L}_{CCE} = \frac{1}{3} \times 2.072 \approx 0.691
+            \]
+    \end{enumerate}
+\end{frame}
+
+\subsection{Activation Functions}
+\begin{frame}{Linear Activation - A Limitation}
+    \textbf{Linear Activation:} 
+    \[
+    f(z) = z
+    \]
+    
+    \begin{itemize}
+        \item Example: If a neuron produces a raw output \( z = 5.7 \), linear activation would pass this unchanged.
+    \end{itemize}
+    
+    % Start of TikZ Diagram
+    \begin{center}
+    \begin{tikzpicture}[
+        neuron/.style={circle, draw=black, thick, minimum size=1.5cm},
+        activation/.style={rectangle, draw=black, thick, minimum size=1.5cm},
+        ->, thick
+    ]
+    
+    % Input
+    \node at (0,0) (input) {$\mathbf{x}$};
+    
+    % Neuron
+    \node[neuron] at (3,0) (neuron) {Neuron};
+    
+    % Output of Neuron
+    \node at (5.8,0) (raw) {$z = 5.7$};
+    
+    % Linear Activation Box
+    \node[activation] at (9,0) (activation) {Linear Activation};
+    
+    % Final Output
+    \node at (12,0) (output) {$f(5.7) = 5.7$};
+    
+    % Arrows
+    \draw[->] (input) -- (neuron);
+    \draw[->] (neuron) -- (raw);
+    \draw[->] (raw) -- (activation);
+    \draw[->] (activation) -- (output);
+    
+    % Labels
+    \node at (3, -1.2) {\small Weighted Sum};
+    \node at (9, -1.2) {\small Linear Activation};
+    
+    \end{tikzpicture}
+    \end{center}
+    
+\end{frame}
+
+
+\begin{frame}{Limitation of Linear Activation}
+
+    \textbf{Why Transform Outputs?} Raw outputs need to be transformed into meaningful values, such as probabilities.
+
+    \textbf{The Problem:} Linear activation lacks non-linearity, restricting the model to simple linear relationships.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% act %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Neural Networks: Why is the Max Operator Important?}
+  \begin{itemize}
+      \item \textbf{Before:} Linear score function:
+      \[
+      f = Wx
+      \]
+      \item \textbf{Now:} 2-layer Neural Network:
+      \[
+      f = W_2 \max(0, W_1 x)
+      \]
+      \item The function \(\max(0, z)\) is called an activation function (in this case, ReLU).
+      \item \textcolor{red}{Q: What if we try to build a neural network without an activation function?}
+      \[
+      f = W_2 W_1 x
+      \]
+      \[
+      W_3 = W_2 W_1 \in \mathbb{R}^{C \times H}, \quad f = W_3 x
+      \]
+      \item \textbf{A:} We end up with a linear classifier again!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{ReLU}
+    \textbf{Characteristics of ReLU:}
+     \begin{equation*}
+      \text{ReLU}(z) = \max(0, z) 
+       \end{equation*}
+       \begin{itemize}
+           \item Faster convergence: Efficient computation, especially for deep networks.
+       \end{itemize}
+    \textbf{Advantages of ReLU:}
+    \begin{itemize}
+        \item Does not saturate for positive values, helping to avoid the vanishing gradient problem.
+        \item Computationally efficient (simpler than Sigmoid/Tanh).
+    \end{itemize}
+
+    \begin{center}
+    \begin{tikzpicture}
+        % ReLU function plot
+        \begin{axis}[
+            width=5cm, height=3.5cm,
+            xlabel={$z$}, ylabel={ReLU($z$)},
+            grid=major, xmin=-6, xmax=5, ymin=-1, ymax=4
+        ]
+        \addplot[color=green, thick, domain=-6:6, samples=100] {max(0, x)};
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+\end{frame}
+\begin{frame}{ReLU}
+
+    \textbf{Limitation:}
+    \begin{itemize}
+        \item \textbf{Dead ReLU Problem}: Neurons can become inactive during training, outputting 0 for all inputs if they receive negative values consistently.
+    \end{itemize}
+
+    \textbf{Question:}
+    \begin{itemize}
+        \item Why does ReLU lead to faster training in deep networks?
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Variants of ReLU: Leaky ReLU, PReLU, ELU}
+    \centering
+\begin{tikzpicture}
+    \begin{axis}[
+        width=8cm, height=7cm,
+        xlabel={$z$}, ylabel={Activation Output},
+        grid=major,
+        xmin=-10, xmax=6, ymin=-2, ymax=6,
+        legend pos=north west,
+        title={\textbf{Leaky ReLU, PReLU, and ELU Activation Functions}},
+        axis lines=left,
+    ]
+
+    % Leaky ReLU plot (alpha = 0.01)
+    \addplot[color=red, thick, domain=-10:6] {max(0.01*x, x)};
+    \addlegendentry{Leaky ReLU ($\alpha = 0.01$)}
+
+    % PReLU plot (alpha = 0.1)
+    \addplot[color=blue, thick, domain=-10:6] {max(0.1*x, x)};
+    \addlegendentry{PReLU ($\alpha = 0.1$)}
+
+    % ELU plot (alpha = 1)
+    \addplot[color=green, thick, domain=-10:6] {x > 0 ? x : (exp(x) - 1)};
+    \addlegendentry{ELU ($\alpha = 1$)}
+
+    \end{axis}
+\end{tikzpicture}
+
+    
+\end{frame}
+\begin{frame}{Variants of ReLU: Leaky ReLU}
+    \begin{itemize}
+        \item Allows a small, non-zero gradient for negative inputs.
+        \begin{equation*}
+            \text{LeakyReLU}(z) = \max(\alpha z, z), \quad \alpha = 0.01
+        \end{equation*}
+        \item Helps prevent the "dead ReLU" problem, where neurons stop updating.
+    \end{itemize}
+            \begin{center}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    width=4.3cm, height=3cm,
+                    xlabel={$z$}, ylabel={LeakyReLU($z$)},
+                    grid=major, xmin=-6, xmax=5, ymin=-2, ymax=4,
+                    title={\textbf{Leaky ReLU}},
+                ]
+                \addplot[color=red, thick, domain=-6:6] {max(0.01*x, x)};
+                \end{axis}
+            \end{tikzpicture}
+            \end{center}
+            \centering
+            \textbf{Leaky ReLU:} Allows a small, non-zero gradient for negative inputs.
+\end{frame}
+\begin{frame}{Variants of ReLU: PReLU (Parametric ReLU)}
+    \begin{itemize}
+        \item Similar to Leaky ReLU, but the slope for negative inputs (\( \alpha \)) is learned during training.
+        \begin{equation*}
+            \text{PReLU}(z) = \max(\alpha z, z), \quad \alpha \text{ is learned}
+        \end{equation*}
+        \item Provides more flexibility by adjusting the slope for negative inputs based on data.
+    \end{itemize} 
+        %     % PReLU Diagram
+            \begin{center}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    width=4.5cm, height=3cm,
+                    xlabel={$z$}, ylabel={PReLU($z$)},
+                    grid=major, xmin=-6, xmax=5, ymin=-2, ymax=4,
+                    title={\textbf{PReLU}},
+                ]
+                \addplot[color=blue, thick, domain=-6:6] {max(0.1*x, x)};
+                \end{axis}
+            \end{tikzpicture}
+            \end{center}
+            \centering
+            \textbf{PReLU:} Similar to Leaky ReLU, with a learnable slope.
+\end{frame}
+\begin{frame}{Variants of ReLU: ELU (Exponential Linear Unit)}
+    \begin{itemize}
+        \item Similar to ReLU for positive values but smoother for negative inputs.
+        \begin{equation*}
+            \text{ELU}(z) =
+            \begin{cases}
+                z, & \text{if } z > 0 \\
+                \alpha (e^z - 1), & \text{if } z \leq 0
+            \end{cases}, \quad \alpha = 1
+        \end{equation*}
+        \item Provides faster convergence and reduces bias shift by smoothing negative values.
+    \end{itemize}
+                \begin{center}
+            \begin{tikzpicture}
+                \begin{axis}[
+                    width=4.3cm, height=3cm,
+                    xlabel={$z$}, ylabel={ELU($z$)},
+                    grid=major, xmin=-6, xmax=5, ymin=-2, ymax=4,
+                    title={\textbf{ELU}},
+                ]
+                \addplot[color=green, thick, domain=-6:6] {x > 0 ? x : (exp(x) - 1)};
+                \end{axis}
+            \end{tikzpicture}
+            \end{center}
+            \vspace{-0.3cm}
+            \centering
+            \textbf{ELU:} Smoother than ReLU for negative values.
+\end{frame}
+
+\begin{frame}{Sigmoid}
+
+    \textbf{Characteristics of Sigmoid:}
+    \begin{equation*}
+              \sigma(z) = \frac{1}{1 + e^{-z}}
+    \end{equation*}
+\begin{itemize}
+    \item $\sigma'(z) = \sigma(z)(1 - \sigma(z))$
+    \item Squashes the input between 0 and 1, which makes it useful in probabilistic interpretations (e.g., logistic regression).
+    \item Often used in output layers for binary classification problems.
+\end{itemize}
+
+    \begin{center}
+    \begin{tikzpicture}
+        % Sigmoid function plot
+        \begin{axis}[
+            width=5cm, height=4cm,
+            xlabel={$z$}, ylabel={$\sigma(z)$},
+            grid=major, xmin=-6, xmax=6, ymin=0, ymax=1.2
+        ]
+        \addplot[color=blue, thick, domain=-6:6, samples=100] {1/(1+exp(-x))};
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+\end{frame}
+
+%\begin{frame}
+%    \frametitle{Model: Sigmoid Decision Surface}
+%
+%        \begin{figure}
+%        \centering
+%        \includegraphics[width=0.8\textwidth]{pic/sig.png}  
+%    \end{figure}
+%\end{frame}
+
+\begin{frame}{Classification: Tumor Detection (Malignant vs. Benign)}
+    \textbf{Sigmoid Activation:} Useful for binary classification!
+    
+    \begin{itemize}
+        \item Example: For \( z = 5.7 \),
+        \[
+        \sigma(5.7) \approx 0.9966
+        \]
+    \end{itemize}
+    \vspace{-8mm}
+    % Start of TikZ Diagram
+    \begin{center}
+    \begin{tikzpicture}[
+         scale=0.8,
+         every node/.style={scale=0.8},
+        neuron/.style={circle, draw=black, thick, minimum size=1.5cm},
+        activation/.style={rectangle, draw=black, thick, minimum size=1.5cm},
+        decision/.style={ellipse, draw=black, thick, minimum size=1.5cm},
+        ->, thick
+    ]
+    
+    % Input
+    \node at (2,0) (input) {$\mathbf{x}$};
+    
+    % Neuron
+    \node[neuron] at (4,0) (neuron) {Neuron};
+    
+    % Raw Output of Neuron
+    \node at (6.5,0) (raw) {$z = 5.7$};
+    
+    % Sigmoid Activation Box
+    \node[activation] at (9,0) (activation) {Sigmoid};
+    
+    % Sigmoid Output
+    \node at (12,0) (prob) {$\sigma(5.7) = 0.9966$};
+    
+    % Classification Decision: Malignant vs. Benign
+    \node[decision] at (15,1.2) (malignant) {Malignant};
+    \node[decision] at (15,-1.2) (benign) {Benign};
+    
+    % Arrows
+    \draw[->] (input) -- (neuron);
+    \draw[->] (neuron) -- (raw);
+    \draw[->] (raw) -- (activation);
+    \draw[->] (activation) -- (prob);
+    
+    % Probability-based decision arrows
+    \draw[->] (prob) -- (malignant);
+    \draw[->, dashed] (prob) -- (benign);
+    
+    % Labels
+    \node at (4, -1.2) {\small Weighted Sum};
+    \node at (9, -1.2) {\small Sigmoid Activation};
+    \node at (15, 2.2) {\small 99.66\% probability};
+    \node at (15, -0.2) {\small 0.34\% probability};
+    
+    \end{tikzpicture}
+    \end{center}
+    
+\end{frame}
+
+\begin{frame}{Sigmoid}
+    \textbf{Limitations of Sigmoid:}
+    \begin{itemize}
+        \item \textbf{Gradient Saturation:} When \( z \) is very large or very small, the gradient becomes nearly zero, causing slow learning (vanishing gradient problem).
+        \item \textbf{Not Zero-Centered:} The output is not zero-centered, which can make optimization more difficult.
+    \end{itemize}
+
+    \textbf{Question:}
+    \begin{itemize}
+        \item Why does the vanishing gradient problem occur with Sigmoid during backpropagation? (To be discussed in more detail later)
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Tanh (Hyperbolic Tangent)}
+
+    \textbf{Characteristics of Tanh:}
+    \begin{equation*}
+        \tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}
+    \end{equation*}
+    \begin{itemize}
+        \item Squashes input between -1 and 1, making it zero-centered (Balanced Updates $\rightarrow$ Reduced Bias in Gradient Descent $\rightarrow$ Faster Convergence)
+    \end{itemize}
+
+    \textbf{Advantages of Tanh:}
+    \begin{itemize}
+        \item \textbf{Zero-Centered}: Output ranges from -1 to 1, making optimization easier.
+        \item Better for \textbf{hidden layers} than Sigmoid due to zero-centered output.
+    \end{itemize}
+
+    \textbf{Limitations:}
+    \begin{itemize}
+        \item Similar saturation issues as Sigmoid: large input values push gradients towards zero (vanishing gradient problem).
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Tanh (Hyperbolic Tangent)}
+     \begin{center}
+    \begin{tikzpicture}
+        % Tanh function plot
+        \begin{axis}[
+            width=7cm, height=5cm,
+            xlabel={$z$}, ylabel={$\tanh(z)$},
+            grid=major, xmin=-6, xmax=6, ymin=-1.5, ymax=1.5
+        ]
+        \addplot[color=red, thick, domain=-6:6, samples=100] {tanh(x)};
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+
+    \textbf{Question:}
+    \begin{itemize}
+        \item How does Tanh help with faster convergence compared to Sigmoid?
+    \end{itemize}   
+\end{frame}
+\begin{frame}{Comparison: Sigmoid vs Tanh}
+    \centering
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=8cm, height=5cm,
+        xlabel={$x$}, ylabel={$y$},
+        title={Derivative of activation functions},
+        grid=major,
+        xmin=-10, xmax=10, ymin=0, ymax=1,
+        legend pos=north east,
+        legend style={draw=none},
+    ]
+    
+    % Sigmoid derivative plot
+    \addplot[color=red, thick] 
+        plot[domain=-10:10, samples=100] 
+        {exp(-x)/(1+exp(-x))^2};
+    \addlegendentry{sigmoid}
+    
+    % Tanh derivative plot
+    \addplot[color=blue, thick] 
+        plot[domain=-10:10, samples=100] 
+        {1 - tanh(x)^2};
+    \addlegendentry{tanh}
+    
+    \end{axis}
+\end{tikzpicture}
+\begin{itemize}
+    \item The derivative of the Tanh function has a much steeper slope at $x=0$, meaning it provides a larger gradient for backpropagation compared to the Sigmoid function.
+\end{itemize}
+
+\end{frame}
+\begin{frame}{Comparison: Sigmoid vs Tanh}
+
+    \textbf{Key Differences:}
+    \begin{itemize}
+        \item \textbf{Sigmoid}: Maps input to [0, 1]. Output is not zero-centered.
+        \item \textbf{Tanh}: Maps input to [-1, 1]. Output is zero-centered, leading to easier optimization.
+    \end{itemize}
+
+    \begin{center}
+    \begin{tikzpicture}
+        % Comparison of Sigmoid and Tanh
+        \begin{axis}[
+            width=7cm, height=5cm,
+            xlabel={$z$}, ylabel={$\sigma(z)$ or $\tanh(z)$},
+            grid=major, xmin=-6, xmax=6, ymin=-1.5, ymax=1.5,
+            legend pos=south east
+        ]
+        \addplot[color=blue, thick, domain=-6:6, samples=100] {1/(1+exp(-x))};
+        \addlegendentry{Sigmoid}
+        \addplot[color=red, thick, domain=-6:6, samples=100] {tanh(x)};
+        \addlegendentry{Tanh}
+        \end{axis}
+    \end{tikzpicture}
+    \end{center}
+
+\end{frame}
+
+\begin{frame}{Problem: Multi-Class Tumor Classification}
+    \textbf{Scenario:} We want to classify a tumor into one of three categories:
+    \begin{itemize}
+        \item \textbf{Class 0}: Benign
+        \item \textbf{Class 1}: Malignant
+        \item \textbf{Class 2}: Pre-cancerous
+    \end{itemize}
+    
+    \textbf{Goal:} Given a set of tumor features, predict which class the tumor belongs to.
+    
+    This is a \textbf{multi-class classification problem}, and we will use the \textbf{Softmax activation function} to assign probabilities to each class.
+    
+            \begin{figure}
+\centerline{\includegraphics[scale=.3]{pic/cancer.jpg}}
+\\
+{Microscopic images of tumor tissue, classified into grades representing different severity levels. Image adapted from \href{https://www.researchgate.net/publication/342658460_Visual_Analytics_in_Digital_Computational_Pathology?_tp=eyJjb250ZXh0Ijp7ImZpcnN0UGFnZSI6Il9kaXJlY3QiLCJwYWdlIjoiX2RpcmVjdCJ9fQ}{Visual Analytics in Digital & Computational Pathology}}
+
+\label{fig}
+\end{figure}
+\end{frame}
+\begin{frame}{Softmax Activation: The Model}
+    In multi-class classification, the Softmax function is used to convert raw outputs (logits) into probabilities for each class.
+    
+    \textbf{Softmax Function:}
+    \[
+    P(y = i | X) = \frac{e^{z_i}}{\sum_{j=1}^{K} e^{z_j}}
+    \]
+    Where:
+    \begin{itemize}
+        \item \( P(y = i | X) \) is the probability of the sample \( X \) belonging to class \( i \).
+        \item \( z_i \) is the raw output (logit) for class \( i \).
+        \item \( K \) is the number of classes (e.g., benign, malignant, pre-cancerous).
+    \end{itemize}
+    
+    The Softmax function ensures that the sum of the probabilities for all classes is 1, and the class with the highest probability is chosen as the prediction.
+\end{frame}
+
+
+\begin{frame}{Example: Softmax Calculation}
+    Consider a tumor with the following logits from a neural network:
+    \begin{itemize}
+        \item Logit for Benign (Class 0): \( z_0 = 1.5 \)
+        \item Logit for Malignant (Class 1): \( z_1 = 0.8 \)
+        \item Logit for Pre-Cancerous (Class 2): \( z_2 = -0.5 \)
+    \end{itemize}
+    
+    \textbf{Step 1: Exponentiate the logits}
+    \[
+    e^{z_0} = e^{1.5} \approx 4.48, \quad e^{z_1} = e^{0.8} \approx 2.23, \quad e^{z_2} = e^{-0.5} \approx 0.61
+    \]
+    
+    \textbf{Step 2: Compute the sum of exponentials}
+    \[
+    \text{Sum} = e^{z_0} + e^{z_1} + e^{z_2} = 4.48 + 2.23 + 0.61 = 7.32
+    \]
+\end{frame}
+
+\begin{frame}{Example: Softmax Probabilities}
+    \textbf{Step 3: Calculate Softmax probabilities for each class}
+    \[
+    P(\text{Benign}) = \frac{4.48}{7.32} \approx 0.612, \quad P(\text{Malignant}) = \frac{2.23}{7.32} \approx 0.305, \quad P(\text{Pre-Cancerous}) = \frac{0.61}{7.32} \approx 0.083
+    \]
+    
+    \textbf{Step 4: Make a classification decision}
+    \begin{itemize}
+        \item The highest probability is \( 0.612 \) for the \textbf{Benign} class.
+        \item Therefore, the model predicts that the tumor is \textbf{Benign} (Class 0).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Conclusion: Softmax Activation for Classification}
+    \textbf{Key Points:}
+    \begin{itemize}
+        \item Softmax is used in the output layer for \textbf{multi-class classification}.
+        \item It converts logits into a \textbf{probability distribution} across classes.
+        \item The class with the highest probability is selected as the prediction.
+    \end{itemize}
+    
+    \textbf{Main Idea:} Softmax ensures all outputs sum to 1, making it ideal for choosing one class out of multiple options.
+\end{frame}
+
+
+
+
+\section{References}
+
+\begin{frame}{Contributions}
+\begin{itemize}
+\item \textbf{This slide has been prepared thanks to:}
+\begin{itemize}
+    \setlength{\itemsep}{10pt} % Adjust the value to control the spacing
+    \item \href{https://github.com/DnyaNvB/}{Donya Navabi}
+    \item \href{https://github.com/mohmmadweb}{Mohammad Aghaei}
+    \item \href{https://github.com/sogandstormesalehi/}{Sogand Salehi}
+\end{itemize}
+\end{itemize}
+
+\end{frame}
+\begin{frame}[allowframebreaks]
+    \bibliography{ref}
+    \bibliographystyle{ieeetr}
+    \nocite{*} % used here because no citation happens in slides
+    % if there are too many try use：
+    % \tiny\bibliographystyle{alpha}
+\end{frame}
+
+
+\begin{frame}
+    \begin{center}
+        {\Huge Any Questions?}
+    \end{center}
+\end{frame}
+
+\end{document}
