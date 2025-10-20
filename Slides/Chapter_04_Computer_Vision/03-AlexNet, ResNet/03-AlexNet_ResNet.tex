@@ -327,12 +327,25 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{Vanishing Gradient}
 	\begin{itemize}
 		\item Consider a deep neural network without residual blocks
-		\item  
-		\item 
+		If we have the error signal $\bar{h}^{(T)}$. We then alternate between the following two backprop rules:
+	\begin{align}
+		\bar{h}^{(t)} &= \bar{z^{(t+1)}}\, w, \\	
+		\bar{z^{(t)}} &= \bar{h}^{(t)}\, \phi'\!\bigl(z^{(t)}\bigr).
+	\end{align}
+
+
+		\item If we iterate the rules, we get:
+	\begin{align}
+		\bar{h}^{(1)}
+	  	&= w^{T-1}\,\phi'\!\bigl(z^{(2)}\bigr)\cdots \phi'\!\bigl(z^{(T)}\bigr)\,\bar{h}^{(T)} \\
+		  &= \frac{\partial h^{(T)}}{\partial h^{(1)}}\,\bar{h}^{(T)}.
+	\end{align}
+		
+		
+		
+		
 	\end{itemize}
 	\vspace{-0.5cm}
-	\centering
-	\includegraphics[keepaspectratio, scale=0.23]{pic/vanish}
 \end{frame}
 
 
