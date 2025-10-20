@@ -368,6 +368,40 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 
+\begin{frame}{Jacobian}
+	\begin{itemize}
+	
+	\item More generally, in the multivariate case,
+	\begin{equation}
+		\frac{\partial \mathbf{h}^{(T)}}{\partial \mathbf{h}^{(1)}} =
+		\frac{\partial \mathbf{h}^{(T)}}{\partial \mathbf{h}^{(T-1)}} 
+		\cdots
+		\frac{\partial \mathbf{h}^{(2)}}{\partial \mathbf{h}^{(1)}}.
+	\end{equation}
+
+	\item This quantity is called the \textit{Jacobian}.  
+	In the case of linear activation functions,
+		\[
+		\frac{\partial \mathbf{h}^{(t+1)}}{\partial \mathbf{h}^{(t)}} = \mathbf{W},
+		\]
+	so
+	\begin{equation}
+		\frac{\partial \mathbf{h}^{(T)}}{\partial \mathbf{h}^{(1)}} = \mathbf{W}^{T-1}.
+	\end{equation}
+
+	\item This will explode if the largest eigenvalue of $\mathbf{W}$ is larger than $1$,  and vanish if the largest eigenvalue is smaller than $1$.
+
+
+
+	\end{itemize}
+	\vspace{-0.5cm}
+\end{frame}
+
+
+
+
+
+
 
 
 \begin{frame}{Residual Block}
