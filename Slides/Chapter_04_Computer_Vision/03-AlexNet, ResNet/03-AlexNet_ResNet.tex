@@ -328,30 +328,44 @@ subsubsectionstyle=show/shaded/hide]
 	\begin{itemize}
 		\item Consider a deep neural network without residual blocks
 		If we have the error signal $\bar{h}^{(T)}$. We then alternate between the following two backprop rules:
-	\begin{align}
-		\bar{h}^{(t)} &= \bar{z^{(t+1)}}\, w, \\	
-		\bar{z^{(t)}} &= \bar{h}^{(t)}\, \phi'\!\bigl(z^{(t)}\bigr).
-	\end{align}
+		\begin{align}
+			\bar{h}^{(t)} &= \bar{z^{(t+1)}}\, w, \\	
+			\bar{z^{(t)}} &= \bar{h}^{(t)}\, \phi'\!\bigl(z^{(t)}\bigr).
+		\end{align}
 
 
 		\item If we iterate the rules, we get:
-	\begin{align}
-		\bar{h}^{(1)}
-	  	&= w^{T-1}\,\phi'\!\bigl(z^{(2)}\bigr)\cdots \phi'\!\bigl(z^{(T)}\bigr)\,\bar{h}^{(T)} \\
-		  &= \frac{\partial h^{(T)}}{\partial h^{(1)}}\,\bar{h}^{(T)}.
-	\end{align}
-		
-		
-		\item Hence, $\bar{h}^{(1)}$ is a linear function of $\bar{h}^{(T)}$; the coefficient is the partial derivative $\dfrac{\partial h^{(T)}}{\partial h^{(1)}}$. If we make the simplifying assumption that the activation functions are linear, we get:
-		
-	\begin{equation}
-		\frac{\partial h^{(T)}}{\partial h^{(1)}} = w^{T-1},
-	\end{equation}
-		
+		\begin{align}
+			\bar{h}^{(1)}
+	  		&= w^{T-1}\,\phi'\!\bigl(z^{(2)}\bigr)\cdots \phi'\!\bigl(z^{(T)}\bigr)\,\bar{h}^{(T)} \\
+			  &= \frac{\partial h^{(T)}}{\partial h^{(1)}}\,\bar{h}^{(T)}.
+		\end{align}
+				
 		
 	\end{itemize}
 	\vspace{-0.5cm}
 \end{frame}
+
+
+
+
+\begin{frame}{Vanishing Gradient}
+	\begin{itemize}
+
+
+		\item Hence, $\bar{h}^{(1)}$ is a linear function of $\bar{h}^{(T)}$; the coefficient is the partial derivative $\dfrac{\partial h^{(T)}}{\partial h^{(1)}}$. If we make the simplifying assumption that the activation functions are linear, we get:
+		
+		\begin{equation}
+			\frac{\partial h^{(T)}}{\partial h^{(1)}} = w^{T-1},
+		\end{equation}
+
+
+
+	\end{itemize}
+	\vspace{-0.5cm}
+\end{frame}
+
+
 
 
 \begin{frame}{Residual Block}

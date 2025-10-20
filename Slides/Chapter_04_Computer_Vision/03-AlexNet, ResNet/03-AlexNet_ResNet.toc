@@ -1,7 +1,7 @@
 \beamer@sectionintoc {1}{Why Deep Networks?}{3}{0}{1}
 \beamer@sectionintoc {2}{AlexNet}{7}{0}{2}
 \beamer@sectionintoc {3}{ResNet}{15}{0}{3}
-\beamer@sectionintoc {4}{Data Preprocessing}{28}{0}{4}
-\beamer@sectionintoc {5}{Data Augmentation}{34}{0}{5}
-\beamer@sectionintoc {6}{Transfer Learning}{41}{0}{6}
-\beamer@sectionintoc {7}{References}{54}{0}{7}
+\beamer@sectionintoc {4}{Data Preprocessing}{29}{0}{4}
+\beamer@sectionintoc {5}{Data Augmentation}{35}{0}{5}
+\beamer@sectionintoc {6}{Transfer Learning}{42}{0}{6}
+\beamer@sectionintoc {7}{References}{55}{0}{7}
