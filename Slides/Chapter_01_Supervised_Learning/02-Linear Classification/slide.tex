@@ -60,7 +60,7 @@
 
 \author{Ali Sharifi-Zarchi}
 \title{Machine Learning (CE 40717)}
-\subtitle{Fall 2024}
+\subtitle{Fall 2025}
 \institute{
     CE Department \\
     Sharif University of Technology
@@ -107,33 +107,32 @@ subsectionstyle=show/shaded/hide,
 subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
-\section{Introduction to Classification}
+\section{Introduction}
+
 \begin{frame}{Definition}
-    \begin{itemize}\itemsep2em
-        \item Given: Training Set
-        \begin{itemize}
-            \item A dataset \(D\) with \(N\) labeled instances \(D \, = \, \{(\mathbf{x}^{(i)}, \, y^{(i)})\}^N_{i=1}\)
-            \item $y^{(i)} \in \{1, \, ... \, , K\}$
-        \end{itemize}
-    \end{itemize}
-    \minipage{0.55\textwidth}
-    \begin{itemize}
-        \item \justifying Goal: Given an input $x$, assign it to one of $K$ classes.
-            \item Real-World Examples:
+    \begin{minipage}{0.55\textwidth}
+        \begin{itemize}\itemsep1em
+            \item \textbf{Given:} A training dataset
+            \[
+                D = \{(\mathbf{x}^{(i)}, y^{(i)})\}_{i=1}^{N}, \quad 
+                y^{(i)} \in \{1, 2, \dots, K\}
+            \]
+            \item \textbf{Goal:} Learn a function that maps any new input $\mathbf{x}$ to one of $K$ classes.
+            \item \textbf{Examples:}
             \begin{itemize}
-                \item Email Spam Detection
-                \item Medical Diagnosis
-                \item Churn Prediction
+                \item Email → Spam or Not Spam
+                \item Image → Cat, Dog, or Bird
+                \item Transaction → Fraudulent or Legitimate
             \end{itemize}
-    \end{itemize}
-    \endminipage
+        \end{itemize}
+    \end{minipage}
     \hfill
-    \minipage{0.42\textwidth}
-    \begin{figure}
+    \begin{minipage}{0.42\textwidth}
+        \begin{figure}
             \centering
             \includegraphics[width=\linewidth]{pic/Figure_30.png}
         \end{figure}
-    \endminipage
+    \end{minipage}
 \end{frame}
 
 \begin{frame}{Real-World Example of Classification}
@@ -170,54 +169,67 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 \begin{frame}{Classification vs. Regression}
-    \begin{table}[]
-        \centering
-        \begin{tabular}{|
+    \begin{center}
+    \begin{tabular}{|
         >{\columncolor[HTML]{C0C0C0}}c |c|c|}
         \hline
-        \textbf{Aspect}        & \cellcolor[HTML]{C0C0C0}\textbf{Linear Regression}                                                & \cellcolor[HTML]{C0C0C0}\textbf{Linear Classification}                                           \\ \hline
-        \textbf{Output Type}   & Continuous values (real numbers).                                                                 & \begin{tabular}[c]{@{}c@{}}Binary or Multi-class labels\\ (e.g., -1/+1, A/B/C)\end{tabular}        \\ \hline
-        \textbf{Use Cases}     & \begin{tabular}[c]{@{}c@{}}Predicting house prices,\\ stock market trends.\end{tabular}           & \begin{tabular}[c]{@{}c@{}}Email spam detection,\\ Credit Scoring, Churn Prediction\end{tabular} \\ \hline
-        \end{tabular}
-        \label{tab:my-table}
-    \end{table}
+        \textbf{Aspect} & \textbf{Regression} & \textbf{Classification} \\ \hline
+        \textbf{Output Type} & Continuous value ($\mathbb{R}$) & Discrete class label \\ \hline
+        \textbf{Goal} & Predict numerical quantities & Assign category labels \\ \hline
+        \textbf{Examples} & House price, temperature & Spam detection, sentiment analysis \\ \hline
+        \textbf{Evaluation Metrics} & MSE, MAE & Accuracy, Precision, Recall \\ \hline
+    \end{tabular}
+    \end{center}
 \end{frame}
 
 
 \section{Discriminant Functions}
 
+
+
 \begin{frame}{Discriminant Functions in Machine Learning}
-    \begin{itemize}
-        \item \textbf{Definition}
-        \medskip
-        \begin{itemize}\itemsep1.5em
-            \item \justifying A function that assigns a score to an input vector $x$, to classify it into different classes.
-            \item \justifying It maps the input $\mathbf{x}$ to a real number $g(\mathbf{x})$, which represents the degree of confidence in assigning $\mathbf{x}$ to a particular class.
-        \end{itemize}
+    \begin{itemize}\itemsep1.2em
+        \item \textbf{Conceptual Overview:}\\  
+        A discriminant function constitutes a mapping from the feature space to a real-valued score that quantifies the likelihood or confidence of a sample belonging to a specific class.
+        \item \textbf{Formal Definition:}\\  
+        Let $\mathbf{x} \in \mathbb{R}^d$ denote a feature vector. A discriminant function is a function $g(\mathbf{x}) : \mathbb{R}^d \rightarrow \mathbb{R}$ such that larger values of $g(\mathbf{x})$ correspond to stronger evidence for a particular class.
+        \item \textbf{Objective:}\\
+        Design $g(\mathbf{x})$ to maximize correct classification over a given dataset.
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Discriminant Functions in Machine Learning}
-    \begin{itemize}
-        \item \textbf{How it works}
-        \medskip
-        \begin{itemize}\itemsep1.5em
-            \item \justifying \textbf{Binary Classification}: Two functions \textbf{$g_1(\mathbf{x})$} and \textbf{$g_2(\mathbf{x})$} for classes $C_1$ and $C_2$, respectively. The class is predicted by comparing these two functions:
+
+
+
+\begin{frame}{Classification Using Discriminant Functions}
+    \begin{itemize}\itemsep1.5em
+        \item \textbf{Binary Classification:}\\
+        \begin{itemize}
+            \item Consider two discriminant functions $g_1(\mathbf{x})$ and $g_2(\mathbf{x})$ corresponding to classes $C_1$ and $C_2$, respectively.
+            \item The predicted class $\hat{y}$ is determined by the criterion:
             \[
                 \hat{y} =
                 \begin{cases} 
                     C_1 & \text{if } g_1(\mathbf{x}) > g_2(\mathbf{x}) \\
-                    C_2 & \text{otherwise}
+                    C_2 & \text{otherwise.}
                 \end{cases}
             \]
-
-            \item \justifying \textbf{General Case}: For $k$-class problems, we compute \textbf{$g_i(\mathbf{x})$} for every class $i$, and assign \textbf{$x$} to class with highest score:
-            $$
-                \hat{y} = \arg \max_i \, g_i(\mathbf{x})
-            $$
         \end{itemize}
+
+        \item \textbf{Multi-Class Classification:}\\
+        \begin{itemize}
+            \item For $k$ classes, compute $g_i(\mathbf{x})$ for each class $C_i$, $i=1,\dots,k$.
+            \item Assign $\mathbf{x}$ to the class corresponding to the maximal discriminant value:
+            \[
+                \hat{y} = \arg \max_{i} g_i(\mathbf{x})
+            \]
+        \end{itemize}
+
+        \item \textbf{Interpretation:}
+        The discriminant function serves as a quantitative measure of class membership confidence.
     \end{itemize}
 \end{frame}
+
 
 \begin{frame}{Decision Boundary}
     \begin{itemize}
@@ -230,49 +242,65 @@ subsubsectionstyle=show/shaded/hide]
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Discriminant Functions: Two-Category}
-    \begin{itemize}\itemsep1.5em
-        \item \justifying \textbf{Function}: For two-category problem, we can only find a function $g \, : \, \mathbb{R}^d \rightarrow \mathbb{R}$
-        \begin{itemize}
-            \item $g_1(\mathbf{x}) \, = \, g(\mathbf{x})$,
-            \item $g_2(\mathbf{x}) \, = \, -g(\mathbf{x})$
-        \end{itemize}
-        \item \textbf{Decision Boundary}: $g(\mathbf{x}) \, = \, 0$
-        \item \justifying At first, we start by explaining two-category classification for simplicity, and then extend the concept to multi-category classification for more complex problems.
+\begin{frame}{Two-Class Discriminant Function}
+    \begin{itemize}
+        \item In the case of a binary classification problem, a single discriminant function suffices:
+        \[
+            g : \mathbb{R}^d \rightarrow \mathbb{R}.
+        \]
+        \item The two class-specific discriminants can be represented as:
+        \[
+            g_1(\mathbf{x}) = g(\mathbf{x}), \quad g_2(\mathbf{x}) = -g(\mathbf{x}).
+        \]
+        \item The associated decision rule is:
+        \[
+            \hat{y} =
+            \begin{cases}
+                C_1 & \text{if } g(\mathbf{x}) > 0 \\
+                C_2 & \text{if } g(\mathbf{x}) < 0
+            \end{cases}
+        \]
+        \item The decision boundary corresponds to the set $\{\mathbf{x} \mid g(\mathbf{x}) = 0\}$.
+        \item This formulation provides a foundation for subsequent extension to multi-class discriminant analysis.
     \end{itemize}
 \end{frame}
+
 
 
 \section{Linear Classifiers}
 
 \begin{frame}{Linear Classifiers}
     \begin{itemize}\itemsep1.5em
-        \item \justifying \textbf{Definition}: In case of linear classifiers, decision boundaries are linear in $d$ (\(\mathbf{x} \in \mathbb{R}^d\)), or linear in some given set of functions of $x$.
-        \item \justifying \textbf{Linearly separable data}: Data points that can be exactly separated by a linear decision boundary.
-        \item \textbf{Why are they popular?}
-        \smallskip
-        \begin{itemize}
-            \item \justifying Simplicity, Efficiency, Effectiveness.
-        \end{itemize}
+        \item \justifying \textbf{Definition:}\\
+        Linear classifiers assign class labels using a decision function that is linear in the feature vector $\mathbf{x} \in \mathbb{R}^d$, or linear in a set of transformed features of $\mathbf{x}$.
+        \item \justifying \textbf{Linearly separable data:}\\
+        Data points that can be perfectly separated by a linear decision boundary.
+        \item \textbf{General form:}
+        \[
+            g(\mathbf{x}) = \mathbf{w}^T \mathbf{x} + w_0,
+        \]
+        where $\mathbf{w}$ defines the orientation of the decision surface and $w_0$ determines its position.
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Two Category Classification}
+
+\begin{frame}{Two-Category Classification}
     \minipage{.5\textwidth}
-    \begin{itemize}\itemsep1.5em
-        \item \(g(\mathbf{x}) \, = \, \mathbf{w}^T\mathbf{x} + w_0 \, = \, w_d \cdot x_d + ... + w_1 \cdot x_1 + w_0\)
-        \begin{itemize}
-            \item \(\mathbf{x} = [x_1 \, \, ... \, \, x_d]\)
-            \item \(\mathbf{w} = [w_1 \, \, ... \, \, w_d]\)
-            \item \(w_0 \text{: bias}\)
-        \end{itemize}
-        \item \(
-            \begin{cases} 
-                C_1 & \text{if } \mathbf{w}^T\mathbf{x} + w_0 \geq 0 \\
-                C_2 & \text{otherwise}
+    \begin{itemize}\itemsep1.2em
+        \item \textbf{Linear discriminant:}
+        \[
+            g(\mathbf{x}) = \mathbf{w}^T\mathbf{x} + w_0
+        \]
+        \item \(\mathbf{x} = [x_1, \dots, x_d]^T,\; \mathbf{w} = [w_1, \dots, w_d]^T,\; w_0:\text{ bias}\)
+        \item \textbf{Decision rule:}
+        \[
+            \hat{y} =
+            \begin{cases}
+                C_1, & \text{if } g(\mathbf{x}) \ge 0 \\
+                C_2, & \text{otherwise}
             \end{cases}
-            \)
-        \item \justifying \textbf{Decision Surface}: \(\mathbf{w}^T\mathbf{x} + w_0\)
+        \]
+        \item \textbf{Decision surface:} $\mathbf{w}^T\mathbf{x} + w_0 = 0$
     \end{itemize}
     \endminipage
     \hfill
@@ -284,41 +312,39 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 
-\begin{frame}{Two Category Classification Cont.}
-    \begin{itemize}\itemsep1.5em
-        \item Decision Boundary is a (\(d - 1\))-dimensional hyperplane \(H\) in the \(d\)-dimensional feature space. Some properties of \(H\) are:
-        \medskip
-        \begin{itemize}\itemsep0.7em
-            \item Orientation of \(H\) is determined by the normal vector \([\frac{w_1}{\Vert w \Vert} , \, ..., \, \frac{w_d}{\Vert w \Vert}]\).
-            \item \(w_0\) determines the location of the surface.
+\begin{frame}{Geometric Properties of Linear Decision Boundaries}
+    \begin{itemize}\itemsep1.2em
+        \item The decision boundary is a $(d-1)$-dimensional hyperplane in $\mathbb{R}^d$.
+        \item \textbf{Properties:}
+        \begin{itemize}
+            \item Orientation is determined by the normal vector $\mathbf{w}/\|\mathbf{w}\|$.
+            \item Bias $w_0$ controls the displacement along the normal vector.
         \end{itemize}
+        \item Points on opposite sides of the hyperplane are assigned to different classes.
     \end{itemize}
     \begin{figure}
-        \centering
         \includegraphics[width=\linewidth]{pic/Figure_25.png}
     \end{figure}
 \end{frame}
 
-\begin{frame}{Non-linear decision boundary}
-    \minipage{.45\textwidth}
-    \begin{itemize}
-        \item \textbf{Non-linear Decision Boundaries}
-        \begin{itemize}\itemsep1em
-            \item \justifying \textbf{Feature Transformation}: Non-linearity is introduced by transforming features into a higher-dimensional space.
-            \item \justifying \textbf{Linear in Transformed Space}: The decision boundary becomes linear in the new space, but non-linear in the original space.
-        \end{itemize}
+\begin{frame}{Nonlinear Decision Boundaries}
+    \minipage{.46\textwidth}
+    \begin{itemize}\itemsep1em
+        \item \textbf{Problem:}\\ Many datasets cannot be separated by a linear hyperplane.
+        \item \textbf{Feature Transformation:}\\ Map input vector $\mathbf{x}$ to a higher-dimensional space $\phi(\mathbf{x})$.
+        \item \textbf{Resulting Decision Boundary:}\\ Linear in the transformed space, but nonlinear in the original feature space.
     \end{itemize}
     \endminipage
     \hfill
     \minipage{.5\textwidth}
-        \begin{figure}[bh]
+        \begin{figure}
             \includegraphics[width=\textwidth]{pic/Figure_10.png}
         \end{figure}
     \endminipage
     \vfill
     \begin{tikzpicture}[remember picture,overlay]
         \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figure adapted from slides of M. Soleymani, Machine Learning course, Sharif University of Technology.
+            \scriptsize Figure adapted from M. Soleymani, Machine Learning course, Sharif University of Technology.
         };
     \end{tikzpicture}
 \end{frame}
@@ -329,31 +355,34 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{What Is Perceptron?}
     \minipage{.65\textwidth}
     \begin{itemize}
-        \item \textbf{Perceptron Unit}:
+        \item \textbf{Perceptron Unit:}
         \medskip
         \begin{itemize}\itemsep1em
-        \item \justifying \textbf{Basic Building Block}:
-        A perceptron is the simplest type of artificial neuron used in machine learning.
-        \item \justifying \textbf{Linear Classifier}:
-        It maps input features to an output by applying a linear combination and a threshold.
-        \item \justifying \textbf{Binary Decision}:
-        Outputs 1 if the weighted sum of inputs exceeds the threshold, otherwise 0.
-        \item \justifying \textbf{Components}:
-        Inputs, weights, bias, and an activation function (often a step or a sigmoid function).
+            \item \justifying \textbf{Basic Building Block:}  
+            The perceptron is the simplest form of an artificial neuron used for classification tasks.
+            
+            \item \justifying \textbf{Linear Classifier:}  
+            It computes a linear combination of input features followed by a threshold-based decision.
+            
+            \item \justifying \textbf{Binary Decision:}  
+            Outputs \(1\) if the weighted sum of inputs exceeds a threshold; otherwise outputs \(0\).
+            
+            \item \justifying \textbf{Components:}  
+            Consists of input features, associated weights, a bias term, and an activation function (commonly a step or sigmoid function).
         \end{itemize}
     \end{itemize}
     \endminipage
     \hfill
     \minipage{.3\textwidth}
-    \begin{figure}
-        \centering
-        \includegraphics[width=\linewidth]{pic/Figure_18.png}
-    \end{figure}
+        \begin{figure}
+            \centering
+            \includegraphics[width=\linewidth]{pic/Figure_18.png}
+        \end{figure}
     \endminipage
     \vfill
     \begin{tikzpicture}[remember picture,overlay]
         \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figure adapted from Grokking Machine Learning, L. G. Serrano.
+            \scriptsize Figure adapted from \textit{Grokking Machine Learning}, L. G. Serrano.
         };
     \end{tikzpicture}
 \end{frame}
@@ -737,6 +766,138 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 
+\section{Imbalanced Data}
+
+\begin{frame}{The Problem: Imbalanced Data}
+    \begin{itemize}\itemsep1em
+        \item Real-world datasets often contain classes with unequal representation.
+        \item \textbf{Examples:}
+        \begin{itemize}
+            \item Fraud detection: 0.1\% Fraud, 99.9\% Non-Fraud
+            \item Medical diagnosis: 2\% Disease, 98\% Healthy
+        \end{itemize}
+        \item \textbf{Issue:} High accuracy may hide poor performance on the minority class.
+    \end{itemize}
+    \begin{center}
+        \includegraphics[width=0.55\textwidth]{pic/figure_32.png}\\
+    \end{center}
+\end{frame}
+
+\begin{frame}{Solution 1: Resampling Techniques}
+    \begin{columns}[T]
+        \begin{column}{0.48\textwidth}
+            \textbf{Undersampling}
+            \begin{itemize}\itemsep0.8em
+                \item Remove samples from majority class.
+                \item \textbf{+} Reduces training time.
+                \item \textbf{--} Risk of losing information.
+            \end{itemize}
+            \vspace{0.8em}
+            \includegraphics[width=\textwidth]{pic/Figure_33.png}\\
+            \scriptsize Majority class reduced.
+        \end{column}
+
+        \begin{column}{0.48\textwidth}
+            \textbf{Oversampling (e.g., SMOTE)}
+            \begin{itemize}\itemsep0.8em
+                \item Generate synthetic minority samples.
+                \item \textbf{+} Preserves information.
+                \item \textbf{--} May cause overfitting.
+            \end{itemize}
+            \vspace{0.8em}
+            \includegraphics[width=\textwidth]{pic/Figure_34.png}\\
+            \scriptsize New minority points added via interpolation.
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Solution 2: Algorithmic Approaches}
+
+\textbf{Weighted Loss Function}
+
+\begin{itemize}\itemsep0.8em
+    \item Assign a higher penalty to errors on the minority class.
+    \item Encourages the model to focus on rare but important cases.
+\end{itemize}
+
+\vspace{0.5em}
+
+\begin{columns}[c,onlytextwidth]
+    \column{0.55\textwidth}
+    \[
+        J(w) = - \sum_{i} w_{y^{(i)}} \, y^{(i)} \log(\hat{y}^{(i)})
+    \]
+    \scriptsize
+    \begin{center}
+    where $w_{y^{(i)}}$ is larger for the minority class.
+    \end{center}
+
+    \column{0.45\textwidth}
+    \centering
+    \includegraphics[width=0.8\linewidth]{pic/Figure_36.png}\\
+\end{columns}
+
+\end{frame}
+
+
+
+\begin{frame}{Hybrid Approaches}
+
+\textbf{Combining Sampling Strategies}
+
+\begin{itemize}\itemsep0.8em
+    \item Integrates both oversampling and undersampling to achieve better class balance.
+\end{itemize}
+
+\vspace{0.5em}
+
+\textbf{Typical Pipeline:}
+\begin{enumerate}\itemsep0.6em
+    \item Apply \textbf{SMOTE} to synthetically augment minority samples.
+    \item Randomly undersample the majority class to reduce imbalance.
+    \item Train the model on the newly balanced dataset.
+\end{enumerate}
+
+\vspace{0.6em}
+
+\begin{itemize}\itemsep0.6em
+    \item Provides a practical trade-off between \textbf{bias} and \textbf{variance}.
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Comparison of Methods}
+
+\begin{columns}[c,onlytextwidth]
+    \column{0.55\textwidth}
+    \textbf{Summary}
+
+    \begin{itemize}\itemsep0.6em
+        \item \textbf{Sampling} — modifies data distribution\\
+        \textcolor{green!60!black}{\small(+ Simple, improves balance)}\\
+        \textcolor{red!70!black}{\small(– Risk of over/underfitting)}
+        
+        \item \textbf{Algorithmic} — adjusts model focus  \\
+        \textcolor{green!60!black}{\small(+ No data change, interpretable)}\\
+        \textcolor{red!70!black}{\small(– Needs careful weight tuning)}
+        
+        \item \textbf{Hybrid} — combines both strategies  \\
+        \textcolor{green!60!black}{\small(+ Balanced, strong results)}  \\
+        \textcolor{red!70!black}{\small(– More complex, slower training)}
+    \end{itemize}
+
+    \column{0.43\textwidth}
+    \centering
+    \includegraphics[width=0.9\linewidth]{pic/Figure_35.png}\\
+    \scriptsize Visual summary of trade-offs
+\end{columns}
+
+\end{frame}
+
+
+
+
 
 \section{Cross Validation}
 
@@ -943,6 +1104,7 @@ where \( \mathbf{x}_A, \mathbf{x}_B \in C_k \).
 \medskip
 \begin{itemize}
     \item \href{https://github.com/jefri021}{Erfan Jafari}
+    \item {Aida Jalali}
 \end{itemize}
 \end{itemize}
 
