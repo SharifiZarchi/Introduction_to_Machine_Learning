@@ -11,7 +11,7 @@
 
 \documentclass[serif, aspectratio=169]{beamer}
 %\documentclass[serif]{beamer}  % for 4:3 ratio
-\usepackage[T1]{fontenc}
+\usepackage[T1]{fontenc} 
 \usepackage{fourier} % see "http://faq.ktug.org/wiki/uploads/MathFonts.pdf" for other options
 \usepackage{hyperref}
 \usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
@@ -51,942 +51,932 @@
 
 \begin{document}
 
-    \begin{frame}
-        \titlepage
-        \vspace*{-0.6cm}
-        \begin{figure}[htpb]
-            \begin{center}
-                \includegraphics[keepaspectratio, scale=0.25]{pic/sharif-main-logo.png}
-            \end{center}
-        \end{figure}
+\begin{frame}
+    \titlepage
+    \vspace*{-0.6cm}
+    \begin{figure}[htpb]
+    \begin{center}
+        \includegraphics[keepaspectratio, scale=0.25]{pic/sharif-main-logo.png}
+    \end{center}
+\end{figure}
 
-    \end{frame}
+\end{frame}
+
+\begin{frame}
+\tableofcontents[sectionstyle=show,
+subsectionstyle=show/shaded/hide,
+subsubsectionstyle=show/shaded/hide]
+\end{frame}
+
+\section{Course Overview}
+
+\begin{frame}{Course Overview}
+\textbf{Course Overview}
+\begin{itemize}
+    \item Supervised Learning
+    \item Unsupervised Learning
+    \item Neural Networks
+    \item Computer Vision
+    \item Natural Language Processing
+    \item Additional Chapter (Agentic AI)
+\end{itemize}
+\end{frame}
 
 
-    \begin{frame}{Teaching Team}
-        \textbf{Teaching Team}
+
+\begin{frame}{Supervised Learning}
+\textbf{Learn to predict outcomes using labeled data.}
+
+\begin{itemize}
+    \item Predict house prices from past sales data.
+    \item Use features such as size, location, and room count.
+\end{itemize}
+
+
+\begin{center}
+    \centering
+    \includegraphics[width=0.4\linewidth]{pic/be1.jpg}
+\end{center}
+
+\textbf{Learn More:}
+\href{https://towardsdatascience.com/predicting-house-prices-with-linear-regression-machine-learning-from-scratch-part-ii-47a0238aeac1}{Predicting House Prices with Linear Regression}
+\end{frame}
+
+\begin{frame}{Unsupervised Learning}
+\textbf{Discover hidden structures within unlabeled data.}
+
+\begin{itemize}
+    \item Identify groups or patterns without predefined labels.
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.7\linewidth]{pic/be2.png}
+\end{center}
+
+\begin{center}
+\textit{Example: Image clustering.}
+\end{center}
+\end{frame}
+
+
+
+\begin{frame}{Neural Networks}
+    \begin{itemize}
+        \item Designed to mimic the human brain in order to solve complex tasks
+    \end{itemize}
+    \vspace{0.4cm}
+    \begin{center}
+        \includegraphics[width=0.7\linewidth]{pic/be3.png}
+    \end{center}
+    \vspace{0.3cm}
+    \begin{center}
+        \textit{Examples: Facial recognition, voice assistants.}
+    \end{center}
+\end{frame}
+
+\begin{frame}{Computer Vision}
+    \begin{itemize}
+        \item Enables machines to perceive and interpret visual information
+    \end{itemize}
+    \begin{center}
+        \includegraphics[width=0.7\linewidth]{pic/be4.png} 
+    \end{center}
+    \begin{center}
+        \textit{Examples: Factory quality control, medical image analysis.}
+    \end{center}
+\end{frame}
+
+
+\begin{frame}{Natural Language Processing (NLP)}
+    \begin{itemize}
+        \item Understand and generate human language
+    \end{itemize}
+    \vspace{0.5cm}
+    \begin{center}
+        \includegraphics[width=0.6\linewidth]{pic/be5.png}
+    \end{center}
+    % \vspace{0.5cm}
+    \begin{center}
+        \textit{Example: Chat-bots, language translation.}
+    \end{center}
+\end{frame}
+
+
+
+
+
+\begin{frame}{What is Machine Learning (ML)?}
+    \begin{itemize}
+        \item \textbf{Machine Learning}: Enables computers to learn patterns from data without explicit programming.
+        \item Focuses on predicting outcomes, classification, or discovering hidden structures.
+    \vspace{4mm}
+
+        \item \textbf{Goal}: Build models that make accurate predictions from past data.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Tom M. Mitchell's Definition of ML}
+    \begin{quote}
+    "A computer program is said to learn from experience $E$ with respect to some class of tasks $T$ and performance measure $P$, if its performance at tasks in $T$, as measured by $P$, improves with experience $E$."
+    \end{quote}
+    \vspace{2mm}
+    \begin{itemize}
+        \item Formally: $\text{Learning Problem} = (T, P, E)$
+        \item Example: Predicting house prices using past data.
+    \end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Paradigms of ML}
+
+\begin{minipage}{1.0\textwidth}
+    \begin{itemize}
+        \item \textbf{Supervised learning} (regression, classification)
         \begin{itemize}
-            \item \textbf{Instructor:} Dr. Sharifi Zarchi \\
-            \href{mailto:asharifi@sharif.edu}{asharifi@sharif.edu} \\
-            \href{mailto:asharifiz@gmail.com}{asharifiz@gmail.com}
-            \item \textbf{Team Captain:} Alireza Mirrokni \\
-            \href{mailto:alirezamirrokni28@gmail.com}{alirezamirrokni28@gmail.com}
+            \item predicting a target variable for which we get to see examples.
         \end{itemize}
-
-
-    \end{frame}
-
-
-    \begin{frame}{Course Overview}
-        \textbf{Course Overview}
+        \item \textbf{Unsupervised learning}
         \begin{itemize}
-            \item Supervised Learning
-            \item Unsupervised Learning
-            \item Neural Networks
-            \item Computer Vision
-            \item Natural Language Processing
-            \item Additional Chapter (Agentic AI)
+            \item revealing structure in the observed data
         \end{itemize}
-    \end{frame}
-
-
-
-    \begin{frame}{Supervised Learning}
-        \textbf{Learn to predict outcomes using labeled data.}
-
+        \item \textbf{Reinforcement learning}
         \begin{itemize}
-            \item Predict house prices from past sales data.
-            \item Use features such as size, location, and room count.
+            \item partial (indirect) feedback, no explicit guidance
+            \item given rewards for a sequence of moves to learn a policy and utility functions
         \end{itemize}
+        \item \textbf{Other paradigms:} semi-supervised learning, active learning, online learning, etc.
+    \end{itemize}
+\end{minipage}%
+\end{frame}
 
 
-        \begin{center}
-            \centering
-            \includegraphics[width=0.4\linewidth]{pic/be1.jpg}
-        \end{center}
 
-        \textbf{Learn More:}
-        \href{https://towardsdatascience.com/predicting-house-prices-with-linear-regression-machine-learning-from-scratch-part-ii-47a0238aeac1}{Predicting House Prices with Linear Regression}
-    \end{frame}
 
-    \begin{frame}{Unsupervised Learning}
-        \textbf{Discover hidden structures within unlabeled data.}
+\section{Supervised Learning}
+\begin{frame}{Supervised Learning}
+    \begin{itemize}
+        \item \textbf{Definition}: A form of machine learning where the model learns from labeled data \( \{(x_i, y^{(i)})\} \) to predict an output \( y \) given an input \( x \).
+        \item \textbf{Goal}: Estimate a function \( f: \mathbb{R}^d \rightarrow \mathbb{R} \), such that \( y = f(\mathbf{x}) + \varepsilon \), where \( \varepsilon \) is noise.
+    \end{itemize}
+     \begin{center}
+        \includegraphics[width=0.6\linewidth]{pic/supervised.png}
+    \end{center}
+\end{frame}
 
+\begin{frame}
+    \frametitle{Components of (Supervised) Learning}
+
+    \begin{itemize}
+        \item \textbf{Unknown target function:} \( f : \mathcal{X} \to \mathcal{Y} \)
         \begin{itemize}
-            \item Identify groups or patterns without predefined labels.
+            \item \textbf{Input space:} \( \mathcal{X} \)
+            \item \textbf{Output space:} \( \mathcal{Y} \)
         \end{itemize}
-
-        \begin{center}
-            \includegraphics[width=0.7\linewidth]{pic/be2.png}
-        \end{center}
-
-        \begin{center}
-            \textit{Example: Image clustering.}
-        \end{center}
-    \end{frame}
-
-
-
-    \begin{frame}{Neural Networks}
-        \begin{itemize}
-            \item Designed to mimic the human brain in order to solve complex tasks
-        \end{itemize}
-        \vspace{0.4cm}
-        \begin{center}
-            \includegraphics[width=0.7\linewidth]{pic/be3.png}
-        \end{center}
-        \vspace{0.3cm}
-        \begin{center}
-            \textit{Examples: Facial recognition, voice assistants.}
-        \end{center}
-    \end{frame}
-
-    \begin{frame}{Computer Vision}
-        \begin{itemize}
-            \item Enables machines to perceive and interpret visual information
-        \end{itemize}
-        \begin{center}
-            \includegraphics[width=0.7\linewidth]{pic/be4.png}
-        \end{center}
-        \begin{center}
-            \textit{Examples: Factory quality control, medical image analysis.}
-        \end{center}
-    \end{frame}
-
-
-    \begin{frame}{Natural Language Processing (NLP)}
-        \begin{itemize}
-            \item Understand and generate human language
-        \end{itemize}
+        
+        \vspace{0.5cm} % for spacing between points
+        
+        \item \textbf{Training data:} \( (\mathbf{x}_1, y_1), (\mathbf{x}_2, y_2), \ldots, (\mathbf{x}_n, y_n) \)
+        
         \vspace{0.5cm}
-        \begin{center}
-            \includegraphics[width=0.6\linewidth]{pic/be5.png}
-        \end{center}
-        % \vspace{0.5cm}
-        \begin{center}
-            \textit{Example: Chat-bots, language translation.}
-        \end{center}
-    \end{frame}
-
-
-
-
-
-    \begin{frame}{What is Machine Learning (ML)?}
+        
+        \item \textbf{Pick a formula} \( h : \mathcal{X} \to \mathcal{Y} \) \textbf{that approximates the target function} \( f \)
         \begin{itemize}
-            \item \textbf{Machine Learning}: Enables computers to learn patterns from data without explicit programming.
-            \item Focuses on predicting outcomes, classification, or discovering hidden structures.
-            \vspace{4mm}
-
-            \item \textbf{Goal}: Build models that make accurate predictions from past data.
+            \item selected from a set of hypotheses \( \mathcal{H} \)
         \end{itemize}
-    \end{frame}
+    \end{itemize}
+    
+\end{frame}
+
+
+\begin{frame}{Components of (Supervised) Learning (cont.)}
+    \begin{minipage}{0.95\textwidth}
+        \begin{figure}[h]
+          \centering
+          \includegraphics[width=0.7\linewidth]{pic/4.png}
+        \end{figure}
+    \end{minipage}
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \tiny Figure adapted from Abu-Mostafa, Yaser S., Malik Magdon-Ismail, and Hsuan-Tien Lin. Learning from Data: A Short Course
+        };
+    \end{tikzpicture}
+\end{frame}
 
 
 
-    \begin{frame}{Tom M. Mitchell's Definition of ML}
-        \begin{quote}
-            "A computer program is said to learn from experience $E$ with respect to some class of tasks $T$ and performance measure $P$, if its performance at tasks in $T$, as measured by $P$, improves with experience $E$."
-        \end{quote}
-        \vspace{2mm}
+\begin{frame}{Supervised Learning: Regression vs. Classification}
+
+    \begin{itemize}
+        \item \textbf{Regression}: predict a \underline{continuous} target variable
         \begin{itemize}
-            \item Formally: $\text{Learning Problem} = (T, P, E)$
-            \item Example: Predicting house prices using past data.
+            \item E.g., $y \in [0, 1]$
         \end{itemize}
-    \end{frame}
-
-
-
-
-    \begin{frame}{Paradigms of ML}
-
-        \begin{minipage}{1.0\textwidth}
-            \begin{itemize}
-                \item \textbf{Supervised learning} (regression, classification)
-                \begin{itemize}
-                    \item predicting a target variable for which we get to see examples.
-                \end{itemize}
-                \item \textbf{Unsupervised learning}
-                \begin{itemize}
-                    \item revealing structure in the observed data
-                \end{itemize}
-                \item \textbf{Reinforcement learning}
-                \begin{itemize}
-                    \item partial (indirect) feedback, no explicit guidance
-                    \item given rewards for a sequence of moves to learn a policy and utility functions
-                \end{itemize}
-                \item \textbf{Other paradigms:} semi-supervised learning, active learning, online learning, etc.
-            \end{itemize}
-        \end{minipage}%
-    \end{frame}
-
-
-
-
-
-    \begin{frame}{Supervised Learning}
+        \item \textbf{Classification}: predict a \underline{discrete} target variable
         \begin{itemize}
-            \item \textbf{Definition}: A form of machine learning where the model learns from labeled data \( \{(x_i, y_i)\} \) to predict an output \( y \) given an input \( x \).
-            \item \textbf{Goal}: Estimate a function \( f: \mathbb{R}^D \rightarrow \mathbb{R} \), such that \( y = f(x) + \epsilon \), where \( \epsilon \) is noise.
+            \item E.g., $y \in \{1, 2, \ldots, C\}$
         \end{itemize}
-        \begin{center}
-            \includegraphics[width=0.6\linewidth]{pic/supervised.png}
-        \end{center}
-    \end{frame}
-
-    \begin{frame}
-        \frametitle{Components of (Supervised) Learning}
-
-        \begin{itemize}
-            \item \textbf{Unknown target function:} \( f : \mathcal{X} \to \mathcal{Y} \)
-            \begin{itemize}
-                \item \textbf{Input space:} \( \mathcal{X} \)
-                \item \textbf{Output space:} \( \mathcal{Y} \)
-            \end{itemize}
-
-            \vspace{0.5cm} % for spacing between points
-
-            \item \textbf{Training data:} \( (x_1, y_1), (x_2, y_2), \ldots, (x_N, y_N) \)
-
-            \vspace{0.5cm}
-
-            \item \textbf{Pick a formula} \( g : \mathcal{X} \to \mathcal{Y} \) \textbf{that approximates the target function} \( f \)
-            \begin{itemize}
-                \item selected from a set of hypotheses \( \mathcal{H} \)
-            \end{itemize}
-        \end{itemize}
-
-    \end{frame}
-
-
-    \begin{frame}{Components of (Supervised) Learning (cont.)}
-        \begin{minipage}{0.95\textwidth}
-            \begin{figure}[h]
-                \centering
-                \includegraphics[width=0.7\linewidth]{pic/4.png}
-            \end{figure}
-        \end{minipage}
-        \vfill
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-                \tiny Figure adapted from Abu-Mostafa, Yaser S., Malik Magdon-Ismail, and Hsuan-Tien Lin. Learning from Data: A Short Course
-            };
-        \end{tikzpicture}
-    \end{frame}
-
-
-
-    \begin{frame}{Supervised Learning: Regression vs. Classification}
-
-        \begin{itemize}
-            \item \textbf{Regression}: predict a \underline{continuous} target variable
-            \begin{itemize}
-                \item E.g., $y \in [0, 1]$
-            \end{itemize}
-            \item \textbf{Classification}: predict a \underline{discrete} target variable
-            \begin{itemize}
-                \item E.g., $y \in \{1, 2, \ldots, C\}$
-            \end{itemize}
-        \end{itemize}
-
+    \end{itemize}
+    
         \centering
         \includegraphics[width=0.8\linewidth]{pic/regressionVSclassification.jpg}
+    
+   
+
+\end{frame}
 
 
 
-    \end{frame}
-
-
-
-    \begin{frame}{Solution Components - Learning Model}
+\begin{frame}{Solution Components - Learning Model}
+    \begin{itemize}
+        \item The \textbf{Learning Model} consists of:
         \begin{itemize}
-            \item The \textbf{Learning Model} consists of:
-            \begin{itemize}
-                \item \textbf{Hypothesis Set}: Defines the possible functions \( \mathcal{H} = \{h(x, \theta) | \theta \in \Theta\} \), where \( h(x, \theta) \) represents candidate functions and \( \theta \) is the learning parameters of problem.
-                \item \textbf{Learning Algorithm}: Find \( \theta^* \in \Theta \) such that \( h(x, \theta^*) \approx f(x) \).
-            \end{itemize}
-            \item Both work together to map inputs \(x\) to outputs \(y\) with minimized error.
-            \item In other words, \( \theta^* \) is best parameters to predict outputs using chosen hypothesis.
+            \item \textbf{Hypothesis Set}: Defines the possible functions \( \mathcal{H} = \{h_{\theta}(\mathbf{x}) | \theta \in \Theta\} \), where \( h_\theta(\mathbf{x}) \) represents candidate functions and \( \theta \) is the learning parameters of problem.
+            \item \textbf{Learning Algorithm}: Find \( \theta^* \in \Theta \) such that \( h_{\theta^*}(\mathbf{x}) \approx f(\mathbf{x}) \).
         \end{itemize}
-        \vspace{0.5cm}
-    \end{frame}
+        \item Both work together to map inputs \(x\) to outputs \(y\) with minimized error.
+        \item In other words, \( \theta^* \) is best parameters to predict outputs using chosen hypothesis.
+    \end{itemize}
+    \vspace{0.5cm}
+\end{frame}
 
 
 
 
-    \begin{frame}{Hypothesis Space Overview}
-        \begin{itemize}
-            \item \textbf{Hypothesis (h)}: A mapping from input space \( \mathcal{X} \) to output space \( \mathcal{Y} \).
-            \item \textbf{Linear Regression Hypothesis}:
-            \[
-                h_{\mathbf{w}}(\mathbf{x}) = w_0 + w_1 x_1 + \dots + w_D x_D = \mathbf{w}^\top \mathbf{x}
-            \]
-            \item \textbf{Input Vector} \( \mathbf{x} \):
-            \[
-                \mathbf{x} = \begin{bmatrix} x_0 = 1, x_1, x_2, \dots, x_D \end{bmatrix}
-            \]
-            \item \textbf{Parameter Vector} \( \mathbf{w} \):
-            \[
-                \mathbf{w} = \begin{bmatrix} w_0, w_1, w_2, \dots, w_D \end{bmatrix}
-            \]
-        \end{itemize}
-    \end{frame}
-
-
-
-
-
-    \begin{frame}{Linear Hypothesis Representation}
-        \begin{itemize}
-            \item \textbf{Linear Hypothesis Space}:
-            \begin{itemize}
-                \item \textbf{Simplest form}: Linear combination of input features.
-                \[
-                    h_{\mathbf{w}}(\mathbf{x}) = w_0 + \sum_{i=1}^{D} w_i x_i
-                \]
-            \end{itemize}
-            \item \textbf{Linear Hypothesis Examples}:
-            \begin{itemize}
-                \item \textbf{Single Variable}: \( h_{\mathbf{w}}(x) = w_0 + w_1 x \)
-                \item \textbf{Multivariate}: \( h_{\mathbf{w}}(\mathbf{x}) = w_0 + w_1 x_1 + w_2 x_2 + ... + w_D x_D \)
-            \end{itemize}
-        \end{itemize}
-    \end{frame}
-
-
-    \begin{frame}{Understanding Cost Functions}
-        \begin{itemize}
-            \item In \textbf{hypothesis space}, we select a function \( h(x; \mathbf{w}) \) to approximate the true relationship between input \( x \) and output \( y \).
-            \item The objective is to minimize the difference between predicted values \( h(x) \) and actual values \( y \).
-            \item This difference is quantified using \textbf{cost functions}, which guide us in choosing the optimal hypothesis.
-        \end{itemize}
-    \end{frame}
-
-
-    \begin{frame}{What is a Cost Function?}
-        \begin{itemize}
-            \item A \textbf{cost function} measures how well the hypothesis \( h(x; \mathbf{w}) \) fits the training data.
-            \item In regression problems, the most common error function is the \textbf{Squared Error (SE)}:
-            \[
-                SE: \left( y^{(i)} - h(x^{(i)}; \mathbf{w}) \right)^2
-            \]
-            \item Cost function should measure all predictions. Thus a choice could be \textbf{Sum of Squared Errors (SSE)}:
-            \[
-                J(\mathbf{w}) = \sum_{i=1}^{N} \left( y^{(i)} - h(x^{(i)}; \mathbf{w}) \right)^2
-            \]
-            \item \textbf{Objective:} Minimize the cost function to find the best parameters \( \mathbf{w} \).
-
-        \end{itemize}
-
-    \end{frame}
-
-    \begin{frame}{SSE: Sum of Squared Errors}
-        \begin{itemize}
-            \item \textbf{SSE} is widely used due to its simplicity and differentiability.
-            \item Intuitively, it represents the squared distance between predicted and true values.
-            \item Penalizes larger errors more severely than smaller ones (due to the square).
-            \item For linear regression, it can be written as:
-            \[
-                SSE = \sum_{i=1}^{N} \left( y^{(i)} - \mathbf{w}^T \mathbf{x}^{(i)} \right)^2
-            \]
-        \end{itemize}
-    \end{frame}
-
-
-
-
-
-    \begin{frame}{How to measure the error}
-
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{pic/6.png}
-        \end{minipage}%
-        \begin{minipage}{0.5\textwidth}
-
-            \[
-                J(w) = \sum_{i=1}^{n} \left( y^{(i)} - h_w(x^{(i)}) \right)^2
-            \]
-            \[
-                = \sum_{i=1}^{n} \left( y^{(i)} - w_0 - w_1 x^{(i)} \right)^2
-            \]
-        \end{minipage}
-        \vfill
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-                \scriptsize Figure adapted from slides of Dr. Soleymani, Machine Learning course, Sharif university of technology.
-            };
-        \end{tikzpicture}
-    \end{frame}
-
-
-    \begin{frame}{The learning algorithm}
-
-        \begin{itemize}
-            \item \textbf{Objective:} Choose \( \mathbf{w} \) so as to minimize the \( J(\mathbf{w}) \)
-            % \[
-            % J(w) = \sum_{i=1}^{n} \left( y^{(i)} - h_w(x^{(i)}) \right)^2
-            % \]
-
-            \item \textbf{The learning algorithm:} optimization of the cost function
-            \begin{itemize}
-                \item Explicitly taking the cost function derivative with respect to the \( w_i \)'s, and setting them to zero.
-            \end{itemize}
-
-            \item Parameters of the best hypothesis for the training set:
-            \[
-                w^* = \arg \min_{w} J(w)
-            \]
-        \end{itemize}
-
-
-    \end{frame}
-
-
-
-
-    \begin{frame}{Cost function optimization: univariate}
+\begin{frame}{Hypothesis Space Overview}
+    \begin{itemize}
+        \item \textbf{Hypothesis (h)}: A mapping from input space \( \mathcal{X} \) to output space \( \mathcal{Y} \).
+        \item \textbf{Linear Regression Hypothesis}:
         \[
-            J(w) = \sum_{i=1}^{n} \left( y^{(i)} - w_0 - w_1 x^{(i)} \right)^2
+        h_{\mathbf{w}}(\mathbf{x}) = w_0 + w_1 x_1 + \dots + w_d x_d = \mathbf{w}^\top \mathbf{x}
         \]
-
-        \begin{itemize}
-            \item \textbf{Necessary conditions for the “optimal” parameter values:}
-            \[
-                \frac{\partial J(w)}{\partial w_0} = 0, \qquad
-                \frac{\partial J(w)}{\partial w_1} = 0
-            \]
-
-            \[
-                \frac{\partial J(w)}{\partial w_1} = \sum_{i=1}^{n} 2 \left( y^{(i)} - w_0 - w_1 x^{(i)} \right) (-x^{(i)}) = 0
-            \]
-
-            \[
-                \frac{\partial J(w)}{\partial w_0} = \sum_{i=1}^{n} 2 \left( y^{(i)} - w_0 - w_1 x^{(i)} \right) (-1) = 0
-            \]
-
-            \begin{itemize}
-                \item A system of 2 linear equations
-            \end{itemize}
-        \end{itemize}
-
-
-    \end{frame}
-
-
-
-
-
-    \begin{frame}{Linear regression example: TV Advertising and Sales}
-        This is a real-world example of how businesses can use linear regression to make decisions about marketing budgets. The following table shows the amount of TV advertising budget spend and respective average sales of houses in Boston:
-        \begin{table}[h!]
-            \centering
-            \begin{tabular}{|c|c|}
-                \hline
-                \textbf{TV Advertising Spend (\$1000)} & \textbf{Sales (Units)} \\ \hline
-                230.1                                  & 22.1                   \\ \hline
-                44.5                                   & 10.4                   \\ \hline
-                17.2                                   & 9.3                    \\ \hline
-                151.5                                  & 18.5                   \\ \hline
-                180.8                                  & 12.9                   \\ \hline
-            \end{tabular}
-            \caption{TV Advertising Spend vs. Sales Dataset}
-        \end{table}
-
-        \textbf{Learn More:}
-        \href{https://www.kaggle.com/datasets/yasserh/advertising-sales-dataset}{Advertising Sales Dataset}
-    \end{frame}
-
-
-
-
-
-    \begin{frame}{Linear regression example: TV Advertising and Sales (cont.)}
-        \begin{itemize}
-            \item In this problem, Sales per TV advertising is need thus the amount spend is considered as input \( x \) and sales is considered as output \( y \).
-            \item Using linear regression, cost function can be written as:
-            \[
-                J(w) = \sum_{i=1}^{5} \left( y^{(i)} - w_0 - w_1 x^{(i)} \right)^2
-            \]
-            \item Applying necessary conditions for the optimal parameters:
-            \[
-                \frac{\partial J(w)}{\partial w_1} = \sum_{i=1}^{5} 2 \left( y^{(i)} - w_0 - w_1 x^{(i)} \right) (-x^{(i)}) = 0 \implies 110863 w_1 + 624.1 w_0 - 10843.04 = 0
-            \]
-            \[
-                \frac{\partial J(w)}{\partial w_0} = \sum_{i=1}^{5} 2 \left( y^{(i)} - w_0 - w_1 x^{(i)} \right) (-1) = 0 \implies 624.1 w_1 + 5 w_0 - 73.2 = 0
-            \]
-        \end{itemize}
-    \end{frame}
-
-
-
-
-
-    \begin{frame}{Linear regression example: TV Advertising and Sales (cont.)}
-        \begin{minipage}{0.4\textwidth}
-            \begin{itemize}
-                \item Solving the system of two equations described, we get:
-                \[ w_1 \approx 0.052 \]
-                \[ w_0 \approx 8.18 \]
-            \end{itemize}
-        \end{minipage}%
-        \begin{minipage}{0.55\textwidth}
-            \centering
-            \includegraphics[width=0.75\textwidth]{pic/boston.png}
-        \end{minipage}
-
-    \end{frame}
-
-    \begin{frame}{Cost function optimization: multivariate}
-        \begin{itemize}
-            \item Remembering \textbf{SSE cost function} of multivariate linear regression
-            \[
-                J(w) = \sum_{i=1}^{n} \left( y^{(i)} - h_w(x^{(i)}) \right)^2 = \sum_{i=1}^{n} \left( y^{(i)} - \mathbf{w}^T \mathbf{x}^{(i)} \right)^2
-            \]
-            \item We usually write matrix form of the problem as follows:
-
-        \end{itemize}
-
+        \item \textbf{Input Vector} \( \mathbf{x} \):
         \[
-            \mathbf{X} =
-            \begin{bmatrix}
-                1 & x_1^{(1)} & \cdots & x_d^{(1)} \\
-                1 & x_1^{(2)} & \cdots & x_d^{(2)} \\
-                \vdots & \vdots & \ddots & \vdots \\
-                1 & x_1^{(n)} & \cdots & x_d^{(n)}
-            \end{bmatrix}
-            \quad
-            \mathbf{w} =
-            \begin{bmatrix}
-                w_0 \\
-                w_1 \\
-                \vdots \\
-                w_d
-            \end{bmatrix}
-            \quad
-            \mathbf{y} =
-            \begin{bmatrix}
-                y^{(1)} \\
-                \vdots \\
-                y^{(n)}
-            \end{bmatrix}
+        \mathbf{x} = \begin{bmatrix} x_0 = 1, x_1, x_2, \dots, x_d \end{bmatrix}
         \]
-
-        \begin{center}
-            In which \( x_m^{(i)} \) indicates \(m \)'th feature of data point \( i\) \\
-        \end{center}
-
-    \end{frame}
-
-
-
-    \begin{frame}{Cost function optimization: multivariate}
-
-        \begin{itemize}
-            \item Using the matrix forms suggested, we can rewrite cost function:
-            \[
-                J(\mathbf{w}) = \| \mathbf{y} - \mathbf{Xw} \|_2^2
-            \]
-            \item Explicitly taking the cost function derivative with respect to the \( \mathbf{w} \), and setting them to zero:
-            \[
-                \nabla_w J(\mathbf{w}) = -2 \mathbf{X}^T \left( \mathbf{y} - \mathbf{Xw} \right)
-            \]
-            \[
-                \nabla_w J(\mathbf{w}) = 0 \implies \mathbf{X}^T \mathbf{Xw} = \mathbf{X}^T \mathbf{y} \implies \mathbf{w} = \left( \mathbf{X}^T \mathbf{X} \right)^{-1} \mathbf{X}^T \mathbf{y}
-            \]
-        \end{itemize}
-
-        % \begin{itemize}
-        %     \item \textbf{Is} \( \mathbf{X}^T \mathbf{X} \) \textbf{invertible?}
-        % \end{itemize}
-
-        \begin{itemize}
-            \item \( \left(\mathbf{X}^T \mathbf{X} \right)^{-1} \mathbf{X}^T \) is called pseudo-inverse of matrix \( \mathbf{X} \)
-            \item The matrix \( \mathbf{X} \) is often not square yet not invertible. \item The pseudo-inverse can be computed for any matrix, regardless of its shape.
-        \end{itemize}
-    \end{frame}
-
-    \begin{frame}{Computational limitations of analytical solution}
-        \begin{itemize}
-            \item \textbf{Scalability:} Analytical solutions do not scale well with very large datasets, making them impractical for big data applications.
-            \item \textbf{Finding the inverse of a matrix:}
-            \begin{itemize}
-                \item Simplest way of finding inverse: Gaussian elimination, having complexity of \(O(n^3)\).
-                \item Other methods: LU decomposition, which also has a complexity of \(O(n^3)\) but is more stable.
-                \item Numerical methods: Iterative methods like Conjugate Gradient, which can be more efficient for large, sparse matrices.
-            \end{itemize}
-            % \item \textbf{Memory usage:} Storing large matrices in memory can be prohibitive, especially for very large datasets.
-        \end{itemize}
-    \end{frame}
-
-
-
-
-    \begin{frame}{Cost function optimization}
-
-        \begin{itemize}
-            \item \textbf{Another approach,}
-            \begin{itemize}
-                \item Start from an initial guess and iteratively change \( w \) to minimize \( J(w) \).
-                \begin{itemize}
-                    \item The gradient descent algorithm
-                \end{itemize}
-            \end{itemize}
-
-            \item \textbf{Steps:}
-            \begin{itemize}
-                \item Start from \( w^0 \)
-                \item Repeat:
-                \begin{itemize}
-                    \item Update \( w^t \) to \( w^{t+1} \) in order to reduce \( J \)
-                    \item \( t \leftarrow t + 1 \)
-                \end{itemize}
-                until we hopefully end up at a minimum.
-            \end{itemize}
-        \end{itemize}
-
-    \end{frame}
-
-
-    \begin{frame}{Gradient Descent}
-
-        \begin{itemize}
-            \item In each step, takes steps proportional to the negative of the gradient vector of the function at the current point \( w^t \):
-
-            \[
-                w^{t+1} = w^t - \eta \nabla J(w^t)
-            \]
-
-            \item \( J(w) \) \textbf{decreases fastest} if one goes from \( w^t \) in the direction of \( -\nabla J(w^t) \)
-
-            \item \textbf{Assumption}: \( J(w) \) is defined and differentiable in a neighborhood of a point \( w^t \).
-            \item \textbf{Gradient ascent} takes steps proportional to (the positive of) the gradient to find a local maximum of the function.
-
-
-        \end{itemize}
-
-    \end{frame}
-
-
-    \begin{frame}{Gradient Descent (cont.)}
-        \begin{itemize}
-            \item In gradient descent, we only use the gradient (1st order Taylor approximation).
-            \item In other words, we assume that the function $\ell$ around $\mathbf{w}$ is linear and behaves like:
-            \[
-                \ell(\mathbf{w} + \mathbf{s}) \approx \ell(\mathbf{w}) + g(\mathbf{w})^{\top} \mathbf{s}
-            \]
-            where $g(\mathbf{w}) = \nabla \ell(\mathbf{w})$.
-            \item Our goal is to find a vector $\mathbf{s}$ that minimizes this function.
-            \item In gradient descent we simply set:
-            \[
-                \mathbf{s} = -\eta g(\mathbf{w}),
-            \]
-            for some small $\eta > 0$.
-            \item It is straightforward to prove that in this case $\ell(\mathbf{w} + \mathbf{s}) < \ell(\mathbf{w})$:
-        \end{itemize}
-
-        \vspace{0.0cm}
-        \begin{equation*}
-            \underbrace{\ell(\mathbf{w} + (-\eta g(\mathbf{w})))}_{\text{after one update}}
-            \approx
-            \ell(\mathbf{w}) \underbrace{- \eta g(\mathbf{w})^{\top} g(\mathbf{w})}_{<0}
-            <
-            \underbrace{\ell(\mathbf{w})}_{\text{before}}
-        \end{equation*}
-    \end{frame}
-
-
-    \begin{frame}{Gradient Descent (cont.)}
-
-        \begin{itemize}
-            \item \textbf{Minimize} \( J(w) \)
-        \end{itemize}
-
+        \item \textbf{Parameter Vector} \( \mathbf{w} \):
         \[
-            w^{t+1} = w^t - \eta \nabla_w J(w^t)
+        \mathbf{w} = \begin{bmatrix} w_0, w_1, w_2, \dots, w_d \end{bmatrix}
         \]
+    \end{itemize}
+\end{frame}
 
+
+
+
+
+\begin{frame}{Linear Hypothesis Representation}
+    \begin{itemize}
+        \item \textbf{Linear Hypothesis Space}:
+        \begin{itemize}
+            \item \textbf{Simplest form}: Linear combination of input features.
+            \[
+            h_{\mathbf{w}}(\mathbf{x}) = w_0 + \sum_{i=1}^{d} w_i x_i
+            \]
+        \end{itemize}
+        \item \textbf{Linear Hypothesis Examples}:
+        \begin{itemize}
+            \item \textbf{Single Variable}: \( h_{\mathbf{w}}(x) = w_0 + w_1 x \)
+            \item \textbf{Multivariate}: \( h_{\mathbf{w}}(\mathbf{x}) = w_0 + w_1 x_1 + w_2 x_2 + ... + w_d x_d \)
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\section{Learning Algorithm}
+\begin{frame}{Understanding Cost Functions}
+    \begin{itemize}
+        \item In \textbf{hypothesis space}, we select a function \( h_{\mathbf{w}}(x) \) to approximate the true relationship between input \( x \) and output \( y \).
+        \item The objective is to minimize the difference between predicted values \( h(x) \) and actual values \( y \).
+        \item This difference is quantified using \textbf{cost functions}, which guide us in choosing the optimal hypothesis.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{What is a Cost Function?}
+    \begin{itemize}
+        \item A \textbf{cost function} measures how well the hypothesis \( h_{\mathbf{w}}(x)  \) fits the training data.
+        \item In regression problems, the most common error function is the \textbf{Squared Error (SE)}:
+            \[
+            SE: \left( y^{(i)} - h_{\mathbf{w}}(\mathbf{x}^{(i)}) \right)^2
+            \]
+        \item Cost function should measure all predictions. Thus a choice could be \textbf{Sum of Squared Errors (SSE)}:
         \[
-            \nabla_w J(w) =
-            \begin{bmatrix}
-                \frac{\partial J(w)}{\partial w_1} \\
-                \vdots \\
-                \frac{\partial J(w)}{\partial w_d}
-            \end{bmatrix}
+        J(\mathbf{w}) = \sum_{i=1}^{N} \left( y^{(i)} - h_{\mathbf{w}}(\mathbf{x}^{(i)} ) \right)^2
         \]
+        \item \textbf{Objective:} Minimize the cost function to find the best parameters \( \mathbf{w} \).
 
-        \begin{itemize}
-            \item If \( \eta \) is small enough, then \( J(w^{t+1}) \leq J(w^t) \).
-            \item \( \eta \) can be allowed to change at every iteration as \( \eta_t \).
-        \end{itemize}
+    \end{itemize}
 
-    \end{frame}
+\end{frame}
 
-    \begin{frame}{Gradient descent disadvantages}
-
-        \begin{itemize}
-            \item \textbf{Local minima problem}
-
-            \item \textbf{However, when \( J \) is convex, all local minima are also global minima} \(\Rightarrow\) gradient descent can converge to the global solution.
-        \end{itemize}
-
-        \begin{minipage}{0.48\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{pic/7.png}
-        \end{minipage}%
-        \begin{minipage}{0.48\textwidth}
-            \centering
-            \includegraphics[width=\textwidth]{pic/8.png}
-        \end{minipage}
-        \vfill
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-                \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
-            };
-        \end{tikzpicture}
-
-    \end{frame}
-
-    \begin{frame}{Cost function optimization}
-        \begin{itemize}
-            \item Weight update rule having $h_w(\mathbf{x}) = \mathbf{w}^T \mathbf{x}$ is as follows:
-        \end{itemize}
-
+\begin{frame}{SSE: Sum of Squared Errors}
+    \begin{itemize}
+        \item \textbf{SSE} is widely used due to its simplicity and differentiability.
+        \item Intuitively, it represents the squared distance between predicted and true values.
+        \item Penalizes larger errors more severely than smaller ones (due to the square).
+        \item For linear regression, it can be written as:
         \[
-            \mathbf{w}^{t+1} = \mathbf{w}^t + \eta \sum_{i=1}^{n} \left( y^{(i)} - \mathbf{w}^T \mathbf{x}^{(i)} \right) \mathbf{x}^{(i)}
+        SSE = \sum_{i=1}^{n} \left( y^{(i)} - \mathbf{w}^T \mathbf{x}^{(i)} \right)^2
         \]
-
-        \begin{itemize}
-            \item $\eta$: too small $\Rightarrow$ gradient descent can be slow.
-            \item $\eta$: too large $\Rightarrow$ gradient descent can overshoot the minimum. It may fail to converge, or even diverge.
-        \end{itemize}
-    \end{frame}
-
-    \begin{frame}{Gradient descent overview}
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/GD/hypothesis_1.png}
-        \end{minipage}%
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/GD/cost_function_1.png}
-        \end{minipage}
-        \vfill
-        \vfill
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-                \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
-            };
-        \end{tikzpicture}
-    \end{frame}
-
-
-
-    \begin{frame}{Gradient descent overview (cont.)}
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/GD/hypothesis_2.png}
-        \end{minipage}%
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/GD/cost_function_2.png}
-        \end{minipage}
-        \vfill
-        \vfill
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-                \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
-            };
-        \end{tikzpicture}
-    \end{frame}
-
-    \begin{frame}{Gradient descent overview (cont.)}
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/GD/hypothesis_3.png}
-        \end{minipage}%
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/GD/cost_function_3.png}
-        \end{minipage}
-        \vfill
-        \vfill
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-                \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
-            };
-        \end{tikzpicture}
-    \end{frame}
-
-    \begin{frame}{Gradient descent overview (cont.)}
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/GD/hypothesis_4.png}
-        \end{minipage}%
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/GD/cost_function_4.png}
-        \end{minipage}
-        \vfill
-        \vfill
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-                \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
-            };
-        \end{tikzpicture}
-    \end{frame}
-
-    \begin{frame}{Gradient descent overview (cont.)}
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/GD/hypothesis_5.png}
-        \end{minipage}%
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/GD/cost_function_5.png}
-        \end{minipage}
-        \vfill
-        \vfill
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-                \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
-            };
-        \end{tikzpicture}
-    \end{frame}
-
-    \begin{frame}{Gradient descent overview (cont.)}
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/GD/hypothesis_6.png}
-        \end{minipage}%
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/GD/cost_function_6.png}
-        \end{minipage}
-        \vfill
-        \vfill
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-                \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
-            };
-        \end{tikzpicture}
-    \end{frame}
-
-    \begin{frame}{Gradient descent overview (cont.)}
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/GD/hypothesis_7.png}
-        \end{minipage}%
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/GD/cost_function_7.png}
-        \end{minipage}
-        \vfill
-        \vfill
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-                \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
-            };
-        \end{tikzpicture}
-    \end{frame}
-
-    \begin{frame}{Gradient descent overview (cont.)}
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/GD/hypothesis_8.png}
-        \end{minipage}%
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/GD/cost_function_8.png}
-        \end{minipage}
-        \vfill
-        \vfill
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-                \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
-            };
-        \end{tikzpicture}
-    \end{frame}
-
-    \begin{frame}{Gradient descent overview (cont.)}
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/GD/hypothesis_9.png}
-        \end{minipage}%
-        \begin{minipage}{0.5\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/GD/cost_function_9.png}
-        \end{minipage}
-        \vfill
-        \vfill
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-                \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
-            };
-        \end{tikzpicture}
-    \end{frame}
+    \end{itemize}
+\end{frame}
 
 
 
 
-    \begin{frame}{Variants of gradient descent}
-        \begin{itemize}
-            \item \textbf{Batch gradient descent:} processes the entire training set in one iteration
-            \begin{itemize}
-                \item It can be computationally costly for large data sets and practically impossible for some applications (such as online learning).
-            \end{itemize}
 
-            \item \textbf{Mini-batch gradient descent:} processes small, random subsets (mini-batches) of the training set in each iteration
-            \begin{itemize}
-                \item Balances the efficiency of batch gradient descent.
-                % \item Reduces variance in the parameter updates, leading to more stable convergence.
-            \end{itemize}
-            \item \textbf{Stochastic gradient descent:} processes one training example per iteration
-            \begin{itemize}
-                \item Updates the model parameters more frequently, which can lead to faster convergence.
-                % \item Introduces noise into the optimization process, which can help escape local minima.
-                % \item Can be less stable and more sensitive to the learning rate.
-            \end{itemize}
-        \end{itemize}
+\begin{frame}{How to measure the error}
+
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pic/6.png}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+    
+        \[
+        J(w) = \sum_{i=1}^{n} \left( y^{(i)} - h_{\mathbf{w}}(\mathbf{x}^{(i)}) \right)^2
+        \]
+        \[
+        = \sum_{i=1}^{n} \left( y^{(i)} - w_0 - w_1 x^{(i)} \right)^2
+        \]
+    \end{minipage}
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figure adapted from slides of Dr. Soleymani, Machine Learning course, Sharif university of technology.
+        };
+    \end{tikzpicture}
+\end{frame}
+
+
+\begin{frame}{The learning algorithm}
+
+    \begin{itemize}
+        \item \textbf{Objective:} Choose \( \mathbf{w} \) so as to minimize the \( J(\mathbf{w}) \)
         % \[
-        % J(\mathbf{w}) = \sum_{i=1}^{n} J^{(i)}(\mathbf{w})
+        % J(w) = \sum_{i=1}^{n} \left( y^{(i)} - h_w(x^{(i)}) \right)^2
         % \]
-
-        % \begin{itemize}
-        %     \item \textbf{Update after presentation of} $(\mathbf{x}^{(i)}, y^{(i)})$:
-        % \end{itemize}
-
-        % \[
-        % \mathbf{w}^{t+1} = \mathbf{w}^t - \eta \nabla_{\mathbf{w}} J^{(i)}(\mathbf{w})
-        % \]
-    \end{frame}
-
-    \begin{frame}{Stochastic gradient descent}
-
+    
+        \item \textbf{The learning algorithm:} optimization of the cost function
         \begin{itemize}
-            \item \textbf{Example:} Linear regression with SSE cost function
+            \item Explicitly taking the cost function derivative with respect to the \( w_i \)'s, and setting them to zero.
         \end{itemize}
+        
+        \item Parameters of the best hypothesis for the training set:
         \[
-            J(\mathbf{w}) = \sum_{i=1}^{n} J^{(i)}(\mathbf{w})
+        \mathbf{w}^* = \arg \min_{\mathbf{w}} J(\mathbf{w})
         \]
+    \end{itemize}
+    
+    
+\end{frame}
 
+
+
+
+\begin{frame}{Cost function optimization: univariate}
+    \[
+    J(\mathbf{w}) = \sum_{i=1}^{n} \left( y^{(i)} - w_0 - w_1 x^{(i)} \right)^2
+    \]
+    
+    \begin{itemize}
+        \item \textbf{Necessary conditions for the “optimal” parameter values:}
         \[
-            J^{(i)}(\mathbf{w}) = \left( y^{(i)} - \mathbf{w}^T \mathbf{x}^{(i)} \right)^2
+        \frac{\partial J(\mathbf{w})}{\partial w_0} = 0, \qquad
+        \frac{\partial J(\mathbf{w})}{\partial w_1} = 0
         \]
+     
+    \[
+    \frac{\partial J(\mathbf{w})}{\partial w_1} = \sum_{i=1}^{n} 2 \left( y^{(i)} - w_0 - w_1 x^{(i)} \right) (-x^{(i)}) = 0
+    \]
+    
+    \[
+    \frac{\partial J(\mathbf{w})}{\partial w_0} = \sum_{i=1}^{n} 2 \left( y^{(i)} - w_0 - w_1 x^{(i)} \right) (-1) = 0
+    \]
+    
+    \begin{itemize}
+        \item A system of 2 linear equations
+    \end{itemize}
+    \end{itemize}
+    
 
+\end{frame}
+
+
+
+
+
+\begin{frame}{Linear regression example: TV Advertising and Sales}
+    This is a real-world example of how businesses can use linear regression to make decisions about marketing budgets. The following table shows the amount of TV advertising budget spend and respective average sales of houses in Boston:
+    \begin{table}[h!]
+    \centering
+    \begin{tabular}{|c|c|}
+    \hline
+    \textbf{TV Advertising Spend (\$1000)} & \textbf{Sales (Units)} \\ \hline
+    230.1                                  & 22.1                   \\ \hline
+    44.5                                   & 10.4                   \\ \hline
+    17.2                                   & 9.3                    \\ \hline
+    151.5                                  & 18.5                   \\ \hline
+    180.8                                  & 12.9                   \\ \hline
+    \end{tabular}
+    \caption{TV Advertising Spend vs. Sales Dataset}
+    \end{table}
+    
+\textbf{Learn More:}
+\href{https://www.kaggle.com/datasets/yasserh/advertising-sales-dataset}{Advertising Sales Dataset}
+\end{frame}
+
+
+
+
+
+\begin{frame}{Linear regression example: TV Advertising and Sales (cont.)}
+    \begin{itemize}
+        \item In this problem, Sales per TV advertising is need thus the amount spend is considered as input \( x \) and sales is considered as output \( y \). 
+        \item Using linear regression, cost function can be written as:
         \[
-            \mathbf{w}^{t+1} = \mathbf{w}^t - \eta \nabla_{\mathbf{w}} J^{(i)}(\mathbf{w})
+        J(\mathbf{w}) = \sum_{i=1}^{5} \left( y^{(i)} - w_0 - w_1 x^{(i)} \right)^2
         \]
-
+        \item Applying necessary conditions for the optimal parameters:
+        \[ 
+        \frac{\partial J(\mathbf{w})}{\partial w_1} = \sum_{i=1}^{5} 2 \left( y^{(i)} - w_0 - w_1 x^{(i)} \right) (-x^{(i)}) = 0 \implies 110863 w_1 + 624.1 w_0 - 10843.04 = 0
+        \]
         \[
-            \implies \mathbf{w}^{t+1} = \mathbf{w}^t + \eta \left( y^{(i)} - \mathbf{w}^T \mathbf{x}^{(i)} \right) \mathbf{x}^{(i)}
+        \frac{\partial J(\mathbf{w})}{\partial w_0} = \sum_{i=1}^{5} 2 \left( y^{(i)} - w_0 - w_1 x^{(i)} \right) (-1) = 0 \implies 624.1 w_1 + 5 w_0 - 73.2 = 0
         \]
+    \end{itemize}
+\end{frame}
 
-        \begin{center}
-            In which \( x^{(i)} \) indicates the \(i\)'th observation arrived.
-        \end{center}
 
-    \end{frame}
+
+
+
+\begin{frame}{Linear regression example: TV Advertising and Sales (cont.)}
+\begin{minipage}{0.4\textwidth}
+    \begin{itemize}
+        \item Solving the system of two equations described, we get:
+        \[ w_1 \approx 0.052 \]
+        \[ w_0 \approx 8.18 \]
+    \end{itemize}
+\end{minipage}%
+\begin{minipage}{0.55\textwidth}
+\centering
+\includegraphics[width=0.75\textwidth]{pic/boston.png}
+\end{minipage}
+
+\end{frame}
+
+\begin{frame}{Cost function optimization: multivariate}
+    \begin{itemize}
+        \item Remembering \textbf{SSE cost function} of multivariate linear regression
+            \[
+            J(\mathbf{w}) = \sum_{i=1}^{n} \left( y^{(i)} - h_{\mathbf{w}}(x^{(i)}) \right)^2 = \sum_{i=1}^{n} \left( y^{(i)} - \mathbf{w}^T \mathbf{x}^{(i)} \right)^2
+            \]
+        \item We usually write matrix form of the problem as follows:
+        
+    \end{itemize}
+    
+    \[
+    \mathbf{X} =
+    \begin{bmatrix}
+    1 & x_1^{(1)} & \cdots & x_d^{(1)} \\
+    1 & x_1^{(2)} & \cdots & x_d^{(2)} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    1 & x_1^{(n)} & \cdots & x_d^{(n)}
+    \end{bmatrix}
+    \quad
+    \mathbf{w} =
+    \begin{bmatrix}
+    w_0 \\
+    w_1 \\
+    \vdots \\
+    w_d
+    \end{bmatrix}
+    \quad
+    \mathbf{y} =
+    \begin{bmatrix}
+    y^{(1)} \\
+    \vdots \\
+    y^{(n)}
+    \end{bmatrix}
+    \]
+    
+    \begin{center}
+    In which \( x_m^{(i)} \) indicates \(m \)'th feature of data point \( i\) \\
+    \end{center}
+
+\end{frame}
+
+
+
+\begin{frame}{Cost function optimization: multivariate}
+    
+    \begin{itemize}
+        \item Using the matrix forms suggested, we can rewrite cost function:
+        \[
+        J(\mathbf{w}) = \| \mathbf{y} - \mathbf{Xw} \|_2^2
+        \]
+        \item Explicitly taking the cost function derivative with respect to the \( \mathbf{w} \), and setting them to zero:
+        \[
+        \nabla_{\mathbf{w}} J(\mathbf{w}) = -2 \mathbf{X}^T \left( \mathbf{y} - \mathbf{Xw} \right)
+        \]
+        \[
+        \nabla_{\mathbf{w}} J(\mathbf{w}) = 0 \implies \mathbf{X}^T \mathbf{Xw} = \mathbf{X}^T \mathbf{y} \implies \mathbf{w} = \left( \mathbf{X}^T \mathbf{X} \right)^{-1} \mathbf{X}^T \mathbf{y}
+        \]
+    \end{itemize}
+
+    % \begin{itemize}
+    %     \item \textbf{Is} \( \mathbf{X}^T \mathbf{X} \) \textbf{invertible?}
+    % \end{itemize}
+
+    \begin{itemize}
+        \item \( \left(\mathbf{X}^T \mathbf{X} \right)^{-1} \mathbf{X}^T \) is called pseudo-inverse of matrix \( \mathbf{X} \)
+        \item The matrix \( \mathbf{X} \) is often not square yet not invertible. \item The pseudo-inverse can be computed for any matrix, regardless of its shape.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Computational limitations of analytical solution}
+    \begin{itemize}
+        \item \textbf{Scalability:} Analytical solutions do not scale well with very large datasets, making them impractical for big data applications.
+        \item \textbf{Finding the inverse of a matrix:}
+        \begin{itemize}
+            \item Simplest way of finding inverse: Gaussian elimination, having complexity of \(O(n^3)\).
+            \item Other methods: LU decomposition, which also has a complexity of \(O(n^3)\) but is more stable.
+            \item Numerical methods: Iterative methods like Conjugate Gradient, which can be more efficient for large, sparse matrices.
+        \end{itemize}
+        % \item \textbf{Memory usage:} Storing large matrices in memory can be prohibitive, especially for very large datasets.
+    \end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Cost function optimization}
+
+\begin{itemize}
+    \item \textbf{Another approach,}
+    \begin{itemize}
+        \item Start from an initial guess and iteratively change \( \mathbf{w} \) to minimize \( J(\mathbf{w}) \).
+        \begin{itemize}
+            \item The gradient descent algorithm
+        \end{itemize}
+    \end{itemize}
+    
+    \item \textbf{Steps:}
+    \begin{itemize}
+        \item Start from \( \mathbf{w}^0 \)
+        \item Repeat:
+        \begin{itemize}
+            \item Update \( \mathbf{w}^t \) to \( \mathbf{w}^{t+1} \) in order to reduce \( J \)
+            \item \( t \leftarrow t + 1 \)
+        \end{itemize}
+        until we hopefully end up at a minimum.
+    \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+\section{Gradient Descent}
+\begin{frame}{Gradient Descent}
+
+    \begin{itemize}
+        \item In each step, takes steps proportional to the negative of the gradient vector of the function at the current point \( \mathbf{w}^t \):
+        
+        \[
+        \mathbf{w}^{t+1} = \mathbf{w}^t - \eta \nabla J(\mathbf{w}^t)
+        \]
+        
+        \item \( J(\mathbf{w}) \) \textbf{decreases fastest} if one goes from \( \mathbf{w}^t \) in the direction of \( -\nabla J(\mathbf{w}^t) \)
+        
+        \item \textbf{Assumption}: \( J(\mathbf{w}) \) is defined and differentiable in a neighborhood of a point \( \mathbf{w}^t \). 
+        \item \textbf{Gradient ascent} takes steps proportional to (the positive of) the gradient to find a local maximum of the function.
+        
+    
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Gradient Descent (cont.)}
+    \begin{itemize}
+        \item In gradient descent, we only use the gradient (1st order Taylor approximation). 
+        \item In other words, we assume that the function $\ell$ around $\mathbf{w}$ is linear and behaves like:
+        \[
+        \ell(\mathbf{w} + \mathbf{s}) \approx \ell(\mathbf{w}) + g(\mathbf{w})^{\top} \mathbf{s}
+        \]
+        where $g(\mathbf{w}) = \nabla \ell(\mathbf{w})$.
+        \item Our goal is to find a vector $\mathbf{s}$ that minimizes this function.  
+        \item In gradient descent we simply set:
+        \[
+        \mathbf{s} = -\eta g(\mathbf{w}),
+        \]
+        for some small $\eta > 0$.  
+        \item It is straightforward to prove that in this case $\ell(\mathbf{w} + \mathbf{s}) < \ell(\mathbf{w})$:
+    \end{itemize}
+    
+    \vspace{0.0cm}
+    \begin{equation*}
+        \underbrace{\ell(\mathbf{w} + (-\eta g(\mathbf{w})))}_{\text{after one update}}
+        \approx
+        \ell(\mathbf{w}) \underbrace{- \eta g(\mathbf{w})^{\top} g(\mathbf{w})}_{<0}
+        < 
+        \underbrace{\ell(\mathbf{w})}_{\text{before}}
+    \end{equation*}
+\end{frame}
+
+
+\begin{frame}{Gradient Descent (cont.)}
+
+    \begin{itemize}
+        \item \textbf{Minimize} \( J(\mathbf{w}) \)
+    \end{itemize}
+    
+    \[
+    \mathbf{w}^{t+1} = \mathbf{w}^t - \eta \nabla_{\mathbf{w}} J(\mathbf{w}^t)
+    \]
+    
+    \[
+    \nabla_{\mathbf{w}} J(\mathbf{w}) = 
+    \begin{bmatrix}
+        \frac{\partial J(\mathbf{w})}{\partial w_1} \\
+        \vdots \\
+        \frac{\partial J(\mathbf{w})}{\partial w_d}
+    \end{bmatrix}
+    \]
+    
+    \begin{itemize}
+        \item If \( \eta \) is small enough, then \( J(\mathbf{w}^{t+1}) \leq J(\mathbf{w}^t) \).
+        \item \( \eta \) can be allowed to change at every iteration as \( \eta_t \).
+    \end{itemize}
+
+\end{frame}
+
+\begin{frame}{Gradient descent disadvantages}
+
+    \begin{itemize}
+        \item \textbf{Local minima problem}
+        
+        \item \textbf{However, when \( J \) is convex, all local minima are also global minima} \(\Rightarrow\) gradient descent can converge to the global solution.
+    \end{itemize}
+
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pic/7.png}
+    \end{minipage}%
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{pic/8.png}
+    \end{minipage}
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
+        };
+    \end{tikzpicture}
+
+\end{frame}
+
+\begin{frame}{Cost function optimization}
+    \begin{itemize}
+        \item Weight update rule having $h_{\mathbf{w}}(\mathbf{x}) = \mathbf{w}^T \mathbf{x}$ is as follows:
+    \end{itemize}
+    
+    \[
+    \mathbf{w}^{t+1} = \mathbf{w}^t + \eta \sum_{i=1}^{n} \left( y^{(i)} - \mathbf{w}^T \mathbf{x}^{(i)} \right) \mathbf{x}^{(i)}
+    \]
+
+    \begin{itemize}
+        \item $\eta$: too small $\Rightarrow$ gradient descent can be slow.
+        \item $\eta$: too large $\Rightarrow$ gradient descent can overshoot the minimum. It may fail to converge, or even diverge.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Gradient descent overview}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/GD/hypothesis_1.png}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/GD/cost_function_1.png}
+    \end{minipage}
+    \vfill
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
+        };
+    \end{tikzpicture}
+\end{frame}
+
+
+
+\begin{frame}{Gradient descent overview (cont.)}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/GD/hypothesis_2.png}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/GD/cost_function_2.png}
+    \end{minipage}
+    \vfill
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Gradient descent overview (cont.)}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/GD/hypothesis_3.png}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/GD/cost_function_3.png}
+    \end{minipage}
+    \vfill
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Gradient descent overview (cont.)}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/GD/hypothesis_4.png}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/GD/cost_function_4.png}
+    \end{minipage}
+    \vfill
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Gradient descent overview (cont.)}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/GD/hypothesis_5.png}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/GD/cost_function_5.png}
+    \end{minipage}
+    \vfill
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Gradient descent overview (cont.)}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/GD/hypothesis_6.png}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/GD/cost_function_6.png}
+    \end{minipage}
+    \vfill
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Gradient descent overview (cont.)}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/GD/hypothesis_7.png}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/GD/cost_function_7.png}
+    \end{minipage}
+    \vfill
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Gradient descent overview (cont.)}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/GD/hypothesis_8.png}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/GD/cost_function_8.png}
+    \end{minipage}
+    \vfill
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
+        };
+    \end{tikzpicture}
+\end{frame}
+
+\begin{frame}{Gradient descent overview (cont.)}
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/GD/hypothesis_9.png}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/GD/cost_function_9.png}
+    \end{minipage}
+    \vfill
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figures adapted from slides of Andrew Ng, Machine Learning course, Stanford.
+        };
+    \end{tikzpicture}
+\end{frame}
+
+
+
+
+\begin{frame}{Variants of gradient descent}
+    \begin{itemize}
+        \item \textbf{Batch gradient descent:} processes the entire training set in one iteration
+        \begin{itemize}
+            \item It can be computationally costly for large data sets and practically impossible for some applications (such as online learning).
+        \end{itemize}
+        
+        \item \textbf{Mini-batch gradient descent:} processes small, random subsets (mini-batches) of the training set in each iteration
+        \begin{itemize}
+            \item Balances the efficiency of batch gradient descent.
+            % \item Reduces variance in the parameter updates, leading to more stable convergence.
+        \end{itemize}
+        \item \textbf{Stochastic gradient descent:} processes one training example per iteration
+        \begin{itemize}
+            \item Updates the model parameters more frequently, which can lead to faster convergence.
+            % \item Introduces noise into the optimization process, which can help escape local minima.
+            % \item Can be less stable and more sensitive to the learning rate.
+        \end{itemize}
+    \end{itemize}
+        % \[
+    % J(\mathbf{w}) = \sum_{i=1}^{n} J^{(i)}(\mathbf{w})
+    % \]
+    
+    % \begin{itemize}
+    %     \item \textbf{Update after presentation of} $(\mathbf{x}^{(i)}, y^{(i)})$:
+    % \end{itemize}
+    
+    % \[
+    % \mathbf{w}^{t+1} = \mathbf{w}^t - \eta \nabla_{\mathbf{w}} J^{(i)}(\mathbf{w})
+    % \]
+\end{frame}
+
+\begin{frame}{Stochastic gradient descent}
+
+    \begin{itemize}
+        \item \textbf{Example:} Linear regression with SSE cost function
+    \end{itemize}
+    \[
+    J(\mathbf{w}) = \sum_{i=1}^{n} J^{(i)}(\mathbf{w})
+    \]
+    
+    \[
+    J^{(i)}(\mathbf{w}) = \left( y^{(i)} - \mathbf{w}^T \mathbf{x}^{(i)} \right)^2
+    \]
+    
+    \[
+    \mathbf{w}^{t+1} = \mathbf{w}^t - \eta \nabla_{\mathbf{w}} J^{(i)}(\mathbf{w})
+    \]
+    
+    \[
+    \implies \mathbf{w}^{t+1} = \mathbf{w}^t + \eta \left( y^{(i)} - \mathbf{w}^T \mathbf{x}^{(i)} \right) \mathbf{x}^{(i)}
+    \]
+    
+    \begin{center}
+        In which \( x^{(i)} \) indicates the \(i\)'th observation arrived.
+    \end{center}
+    
+\end{frame}
 
 
 % \begin{frame}{Stochastic gradient descent: online learning}
@@ -1000,120 +990,119 @@
 % \end{frame}
 
 
-
-    \begin{frame}{Beyond Linear Regression}
+\section{Poly Regression}
+\begin{frame}{Beyond Linear Regression}
+    \begin{itemize}
+        \item How can we extend linear regression to model non-linear relationships?
         \begin{itemize}
-            \item How can we extend linear regression to model non-linear relationships?
+            \item \textbf{Transforming Data Using Basis Functions:}
             \begin{itemize}
-                \item \textbf{Transforming Data Using Basis Functions:}
-                \begin{itemize}
-                    \item Basis functions allow us to transform the original features into a new feature space.
-                    \item Common basis functions include polynomial and Gaussian functions.
-                \end{itemize}
-                \item \textbf{Learning a Linear Regression on Transformed Features:}
-                \begin{itemize}
-                    \item By applying linear regression to the transformed feature vectors, we can model complex, non-linear relationships.
-                    \item This approach maintains the simplicity and interpretability of linear regression while extending its flexibility.
-                \end{itemize}
+                \item Basis functions allow us to transform the original features into a new feature space.
+                \item Common basis functions include polynomial and Gaussian functions.
+            \end{itemize}
+            \item \textbf{Learning a Linear Regression on Transformed Features:}
+            \begin{itemize}
+                \item By applying linear regression to the transformed feature vectors, we can model complex, non-linear relationships.
+                \item This approach maintains the simplicity and interpretability of linear regression while extending its flexibility.
             \end{itemize}
         \end{itemize}
-    \end{frame}
+    \end{itemize}
+\end{frame}
 
-    \begin{frame}{Beyond Linear Regression: Polynomial Regression}
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=0.45\textwidth]{pic/Polynomial_regression/best_fitted_polynomial.png}
-            \caption{Best fitted polynomial of degree 4 can generalize well on samples}
-        \end{figure}
-    \end{frame}
+\begin{frame}{Beyond Linear Regression: Polynomial Regression}
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.45\textwidth]{pic/Polynomial_regression/best_fitted_polynomial.png}
+        \caption{Best fitted polynomial of degree 4 can generalize well on samples}
+    \end{figure}
+\end{frame}
 
+\begin{frame}{Beyond Linear Regression: change of basis}
+    % \begin{minipage}
+    \begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{pic/Polynomial_regression/change_of_basis.png}
+    \caption{Changing the basis of \( [1, x, y] \) to \( [1, x^2, y^2] \), we can use linear regression}
+    \end{figure}
+    % \end{minipage}
+\end{frame}
 
-    \begin{frame}{Beyond Linear Regression: change of basis}
-        % \begin{minipage}
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=0.75\textwidth]{pic/Polynomial_regression/change_of_basis.png}
-            \caption{Changing the basis of \( [1, x, y] \) to \( [1, x^2, y^2] \), we can use linear regression}
-        \end{figure}
-        % \end{minipage}
-    \end{frame}
-
-    \begin{frame}{Polynomial regression: Univariate}
-        \begin{itemize}
-            \item \textbf{Polynomial Regression Hypothesis:} m'th order regression
-            \[
-                h(x; \mathbf{w}) = w_0 + w_1 x^1 + \dots + w_{m-1} x^{m-1} + w_m x^m
-            \]
-            \item \textbf{Objective:} Fit a polynomial of degree m to data points.
-        \end{itemize}
-
-        \begin{itemize}
-            \item Similar to what we did for univariate linear regression, we can define:
-            \[
-                \mathbf{X'} =
-                \begin{bmatrix}
-                    1 & x^{(1)^1} & \cdots & x^{(1)^m} \\
-                    1 & x^{(2)^1} & \cdots & x^{(2)^m} \\
-                    \vdots & \vdots & \ddots & \vdots \\
-                    1 & x^{(n)^1} & \cdots & x^{(n)^m}
-                \end{bmatrix}
-                \quad
-                \mathbf{w} =
-                \begin{bmatrix}
-                    \hat{w}_0 \\
-                    \hat{w}_1 \\
-                    \vdots \\
-                    \hat{w}_m
-                \end{bmatrix}
-                \quad
-                \mathbf{y} =
-                \begin{bmatrix}
-                    y^{(1)} \\
-                    \vdots \\
-                    y^{(n)}
-                \end{bmatrix}
-            \]
-        \end{itemize}
-        \begin{center}
-            In which \( x^{(i)} \) indicates the \( i \)-th data point.
-        \end{center}
-    \end{frame}
-
-    \begin{frame}{Polynomial regression analytical solution: Univariate}
-        \item Rewriting the SSE cost function using matrix form we have:
+\begin{frame}{Polynomial regression: Univariate}
+    \begin{itemize}
+        \item \textbf{Polynomial Regression Hypothesis:} m'th order regression
         \[
-            J(\mathbf{w}) = \| \mathbf{y} - \mathbf{X'} \mathbf{w} \|_2^2
+        h_{\mathbf{w}}(\mathbf{x}) = w_0 + w_1 x^1 + \dots + w_{m-1} x^{m-1} + w_m x^m
         \]
-        \item \textbf{Analytical solution:} It has closed form solution as $$ \hat{\mathbf{w}} = \left( \mathbf{X'}^T\mathbf{X'} \right)^{-1} \mathbf{X'}^T y $$
-    \end{frame}
+        \item \textbf{Objective:} Fit a polynomial of degree m to data points.
+    \end{itemize}
 
-    \begin{frame}{Polynomial regression: example}
-        \begin{itemize}
-            \item Consider the following noisy samples
-            \begin{center}
-                \includegraphics[width=0.5\textwidth]{pic/Polynomial_regression/noisy_samples.png}
-            \end{center}
-            \vfile
-            \begin{center}
-                Splitting samples to train and validation sets
-            \end{center}
-        \end{itemize}
-    \end{frame}
+    \begin{itemize}
+        \item Similar to what we did for univariate linear regression, we can define:
+        \[
+        \mathbf{X'} =
+        \begin{bmatrix}
+        1 & x^{(1)^1} & \cdots & x^{(1)^m} \\
+        1 & x^{(2)^1} & \cdots & x^{(2)^m} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        1 & x^{(n)^1} & \cdots & x^{(n)^m}
+        \end{bmatrix}
+        \quad
+        \mathbf{w} =
+        \begin{bmatrix}
+        \hat{w}_0 \\
+        \hat{w}_1 \\
+        \vdots \\
+        \hat{w}_m
+        \end{bmatrix}
+        \quad
+        \mathbf{y} =
+        \begin{bmatrix}
+        y^{(1)} \\
+        \vdots \\
+        y^{(n)}
+        \end{bmatrix}
+        \]
+    \end{itemize}
+    \begin{center}
+        In which \( x^{(i)} \) indicates the \( i \)-th data point.
+    \end{center}
+\end{frame}
 
-    \begin{frame}{Quadratic regression vs Linear regression}
-        \begin{minipage}{0.48\textwidth}
-            \centering
-            \includegraphics[width=0.95\textwidth]{pic/Polynomial_regression/linear_regression.png}
-        \end{minipage} %
-        \begin{minipage}{0.48\textwidth}
-            \centering
-            \includegraphics[width=0.95\textwidth]{pic/Polynomial_regression/quadratic_regression.png}
-        \end{minipage}
+\begin{frame}{Polynomial regression analytical solution: Univariate}
+    \item Rewriting the SSE cost function using matrix form we have:
+    \[
+    J(\mathbf{w}) = \| \mathbf{y} - \mathbf{X'} \mathbf{w} \|_2^2
+    \]
+    \item \textbf{Analytical solution:} It has closed form solution as $$ \hat{\mathbf{w}} = \left( \mathbf{X'}^T\mathbf{X'} \right)^{-1} \mathbf{X'}^T y $$
+\end{frame}
+
+\begin{frame}{Polynomial regression: example}
+    \begin{itemize}
+        \item Consider the following noisy samples
+        \begin{center}
+            \includegraphics[width=0.5\textwidth]{pic/Polynomial_regression/noisy_samples.png}
+        \end{center}
         \vfile
         \begin{center}
-            Fitting both quadratic and linear regression shows the power of polynomial regression on generalizing for more complex patterns.
+            Splitting samples to train and validation sets
         \end{center}
-    \end{frame}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Quadratic regression vs Linear regression}
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{pic/Polynomial_regression/linear_regression.png}
+    \end{minipage} %
+    \begin{minipage}{0.48\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{pic/Polynomial_regression/quadratic_regression.png}
+    \end{minipage}
+    \vfile
+    \begin{center}
+        Fitting both quadratic and linear regression shows the power of polynomial regression on generalizing for more complex patterns.
+    \end{center}
+\end{frame}
 
 % \begin{frame}{Polynomial Regression: Multivariate}
 %     \begin{itemize}
@@ -1121,7 +1110,7 @@
 %     \[
 %     h_\mathbf{w}(\mathbf{x}^{(i)}) = \hat{w}_0 + \sum_{j=1}^{d} \sum_{k=1}^{m} \hat{w}_k^{(j)} \left( x_j^{(i)} \right)^k
 %     \]
-
+    
 %     where:
 %     \begin{itemize}
 %         \item \( \hat{w}_0 \) is the bias term.
@@ -1129,10 +1118,10 @@
 %         \item \( m \) is the highest degree of the polynomial.
 %         \item \( d \) is the number of features (dimension of \( \mathbf{x}^{(i)} \)).
 %     \end{itemize}
-
+    
 %     \item
 %     For a data point with two features \( x_1^{(i)} \) and \( x_2^{(i)} \), and a polynomial degree of \( 2 \) (quadratic), the hypothesis would be:
-
+    
 %     \[
 %     h_\mathbf{w}(x_1^{(i)}, x_2^{(i)}) = \hat{w}_0 + \hat{w}_1^{(1)} x_1^{(i)} + \hat{w}_2^{(1)} \left( x_1^{(i)} \right)^2 + \hat{w}_1^{(2)} x_2^{(i)} + \hat{w}_2^{(2)} \left( x_2^{(i)} \right)^2
 %     \]
@@ -1150,184 +1139,184 @@
 %     \]
 % \end{frame}
 
+\section{Generalization}
 
-
-    \begin{frame}{Generalization Overview}
-        \textbf{Main Idea}: The ability of a model to perform well on unseen data
-        \begin{itemize}
-            \item \textbf{Training Set}: \( D = \{(x_i, y_i)\}_{i=1}^n \)
-            \item \textbf{Test Set}: New data not seen during training
-            \item \textbf{Cost Function}: Measures how well the model fits data
-            \[
-                J(w) = \sum_{i=1}^{n} (y^{(i)} - h_w(x^{(i)}))^2
-            \]
-            \item \textbf{Objective}: Minimize the cost function on unseen data (generalization error)
-        \end{itemize}
-    \end{frame}
-
-    \begin{frame}{Expected Test Error}
-        \textbf{Definition}: Expected performance on unseen data
-        \begin{itemize}
-            \item Test data sampled from the same distribution \( p(x, y) \)
-            \[
-                J(w) = \mathbb{E}_{p(x,y)}[(y - h_w(x))^2]
-            \]
-            \item Approximate using test set \( \hat{J}(w) \)
-            \item Generalization error is the gap between training and test performance.
-        \end{itemize}
-    \end{frame}
-
-    \begin{frame}{Training vs Test Error}
-        \textbf{Key Concept}: Training error measures fit on known data, test error on unseen data
-        \begin{itemize}
-            \item \textbf{Training (empirical) error}:
-            \[
-                J_{\text{train}}(w) = \frac{1}{n} \sum_{i=1}^{n} \left( y^{(i)} - h_w(x^{(i)}) \right)^2
-            \]
-            \item \textbf{Test error}:
-            \[
-                J_{\text{test}}(w) = \frac{1}{m} \sum_{i=1}^{m} \left(y_{\text{test}}^{(i)} - h_w(x_{\text{test}}^{(i)})\right)^2
-            \]
-            \item \textbf{Goal}: Minimize the test error (generalization).
-        \end{itemize}
-    \end{frame}
-
-    \begin{frame}{Overfitting Definition}
-        \textbf{Concept}: A model fits the training data well but performs poorly on the test set
+\begin{frame}{Generalization Overview}
+    \textbf{Main Idea}: The ability of a model to perform well on unseen data
+    \begin{itemize}
+        \item \textbf{Training Set}: \( D = \{(\mathbf{x}^{(i)}, y^{(i)})\}_{i=1}^n \)
+        \item \textbf{Test Set}: New data not seen during training
+        \item \textbf{Cost Function}: Measures how well the model fits data
         \[
-            J_{\text{train}}(w) \ll J_{\text{test}}(w)
+        J(\mathbf{w}) = \sum_{i=1}^{n} (y^{(i)} - h_{\mathbf{w}}(\mathbf{x}^{(i)}))^2
         \]
-        \begin{itemize}
-            \item Causes: Model too complex, high variance
-            \item Consequence: Captures noise in training data, fails on unseen data
-        \end{itemize}
-    \end{frame}
+        \item \textbf{Objective}: Minimize the cost function on unseen data (generalization error)
+    \end{itemize}
+\end{frame}
 
-
-
-    \begin{frame}{Underfitting Definition}
-        \textbf{Concept}: The model is too simple and cannot capture the structure of the data
+\begin{frame}{Expected Test Error}
+    \textbf{Definition}: Expected performance on unseen data
+    \begin{itemize}
+        \item Test data sampled from the same distribution \( \mathbb{P}(\mathbf{x}, y) \)
         \[
-            J_{\text{train}}(w) \approx J_{\text{test}}(w) \gg 0
+        J(\mathbf{w}) = \mathbb{E}_{(\mathbf{x}, y) \sim \mathbb{P}}[(y - h_{\mathbf{w}}(\mathbf{x}))^2]
         \]
-        \begin{itemize}
-            \item Causes: Model lacks complexity, high bias
-            \item Consequence: Poor fit on both training and test data
-        \end{itemize}
-    \end{frame}
+        \item Approximate using test set \( \hat{J}(\mathbf{w}) \)
+        \item Generalization error is the gap between training and test performance.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Training vs Test Error}
+    \textbf{Key Concept}: Training error measures fit on known data, test error on unseen data
+    \begin{itemize}
+        \item \textbf{Training (empirical) error}:
+        \[
+        J_{\text{train}}(\mathbf{w}) = \frac{1}{n} \sum_{i=1}^{n} \left( y^{(i)} - h_{\mathbf{w}}(\mathbf{x}^{(i)}) \right)^2
+        \]
+        \item \textbf{Test error}:
+        \[
+        J_{\text{test}}(\mathbf{w}) = \frac{1}{m} \sum_{i=1}^{m} \left(y_{\text{test}}^{(i)} - h_{\mathbf{w}}(\mathbf{x}_{\text{test}}^{(i)})\right)^2
+        \]
+        \item \textbf{Goal}: Minimize the test error (generalization).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Overfitting Definition}
+    \textbf{Concept}: A model fits the training data well but performs poorly on the test set
+    \[
+    J_{\text{train}}(\mathbf{w}) \ll J_{\text{test}}(\mathbf{w})
+    \]
+    \begin{itemize}
+        \item Causes: Model too complex, high variance
+        \item Consequence: Captures noise in training data, fails on unseen data
+    \end{itemize}
+\end{frame}
 
 
 
-    \begin{frame}{Regime 1: High Variance}
+\begin{frame}{Underfitting Definition}
+    \textbf{Concept}: The model is too simple and cannot capture the structure of the data
+    \[
+    J_{\text{train}}(\mathbf{w}) \approx J_{\text{test}}(\mathbf{w}) \gg 0
+    \]
+    \begin{itemize}
+        \item Causes: Model lacks complexity, high bias
+        \item Consequence: Poor fit on both training and test data
+    \end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Regime 1: High Variance}
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{0.9\linewidth}|}
+\hline
+\textbf{Cause:} Poor performance due to high variance. \\ \hline
+
+\textbf{Symptoms:}
+\begin{itemize}
+    \item Training error $\ll$ Test error
+    \item Training error $<$ $\varepsilon$
+    \item Test error $>$ $\varepsilon$
+\end{itemize} \\ \hline
+
+\textbf{Remedies:}
+\begin{itemize}
+    \item Add more training data
+    \item Reduce model complexity (simpler models are less prone to high variance)
+    \item Use Bagging (covered later)
+\end{itemize} \\ \hline
+\end{tabular}
+
+
+\vspace{0.3cm}
+\textit{Note:} $\varepsilon$ is a predefined threshold for acceptable training error.
+\end{frame}
+
+
+\begin{frame}{Regime 2: High Bias}
+\centering
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{|p{0.9\linewidth}|}
+\hline
+\textbf{Cause:} The model is too simple and underfits the data. \\ \hline
+
+\textbf{Symptoms:}
+\begin{itemize}
+    \item Training error $>$ $\varepsilon$
+\end{itemize} \\ \hline
+
+\textbf{Remedies:}
+\begin{itemize}
+    \item Use a more complex model (e.g., kernelized or non-linear)
+    \item Add more features
+    \item Apply Boosting (covered later)
+\end{itemize} \\ \hline
+\end{tabular}
+\end{frame}
+
+
+
+
+
+\begin{frame}{Generalization: polynomial regression}
+    \begin{minipage}{0.45\textwidth}
         \centering
-        \renewcommand{\arraystretch}{1.3}
-        \begin{tabular}{|p{0.9\linewidth}|}
-            \hline
-            \textbf{Cause:} Poor performance due to high variance. \\ \hline
-
-            \textbf{Symptoms:}
-            \begin{itemize}
-                \item Training error $\ll$ Test error
-                \item Training error $<$ $\epsilon$
-                \item Test error $>$ $\epsilon$
-            \end{itemize} \\ \hline
-
-            \textbf{Remedies:}
-            \begin{itemize}
-                \item Add more training data
-                \item Reduce model complexity (simpler models are less prone to high variance)
-                \item Use Bagging (covered later)
-            \end{itemize} \\ \hline
-        \end{tabular}
-
-
-        \vspace{0.3cm}
-        \textit{Note:} $\epsilon$ is a predefined threshold for acceptable training error.
-    \end{frame}
-
-
-    \begin{frame}{Regime 2: High Bias}
+        \begin{figure}[h]
+        \includegraphics[width=0.8\textwidth]{pic/Polynomial_regression/degree_1.png}
+        \end{figure}
+        \begin{center}
+            Degree of 1
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}{0.45\textwidth}
         \centering
-        \renewcommand{\arraystretch}{1.3}
-        \begin{tabular}{|p{0.9\linewidth}|}
-            \hline
-            \textbf{Cause:} The model is too simple and underfits the data. \\ \hline
+        \begin{figure}[h]
+        \includegraphics[width=0.8\textwidth]{pic/Polynomial_regression/degree_3.png}
+        \end{figure}
+        \begin{center}
+            Degree of 3
+        \end{center}
+    \end{minipage}
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Example adapted from slides of Dr. Soleymani, ML course, Sharif University of technology.
+        };
+    \end{tikzpicture}
+    % \vfill
+    % \begin{center}
+    %     \tiny Example adapted from slides of Dr. Soleymani, Machine Learning course, Sharif University of technology.
+    % \end{center}
+\end{frame}
 
-            \textbf{Symptoms:}
-            \begin{itemize}
-                \item Training error $>$ $\epsilon$
-            \end{itemize} \\ \hline
-
-            \textbf{Remedies:}
-            \begin{itemize}
-                \item Use a more complex model (e.g., kernelized or non-linear)
-                \item Add more features
-                \item Apply Boosting (covered later)
-            \end{itemize} \\ \hline
-        \end{tabular}
-    \end{frame}
-
-
-
-
-
-    \begin{frame}{Generalization: polynomial regression}
-        \begin{minipage}{0.45\textwidth}
-            \centering
-            \begin{figure}[h]
-                \includegraphics[width=0.8\textwidth]{pic/Polynomial_regression/degree_1.png}
-            \end{figure}
-            \begin{center}
-                Degree of 1
-            \end{center}
-        \end{minipage}%
-        \begin{minipage}{0.45\textwidth}
-            \centering
-            \begin{figure}[h]
-                \includegraphics[width=0.8\textwidth]{pic/Polynomial_regression/degree_3.png}
-            \end{figure}
-            \begin{center}
-                Degree of 3
-            \end{center}
-        \end{minipage}
-        \vfill
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-                \scriptsize Example adapted from slides of Dr. Soleymani, ML course, Sharif University of technology.
-            };
-        \end{tikzpicture}
-        % \vfill
-        % \begin{center}
-        %     \tiny Example adapted from slides of Dr. Soleymani, Machine Learning course, Sharif University of technology.
-        % \end{center}
-    \end{frame}
-
-    \begin{frame}{Overfitting: polynomial regression}
-        \begin{minipage}{0.45\textwidth}
-            \centering
-            \begin{figure}[h]
-                \includegraphics[width=0.8\textwidth]{pic/Polynomial_regression/degree_5.png}
-            \end{figure}
-            \begin{center}
-                Degree of 5
-            \end{center}
-        \end{minipage}%
-        \begin{minipage}{0.45\textwidth}
-            \centering
-            \begin{figure}[h]
-                \includegraphics[width=0.8\textwidth]{pic/Polynomial_regression/degree_7.png}
-            \end{figure}
-            \begin{center}
-                Degree of 7
-            \end{center}
-        \end{minipage}
-        \vfill
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-                \scriptsize Example adapted from slides of Dr. Soleymani, ML course, Sharif University of technology.
-            };
-        \end{tikzpicture}
-    \end{frame}
+\begin{frame}{Overfitting: polynomial regression}
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \begin{figure}[h]
+        \includegraphics[width=0.8\textwidth]{pic/Polynomial_regression/degree_5.png}
+        \end{figure}
+        \begin{center}
+            Degree of 5
+        \end{center}
+    \end{minipage}%
+    \begin{minipage}{0.45\textwidth}
+        \centering
+        \begin{figure}[h]
+        \includegraphics[width=0.8\textwidth]{pic/Polynomial_regression/degree_7.png}
+        \end{figure}
+        \begin{center}
+            Degree of 7
+        \end{center}
+    \end{minipage}
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Example adapted from slides of Dr. Soleymani, ML course, Sharif University of technology.
+        };
+    \end{tikzpicture}
+\end{frame}
 
 % \begin{frame}{Example: Regression using polynomial curve}
 % \begin{minipage}{0.45\textwidth}
@@ -1337,290 +1326,399 @@
 % \begin{minipage}{0.3\textwidth}
 %     \vspace{0.5cm} % Adjust vertical alignment of the text if needed
 %     \begin{itemize}
-%             \item \[t = \sin(2 \pi x) + \epsilon\]
+%             \item \[t = \sin(2 \pi x) + \varepsilon\]
 %         \end{itemize}
 % \end{minipage}
 % \end{frame}
 
-    \begin{frame}{Polynomial regression with various degrees: example}
-        \begin{minipage}{0.95\textwidth}
-            \centering
-            \includegraphics[width=1\textwidth]{pic/Polynomial_regression/pr_low_degrees.png}
-        \end{minipage}
-        % \vfill
-        % \[ t = sin(2\pi x) + \epsilon \]
-        % \vfill
-        % \begin{center}
-        %     \tiny Figures adapted from Machine Learning and Pattern Recognition, Bishop
-        % \end{center}
-        \vfill
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-                \scriptsize Figures adapted from Machine Learning and Pattern Recognition, Bishop
-            };
-        \end{tikzpicture}
-    \end{frame}
+\begin{frame}{Polynomial regression with various degrees: example}
+    \begin{minipage}{0.95\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{pic/Polynomial_regression/pr_low_degrees.png}
+    \end{minipage}
+    % \vfill
+    % \[ t = sin(2\pi x) + \varepsilon \]
+    % \vfill
+    % \begin{center}
+    %     \tiny Figures adapted from Machine Learning and Pattern Recognition, Bishop
+    % \end{center}
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figures adapted from Machine Learning and Pattern Recognition, Bishop
+        };
+    \end{tikzpicture}
+\end{frame}
 
-    \begin{frame}{Polynomial regression with various degrees: example (cont.)}
-        \begin{minipage}{0.95\textwidth}
-            \centering
-            \includegraphics[width=1\textwidth]{pic/Polynomial_regression/pr_high_degrees.png}
-        \end{minipage}
-        % \vfill
-        % \[ t = sin(2\pi x) + \epsilon \]
-        % \vfill
-        % \begin{center}
-        %     \tiny Figures adapted from Machine Learning and Pattern Recognition, Bishop
-        % \end{center}
-        \vfill
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-                \scriptsize Figures adapted from Machine Learning and Pattern Recognition, Bishop
-            };
-        \end{tikzpicture}
-    \end{frame}
+\begin{frame}{Polynomial regression with various degrees: example (cont.)}
+    \begin{minipage}{0.95\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{pic/Polynomial_regression/pr_high_degrees.png}
+    \end{minipage}
+    % \vfill
+    % \[ t = sin(2\pi x) + \varepsilon \]
+    % \vfill
+    % \begin{center}
+    %     \tiny Figures adapted from Machine Learning and Pattern Recognition, Bishop
+    % \end{center}
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figures adapted from Machine Learning and Pattern Recognition, Bishop
+        };
+    \end{tikzpicture}
+\end{frame}
 
-
-    \begin{frame}{Bias-Variance Decomposition}
-        \textbf{Generalization error decomposition}:
+\begin{frame}{Bias-Variance Decomposition}
+    \textbf{Generalization error decomposition}:
+    \[
+    \mathbb{E}_{(\mathbf{x}, y) \sim \mathbb{P}}[(y - h_{\mathbf{w}}(\mathbf{x}))^2] = (\text{Bias})^2 + \text{Variance} + \text{Noise}
+    \]
+    \begin{itemize}
+        \item \textbf{Bias}: Error due to simplifying assumptions in the model
         \[
-            \mathbb{E}[(y - h(x;w))^2] = (\text{Bias})^2 + \text{Variance} + \text{Noise}
+        \text{Bias}(\mathbf{x}) = \mathbb{E}[h_{\mathbf{w}}(\mathbf{x})] - f(\mathbf{x})
         \]
+        \item \textbf{Variance}: Sensitivity of the model to training data
+        \[
+        \text{Variance}(\mathbf{x}) = \mathbb{E}[h_{\mathbf{w}}(\mathbf{x}) - \mathbb{E}[h_{\mathbf{w}}(\mathbf{x})])^2]
+        \]
+        \item \textbf{Noise}: Irreducible error from the inherent randomness in data
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Proof: Decomposition of Expected Test Error}
+    
+\textb{Notations:}
+    \begin{itemize}
+        \item $\mathbf{x}$: input (feature) vector
+        \item $y$: true output (label)
+        \item $D$: training dataset
+        \item $h(\mathbf{x} \vert D)$: predictor learned from $D$
+        \item $\bar{h}(\mathbf{x}) = \mathbb{E}_D[h(\mathbf{x} \vert D)]$: expected prediction
+        \item $\bar{y}(\mathbf{x}) = \mathbb{E}[y \vert \mathbf{x}]$: true regression function
+        \item $\mathbb{E}_{\mathbf{x},y,D}[\cdot]$: expectation over data and datasets
+    \end{itemize}
+    
+For the sake of brevity, we ommit the \(\mathbf{w}\) subscript from \(h\) in the proof. All the expectations are taken over the distribution \(\mathbb{P}\).
+\end{frame}
+
+
+
+
+
+\begin{frame}{Proof: Decomposition of Expected Test Error}
+    
+    \vspace{0.6em}
+    \textbf{Starting Point:} Decompose the expected test error
+    \[
+    \mathbb{E}_{\mathbf{x},y,D}\left[\left(h(\mathbf{x} \vert D) - y\right)^2\right] = \mathbb{E}_{\mathbf{x},y,D}\left[\left((h(\mathbf{x} \vert D) - \bar{h}(\mathbf{x})) + (\bar{h}(\mathbf{x}) - y)\right)^2\right]
+    \]
+    \[
+    = \mathbb{E}_{\mathbf{x},D}\left[(h(\mathbf{x} \vert D) - \bar{h}(\mathbf{x}))^2\right] + 2\,\mathbb{E}_{\mathbf{x},y,D}\left[(h(\mathbf{x} \vert D) - \bar{h}(\mathbf{x}))(\bar{h}(\mathbf{x}) - y)\right] + \mathbb{E}_{\mathbf{x},y}\left[(\bar{h}(\mathbf{x}) - y)^2\right]
+    \]
+    
+    The middle term of the above equation is 0 as we show below:
+    \begin{align*}
+    \mathbb{E}_{\mathbf{x},y,D}\left[(h(\mathbf{x} \vert D) - \bar{h}(\mathbf{x}))(\bar{h}(\mathbf{x}) - y)\right] &= \mathbb{E}_{\mathbf{x},y}\left[\mathbb{E}_D\left[h(\mathbf{x} \vert D) - \bar{h}(\mathbf{x})\right](\bar{h}(\mathbf{x}) - y)\right] \\
+    &= \mathbb{E}_{\mathbf{x},y}\left[\left(\mathbb{E}_D[h(\mathbf{x} \vert D)] - \bar{h}(\mathbf{x})\right)(\bar{h}(\mathbf{x}) - y)\right] \\
+    &= \mathbb{E}_{\mathbf{x},y}\left[(\bar{h}(\mathbf{x}) - \bar{h}(\mathbf{x}))(\bar{h}(\mathbf{x}) - y)\right] = 0
+    \end{align*}
+\end{frame}
+
+\begin{frame}{Proof: Decomposition of Expected Test Error}
+    Returning to the earlier expression, we're left with the variance and another term:
+    \[
+    \mathbb{E}_{\mathbf{x},y,D}\left[(h(\mathbf{x} \vert D) - y)^2\right] = \underbrace{\mathbb{E}_{\mathbf{x},D}\left[(h(\mathbf{x} \vert D) - \bar{h}(\mathbf{x}))^2\right]}_{\text{Variance}} + \mathbb{E}_{\mathbf{x},y}\left[(\bar{h}(\mathbf{x}) - y)^2\right]
+    \]
+    
+    We can break down the second term in the above equation as follows:
+    \[
+    \mathbb{E}_{\mathbf{x},y}\left[(\bar{h}(\mathbf{x}) - y)^2\right] = \mathbb{E}_{\mathbf{x},y}\left[((\bar{h}(\mathbf{x}) - \bar{y}(\mathbf{x})) + (\bar{y}(\mathbf{x}) - y))^2\right]
+    \]
+    \[
+    = \underbrace{\mathbb{E}_{\mathbf{x},y}\left[(\bar{y}(\mathbf{x}) - y)^2\right]}_{\text{Noise}} + \underbrace{\mathbb{E}_{\mathbf{x}}\left[(\bar{h}(\mathbf{x}) - \bar{y}(\mathbf{x}))^2\right]}_{\text{Bias}^2} + 2 \mathbb{E}_{\mathbf{x},y}\left[(\bar{h}(\mathbf{x}) - \bar{y}(\mathbf{x}))(\bar{y}(\mathbf{x}) - y)\right]
+    \]
+\end{frame}
+
+\begin{frame}{Proof: Decomposition of Expected Test Error}
+    The third term in the equation above is 0, as we show below:
+    \begin{align*}
+    \mathbb{E}_{\mathbf{x},y}\left[(\bar{h}(\mathbf{x}) - \bar{y}(\mathbf{x}))(\bar{y}(\mathbf{x}) - y)\right] 
+    &= \mathbb{E}_{\mathbf{x}}\left[\mathbb{E}_{y|\mathbf{x}}\left[(\bar{h}(\mathbf{x}) - \bar{y}(\mathbf{x}))(\bar{y}(\mathbf{x}) - y)\right]\right] \\
+    &= \mathbb{E}_{\mathbf{x}}\left[(\bar{h}(\mathbf{x}) - \bar{y}(\mathbf{x}))(\bar{y}(\mathbf{x}) - \mathbb{E}_{y|\mathbf{x}}[y])\right] \\
+    &= \mathbb{E}_{\mathbf{x}}\left[(\bar{h}(\mathbf{x}) - \bar{y}(\mathbf{x}))(\bar{y}(\mathbf{x}) - \bar{y}(\mathbf{x}))\right] = 0
+    \end{align*}
+    
+    This gives us the decomposition of expected test error as follows:
+    \[
+    \underbrace{\mathbb{E}_{\mathbf{x},y,D}\left[(h(\mathbf{x} \vert D) - y)^2\right]}_{\text{Expected Test Error}} 
+    = \underbrace{\mathbb{E}_{\mathbf{x},D}\left[(h(\mathbf{x} \vert D) - \bar{h}(\mathbf{x}))^2\right]}_{\text{Variance}} 
+    + \underbrace{\mathbb{E}_{\mathbf{x},y}\left[(\bar{y}(\mathbf{x}) - y)^2\right]}_{\text{Noise}} 
+    + \underbrace{\mathbb{E}_{\mathbf{x}}\left[(\bar{h}(\mathbf{x}) - \bar{y}(\mathbf{x}))^2\right]}_{\text{Bias}^2}
+    \]
+\end{frame}
+
+
+
+% \begin{frame}{High Bias in Simple Models}
+%     \textbf{Explanation}: Simple models, such as linear regression, often underfit
+%     \[
+%     h_w(x) = w_0 + w_1 x
+%     \]
+%     \begin{itemize}
+%         \item Bias remains large even with infinite data
+%         \[
+%         \text{Bias}^2 \gg \text{Variance}
+%         \]
+%         \item Leads to large generalization error
+%     \end{itemize}
+% \end{frame}
+\begin{frame}{Bias--Variance: Where the Square Lives}
+\begin{itemize}
+  \item \textbf{Important Note:} Bias$^2$ is a mean of squares (not a square of a mean),
+  \[
+    \mathbb{E}_{\mathbf{x}} \big[(\bar h(\mathbf{x})-\bar y(\mathbf{x}))^2\big]
+    \neq
+    \big(\mathbb{E}_{\mathbf{x}}[\bar h(\mathbf{x})-\bar y(\mathbf{x})]\big)^2.
+  \]
+
+  \item \textbf{Why is the square inside?}
+  After taking $\mathbb{E}_D$ and $\mathbb{E}_{y\mid \mathbf{x}}$, the remainder is a function of $\mathbf{x}$ only; we then average over $\mathbb{P}(\mathbf{x})$. Hence we square pointwise and integrate globally over all the points, and the power $2$ stays inside the expectation.
+
+  \item Pointwise MSE for a fix $\mathbf{x}$ (the proof is similar, do it yourself !):
+  \[
+    \mathrm{MSE}(\mathbf{x})
+    = \mathbb{E}_{D, y\mid \mathbf{x}} \big[(h(\mathbf{x}\mid D)-y)^2\big]
+    = \underbrace{\mathrm{Var}_{D}[h(\mathbf{x}\mid D)]}_{\text{Variance}}
+    + \underbrace{\mathrm{Var}(y\mid \mathbf{x})}_{\text{Noise}} + \underbrace{(\bar h(\mathbf{x})-\bar y(\mathbf{x}))^2}_{\text{Bias}^2}.
+  \]
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{High Bias in Simple Models}
+    Simple models, such as linear regression, often underfit.
+    \[
+    h_{\mathbf{w}}(\mathbf{x}) = w_0 + w_1 x
+    \]
+    \begin{itemize}
+        \item The model is too simple to capture the true underlying pattern $f(x)$.
+        \item Even with infinite data, the average hypothesis $\bar{h}(\mathbf{x}) = \mathbb{E}_D[h(\mathbf{x} \vert D)]$ will be systematically wrong.
+        \item The model has \textbf{low variance} (changing the dataset $D$ doesn't change $h(\mathbf{x} \vert D)$ much) but \textbf{high bias}.
+        \[
+        \text{Bias}^2 \gg \text{Variance}
+        \]
+        \item \textbf{Result}: Leads to high generalization error (poor performance) on both the training and test sets. This is \textbf{underfitting}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{High Variance in Complex Models}
+    Complex models, such as high-degree polynomials, tend to overfit.
+    \[
+    h_{\mathbf{w}}(\mathbf{x}) = w_0 + w_1 x + w_2 x^2 + \dots + w_m x^m \quad (\text{for large } m)
+    \]
+    \begin{itemize}
+        \item The model is too flexible and starts to fit the random noise in the training data $D$.
+        \item The learned hypothesis $h(\mathbf{x} \vert D)$ is highly sensitive to the specific training data.
+        \item The model has \textbf{low bias} (it's flexible enough to capture the true pattern) but \textbf{high variance}.
+        \[
+        \text{Variance} \gg \text{Bias}^2
+        \]
+        \item \textbf{Result}: The model performs very well on the training set ($J_{\text{train}} \approx 0$) but fails to generalize to the test set ($J_{\text{test}} \gg 0$). This is \textbf{overfitting}.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Bias-Variance Tradeoff}
+    \textbf{Tradeoff}: Balancing between bias and variance is key for optimal performance
+    \begin{itemize}
+        \item Low complexity: High bias, low variance
+        \item High complexity: Low bias, high variance
+    \end{itemize}
+    \[
+    % \text{Generalization error} = (\text{Bias})^2 + \text{Variance} + \text{Noise}
+    \]
+    \begin{center}
+    \includegraphics[width=0.35\linewidth]{pic/bias-variance.png}
+    \hspace{0.25cm}
+    \includegraphics[width=0.5\linewidth]{pic/bias-variance2.png}
+ \end{center}
+
+\end{frame}
+
+
+
+% \begin{frame}{Regularization}
+%     \textbf{Purpose}: Prevent overfitting by penalizing large weights
+%     \[
+%     J_{\lambda}(w) = J(w) + \lambda R(w)
+%     \]
+%     \begin{itemize}
+%         % \item Common regularizer: \( R(w) = ||w||_2^2 \) (L2 norm)
+%         \item Common regularizers: L1 and L2 norms
+%         \item \( \lambda \) controls the balance between fit and simplicity
+%     \end{itemize}
+% \end{frame}
+\section{Regularization}
+\begin{frame}{Regularization}
+     Prevent overfitting by penalizing large weights.
+    \[
+    \min_{\mathbf{w}} J_{\lambda}(\mathbf{w}) = J(\mathbf{w}) + \lambda R(\mathbf{w})
+    \]
+    \begin{itemize}
+        \item Common regularizers: L1 and L2 norms.
+        \item The parameter $\lambda$ controls the balance between fit and simplicity.
+    \end{itemize}
+    \textbf{Equivalent constrained form}: minimize the empirical objective under a budget on the regularizer
+    \[
+    \min_{\mathbf{w}}  J(\mathbf{w}) \quad \text{s.t.} \quad R(\mathbf{w}) \le t.
+    \]
+    \begin{itemize}
+        \item Under mild conditions, for every $t \ge 0$ there exists a $\lambda \ge 0$ such that the solutions of the two problems coincide, and for every $\lambda \ge 0$ there exists a $t \ge 0$ yielding an equivalent solution (Lagrange multiplier correspondence).
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{L2 Regularization (Ridge Regression)}
+    \begin{itemize}
+        \item \textbf{Regularizer}: The L2 norm (squared) of the weight vector.
+        \[
+        R(\mathbf{w}) = \|\mathbf{w}\|_2^2 = \sum_{j=1}^{D} w_j^2
+        \]
+        \item \textbf{Cost Function}:
+        \[
+        J_{\text{Ridge}}(\mathbf{w}) = \underbrace{\sum_{i=1}^{N} \left( y^{(i)} - \mathbf{w}^T \mathbf{x}^{(i)} \right)^2}_{\text{SSE (Data Fit)}} + \underbrace{\lambda \sum_{j=1}^{D} w_j^2}_{\text{L2 Penalty}}
+        \]
+        \item \textbf{Effect}:
         \begin{itemize}
-            \item \textbf{Bias}: Error due to simplifying assumptions in the model
-            \[
-                \text{Bias}(x) = \mathbb{E}[h(x;w)] - f(x)
-            \]
-            \item \textbf{Variance}: Sensitivity of the model to training data
-            \[
-                \text{Variance}(x) = \mathbb{E}[h(x;w) - \mathbb{E}[h(x;w)])^2]
-            \]
-            \item \textbf{Noise}: Irreducible error from the inherent randomness in data
+            \item Penalizes large weights, forcing them to be small.
+            \item Shrinks all coefficients towards zero, but \textbf{does not} make them exactly zero.
+            \item Reduces model complexity and prevents overfitting (decreases variance).
         \end{itemize}
-    \end{frame}
+    \end{itemize}
+\end{frame}
 
-
-    \begin{frame}{Proof: Decomposition of Expected Test Error}
-
-        \textb{Notation}
+\begin{frame}{L1 Regularization (Lasso Regression)}
+    \begin{itemize}
+        \item \textbf{Regularizer}: The L1 norm of the weight vector.
+        \[
+        R(\mathbf{w}) = \|\mathbf{w}\|_1 = \sum_{j=1}^{D} |w_j|
+        \]
+        \item \textbf{Cost Function}:
+        \[
+        J_{\text{Lasso}}(\mathbf{w}) = \underbrace{\sum_{i=1}^{N} \left( y^{(i)} - \mathbf{w}^T \mathbf{x}^{(i)} \right)^2}_{\text{SSE (Data Fit)}} + \underbrace{\lambda \sum_{j=1}^{D} |w_j|}_{\text{L1 Penalty}}
+        \]
+        \item \textbf{Effect}:
         \begin{itemize}
-            \item $\mathbf{x}$: input (feature) vector
-            \item $y$: true output (label)
-            \item $D$: training dataset
-            \item $h_D(\mathbf{x})$: predictor learned from $D$
-            \item $\bar{h}(\mathbf{x}) = \mathbb{E}_D[h_D(\mathbf{x})]$: expected prediction
-            \item $\bar{y}(\mathbf{x}) = \mathbb{E}_{y|\mathbf{x}}[y]$: true regression function
-            \item $\mathbb{E}_{x,y,D}[\cdot]$: expectation over data and datasets
+            \item Also penalizes large weights.
+            \item Has a key property: it can force some weight coefficients to be \textbf{exactly zero}.
+            \item This performs automatic \textbf{feature selection}, creating a sparse model.
         \end{itemize}
-    \end{frame}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Ridge vs. Lasso: Geometric Interpretation}
+    \textbf{Goal}: Find $\mathbf{w}$ that minimizes $J(\mathbf{w})$ (elliptical contours) subject to a constraint $R(\mathbf{w}) \le t$.
+    \vspace{1em}
+
+    \begin{table}[h!]
+        \centering
+        \renewcommand{\arraystretch}{1.4}
+        \setlength{\tabcolsep}{8pt}
+        \begin{tabular}{|p{0.45\textwidth}|p{0.45\textwidth}|}
+            \hline
+            \textbf{Ridge Regression (L2)} & \textbf{Lasso Regression (L1)} \\
+            \hline
+            Constraint: $\|\mathbf{w}\|_2^2 \le t$ (L2 ball). &
+            Constraint: $\|\mathbf{w} \|_1 \le t$ (L1 ball). \\
+            \hline
+            Contours of $J(\mathbf{w})$ typically touch the constraint boundary at smooth points. &
+            Contours often hit the sharp \textbf{corners} of the diamond. \\
+            \hline
+            Produces small but nonzero coefficients (no exact sparsity). &
+            Produces \textbf{sparse} solutions (some coefficients exactly zero). \\
+            \hline
+            Differentiable everywhere; the regularizer $\|\mathbf{w}\|_2^2$ is smooth. &
+            Not differentiable at $w_i = 0$; $\|\mathbf{w}\|_1$ has sharp corners. \\
+            \hline
+            Strongly convex $\Rightarrow$ guarantees a \textbf{unique optimum}. &
+            Not strongly convex $\Rightarrow$ may yield \textbf{multiple optima}. \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{frame}
 
 
 
+\begin{frame}{Effect of Regularization Parameter \( \lambda \)}
+    \textbf{Balancing Fit and Complexity}:
+    \[
+    J_{\lambda}(\mathbf{w}) = J(\mathbf{w}) + \lambda \sum_{j=1}^{m} w_j^2 = J(\mathbf{w}) + \lambda \mathbf{w}^T\mathbf{w}
+    \]
+    \begin{itemize}
+        \item Large \( \lambda \): Forces smaller weights, reduces complexity, increases bias, decreases variance
+        \item Small \( \lambda \): Allows larger weights, increases complexity, reduces bias, increases variance
+    \end{itemize}
+\end{frame}
 
+\begin{frame}{Effect of Regularization parameter \( \lambda \)}
+    \begin{minipage}{0.32\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/Regularization/regularization_0.png}
+    \end{minipage} %
+    \begin{minipage}{0.32\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/Regularization/regularization_18.png}
+    \end{minipage} %
+    \begin{minipage}{0.32\textwidth}
+        \centering
+        \includegraphics[width=1.0\textwidth]{pic/Regularization/regularization_inf.png}
+    \end{minipage}
+    \vfill
+    \[
+    J_{\lambda}(\mathbf{w}) = \sum_{i=1}^n \left( t^{(i)} - h_{\mathbf{w}}(\mathbf{x}^{(i)}) \right)^2 + \lambda \mathbf{w}^T\mathbf{w}
+    \]
+    \[ 
+    h_{\mathbf{w}}(\mathbf{x}) = w_0 + w_1 x + \dots + w_9 x^9
+    \]
+    % \vfill
+    % \begin{center}
+    %     \tiny Figures adapted from Machine Learning and Pattern Recognition, Bishop.
+    % \end{center}
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Figures adapted from Machine Learning and Pattern Recognition, Bishop
+        };
+    \end{tikzpicture}
+\end{frame}
 
-    \begin{frame}{Proof: Decomposition of Expected Test Error}
-
-        \vspace{0.6em}
-        \textbf{Starting Point:} Decompose the expected test error
-        \[
-            E_{x,y,D}\left[\left(h_D(\mathbf{x}) - y\right)^2\right] = E_{x,y,D}\left[\left((h_D(\mathbf{x}) - \bar{h}(\mathbf{x})) + (\bar{h}(\mathbf{x}) - y)\right)^2\right]
-        \]
-        \[
-            = E_{x,D}\left[(h_D(\mathbf{x}) - \bar{h}(\mathbf{x}))^2\right] + 2\,E_{x,y,D}\left[(h_D(\mathbf{x}) - \bar{h}(\mathbf{x}))(\bar{h}(\mathbf{x}) - y)\right] + E_{x,y}\left[(\bar{h}(\mathbf{x}) - y)^2\right]
-        \]
-
-        The middle term of the above equation is 0 as we show below:
-        \begin{align*}
-            E_{x,y,D}\left[(h_D(\mathbf{x}) - \bar{h}(\mathbf{x}))(\bar{h}(\mathbf{x}) - y)\right] &= E_{x,y}\left[E_D\left[h_D(\mathbf{x}) - \bar{h}(\mathbf{x})\right](\bar{h}(\mathbf{x}) - y)\right] \\
-            &= E_{x,y}\left[\left(E_D[h_D(\mathbf{x})] - \bar{h}(\mathbf{x})\right)(\bar{h}(\mathbf{x}) - y)\right] \\
-            &= E_{x,y}\left[(\bar{h}(\mathbf{x}) - \bar{h}(\mathbf{x}))(\bar{h}(\mathbf{x}) - y)\right] = 0
-        \end{align*}
-    \end{frame}
-
-    \begin{frame}{Proof: Decomposition of Expected Test Error}
-        Returning to the earlier expression, we're left with the variance and another term:
-        \[
-            E_{x,y,D}\left[(h_D(\mathbf{x}) - y)^2\right] = \underbrace{E_{x,D}\left[(h_D(\mathbf{x}) - \bar{h}(\mathbf{x}))^2\right]}_{\text{Variance}} + E_{x,y}\left[(\bar{h}(\mathbf{x}) - y)^2\right]
-        \]
-
-        We can break down the second term in the above equation as follows:
-        \[
-            E_{x,y}\left[(\bar{h}(\mathbf{x}) - y)^2\right] = E_{x,y}\left[((\bar{h}(\mathbf{x}) - \bar{y}(\mathbf{x})) + (\bar{y}(\mathbf{x}) - y))^2\right]
-        \]
-        \[
-            = \underbrace{E_{x,y}\left[(\bar{y}(\mathbf{x}) - y)^2\right]}_{\text{Noise}} + \underbrace{E_x\left[(\bar{h}(\mathbf{x}) - \bar{y}(\mathbf{x}))^2\right]}_{\text{Bias}^2} + 2\,E_{x,y}\left[(\bar{h}(\mathbf{x}) - \bar{y}(\mathbf{x}))(\bar{y}(\mathbf{x}) - y)\right]
-        \]
-    \end{frame}
-
-    \begin{frame}{Proof: Decomposition of Expected Test Error}
-        The third term in the equation above is 0, as we show below:
-        \begin{align*}
-            E_{x,y}\left[(\bar{h}(\mathbf{x}) - \bar{y}(\mathbf{x}))(\bar{y}(\mathbf{x}) - y)\right]
-            &= E_x\left[E_{y|x}\left[(\bar{h}(\mathbf{x}) - \bar{y}(\mathbf{x}))(\bar{y}(\mathbf{x}) - y)\right]\right] \\
-            &= E_x\left[(\bar{h}(\mathbf{x}) - \bar{y}(\mathbf{x}))(\bar{y}(\mathbf{x}) - E_{y|x}[y])\right] \\
-            &= E_x\left[(\bar{h}(\mathbf{x}) - \bar{y}(\mathbf{x}))(\bar{y}(\mathbf{x}) - \bar{y}(\mathbf{x}))\right] = 0
-        \end{align*}
-
-        This gives us the decomposition of expected test error as follows:
-        \[
-            \underbrace{E_{x,y,D}\left[(h_D(\mathbf{x}) - y)^2\right]}_{\text{Expected Test Error}}
-            = \underbrace{E_{x,D}\left[(h_D(\mathbf{x}) - \bar{h}(\mathbf{x}))^2\right]}_{\text{Variance}}
-            + \underbrace{E_{x,y}\left[(\bar{y}(\mathbf{x}) - y)^2\right]}_{\text{Noise}}
-            + \underbrace{E_x\left[(\bar{h}(\mathbf{x}) - \bar{y}(\mathbf{x}))^2\right]}_{\text{Bias}^2}
-        \]
-    \end{frame}
-
-
-
-    \begin{frame}{High Bias in Simple Models}
-        \textbf{Explanation}: Simple models, such as linear regression, often underfit
-        \[
-            h_w(x) = w_0 + w_1 x
-        \]
-        \begin{itemize}
-            \item Bias remains large even with infinite data
-            \[
-                \text{Bias}^2 \gg \text{Variance}
-            \]
-            \item Leads to large generalization error
-        \end{itemize}
-    \end{frame}
-
-    \begin{frame}{High Variance in Complex Models}
-        \textbf{Explanation}: Complex models tend to overfit
-        \[
-            h_w(x) = w_0 + w_1 x + w_2 x^2 + \dots + w_m x^m
-        \]
-        \begin{itemize}
-            \item Variance dominates when the model is too complex
-            \[
-                \text{Variance} \gg \text{Bias}
-            \]
-            \item Fits noise, leading to high test error
-        \end{itemize}
-    \end{frame}
-
-    \begin{frame}{Bias-Variance Tradeoff}
-        \textbf{Tradeoff}: Balancing between bias and variance is key for optimal performance
-        \begin{itemize}
-            \item Low complexity: High bias, low variance
-            \item High complexity: Low bias, high variance
-        \end{itemize}
-        \[
-            % \text{Generalization error} = (\text{Bias})^2 + \text{Variance} + \text{Noise}
-        \]
-        \begin{center}
-            \includegraphics[width=0.35\linewidth]{pic/bias-variance.png}
-            \hspace{0.25cm}
-            \includegraphics[width=0.5\linewidth]{pic/bias-variance2.png}
-        \end{center}
-
-    \end{frame}
-
-
-
-    \begin{frame}{Regularization}
-        \textbf{Purpose}: Prevent overfitting by penalizing large weights
-        \[
-            J_{\lambda}(w) = J(w) + \lambda R(w)
-        \]
-        \begin{itemize}
-            % \item Common regularizer: \( R(w) = ||w||_2^2 \) (L2 norm)
-            \item Common regularizers: L1 and L2 norms
-            \item \( \lambda \) controls the balance between fit and simplicity
-        \end{itemize}
-    \end{frame}
-
-    \begin{frame}{Effect of Regularization Parameter \( \lambda \)}
-        \textbf{Balancing Fit and Complexity}:
-        \[
-            J_{\lambda}(w) = J(w) + \lambda \sum_{j=1}^{m} w_j^2 = J(w) + \lambda \mathbf{w}^T\mathbf{w}
-        \]
-        \begin{itemize}
-            \item Large \( \lambda \): Forces smaller weights, reduces complexity, increases bias, decreases variance
-            \item Small \( \lambda \): Allows larger weights, increases complexity, reduces bias, increases variance
-        \end{itemize}
-    \end{frame}
-
-    \begin{frame}{Effect of Regularization parameter \( \lambda \)}
-        \begin{minipage}{0.32\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/Regularization/regularization_0.png}
-        \end{minipage} %
-        \begin{minipage}{0.32\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/Regularization/regularization_18.png}
-        \end{minipage} %
-        \begin{minipage}{0.32\textwidth}
-            \centering
-            \includegraphics[width=1.0\textwidth]{pic/Regularization/regularization_inf.png}
-        \end{minipage}
-        \vfill
-        \[
-            J_{\lambda}(w) = \sum_{i=1}^n \left( t^{(i)} - f(\mathbf{x}^{(i)}; \mathbf{w}) \right)^2 + \lambda \mathbf{w}^T\mathbf{w}
-        \]
-        \[
-            f(\mathbf{x}^{(n)}; \mathbf{w}) = w_0 + w_1 x + \dots + w_9 x^9
-        \]
-        % \vfill
-        % \begin{center}
-        %     \tiny Figures adapted from Machine Learning and Pattern Recognition, Bishop.
-        % \end{center}
-        \vfill
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-                \scriptsize Figures adapted from Machine Learning and Pattern Recognition, Bishop
-            };
-        \end{tikzpicture}
-    \end{frame}
-
-    \begin{frame}{Effect of regularization on weights}
-        \begin{minipage}{0.9\textwidth}
-            \centering
-            \includegraphics[width=0.7\textwidth]{pic/Regularization/weights.png}
-        \end{minipage}
-        % \vfill
-        % \begin{center}
-        %     \tiny Figure adapted from Machine Learning and Pattern Recognition, Bishop.
-        % \end{center}
-        \vfill
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-                \scriptsize Table adapted from Machine Learning and Pattern Recognition, Bishop
-            };
-        \end{tikzpicture}
-    \end{frame}
-
-    \begin{frame}{Regularization parameter}
-        \begin{minipage}{0.45\textwidth}
-            \centering
-            \includegraphics[width=1\textwidth]{pic/Regularization/regularization_parameter_erms.png}
-        \end{minipage} %
-        \begin{minipage}{0.45\textwidth}
-            \begin{itemize}
-                \item \( \lambda \) controls the effective complexity of the model
-                \item hence the degree of overfitting
-            \end{itemize}
-        \end{minipage}
-        % \vfill
-        % \begin{center}
-        %     \tiny Figure adapted from Machine Learning and Pattern Recognition, Bishop.
-        % \end{center}
-        \vfill
-        \begin{tikzpicture}[remember picture,overlay]
-            \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-                \scriptsize Figures adapted from Machine Learning and Pattern Recognition, Bishop
-            };
-        \end{tikzpicture}
-    \end{frame}
-
+\begin{frame}{Effect of regularization on weights}
+    \begin{minipage}{0.9\textwidth}
+        \centering
+        \includegraphics[width=0.7\textwidth]{pic/Regularization/weights.png}
+    \end{minipage}
+    % \vfill
+    % \begin{center}
+    %     \tiny Figure adapted from Machine Learning and Pattern Recognition, Bishop.
+    % \end{center}
+    \vfill
+    \begin{tikzpicture}[remember picture,overlay]
+        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+            \scriptsize Table adapted from Machine Learning and Pattern Recognition, Bishop
+        };
+    \end{tikzpicture}
+\end{frame}
 
 
 % \section{Cross-validation}
 % \begin{frame}{Cross-Validation Concept}
 %     \textbf{Purpose}: Estimate model performance and prevent overfitting
 %     \[
-%     J_v(w) = \frac{1}{v_{\text{set}}} \sum_{i \in v_{\text{set}}} (y_i - h_w(x^{(i)}))^2
+%     J_v(w) = \frac{1}{v_{\text{set}}} \sum_{i \in v_{\text{set}}} (y^{(i)} - h_w(x^{(i)}))^2
 %     \]
 %     \begin{itemize}
 %         \item Use validation error \( J_v(w) \) to select the best model
@@ -1637,160 +1735,242 @@
 %         \item Common choices: \( k = 5 \), \( k = 10 \)
 %     \end{itemize}
 % \end{frame}
+\section{MLE and MAP}
+\begin{frame}{Introduction to Regression (Probabilistic Perspective)}
+    \begin{itemize}
+        \item \textbf{Objective:} Model the relationship between input \( \mathbf{x} \) and output \( y \).
+        \item \textbf{Uncertainty:} Output \( y \) has an associated uncertainty modeled by a probability distribution.
+        \item \textbf{Example:}
+        \[
+        y = h_{\mathbf{w}}(\mathbf{x} ) + \varepsilon \quad , \quad \varepsilon \sim \mathcal{N}(0, \sigma^2)
+        \]
+        \item The goal is to learn \( h_{\mathbf{w}}(\mathbf{x} ) \) to predict \( y \).
+    \end{itemize}
+\end{frame}
 
-    \begin{frame}{Introduction to Regression (Probabilistic Perspective)}
-        \begin{itemize}
-            \item \textbf{Objective:} Model the relationship between input \( \mathbf{x} \) and output \( y \).
-            \item \textbf{Uncertainty:} Output \( y \) has an associated uncertainty modeled by a probability distribution.
-            \item \textbf{Example:}
-            \[
-                y = f(\mathbf{x}; \mathbf{w}) + \epsilon \quad , \quad \epsilon \sim \mathcal{N}(0, \sigma^2)
-            \]
-            \item The goal is to learn \( f(\mathbf{x}; \mathbf{w}) \) to predict \( y \).
-        \end{itemize}
-    \end{frame}
+\begin{frame}{Curve Fitting with Noise}
+    \begin{itemize}
+        \item In real-world scenarios, observed output \( y \) is noisy.
+        \item \textbf{Model: True output plus noise}
+        % \[
+        % y = h_{\mathbf{w}}(\mathbf{x} ) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, \sigma^2)
+        % \]
+        \[
+        y = h_{\mathbf{w}}(\mathbf{x} ) + \varepsilon
+        \]
+        \item Noise represents unknown or unmodeled factors.
+        \item \textbf{Example:} Predicting house prices based on features with inherent unpredictability.
+    \end{itemize}
+\end{frame}
 
-    \begin{frame}{Curve Fitting with Noise}
-        \begin{itemize}
-            \item In real-world scenarios, observed output \( y \) is noisy.
-            \item \textbf{Model: True output plus noise}
-            % \[
-            % y = f(\mathbf{x}; \mathbf{w}) + \epsilon, \quad \epsilon \sim \mathcal{N}(0, \sigma^2)
-            % \]
-            \[
-                y = f(\mathbf{x}; \mathbf{w}) + \epsilon
-            \]
-            \item Noise represents unknown or unmodeled factors.
-            \item \textbf{Example:} Predicting house prices based on features with inherent unpredictability.
-        \end{itemize}
-    \end{frame}
+\begin{frame}{Expected Value of Output}
+    \begin{itemize}
+        \item Best Estimate: The conditional expectation of \( y \) given \( \mathbf{x} \).
+        \[
+        \mathbb{E}[y | \mathbf{x}] = h_{\mathbf{w}}(\mathbf{x} )
+        \]
+        \item Goal: Learn a function \( h_{\mathbf{w}}(\mathbf{x} ) \) that represents the average behavior of the data.
+        \item Key Point: The model captures the mean of the target variable given input \( \mathbf{x} \).
+    \end{itemize}
+\end{frame}
 
-    \begin{frame}{Expected Value of Output}
-        \begin{itemize}
-            \item Best Estimate: The conditional expectation of \( y \) given \( \mathbf{x} \).
-            \[
-                \mathbb{E}[y | \mathbf{x}] = f(\mathbf{x}; \mathbf{w})
-            \]
-            \item Goal: Learn a function \( f(\mathbf{x}; \mathbf{w}) \) that represents the average behavior of the data.
-            \item Key Point: The model captures the mean of the target variable given input \( \mathbf{x} \).
-        \end{itemize}
-    \end{frame}
+\begin{frame}{Maximum Likelihood Estimation (MLE)}
+    \begin{itemize}
+        \item \textbf{MLE:} A method to estimate parameters that maximize the likelihood of the data.
+        \item Given data \( D = \{ (\mathbf{x}^{(i)}, y^{(i)}) \}_{i=1}^n \), MLE maximizes:
+        \[
+        \mathcal{L}(D; \mathbf{w}, \sigma^2) = \prod_{i=1}^n \mathbb{P}(y^{(i)} | \mathbf{x}^{(i)}, \mathbf{w}, \sigma^2)
+        \]
+        \item MLE finds parameters \( \mathbf{w} \) and \( \sigma^2 \) that best explain the data.
+    \end{itemize}
+\end{frame}
 
-    \begin{frame}{Maximum Likelihood Estimation (MLE)}
-        \begin{itemize}
-            \item \textbf{MLE:} A method to estimate parameters that maximize the likelihood of the data.
-            \item Given data \( \mathcal{D} = \{ (\mathbf{x}_i, y_i) \}_{i=1}^n \), MLE maximizes:
-            \[
-                L(\mathcal{D}; \mathbf{w}, \sigma^2) = \prod_{i=1}^n p(y_i | \mathbf{x}_i, \mathbf{w}, \sigma^2)
-            \]
-            \item MLE finds parameters \( \mathbf{w} \) and \( \sigma^2 \) that best explain the data.
-        \end{itemize}
-    \end{frame}
+\begin{frame}{Maximum Likelihood Estimation (cont.)}
+    \begin{itemize}
+        \item Instead of maximizing the likelihood, it is often easier to maximize the log-likelihood:
+        \[
+        \log \mathcal{L}(D; \mathbf{w}, \sigma^2) = \sum_{i=1}^n \log  \mathbb{P}(y^{(i)} | \mathbf{x}^{(i)}, \mathbf{w}, \sigma^2)
+        \]
+        \item It is because \( \log f(x) \) preserves the behaviour of \( f(x) \).
+        \item It is also easier to find derivative on summation of terms.
+    \end{itemize}
+\end{frame}
 
-    \begin{frame}{Maximum Likelihood Estimation (cont.)}
-        \begin{itemize}
-            \item Instead of maximizing the likelihood, it is often easier to maximize the log-likelihood:
-            \[
-                \log L(\mathcal{D}; \mathbf{w}, \sigma^2) = \sum_{i=1}^n \log  p(y_i | \mathbf{x}_i, \mathbf{w}, \sigma^2)
-            \]
-            \item It is because \( \log f(x) \) preserves the behaviour of \( f(x) \).
-            \item It is also easier to find derivative on summation of terms.
-        \end{itemize}
-    \end{frame}
+\begin{frame}{Univariate Linear Function Example}
+    \begin{itemize}
+        \item Assuming Gaussian noise with parameters \( (0, \sigma^2) \), probability of observing real output value \( y \) is:
+        \[
+        \mathbb{P}(y | \mathbf{x}, \mathbf{w}, \sigma^2) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left( - \frac{(y - h_{\mathbf{w}}(\mathbf{x} ))^2}{2\sigma^2} \right)
+        \]
 
-    \begin{frame}{Univariate Linear Function Example}
-        \begin{itemize}
-            \item Assuming Gaussian noise with parameters \( (0, \sigma^2) \), probability of observing real output value \( y \) is:
-            \[
-                p(y | \mathbf{x}, \mathbf{w}, \sigma^2) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left( - \frac{(y - f(\mathbf{x}; \mathbf{w}))^2}{2\sigma^2} \right)
-            \]
+        \item For a simple linear model \( h_{\mathbf{w}}(\mathbf{x} ) = w_0 + w_1 x \) we have:
+        \[
+        \mathbb{P}(y | x, \mathbf{w}, \sigma^2) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left( - \frac{(y - w_0 - w_1 x)^2}{2\sigma^2} \right)
+        \]
+        % \item MLE Objective: Maximize the likelihood of the data points fitting the model.
+        \item \textbf{Key Observation:} Points far from the fitted line will have a low likelihood value.
+    \end{itemize}
+\end{frame}
 
-            \item For a simple linear model \( f(\mathbf{x}; \mathbf{w}) = w_0 + w_1 x \) we have:
-            \[
-                p(y | x, \mathbf{w}, \sigma^2) = \frac{1}{\sqrt{2\pi \sigma^2}} \exp \left( - \frac{(y - w_0 - w_1 x)^2}{2\sigma^2} \right)
-            \]
-            % \item MLE Objective: Maximize the likelihood of the data points fitting the model.
-            \item \textbf{Key Observation:} Points far from the fitted line will have a low likelihood value.
-        \end{itemize}
-    \end{frame}
+\begin{frame}{Log-Likelihood and Sum of Squares}
+    \begin{itemize}
+        \item Using log-likelihood we have:
+        \[
+        \log \mathcal{L}(D; \mathbf{w}, \sigma^2) = -n \log \sigma - \frac{n}{2} \log(2\pi) - \frac{1}{2\sigma^2} \sum_{i=1}^n (y^{(i)} - h_{\mathbf{w}}(\mathbf{x}^{(i)})^2
+        \]
+        \item Since the objective of MLE is to optimize with regards to random variables, we can rule out the constants:
+        \[
+        \log \mathcal{L}(D; \mathbf{w}, \sigma^2) \sim - \sum_{i=1}^n (y^{(i)} - h_{\mathbf{w}}(\mathbf{x}^{(i)})^2
+        \]
+        \item \textbf{Equivalence:} Maximizing the log-likelihood is equivalent to minimizing the Sum of Squared Errors (SSE):
+        \[
+        J(\mathbf{w}) = \sum_{i=1}^n (y^{(i)} - h_{\mathbf{w}}(\mathbf{x}^{(i)})^2
+        \]
+    \end{itemize}
+\end{frame}
 
-    \begin{frame}{Log-Likelihood and Sum of Squares}
-        \begin{itemize}
-            \item Using log-likelihood we have:
-            \[
-                \log L(\mathcal{D}; \mathbf{w}, \sigma^2) = -n \log \sigma - \frac{n}{2} \log(2\pi) - \frac{1}{2\sigma^2} \sum_{i=1}^n (y^{(i)} - f(\mathbf{x}^{(i)}; \mathbf{w}))^2
-            \]
-            \item Since the objective of MLE is to optimize with regards to random variables, we can rule out the constants:
-            \[
-                \log L(\mathcal{D}; \mathbf{w}, \sigma^2) \sim - \sum_{i=1}^n (y^{(i)} - f(\mathbf{x}^{(i)}; \mathbf{w}))^2
-            \]
-            \item \textbf{Equivalence:} Maximizing the log-likelihood is equivalent to minimizing the Sum of Squared Errors (SSE):
-            \[
-                J(\mathbf{w}) = \sum_{i=1}^n (y^{(i)} - f(\mathbf{x}^{(i)}; \mathbf{w}))^2
-            \]
-        \end{itemize}
-    \end{frame}
+% \begin{frame}{Maximum A Posteriori Estimation (MAP)}
+%     \begin{itemize}
+%         \item \textbf{MAP:} Estimate parameters by maximizing the posterior:
+%         \[
+%             \mathbf{w}_{\text{MAP}}
+%             = \arg\max_{\mathbf{w}}  p(\mathbf{w}\mid D)
+%             \propto \arg\max_{\mathbf{w}}  \prod_{i=1}^n p(y^{(i)}\mid \mathbf{x}^{(i)},\mathbf{w},\sigma^2)\, p(\mathbf{w})
+%         \]
+%         \item Equivalently, maximize the log-posterior:
+%         \[
+%             \mathbf{w}_{\text{MAP}}
+%             = \arg\max_{\mathbf{w}}  \sum_{i=1}^n \log p(y^{(i)}\mid \mathbf{x}^{(i)},\mathbf{w},\sigma^2) + \log p(\mathbf{w})
+%         \]
+%         \item
+%         In MAP with a prior, large datasets wash out the prior, so the posterior effectively matches the data-only estimate (\(\approx\) MLE).
+        
+%         \item When data are scarce, the prior injects knowledge that shapes the posterior, making MAP meaningfully different from MLE.
+%     \end{itemize}
+% \end{frame}
 
-    \begin{frame}{Estimating \( \sigma^2 \)}
-        \begin{itemize}
-            \item The maximum likelihood estimate of the noise variance \( \sigma^2 \):
-            \[
-                \hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n \left( y^{(i)} - f(\mathbf{x}^{(i)}; \hat{\mathbf{w}}) \right)^2
-            \]
-            \item Interpretation: Mean squared error of the predictions.
-            \item Note: \( \sigma^2 \) reflects the noise level in the observations.
-        \end{itemize}
-    \end{frame}
+% \begin{frame}{MAP with a Gaussian Prior}
+%     \begin{itemize}
+%         \item \textbf{Prior (additional assumption):} \(\mathbf{w}\sim \mathcal{N}(\mathbf{0},\tau^2\mathbf{I})\)
+%         \[
+%             p(\mathbf{w})=\frac{1}{\sqrt{2\pi\tau^2}}
+%             \exp\!\left(-\frac{\mathbf{w}^\top \mathbf{w}}{2\tau^2}\right)
+%         \]
+%         \item With Gaussian noise \(y^{(i)} = \mathbf{x}^{(i)}^\top \mathbf{w} + \varepsilon_i, \varepsilon_i\sim\mathcal{N}(0,\sigma^2)\),
+%         maximizing the log-posterior is (up to constants) equivalent to:
+%         \[
+%             \arg\min_{\mathbf{w}}
+%             \frac{1}{2\sigma^2}\sum_{i=1}^n (y^{(i)}-\mathbf{x}^{(i)}^\top\mathbf{w})^2
+%             + \frac{1}{2\tau^2}\,\|\mathbf{w}\|_2^2
+%         \]
+%         \item Defining \(\displaystyle \lambda=\frac{\sigma^2}{n\tau^2}\), the MAP objective becomes
+%         \[
+%             J_{\text{MAP}}(\mathbf{w})
+%             = \frac{1}{n}\sum_{i=1}^n (y^{(i)}-\mathbf{x}^{(i)}^\top\mathbf{w})^2 + \lambda \|\mathbf{w}\|_2^2
+%         \]
+%         \item \textbf{Equivalence:} This is Ridge (Regularized) Regression.
+%     \end{itemize}
+% \end{frame}
 
-    \begin{frame}{Maximum A Posteriori Estimation (MAP)}
-        \begin{itemize}
-            \item \textbf{MAP:} Estimate parameters by maximizing the posterior:
-            \[
-                \mathbf{w}_{\text{MAP}}
-                = \arg\max_{\mathbf{w}}  p(\mathbf{w}\mid \mathcal{D})
-                \propto \arg\max_{\mathbf{w}}  \prod_{i=1}^n p(y_i\mid \mathbf{x}_i,\mathbf{w},\sigma^2)\, p(\mathbf{w})
-            \]
-            \item Equivalently, maximize the log-posterior:
-            \[
-                \mathbf{w}_{\text{MAP}}
-                = \arg\max_{\mathbf{w}}  \sum_{i=1}^n \log p(y_i\mid \mathbf{x}_i,\mathbf{w},\sigma^2) + \log p(\mathbf{w})
-            \]
-            \item
-            In MAP with a prior, large datasets wash out the prior, so the posterior effectively matches the data-only estimate (\(\approx\) MLE).
 
-            \item When data are scarce, the prior injects knowledge that shapes the posterior, making MAP meaningfully different from MLE.
-        \end{itemize}
-    \end{frame}
+\begin{frame}{Maximum A Posteriori (MAP) Estimation}
+    \begin{itemize}
+        \item \textbf{MAP}: Instead of just maximizing the likelihood $\mathbb{P}(D \mid \mathbf{w})$, we incorporate a \textbf{prior} belief $\mathbb{P}(\mathbf{w})$ about what the weights should be.
+        \[
+        \mathbb{P}(\mathbf{w} \mid D) = \frac{\mathbb{P}(D \mid \mathbf{w}) \mathbb{P}(\mathbf{w})}{\mathbb{P}(D)} 
+        \propto 
+        \underbrace{\mathbb{P}(D \mid \mathbf{w})}_{\text{Likelihood}} 
+        \times 
+        \underbrace{\mathbb{P}(\mathbf{w})}_{\text{Prior}}
+        \]
+        \item \textbf{Objective}: Find the $\mathbf{w}$ that maximizes this posterior.
+        \[
+        \mathbf{w}_{\text{MAP}} = \arg\max_{\mathbf{w}} \mathbb{P}(\mathbf{w} \mid D) = \arg\max_{\mathbf{w}} \mathbb{P}(D \mid \mathbf{w}) \mathbb{P}(\mathbf{w})
+        \]
+        \item In log-space (easier to optimize):
+        \[
+        \mathbf{w}_{\text{MAP}} = \arg\max_{\mathbf{w}} \left( \log \mathbb{P}(D \mid \mathbf{w}) + \log \mathbb{P}(\mathbf{w}) \right)
+        \]
+    \end{itemize}
+\end{frame}
 
-    \begin{frame}{MAP with a Gaussian Prior}
-        \begin{itemize}
-            \item \textbf{Prior (additional assumption):} \(\mathbf{w}\sim \mathcal{N}(\mathbf{0},\tau^2\mathbf{I})\)
-            \[
-                p(\mathbf{w})=\frac{1}{\sqrt{2\pi\tau^2}}
-                \exp\!\left(-\frac{\mathbf{w}^\top \mathbf{w}}{2\tau^2}\right)
-            \]
-            \item With Gaussian noise \(y_i = \mathbf{x}_i^\top \mathbf{w} + \varepsilon_i, \varepsilon_i\sim\mathcal{N}(0,\sigma^2)\),
-            maximizing the log-posterior is (up to constants) equivalent to:
-            \[
-                \arg\min_{\mathbf{w}}
-                \frac{1}{2\sigma^2}\sum_{i=1}^n (y_i-\mathbf{x}_i^\top\mathbf{w})^2
-                + \frac{1}{2\tau^2}\,\|\mathbf{w}\|_2^2
-            \]
-            \item Defining \(\displaystyle \lambda=\frac{\sigma^2}{n\tau^2}\), the MAP objective becomes
-            \[
-                J_{\text{MAP}}(\mathbf{w})
-                = \frac{1}{n}\sum_{i=1}^n (y_i-\mathbf{x}_i^\top\mathbf{w})^2 + \lambda \|\mathbf{w}\|_2^2
-            \]
-            \item \textbf{Equivalence:} This is Ridge (Regularized) Regression.
-        \end{itemize}
-    \end{frame}
+\begin{frame}{MAP with a Gaussian Prior (Derivation)}
+    Let's use the derivation using $\mathbf{w}$ instead of $\beta$.
+    \begin{itemize}
+        \item \textbf{Likelihood (from MLE)}: Assume Gaussian noise $\varepsilon \sim \mathcal{N}(0, \sigma^2)$.
+        \[
+        \mathbb{P}(\mathbf{y} \mid \mathbf{X}, \mathbf{w}) \propto \exp\left( -\frac{1}{2\sigma^2} \|\mathbf{y} - \mathbf{Xw}\|_2^2 \right)
+        \]
+        \item \textbf{Prior}: Assume a \textbf{Gaussian prior} on weights, $\mathbf{w} \sim \mathcal{N}(0, \tau^2 I)$. This means we believe weights should be small and centered at zero.
+        \[
+        \mathbb{P}(\mathbf{w}) \propto \exp\left( -\frac{1}{2\tau^2} \|\mathbf{w}\|_2^2 \right)
+        \]
+        \item \textbf{Posterior}: $\text{Posterior} \propto \text{Likelihood} \times \text{Prior}$
+        \[
+        \mathbb{P}(\mathbf{w} \mid \mathbf{y}, \mathbf{X}) \propto 
+        \exp\left( 
+            -\frac{1}{2\sigma^2} \|\mathbf{y} - \mathbf{Xw}\|_2^2 
+            - \frac{1}{2\tau^2} \|\mathbf{w}\|_2^2 
+        \right)
+        \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{MAP with a Gaussian Prior (Ridge)}
+    \begin{itemize}
+        \item \textbf{Find MAP}: We want to maximize the posterior.
+        \[
+        \mathbf{w}_{\text{MAP}} = \arg\max_{\mathbf{w}} 
+        \exp\left( 
+            -\frac{1}{2\sigma^2} \|\mathbf{y} - \mathbf{Xw}\|_2^2 
+            - \frac{1}{2\tau^2} \|\mathbf{w}\|_2^2 
+        \right)
+        \]
+        \item Maximizing $e^{-g(x)}$ is the same as minimizing $g(x)$.
+        \[
+        \mathbf{w}_{\text{MAP}} = \arg\min_{\mathbf{w}} 
+        \left\{ 
+            \frac{1}{2\sigma^2} \|\mathbf{y} - \mathbf{Xw}\|_2^2 
+            + \frac{1}{2\tau^2} \|\mathbf{w}\|_2^2 
+        \right\}
+        \]
+        \item Multiply by $2\sigma^2$ (doesn't change the minimum) and set $\lambda = \frac{\sigma^2}{\tau^2}$:
+        \[
+        \mathbf{w}_{\text{MAP}} = \arg\min_{\mathbf{w}} 
+        \left\{ 
+            \|\mathbf{y} - \mathbf{Xw}\|_2^2 
+            + \lambda \|\mathbf{w}\|_2^2 
+        \right\}
+        \]
+        \item \textbf{Conclusion}: MAP estimation with a Gaussian prior is \textbf{identical} to \textbf{Ridge (L2) Regression}.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{MAP, Lasso, and Conclusion}
+\textbf{What about Lasso (L1)?}
+    \begin{itemize}
+        \item This is equivalent to MAP estimation using a \textbf{Laplace prior} on the weights.
+        \[
+        \mathbb{P}(\mathbf{w}) \propto \exp\left( -\frac{\|\mathbf{w}\|_1}{b} \right)
+        \]
+        \item A Laplace prior is sharply peaked at zero, representing a stronger belief that many weights should be exactly zero (sparsity).
+    \end{itemize}
+
+    \textbf{Key Takeaway:}
+    \begin{itemize}
+        \item \textbf{MLE} $\implies$ Minimize SSE (can overfit).
+        \item \textbf{MAP + Gaussian Prior} $\implies$ \textbf{Ridge (L2) Regression}.
+        \item \textbf{MAP + Laplace Prior} $\implies$ \textbf{Lasso (L1) Regression}.
+    \end{itemize}
+
+\end{frame}
 
 
 % \begin{frame}{Maximum a Posteriori (MAP) Estimation}
 %     \begin{itemize}
 %         \item \textbf{MAP:} Incorporates \textbf{prior information} about parameters.
 %         \[
-%         \mathbf{w}_{MAP} = \arg \max_{\mathbf{w}} p(\mathbf{w} | \mathcal{D}) = \arg \max_{\mathbf{w}} p(\mathcal{D} | \mathbf{w}) p(\mathbf{w})
+%         \mathbf{w}_{MAP} = \arg \max_{\mathbf{w}} p(\mathbf{w} | D) = \arg \max_{\mathbf{w}} p(D | \mathbf{w}) p(\mathbf{w})
 %         \]
 %         \item Prior Distribution:
 %         \[
@@ -1798,7 +1978,7 @@
 %         \]
 %         \item Posterior Distribution:
 %         \[
-%         p(\mathbf{w} | \mathcal{D})
+%         p(\mathbf{w} | D)
 %         \]
 %         \item Key Difference: Unlike MLE, MAP includes a prior to regularize the solution.
 %     \end{itemize}
@@ -1808,7 +1988,7 @@
 %     \begin{itemize}
 %         \item MAP estimation is equivalent to minimizing a regularized SSE:
 %         \[
-%         \mathbf{w}_{MAP} = \arg \min_{\mathbf{w}} \frac{1}{\sigma^2} \sum_{i=1}^n (y_i - f(\mathbf{x}_i; \mathbf{w}))^2 + \frac{1}{\alpha^2} \mathbf{w}^\top \mathbf{w}
+%         \mathbf{w}_{MAP} = \arg \min_{\mathbf{w}} \frac{1}{\sigma^2} \sum_{i=1}^n (y^{(i)} - h_{\mathbf{w}}(\mathbf{x}^{(i)})^2 + \frac{1}{\alpha^2} \mathbf{w}^\top \mathbf{w}
 %         \]
 %         \item Regularization Term: \( \lambda = \frac{\sigma^2}{\alpha^2} \) controls how strongly the model is regularized.
 %     \end{itemize}
@@ -1818,7 +1998,7 @@
 %     \begin{itemize}
 %         \item The Bayesian approach integrates over the distribution of parameters:
 %         \[
-%         p(y | \mathbf{x}, \mathcal{D}) = \int p(y | \mathbf{x}, \mathbf{w}) p(\mathbf{w} | \mathcal{D}) d\mathbf{w}
+%         p(y | \mathbf{x}, D) = \int p(y | \mathbf{x}, \mathbf{w}) p(\mathbf{w} | D) d\mathbf{w}
 %         \]
 %         \item This approach incorporates uncertainty in the parameters into the predictions.
 %         \item Benefit: Provides a probabilistic interpretation of the model’s predictions.
@@ -1829,7 +2009,7 @@
 %     \begin{itemize}
 %         \item In Bayesian linear regression, the predictive distribution is Gaussian:
 %         \[
-%         p(y | \mathbf{x}, \mathcal{D}) = \mathcal{N}(m_N^\top \mathbf{x}, \sigma_N^2(\mathbf{x}))
+%         p(y | \mathbf{x}, D) = \mathcal{N}(m_N^\top \mathbf{x}, \sigma_N^2(\mathbf{x}))
 %         \]
 %         \item \( m_N \): Posterior mean.
 %         \item \( \sigma_N^2(\mathbf{x}) \): Predictive variance.
@@ -1843,7 +2023,7 @@
 %         \[
 %         p(\mathbf{w}) = \mathcal{N}(0, \alpha^2 I)
 %         \]
-%         \item Posterior: After observing data, we compute the posterior distribution \( p(\mathbf{w} | \mathcal{D}) \).
+%         \item Posterior: After observing data, we compute the posterior distribution \( p(\mathbf{w} | D) \).
 %         \item Bayesian Prediction: Integrates over the posterior to account for uncertainty.
 %     \end{itemize}
 % \end{frame}
@@ -1871,27 +2051,27 @@
 
 
 
-    \begin{frame}{Contributions}
-        \begin{itemize}
-            \item \textbf{This slide has been prepared thanks to:}
-            \begin{itemize}
-                \setlength{\itemsep}{10pt} % Adjust the value to control the spacing
-                \item \href{https://github.com/AidaJalali}{Aida Jalali}
-                \item \href{https://github.com/alirezamirrokni}{Alireza Mirrokni}
-                \item \href{https://silentdrift.github.io/}{Arshia Gharooni}
-                \item \href{https://github.com/Mahan-Bayhaghi}{Mahan Bayhaghi}
+\begin{frame}{Contributions}
+\begin{itemize}
+\item \textbf{This slide has been prepared thanks to:}
+\begin{itemize}
+    \setlength{\itemsep}{10pt} % Adjust the value to control the spacing
+    \item \href{https://github.com/alirezamirrokni}{Alireza Mirrokni}
+    \item \href{https://github.com/AidaJalali}{Aida Jalali}
+    \item \href{https://silentdrift.github.io/}{Arshia Gharooni}
+    \item \href{https://github.com/Mahan-Bayhaghi}{Mahan Bayhaghi}
+    \item \href{https://github.com/amirrezavishteh}{Amirreza Vishteh}
+    
+\end{itemize}
+\end{itemize}
 
+\end{frame}
 
-            \end{itemize}
-        \end{itemize}
-
-    \end{frame}
-
-    \begin{frame}[allowframebreaks]
-        \bibliography{ref}
-        \bibliographystyle{ieeetr}
-        \nocite{*}
-    \end{frame}
+\begin{frame}[allowframebreaks]
+    \bibliography{ref}
+    \bibliographystyle{ieeetr}
+    \nocite{*}
+\end{frame}
 
 
 \end{document}
