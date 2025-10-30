@@ -399,6 +399,42 @@ subsubsectionstyle=show/shaded/hide]
         \end{itemize}
     \end{itemize}
 \end{frame}
+
+\begin{frame}{When to use harmonic mean?}
+
+    \begin{itemize}
+        \item Averaging rates or ratios, like speeds, densities, or prices-to-earnings ratios.
+        \item When dealing with data that has a wide range of values and you want to minimize the effect of large outliers.
+    \end{itemize}
+    
+\end{frame}
+
+\begin{frame}{How to calculate the harmonic mean}
+
+    \begin{enumerate}
+        \item \textbf{Count the number of values:} Find the total count (n) of the numbers in the dataset.
+        \item \textbf{Find the reciprocal of each value:} For each number in the set, calculate its reciprocal( 1 divided by the number).
+        \item \textbf{Sum of reciprocals:} Add all reciprocals calculated in previous step.
+        \item \textbf{Divide:} Divide the total count (n) by the sum of reciprocals.
+    \end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Example}
+
+    \begin{itemize}
+        \item To find the average speed of a trip that involves two different speeds, we use the harmonic mean.
+        \item \textbf{Scenario:} Imagine a car travels 10km at 60 km/h, then travels another 10km at 20 km/h.
+        \item \textbf{Calculation:}
+        \begin{itemize}
+            \item Since there are two speeds, $n=2$.
+            \item Reciprocals: $\frac{1}{60}$ and $\frac{1}{20}$.
+            \item Sum of reciprocals: $\frac{1}{60} + \frac{1}{20} = \frac{4}{60}$.
+            \item Harmonic mean $= \frac{2}{\frac{4}{60}}=30$ km/h.
+        \end{itemize}
+    \end{itemize}
+    
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{F1 and other averages}
     \begin{itemize}
@@ -441,6 +477,8 @@ subsubsectionstyle=show/shaded/hide]
         \item Always interpret metrics in conjunction with the confusion matrix.
     \end{itemize}
 \end{frame}
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \begin{frame}{A precision-recall curve}
 %     \begin{figure}[h]
@@ -849,6 +887,9 @@ multiple performance measures into one quantity?
         \includegraphics[width=0.8\linewidth]{pic/Figure_16.png}
     \end{figure}
 \end{frame}
+
+
+
 
 
 
