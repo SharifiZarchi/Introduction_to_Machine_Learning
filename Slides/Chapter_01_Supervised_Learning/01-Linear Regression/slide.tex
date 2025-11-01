@@ -1620,10 +1620,7 @@ For the sake of brevity, we ommit the \(\mathbf{w}\) subscript from \(h\) in the
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Ridge vs. Lasso: Geometric Interpretation}
-    \textbf{Goal}: Find $\mathbf{w}$ that minimizes $J(\mathbf{w})$ (elliptical contours) subject to a constraint $R(\mathbf{w}) \le t$.
-    \vspace{1em}
-
+\begin{frame}{Ridge vs. Lasso}
     \begin{table}[h!]
         \centering
         \renewcommand{\arraystretch}{1.4}
@@ -1816,15 +1813,15 @@ For the sake of brevity, we ommit the \(\mathbf{w}\) subscript from \(h\) in the
     \begin{itemize}
         \item Using log-likelihood we have:
         \[
-        \log \mathcal{L}(D; \mathbf{w}, \sigma^2) = -n \log \sigma - \frac{n}{2} \log(2\pi) - \frac{1}{2\sigma^2} \sum_{i=1}^n (y^{(i)} - h_{\mathbf{w}}(\mathbf{x}^{(i)})^2
+        \log \mathcal{L}(D; \mathbf{w}, \sigma^2) = -n \log \sigma - \frac{n}{2} \log(2\pi) - \frac{1}{2\sigma^2} \sum_{i=1}^n (y^{(i)} - h_{\mathbf{w}}(\mathbf{x}^{(i)}))^2
         \]
         \item Since the objective of MLE is to optimize with regards to random variables, we can rule out the constants:
         \[
-        \log \mathcal{L}(D; \mathbf{w}, \sigma^2) \sim - \sum_{i=1}^n (y^{(i)} - h_{\mathbf{w}}(\mathbf{x}^{(i)})^2
+        \log \mathcal{L}(D; \mathbf{w}, \sigma^2) \sim - \sum_{i=1}^n (y^{(i)} - h_{\mathbf{w}}(\mathbf{x}^{(i)}))^2
         \]
         \item \textbf{Equivalence:} Maximizing the log-likelihood is equivalent to minimizing the Sum of Squared Errors (SSE):
         \[
-        J(\mathbf{w}) = \sum_{i=1}^n (y^{(i)} - h_{\mathbf{w}}(\mathbf{x}^{(i)})^2
+        \mathbf{w}_{\text{MLE}} = \arg\min_{\mathbf{w}} \sum_{i=1}^n (y^{(i)} - h_{\mathbf{w}}(\mathbf{x}^{(i)}))^2
         \]
     \end{itemize}
 \end{frame}
