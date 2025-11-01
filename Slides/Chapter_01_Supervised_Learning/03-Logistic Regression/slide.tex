@@ -107,11 +107,11 @@ subsubsectionstyle=show/shaded/hide]
         \[
             \hat{y} =
             \begin{cases}
-                1, & h_\theta(x) \ge 0.5\\
-                0, & h_\theta(x) < 0.5
+                1, & h_\theta(\mathbf{x}) \ge 0.5\\
+                0, & h_\theta(\mathbf{x}) < 0.5
             \end{cases}
         \]
-    \item Here, $\hat{y}$ is the \textbf{predicted class label} (i.e., the model's guess for $y$). It converts the continuous output of $h_\theta(x)$ into a discrete class (0 or 1).
+    \item Here, $\hat{y}$ is the \textbf{predicted class label} (i.e., the model's guess for $y$). It converts the continuous output of $h_\theta(\mathbf{x})$ into a discrete class (0 or 1).
     \end{itemize}
 
     \vspace{0.5em}
@@ -128,7 +128,7 @@ subsubsectionstyle=show/shaded/hide]
 
 \begin{frame}{Limitations of Linear Regression for Classification}
     \begin{itemize}
-        \item The model's output, $h_\theta(x)$, is unbounded and can produce predictions greater than 1 or less than 0.
+        \item The model's output, $h_\theta(\mathbf{x})$, is unbounded and can produce predictions greater than 1 or less than 0.
         \item Linear regression does not provide probabilistic outputs.
         \item The decision boundary may be highly sensitive to outliers.
     \end{itemize}
@@ -138,10 +138,38 @@ subsubsectionstyle=show/shaded/hide]
     \includegraphics[width=0.68\linewidth]{pic/lrClassification2.png}
 
     \[
-        \text{Requirement: } 0 \le h_\theta(x) \le 1
+        \text{Requirement: } 0 \le h_\theta(\mathbf{x}) \le 1
     \]
 
 \end{frame}
+
+\begin{frame}{Limitations of Perceptron with Step Activation for Classification}
+    \begin{itemize}
+        \item As we saw earlier, perceptron Uses a step activation 
+        \[
+            f(z) =
+            \begin{cases}
+                1, & z \ge 0\\
+                0, & z < 0
+            \end{cases}
+        \]
+        \item The step function has \textbf{slope = 0} almost everywhere (non-differentiable at 0).
+        \item No gradient means it cannot use gradient-based optimization.
+        \item Produces hard class labels (0/1), not probabilities, thus we cannot measure model confidence — probabilistic outputs are preferred.
+
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Properties of a Good Classifier}
+     Therefore, we prefer a model that:
+        \begin{itemize}
+            \item Outputs \textbf{probabilities} for each class, so it has \textbf{bounded outputs} in $[0, 1]$, making it less sensitive to outliers.
+            \item \textbf{Shows model confidence} through its probabilistic output.
+            \item Has a \textbf{differentiable, convex objective with non-zero derivative}, allowing efficient optimization with gradient-based methods.
+        \end{itemize}
+\end{frame}
+
+
 
 % \begin{frame}{Limitations of Linear Regression for Classification}
 %     \begin{itemize}
@@ -155,11 +183,6 @@ subsubsectionstyle=show/shaded/hide]
 %     \]
 %     \end{itemize}
 % \end{frame}
-
-
-\section{Logistic Regression}
-
-\subsection{Fundamentals}
 
 
 %%%% 5 %%%%%
@@ -193,17 +216,17 @@ subsubsectionstyle=show/shaded/hide]
         \end{table}
         %%%%
         \item We denote the \textcolor{deepred}{features} of a sample with vector $x$ and the \textcolor{deepgreen}{label} with $y$.
-        \item In logistic regression we try to find an $\sigma (w^Tx)$ which predicts \textbf{posterior} probabilities $P(y=1|x)$.
+        \item In logistic regression we try to find an $\sigma (\mathbf{w}^\top \mathbf{x})$ which predicts \textbf{posterior} probabilities $\mathbb{P}(y=1|\mathbf{x})$.
     \end{itemize}
     
 \end{frame}
 %%%% 5.1 %%%%%%%%%
 \begin{frame}{Introduction (cont.)}
     \begin{itemize}
-        \item $\sigma (w^Tx)$: probability that $y=1$ given $x$ (parameterized by \textbf{$\textbf{w}$})
+        \item $\sigma (\mathbf{w}^\top x)$: probability that $y=1$ given $x$ (parameterized by \textbf{$\textbf{w}$})
       \begin{align*}
-        P(y=1|x,\mathbf{w}) &= \sigma (\mathbf{w}^Tx) \\
-        P(y=0|x,\mathbf{w}) &= 1 - \sigma (\mathbf{w}^Tx)
+        \mathbb{P}(y=1|\mathbf{x},\mathbf{w}) &= \sigma (\mathbf{w}^\top x) \\
+        \mathbb{P}(y=0|\mathbf{x},\mathbf{w}) &= 1 - \sigma (\mathbf{w}^\top x)
       \end{align*}
 
         \item We need to look for a function which gives us an output in the range [0, 1]. (like a probability).
@@ -215,28 +238,32 @@ subsubsectionstyle=show/shaded/hide]
 
 %%%% 6 %%%%%
 \begin{frame}{Introduction (cont.)}
-    \begin{minipage}{0.55\textwidth}
+  \begin{minipage}{0.55\textwidth}
     \begin{itemize}
-        \item Sigmoid (logistic) function.
-        \[
-            \sigma (z) = \frac{1}{1 + e^{-z}}
-        \]
-        \item A good candidate for activation function.
-        
-        \item It gives us a number between 0 and 1 \textbf{smoothly}.
-        \item It is also \textbf{differentiable}
-
+      \item Sigmoid (logistic) function:
+      \[
+        \sigma(z)=\frac{1}{1+e^{-z}}
+      \]
+      \item Smooth, bounded in $(0,1)$, and \textbf{differentiable}.
+       \[
+       \begin{aligned}
+      \sigma'(z)=\frac{e^{-z}}{(1+e^{-z})^{2}}
+      &=\underbrace{\frac{1}{1+e^{-z}}}_{\sigma(z)}\;
+       \underbrace{\frac{e^{-z}}{1+e^{-z}}}_{1-\sigma(z)}
+      \\ &=\sigma(z)\big(1-\sigma(z)\big)
+      \end{aligned}
+    \]
     \end{itemize}
-    \end{minipage}% 
-    \begin{minipage}{0.4\textwidth}
-        \centering
-        \includegraphics[width=0.8\textwidth]{pic/sigmoid.png}
-    \end{minipage}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Sigmoid function \& its derivative}
+   
+  \end{minipage}\hfill
+  \begin{minipage}{0.4\textwidth}
     \centering
-        \includegraphics[width=0.65\textwidth]{pic/sigmoidDer.png}
+    \includegraphics[width=0.8\linewidth]{pic/sigmoid.png}
+
+    \vspace{0.5em}
+
+    \includegraphics[width=0.8\linewidth]{pic/sigmoidDer.png}
+  \end{minipage}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -257,24 +284,24 @@ subsubsectionstyle=show/shaded/hide]
       \item The sigmoid function takes a number as input but we have:
     \end{itemize}
         \begin{align*}
-            x &= [x_0=1,x_1, \dots, x_d] \\
-            w &= [w_0, w_1, \dots, w_d]
+            \mathbf{x} &= [x_0=1,x_1, \dots, x_d] \\
+            \mathbf{w} &= [w_0, w_1, \dots, w_d]
         \end{align*}
     \begin{itemize} 
-      \item So we can use the \textbf{dot product} of $x$ and $w$.
+      \item So we can use the \textbf{dot product} of $\mathbf{x}$ and $\mathbf{w}$.
       
-      \item We have $0\leq \sigma (\mathbf{w}^Tx) \leq 1$. which is the estimated probability of $y=1$ on input $x$.
+      \item We have $0\leq \sigma (\mathbf{w}^\top \mathbf{x}) \leq 1$. which is the estimated probability of $y=1$ on input $x$.
 
       \item An Example : A basketball game (Win, Lose)
         \begin{itemize}
-            \item $\sigma (\mathbf{w}^T x) = 0.7$
+            \item $\sigma (\mathbf{w}^\top  \mathbf{x}) = 0.7$
             \item In other terms $70$ percent chance of winning the game.
         \end{itemize}
         
     \end{itemize}
 \end{frame}
 %%%%% 9 %%%%%%%
-\subsection{Decision surface}
+\section{Decision surface}
 \begin{frame}{Decision surface}
     \begin{itemize}
       \item Decision surface or decision boundary is the region of a problem space in which the output label of a classifier is ambiguous. (could be linear or non-linear)
@@ -319,16 +346,16 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{Decision surface (cont.)}
     \begin{itemize}
       \item Back to our logistic regression problem.
-      \item Decision surface $\sigma (\mathbf{w}^Tx) = $ \textbf{constant}.
+      \item Decision surface $\sigma (\mathbf{w}^\top \mathbf{x}) = $ \textbf{constant}.
         \[
-            \sigma (\mathbf{w}^Tx) = \frac{1}{1 + e^{-(\mathbf{w}^Tx)}} = 0.5
+            \sigma (\mathbf{w}^\top \mathbf{x}) = \frac{1}{1 + e^{-(\mathbf{w}^\top \mathbf{x})}} = 0.5
         \]
       \item Decision surfaces are \textbf{linear functions} of $x$
         \begin{itemize}
-            \item if $\sigma (\mathbf{w}^Tx) \geq 0.5$ then $\hat{y}=1$, else $\hat{y} = 0$
+            \item if $\sigma (\mathbf{w}^\top \mathbf{x}) \geq 0.5$ then $\hat{y}=1$, else $\hat{y} = 0$
             \item Equivalently, since $\sigma(z) \ge 0.5$ only when $z \ge 0$, this means:
             \begin{itemize}
-                \item if $\mathbf{w}^Tx \geq 0$ then decide $\hat{y}=1$, else $\hat{y}=0$
+                \item if $\mathbf{w}^\top \mathbf{x} \geq 0$ then decide $\hat{y}=1$, else $\hat{y}=0$
             \end{itemize}
         \end{itemize}% ayoub eshgh
         \vfill
@@ -341,7 +368,7 @@ subsubsectionstyle=show/shaded/hide]
 %%%% 10 %%%%
 \begin{frame}{Decision boundary example}
     \begin{align*}
-        \sigma (\mathbf{w}^Tx) = \sigma (w_0 + w_1 x_1 + w_2 x_2)
+        \sigma (\mathbf{w}^\top \mathbf{x}) = \sigma (w_0 + w_1 x_1 + w_2 x_2)
     \end{align*}
     
     \begin{minipage}{0.35\linewidth}
@@ -362,7 +389,7 @@ subsubsectionstyle=show/shaded/hide]
 %%%%%%%%%%%%%
 \begin{frame}{Non-linear decision boundary example}
     \begin{align*}
-        \sigma (\mathbf{w}^Tx) &= \sigma (w_0 + w_1 x_1 + w_2 x_2 + w_3x_1^2 + w_4x_2^2) \\
+        \sigma (\mathbf{w}^\top \mathbf{x}) &= \sigma (w_0 + w_1 x_1 + w_2 x_2 + w_3x_1^2 + w_4x_2^2) \\
         \text{We can learn } & \text{more complex decision boundaries when having higher order terms}
     \end{align*}
     
@@ -383,80 +410,80 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 %%%%%%%%%%%%%
 
-% \subsection{MLE and MAP}
+\section{MLE and MAP}
 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{Maximum Likelihood Estimation (MLE)}
-%     \begin{itemize}
-%         \item For $n$ independent samples, the likelihood is:
-%         \[
-%             L(\mathbf{w}) = \prod_{i=1}^{n} P(y^{(i)}|x^{(i)}, \mathbf{w})
-%         \]
-%         \item For binary classification ($y \in \{0,1\}$):
-%         \[
-%             P(y^{(i)}|x^{(i)},\mathbf{w}) = \sigma (\mathbf{w}^Tx^{(i)})^{y^{(i)}} (1 - \sigma (\mathbf{w}^Tx^{(i)}))^{1 - y^{(i)}}
-%         \]
-%         \item This compact form works because $y^{(i)} \in \{0, 1\}$:
-%         \begin{itemize}
-%             \item If $y^{(i)}=1$, the expression becomes $P(y=1|...) = \sigma (\mathbf{w}^Tx^{(i)})$.
-%             \item If $y^{(i)}=0$, the expression becomes $P(y=0|...) = 1 - \sigma (\mathbf{w}^Tx^{(i)})$.
-%         \end{itemize}
-%         \item Log-likelihood:
-%         \[
-%             \ell(\mathbf{w}) = \sum_{i=1}^n \big[ y^{(i)} \log \sigma(\mathbf{w}^Tx^{(i)}) + (1-y^{(i)})\log (1-\sigma(\mathbf{w}^Tx^{(i)})) \big]
-%         \]
-%     \end{itemize}
-% \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Maximum Likelihood Estimation (MLE)}
+    \begin{itemize}
+        \item For $n$ independent samples, the likelihood is:
+        \[
+            \mathcal{L}(\mathbf{w}) = \prod_{i=1}^{n} \mathbb{P}(y^{(i)}|\mathbf{x}^{(i)}, \mathbf{w})
+        \]
+        \item For binary classification ($y \in \{0,1\}$):
+        \[
+            \mathbb{P}(y^{(i)}|\mathbf{x}^{(i)},\mathbf{w}) = \sigma (\mathbf{w}^\top \mathbf{x}^{(i)})^{y^{(i)}} (1 - \sigma (\mathbf{w}^\top \mathbf{x}^{(i)}))^{1 - y^{(i)}}
+        \]
+        \item This compact form works because $y^{(i)} \in \{0, 1\}$:
+        \begin{itemize}
+            \item If $y^{(i)}=1$, the expression becomes $P(y=1|\mathbf{x}^{(i)}, \mathbf{w}) = \sigma (\mathbf{w}^\top \mathbf{x}^{(i)})$.
+            \item If $y^{(i)}=0$, the expression becomes $P(y=0|\mathbf{x}^{(i)}, \mathbf{w}) = 1 - \sigma (\mathbf{w}^\top \mathbf{x}^{(i)})$.
+        \end{itemize}
+        \item Log-likelihood:
+        \[
+            \log \mathcal{L}(\mathbf{w}) = \sum_{i=1}^n \big[ y^{(i)} \log \sigma(\mathbf{w}^\top \mathbf{x}^{(i)}) + (1-y^{(i)})\log (1-\sigma(\mathbf{w}^\top \mathbf{x}^{(i)})) \big]
+        \]
+    \end{itemize}
+\end{frame}
 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{From Likelihood to Cost Function}
-%     \begin{itemize}
-%         \item Maximizing the likelihood $\Leftrightarrow$ minimizing the negative log-likelihood (NLL):
-%         \[
-%             J_{\text{MLE}}(\mathbf{w}) = -\ell(\mathbf{w})
-%         \]
-%         \item Can be written as an integral over the data distribution:
-%         \[
-%             J_{\text{MLE}}(\mathbf{w}) = - \int p(x,y) \log P(y|x, \mathbf{w}) \, dx\,dy
-%         \]
-%         \item Empirical estimate (training data):
-%         \[
-%             J_{\text{MLE}}(\mathbf{w}) = -\frac{1}{n}\sum_{i=1}^{n} \log P(y^{(i)}|x^{(i)}, \mathbf{w})
-%         \]
-%         \item This is exactly the \textbf{cross-entropy loss} used in classification.
-%     \end{itemize}
-% \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{From Likelihood to Cost Function}
+    \begin{itemize}
+        \item Maximizing the likelihood $\Leftrightarrow$ minimizing the negative log-likelihood (NLL):
+        \[
+            J_{\text{MLE}}(\mathbf{w}) = -\log \mathcal{L}(\mathbf{w})
+        \]
+        \item Can be written as an integral over the data distribution:
+        \[
+            J_{\text{MLE}}(\mathbf{w}) = - \int \mathbb{P}(\mathbf{x},y) \log \mathbb{P}(y|\mathbf{x}, \mathbf{w}) \, d\mathbf{x}\,dy
+        \]
+        \item Empirical estimate (training data):
+        \[
+            J_{\text{MLE}}(\mathbf{w}) = -\frac{1}{n}\sum_{i=1}^{n} \log \mathbb{P}(y^{(i)}|\mathbf{x}^{(i)}, \mathbf{w})
+        \]
+        \item This is exactly the \textbf{cross-entropy loss} used in classification.
+    \end{itemize}
+\end{frame}
 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{Maximum A Posteriori Estimation (MAP)}
-%     \begin{itemize}
-%         \item MAP incorporates prior knowledge about parameters:
-%         \[
-%             \hat{\mathbf{w}}_{\text{MAP}} = \arg\max_{\mathbf{w}} P(\mathbf{w}|D)
-%         \]
-%         \item Using Bayes’ rule:
-%         \[
-%             P(\mathbf{w}|D) \propto P(D|\mathbf{w})P(\mathbf{w})
-%         \]
-%         \item Equivalently:
-%         \[
-%             \hat{\mathbf{w}}_{\text{MAP}} = \arg\max_{\mathbf{w}} \Big[ \log P(D|\mathbf{w}) + \log P(\mathbf{w}) \Big]
-%         \]
-%         \item Cost function:
-%         \[
-%             J_{\text{MAP}}(\mathbf{w}) = - \sum_{i=1}^n \log P(y^{(i)}|x^{(i)}, \mathbf{w}) - \log P(\mathbf{w})
-%         \]
-%     \end{itemize}
-% \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Maximum A Posteriori Estimation (MAP)}
+    \begin{itemize}
+        \item MAP incorporates prior knowledge about parameters:
+        \[
+            \mathbf{w}_{\text{MAP}} = \arg\max_{\mathbf{w}}       \mathbb{P}(\mathbf{w}|D)
+        \]
+        \item Using Bayes’ rule:
+        \[
+            \mathbb{P}(\mathbf{w}|D) \propto P(D|\mathbf{w})P(\mathbf{w})
+        \]
+        \item Equivalently:
+        \[
+            \mathbf{w}_{\text{MAP}} = \arg\max_{\mathbf{w}} \Big[ \log \mathbb{P}(D|\mathbf{w}) + \log \mathbb{P}(\mathbf{w}) \Big]
+        \]
+        \item Cost function:
+        \[
+            J_{\text{MAP}}(\mathbf{w}) = - \sum_{i=1}^n \log \mathbb{P}(y^{(i)}|\mathbf{x}^{(i)}, \mathbf{w}) - \log \mathbb{P}(\mathbf{w})
+        \]
+    \end{itemize}
+\end{frame}
 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \begin{frame}{MAP with Gaussian Prior (L2 Regularization)}
 %     \begin{itemize}
 %         \item Gaussian prior: $\mathbf{w} \sim \mathcal{N}(0, \tau^2 I)$
 %         \[
 %             P(\mathbf{w}) \propto \exp\left(-\frac{\|\mathbf{w}\|^2}{2\tau^2}\right)
 %         \]
-%         \item MAP cost function:
+% \subsection{MLE and MAP}
 %         \[
 %             J_{\text{MAP}}(\mathbf{w}) = J_{\text{MLE}}(\mathbf{w}) + \frac{1}{2\tau^2}\|\mathbf{w}\|^2
 %         \]
@@ -468,147 +495,192 @@ subsubsectionstyle=show/shaded/hide]
 %     \end{itemize}
 % \end{frame}
 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{MAP with Laplace Prior (L1 Regularization)}
-%     \begin{itemize}
-%         \item Laplace prior: $\mathbf{w} \sim \text{Laplace}(0, b)$
-%         \[
-%             P(\mathbf{w}) \propto \exp\left(-\frac{\|\mathbf{w}\|_1}{b}\right)
-%         \]
-%         \item MAP cost:
-%         \[
-%             J_{\text{MAP}}(\mathbf{w}) = J_{\text{MLE}}(\mathbf{w}) + \lambda \|\mathbf{w}\|_1
-%         \]
-%         where $\lambda = 1/b$
-%         \item L1 penalty encourages \textbf{sparsity} (feature selection).
-%     \end{itemize}
-% \end{frame}
-
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{Regularization Effects (L1 vs L2)}
-%     \begin{itemize}
-%         \item \textbf{L2 (Ridge):} smooths weights, keeps all features but shrinks them.
-%         \item \textbf{L1 (Lasso):} drives some weights to zero, performs feature selection.
-%         \item Both prevent overfitting by penalizing model complexity.
-%     \end{itemize}
-%     \centering
-%     \includegraphics[width=0.6\textwidth]{pic/regularizers.jpg}
-%     \vspace{0.3em}
-%     \\
-%     {\scriptsize Image adapted from CS 4780, Cornell University}
-% \end{frame}
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{Regularizers: Types and Properties}
-%     \centering
-%     \small
-%     \renewcommand{\arraystretch}{2} % Increase row height
-%     \begin{tabular}{|p{1cm}|p{3.2cm}|p{4.5cm}|p{4cm}|}
-%         \hline
-%         \textbf{Type} & \textbf{Form} & \textbf{Properties / Advantages} & \textbf{Disadvantages / Effect} \\ \hline
-%         L2 & $r(\mathbf{w}) = \|\mathbf{w}\|_2^2$ 
-%         & Strictly convex, differentiable 
-%         & Dense solutions (uses all features) \\ \hline
-%         L1 & $r(\mathbf{w}) = \|\mathbf{w}\|_1$ 
-%         & Convex, encourages sparsity 
-%         & Not differentiable at 0 \\ \hline
-%         Lp & $r(\mathbf{w}) = \|\mathbf{w}\|_p = (\sum_i |v_i|^p)^{1/p}, \; 0<p\le 1$ 
-%         & Very sparse solutions, initialization dependent 
-%         & Non-convex, not differentiable \\ \hline
-%     \end{tabular}
-    
-%     \vspace{0.8em}
-%     \scriptsize
-%     \textit{Note:} Choice of regularizer affects sparsity and smoothness of learned weights.
-% \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{MAP with Gaussian Prior (L2 Regularization)}
+    \begin{itemize}
+        \item Gaussian prior: $\mathbf{w} \sim \mathcal{N}(0, \sigma^2 \mathbf{I})$
+        \[
+            \mathbb{P}(\mathbf{w}) \propto \exp\left(-\frac{\|\mathbf{w}\|_2^2}{2\sigma^2}\right)
+        \]
+        \item MAP cost:
+        \[
+            J_{\text{MAP}}(\mathbf{w}) = J_{\text{MLE}}(\mathbf{w}) + \lambda \|\mathbf{w}\|_2^2
+        \]
+        \item L2 penalty encourages \textbf{weight shrinkage} (smooth regularization, no sparsity).
+    \end{itemize}
+\end{frame}
 
 
-% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{MLE vs MAP Comparison}
-%     \centering
-%     \small
-%     \renewcommand{\arraystretch}{1.5} % increase row height
-%     \begin{tabular}{|p{3cm}|p{5cm}|p{5cm}|}
-%         \hline
-%          & \textbf{MLE} & \textbf{MAP} \\ \hline
-%         Objective & Maximize likelihood $P(D|\mathbf{w})$ & Maximize posterior $P(D|\mathbf{w})P(\mathbf{w})$ \\ \hline
-%         Prior & None (uniform) & Explicit prior $P(\mathbf{w})$ \\ \hline
-%         Cost function & $-\log P(D|\mathbf{w})$ & $-\log P(D|\mathbf{w}) - \log P(\mathbf{w})$ \\ \hline
-%         Regularization & None & Arises from prior \\ \hline
-%         Overfitting control & No & Yes \\ \hline
-%     \end{tabular}
-% \end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{MAP with Laplace Prior (L1 Regularization)}
+    \begin{itemize}
+        \item Laplace prior: $\mathbf{w} \sim \text{Laplace}(0, b)$
+        \[
+            \mathbb{P}(\mathbf{w}) \propto \exp\left(-\frac{\|\mathbf{w}\|_1}{b}\right)
+        \]
+        \item MAP cost:
+        \[
+            J_{\text{MAP}}(\mathbf{w}) = J_{\text{MLE}}(\mathbf{w}) + \lambda \|\mathbf{w}\|_1
+        \]
+        \item L1 penalty encourages \textbf{sparsity} (feature selection).
+    \end{itemize}
+\end{frame}
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Ridge vs. Lasso (Recap)}
+        \begin{table}[h!]
+        \centering
+        \renewcommand{\arraystretch}{1.4}
+        \setlength{\tabcolsep}{8pt}
+        \begin{tabular}{|p{0.45\textwidth}|p{0.45\textwidth}|}
+            \hline
+            \textbf{Ridge Regression (L2)} & \textbf{Lasso Regression (L1)} \\
+            \hline
+            Constraint: $\|\mathbf{w}\|_2^2 \le t$ (L2 ball). &
+            Constraint: $\|\mathbf{w} \|_1 \le t$ (L1 ball). \\
+            \hline
+            Contours of $J(\mathbf{w})$ typically touch the constraint boundary at smooth points. &
+            Contours often hit the sharp \textbf{corners} of the diamond. \\
+            \hline
+            Produces small but nonzero coefficients (no exact sparsity). &
+            Produces \textbf{sparse} solutions (some coefficients exactly zero). \\
+            \hline
+            Differentiable everywhere; the regularizer $\|\mathbf{w}\|_2^2$ is smooth. &
+            Not differentiable at $w_i = 0$; $\|\mathbf{w}\|_1$ has sharp corners. \\
+            \hline
+            Strongly convex $\Rightarrow$ guarantees a \textbf{unique optimum}. &
+            Not strongly convex $\Rightarrow$ may yield \textbf{multiple optima}. \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{frame}
 
 %%%% 12 %%%%%%
 
-\subsection{Gradient descent}
+\section{Gradient descent}
 \begin{frame}{Gradient descent}
     \begin{itemize}
     \item Remember from previous slides:
         \[
-        J(w) = \sum_{i=1}^{n}-y^{(i)}\log (\sigma (\mathbf{w}^T x^{(i)})) - 
-            (1-y^{(i)})\log (1 - \sigma (\mathbf{w}^T x^{(i)}))
+        J(\mathbf{w}) = \sum_{i=1}^{n}-y^{(i)}\log (\sigma (\mathbf{w}^\top  \mathbf{x}^{(i)})) - 
+            (1-y^{(i)})\log (1 - \sigma (\mathbf{w}^\top  \mathbf{x}^{(i)}))
         \]
     \item Update rule for \textbf{gradient descent}: 
         \begin{align*}
-            w^{t+1} = w^t - \eta \nabla _w J(w^t)
+            \mathbf{w}^{t+1} = \mathbf{w}^t - \eta \nabla_{\mathbf{w}} J(\mathbf{w}^t)
         \end{align*}
-    \item With $J(w)$ definition for logistic regression we get:
-        \begin{align*}
-            \nabla _w J(w) = \sum_{i=1}^{n} (\sigma (\mathbf{w}^T x^{(i)}) - y^{(i)})x^{(i)} 
-        \end{align*}
-    % \item Also keep in mind $f(x^{(i)}; \mathbf{w})= \sigma (\mathbf{w}^Tx^{(i)})$
+    \item With $J(\mathbf{w})$ definition for logistic regression we get:
+    \[
+    \nabla_\mathbf{w} J(\mathbf{w})
+    = \sum_{i=1}^{n} (\sigma(\mathbf{w}^\top \mathbf{x}^{(i)}) - y^{(i)})\mathbf{x}^{(i)}
+    \]
+    % \item Also keep in mind $f(x^{(i)}; \mathbf{w})= \sigma (\mathbf{w}^\top x^{(i)})$
     % \item Compare with the gradient of \textbf{SSE} in \textbf{linear regression} :
     %     \begin{align*}
-    %         \nabla _w J(w) = \sum_{i=1}^{n} (w^Tx^{(i)} - y^{(i)})x^{(i)}
+    %         \nabla _w J(w) = \sum_{i=1}^{n} (\mathbf{w}^\top x^{(i)} - y^{(i)})x^{(i)}
     %     \end{align*}
         
     \end{itemize}
 \end{frame}
+
+\begin{frame}{Gradient descent (cont.)}
+Let's find the derivative from the previous slide step by step:
+    \begin{itemize}
+        \item For one sample, we have:
+        \[
+        J_i = -y^{(i)}\log\sigma(z^{(i)}) - (1 - y^{(i)})\log(1 - \sigma(z^{(i)})), 
+        \quad z^{(i)} = \mathbf{w}^\top \mathbf{x}^{(i)}
+        \]
+        \item Differentiate w.r.t. \(z^{(i)}\):
+        \[
+        \frac{\partial J_i}{\partial z^{(i)}} 
+        = -\frac{y^{(i)}}{\sigma(z^{(i)})}\sigma'(z^{(i)}) 
+        + \frac{1 - y^{(i)}}{1 - \sigma(z^{(i)})}\sigma'(z^{(i)})
+        = \sigma(z^{(i)}) - y^{(i)}
+        \]
+        \item By chain rule we get:
+        \[
+        \frac{\partial J_i}{\partial \mathbf{w}} = 
+        \frac{\partial J_i}{\partial z^{(i)}} \cdot \frac{\partial z^{(i)}}{\partial \mathbf{w}} = (\sigma(z^{(i)}) - y^{(i)})\,\mathbf{x}^{(i)}
+        \]
+        \item Summing over all samples gives the result:
+        \[
+        \nabla_{\mathbf{w}} J(\mathbf{w}) 
+        = \sum_{i=1}^{n} (\sigma(\mathbf{w}^\top \mathbf{x}^{(i)}) - y^{(i)})\,\mathbf{x}^{(i)}
+        \]
+    \end{itemize}
+\end{frame}
+
+
 %%%%%% 12.5 %%%%%%%
-\begin{frame}{Gradient descent}
+\begin{frame}{Gradient descent (cont.)}
     \begin{itemize}
     
     \item Compare the gradient of \textcolor{deepgreen}{logistic regression} with the gradient of \textcolor{blue}{SSE} in \textcolor{blue}{linear regression} :
     \end{itemize}
         \begin{align*}
         \color{deepgreen}
-             \nabla _w J(w) = \sum_{i=1}^{n} (\sigma (\mathbf{w}^Tx^{(i)}) - y^{(i)})x^{(i)} 
+             \nabla_{\mathbf{w}} J(\mathbf{w}) = \sum_{i=1}^{n} (\sigma (\mathbf{w}^\top \mathbf{x}^{(i)}) - y^{(i)})\mathbf{x}^{(i)} 
         \end{align*}
         \begin{align*}
             \color{blue}
-            \nabla _w J(w) = \sum_{i=1}^{n} (\mathbf{w}^Tx^{(i)} - y^{(i)})x^{(i)}
+            \nabla_{\mathbf{w}} J(\mathbf{w}) = \sum_{i=1}^{n} (\mathbf{w}^\top \mathbf{x}^{(i)} - y^{(i)})\mathbf{x}^{(i)}
         \end{align*}
         
 \end{frame}
-
-%%%%% 13 %%%%%%%%
-
 %%%%% 13 %%%%%%%%
 \begin{frame}{Loss function}
     \begin{itemize}
         \item Loss function is a single overall measure of loss incurred for taking our decisions (over entire dataset).
         \item This is the \textbf{cross-entropy} (or log) loss for a single sample:
-        \[ Loss(y, \sigma (\mathbf{w}^T x)) = -y \log (\sigma ( \mathbf{w}^T x)) - (1-y) \log 
-        (1 - \sigma (\mathbf{w}^T x))
+        \[ J(y, \sigma (\mathbf{w}^\top  \mathbf{x})) = -y \log (\sigma ( \mathbf{w}^\top  \mathbf{x})) - (1-y) \log 
+        (1 - \sigma (\mathbf{w}^\top  \mathbf{x}))
         \]
         
         \item Since in binary classification $y \in \{0, 1\}$, the loss simplifies:
             \[
-                Loss(y, \sigma (\mathbf{w}^T x)) = \begin{cases}
-                    - \log (\sigma (\mathbf{w}^T x)) & \textbf{if } y = 1 \\
-                    - \log (1 - \sigma (\mathbf{w}^T x)) & \textbf{if } y = 0
+                J(y, \sigma (\mathbf{w}^\top  \mathbf{x})) = \begin{cases}
+                    - \log (\sigma (\mathbf{w}^\top  \mathbf{x})) & \textbf{if } y = 1 \\
+                    - \log (1 - \sigma (\mathbf{w}^\top  \mathbf{x})) & \textbf{if } y = 0
                 \end{cases}
             \]
     \end{itemize}
 \end{frame}
+
+%%%%% 14 %%%%%%%%
+\begin{frame}{Convexity of Cross-Entropy Loss}
+\small
+This is the logistic regression loss over the dataset:
+\[
+J(\mathbf{w}) = \sum_{i=1}^{n} \Big[ -y^{(i)} \log \sigma(\mathbf{w}^\top \mathbf{x}^{(i)}) - (1 - y^{(i)}) \log(1 - \sigma(\mathbf{w}^\top \mathbf{x}^{(i)})) \Big],
+\]
+Define $\hat{y}^{(i)} = \sigma(\mathbf{w}^\top \mathbf{x}^{(i)})$.  
+Then the gradient is:
+\[
+\nabla_{\mathbf{w}} J(\mathbf{w}) = \sum_{i=1}^{n} (\hat{y}^{(i)} - y^{(i)}) \, \mathbf{x}^{(i)}.
+\]
+The Hessian (second derivative matrix) is:
+\[
+\nabla_{\mathbf{w}}^2 J(\mathbf{w}) = \sum_{i=1}^{n} \hat{y}^{(i)}(1 - \hat{y}^{(i)}) \, \mathbf{x}^{(i)} (\mathbf{x}^{(i)})^\top
+= \mathbf{X}^\top \mathbf{D} \, \mathbf{X},
+\]
+where $\mathbf{D} = \mathrm{diag}(\hat{y}^{(i)}(1 - \hat{y}^{(i)}))$ and each $\hat{y}^{(i)}(1 - \hat{y}^{(i)}) \ge 0$.
+For any vector $\mathbf{v}$,
+\[
+\mathbf{v}^\top \nabla_{\mathbf{w}}^2 J(\mathbf{w}) \, \mathbf{v} 
+= \sum_{i=1}^{n} \hat{y}^{(i)}(1 - \hat{y}^{(i)}) \, (\mathbf{v}^\top \mathbf{x}^{(i)})^2 \ge 0.
+\]
+Hence, the Hessian is \textbf{positive semidefinite (PSD)}, and $J(\mathbf{w})$ is \textbf{convex}.
+\end{frame}
+
+
+
 %%%%% 13.5 %%%%%%%%
 \begin{frame}{Loss function (cont.)}
     \begin{itemize}
-        \item This is different from the \textbf{zero-one loss}, which simply counts misclassifications:
+        \item Note that this is different from the \textbf{zero-one loss}, which simply counts misclassifications:
            \[
-               \text{Loss}_{0-1}(y, \hat{y}) =  \begin{cases}
+               J_{0-1}(y, \hat{y}) =  \begin{cases}
                     1 & \textbf{if } y \neq \hat{y} \\
                     0 & \textbf{if } y = \hat{y}
                 \end{cases}
@@ -629,7 +701,7 @@ subsubsectionstyle=show/shaded/hide]
 %             \begin{align*}
 %                 J(w) = \frac{1}{n}\sum_{i=1}^{n}(y^{(i)} - f(x^{(i)}; \mathbf{w}))^2
 %             \end{align*}
-%         Where $f(x; \mathbf{w}) = \sigma(\mathbf{w}^Tx)$?
+%         Where $f(x; \mathbf{w}) = \sigma(\mathbf{w}^\top x)$?
 %             \begin{itemize}
 %                 \item The conditional distribution $p(y|x, \mathbf{w})$ in the classification problem is not Guassian (it is \textbf{Bernoulli}).
 %                 \item The cost function of LR is also convex.
@@ -639,7 +711,7 @@ subsubsectionstyle=show/shaded/hide]
 
 %%%%%% 15 %%%%%%%
 
-\subsection{Multi-class logistic regression}
+\section{Multi-class logistic regression}
 \begin{frame}{Multi-class logistic regression}
     \begin{itemize}
         \item Now consider a problem where we have $K$ classes and every sample only belongs to one class (for simplicity).
@@ -665,20 +737,20 @@ subsubsectionstyle=show/shaded/hide]
 %%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Multi-class logistic regression (cont.)}
     \begin{itemize}
-         \item For each class $k$, $\sigma _k(x; \mathbf{W})$ predicts the probability of $y=k$.
+         \item For each class $k$, $\sigma _k(\mathbf{x}; \mathbf{W})$ predicts the probability of $y=k$.
             \begin{itemize}
-                \item i.e., $P(y=k|x, \mathbf{W})$
+                \item i.e., $\mathbb{P}(y=k|\mathbf{x}, \mathbf{W})$
             \end{itemize}
-        \item For each data point $x_0$, $\sum _{k=1}^{K} P(y=k|x_0, \mathbf{W})$ must be $1$
+        \item For each data point $\mathbf{x}$, $\sum _{k=1}^{K} \mathbb{P}(y=k|\mathbf{x}, \mathbf{W})$ must be $1$
             \begin{itemize}
-                \item $W$ denotes a matrix of $w_i$'s in which each $w_i$ is a weight vector dedicated for class label $i$.
+                \item $\mathbf{W}$ denotes a matrix of $\mathbf{w}_i$'s in which each $\mathbf{w}_i$ is a weight vector dedicated for class label $i$.
             \end{itemize}
-        \item On a new input $x$, to make a prediction, we pick the class that maximizes $\sigma _k(x; \mathbf{W})$:
+        \item On a new input $x$, to make a prediction, we pick the class that maximizes $\sigma _k(\mathbf{x}; \mathbf{W})$:
             \begin{align*}
-                \alpha (x) &= \underset{k=1, \dots , K}{\arg\max} \hspace{0.2cm} \sigma _k(x; \mathbf{W}) 
+                \alpha (\mathbf{x}) &= \underset{k=1, \dots , K}{\arg\max} \hspace{0.2cm} \sigma _k(\mathbf{x}; \mathbf{W}) 
             \end{align*}
             \begin{center}
-                \textbf{if $\color{red} \sigma _k(x; \mathbf{W}) > \sigma _j(x; \mathbf{W})$ $\color{red} \forall j \neq k$ then decide $\color{red} C_k$}
+                \textbf{if $\color{red} \sigma _k(\mathbf{x}; \mathbf{W}) > \sigma _j(\mathbf{x}; \mathbf{W})$ $\color{red} \forall j \neq k$ then decide $\color{red} C_k$}
             \end{center}
     \end{itemize}
 \end{frame}
@@ -689,15 +761,15 @@ subsubsectionstyle=show/shaded/hide]
     \begin{itemize}
         \item $K > 2$ and $y \in \{1,2,\dots,K\}$
         \begin{align*}
-            \sigma _k(x, \mathbf{W}) = P(y=k|x) = \frac{\exp{(w^T_kx)}}{\sum_{j=1}^{K}\exp{(w_j^Tx)}}
+            \sigma _k(\mathbf{x}, \mathbf{W}) = \mathbb{P}(y=k|\mathbf{x}) = \frac{\exp{(\mathbf{w}^\top _k\mathbf{x})}}{\sum_{j=1}^{K}\exp{(\mathbf{w}_j^\top\mathbf{x})}}
         \end{align*}
         \item Normalized exponential (Aka \textbf{Softmax})
           
-            \item if $w_k^Tx \gg w_j^Tx$ for all $j \neq k$ then $P(C_k|x) \approx 1$ and $P(C_j|x) \approx 0$
+            \item if $\mathbf{w}_k^\top \mathbf{x} \gg \mathbf{w}_j^\top \mathbf{x}$ for all $j \neq k$ then $\mathbb{P}(C_k|\mathbf{x}) \approx 1$ and $\mathbb{P}(C_j|x) \approx 0$
             \item Note : remember from Bayes theorem:
                 \[
-                P(C_k|x) = \frac{P(x|C_k)P(C_k)}
-            {\sum_{j=1}^{K}P(x|C_j)P(C_j)}
+                \mathbb{P}(C_k|x) = \frac{\mathbb{P}(\mathbf{x}|C_k)\mathbb{P}(C_k)}
+            {\sum_{j=1}^{K}\mathbb{P}(\mathbf{x}|C_j)\mathbb{P}(C_j)}
                 \]
           
     \end{itemize}
@@ -710,7 +782,7 @@ subsubsectionstyle=show/shaded/hide]
         \item Softmax can also handle negative values because we are using exponential function
         \item And it gives us probability for each class since:
             \begin{align*}
-                \displaystyle \sum _{k=1}^{K} \frac{\exp (w_k^Tx)}{\sum _{j=1}^{K} \exp (w_j^Tx) } = 1
+                \displaystyle \sum _{k=1}^{K} \frac{\exp (\mathbf{w}_k^\top \mathbf{x})}{\sum _{j=1}^{K} \exp (\mathbf{w}_j^\top \mathbf{x}) } = 1
             \end{align*}
     \end{itemize}
 \end{frame}
@@ -718,7 +790,7 @@ subsubsectionstyle=show/shaded/hide]
 %%%% 16.6 %%%%%
 \begin{frame}{Multi-class logistic regression (cont.)}
     \begin{itemize}
-        \item An example of applying softmax (note that $z_i=w^Tx_i$):
+        \item An example of applying softmax (note that $z_i=\mathbf{w}^\top \mathbf{x}^{(i)}$):
     \end{itemize}
     \begin{center}
         \includegraphics[width=0.7\textwidth]{pic/softmax0.png}
@@ -729,15 +801,15 @@ subsubsectionstyle=show/shaded/hide]
 %%%% 17 %%%%%
 \begin{frame}{Multi-class logistic regression (cont.)}
     \begin{itemize}
-        \item Again we set $J(W)$ as negative of log likelihood.
-        \item We need $\hat{W} = \underset{W}{\arg\min} \hspace{0.2cm} J(W)$
+        \item Again we set $J(\mathbf{W})$ as negative of log likelihood.
+        \item We need $\mathbf{W}_{\text{MLE}} = \underset{\mathbf{W}}{\arg\min} \hspace{0.2cm} J(\mathbf{W})$
         \begin{align*}
-            J(W) &= -\log \prod_{i=1}^{n} \textcolor{red}{P(y^{(i)}|x^{(i)}, \mathbf{W})} \\
-            &= -\log \prod_{i=1}^{n}\textcolor{red}{\prod_{k=1}^{K}\sigma _k(x^{(i)}; \mathbf{W})^{y_k^{(i)}} }\\
-            &= -\sum_{i=1}^{n}\sum_{k=1}^{K}y_k^{(i)} \log (\sigma _k(x^{(i)}; \mathbf{W}))
+            J(W) &= -\log \prod_{i=1}^{n} \textcolor{red}{\mathbb{P}(\mathbf{y}^{(i)}|\mathbf{x}^{(i)}, \mathbf{W})} \\
+            &= -\log \prod_{i=1}^{n}\textcolor{red}{\prod_{k=1}^{K}\sigma _k(\mathbf{x}^{(i)}; \mathbf{W})^{y_k^{(i)}} }\\
+            &= -\sum_{i=1}^{n}\sum_{k=1}^{K}y_k^{(i)} \log (\sigma _k(\mathbf{x}^{(i)}; \mathbf{W}))
         \end{align*}
         \item If \textbf{$\textbf{i}$-th} sample belongs to class $k$ then $y^{(i)}_k$ is 1 else 0.
-        \item Again no closed-from solution for $\hat{W}$
+        \item Again no closed-from solution for $\mathbf{W_{\text{MLE}}}$
     \end{itemize}
     
 \end{frame}
@@ -746,17 +818,17 @@ subsubsectionstyle=show/shaded/hide]
     \begin{itemize}
         \item From previous slides we have:
             \begin{align*}
-                J(W) = -\sum_{i=1}^{n}\sum_{k=1}^{K}y_k^{(i)} \log (\sigma _k(x^{(i)}; \mathbf{W}))
+                J(\mathbf{W}) = -\sum_{i=1}^{n}\sum_{k=1}^{K}y_k^{(i)} \log (\sigma _k(\mathbf{x}^{(i)}; \mathbf{W}))
             \end{align*}
         \item In which:
              \[
-        W = [w_1,w_2, \dots, w_K], \quad Y = 
+        \mathbf{W} = [\mathbf{w}_1,\mathbf{w}_2, \dots, \mathbf{w}_K], \quad \mathbf{Y} = 
         \text{\small $
         \begin{pmatrix}
-            y^{(1)} \\
-            y^{(2)} \\
+            \mathbf{y}^{(1)} \\
+            \mathbf{y}^{(2)} \\
             \vdots \\
-            y^{(n)}
+            \mathbf{y}^{(n)}
         \end{pmatrix}
         $}
         =
@@ -768,10 +840,10 @@ subsubsectionstyle=show/shaded/hide]
         \end{pmatrix}
     \]
     
-        \item $y$ is a vector of length $K$ (1-of-$K$ encoding)
+        \item $\mathbf{y}$ is a vector of length $K$ (1-of-$K$ encoding)
             \begin{itemize}
                 % \item Each vector $y^{(i)}$ only consists of zeros and ones.
-                \item For example $y=[0,0,1,0]^T$ when the target class is $C_3$.
+                \item For example $\mathbf{y}=[0,0,1,0]^\top$ when the target class is $C_3$.
             \end{itemize}
     \end{itemize}
 \end{frame}
@@ -782,12 +854,12 @@ subsubsectionstyle=show/shaded/hide]
         
     \end{itemize}
     \begin{align*}
-            w_j^{t+1} &= w_j^t - \eta \nabla _W J(W^t) \\
-            \nabla _{w_{j}} J(W) &= \sum_{i=1}^{n} (\sigma _j(x^{(i)}; \mathbf{W}) - y_j^{(i)})x^{(i)}
+            \mathbf{w}_j^{t+1} &= \mathbf{w}_j^t - \eta \nabla _{\mathbf{W}} J(\mathbf{W}^t) \\
+            \nabla _{\mathbf{w}_{j}} J(\mathbf{W}) &= \sum_{i=1}^{n} (\sigma _j(\mathbf{x}^{(i)}; \mathbf{W}) - y_j^{(i)})\mathbf{x}^{(i)}
         \end{align*}
         
     \begin{itemize}
-        \item $w_j^t$ denotes the weight vector for class $j$ (since in multi-class LR, each class has its own weight vector) in the $t$-th iteration
+        \item $\mathbf{w}_j^t$ denotes the weight vector for class $j$ (since in multi-class LR, each class has its own weight vector) in the $t$-th iteration
     \end{itemize}
 \end{frame}
 
@@ -1080,235 +1152,6 @@ subsubsectionstyle=show/shaded/hide]
 %         \item more information \href{https://ja.overleaf.com/learn/latex/Mathematical_expressions}{\color{purple}{here}}
 %     \end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Extra reading}
-\subsection{Probabilistic view in classification}
-%%%% 0 %%%%%
-
-% \begin{frame}{Probabilistic view in classification problem}
-%     \begin{itemize}
-%         \item First consider a simple classification problem:
-%             \begin{itemize}
-%                 \item We want to find individuals with diabetes and detect them.
-%                 \item We have two \textbf{observations}: blood cell count and Plasma glucose value.
-%                 \item Observations are our \textbf{features} and having Diabetes or not is our \textbf{class label} in this classification problem.
-%             \end{itemize}
-%     \end{itemize}
-%         %%% next frame ->
-%     % \begin{center}
-%     %     \includegraphics[width=0.45\textwidth]{pic/classification_plot.png}
-%     %     \captionof{figure}{\scriptize [Sanja Fidler's Slides, University of Toronto, CSC411]}
-%     % \end{center}
-    
-% \end{frame}
-%%%%% 0.25 %%%%%%
-% \begin{frame}{Probabilistic view in classification problem Cont.}
-%     \begin{itemize}
-%         \item Dataset visualization (x-axis denotes white blood count and y-axis represents plasma glucose value:
-%     \end{itemize}
-%     \begin{center}
-%         \includegraphics[width=0.45\textwidth]{pic/classification_plot.png}
-%         \captionof{figure}{\footnotesize [Sanja Fidler's Slides, University of Toronto, CSC411]}
-%     \end{center}
-% \end{frame}
-
-%%%%% 0.3 %%%%%
-\begin{frame}{Probabilistic view in classification problem}
-    \begin{itemize}
-        \item In a classification problem:
-            \begin{itemize}
-                \item Each \textbf{feature} is a \textbf{random variable} (e.g. a person's height)
-                \item The \textbf{class label} is also considered a \textbf{random variable} (e.g. a person could be overweight or not)
-            \end{itemize}
-        \item We observe the feature values for a random sample and intend to find its class label
-            \begin{itemize}
-                \item Evidence: Feature vector $x$
-                \item Objective: Class label
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-%%%%%0.5%%%%%%
-\begin{frame}{Definitions}
-    \begin{itemize}
-        \item Posterior probability : The probability of a class label $C_k$ given a sample $x$
-            \[
-                P(C_k|x)
-            \]
-            
-        \item Likelihood or class conditional probability : PDF of feature vector $x$ for samples of class $C_k$
-            \[
-                 P(x|C_k)
-            \]
-        
-        \item Prior probability : Probability of the label be $C_k$ 
-            \[
-            P(C_k)
-            \]
-            
-        \item $P(x)$: PDF of feature vector $x$ 
-            \begin{itemize}
-                \item From total probability theorem:   
-                
-                \[ P(x)=\sum_{k=1}^{K}P(x|C_k)P(C_k)
-                \]
-            \end{itemize}
-        
-    \end{itemize}
-\end{frame}
-
-
-
-%%% 1 %%%%
-\subsection{Probabilistic classifiers}
-
-\begin{frame}{Probabilistic classifiers}
-    \begin{itemize}
-        \item Probabilistic approaches can be divided in two main categories:
-            \begin{itemize}
-                \item Generative
-                    \begin{itemize}
-                        \item Estimate PDF $P(x, C_k)$ for each class $C_k$ and then use it to find $P(C_k|x)$. Alternatively estimate both PDF $P(x|C_k)$ and $P(C_k)$ to find $P(C_k|x)$.
-                    \end{itemize}
-                \item Discriminative
-                    \begin{itemize}
-                        \item Directly estimate $P(C_k|x)$ for class $C_k$
-                    \end{itemize}
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-%%%%%%%% 1.5 %%%%%%%%%%%%
-\begin{frame}{Probabilistic classifiers (cont.)}
-    \begin{itemize}
-        \item Let's assume we have input data $x$ and want to classify the data into labels $y$.
-        \item A generative model learns the \textbf{joint} probability distribution $P(x,y)$.
-            
-        \item A discriminative model learns the \textbf{conditional} probability distribution $P(y|x)$
-           
-    \end{itemize}
-\end{frame}
-
-%%%% 1.6 %%%%%%
-\begin{frame}{Discriminative vs. Generative : example}
-    \begin{itemize}
-        \item Suppose we have the following dataset in form of $(x, y)$:
-            \[
-                (1,0), (1,0), (2,0), (2,1)
-            \]
-        \item $P(x,y)$ is :
-            \[
-            \begin{array}{c|cc}
-                & y=0 & y=1 \\
-                \hline
-            x=1 & \frac{1}{2} & 0 \\
-            x=2 & \frac{1}{4} & \frac{1}{4} \\
-            \end{array}
-            \]
-        \item $P(y|x)$ is :
-            \[
-            \begin{array}{c|cc}
-                & y=0 & y=1 \\
-                \hline
-            x=1 & 1 & 0 \\
-            x=2 & \frac{1}{2} & \frac{1}{2} \\
-            \end{array}
-            \]
-    \end{itemize}
-\end{frame}
-
-%%%%% 1.8 %%%%%
-
-\begin{frame}{Discriminative vs. Generative : example (cont.)}
-    \begin{itemize}
-        \item The distribution $P(y|x)$ is the natural distribution for classifying a given sample $x$ into class $y$.
-            \begin{itemize}
-                \item This is why that algorithms which model this directly are called \textbf{discriminative} algorithms.
-            \end{itemize}
-        \item Generative algorithms model $P(x,y)$, which can be transformed into $P(y|x)$ by Bayes rule and then used for classification.
-            \begin{itemize}
-                \item However, the distribution $P(x,y)$ can also be used for other purposes.
-                \item For example we can use $P(x,y)$ to \textbf{generate} likely $(x,y)$ pairs
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
-%%%% 2 %%%%%
-\begin{frame}{Generative approach}
-    \begin{enumerate}
-        \item Inference
-        \begin{itemize}
-            \item Determine class conditional densities $P(x|C_k)$ and priors $P(C_k)$
-            \item Use Bayes theorem to find $P(C_k|x)$
-        \end{itemize}
-        \item Decision
-        \begin{itemize}
-            \item Make optimal assignment for new input (after learning the model in the inference stage)
-            \item if $P(C_i|x) > P(C_j|x) \forall j \neq i$, then decide $C_i$ .
-        \end{itemize}
-    \end{enumerate}
-\end{frame}
-
-%%%% 2.5 %%%%%
-\begin{frame}{Generative approach (cont.)}
-
-    \begin{itemize}
-        \item Generative approach for a binary classification problem:
-    \end{itemize}
-    \begin{figure}[h]
-      \centering
-      \includegraphics[width=0.4\textwidth]{pic/Generative.png}
-    %   \caption*{\footnotesize [Bishop]}
-      \end{figure}
-    \vfill
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figures adapted from Machine Learning and Pattern Recognition, Bishop
-        };
-    \end{tikzpicture}
-\end{frame}
-%%%% 3 %%%%
-\begin{frame}{Discriminative approach}
-    \begin{enumerate}
-        \item Inference
-        \begin{itemize}
-            \item Determine the posterior class probabilities $P(C_k|x)$ directly.
-        \end{itemize}
-        \item Decision
-        \begin{itemize}
-            \item Make optimal assignment for new input (after learning the model in the inference stage)
-            \item if $P(C_i|x) > P(C_j|x) \forall j \neq i$, then decide $C_i$ .
-        \end{itemize}
-    \end{enumerate}
-\end{frame}
-%%%% 3.5 %%%%%%
-\begin{frame}{Discriminative approach (cont.)}
-    \begin{itemize}
-        \item Discriminative approach for a binary classification problem:
-    \end{itemize}
-    \begin{figure}[h]
-      \centering
-      \includegraphics[width=0.4\textwidth]{pic/Disc.png}
-    %   \caption*{\footnotesize [Bishop]}
-      \end{figure}
-    \vfill
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figures adapted from Machine Learning and Pattern Recognition, Bishop
-        };
-    \end{tikzpicture}
-\end{frame}
-%%% 4 %%%%
-    %% partition photos into 2 slides
-% \begin{frame}{Discriminative vs. Generative approach}
-%   \begin{figure}[h]
-%   \centering
-%   \includegraphics[width=\textwidth]{pic/GvD.png}
-%   \caption*{[Bishop]}
-%   % \label{fig:image}
-% \end{figure}
-% \end{frame}
-
-
-
-
 \section{References}
 
 \begin{frame}{Contributions}
@@ -1316,6 +1159,7 @@ subsubsectionstyle=show/shaded/hide]
 \item \textbf{These slides are authored by:}
 \begin{itemize}
     \setlength{\itemsep}{5pt} % Adjust the value to control the spacing
+    \item \href{https://github.com/alirezamirrokni}{Alireza Mirrokni}
     \item \href{https://github.com/Danial-Gharib}{Danial Gharib}
     \item {Amir Malek Hosseini}
     \item {Aida Jalali}
