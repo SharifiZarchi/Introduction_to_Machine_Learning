@@ -57,6 +57,7 @@
 
 \begin{document}
 
+%------------------------------------------------slide1
 \begin{frame}
     \titlepage
     \vspace*{-0.6cm}
@@ -66,1068 +67,1065 @@
         \end{center}
     \end{figure}
 \end{frame}
-
+%------------------------------------------------slide2
 \begin{frame}    
 \tableofcontents[sectionstyle=show,
 subsectionstyle=show/shaded/hide,
 subsubsectionstyle=show/shaded/hide]
 \end{frame}
-
+%------------------------------------------------slide3
 \section{Overview}
-\begin{frame}{Parametric vs. non-parametric methods}
+\begin{frame}{Parametric vs. Non-Parametric Methods}
     \begin{itemize}
-        \item \textbf{Parametric} methods need to \textbf{find parameters} from data and then use the inferred parameters to decide on new data points
+        \item \textbf{Parametric} methods \textbf{learn parameters} from data and then use these inferred parameters to make predictions on new data points
         \begin{itemize}
-            \item Learning: finding parameters from data
-            \item e.g., \textbf{Linear regression}, \textbf{Logistic regression}
+            \item Learning: estimating parameters from data
+            \item e.g., \textbf{Linear Regression}, \textbf{Logistic Regression}
         \end{itemize}
         \item \textbf{Non-parametric} methods
         \begin{itemize}
-            \item Training examples are \textbf{explicitly} used
-            \item \textbf{Training phase} is \textbf{not required}
-            \item e.g., \textbf{k-Nearest neighbors (kNN)}
+            \item Training examples are used \textbf{directly}
+            \item A separate \textbf{training phase} is \textbf{not required}
+            \item e.g., \textbf{k-Nearest Neighbors (kNN)}
         \end{itemize}
-        \item Both supervised and unsupervised learning can be categorized into parametric and non-parametric methods
+        \item Both supervised and unsupervised learning methods can be categorized as either parametric or non-parametric
     \end{itemize}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Non-parametric learners}
+%------------------------------------------------slide4
+\begin{frame}{Outline}
+    \textbf{Non-Parametric Approach}
     \begin{itemize}
-        \item \textbf{Memory-based} or \textbf{Instance-based} learners
+        \item \textbf{Unsupervised: Non-Parametric Density Estimation}
         \begin{itemize}
-            \item lazy learning: (almost) all the work at the test time
+            \item Parzen Windows
+            \item k-Nearest Neighbor Density Estimation
         \end{itemize}
-        
-        \item Generic description:
+        \item \textbf{Supervised: Instance-Based Learners}
         \begin{itemize}
-            \item Memorize training $(x^{(1)}, y^{(1)}), \dots, (x^{(n)}, y^{(n)})$
-            \item Given test $x$ predict: $\hat{y} = f(x;x^{(1)}, y^{(1)}, \dots, x^{(n)}, y^{(n)})$
+            \item Classification
+            \begin{itemize}
+                \item kNN Classification
+                \item Weighted (or Kernel) kNN
+            \end{itemize}
+            \item Regression
+            \begin{itemize}
+                \item kNN Regression
+                \item Locally Linear Weighted Regression
+            \end{itemize}
         \end{itemize}
-        \item $f$ is typically expressed in terms of the similarity of the test samples $x$ to the training samples $x^{(1)}, \dots, x^{(n)}$
-        \item kNN is an instance-based learner
     \end{itemize}
+\end{frame}
+%------------------------------------------------slide5
+
+%------------------------------------------------slide6
+
+\section{k-Nearest Neighbor}
+
+\begin{frame}{kNN Concept}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{pic/Saadi.png}
+\end{figure}
+
+\begin{itemize}
+    \item “First, tell me who you have lived with, and then I will tell you who you are”
+\end{itemize}
+
+\begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+        \scriptsize Figure adapted from https://setare.com
+    };
+\end{tikzpicture}
+
 \end{frame}
 
-\section{k-Nearest-Neighbor}
-    
-\begin{frame}{kNN concept}
-    \begin{figure}[h]
-            \centering
-            \includegraphics[width=0.6\textwidth]{pic/Saadi.png}
-            % \caption{This is the caption of the image.}
-            % \label{fig:image1}
-            \end{figure}
+
+%------------------------------------------------slide7
+\begin{frame}{k-Nearest Neighbor (kNN)}
+
+\begin{minipage}{0.5\textwidth}
     \begin{itemize}
-        \item First, tell me who you have lived with,
-Then, I will tell you who you are.
-    \end{itemize}
-    
-    
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figure adapted from https://setare.com
-        };
-    \end{tikzpicture}
-\end{frame}
-\begin{frame}{kNN}
-    \begin{minipage}{0.5\textwidth}
+        \item \textbf{kNN Classifier:} considers the $k \geq 1$ nearest neighbors of a query point
         \begin{itemize}
-            \item K-NN classifier: $k \geq 1$ nearest neighbors
-            \begin{itemize}
-                \item Label for $x$ predicted by majority voting among its $k-NN$
-            \end{itemize}
-            \item $k=5$, $x=[x_1, x_2]$
+            \item The label of $x$ is predicted by \textbf{majority voting} among its $k$ nearest neighbors
         \end{itemize}
-    \end{minipage} %
-    \begin{minipage}{0.45\textwidth}
-        \begin{figure}[h]
+        \item Example: $k = 5$, $x = [x_1, x_2]$
+    \end{itemize}
+\end{minipage}%
+\begin{minipage}{0.45\textwidth}
+    \begin{figure}[h]
         \centering
         \includegraphics[width=0.8\textwidth]{pic/kE5.png}
-        % \caption{This is the caption of the image.}
-        % \label{fig:image1}
-        \end{figure}
-        
-        \vfill
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.01cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figure adapted from M.Soleymani ML slides, Sharif University of Technology
-        };
-    \end{tikzpicture}
-    \end{minipage}
-    
-    
-\end{frame}
+    \end{figure}
 
-%%%%%%%%%%%%%%
-\begin{frame}{kNN classifier}
-    \begin{itemize}
-        \item Given
-            \begin{itemize}
-                \item Training data $\{(x^{(1)}, y^{(1)}), \dots, (x^{(n)}, y^{(n)})\}$ are simply stored.
-            \end{itemize}
-        \item To classify $x$:
-            \begin{itemize}
-                \item Find $k$ nearest training samples to $x$
-                \item Out of these $k$ samples, identify the number of samples $k_j$ belonging to class $C_j$ $(j=1, \dots, C)$.
-                \item Assign $x$ to the class $C_{j^*}$ where $j^*=\underset{j=1,\dots, c}{\arg\max} \hspace{0.2cm} k_j$
-            \end{itemize}
-        \item It can be considered as a \textbf{discriminative} method.
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{kNN classifier cont.}
-    \begin{itemize}
-        \item With \textbf{kNN} we can obtain \textbf{non-linear} decision surfaces unlike the previous methods (linear and logistic regression)
-        \item But note that this method could be prone to \textbf{outliers} or \textbf{noisy} data especially if:
-        \begin{itemize}
-            \item We have \textbf{small dataset}
-            \item Our data is \textbf{low-dimensional}
-            \item We use a \textbf{small value of} $\mathbf{k}$ (like $k=1$ is only determined by the nearest neighbor and could be misleading in many test cases.
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{kNN example}
-    \begin{itemize}
-        \item We want to classify a new document and put it into one of three categories by studying its neighbor samples
-    \end{itemize}
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.5\textwidth]{pic/kNN?.png}
-            % \caption* { \scriptsize [Duda, Hurt, and Strok’s Book]}
-            % \label{fig:image1}
-            \end{figure}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{1-Nearest neighbor classifier}
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.7\textwidth]{pic/1NN.png}
-            % \caption* { \scriptsize [Duda, Hurt, and Strok’s Book]}
-            % \label{fig:image1}
-            \end{figure}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{2-Nearest neighbor classifier}
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.7\textwidth]{pic/2NN.png}
-            % \caption* { \scriptsize [Duda, Hurt, and Strok’s Book]}
-            % \label{fig:image1}
-            \end{figure}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{3-Nearest neighbor classifier}
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.7\textwidth]{pic/3NN.png}
-            % \caption* { \scriptsize [Duda, Hurt, and Strok’s Book]}
-            % \label{fig:image1}
-            \end{figure}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{5-Nearest neighbor classifier}
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.7\textwidth]{pic/5NN.png}
-            % \caption* { \scriptsize [Duda, Hurt, and Strok’s Book]}
-            % \label{fig:image1}
-            \end{figure}
     \vfill
     \begin{tikzpicture}[remember picture,overlay]
         \node[anchor=south west, xshift=0.01cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figures for this example were adapted from E. Xing, “Theory of classification and nonparametric classifier.” Lecture notes
+            \scriptsize Figure adapted from M. Soleymani, ML slides, Sharif University of Technology
         };
     \end{tikzpicture}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Voronoi tessellation}
+\end{minipage}
 
-    \begin{itemize}
-        \item Voronoi tessellation:
-         \begin{itemize}
-             \item Each cell consists of all points closer to a given training point than to any other training points
-             \item All points in a cell are labeled by the category of the corresponding training point
-         \end{itemize}
-         
-         
-    \end{itemize}
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.35\textwidth]{pic/Voroni.png}
-            \caption* { \scriptsize [Duda, Hurt, and Strok’s Book]}
-            % \label{fig:image1}
-            \end{figure}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Voronoi tessellation}
-    \begin{itemize}
-        \item 1NN plot is a Voronoi tessellation
-    \end{itemize}
-    
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.8\textwidth]{pic/1NNVoronoi.png}
-            % \caption* { \scriptsize [Duda, Hurt, and Strok’s Book]}
-            % \label{fig:image1}
-            \end{figure}
-            
-    \vfill
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.01cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figure adapted from R. Zhu, “Stat 542: Statistical learning - k-nearest neighbor and the bias-variancetrade-off.” Lecture notes.
-        };
-    \end{tikzpicture}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Effect of k}
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.9\textwidth]{pic/effectOfK.png}
-            \caption* { \scriptsize [Bishop]}
-            % \label{fig:image1}
-            \end{figure}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Effect of k cont.}
-    \begin{itemize}
-        \item compare $k=1$ with $k=15$
-    \end{itemize}
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.7\textwidth]{pic/1vs15.png}
-            % \caption* { \scriptsize [Bishop]}
-            % \label{fig:image1}
-            \end{figure}
-    
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Model complexity}
-    \begin{itemize}
-        \item As we further increase $k$, the model tends to be less complex.
-        \item Compare $66NN$ with a linear model that uses only $3$ parameters:
-    \end{itemize}
-    
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.7\textwidth]{pic/66vsLin.png}
-            % \caption* { \scriptsize [Bishop]}
-            % \label{fig:image1}
-            \end{figure}
-            
-    \vfill
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.01cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figures were adapted from R. Zhu, “Stat 542: Statistical learning - k-nearest neighbor and the bias-variancetrade-off.” Lecture notes.
-        };
-    \end{tikzpicture}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Instance-based learner}
-    \begin{itemize}
-        % \item kNN is an instance-based learner
-        \item Main things to construct an instance-based learner:
-        \begin{itemize}
-            \item A distance metric
-            \item Number of nearest neighbors of the test data that we look at
-            \item A weighting function (optional)
-            \item How to find the output based on neighbors?
-        \end{itemize}
-    \end{itemize}
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Distance measures}
+%------------------------------------------------slide8
+\begin{frame}{k-Nearest Neighbor (kNN) Classifier}
+
+\begin{itemize}
+    \item \textbf{Given:}
     \begin{itemize}
-        \item Euclidean distance
+        \item Training data $\{(x^{(1)}, y^{(1)}), \dots, (x^{(n)}, y^{(n)})\}$ are stored directly (no model parameters are learned)
     \end{itemize}
-       \[
-          d(x, x') = \sqrt[2]{\|x - x'\|_2^2} = \sqrt[2]{(x_1 - x'_1)^2 + \cdots + (x_d - x'_d)^2}
-       \]
+
+    \item \textbf{To classify a new sample} $x$:
     \begin{itemize}
-        \item Distance learning methods for this purpose
-        \begin{itemize}
-            \item Weighted Euclidean distance
-             \[
-                d_w(x, x') = \sqrt[2]{w_1(x_1 - x'_1)^2 + \cdots + w_d(x_d - x'_d)^2}
-             \]
-            % \item Mahalanobis distance 
-            % \[
-            %     d_A(x, x') = \sqrt{(x_1 - x'_1)^TA(x_1-x'_1)}
-            % \]
-        \end{itemize}
-    % \item Other distances:
-    %     \begin{itemize}
-    %         \item Hamming, angle, L-norm, Mahalanobis distance, ...
-    %         % \item $L_p(x, x') = \sqrt[p]{\sum _{i=1}^{d} (x_i - x'_i)^p}$
-    %     \end{itemize}
-   
-    \end{itemize}       
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Distance measures cont.}
-    \begin{itemize}
-         \item Minkowski distance
-    \[
-    d(x,x') = (\sum _{i=1} ^ n |x_i - x'_i| ^ p ) ^ {\frac{1}{p}}
-    \]
-        \begin{itemize}
-            \item for $p \geq 1$ is a distance metric
-            \item As you can see Minkowski distance with $p=2$ is the same as Euclidean distance
-            \item Minkowski distance is the same as $L^p$ norm of $(x-x')$
-        \end{itemize}
-    \item Remember $L^p$ norm from linear algebra:
+        \item Find the $k$ nearest training samples to $x$
+        \item Among these $k$ samples, count how many $k_j$ belong to each class $C_j$ ($j = 1, \dots, C$)
+        \item Assign $x$ to the class $C_{j^*}$, where
         \[
-            \|x\|_p = \sqrt[p]{(|x_1|^p + \dots + |x_n|^p)}
+        j^* = \underset{j = 1, \dots, C}{\arg\max} \, k_j
         \]
-        \begin{align*}
-            \text{Some famous $L^p$ norms} \begin{cases}
-                    \|x\|_1 &= \sum _{i=1}^n |x_i| \\
-                    \|x\|_2 &= \sqrt{x_1^2 + \dots + x_n^2} \\
-                    \|x\|_{\infty}  &= \max \{|x_1|, |x_2|, \dots, |x_n|\}
-                \end{cases}
-        \end{align*}
     \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Distance measures cont.}
-    \begin{itemize}
-        \item Cosine distance (angle)
-    \end{itemize}
-    \begin{align*}  
-        d(x,x') &= 1 - \text{cosine similarity}(x,x') \\
-        \text{Where,} \hspace{0.4cm} \text{cosine similarity}(x,x') &= \frac{x.x'}{\|x\|_2 \|x'\|_2} = \frac{\sum _ {i=1}^d x_i x'_i}{\sqrt{\sum _{i=1}^d x_i^2} \sqrt{\sum _{i=1}^d x'_i^2}}
-    \end{align*}
-    
-    
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.5\textwidth]{pic/cosine.png}
-            \caption* { \scriptsize Example of angle difference for cosine similarity}
-            % \label{fig:image1}
-            \end{figure}
-    
-     \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figure adapted from https://medium.com/@milana.shxanukova15/cosine-distance-and-cosine-similarity-a5da0e4d9ded
-        };
-    \end{tikzpicture}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Effect of distance measure}
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.9\textwidth]{pic/DistMeasEf.png}
-            % \caption* { \scriptsize [}
-            % \label{fig:image1}
-            \end{figure}
-            
-    \vfill 
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.01cm, yshift=0.15cm] at (current page.south west) {
-            \scriptsize Figures adapted from M.Soleymani ML slides, Sharif University of Technology
-        };
-    \end{tikzpicture}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{Probabilistic perspective of kNN}
-%     \begin{itemize}
-%         \item kNN as a discriminative non-parametric classifier
-%           \begin{itemize}
-%               \item Non-parametric density estimation for $P(C_j|x)$
-%               \item $P(C_j|x) \approx \frac{k_j}{k}$ where $k_j$ shows the number of training samples among $k$ nearest neighbors of $x$ that are labeled $C_j$
-%           \end{itemize}
-%         \item Bayes decision rule for assigning labels
-%     \end{itemize}
-% \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{kNN regression}
-    \begin{itemize}
-        \item Let $x'^{(1)}, \dots , x'^{(k)}$ be the $k$ nearest neighbors of $x$ and $y'^{(1)}, \dots, y'^{(k)}$ be their labels.
-        \[
-            \hat{y} = \frac{1}{k}\sum _{j=1}^k y'^{(j)}
-        \]
-        \item Some problems of kNN regression for fitting functions:
-        \begin{itemize}
-            \item Discontinuities in the estimated function
-            \item 1NN: noise-fitting problem
-            \item kNN ($k>1$) smoothes away noise, but there could be other issues (e.g, flats the ends)
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{kNN regression cont.}
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.75\textwidth]{pic/knnR1.png}
-            \caption* { \scriptsize [Figs. have been adopted from Andrew Moore’s tutorial on “Instance-based learning”]}
-            % \label{fig:image1}
-            \end{figure}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{kNN regression: example}
-    \begin{itemize}
-        \item Suppose we have a dataset with only 1 feature from uniform $[0, 2\pi]$. The true model is:
-        \[Y = 2sin(X) + \epsilon\]
-        \item Where $\epsilon$ is the standard normal error.
-        \item First we simulate 200 observations, and see the model for $k=1$
-    \end{itemize}
-    
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.6\textwidth]{pic/knnReg1.png}
-            % \caption* { \scriptsize [Figs. have been adopted from Andrew Moore’s tutorial on “Instance-based learning”]}
-            % \label{fig:image1}
-            \end{figure}
-    
-    % \vfill 
-    % \begin{tikzpicture}[remember picture,overlay]
-    %     \node[anchor=south west, xshift=0.01cm, yshift=0.15cm] at (current page.south west) {
-    %         \scriptsize Figure adapted from R.Zhu, STAT 542, University of Illinois
-    %     };
-    % \end{tikzpicture}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{kNN regression: example}
-    \begin{itemize}
-        \item Now for $k=2$ and $k=10$
-    \end{itemize}
-    
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.8\textwidth]{pic/knnReg2.png}
-            % \caption* { \scriptsize [Figs. have been adopted from Andrew Moore’s tutorial on “Instance-based learning”]}
-            % \label{fig:image1}
-            \end{figure}
-            
-    % \vfill 
-    
-    % \begin{tikzpicture}[remember picture,overlay]
-    %     \node[anchor=south west, xshift=0.01cm, yshift=0.15cm] at (current page.south west) {
-    %         \scriptsize Figure adapted from R.Zhu, STAT 542, University of Illinois
-    %     };
-    % \end{tikzpicture}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{kNN regression: example}
-    \begin{itemize}
-        \item As you can see the model becomes smoother as $k$ increases. However, this eventually deviates from the truth if $k$ is too large
-    \end{itemize}
-    
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.8\textwidth]{pic/knnReg3.png}
-            % \caption* { \scriptsize [Figs. have been adopted from Andrew Moore’s tutorial on “Instance-based learning”]}
-            % \label{fig:image1}
-            \end{figure}
-    
-    \vfill
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.01cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figures were adapted from R. Zhu, “Stat 542: Statistical learning - k-nearest neighbor and the bias-variancetrade-off.” Lecture notes.
-        };
-    \end{tikzpicture}
-    % \vfill 
-    
-    % \begin{tikzpicture}[remember picture,overlay]
-    %     \node[anchor=south west, xshift=0.01cm, yshift=0.15cm] at (current page.south west) {
-    %         \scriptsize Figure adapted from R.Zhu, STAT 542, University of Illinois
-    %     };
-    % \end{tikzpicture}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Performance metrics}
 
+    \item The kNN algorithm is considered a \textbf{discriminative} method
+\end{itemize}
 
-\begin{frame}{Accuracy in classification problems}
+\end{frame}
+%------------------------------------------------slide9
+\begin{frame}{k-Nearest Neighbor (kNN) Classifier}
+
+\begin{itemize}
+    \item The \textbf{kNN classifier} can produce \textbf{non-linear decision boundaries}, unlike previous methods such as linear and logistic regression
+    \item However, this method can be quite sensitive to \textbf{outliers} or \textbf{noisy data}, particularly when:
     \begin{itemize}
-        \item \textbf{Accuracy} is one of the simplest and most commonly used performance metrics.
-        \item It is defined as the ratio of correctly predicted instances to the total instances:
-        \[
-        \text{Accuracy} = \frac{\text{True Positives} + \text{True Negatives}}{\text{Total Samples}}
-        \]
-        \item However, accuracy alone can be misleading, especially with imbalanced datasets.
+        \item The dataset is \textbf{small}
+        \item The data is \textbf{low-dimensional}
+        \item A \textbf{small value of $k$} is used --- for instance, $k = 1$ depends only on the single nearest neighbor, which can be misleading in many test cases
     \end{itemize}
+\end{itemize}
+
 \end{frame}
 
-\begin{frame}{Example: cancer detection problem}
-    \begin{itemize}
-        \item Imagine a dataset with 1000 patients:
-        \begin{itemize}
-            \item Only 10 have cancer (\textbf{positive class}).
-            \item 990 do not have cancer (\textbf{negative class}).
-        \end{itemize}
-        \item A classifier predicts that no one has cancer (predicts all as negative).
-        \item What will be the accuracy of this model?
-    \end{itemize}
-\end{frame}
+%------------------------------------------------slide10
+\begin{frame}{kNN Example}
 
-\begin{frame}{Example: cancer detection problem cont.}
-    Look at this table for our model which predict negative all the time:
-    
-    \begin{table}[h!]
+\begin{itemize}
+    \item We aim to classify a new document and assign it to one of three categories by examining its neighboring samples
+\end{itemize}
+
+\begin{columns}
+    \column{0.33\textwidth}
         \centering
-        \begin{tabular}{@{}lcc@{}}
-            \toprule
-            & \textbf{Predicted Negative} & \textbf{Predicted Positive} \\ \midrule
-            \textbf{Actual Negative} & 990 (TN) & 0 (FP) \\
-            \textbf{Actual Positive} & 10 (FN)  & 0 (TP) \\ \bottomrule
-        \end{tabular}
-        % \caption*{Confusion Matrix for Cancer Detection (All Negative Predictions)}
-    \end{table}
-    
-    \[
-    \text{Accuracy} = \frac{990 + 0}{1000} = 99\%
-    \]
-    
-    \textbf{High accuracy}, but the model fails to detect any actual cases of cancer!
-\end{frame}
-
-
-\begin{frame}{Why accuracy can be misleading}
-    \begin{itemize}
-        \item In highly imbalanced datasets (e.g., cancer detection), the \textbf{minority class} (positive cases) is often underrepresented.
-        \item A model that always predicts the majority class can still have high accuracy, but poor real-world performance.
-        \item In the cancer detection example, 99\% accuracy sounds good, but the model doesn't detect any actual cancer cases.
-        \item We need better metrics to evaluate model performance.
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Performance metrics}
-    \begin{itemize}
-        \item \textbf{Scenario:}
-        \begin{itemize}
-            \item An alarm system can either ring or not ring when a thief is present.
-            \item Let's define the outcomes:
-            \begin{itemize}
-                \item \textbf{True Positive (TP)}: Alarm rings (correctly) when a thief is present.
-                \item \textbf{True Negative (TN)}: Alarm does not ring (correctly) when no thief is present.
-                \item \textbf{False Positive (FP)}: Alarm rings (incorrectly) when no thief is present (a false alarm).
-                \item \textbf{False Negative (FN)}: Alarm does not ring (incorrectly) when a thief is present (a missed alarm).
-            \end{itemize}
-        \end{itemize}
-    \end{itemize}
-    
-    % \begin{table}[h!]
-    %     \centering
-    %     \begin{tabular}{@{}lcc@{}}
-    %         \toprule
-    %         & \textbf{Thief Present} & \textbf{No Thief Present} \\ \midrule
-    %         \textbf{Alarm Rings} & TP & FP \\
-    %         \textbf{Alarm Does Not Ring} & FN & TN \\ \bottomrule
-    %     \end{tabular}
-    %     % \caption*{Confusion Matrix for Alarm System}
-    % \end{table}
-    
-    \begin{minipage}{0.7\textwidth} % Left side for the table
-        \begin{table}[h!]
-            \centering
-            \begin{tabular}{@{}lcc@{}}
-                \toprule
-                & \textbf{Thief Present} & \textbf{No Thief Present} \\ \midrule
-                \textbf{Alarm Rings} & TP & FP \\
-                \textbf{Alarm Does Not Ring} & FN & TN \\ \bottomrule
-            \end{tabular}
-        \end{table}
-        
-        
-    \end{minipage}\hfill 
-    \begin{minipage}{0.2\textwidth} 
+        \includegraphics[width=0.9\textwidth]{pic/knn1.png}
+    \column{0.33\textwidth}
         \centering
-        \includegraphics[width=\textwidth]{pic/thief.png} 
-        
-        \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.1cm, yshift=0.2cm] at (current page.south west) {
-            \scriptsize Photo adapted from https://stock.adobe.com/search?k=thief+cartoon
-        };
-    \end{tikzpicture}
-        
-    \end{minipage}
-    
+        \includegraphics[width=0.9\textwidth]{pic/knn2.png}
+    \column{0.33\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{pic/knn3.png}
+\end{columns}
+
 \end{frame}
 
-\begin{frame}{Performance metrics cont.}
-    \begin{itemize}
-        \item \textbf{Metrics:}
-        \begin{itemize}
-            % \item \textbf{Accuracy}:
-            % \[
-            % \text{Accuracy} = \frac{TP + TN}{TP + TN + FP + FN}
-            % \]
-            % \textit{Measures the overall correctness of the alarm system. It is the proportion of true results (both true positives and true negatives) among the total cases examined.}
-            
-            \item \textbf{Sensitivity (Recall)}:
-            \[
-            \text{Sensitivity} = \frac{TP}{TP + FN}
-            \]
-            \textit{Indicates the ability of the alarm system to correctly identify a thief. It is the proportion of actual positives (thief present) that are correctly identified.}
+%------------------------------------------------slide11
+\begin{frame}{kNN Example}
 
-            \item \textbf{Specificity}:
-            \[
-            \text{Specificity} = \frac{TN}{TN + FP}
-            \]
-            \textit{Measures the ability of the alarm system to correctly identify when no thief is present. It is the proportion of actual negatives that are correctly identified.}
-
-            \item \textbf{Precision}:
-            \[
-            \text{Precision} = \frac{TP}{TP + FP}
-            \]
-            \textit{Indicates the accuracy of the alarm when it rings. It is the proportion of times the alarm rang and a thief was indeed present out of all the times the alarm was activated.}
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{Performance metrics}
-    
-    
-%     \begin{table}[h!]
-%     \centering
-%     \begin{tabular}{|c|c|c|}
-%         \hline
-%          & actually in the class & actually not in the  class \\ \hline
-%         predicted to be in the class & TP & FP \\ \hline
-%         predicted not to be in the class & FN & TN \\ \hline
-%         % Row 3, Col 1 & Row 3, Col 2 & Row 3, Col 3 \\ \hline
-%     \end{tabular}
-%     % \caption{Basic Table}
-%     % \label{tab:basic_table}
-%     \end{table}
-    
-    
-%     \begin{align*}
-%         \text{Precision P } &= \frac{TP}{TP + FP} \\
-%         \text{Recall R } &= \frac{TP}{TP + FN} \\
-%         \text{Accuracy } &= \frac{TP + TN}{TP + TN + FP + FN}
-%     \end{align*}
-% \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Performance metrics cont.}
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.8\textwidth]{pic/image.png}
-            % \caption* { \scriptsize Figure adapted from }
-            % \label{fig:image1}
-            \end{figure}
-            
-    \vfill 
-    
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.01cm, yshift=0.15cm] at (current page.south west) {
-            \scriptsize Figure adapted from https://medium.com
-
-        };
-    \end{tikzpicture}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{A combined measure: F1}
-    \begin{itemize}
-        \item Combined measure: \textbf{F1 measure}
-        \begin{itemize}
-            \item allows us to trade off precision and recall
-            \item harmonic mean of P and R
-        \end{itemize}
-    \end{itemize}
-    \begin{align*}
-        F = \frac{1}{\frac{1}{2P} + \frac{1}{2R}} = \frac{2PR}{P + R}
-    \end{align*}
-    % \[
-    %     \hspace{10cm} \text{You can see: } \beta^2 = \frac{1-\alpha}{\alpha}
-    % \]
-    
-    \begin{itemize}
-        \item Harmonic mean of P and R: 
-    \end{itemize}
-        \begin{align*}
-        \frac{1}{F}=\frac{1}{2}(\frac{1}{P}+\frac{1}{R})
-    \end{align*}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{A combined measure: F1 cont.}
-%     \begin{itemize}
-%         \item People usually use balanced $F$ $(\beta=1 \text{ or } \alpha=\frac{1}{2})$
-%     \end{itemize}
-%     \begin{align*}
-%         F &= F_{\beta=1} \\
-%         &\\
-%         F &= \frac{2PR}{P + R}
-%     \end{align*}
-%     \begin{itemize}
-%         \item Harmonic mean of P and R: 
-%     \end{itemize}
-%     \begin{align*}
-%         \frac{1}{F}=\frac{1}{2}(\frac{1}{P}+\frac{1}{R})
-%     \end{align*}
-% \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Precision/recall/F1}
-    \begin{itemize}
-        \item This website could give you a perfect intuition about precision recall trade-off
-        
-    \end{itemize}
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.5\textwidth]{pic/prRtradeoff.png}
-            % \caption* { \scriptsize [}
-            % \label{fig:image1}
-            \end{figure}
-    \begin{itemize}
-        \item Link: \href{https://mlu-explain.github.io/precision-recall/}{https://mlu-explain.github.io/precision-recall/}
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Why harmonic mean?}
-    \begin{itemize}
-        \item Why don't we use a different mean of P and R as a measure?
-        \begin{itemize}
-            \item e.g., the arithmetic mean
-        \end{itemize}
-        \item The simple (arithmetic) mean is $50\%$ for "return true for every thing", which is too high.
-        \item Desideratum: Punch really bad performance either on precision or recall
-        \begin{itemize}
-            \item Taking the minimum achieves this.
-            \item F (harmonic mean) is a kind of \textbf{smooth minimum}.
-        \end{itemize}
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{F1 and other averages}
-    \begin{itemize}
-        \item Harmonic mean is a conservative average. We can view the harmonic mean as a kind of soft minimum
-    \end{itemize}
-    
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.58\textwidth]{pic/F1andOthers.png}
-            % \caption* { \scriptsize [}
-            % \label{fig:image1}
-            \end{figure}
-    
-    \vfill 
-    
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.01cm, yshift=0.15cm] at (current page.south west) {
-            \scriptsize Figure adapted from M.Soleymani ML slides, Sharif University of Technology
-        };
-    \end{tikzpicture}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{A precision-recall curve}
-%     \begin{figure}[h]
-%             \centering
-            
-%             \includegraphics[width=0.68\textwidth]{pic/preReCurv.png}
-%             % \caption* { \scriptsize [}
-%             % \label{fig:image1}
-%             \end{figure}
-% \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Confusion matrix}
-    \begin{itemize}
-        \item The \textbf{confusion matrix} is a \textbf{table} used to evaluate the performance of a classification model.
-        \item It compares the \textbf{actual values (true labels)} with the \textbf{predicted values} from the model.
-        \item Each \textbf{row} of the matrix represents the \textbf{actual class}, while each \textbf{column} represents the \textbf{predicted class}.
-        \item It helps us understand not just how often the model is correct, but also \textbf{where it makes mistakes}.
-    \end{itemize}
-    
-    % \vfill
-    % \centering
-    % \includegraphics[width=0.5\textwidth]{confusion_matrix_image.png}
-    % % Add an illustrative image of a confusion matrix
-\end{frame}
-
-
-%%%%%%
-\begin{frame}{Confusion matrix cont.}
-    \begin{itemize}
-        \item Let's consider an image classification task where we classify images into three categories: **Cat**, **Dog**, and **Horse**.
-        \item After training the model, we evaluate its predictions against the actual labels.
-    \end{itemize}
-    
-    \vfill
+\begin{columns}
+    \column{0.5\textwidth}
+    \small
     \centering
-    \begin{tabular}{|c|c|c|c|}
-    \hline
-    & \textbf{Predicted Cat} & \textbf{Predicted Dog} & \textbf{Predicted Horse} \\
-    \hline
-    \textbf{Actual Cat} & True Positive (TP) & False Negative (FN) & False Negative (FN) \\
-    \hline
-    \textbf{Actual Dog} & False Negative (FN) & True Positive (TP) & False Negative (FN) \\
-    \hline
-    \textbf{Actual Horse} & False Negative (FN) & False Negative (FN) & True Positive (TP) \\
-    \hline
-    \end{tabular}
+    \textbf{1-Nearest Neighbor} \\[0.3em]
+    \includegraphics[width=0.46\textwidth]{pic/knn4.png} \\[0.6em]
+    \textbf{3-Nearest Neighbors} \\[0.3em]
+    \includegraphics[width=0.46\textwidth]{pic/knn6.png}
+    
+    \column{0.5\textwidth}
+    \small
+    \centering
+    \textbf{2-Nearest Neighbors} \\[0.3em]
+    \includegraphics[width=0.46\textwidth]{pic/knn5.png} \\[0.6em]
+    \textbf{5-Nearest Neighbors} \\[0.3em]
+    \includegraphics[width=0.46\textwidth]{pic/knn7.png}
+\end{columns}
+
 \end{frame}
 
-%%%%%%%
-\begin{frame}{Confusion matrix cont.}
-    \begin{minipage}{0.4\textwidth}
-        \begin{itemize}
-            \item Here is an example confusion matrix for a model that classifies images of cats, dogs, and horses:
-            \item We can see that the model classified 8 images of cats correctly, but it classified 1 cat as a dog and 1 cat as a horse (False Negatives).
-            \item Similarly, it made 2 mistakes when predicting dogs and horses.
-        \end{itemize}
-    \end{minipage}
-    \hfill
-    \begin{minipage}{0.55\textwidth}
-        \begin{figure}[h]
-            \centering
-            \includegraphics[width=1\textwidth]{pic/cmCatDogHorse.png}
-            \caption* {\scriptsize Figure adapted from https://www.geeksforgeek}
-        \end{figure}
-    \end{minipage}
-\end{frame}
+%------------------------------------------------slide12
+\begin{frame}{Voronoi Tessellation}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{Confusion matrix}
-%     \begin{itemize}
-%         \item This  $(i,j)$ entry means $53$ of the samples actually in class $i$ were put in class $j$ by the classifier:
-%     \end{itemize}
-%     \begin{figure}[h]
-%             \centering
-            
-%             \includegraphics[width=0.4\textwidth]{pic/cmatrix.png}
-%             % \caption* { \scriptsize [}
-%             % \label{fig:image1}
-%             \end{figure}
-%     \begin{itemize}
-%         \item In a perfect classification, only the diagonal has non-zero entries
-%     \end{itemize}
-% \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Per class evaluation measures}
+\begin{itemize}
+    \item \textbf{Voronoi Tessellation:}
     \begin{itemize}
-        \item \textbf{Definition:} For our \textbf{confusion matrix} $\mathbf{C}$, each \textbf{element} $\mathbf{C_{ij}}$ denotes the number of samples actually in class $i$ that were put in class $j$ by our classifier.
-        \begin{itemize}
-            \item Now we could rewrite our performance metrics with confusion matrix view
-        \end{itemize}
-        \noindent\hrulefill 
-        \item Recall: Fraction of the samples in class $i$ classified correctly:
+        \item Each cell contains all points that are closer to a given training sample than to any other sample
+        \item All points within a cell share the label of the corresponding training sample
+    \end{itemize}
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.35\textwidth]{pic/Voroni.png}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------slide13
+\begin{frame}{Voronoi Tessellation}
+
+\begin{itemize}
+    \item The 1-NN decision regions form a Voronoi tessellation
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{pic/1NNVoronoi.png}
+\end{center}
+
+\vfill
+
+\begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south west, xshift=0.01cm, yshift=0.22cm] at (current page.south west) {
+        \scriptsize Figure adapted from R. Zhu, “Stat 542: Statistical Learning – k-Nearest Neighbor and the Bias–Variance Trade-Off,” Lecture Notes
+    };
+\end{tikzpicture}
+
+\end{frame}
+
+%------------------------------------------------slide14
+\begin{frame}{Reducing Complexity: Editing 1-NN}
+
+\begin{itemize}
+    \item If all Voronoi neighbors of a sample belong to the same class, that sample is redundant and can be safely removed
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{pic/complexity1.png}
+\end{center}
+
+\vspace{0.5em}
+
+\begin{itemize}
+    \item The number of stored samples decreases
+    \item The decision boundaries are guaranteed to remain unchanged
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------slide15
+\begin{frame}{Nearest Neighbor Classifier: Error Bound}
+
+\begin{columns}
+   \column{0.6\textwidth}
+\begin{itemize}
+    \item \textbf{Nearest Neighbor:} $k$-NN with $k = 1$
+    \begin{itemize}
+        \item Decision rule:
         \[
-          \frac{C_{ii}}{\sum _{j} C_{ij}}    
-        \]
-        \item Precision: Fraction of the samples assigned class $i$ that are actually about class $i$:
-        \[
-          \frac{C_{ii}}{\sum _{j} C_{ji}}
-        \]
-        \item Accuracy: Fraction of the samples classified correctly:
-        \[
-          \frac{\sum _i {C_{ii}}}{\sum _j \sum _i C_{ij}}
+        \hat{y} = y^{NN(\mathbf{x})} \quad \text{where} \quad NN(\mathbf{x}) = \arg\min_{i=1,\dots,N} \left\| \mathbf{x} - \mathbf{x}^{(i)} \right\|
         \]
     \end{itemize}
     
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Averaging: macro vs. micro}
+    \item \textbf{Cover \& Hart (1967):}  
+    The asymptotic risk of the NN classifier satisfies
+    \[
+        R^* \le R_\infty^{NN} \le 2R^*(1 - R^*) \le 2R^*
+    \]
+    
     \begin{itemize}
-        \item We now have an evaluation measure (F1) for one class.
-        \item But we also want a single number that shows \textcolor{deepred}{aggregate performance} over all classes
+        \item[] $R_n$: expected risk of the NN classifier with $n$ training examples drawn from $p(\mathbf{x}, y)$
+        \vspace{0.3em}
+        \item[] $R_\infty^{NN} = \lim_{n \to \infty} R_n^{NN}$
+        \vspace{0.3em}
+        \item[] $R^*$: the optimal Bayes risk
     \end{itemize}
+\end{itemize}
+
+   \column{0.4\textwidth}
+   \centering
+   \includegraphics[width=\textwidth]{pic/error.png}
+\end{columns}
+
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Micro- vs. Macro-Averaging}
-    \begin{itemize}
-        \item If we have more than one class, how do we combine
-multiple performance measures into one quantity?
-        \item \textcolor{deepred}{Macroaveraging}: Compute performance for each class, then average
-        \begin{itemize}
-            \item Compute F1 for each of the $C$ classes
-            \item Average these $C$ numbers
-        \end{itemize}
-        \item \textcolor{deepred}{Microaveraging}: Collect decisions for all classes, aggregate them and then compute measure.
-        \begin{itemize}
-            \item Compute TP, FP, FN for each of the $C$ classes.
-            \item Sum these $C$ numbers(e.g, all TP to get aggregate TP)
-            \item Compute F1 for aggregate TP, FP, FN
-        \end{itemize}
-    \end{itemize}
+
+%------------------------------------------------slide16
+\begin{frame}{Cover \& Hart (1967)}
+    \centering
+    \includegraphics[width=0.5\textwidth]{pic/Hart.png}
+
+    \vspace{0.5em}
+
+    \href{https://isl.stanford.edu/~cover/papers/transIT/0021cove.pdf}{\small \texttt{isl.stanford.edu/~cover/papers/transIT/0021cove.pdf}}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Micro- vs. Macro-Averaging: example}
+
+%------------------------------------------------slide17
+\begin{frame}{Bayes Optimal Classifier}
+
+Assume (although this is almost never the case) that we know $P(y|\mathbf{x})$  
+Then, we can simply predict the most likely label
+
+\[
+\text{The Bayes optimal classifier predicts:} \quad 
+y^* = \arg\max_y P(y|\mathbf{x})
+\]
+
+Although the Bayes optimal classifier performs as well as possible, it can still make mistakes  
+It is wrong whenever a sample does not belong to the most likely class  
+We can compute the probability of that happening exactly, which gives the error rate
+
+\[
+\epsilon_{\text{BayesOpt}} = 1 - \mathbb{P}(y^*(\mathbf{x})|\mathbf{x}) 
+= 1 - \mathbb{P}(y^*|\mathbf{x})
+\]
+
+\end{frame}
+
+%------------------------------------------------slide18
+\begin{frame}{Bayes Optimal Classifier: Example}
+
+Assume, for example, that an email $\mathbf{x}$ can be classified as either spam $(+1)$ or ham $(-1)$  
+For the same email $\mathbf{x}$, the conditional class probabilities are
+
+\[
+P(+1|\mathbf{x}) = 0.8 \qquad P(-1|\mathbf{x}) = 0.2
+\]
+
+In this case, the Bayes optimal classifier would predict the label
+\[
+y^* = +1
+\]
+as it is the most likely one, and its error rate would be
+\[
+\epsilon_{\text{BayesOpt}} = 0.2
+\]
+
+\vspace{1em}
+
+Why is the Bayes optimal classifier interesting if it cannot be used in practice  
+The reason is that it provides a highly informative lower bound on the error rate  
+Given the same feature representation, no classifier can achieve a lower error  
+We use this fact to analyze the error rate of the $k$-NN classifier
+
+\end{frame}
+
+%------------------------------------------------slide19
+\begin{frame}{1-NN Convergence Proof}
+
+\textbf{Cover and Hart (1967):}  
+As $n \rightarrow \infty$, the 1-NN error is no more than twice the error of the Bayes optimal classifier  
+(Similar guarantees also hold for $k > 1$)
+
+\vspace{0.7em}
+
+\hspace{2.5cm} $n$ small \hspace{2.5cm} $n$ large \hspace{2.6cm} $n \rightarrow \infty$
+\begin{center}
+    \includegraphics[width=0.55\textwidth]{pic/k1proof1.png}
+\end{center}
+
+\begin{itemize}
+    \item As $n \to \infty$, each test point $x_t$ becomes almost identical to its nearest neighbor $x_{NN}$, so
+    \[
+    P(y^*|x_t) \approx P(y^*|x_{NN})
+    \]
+    \item An error occurs only when their labels differ, with probability
+    \[
+    2P(y^*|x_t)(1 - P(y^*|x_t)) = 2\epsilon_{\text{BayesOpt}}
+    \]
+    \item Thus, the 1-NN error is \textbf{at most twice} the Bayes optimal error
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------slide20
+\begin{frame}{1-NN Convergence Proof}
+
+Let $\mathbf{x}_{NN}$ be the nearest neighbor of the test point $\mathbf{x}_t$  
+As $n \rightarrow \infty$, the distance $\text{dist}(\mathbf{x}_{NN}, \mathbf{x}_t)$ approaches zero
+
+\begin{align*}
+\epsilon_{NN} &= \mathbb{P}(y^*|\mathbf{x}_t)(1 - \mathbb{P}(y^*|\mathbf{x}_{NN})) + \mathbb{P}(y^*|\mathbf{x}_{NN})(1 - \mathbb{P}(y^*|\mathbf{x}_t)) \\
+&\leq (1 - \mathbb{P}(y^*|\mathbf{x}_{NN})) + (1 - \mathbb{P}(y^*|\mathbf{x}_t)) \\ 
+&= 2(1 - \mathbb{P}(y^*|\mathbf{x}_t)) = 2 \epsilon_{\text{BayesOpt}}
+\end{align*}
+
+where the inequality follows from $\mathbb{P}(y^*|\mathbf{x}_t) \leq 1$,  
+and we assume that $\mathbb{P}(y^*|\mathbf{x}_t) = \mathbb{P}(y^*|\mathbf{x}_{NN})$
+
+\end{frame}
+
+%------------------------------------------------slide21
+\begin{frame}{1-NN Convergence Proof}
+
+\begin{center}
+\small
+Possible labels: Spam, Ham (non-spam email) \\[0.3em]
+\includegraphics[width=0.55\textwidth]{pic/k1proof2.png}
+\end{center}
+
+In the limiting case, the test point and its nearest neighbor are identical  
+There are exactly two cases in which a misclassification can occur --- when the test point and its nearest neighbor have different labels  
+The probability of this event is given by the sum of the two red regions:
+\[
+(1 - p(s|\mathbf{x}))p(s|\mathbf{x}) + p(s|\mathbf{x})(1 - p(s|\mathbf{x})) = 2p(s|\mathbf{x})(1 - p(s|\mathbf{x}))
+\]
+
+\end{frame}
+
+
+%------------------------------------------------slide22
+\begin{frame}{Curse of Dimensionality}
+
+\textbf{Good News:}  
+As $n \rightarrow \infty$, the 1-NN classifier performs at most twice as poorly as the best possible classifier
+
+\medskip
+
+\textbf{Bad News:}  
+We are cursed
+
+\medskip
+
+\textbf{Idea:}  
+The kNN classifier assumes that similar points have similar labels  
+However, in high-dimensional spaces, randomly drawn points are rarely close to each other
+
+\end{frame}
+
+%------------------------------------------------slide23
+\begin{frame}{Pitfalls: The Curse of Dimensionality}
+
+\begin{itemize}
+    \item Low-dimensional visualizations can be misleading. In high-dimensional spaces, most points are far apart
+    \item If we want the nearest neighbor to be closer than $\epsilon$, how many points are required to guarantee this
+    \item The volume of a single ball with radius $\epsilon$ is $\mathcal{O}(\epsilon^d)$
+    \item The total volume of $[0,1]^d$ is 1
+    \item Therefore, $\mathcal{O}\!\left(\left(\tfrac{1}{\epsilon}\right)^d\right)$ balls are needed to cover the entire volume
+\end{itemize}
+
+\medskip
+
+\textbf{Example:}  
+Points are uniformly sampled within the unit cube $[0,1]^d$  
+Let $\ell$ be the edge length of the smallest hypercube that contains all $k$ nearest neighbors of a test point
+
+\begin{center}
+    \includegraphics[width=0.2\textwidth]{pic/cube.png}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------slide24
+\begin{frame}{Curse of Dimensionality}
+
+\[
+\ell^d \approx \frac{k}{n} \quad \Rightarrow \quad \ell \approx \left( \frac{k}{n} \right)^{1/d}
+\]
+
+For $n = 1000$ and $k = 10$, we have:
+
+\begin{center}
+\begin{tabular}{c|c}
+$d$ & $\ell$ \\ \hline
+2 & 0.10 \\
+10 & 0.63 \\
+100 & 0.955 \\
+1000 & 0.9954 \\
+\end{tabular}
+\end{center}
+
+\textbf{Observation:}  
+As $d$ increases, almost the entire space is needed to find the $k$ nearest neighbors, breaking the fundamental assumption of kNN
+
+\end{frame}
+
+%------------------------------------------------slide25
+\begin{frame}{Curse of Dimensionality}
+
+\textbf{Distance Distributions:}  
+The histograms below show the pairwise distances between random points in $d$-dimensional unit cubes  
+As $d$ increases, these distances concentrate within a very narrow range, meaning that almost all points are equally far apart
+
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{pic/curse.png}
+\end{center}
+
+\end{frame}
+%------------------------------------------------slide26
+\begin{frame}{Curse of Dimensionality}
+
+\textbf{Consequence:}  
+In high-dimensional spaces, the “nearest” neighbors are not truly close or similar  
+This breaks the fundamental assumption underlying kNN
+
+\medskip
+
+\textbf{Data Growth Requirement:}  
+To make $\ell$ small, we must increase $n$:
+\[
+\ell = \tfrac{1}{10} \Rightarrow n = \frac{k}{\ell^d} = k \times 10^d
+\]
+This quantity grows exponentially with $d$  
+For $d > 100$, we would need more data points than there are electrons in the universe
+
+\end{frame}
+
+%------------------------------------------------slide27
+\begin{frame}{Effect of $k$}
+
+\begin{itemize}
+    \item Compare the results for $k = 1$ and $k = 15$
+    \item As we increase $k$, the model becomes smoother and less complex
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{pic/1vs15.png}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------slide28
+\begin{frame}{Effect of $k$}
     \begin{figure}[h]
             \centering
             
-            \includegraphics[width=0.8\textwidth]{pic/MicroVsMacro.png}
-            % \caption* { \scriptsize [}
-            % \label{fig:image1}
+            \includegraphics[width=\textwidth]{pic/effectOfK.png}
             \end{figure}
-            
-    \begin{itemize}
-        \item Macroaveraged precision: $(0.5 + 0.9)/2 = 0.7$
-        \item Microaveraged precision: $100/120 = 0.83$
-        \item Microaveraged score is dominated by score on common classes
-    \end{itemize}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{Imbalanced classification}
-%     \begin{itemize}
-%         \item Accuracy is not a proper criteria
-%         \item Micro-F1 for multi-class classification is equal to accuracy
-%         \item Macro-F1 is more suitable for this purpose
-%     \end{itemize}
-% \end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{AUC-ROC}
+%------------------------------------------------slide29
+\begin{frame}{Choice of $k$}
+
+\begin{center}
+    \includegraphics[width=0.9\textwidth]{pic/K.png}
+\end{center}
+
+\begin{itemize}
+    \item In practice:
     \begin{itemize}
-        \item Area Under the Receiver Operating Characteristic Curve
+        \item \textit{k} should be large enough to minimize the overall error rate
         \begin{itemize}
-            \item ROC (Receiver Operating Characteristic) is a graphical representation of the performance of a binary classification model.
-            \item It plots the true positive rate (TPR) against the false positive rate (FPR) at different classification thresholds.
+            \item A very small \textit{k} produces noisy and unstable decision boundaries
         \end{itemize}
-        
-    \end{itemize}
-    
-    \begin{figure}[h]
-            \centering
-            
-            \includegraphics[width=0.4\textwidth]{pic/AUC.png}
-            % \caption* { \scriptsize [}
-            % \label{fig:image1}
-            \end{figure}
-    
-    \vfill 
-    
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.01cm, yshift=0.15cm] at (current page.south west) {
-            \scriptsize Figure adapted from https://www.researchgate.net/figure/ROC-curves-and-area-under-curve-AUC_fig2_351506473
-
-        };
-    \end{tikzpicture}
-    
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{AUC-ROC cont.}
-    \begin{itemize}
-        \item A high AUC score indicates that the model has good discrimination ability, i.e., it can effectively differentiate between positive and negative instances at different classification thresholds.
-        \item Conversely, a lower AUC-ROC score suggests that the model struggles to differentiate between the two classes.
-        \item AUC ranges from 0 to 1, with 0.5 indicating random guessing and 1 indicating a perfect classifier.
-
-
-    \end{itemize}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Cross Validation}
-
-\begin{frame}{Model Selection via Cross Validation}
-    \begin{itemize}
-        \item \textbf{Cross-Validation}
-        \medskip
-        \begin{itemize}\itemsep1em
-            \item \justifying \textbf{Purpose}:
-            Technique for evaluating how well a model generalizes to unseen data.
-            \item \justifying \textbf{How It Works}:
-            Split data into $k$ folds; train on $k-1$ folds and validate on the remaining fold.
-            \item \justifying \textbf{Repeat Process}:
-            Repeat $k$ times, rotating the test fold each time. Average of all scores is the final score of the model.
-            \item \justifying Cross-validation
-            reduces overfitting and provides a more reliable estimation of model performance.
-            \item Note that the model must be \textbf{retrained} at each iteration to avoid reusing a model that has already seen the test data, ensuring unbiased evaluation.
+        \item \textit{k} should also be small enough to ensure that only nearby samples are taken into account
+        \begin{itemize}
+            \item A very large \textit{k} produces overly smooth boundaries that may ignore local patterns
         \end{itemize}
     \end{itemize}
-\end{frame}
 
-
-\begin{frame}{K-Fold Cross Validation}
-    \begin{figure}
-        \centering
-        \includegraphics[width=.8\textwidth]{pic/Figure_28.png}
-    \end{figure}
-    \vfill
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figure adapted from Introduction to Support Vector Machines and Kernel Methods, J.M. Ashfaque.
-        };
-    \end{tikzpicture}
-\end{frame}
-
-
-\begin{frame}{Leave-One-Out Cross-Validation (LOOCV)}
+    \item Balancing these two requirements is not trivial
     \begin{itemize}
-        \item \textbf{Leave-One-Out Cross-Validation (LOOCV)}
-            \medskip
-            \begin{itemize}\itemsep1em
-            \item \justifying \textbf{How It Works}:
-            Uses a single data point as the validation set ($k$ = 1) and the rest as the training set. Repeat for all data points.
-            \item \textbf{Properties:}
-            \smallskip
-            \begin{itemize}\itemsep.5em
-                \item \textbf{No Data Wastage}:
-                Every data point is used for both training and validation.
-                \item \textbf{High Variance, Low Bias}.
-                \item \justifying \textbf{Computationally Expensive}: 
-                Requires training the model $N$ times for $N$ data points, making it slow for large datasets.
-                \item \textbf{Best for small datasets}.
-            \end{itemize}
+        \item This is a common challenge in machine learning --- we need to smooth data, but not too much
+    \end{itemize}
+\end{itemize}
+
+\end{frame}
+%------------------------------------------------slide30
+\begin{frame}{Choice of $k$: Example}
+
+\begin{center}
+    \includegraphics[width=0.6\textwidth]{pic/KK.png}
+\end{center}
+
+\vspace{1em}
+
+\begin{itemize}
+    \item For $k = 1, \ldots, 7$, the point $\mathbf{x}$ is correctly classified as belonging to the red class
+    \item For larger values of $k$, the classification of $\mathbf{x}$ becomes incorrect and it is assigned to the blue class
+    \item Bias–Variance Tradeoff in kNN:
+    \begin{itemize}
+        \item Larger $k$ $\Rightarrow$ Underfitting (high bias, low variance)
+        \item Smaller $k$ $\Rightarrow$ Overfitting (low bias, high variance)
+    \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------slide31
+\begin{frame}{Validation and Test Sets}
+
+\begin{itemize}
+    \item $k$ is an example of a hyperparameter --- a parameter that cannot be directly learned during the training process
+    \item We can tune hyperparameters by evaluating model performance on a separate validation set
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.45\textwidth]{pic/validation.png}
+\end{center}
+
+\begin{itemize}
+    \item The test set is used only once, at the very end, to evaluate the generalization performance of the final trained model
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------slide32
+\begin{frame}{Computational Complexity}
+
+What is the computational complexity of the kNN algorithm  
+
+\vspace{1em}
+
+\begin{itemize}
+    \item The basic kNN algorithm stores all training examples. Suppose we have $n$ examples, each with $d$ features
+    \begin{itemize}
+        \item $O(d)$ to compute the distance to a single example
+        \item $O(nd)$ to find the nearest neighbor among all samples
+        \item $O(knd)$ to find the $k$ closest examples
+        \item Thus, the total computational complexity is $O(knd)$
+    \end{itemize}
+
+    \item This becomes prohibitively expensive when the number of samples is large
+    \item However, kNN requires a large dataset to perform well
+\end{itemize}
+
+\vspace{1em}
+
+How can we make this process more efficient  
+
+\end{frame}
+%------------------------------------------------slide33
+\begin{frame}{Reducing Complexity: kNN Prototypes}
+
+Instead of storing every individual data point, we can group similar samples together and represent each group by a prototype  
+These prototypes are organized into search trees, where:
+
+\begin{itemize}
+    \item Each node represents a cluster of similar data points
+    \item The root node summarizes several prototypes or subgroups
+\end{itemize}
+
+During classification, we only search within the most relevant branches, not the entire dataset
+
+\vspace{0.5em}
+
+\begin{itemize}
+    \item \textbf{Advantages:} The computational complexity decreases
+    \item \textbf{Disadvantages:}
+    \begin{itemize}
+        \item Finding a good search tree is not trivial
+        \item It may not always find the true nearest neighbor,\\
+              and therefore it is \textbf{not} guaranteed that the decision boundaries remain unchanged
+    \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------slide34
+\begin{frame}{kNN Prototypes: Example}
+
+\begin{itemize}
+    \item The tree on the left represents class 1, and the tree on the right represents class 2
+    \item Each gray box (e.g., 147, 253) denotes a prototype node that summarizes several samples
+    \item The child nodes can be either:
+    \begin{itemize}
+        \item Other prototypes representing subgroups, or
+        \item Individual samples
+    \end{itemize}
+    \item In this way, the data are organized hierarchically to enable efficient search
+\end{itemize}
+
+\vspace{0.5em}
+
+\begin{center}
+    \includegraphics[width=0.55\textwidth]{pic/complexity2.png}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------slide35
+
+\begin{frame}{Advantages and Disadvantages of kNN}
+
+\begin{itemize}
+  \item \textbf{Advantages}
+  \begin{itemize}
+    \item Can be applied to data from any distribution
+    \item Very simple and intuitive to implement
+    \item Provides good classification performance if the number of samples is sufficiently large
+  \end{itemize}
+
+  \vspace{1em}
+
+  \item \textbf{Disadvantages}
+  \begin{itemize}
+    \item Selecting the best value of $k$ can be challenging
+    \item Computationally expensive, although certain optimizations are possible
+    \item Requires a large number of samples to achieve high accuracy
+    \begin{itemize}
+      \item This limitation cannot be overcome without assuming a parametric distribution
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------slide36
+
+\section{Distance Measures}
+%------------------------------------------------slide38
+\begin{frame}{Instance-Based Learner}
+
+\begin{itemize}
+    \item Main components required to construct an instance-based learner:
+    \begin{itemize}
+        \item A distance metric to measure similarity between data points
+        \item The number of nearest neighbors of the test instance to consider
+        \item A weighting function (optional)
+        \item A method to determine the output based on the neighbors
+    \end{itemize}
+\end{itemize}
+
+\end{frame}
+%------------------------------------------------slide39
+\begin{frame}{Distance Measures}
+
+\begin{itemize}
+    \item \textbf{Minkowski Distance}
+    \[
+    d(x, x') = \left( \sum_{i=1}^{n} |x_i - x'_i|^p \right)^{\frac{1}{p}}
+    \]
+    \begin{itemize}
+        \item For $p \geq 1$, this is a valid distance metric
+        \item When $p = 2$, the Minkowski distance is equivalent to the Euclidean distance
+        \item The Minkowski distance is also equal to the $L^p$ norm of $(x - x')$
+    \end{itemize}
+
+    \item Recall the definition of the $L^p$ norm from linear algebra:
+    \[
+    \|x\|_p = \sqrt[p]{|x_1|^p + \dots + |x_n|^p}
+    \]
+    \begin{align*}
+        \text{Some common } L^p \text{ norms: } 
+        \begin{cases}
+            \|x\|_1 &= \sum_{i=1}^n |x_i| \\
+            \|x\|_2 &= \sqrt{x_1^2 + \dots + x_n^2} \\
+            \|x\|_{\infty} &= \max \{|x_1|, |x_2|, \dots, |x_n|\}
+        \end{cases}
+    \end{align*}
+\end{itemize}
+
+\end{frame}
+%------------------------------------------------slide40
+\begin{frame}{Distance Measures}
+
+\begin{itemize}
+    \item \textbf{Euclidean Distance}
+\end{itemize}
+
+\[
+d(x, x') = \sqrt{(x_1 - x'_1)^2 + \cdots + (x_d - x'_d)^2}
+\]
+
+\begin{itemize}
+    \item \textbf{Distance Learning Methods:}
+    \begin{itemize}
+        \item \textbf{Weighted Euclidean Distance}
+        \[
+        d_w(x, x') = \sqrt{w_1(x_1 - x'_1)^2 + \cdots + w_d(x_d - x'_d)^2}
+        \]
+        \begin{itemize}
+            \item Large weight $w_i$ $\Rightarrow$ Attribute $i$ is more important
+            \item Small weight $w_i$ $\Rightarrow$ Attribute $i$ is less important
+            \item Zero weight $w_i$ $\Rightarrow$ Attribute $i$ does not contribute to the distance
         \end{itemize}
     \end{itemize}
+\end{itemize}
+
 \end{frame}
 
-\begin{frame}{Cross-Validation for Better Generalization}
+%------------------------------------------------slide41
+\begin{frame}{Distance Measures}
+
+\begin{columns}
+    \column{0.5\textwidth}
+    \begin{center}
+        \textbf{$L_1$ (Manhattan) Distance} \\
+        \[
+        d_1(I_1, I_2) = \sum_p \left| I_1^p - I_2^p \right|
+        \]
+    \end{center}
+
+    \column{0.5\textwidth}
+    \begin{center}
+        \textbf{$L_2$ (Euclidean) Distance} \\
+        \[
+        d_2(I_1, I_2) = \left( \sum_p (I_1^p - I_2^p)^2 \right)^{\frac{1}{2}}
+        \]
+    \end{center}
+\end{columns}
+
+\begin{center}
+    \includegraphics[width=0.85\textwidth]{pic/l1l2.png}
+\end{center}
+
+\end{frame}
+
+%------------------------------------------------slide42
+\begin{frame}{Distance Measures ($k = 1$)}
+
+\begin{columns}
+    \column{0.5\textwidth}
+    \begin{center}
+        \textbf{$L_1$ (Manhattan) Distance} \\
+        \[
+        d_1(I_1, I_2) = \sum_p \left| I_1^p - I_2^p \right|
+        \]
+        \includegraphics[width=0.63\textwidth]{pic/l1.png}
+    \end{center}
+
+    \column{0.5\textwidth}
+    \begin{center}
+        \textbf{$L_2$ (Euclidean) Distance} \\
+        \[
+        d_2(I_1, I_2) = \left( \sum_p (I_1^p - I_2^p)^2 \right)^{\frac{1}{2}}
+        \]
+        \includegraphics[width=0.65\textwidth]{pic/l2.png}
+    \end{center}
+\end{columns}
+
+\end{frame}
+
+%------------------------------------------------slide43
+\begin{frame}{Distance Measures}
+
+\begin{itemize}
+    \item \textbf{Cosine Distance (Angle-Based Similarity)}
+\end{itemize}
+
+\begin{align*}
+    d(x, x') &= 1 - \text{cosine similarity}(x, x') \\
+    \text{where} \quad 
+    \text{cosine similarity}(x, x') &= 
+    \frac{x \cdot x'}{\|x\|_2 \, \|x'\|_2} 
+    = \frac{\sum_{i=1}^d x_i x'_i}{
+        \sqrt{\sum_{i=1}^d x_i^2} \,
+        \sqrt{\sum_{i=1}^d (x'_i)^2}
+    }
+\end{align*}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{pic/cosine.png}
+    \caption*{\scriptsize Example of angular difference in cosine similarity}
+\end{figure}
+
+\begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+        \scriptsize Figure adapted from https://medium.com/@milana.shxanukova15/cosine-distance-and-cosine-similarity-a5da0e4d9ded
+    };
+\end{tikzpicture}
+
+\end{frame}
+
+%------------------------------------------------slide44
+\begin{frame}{Effect of Distance Measure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.9\textwidth]{pic/DistMeasEf.png}
+    \caption*{\scriptsize Effect of different distance measures on classification boundaries}
+\end{figure}
+
+\vfill
+
+\begin{tikzpicture}[remember picture,overlay]
+    \node[anchor=south west, xshift=0.01cm, yshift=0.15cm] at (current page.south west) {
+        \scriptsize Figures adapted from M. Soleymani, ML slides, Sharif University of Technology
+    };
+\end{tikzpicture}
+
+\end{frame}
+
+%------------------------------------------------slide45
+\begin{frame}{Effect of Distance Measure}
+
+You can get quite creative with the choice of the distance function  
+For example, using \textit{bending energy}, which measures how much transformation is required to make one example resemble another
+
+\begin{center}
+    \includegraphics[width=1\textwidth]{pic/s5.png}
+\end{center}
+
+\end{frame}
+
+
+%------------------------------------------------slide47
+\section{kNN Regression}
+
+\begin{frame}{kNN Regression}
+
+\begin{itemize}
+    \item Let $x'^{(1)}, \dots , x'^{(k)}$ be the $k$ nearest neighbors of $x$, and let $y'^{(1)}, \dots, y'^{(k)}$ be their corresponding labels
+    \[
+        \hat{y} = \frac{1}{k}\sum_{j=1}^k y'^{(j)}
+    \]
+
+    \item Some challenges of kNN regression when fitting functions:
     \begin{itemize}
-        \item Cross-validation is one of the methods used to find the optimal model degree and regularization parameter, ensuring better generalization by minimizing validation error and balancing model complexity.
+        \item Discontinuities in the estimated function
+        \item For 1-NN: prone to noise fitting
+        \item For $k > 1$: averaging smooths out noise but may introduce other issues (e.g., flattening near the boundaries)
     \end{itemize}
-    \begin{figure}
-        \centering
-        \begin{minipage}{0.48\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{pic/Figure_16.png}
-        \end{minipage}
-        \hfill
-        \begin{minipage}{0.48\linewidth}
-            \centering
-            \includegraphics[width=\linewidth]{pic/Figure_29.png}
-        \end{minipage}
-    \end{figure}
-    \begin{tikzpicture}[remember picture,overlay]
-        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-            \scriptsize Figure on the right adapted from slides of F.Salehi, Machine Learning course, Sharif University of Technology.
-        };
-    \end{tikzpicture}
+\end{itemize}
+
+\end{frame}
+%------------------------------------------------slide48
+\begin{frame}{kNN Regression}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{pic/knnR1.png}
+    \caption*{\scriptsize Figures adapted from Andrew Moore’s tutorial on “Instance-Based Learning”}
+\end{figure}
+
 \end{frame}
 
+%------------------------------------------------slide49
+\begin{frame}{kNN Regression: Example}
 
+\begin{itemize}
+    \item Suppose we have a dataset with a single feature uniformly distributed over $[0, 2\pi]$
+    \item The true model is defined as:
+    \[
+        Y = 2 \sin(X) + \epsilon
+    \]
+    \item Where $\epsilon$ is a standard normal error term
+    \item We simulate 200 observations and visualize the model for $k = 1$
+\end{itemize}
 
-\begin{frame}{Cross-Validation for Evaluating Model Performance}
-    \begin{itemize}\itemsep1.2em
-        \item Metrics like accuracy, precision, recall, and F1 score are assessed across different folds.
-        \item Averaging these scores gives a reliable estimate of performance and stability.
-        \item Ensures the model is effective before final testing and use on the test dataset.
-        \item \justifying For example, high variance in cross-validation metrics means the model's performance is inconsistent, likely overfitting to specific data subsets.
-    \end{itemize}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\textwidth]{pic/knnReg1.png}
+\end{figure}
+
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%------------------------------------------------slide50
+\begin{frame}{kNN Regression: Example}
+
+\begin{itemize}
+    \item Results for $k = 2$ and $k = 10$
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{pic/knnReg2.png}
+    \caption*{\scriptsize Figures adapted from Andrew Moore’s tutorial on “Instance-Based Learning”}
+\end{figure}
+
+\end{frame}
+
+%------------------------------------------------slide51
+\begin{frame}{kNN Regression: Example}
+
+\begin{itemize}
+    \item As $k$ increases, the model becomes smoother. However, if $k$ is too large, it starts to deviate from the true underlying function
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{pic/knnReg3.png}
+    \caption*{\scriptsize Figures adapted from Andrew Moore’s tutorial on “Instance-Based Learning”}
+\end{figure}
+
+\end{frame}
+%------------------------------------------------slide52
+\begin{frame}{kNN: Universal Approximation}
+
+As the number of training samples approaches infinity, the nearest neighbor method can approximate any function\textsuperscript{*}!
+
+\vspace{0.5em}
+
+\begin{columns}
+    \column{0.32\textwidth}
+    \includegraphics[width=\textwidth]{pic/function1.png}
+
+    \column{0.32\textwidth}
+    \includegraphics[width=\textwidth]{pic/function2.png}
+
+    \column{0.32\textwidth}
+    \includegraphics[width=\textwidth]{pic/function3.png}
+\end{columns}
+
+\vspace{0.5em}
+
+The kNN regression fits a piecewise constant function (green), which approximates the true curve (blue) by averaging the nearby training samples (black)
+
+\vspace{0.5em}
+
+\scriptsize{\textsuperscript{*} Subject to several technical conditions: only continuous functions on a compact domain, with assumptions on the spacing of training points, etc}
+
+\end{frame}
+
+%------------------------------------------------slide53
+\begin{frame}{Locally Weighted Linear Regression}
+
+\begin{itemize}
+    \item For each test sample, it produces a linear approximation of the target function in a local region
+    \item Instead of computing the output by weighted averaging (as in kernel regression), we fit a parametric function locally
+\end{itemize}
+
+\vspace{0.5em}
+
+\[
+\hat{y} = f\left(x, x^{(1)}, y^{(1)}, \ldots, x^{(n)}, y^{(n)}\right)
+\]
+
+\[
+\hat{y} = f(x; \mathbf{w}) = w_0 + w_1 x_1 + \cdots + w_d x_d
+\]
+
+\vspace{0.5em}
+
+\[
+J(\mathbf{w}) = \sum_{i \in \mathcal{N}_k(x)} \left( y^{(i)} - \mathbf{w}^T x^{(i)} \right)^2
+\]
+
+\vspace{0.5em}
+
+\small{
+The weight vector $\mathbf{w}$ is computed separately for each test sample
+}
+
+\end{frame}
+
+%------------------------------------------------slide54
+\begin{frame}{Locally Weighted Linear Regression: Example}
+
+\begin{columns}
+    \column{0.32\textwidth}
+        \includegraphics[width=0.9\textwidth]{pic/lr1.png}
+
+    \column{0.32\textwidth}
+        \includegraphics[width=0.9\textwidth]{pic/lr2.png}
+
+    \column{0.32\textwidth}
+        \includegraphics[width=0.9\textwidth]{pic/lr3.png}
+\end{columns}
+
+\vspace{0.6em}
+
+\centering
+\scriptsize
+$\sigma = \tfrac{1}{32}$ of x-axis width \hspace{3em}
+$\sigma = \tfrac{1}{16}$ of x-axis width \hspace{3em}
+$\sigma = \tfrac{1}{8}$ of x-axis width
+
+\vspace{1.2em}
+
+\normalsize
+\begin{itemize}
+    \item Produces smoother and more accurate results than weighted kNN regression
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------------slide55
+\begin{frame}{Vizier}
+\begin{center}
+\includegraphics[width=0.9\textwidth]{pic/vizier.png}
+\vspace{1em}
+\href{http://www.cs.cmu.edu/~asm/vizier/}{www.cs.cmu.edu/\textasciitilde awm/vizier/}
+\end{center}
+\end{frame}
+%------------------------------------------------slide42
 \section{References}
 
 \begin{frame}{Contributions}
@@ -1139,14 +1137,15 @@ multiple performance measures into one quantity?
     \item \href{https://github.com/Danial-Gharib}{Danial Gharib}
     \item \href{https://github.com/Mahan-Bayhaghi}{Mahan Bayhaghi}
     \item \href{https://github.com/jefri021}{Erfan Jafari}
+    \item \href{https://github.com/Mahdi-Aghaei}{Mahdi Aghaei}
 \end{itemize}
 \end{itemize}
 
 \end{frame}
-
+%------------------------------------------------slide43
 \begin{frame}[allowframebreaks]
-    \bibliography{ref}
     \bibliographystyle{ieeetr}
+    \bibliography{ref}
     \nocite{*}
 \end{frame}
 
