@@ -407,8 +407,8 @@ since it is the most likely one, and its uncertainty rate would be:
 \vspace{1em}
 
 Why is the Bayes optimal classifier interesting if it cannot be used in practice?  
-The reason is that it provides a highly informative lower bound on the error rate.  
-Given the same feature representation, no classifier can achieve a lower error.  
+The reason is that it provides a highly informative lower bound on the uncertainty rate.  
+Given the same feature representation, no classifier can achieve a lower uncertainty.  
 We use this fact to analyze the error rate of the kNN classifier.
 
 \end{frame}
@@ -417,7 +417,7 @@ We use this fact to analyze the error rate of the kNN classifier.
 \begin{frame}{1-NN Convergence Proof}
 
 \textbf{Cover and Hart (1967):}  
-As $n \rightarrow \infty$, the 1-NN error is no more than twice the error of the Bayes optimal classifier.  
+As $n \rightarrow \infty$, the 1-NN error is no more than twice the uncertainty of the Bayes optimal classifier.  
 (Similar guarantees also hold for $k > 1$.)
 
 \vspace{0.7em}
@@ -439,7 +439,7 @@ As $n \rightarrow \infty$, the 1-NN error is no more than twice the error of the
     2\,\mathbb{P}(y^* \mid \mathbf{x}_t)\big(1 - \mathbb{P}(y^* \mid \mathbf{x}_t)\big) = 2\,\epsilon_{\text{BayesOpt}}.
     \]
     
-    \item Thus, the 1-NN error is \textbf{at most twice} the Bayes optimal error.
+    \item Thus, the 1-NN error is \textbf{at most twice} the Bayes optimal uncertainty.
 \end{itemize}
 
 \end{frame}
