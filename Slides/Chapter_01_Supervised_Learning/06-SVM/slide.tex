@@ -95,7 +95,7 @@
 \DeclareMathOperator*{\argmin}{arg\,min}
 
 \begin{document}
-
+%------------------------------------------slide1
 \begin{frame}
     \titlepage
     \vspace*{-0.6cm}
@@ -111,41 +111,41 @@
 subsectionstyle=show/shaded/hide,
 subsubsectionstyle=show/shaded/hide]
 \end{frame}
-
+%------------------------------------------slide2
 \section{Introduction and Motivation}
-%------------------------------------slide1
+%------------------------------------------slide3
 \begin{frame}{Support Vector Machines (SVMs)}
 
 \begin{itemize}
-    \item Developed in the 1990’s by Vapnik and colleagues at Bell Labs based on statistical learning theory
-    \item One of the most popular learning techniques until deep learning resurgence
-    \item What is interesting about SVMs
+    \item Developed in the 1990s by Vapnik and colleagues at Bell Labs, grounded in statistical learning theory.
+    \item Remained one of the most widely used learning techniques until the resurgence of deep learning.
+    \item Key aspects that make SVMs particularly interesting:
     \begin{itemize}
-        \item \textbf{Generalization properties}, including achieving a margin and structural risk minimization
-        \item Extension to non-linear classifier via \textbf{kernels}
-        \item Dual form that shows how \textbf{linear classifiers can be seen as a weighted average of training examples}
-        \item Optimization via \textbf{stochastic gradient descent}, also used for neural networks
+        \item \textbf{Strong generalization capabilities}, including margin maximization and structural risk minimization.
+        \item Extension to non-linear classifiers through the use of \textbf{kernel functions}.
+        \item A \textbf{dual formulation} that reveals how linear classifiers can be interpreted as a weighted combination of training examples.
+        \item Optimization via \textbf{stochastic gradient descent (SGD)}, which is also widely used in training neural networks.
     \end{itemize}
 \end{itemize}
 
 \end{frame}
-%------------------------------------slide2
-\begin{frame}{What is the best linear classifier?}
+%------------------------------------------slide4
+\begin{frame}{What is the Best Linear Classifier?}
 
-\begin{columns}[T] ر
+\begin{columns}[T]
     \begin{column}{0.6\textwidth}
         \begin{itemize}
-            \item \textbf{Logistic regression}
+            \item \textbf{Logistic Regression}
             \begin{itemize}
-                \item Maximize expected likelihood of label given data
-                \item Every example contributes to loss
+                \item Maximizes the expected likelihood of the label given the data.
+                \item Every training example contributes to the overall loss.
             \end{itemize}
             
             \vspace{0.5em}
-            \item \textbf{SVM}
+            \item \textbf{Support Vector Machine (SVM)}
             \begin{itemize}
-                \item Make all examples at least minimally confident
-                \item Base decision on a minimal set of examples
+                \item Ensures that all examples are classified with at least a minimal level of confidence.
+                \item Bases its decision on a minimal subset of examples, known as \textbf{support vectors}.
             \end{itemize}
         \end{itemize}
     \end{column}
@@ -157,275 +157,696 @@ subsubsectionstyle=show/shaded/hide]
 \end{columns}
 
 \end{frame}
-%-----------------------------------slide3
-\begin{frame}{Multiple optimal solutions?}
+%------------------------------------------slide5
+\begin{frame}{Multiple Optimal Solutions?}
 
-\begin{columns}[T] ر
+\begin{columns}[T]
     \begin{column}{0.5\textwidth}
 \begin{itemize}
-    \item Given training data $\{(x_i, y_i) : 1 \le i \le n\}$ i.i.d. from distribution $D$
+    \item Given training data $\{(\mathbf{x}_i, y_i) : 1 \le i \le n\}$ drawn i.i.d. from distribution $D$.
     
-    \item Hypothesis 
+    \item Hypothesis:
     \[
-        y = \text{sign}(f_w(x)) = \text{sign}(w^T x)
+        y = \text{sign}(f_{\mathbf{w}}(\mathbf{x})) = \text{sign}(\mathbf{w}^\top \mathbf{x})
     \]
     \begin{itemize}
-        \item {$y = +1$} if {$w^T x > 0$}
-        \item {$y = -1$} if {$w^T x < 0$}
+        \item {$y = +1$} if {$\mathbf{w}^\top \mathbf{x} > 0$}
+        \item {$y = -1$} if {$\mathbf{w}^\top \mathbf{x} < 0$}
     \end{itemize}
     
     \vspace{0.5em}
-    \item Let’s assume that we can optimize to find {$w$}
+    \item Let’s assume that we can optimize to find $\mathbf{w}$.
 \end{itemize}
     \end{column}
 
     \begin{column}{0.5\textwidth}
         \centering
         \includegraphics[scale=0.3]{pic/princeton1.jpg}\\
-Same on empirical loss\\
-Different on test/expected loss
+        \vspace{0.3em}
+        Same empirical loss,\\
+        different test/expected loss.
     \end{column}
 \end{columns}
 
 \end{frame}
-%-----------------------------------slide4
+%------------------------------------------slide6
+\begin{frame}{What Is a Better Linear Separation?}
 
-\begin{frame}{What is better linear separation?}
-Which Separator Do You Pick?
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.4]{pic/princeton1.jpg}
-    \end{figure}
+\begin{center}
+    Which Separator Would You Choose?
+\end{center}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.4]{pic/princeton1.jpg}
+\end{figure}
+
 \end{frame}
-%-----------------------------------slide5
-\begin{frame}{What is better linear separation?}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.4]{pic/princeton2.jpg}
-    \end{figure}
+
+%------------------------------------------slide7
+\begin{frame}{What Is a Better Linear Separation?}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.4]{pic/princeton2.jpg}
+\end{figure}
+
 \end{frame}
-%-----------------------------------slide6
-\begin{frame}{What is better linear separation?}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.4]{pic/princeton3.jpg}
-    \end{figure}
+
+%------------------------------------------slide8
+\begin{frame}{What Is a Better Linear Separation?}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.4]{pic/princeton3.jpg}
+\end{figure}
+
 \end{frame}
-%-----------------------------------slide7
-\begin{frame}{What is better linear separation?}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.4]{pic/princeton4.jpg}
-    \end{figure}
+
+%------------------------------------------slide9
+\begin{frame}{What Is a Better Linear Separation?}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.4]{pic/princeton4.jpg}
+\end{figure}
+
 \end{frame}
-%-----------------------------------slide8
-\begin{frame}{What is better linear separation?}
-Larger margin provides better generalization to unseen data.
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.4]{pic/princeton5.jpg}
-    \end{figure}
+
+%------------------------------------------slide10
+\begin{frame}{What Is a Better Linear Separation?}
+
+\begin{center}
+    Larger margins lead to better generalization on unseen data.
+\end{center}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.4]{pic/princeton5.jpg}
+\end{figure}
+
 \end{frame}
-%-----------------------------------slide9
+
+%------------------------------------------slide11
 \begin{frame}{SVM Terminology}
 
 \begin{columns}[T]
 
     \begin{column}{0.6\textwidth}
+        \centering
         \includegraphics[width=\linewidth]{pic/terminology.png}
-
     \end{column}
 
     \begin{column}{0.4\textwidth}
-        \textbf{\textcolor{blue}{Support Vector}}: training observations whose distance to the hyperplane is equal to the margin
+        \textbf{\textcolor{orange}{Margin}}: the smallest distance between any training observation and the hyperplane (orange double-headed arrow).
 
         \vspace{1em}
 
-        \textbf{\textcolor{orange}{Margin}}:smallest distance between any training observation and the hyperplane.
-
+        \textbf{\textcolor{blue}{Support Vector}}: a training observation whose distance to the hyperplane is equal to the margin (circled).
     \end{column}
+
 \end{columns}
 
 \end{frame}
 
-%-----------------------------------slide
+%------------------------------------------slide12
 \begin{frame}{Fat Hyperplane}
-We call such hyperplanes fat
-   \begin{figure}
-        \centering
-        \includegraphics[scale=0.2]{pic/SVM2.png}
-    \end{figure}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.2]{pic/SVM3.png}
-    \end{figure}
+
+\begin{center}
+    We refer to such hyperplanes as \textbf{fat hyperplanes.}
+\end{center}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.2]{pic/SVM2.png}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.2]{pic/SVM3.png}
+\end{figure}
+
 \end{frame}
-%-----------------------------------slide10
-\begin{frame}{SVMs minimize $\mathbf{w^T w}$ while preserving a margin of 1}
+
+%------------------------------------------slide13
+\begin{frame}{SVMs Minimize $\mathbf{w}^\top \mathbf{w}$ While Preserving a Margin of 1}
 
 \begin{columns}[T]
+
     \begin{column}{0.5\textwidth}
         \centering
-        Optimized SVM \\[0.5em]
+        \textbf{Optimized SVM} \\[0.5em]
         \includegraphics[width=\linewidth]{pic/logistic1.png}
       
         \vspace{0.5em}
-        \footnotesize Decision boundary depends only on\\
-        “support vectors” (circled)
+        \footnotesize The decision boundary depends only on\\
+        the support vectors (circled).
     \end{column}
 
     \begin{column}{0.5\textwidth}
         \centering
-        Optimized Linear Logistic Regression\\[0.5em]
+        \textbf{Optimized Linear Logistic Regression}\\[0.5em]
         \includegraphics[width=\linewidth]{pic/logistic2.png}
         
         \vspace{0.5em}
-        \footnotesize Minimizes the sum of logistic error on all samples,\\
-        so boundary should be further from dense regions
+        \footnotesize It minimizes the sum of the logistic error across all samples, so the boundary tends to lie farther from dense regions.
     \end{column}
+
 \end{columns}
 
 \end{frame}
 
+%------------------------------------------slide14
+
 \section{Hard-Margin SVM}
-%-----------------------------------slide11
-\begin{frame}{Why is it called a support vector?}
+
+%------------------------------------------slide15
+\begin{frame}{Why Is It Called a Support Vector?}
 
 \begin{itemize}
-    \item \textbf{Support}: maximal margin hyperplane only depends on these observations.
+    \item \textbf{Support}: the maximal-margin hyperplane depends only on these specific training observations.
     \vspace{1em}
-    \item \textbf{Vector}: points are vectors in $p$-dimensional space.
+    \item \textbf{Vector}: each point represents a vector in the $p$-dimensional feature space.
 \end{itemize}
 
 \vspace{1em}
 
-If support vectors are perturbed, then MM hyperplane will change.
+If the support vectors are perturbed, the maximal-margin hyperplane will change.
 
 \vspace{1em}
 
-If other training observations perturbed (provided not perturbed within margin distance of hyperplane), then MM hyperplane not affected.
+If other training observations are perturbed (provided they are not moved within the margin distance of the hyperplane), the maximal-margin hyperplane remains unaffected.
 
 \end{frame}
 
-%-----------------------------------slide11
-\begin{frame}{Finding {\textbf{w}} with large margin}
+%------------------------------------------slide16
+\begin{frame}{Finding $\mathbf{w}$ with a Large Margin}
 
-Let ${x_n}$ be the nearest data point to the plane 
+Let $\mathbf{x}_n$ be the nearest data point to the hyperplane:
 \[
-    {w}^\top {x} = 0.
+    \mathbf{w}^\top \mathbf{x} = 0.
 \]
-How far is it? 2 preliminary technicalities:
+How far is it? Two preliminary technicalities:
 
-\raggedright
-1. Normalize $w$:
+\begin{itemize} 
+\item \textbf{Normalize} $\mathbf{w}$:
 \[
-    \left| {w}^\top {x_n} \right| = 1
+    \left| \mathbf{w}^\top \mathbf{x}_n \right| = 1.
 \]
 
-
-2. Pull out $w_0$:
-
+\item \textbf{Separate the bias term} $b$:
 \[
-    {w} = (w_1, \cdots, w_d)
+    \mathbf{w} = (w_1, \ldots, w_d)
 \]
+\end{itemize}
 apart from $b$.
 
-
-The plane is now 
+The hyperplane can now be written as:
 \[
-    {w}^\top {x} + b = 0
+    \mathbf{w}^\top \mathbf{x} + b = 0.
 \]
 
 \end{frame}
 
-%-----------------------------------slide11
-\begin{frame}{Computing the distance}
+%------------------------------------------slide17
+\begin{frame}{Computing the Distance}
 
-The distance between $\mathbf{x}_n$ and the plane {$\mathbf{w}^{\top}\mathbf{x} + b = 0$} 
-\quad where \quad $|{\mathbf{w}^{\top}\mathbf{x}_n + b}| = 1$
-
-\vspace{1em}
-
-The vector {$\mathbf{w}$} is $\perp$ to the plane in the $\mathcal{X}$ space:
+The distance between $\mathbf{x}_n$ and the hyperplane $\mathbf{w}^\top \mathbf{x} + b = 0$,  
+where $\left| \mathbf{w}^\top \mathbf{x}_n + b \right| = 1$, is given as follows.
 
 \vspace{1em}
 
-Take $\mathbf{x}'$ and $\mathbf{x}''$ on the plane
+The vector $\mathbf{w}$ is \emph{orthogonal} to the hyperplane in the feature space $\mathcal{X}$.
 
+\vspace{1em}
+
+Consider two points $\mathbf{x}'$ and $\mathbf{x}''$ lying on the hyperplane:
 \[
-{\mathbf{w}^{\top}\mathbf{x}'} + b = 0 
+\mathbf{w}^\top \mathbf{x}' + b = 0 
 \quad \text{and} \quad 
-{\mathbf{w}^{\top}\mathbf{x}''} + b = 0
-\Longrightarrow \quad {\mathbf{w}^{\top}} (\mathbf{x}' - \mathbf{x}'') = 0
+\mathbf{w}^\top \mathbf{x}'' + b = 0
+\Longrightarrow \quad 
+\mathbf{w}^\top (\mathbf{x}' - \mathbf{x}'') = 0.
 \]
 
-
 \begin{center}
-\includegraphics[width=0.5\linewidth]{pic/A1.png}
+    \includegraphics[width=0.5\linewidth]{pic/A1.png}
 \end{center}
 
 \end{frame}
-%----------------------------------------slide
-\begin{frame}{and the distance is \dots}
 
-Distance between $\mathbf{x}_n$ and the plane: Take any point $\mathbf{x}$ on the plane Projection of $\mathbf{x}_n - \mathbf{x}$ on {$\mathbf{w}$}
+%------------------------------------------slide18
+\begin{frame}{And the Distance Is \dots}
+
+The distance between $\mathbf{x}_n$ and the hyperplane can be derived as follows.  
+Take any point $\mathbf{x}$ lying on the hyperplane.  
+The distance is the projection of the vector $(\mathbf{x}_n - \mathbf{x})$ onto $\mathbf{w}$:
 
 \[
-\hat{\mathbf{w}} = \frac{{\mathbf{w}}}{\|{\mathbf{w}}\|} 
+\hat{\mathbf{w}} = \frac{\mathbf{w}}{\|\mathbf{w}\|} 
 \quad \Longrightarrow \quad
-\text{distance} = \big| \hat{\mathbf{w}}^{\top} (\mathbf{x}_n - \mathbf{x}) \big|
+\text{distance} = \big| \hat{\mathbf{w}}^\top (\mathbf{x}_n - \mathbf{x}) \big|.
 \]
 
 \[
-\text{distance} = \frac{1}{\|{\mathbf{w}}\|} 
-\big|{\mathbf{w}^{\top}\mathbf{x}_n - \mathbf{w}^{\top}\mathbf{x}} \big|
-= \frac{1}{\|{\mathbf{w}}\|} 
-\big| {\mathbf{w}^{\top}\mathbf{x}_n + b - \mathbf{w}^{\top}\mathbf{x} - b} \big|
-= \frac{1}{\|{\mathbf{w}}\|}
+\text{distance} 
+= \frac{1}{\|\mathbf{w}\|} 
+\big| \mathbf{w}^\top \mathbf{x}_n - \mathbf{w}^\top \mathbf{x} \big|
+= \frac{1}{\|\mathbf{w}\|} 
+\big| \mathbf{w}^\top \mathbf{x}_n + b - \mathbf{w}^\top \mathbf{x} - b \big|
+= \frac{1}{\|\mathbf{w}\|}.
 \]
 
-
 \begin{center}
-\includegraphics[width=0.5\linewidth]{pic/A2.png}
+    \includegraphics[width=0.5\linewidth]{pic/A2.png}
 \end{center}
 
 \end{frame}
 
-%-----------------------------------------slide
-\begin{frame}{The optimization problem}
+%------------------------------------------slide19
+\begin{frame}{The Optimization Problem}
 
-Maximize $\frac{1}{\|\mathbf{w}\|} $ \\
-subject to $ \min_{n=1,2,\ldots,N} |\mathbf{w}^{\top}\mathbf{x}_n + b| = 1 $\\
+\begin{center}
+Maximize \quad
+$
+ \frac{1}{\|\mathbf{w}\|}
+$ \\
+subject to\quad
+$
+ \min_{n = 1, 2, \ldots, N} \; \big| \mathbf{w}^\top \mathbf{x}_n + b \big| = 1.
+$
+\end{center}
 
 \vspace{1em}
-Notice: $ |\mathbf{w}^{\top}\mathbf{x}_n + b| = y_n (\mathbf{w}^{\top}\mathbf{x}_n + b) $ \\
+
+\textbf{Note:} \; $\big| \mathbf{w}^\top \mathbf{x}_n + b \big| = y_n \, (\mathbf{w}^\top \mathbf{x}_n + b)$
 
 \vspace{1em}
-Minimize $ \frac{1}{2}\mathbf{w}^{\top}\mathbf{w} $ \\
-subject to $
-y_n(\mathbf{w}^{\top}\mathbf{x}_n + b) \ge 1 
-\quad \text{for} \quad n = 1,2,\ldots,N $ 
-\[
-\mathbf{w} \in \mathbb{R}^d, \quad b \in \mathbb{R}
-\]
+
+\begin{block}{Equivalent Formulation}
+\begin{center}
+Minimize \quad
+$ \frac{1}{2} \, \mathbf{w}^\top \mathbf{w} $\\
+subject to \quad
+$
+y_n (\mathbf{w}^\top \mathbf{x}_n + b) \ge 1,
+\quad \text{for } n = 1, 2, \ldots, N.
+$\\
+$
+\mathbf{w} \in \mathbb{R}^d, 
+\quad b \in \mathbb{R}.
+$
+\end{center}
+\end{block}
+
 \vspace{1em}
-Lagrange? \quad inequality constraints $\Longrightarrow$ KKT
+
+\textbf{Next step:} Introduce Lagrange multipliers.  
+Since the constraints are inequalities, the \textbf{KKT conditions} apply.
 
 \end{frame}
-%----------------------------------------slide
-\begin{frame}{Lagrange formulation}
 
-Minimize $
+%------------------------------------------slide20
+\begin{frame}{Lagrangian Formulation}
+
+We define the Lagrangian function as:
+\[
 \mathcal{L}(\mathbf{w}, b, \boldsymbol{\alpha}) 
-= \frac{1}{2} \mathbf{w}^{\top}\mathbf{w}
-- \sum_{n=1}^{N} \alpha_n \big( y_n(\mathbf{w}^{\top}\mathbf{x}_n + b) - 1 \big) $
+= \frac{1}{2} \, \mathbf{w}^\top \mathbf{w}
+- \sum_{n=1}^{N} \alpha_n \big( y_n (\mathbf{w}^\top \mathbf{x}_n + b) - 1 \big),
+\]
+to be minimized with respect to $\mathbf{w}$ and $b$, and maximized with respect to each $\alpha_n \ge 0$.
 
-\vspace{2em}
+\vspace{1em}
 
-w.r.t. $\mathbf{w}$ and $b$ and maximize w.r.t. each $\alpha_n \ge 0$
+Taking derivatives:
+\[
+\nabla_{\mathbf{w}} \mathcal{L} 
+= \mathbf{w} - \sum_{n=1}^{N} \alpha_n y_n \mathbf{x}_n = 0,
+\]
+\[
+\frac{\partial \mathcal{L}}{\partial b} 
+= - \sum_{n=1}^{N} \alpha_n y_n = 0.
+\]
+
+\end{frame}
+
+%------------------------------------------slide21
+\begin{frame}{Substituting into the Lagrangian}
+
+Using the optimality conditions:
+\[
+\mathbf{w} = \sum_{n=1}^{N} \alpha_n y_n \mathbf{x}_n,
+\quad \text{and} \quad 
+\sum_{n=1}^{N} \alpha_n y_n = 0,
+\]
+we substitute these into the Lagrangian:
+\[
+\mathcal{L}(\mathbf{w}, b, \boldsymbol{\alpha}) 
+= \frac{1}{2} \, \mathbf{w}^\top \mathbf{w} 
+- \sum_{n=1}^{N} \alpha_n \big( y_n (\mathbf{w}^\top \mathbf{x}_n + b) - 1 \big).
+\]
+
+\vspace{0.5em}
+
+This yields the dual objective function:
+\[
+\mathcal{L}(\boldsymbol{\alpha}) 
+= \sum_{n=1}^{N} \alpha_n 
+- \frac{1}{2} 
+\sum_{n=1}^{N} \sum_{m=1}^{N} 
+y_n y_m \alpha_n \alpha_m \, \mathbf{x}_n^\top \mathbf{x}_m.
+\]
+
+\vspace{0.5em}
+
+Maximize with respect to $\boldsymbol{\alpha}$, subject to \quad 
+$\alpha_n \ge 0 \quad \text{for } n = 1, \ldots, N,
+\quad \text{and} \quad 
+\sum_{n=1}^{N} \alpha_n y_n = 0.
+$
+
+\end{frame}
+
+%------------------------------------------slide22
+\begin{frame}{The Solution: Quadratic Programming}
+
+The dual optimization problem can be expressed as a standard quadratic program:
 
 \[
-\nabla_{\mathbf{w}}\mathcal{L} 
+\min_{\boldsymbol{\alpha}} 
+\;\; 
+\frac{1}{2} \boldsymbol{\alpha}^\top
+\begin{bmatrix}
+y_1 y_1 \, \mathbf{x}_1^\top \mathbf{x}_1 & y_1 y_2 \, \mathbf{x}_1^\top \mathbf{x}_2 & \dots & y_1 y_N \, \mathbf{x}_1^\top \mathbf{x}_N \\
+y_2 y_1 \, \mathbf{x}_2^\top \mathbf{x}_1 & y_2 y_2 \, \mathbf{x}_2^\top \mathbf{x}_2 & \dots & y_2 y_N \, \mathbf{x}_2^\top \mathbf{x}_N \\
+\vdots & \vdots & \ddots & \vdots \\
+y_N y_1 \, \mathbf{x}_N^\top \mathbf{x}_1 & y_N y_2 \, \mathbf{x}_N^\top \mathbf{x}_2 & \dots & y_N y_N \, \mathbf{x}_N^\top \mathbf{x}_N
+\end{bmatrix}
+\boldsymbol{\alpha}
++({- \mathbf{1}})^\top \boldsymbol{\alpha},
+\]
+
+subject to
+\[
+\mathbf{y}^\top \boldsymbol{\alpha} = 0,
+\quad \text{and} \quad
+\boldsymbol{\alpha} \ge \mathbf{0}.
+\]
+
+\end{frame}
+
+%------------------------------------------slide23
+\begin{frame}{Non-Separable Data}
+
+\begin{columns}
+
+    \column{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.7\linewidth]{pic/SVM6.jpg} \\[0.5em]
+    Allow Some Classification Error \\ (Tolerate error)
+
+    \column{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.7\linewidth]{pic/SVM7.jpg} \\[0.5em]
+    Apply a Nonlinear Transformation \\
+
+\end{columns}
+
+\end{frame}
+
+%-------------------------------------------slide24
+\begin{frame}{Margin Violation}
+        \centering
+        \includegraphics[width=0.5\linewidth]{pic/soft.png} 
+\end{frame}
+%------------------------------------------slide24
+\begin{frame}{Introducing Slack Variables}
+
+\begin{columns}
+
+    \begin{column}{0.4\textwidth}
+        Margin violation occurs when: 
+        \[
+        y_n (\mathbf{w}^\top \mathbf{x}_n + b) \ge 1
+        \]
+        fails to hold.\\
+
+        To quantify this violation:
+        \[
+        y_n (\mathbf{w}^\top \mathbf{x}_n + b) \ge 1 \textcolor{red}{ - \xi_n}, 
+        \quad \textcolor{red}{\xi_n} \ge 0.
+        \]
+        
+        The total violation is:
+        \[
+        \sum_{n=1}^{N} \textcolor{red}{\xi_n}.
+        \]
+
+    \end{column}
+
+    \begin{column}{0.6\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{pic/slack.png}
+    \end{column}
+
+\end{columns}
+
+\end{frame}
+
+
+%------------------------------------------slide25
+\begin{frame}{Introducing Slack Variables}
+
+\begin{columns}
+
+    \begin{column}{0.4\textwidth}
+        \begin{itemize}
+            \item For $0 < \xi_n \le 1$, the point lies between the margin and the correct side of the hyperplane.  
+            This is a \textbf{margin violation}.
+            \vspace{0.5em}
+            \item For $\xi_n > 1$, the point is \textbf{misclassified}.
+        \end{itemize}
+    \end{column}
+
+    \begin{column}{0.6\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{pic/slack.png}
+    \end{column}
+
+\end{columns}
+
+\end{frame}
+
+%------------------------------------------slide25
+
+\section{Soft-Margin SVM}
+
+%------------------------------------------slide26
+\begin{frame}{Soft-Margin SVM}
+
+\begin{columns}[T]
+
+    \begin{column}{0.5\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{pic/nonlin1.png} \\[0.5em]
+    \end{column}
+
+    \begin{column}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{pic/nonlin2.png} \\[0.5em]
+    \end{column}
+
+\end{columns}
+
+\end{frame}
+
+%------------------------------------------slide27
+\begin{frame}{Soft-Margin SVM}
+
+\begin{columns}[T]
+
+    \begin{column}{0.6\textwidth}
+        \begin{align*}
+            &\text{minimize}_{\,\mathbf{w},\, b,\, \boldsymbol{\xi}} 
+            && \frac{1}{2} \, \mathbf{w}^\top \mathbf{w} 
+            \textcolor{red}{+ C \sum_{n=1}^{N} \xi_n} \\[0.5em]
+            &\text{subject to:} 
+            && y_n (\mathbf{w}^\top \mathbf{x}_n + b) 
+            \ge 1 \textcolor{red}{- \xi_n}, 
+            \quad \text{for } n = 1, \ldots, N, \\[0.5em]
+            &&
+            & \xi_n \ge 0, 
+            \quad \text{for } n = 1, \ldots, N, \\[0.5em]
+            &&
+            & \mathbf{w} \in \mathbb{R}^{d}, \quad 
+            b \in \mathbb{R}, \quad  
+            \textcolor{red}{\boldsymbol{\xi} \in \mathbb{R}^{N}}.
+        \end{align*}
+    \end{column}
+
+    \begin{column}{0.4\textwidth}
+        \centering
+        \includegraphics[width=0.9\linewidth]{pic/soft.png} 
+    \end{column}
+
+\end{columns}
+
+\end{frame}
+
+%------------------------------------------slide28
+\begin{frame}{Soft-Margin SVM}
+
+\begin{itemize}
+
+    \item Balances the \textbf{soft in-sample error} 
+    \[
+        \sum_{n=1}^{N} \xi_n
+    \]
+    against the \textbf{weight norm}
+    \[
+        \frac{1}{2} \, \mathbf{w}^\top \mathbf{w}.
+    \]
+
+    \vspace{0.5em}
+
+    \item Every constraint can be satisfied if $\xi_n$ is sufficiently large.
+
+    \vspace{0.5em}
+
+    \item The parameter $C$ is a \textbf{regularization term} that controls the trade-off:
+    \begin{itemize}
+        \item Small $C$ allows the constraints to be relaxed easily $\;\Rightarrow\;$ larger margin.
+        \item Large $C$ enforces the constraints more strictly $\;\Rightarrow\;$ narrower margin.
+        \item $C = \infty$ enforces all constraints, resulting in a \textbf{hard-margin SVM}.
+    \end{itemize}
+
+    \vspace{0.5em}
+
+    \item The optimization problem remains \textbf{quadratic} and has a unique global minimum.  
+    Note that there is only one hyperparameter: $C$.
+
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------slide29
+\begin{frame}{Non-Separable Data and the Effect of $C$}
+
+\begin{columns}[T]
+
+    \begin{column}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.5\linewidth]{pic/soft2.png} \\[0.3em]
+        $C = 1$ 
+    \end{column}
+
+    \begin{column}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.5\linewidth]{pic/soft3.png} \\[0.3em]
+        $C = 500$
+    \end{column}
+
+\end{columns}
+
+\vspace{0.5em}
+
+\begin{align*}
+    &\text{minimize}_{\,\mathbf{w},\, b,\, \boldsymbol{\xi}} 
+    && \frac{1}{2} \, \mathbf{w}^\top \mathbf{w}  
+    \textcolor{red}{+ \, C \sum_{n=1}^{N} \xi_n} \\[0.5em]
+    &\text{subject to:} 
+    && y_n (\mathbf{w}^\top \mathbf{x}_n + b) 
+    \ge 1 \textcolor{red}{- \xi_n}, 
+    \quad \text{for } n = 1, \ldots, N, \\[0.5em]
+    &&
+    & \xi_n \ge 0, 
+    \quad \text{for } n = 1, \ldots, N.
+\end{align*}
+
+\end{frame}
+
+%------------------------------------------slide30
+\begin{frame}{Soft-Margin SVM with Separable Data}
+
+\begin{columns}[T]
+
+    \begin{column}{0.25\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{pic/softmargin1.png} \\[0.3em]
+        \footnotesize Small $C$
+    \end{column}
+
+    \begin{column}{0.25\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{pic/softmargin2.png} \\[0.3em]
+        \footnotesize Medium $C$
+    \end{column}
+
+    \begin{column}{0.25\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{pic/softmargin3.png} \\[0.3em]
+        \footnotesize Large $C$
+    \end{column}
+
+    \begin{column}{0.25\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{pic/softmargin4.png} \\[0.3em]
+        \footnotesize Hard Margin
+    \end{column}
+
+\end{columns}
+
+\vspace{0.3em}
+
+\begin{columns}[T]
+
+    \begin{column}{0.7\textwidth}
+        \centering
+        \begin{align*}
+            &\text{minimize}_{\,\mathbf{w},\, b,\, \boldsymbol{\xi}} 
+            && \frac{1}{2} \, \mathbf{w}^\top \mathbf{w} 
+            \textcolor{red}{+ \, C \sum_{n=1}^{N} \xi_n} \\[0.5em]
+            &\text{subject to:} 
+            && y_n (\mathbf{w}^\top \mathbf{x}_n + b) 
+            \ge 1 \textcolor{red}{- \xi_n}, 
+            \quad \text{for } n = 1, \ldots, N, \\[0.5em]
+            &&
+            & \xi_n \ge 0, 
+            \quad \text{for } n = 1, \ldots, N.
+        \end{align*}
+    \end{column}
+
+    \begin{column}{0.3\textwidth}
+        \centering
+        \vspace{3em}
+        \textbf{Choosing $C$ Is Important}
+    \end{column}
+
+\end{columns}
+
+\end{frame}
+
+%------------------------------------------slide31
+\begin{frame}{Lagrange Formulation for the Soft-Margin SVM}
+
+\[
+\mathcal{L}(\mathbf{w}, b, \textcolor{red}{\boldsymbol{\xi}}, \boldsymbol{\alpha}, \textcolor{purple}{\boldsymbol{\beta}}) 
+= \frac{1}{2} \, \mathbf{w}^{\top} \mathbf{w} 
++ C \sum_{n=1}^{N} \textcolor{red}{\xi_n}
+- \sum_{n=1}^{N} \alpha_n \big( y_n (\mathbf{w}^{\top} \mathbf{x}_n + b) - 1 + \textcolor{red}{\xi_n} \big)
+- \sum_{n=1}^{N} \textcolor{purple}{\beta_n} \textcolor{red}{\xi_n}
+\]
+
+\vspace{1em}
+
+Minimize with respect to $\mathbf{w}$, $b$, and \textcolor{red}{$\boldsymbol{\xi}$},  
+and maximize with respect to each $\alpha_n \ge 0$ and \textcolor{purple}{$\beta_n \ge 0$}.
+
+\vspace{1em}
+
+\[
+\nabla_{\mathbf{w}} \mathcal{L} 
 = \mathbf{w} - \sum_{n=1}^{N} \alpha_n y_n \mathbf{x}_n = 0
 \]
 
@@ -434,290 +855,15 @@ w.r.t. $\mathbf{w}$ and $b$ and maximize w.r.t. each $\alpha_n \ge 0$
 = - \sum_{n=1}^{N} \alpha_n y_n = 0
 \]
 
-\end{frame}
-%-----------------------------------------slide
-\begin{frame}{Substituting}
-
 \[
-\mathbf{w} = \sum_{n=1}^{N} \alpha_n y_n \mathbf{x}_n 
-\quad \text{and} \quad 
-\sum_{n=1}^{N} \alpha_n y_n = 0
-\]
-
-\vspace{2em}
-in the Lagrangian
-$
-\quad \mathcal{L}(\mathbf{w}, b, \boldsymbol{\alpha}) 
-= \frac{1}{2} \mathbf{w}^{\top}\mathbf{w} 
-- \sum_{n=1}^{N} \alpha_n \big( y_n(\mathbf{w}^{\top}\mathbf{x}_n + b) - 1 \big)
-$\\
-\vspace{2em}
-we get $
-\quad \mathcal{L}(\boldsymbol{\alpha}) 
-= \sum_{n=1}^{N} \alpha_n 
-- \frac{1}{2} \sum_{n=1}^{N} \sum_{m=1}^{N} 
-y_n y_m \alpha_n \alpha_m \mathbf{x}_n^{\top}\mathbf{x}_m
-$\\
-\vspace{2em}
-Maximize w.r.t. $\boldsymbol{\alpha}$ subject to $
-\quad \alpha_n \ge 0 \quad \text{for } n = 1, \dots, N 
-\quad \text{and} \quad 
-\sum_{n=1}^{N} \alpha_n y_n = 0
-$\\
-
-\end{frame}
-
-%-----------------------------------------slide
-\begin{frame}{The solution – quadratic programming}
-
-\[
-\min_{\boldsymbol{\alpha}} 
-\frac{1}{2} \boldsymbol{\alpha}^\top
-\begin{bmatrix}
-y_1 y_1 \mathbf{x}_1^\top \mathbf{x}_1 & y_1 y_2 \mathbf{x}_1^\top \mathbf{x}_2 & \dots & y_1 y_N \mathbf{x}_1^\top \mathbf{x}_N \\
-y_2 y_1 \mathbf{x}_2^\top \mathbf{x}_1 & y_2 y_2 \mathbf{x}_2^\top \mathbf{x}_2 & \dots & y_2 y_N \mathbf{x}_2^\top \mathbf{x}_N \\
-\vdots & \vdots & \ddots & \vdots \\
-y_N y_1 \mathbf{x}_N^\top \mathbf{x}_1 & y_N y_2 \mathbf{x}_N^\top \mathbf{x}_2 & \dots & y_N y_N \mathbf{x}_N^\top \mathbf{x}_N
-\end{bmatrix}
-\boldsymbol{\alpha}
-+ (-\mathbf{1}^\top)\boldsymbol{\alpha}
-\]
-
-subject to
-\[
-\mathbf{y}^\top \boldsymbol{\alpha} = 0
-\quad \text{and} \quad
-\mathbf{0} \le \boldsymbol{\alpha} \le \infty
+\frac{\partial \mathcal{L}}{\partial \textcolor{red}{\xi_n}} 
+= C - \alpha_n - \textcolor{purple}{\beta_n} = 0
 \]
 
 \end{frame}
-%-----------------------------------------slide
-\begin{frame}{Non-Separable Data}
-    \begin{columns}
-        \column{0.5\textwidth}
-        \centering
-        \includegraphics[width=0.7\linewidth]{pic/SVM6.jpg} \\
-        Tolerate error
 
-        \column{0.5\textwidth}
-        \centering
-        \includegraphics[width=0.7\linewidth]{pic/SVM7.jpg} \\
-        Nonlinear transform
-    \end{columns}
-\end{frame}
-
-%-----------------------------------------slide
-\begin{frame}{Introduce slack variables}
-
-\begin{columns}
-    \begin{column}{0.4\textwidth}
-        Margin violation: \quad $y_n (w^{\top} x_n + b) \ge 1$ fails
-        
-        \vspace{1em}
-        Quantify: \quad $y_n (w^{\top} x_n + b) \ge 1\textcolor{red}{ - \xi_n}$, \quad $\textcolor{red}{\xi_n }\ge 0$
-        
-        \vspace{1em}
-        Total violation \quad $= \sum_{n=1}^{N} \textcolor{red}{\xi_n}$
-
-\begin{itemize}
-    \item for $0 < \xi \le 1$ point is between margin and correct side of hyperplane. 
-    This is a \textbf{margin violation}
-    \vspace{0.5em}
-    \item for $\xi > 1$ point is \textbf{misclassified}
-\end{itemize}
-    \end{column}
-    \begin{column}{0.6\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{pic/slack.png}
-    \end{column}
-\end{columns}
-
-\end{frame}
-%-----------------------------------------slide
-
-%-----------------------------------------slide
-\section{Soft-Margin SVM}
-
-\begin{frame}
-\begin{columns}[T]
-
-    \begin{column}{0.5\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{pic/nonlin1.png}
-
-    \end{column}
-
-
-    \begin{column}{0.5\textwidth}
-        \centering
-        \includegraphics[width=0.9\linewidth]{pic/nonlin2.png}
-
-    \end{column}
-\end{columns} 
-\end{frame}
-
-%-----------------------------------------slide
-\begin{frame}{Soft Margin SVM}
-
-\begin{columns}[T]
-    \begin{column}{0.6\textwidth}
-        \begin{align*}
-            &\text{minimize}_{b, {w}, {\xi}} \quad 
-            \frac{1}{2}{w}^\top {w} 
-            \textcolor{red}{+ {C \sum_{n=1}^{N} \xi_n}} \\
-            &\text{subject to:} \quad 
-            y_n({w}^\top {x_n} + b) \ge 1 \textcolor{red}{- \xi_n} \quad \text{for } n = 1, \ldots, N\\
-            & \hspace{6em} \xi_n \ge 0 \quad \text{for } n = 1, \ldots, N \\
-           &\hspace{6em} w \in \mathbb{R}^{d}, \quad b \in \mathbb{R}, \quad  \textcolor{red}{\xi \in \mathbb{R}^{N}}
-        \end{align*}
-    \end{column}
-
-    \begin{column}{0.4\textwidth}
-        \centering
-        \includegraphics[width=0.9\linewidth]{pic/soft.png}
-    \end{column}
-
-\end{columns}
-
-\end{frame}
-%-----------------------------------------slide
-\begin{frame}{Soft Margin SVM}
-\begin{itemize}
-\item   Trades off ‘soft in-sample error’ 
-        $\displaystyle \sum_{n=1}^{N}\xi_n$ 
-        with weight norm 
-        $\displaystyle \frac{1}{2} {w}^\top {w}$
-    \item Every constraint can be satisfied if $\xi_i$ is sufficiently large
-    \vspace{0.5em}
-    \item $C$ is a \textbf{regularization} parameter:
-    \begin{itemize}
-        \item small $C$ allows constraints to be easily ignored $\rightarrow$ large margin
-        \item large $C$ makes constraints hard to ignore $\rightarrow$ narrow margin
-        \item $C = \infty$ enforces all constraints: hard margin
-    \end{itemize}
-    \vspace{0.5em}
-    \item This is still a quadratic optimization problem and there is a unique minimum. 
-    Note, there is only one parameter, $C$.
-\end{itemize}
-\end{frame}
-%-----------------------------------------slide
-
-\begin{frame}{Non-Separable Data}
-
-\begin{columns}[T]
-
-    \begin{column}{0.5\textwidth}
-        \centering
-        \includegraphics[width=0.5\linewidth]{pic/soft2.png}
-
-        
-        \vspace{0.3em}
-        $C = 1$
-    \end{column}
-
-
-    \begin{column}{0.5\textwidth}
-        \centering
-        \includegraphics[width=0.5\linewidth]{pic/soft3.png}
-
-        
-        \vspace{0.3em}
-        $C = 500$
-    \end{column}
-\end{columns} 
-
-\begin{align*}
-    &\text{minimize}_{b, w, \xi} \quad 
-    \frac{1}{2} w^{\top} w  \textcolor{red}{ +  C \sum_{n=1}^{N} \xi_n}  \\
-    &\text{subject to:} \quad 
-    y_n(w^{\top} x_n + b) \ge 1  \textcolor{red}{-  \xi_n }  \quad \text{for } n = 1, \ldots, N \\
-    &  \hspace{6em} \xi_n \ge 0 \quad \text{for } n = 1, \ldots, N
-\end{align*}
-
-\end{frame}
-
-%-----------------------------------------slide
-\begin{frame}{Soft Margin SVM With Separable Data}
-
-\begin{columns}[T]
-    \begin{column}{0.25\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{pic/softmargin1.png}
-        \vspace{0.3em}
-        small $C$
-    \end{column}
-    \begin{column}{0.25\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{pic/softmargin2.png}
-        \vspace{0.3em}
-        medium $C$
-    \end{column}
-    \begin{column}{0.25\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{pic/softmargin3.png}
-        \vspace{0.3em}
-        large $C$
-    \end{column}
-    \begin{column}{0.25\textwidth}
-        \centering
-        \includegraphics[width=\linewidth]{pic/softmargin4.png}
-        \vspace{0.3em}
-        hard margin
-    \end{column}
-\end{columns}
-
-\begin{columns}[T]
-    \begin{column}{0.7\textwidth}
-        \centering
-\begin{align*}
-    &\text{minimize}_{b, w, \xi} \quad 
-    \frac{1}{2} w^{\top} w \textcolor{red}{+ C \sum_{n=1}^{N} \xi_n }\\
-    &\text{subject to:} \quad 
-    y_n(w^{\top} x_n + b) \ge 1 \textcolor{red}{- \xi_n}  \quad \text{for } n = 1, \ldots, N  \\
-    & \hspace{6em} \xi_n \ge 0 \quad \text{for } n = 1, \ldots, N
-\end{align*}
-    \end{column}
-    \begin{column}{0.3\textwidth}
-        \centering
-       \vspace{3em}
-       \textbf{Choice of $C$ is IMPORTANT}
-
-    \end{column}
-\end{columns}
-
-\end{frame}
-
-
-%-----------------------------------------slide
-\begin{frame}{Lagrange formulation}
-
-\[
-\mathcal{L}(w, b, \textcolor{red}{\xi}, {\alpha}, \textcolor{purple}{\beta})
-= \frac{1}{2} w^{\top} w 
-+ C \sum_{n=1}^{N} \textcolor{red}{\xi_n}
-- \sum_{n=1}^{N} {\alpha_n} \big( y_n (w^{\top} x_n + b) - 1 + \textcolor{red}{\xi_n} \big)
-- \sum_{n=1}^{N} \textcolor{purple}{\beta_n} \textcolor{red}{\xi_n}
-\]
-
-Minimize w.r.t. \textbf{w}, \textbf{b}, and \textcolor{red}{$\xi$} and maximize w.r.t. each {$\alpha_n \ge 0$} and \textcolor{purple}{$\beta_n \ge 0$}
-
-\vspace{1em}
-
-\[
-\nabla_w \mathcal{L} = w - \sum_{n=1}^{N} {\alpha_n} y_n x_n = 0
-\]
-
-\[
-\frac{\partial \mathcal{L}}{\partial b} = - \sum_{n=1}^{N} {\alpha_n} y_n = 0
-\]
-
-\[
-\frac{\partial \mathcal{L}}{\partial \textcolor{red}{\xi_n}} = C - {\alpha_n} - \textcolor{purple}{\beta_n} = 0
-\]
-
-\end{frame}
-%------------------------------------------------slide
-\begin{frame}{Soft-margin SVM: Dual problem}
+%------------------------------------------slide32
+\begin{frame}{Soft-Margin SVM: Dual Problem}
 
 \[
 \max_{\boldsymbol{\alpha}} 
@@ -725,52 +871,60 @@ Minimize w.r.t. \textbf{w}, \textbf{b}, and \textcolor{red}{$\xi$} and maximize 
 \sum_{n=1}^{N} \alpha_n
 - \frac{1}{2} 
 \sum_{n=1}^{N} \sum_{m=1}^{N}
-\alpha_n \alpha_m y_{n} y_{m} 
-\mathbf{x}_n^{\top} \mathbf{x}_{m}
+\alpha_n \alpha_m y_n y_m 
+\mathbf{x}_n^{\top} \mathbf{x}_m
 \right)
 \]
 
-Subject to
+Subject to:
 \[
-\sum_{n=1}^{N} \alpha_n y_{n} = 0,
+\sum_{n=1}^{N} \alpha_n y_n = 0,
 \quad
-0 \le \alpha_n \le C, \quad n = 1, \dots, N
+0 \le \alpha_n \le C,
+\quad n = 1, \ldots, N.
 \]
 
-After solving the above quadratic problem, $\mathbf{w}$ is found as:
+\vspace{1em}
+
+After solving this quadratic optimization problem,  
+the optimal weight vector is given by:
 \[
-\mathbf{w} = \sum_{n=1}^{N} \alpha_n y_{n} \mathbf{x}_{n}
+\mathbf{w} = \sum_{n=1}^{N} \alpha_n y_n \mathbf{x}_n.
 \]
 
 \end{frame}
-%-----------------------------------------slide
-\begin{frame}{Not linearly separable data}
+
+%------------------------------------------slide33
+\begin{frame}{Non-Linearly Separable Data}
 
 \begin{columns}[T]
 
-\begin{column}{0.55\textwidth}
-    \textbf{Noisy data or overlapping classes} \\
-    (we discussed about it: soft margin)
-    \begin{itemize}
-        \item Near linearly separable
-    \end{itemize}
-\end{column}
+    \begin{column}{0.55\textwidth}
+        \textbf{Noisy Data or Overlapping Classes} \\[0.3em]
+        (as discussed earlier: soft margin)
+        \begin{itemize}
+            \item Nearly linearly separable
+        \end{itemize}
+    \end{column}
 
-\begin{column}{0.45\textwidth}
+    \begin{column}{0.45\textwidth}
+        \textbf{Non-Linear Decision Surface}
+        \begin{itemize}
+            \item Transform data into a new feature space
+        \end{itemize}
+    \end{column}
 
-     \textbf{Non-linear decision surface}
-    \begin{itemize}
-        \item Transform to a new feature space
-    \end{itemize}
-\end{column}
 \end{columns}
 
+\vspace{0.5em}
+
 \begin{center}
-\includegraphics[width=0.7\textwidth]{pic/transform2.png}
+    \includegraphics[width=0.7\textwidth]{pic/transform2.png}
 \end{center}
 
 \end{frame}
-%-----------------------------------------slide
+
+%------------------------------------------slide34
 \begin{frame}{Mechanics of the Nonlinear Transform}
 
 \begin{center}
@@ -778,353 +932,421 @@ After solving the above quadratic problem, $\mathbf{w}$ is found as:
 \end{center}
 
 \end{frame}
-%-----------------------------------------slide
-\begin{frame}{Soft-margin SVM in a transformed space: Primal problem}
+%------------------------------------------slide35
+\begin{frame}{Soft-Margin SVM in a Transformed Space: Primal Problem}
 
 \begin{itemize}
-    \item \textbf{Primal problem:}
+    \item Primal problem:
 \end{itemize}
 
 \[
-\min_{\mathbf{w}, w_0} 
-\frac{1}{2}\|\mathbf{w}\|^2 + 
-C \sum_{n=1}^{N} \xi_n
-\]
-
-subject to:
-\[
-y_{n} \left( \mathbf{w}^T \textcolor{red}{\phi(x_{(n})} + w_0 \right) \ge 1 - \xi_n, 
-\quad n = 1, \ldots, N
-\]
-\[
-\xi_n \ge 0
-\]
-
-\vspace{1em}
-\begin{itemize}
-    \item \(\mathbf{w} \in \mathbb{R}^m\): the weights that must be found.
-    \item If \(m \gg d\) (very high-dimensional feature space), then there are many more parameters to learn.
-\end{itemize}
-
-\end{frame}
-%-----------------------------------------slide
-\begin{frame}{Soft-margin SVM in a transformed space: Dual problem}
-
-\begin{itemize}
-    \item \textbf{Optimization problem:}
-\end{itemize}
-
-\[
-\max_{\alpha} 
-\left\{
-\sum_{n=1}^{N} \alpha_n 
-- \frac{1}{2}
-\sum_{n=1}^{N}\sum_{m=1}^{N} 
-\alpha_n \alpha_m y_{n} y_{m} 
-\textcolor{red}{\phi(x_{n})^T \phi(x_{m})}
-\right\}
+\min_{\mathbf{w},\, b,\, \boldsymbol{\xi}} 
+\frac{1}{2}\|\mathbf{w}\|^2 
++ C \sum_{n=1}^{N} \xi_n
 \]
 
 Subject to:
 \[
-\sum_{n=1}^{N} \alpha_n y_{n} = 0
+y_n \left( \mathbf{w}^\top \textcolor{red}{\boldsymbol{\phi}(\mathbf{x}_n)} + b \right) 
+\ge 1 - \xi_n, 
+\quad n = 1, \ldots, N,
 \]
 \[
-0 \leq \alpha_n \leq C \quad n = 1, \ldots, N
+\xi_n \ge 0, 
+\quad n = 1, \ldots, N.
 \]
 
 \vspace{1em}
+
 \begin{itemize}
-    \item If we have inner products 
-    \(\textcolor{magenta}{\phi(x_{i})^T \phi(x_{j})}\),
-    only \(\boldsymbol{\alpha = [\alpha_1, \ldots, \alpha_N]}\) 
-    needs to be learned.
-    \item Not necessary to learn \(m\) parameters as opposed to the primal problem.
+    \item $\mathbf{w} \in \mathbb{R}^m$: weight vector to be learned.
+    \item If $m \gg d$ (i.e., the feature space is very high-dimensional),  
+    the model contains many more parameters to estimate.
 \end{itemize}
 
 \end{frame}
 
-%-----------------------------------------slide
-\begin{frame}{Classifying a new data}
-
-\[
-\hat{y} = sign(w_0 + \mathbf{w}^T \textcolor{red}{\phi(x)})
-\]
-
-\[
-\text{where } \mathbf{w} = \sum_{\alpha_n > 0} \alpha_n y_{n} \textcolor{red}{\phi(x_{n})}
-\]
-
-\[
-\text{and } w_0 = y_{s} - \mathbf{w}^T \textcolor{red}{\phi(x_{s})}
-\]
-
-\end{frame}
-%-----------------------------------------slide
-\begin{frame}{Not linearly separable data}
-
-\begin{columns}[T]
-
-\begin{column}{0.5\textwidth}
-\begin{center}
-\includegraphics[width=0.7\textwidth]{pic/inkernel1.png}
-\end{center}
-\end{column}
-
-\begin{column}{0.5\textwidth}
-\begin{center}
-\includegraphics[width=0.7\textwidth]{pic/inkernel2.png}
-\end{center}
-\end{column}
-\end{columns}
-
-\end{frame}
-%-----------------------------------------slide
-\section{Kernel SVM}
-
-%-----------------------------------------slide
-\begin{frame}{Kernel SVM}
+%------------------------------------------slide36
+\begin{frame}{Soft-Margin SVM in a Transformed Space: Dual Problem}
 
 \begin{itemize}
-    \item Learns linear decision boundary in a high-dimensional space without explicitly working on the mapped data.
-    
-    \vspace{1em}
-    \item Let 
-    \[
-    {\phi(x)^T \phi(x')} = {K(x, x')}
-    \quad \text{(kernel)}
-    \]
-    
-    \vspace{1em}
-    \item Example: 
-    \[
-    x = [x_1, x_2]
-    \quad \text{and second-order } {\phi}:
-    \]
-    \[
-    {\phi(x)} = [1, x_1, x_2, x_1^2, x_2^2, x_1x_2]
-    \]
+    \item Optimization problem:
 \end{itemize}
-
-\vspace{1em}
-Then,
-\[
-{K(x, x')} 
-= 1 + x_1x'_1 + x_2x'_2 + x_1^2x_1'^2 + x_2^2x_2'^2 + x_1x'_1x_2x'_2
-\]
-
-\end{frame}
-%-----------------------------------------slide
-\begin{frame}{Kernel trick}
-
-\begin{itemize}
-    \item Compute ${K(x, x')}$ without transforming ${x}$ and ${x'}$.
-    
-    \vspace{1em}
-    \item Example: Consider 
-    \[
-    {K}(x, x') = (1 + x^T x')^2
-    \]
-    \[
-    = (1 + x_1x'_1 + x_2x'_2)^2
-    \]
-    \[
-    = 1 + {2x_1x'_1} + {2x_2x'_2} + x_1^2x_1'^2 + x_2^2x_2'^2 + {2x_1x'_1x_2x'_2}
-    \]
-\end{itemize}
-
-\vspace{1em}
-This is an inner product in:
-
-\[
-{\phi}(x) = [1, \sqrt{2}x_1, \sqrt{2}x_2, x_1^2, x_2^2, \sqrt{2}x_1x_2]
-\]
-
-\[
-{\phi}(x') = [1, \sqrt{2}x'_1, \sqrt{2}x'_2, x_1'^2, x_2'^2, \sqrt{2}x'_1x'_2]
-\]
-
-\end{frame}
-
-%-----------------------------------------slide
-\begin{frame}{Polynomial kernel: Degree two}
-
-\begin{itemize}
-    \item We instead use 
-    \[
-    {K}(x, x') = (x^T x' + 1)^2
-    \]
-    that corresponds to:
-    
-    \vspace{0.5em}
-    {$d$-dimensional feature space:} 
-    \[
-    x = [x_1, \ldots, x_d]^T
-    \]
-    
-    \vspace{0.5em}
-    \[
-    \phi(x) = 
-    [1, \sqrt{2}x_1, \ldots, \sqrt{2}x_d, x_1^2, \ldots, x_d^2, 
-    \sqrt{2}x_1x_2, \ldots, \sqrt{2}x_1x_d, 
-    \sqrt{2}x_2x_3, \ldots, \sqrt{2}x_{d-1}x_d]^T
-    \]
-\end{itemize}
-
-\end{frame}
-%-----------------------------------------slide
-\begin{frame}{Polynomial kernel}
-
-\begin{itemize}
-    \item This can similarly be generalized to $d$-dimensional $x$ and $\phi$s are polynomials of order $M$:
-    \[
-    {K}(x, x') = (1 + x^T x')^{M}
-    \]
-    \[
-    = (1 + x_1 x'_1 + x_2 x'_2 + \cdots + x_d x'_d)^{M}
-    \]
-    
-    \vspace{1em}
-    \item Example: SVM boundary for a polynomial kernel
-    \[
-    w_0 + w^T \phi(x) = 0
-    \]
-    \[
-    \Rightarrow w_0 + \sum_{\alpha_i > 0} \alpha_i y_{i} \phi(x_{i})^T \phi(x) = 0
-    \]
-    \[
-    \Rightarrow w_0 + \sum_{\alpha_i > 0} \alpha_i y_{i} k(x_{i}, x) = 0
-    \]\\
-    
-    $\Rightarrow w_0 + \sum_{\alpha_i > 0} \alpha_i y_{i} (1 + x_i^{T}x)^{M} = 0 \quad \rightarrow \quad $ Boundary is a polynomial of order M
-\end{itemize}
-
-\end{frame}
-%-----------------------------------------slide
-\begin{frame}{Why kernel?}
-
-\begin{itemize}
-    \item Kernel functions ${K}$ can indeed be efficiently computed, with a cost proportional to ${d}$ (the dimensionality of the input) instead of ${m}$.
-
-    \vspace{1em}
-    \item \textbf{Example:} consider the second-order polynomial transform:
-    \[
-    {\phi}(x) = [1, x_1, \ldots, x_d, x_1^2, x_1x_2, \ldots, x_d x_d]^T 
-    \quad {m = 1 + d + d^2}
-    \]
-    
-    \[
-    {\phi}(x)^T {\phi}(x') 
-    = 1 + \sum_{i=1}^{d} x_i x'_i 
-    + \sum_{i=1}^{d} \sum_{j=1}^{d} x_i x_j x'_i x'_j 
-    \quad {O(m)}
-    \]
-    
-    \[
-    {\phi}(x)^T {\phi}(x') 
-    = 1 + (x^T x') + (x^T x')^2 
-    \quad {O(d)}
-    \]
-\end{itemize}
-
-\end{frame}
-%-----------------------------------------slide
-\begin{frame}{Nonlinear Transform and SVM}
-
-\begin{columns}[T]
-
-\begin{column}{\textwidth}
-\centering
-\includegraphics[width=0.9\textwidth]{pic/whykernel.png}
-\end{column}
-
-\end{columns}
-
-\begin{itemize}
-    \item $\Phi_3$ has almost $2\times$ the parameters of $\Phi_2$
-    \item $\Phi_3$-SVM does not display significant overfitting compared to $\Phi_3$-regression
-    \item support vectors did not double
-    \item Can go to higher dimensions if support vectors stays small or margin stays large
-\end{itemize}
-
-\end{frame}
-
-%-----------------------------------------slide
-\begin{frame}{Gaussian or RBF kernel}
-
-\begin{itemize}
-    \item If ${K}(x, x')$ is an inner product in some transformed space of $x$, it is good.
-    
-    \vspace{0.7em}
-    \item ${K}(x, x') = \exp\left(-\frac{\|x - x'\|^2}{\gamma}\right)$
-    
-    \vspace{0.7em}
-    \item Take one dimensional case with $\gamma = 1$:
-    \[
-    {K}(x, x') = \exp\left(-(x - x')^2\right)
-    \]
-    \[
-    = \exp(-x^2)\exp(-x'^2)\exp(2xx')
-    \]
-    \[
-    = \textcolor{red}{\exp(-x^2)} \,
-      \textcolor{magenta}{\exp(-x'^2)} 
-      \sum_{k=1}^{\infty} 
-      \frac{\textcolor{green!50!black}{2^k} x^k x'^k}{\textcolor{green!50!black}{k!}}	
-    \]
-\end{itemize}
-
-\end{frame}
-
-%-----------------------------------------slide
-\begin{frame}{Some common kernel functions}
-
-\begin{itemize}
-    \item \textbf{Linear:} \quad 
-    $k(x, x') = x^{T}x'$
-    
-    \vspace{0.5em}
-    \item \textbf{Polynomial:} \quad 
-    $k(x, x') = (x^{T}x' + 1)^{M}$
-    
-    \vspace{0.5em}
-    \item \textbf{Gaussian:} \quad 
-    $k(x, x') = 
-    \exp\left(-\frac{\|x - x'\|^{2}}{\gamma}\right)$
-    
-    \vspace{0.5em}
-    \item \textbf{Sigmoid:} \quad 
-    $k(x, x') = 
-    \tanh(a\,x^{T}x' + b)$
-\end{itemize}
-
-\end{frame}
-
-
-%-----------------------------------------slide
-\begin{frame}{Kernel formulation of SVM}
-
-Optimization problem:
 
 \[
 \max_{\boldsymbol{\alpha}} 
 \left\{
 \sum_{n=1}^{N} \alpha_n 
-- \frac{1}{2} 
+- \frac{1}{2}
 \sum_{n=1}^{N}\sum_{m=1}^{N} 
-\alpha_n \alpha_m y_{n} y_{m} 
-\textcolor{red}{k(\mathbf{x}_{n}, \mathbf{x}_{m})}
+\alpha_n \alpha_m y_n y_m 
+\textcolor{red}{\boldsymbol{\phi}(\mathbf{x}_n)^{\top} \boldsymbol{\phi}(\mathbf{x}_m)}
 \right\}
 \]
 
+Subject to:
 \[
-\text{Subject to } 
-\sum_{n=1}^{N} \alpha_n y_{n} = 0
-\]
-\[
-0 \leq \alpha_n \leq C \quad n = 1, \ldots, N
+\sum_{n=1}^{N} \alpha_n y_n = 0,
+\quad
+0 \le \alpha_n \le C, 
+\quad n = 1, \ldots, N.
 \]
 
+\vspace{1em}
+
+\begin{itemize}
+    \item Since only inner products 
+    \(\textcolor{magenta}{\boldsymbol{\phi}(\mathbf{x}_i)^{\top} \boldsymbol{\phi}(\mathbf{x}_j)}\) 
+    appear, only the coefficients 
+    \(\boldsymbol{\alpha} = [\alpha_1, \ldots, \alpha_N]\) 
+    need to be learned.
+    \item It is not necessary to learn 
+    \(m\) parameters explicitly, unlike the primal problem.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------slide37
+\begin{frame}{Classifying a New Data Point}
+
+\[
+\hat{y} = \operatorname{sign}\!\left( b + \mathbf{w}^\top \textcolor{red}{\boldsymbol{\phi}(\mathbf{x})} \right)
+\]
+
+\[
+\text{where } 
+\mathbf{w} = \sum_{\alpha_n > 0} \alpha_n y_n 
+\textcolor{red}{\boldsymbol{\phi}(\mathbf{x}_n)}
+\]
+
+\[
+\text{and } 
+b = y_s - \mathbf{w}^\top 
+\textcolor{red}{\boldsymbol{\phi}(\mathbf{x}_s)}
+\quad \text{for any support vector } s.
+\]
+
+\end{frame}
+
+%------------------------------------------slide38
+\begin{frame}{Non-Linearly Separable Data}
+
+\begin{columns}[T]
+
+    \begin{column}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.7\textwidth]{pic/inkernel1.png} 
+    \end{column}
+
+    \begin{column}{0.5\textwidth}
+        \centering
+        \includegraphics[width=0.7\textwidth]{pic/inkernel2.png} 
+    \end{column}
+
+\end{columns}
+
+\end{frame}
+
+%------------------------------------------slide39
+
+\section{Kernel SVM}
+
+%------------------------------------------slide40
+\begin{frame}{Kernel SVM}
+
+\begin{itemize}
+    \item Learns a linear decision boundary in a high-dimensional feature space 
+    without explicitly computing the mapped data.
+
+    \vspace{1em}
+
+    \item Let
+    \[
+        \boldsymbol{\phi}(\mathbf{x})^{\top} \boldsymbol{\phi}(\mathbf{x}')
+        = K(\mathbf{x}, \mathbf{x}')
+        \quad \text{(kernel function)}
+    \]
+
+    \vspace{1em}
+
+    \item \textbf{Example:} for 
+    \(\mathbf{x} = [x_1, x_2]\) 
+    and a second-order mapping \(\boldsymbol{\phi}(\cdot)\):
+    \[
+        \boldsymbol{\phi}(\mathbf{x}) = [\,1,\, x_1,\, x_2,\, x_1^2,\, x_2^2,\, x_1x_2\,]
+    \]
+\end{itemize}
+
+\vspace{1em}
+
+Then,
+\[
+    K(\mathbf{x}, \mathbf{x}')
+    = 1 + x_1x_1' + x_2x_2' 
+    + x_1^2x_1'^2 + x_2^2x_2'^2 + x_1x_2x_1'x_2'
+\]
+
+\end{frame}
+
+%------------------------------------------slide41
+\begin{frame}{Kernel Trick}
+
+\begin{itemize}
+    \item Compute \(K(\mathbf{x}, \mathbf{x}')\) directly, 
+    without explicitly transforming \(\mathbf{x}\) and \(\mathbf{x}'\).
+
+    \vspace{1em}
+
+    \item \textbf{Example:} consider
+    \[
+        K(\mathbf{x}, \mathbf{x}') = \left( 1 + \mathbf{x}^{\top}\mathbf{x}' \right)^2
+    \]
+    \[
+        = \left( 1 + x_1x_1' + x_2x_2' \right)^2
+    \]
+    \[
+        = 1 + 2x_1x_1' + 2x_2x_2' + x_1^2x_1'^2 + x_2^2x_2'^2 + 2x_1x_2x_1'x_2'
+    \]
+\end{itemize}
+
+\vspace{1em}
+
+This corresponds to an inner product in the feature space:
+
+\[
+    \boldsymbol{\phi}(\mathbf{x}) 
+    = [\,1,\, \sqrt{2}x_1,\, \sqrt{2}x_2,\, x_1^2,\, x_2^2,\, \sqrt{2}x_1x_2\,]
+\]
+
+\[
+    \boldsymbol{\phi}(\mathbf{x}') 
+    = [\,1,\, \sqrt{2}x_1',\, \sqrt{2}x_2',\, x_1'^2,\, x_2'^2,\, \sqrt{2}x_1'x_2'\,]
+\]
+
+\end{frame}
+
+
+%------------------------------------------slide42
+\begin{frame}{Polynomial Kernel: Degree Two}
+
+\begin{itemize}
+    \item Instead of computing the explicit feature mapping, we use:
+    \[
+        K(\mathbf{x}, \mathbf{x}') = \left( \mathbf{x}^{\top}\mathbf{x}' + 1 \right)^2
+    \]
+    which corresponds to an implicit feature mapping.
+
+    \vspace{1em}
+
+    \item For a $d$-dimensional input vector:
+    \[
+        \mathbf{x} = [\,x_1,\, \ldots,\, x_d\,]^{\top}
+    \]
+
+    \vspace{1em}
+
+    \item The corresponding feature mapping is:
+    \[
+        \boldsymbol{\phi}(\mathbf{x}) =
+        [\,1,\, \sqrt{2}x_1,\, \ldots,\, \sqrt{2}x_d,\, x_1^2,\, \ldots,\, x_d^2,\,
+        \sqrt{2}x_1x_2,\, \ldots,\, \sqrt{2}x_1x_d,\,
+        \sqrt{2}x_2x_3,\, \ldots,\, \sqrt{2}x_{d-1}x_d\,]^{\top}
+    \]
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------slide43
+\begin{frame}{Polynomial Kernel}
+
+\begin{itemize}
+    \item This kernel can be generalized to a $d$-dimensional input vector 
+    with polynomial feature mappings of order $M$:
+    \[
+        K(\mathbf{x}, \mathbf{x}') = \left( 1 + \mathbf{x}^{\top}\mathbf{x}' \right)^{M}
+    \]
+    \[
+        = \left( 1 + x_1x_1' + x_2x_2' + \cdots + x_d x_d' \right)^{M}
+    \]
+
+    \vspace{1em}
+
+    \item \textbf{Example:} SVM decision boundary using a polynomial kernel:
+    \[
+        b + \mathbf{w}^{\top}\boldsymbol{\phi}(\mathbf{x}) = 0
+    \]
+    \[
+        \Rightarrow b + \sum_{\alpha_i > 0} \alpha_i y_i 
+        \boldsymbol{\phi}(\mathbf{x}_i)^{\top}\boldsymbol{\phi}(\mathbf{x}) = 0
+    \]
+    \[
+        \Rightarrow b + \sum_{\alpha_i > 0} \alpha_i y_i K(\mathbf{x}_i, \mathbf{x}) = 0
+    \]
+    \[
+        \Rightarrow b + \sum_{\alpha_i > 0} \alpha_i y_i 
+        \left( 1 + \mathbf{x}_i^{\top}\mathbf{x} \right)^{M} = 0
+        \quad \Rightarrow \quad
+        \text{Decision boundary is a polynomial of order } M.
+    \]
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------slide44
+\begin{frame}{Why Kernel?}
+
+\begin{itemize}
+    \item Kernel functions \(K\) can be computed efficiently, 
+    with a cost proportional to the input dimensionality \(d\) 
+    instead of the (potentially much larger) feature space dimension \(m\).
+
+    \vspace{1em}
+
+    \item \textbf{Example:} consider a second-order polynomial transformation:
+    \[
+        \boldsymbol{\phi}(\mathbf{x}) 
+        = [\,1,\, x_1,\, \ldots,\, x_d,\, x_1^2,\, x_1x_2,\, \ldots,\, x_d x_d\,]^{\top},
+        \quad m = 1 + d + d^2
+    \]
+
+    \vspace{0.5em}
+
+    \item Computing the inner product explicitly:
+    \[
+        \boldsymbol{\phi}(\mathbf{x})^{\top} \boldsymbol{\phi}(\mathbf{x}')
+        = 1 + \sum_{i=1}^{d} x_i x_i'
+        + \sum_{i=1}^{d} \sum_{j=1}^{d} x_i x_j x_i' x_j'
+        \quad O(m)
+    \]
+
+    \vspace{0.5em}
+
+    \item Using the kernel trick instead:
+    \[
+        \boldsymbol{\phi}(\mathbf{x})^{\top} \boldsymbol{\phi}(\mathbf{x}')
+        = 1 + (\mathbf{x}^{\top}\mathbf{x}') + (\mathbf{x}^{\top}\mathbf{x}')^2
+        \quad O(d)
+    \]
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------slide45
+\begin{frame}{Nonlinear Transform and SVM}
+
+\begin{columns}[T]
+    \begin{column}{\textwidth}
+        \centering
+        \includegraphics[width=0.9\textwidth]{pic/whykernel.png}
+    \end{column}
+\end{columns}
+
+\begin{itemize}
+    \item The mapping \(\boldsymbol{\Phi}_3\) has almost twice as many parameters as \(\boldsymbol{\Phi}_2\).\\
+    \item The \(\boldsymbol{\Phi}_3\)-SVM does not exhibit significant overfitting compared to \(\boldsymbol{\Phi}_3\)-regression.\\
+    \item The number of support vectors did not double.\\
+    \item Higher-dimensional mappings are feasible 
+    as long as the number of support vectors remains small 
+    or the margin stays large.
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------slide46
+\begin{frame}{Gaussian (RBF) Kernel}
+
+\begin{itemize}
+    \item If \( K(\mathbf{x}, \mathbf{x}') \) represents an inner product in some transformed space of \(\mathbf{x}\), it is a valid kernel.
+    
+    \vspace{0.7em}
+
+    \item Gaussian or Radial Basis Function (RBF) kernel:
+    \[
+        K(\mathbf{x}, \mathbf{x}') 
+        = \exp\!\left(-\frac{\|\mathbf{x} - \mathbf{x}'\|^2}{\gamma}\right)
+    \]
+
+    \vspace{0.7em}
+
+    \item For the one-dimensional case with \(\gamma = 1\):
+    \[
+        K(x, x') = \exp\!\left(-(x - x')^2\right)
+    \]
+    \[
+        = \exp(-x^2)\,\exp(-x'^2)\,\exp(2xx')
+    \]
+    \[
+        = \textcolor{red}{\exp(-x^2)} \;
+          \textcolor{magenta}{\exp(-x'^2)} 
+          \sum_{k=0}^{\infty} 
+          \frac{\textcolor{green!50!black}{(2xx')^k}}{\textcolor{green!50!black}{k!}}
+    \]
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------slide47
+\begin{frame}{Some Common Kernel Functions}
+
+\begin{itemize}
+    \item Linear kernel:
+    \[
+        K(\mathbf{x}, \mathbf{x}') = \mathbf{x}^{\top}\mathbf{x}'
+    \]
+    
+    \vspace{0.5em}
+
+    \item Polynomial kernel:
+    \[
+        K(\mathbf{x}, \mathbf{x}') = (\mathbf{x}^{\top}\mathbf{x}' + 1)^{M}
+    \]
+    
+    \vspace{0.5em}
+
+    \item Gaussian (RBF) kernel:
+    \[
+        K(\mathbf{x}, \mathbf{x}') = 
+        \exp\!\left(-\frac{\|\mathbf{x} - \mathbf{x}'\|^{2}}{\gamma}\right)
+    \]
+    
+    \vspace{0.5em}
+
+    \item Sigmoid (tanh) kernel:
+    \[
+        K(\mathbf{x}, \mathbf{x}') = 
+        \tanh(a\,\mathbf{x}^{\top}\mathbf{x}' + b)
+    \]
+\end{itemize}
+
+\end{frame}
+
+%------------------------------------------slide48
+\begin{frame}{Kernel Formulation of SVM}
+
+Optimization problem:
+
+\[
+\max_{\boldsymbol{\alpha}} 
+\left[
+\sum_{n=1}^{N} \alpha_n 
+- \frac{1}{2} 
+\sum_{n=1}^{N}\sum_{m=1}^{N} 
+\alpha_n \alpha_m y_{n} y_{m} 
+K(\mathbf{x}_{n}, \mathbf{x}_{m})
+\right]
+\]
+
+\[
+\text{subject to:} \quad
+\sum_{n=1}^{N} \alpha_n y_{n} = 0,
+\quad
+0 \leq \alpha_n \leq C, 
+\quad n = 1, \ldots, N
+\]
+
+\vspace{1em}
+
+Equivalent quadratic form:
 \[
 \mathbf{Q} =
 \begin{bmatrix}
@@ -1136,85 +1358,96 @@ y_{N}y_{1}K(\mathbf{x}_{N}, \mathbf{x}_{1}) & \cdots & y_{N}y_{N}K(\mathbf{x}_{N
 
 \end{frame}
 
-%-----------------------------------------slide
-\begin{frame}{Gaussian kernel}
+%------------------------------------------slide49
+\begin{frame}{Gaussian (RBF) Kernel}
 
-     \textbf{Example:} SVM boundary for a Gaussian kernel
+\textbf{Example:} SVM decision boundary with a Gaussian kernel
+
+\begin{itemize}
+    \item Considers a Gaussian function centered around each training point:
+    \[
+        b + \sum_{\alpha_i > 0} \alpha_i y_i
+        \exp\!\left(-\frac{\|\mathbf{x} - \mathbf{x_i} \|^2}{\sigma}\right) = 0
+    \]
+    
+    \vspace{0.5em}
+    
+    \item An SVM with a Gaussian kernel can, in principle, classify \textit{any} training set.
     \begin{itemize}
-        \item Considers a Gaussian function around each data point.
-        \[
-        w_0 + \sum_{\alpha_i > 0} \alpha_i y^{(i)} 
-        \exp\left(-\frac{\|\mathbf{x} - \mathbf{x}^{(i)}\|^2}{\sigma}\right) = 0
-        \]
-        \item SVM + Gaussian Kernel can classify any arbitrary training set
+        \item The training error becomes zero as \(\sigma \to 0\).
         \begin{itemize}
-            \item Training error is zero when $\sigma \to 0$
-            \begin{itemize}
-                \item All samples become support vectors (likely overfitting)
-            \end{itemize}
+            \item In this case, all samples become support vectors — indicating potential \textbf{overfitting}.
         \end{itemize}
     \end{itemize}
+\end{itemize}
 
 \end{frame}
 
-%------------------------------------------------slide
-\begin{frame}{Hard margin Example}
+%------------------------------------------slide50
+\begin{frame}{Hard-Margin Example}
+
 \begin{center}
 \includegraphics[width=0.9\textwidth]{pic/hardmargin.png}
 \end{center}
 
-For narrow Gaussian (large  $\sigma$), even the protection of a large margin cannot suppress overfitting.
+\vspace{1em}
+
+For a \textbf{narrow Gaussian} (i.e., small \(\sigma\)), even maintaining a large margin cannot prevent overfitting.
 
 \end{frame}
 
-%-----------------------------------------slide
+%------------------------------------------slide51
+\begin{frame}{SVM with Polynomial and Gaussian Kernels}
 
-\begin{frame}
 \begin{columns}[T]
 
     \begin{column}{0.5\textwidth}
         \centering
-\quad SVM with a polynomial kernel of degree 3
+       \; SVM with a Polynomial Kernel (degree 3) \\
         \includegraphics[width=0.75\linewidth]{pic/nonlin3.png}
-\[
-{K}(x_i, x_i') = 
-\left( 1 + \sum_{j=1}^{p} x_{ij} x'_{ij} \right)^{d}
-\]
-
+        $
+        K(\mathbf{x}_i, \mathbf{x}_i') =
+        \left( 1 + \sum_{j=1}^{p} x_{ij} x'_{ij} \right)^{d}
+        $
     \end{column}
-
 
     \begin{column}{0.5\textwidth}
         \centering
-\quad \quad SVM with a radial kernel
-        \includegraphics[width=0.77\linewidth]{pic/nonlin4.png}
-\[
-{K}(x_i, x_i') = 
-\exp\left(-\gamma \sum_{j=1}^{p} (x_{ij} - x'_{ij})^2 \right)
-\]
-
-
+        \; \; \; \; SVM with a Radial Kernel \\
+        \includegraphics[width=0.77\linewidth]{pic/nonlin4.png} \\
+        $
+        K(\mathbf{x}_i, \mathbf{x}_i') =
+        \exp\!\left(-\gamma 
+        \sum_{j=1}^{p} (x_{ij} - x'_{ij})^{2}\right)
+        $
     \end{column}
-\end{columns} 
+
+\end{columns}
+
 \end{frame}
 
-%-----------------------------------------slide
-
-%------------------------------------------------slide
-\begin{frame}{SVM Gaussian kernel: Example}
+%------------------------------------------slide52
+\begin{frame}{SVM with a Gaussian (RBF) Kernel: Example}
 
 \[
-f(\mathbf{x}) = w_0 + \sum_{\alpha_i > 0} \alpha_i y^{(i)} 
-\exp\left(-\frac{\|\mathbf{x} - \mathbf{x}^{(i)}\|^2}{2\sigma^2}\right)
+f(\mathbf{x}) 
+= w_0 
++ \sum_{\alpha_i > 0} 
+\alpha_i y^{(i)} 
+\exp\!\left(
+    -\frac{\|\mathbf{x} - \mathbf{x}^{(i)}\|^2}{2\sigma^2}
+\right)
 \]
 
+\vspace{1em}
+
 \begin{center}
-\includegraphics[width=0.6\textwidth]{pic/kernel.png}
+\includegraphics[width=0.5\textwidth]{pic/kernel.png}
 \end{center}
 
 \end{frame}
 
-%------------------------------------------------slide
+%------------------------------------------slide53
 \begin{frame}{SVM Gaussian kernel: Example}
 
 \begin{center}
@@ -1223,18 +1456,18 @@ f(\mathbf{x}) = w_0 + \sum_{\alpha_i > 0} \alpha_i y^{(i)}
 
 \end{frame}
 
-%------------------------------------------------slide
+%------------------------------------------slide54
 
-\begin{frame}{SVM Gaussian kernel: Example}
+\begin{frame}{SVM Gaussian Kernel: Example}
 
 \begin{center}
 \includegraphics[width=0.7\textwidth]{pic/kernel2.png}
 \end{center}
 
 \end{frame}
-%------------------------------------------------slide
 
-\begin{frame}{SVM Gaussian kernel: Example}
+%------------------------------------------slide55
+\begin{frame}{SVM Gaussian Kernel: Example}
 
 \begin{center}
 \includegraphics[width=0.7\textwidth]{pic/kernel3.png}
@@ -1242,8 +1475,8 @@ f(\mathbf{x}) = w_0 + \sum_{\alpha_i > 0} \alpha_i y^{(i)}
 
 \end{frame}
 
-%------------------------------------------------slide
-\begin{frame}{SVM Gaussian kernel: Example}
+%------------------------------------------slide56
+\begin{frame}{SVM Gaussian Kernel: Example}
 
 \begin{center}
 \includegraphics[width=0.7\textwidth]{pic/kernel4.png}
@@ -1251,51 +1484,23 @@ f(\mathbf{x}) = w_0 + \sum_{\alpha_i > 0} \alpha_i y^{(i)}
 
 \end{frame}
 
-%------------------------------------------------slide
-
-\begin{frame}{SVM Gaussian kernel: Example}
+%------------------------------------------slide57
+\begin{frame}{SVM Gaussian Kernel: Example}
 
 \begin{center}
 \includegraphics[width=0.7\textwidth]{pic/kernel5.png}
 \end{center}
 
 \end{frame}
-%------------------------------------------------slide
-\begin{frame}{SVM Gaussian kernel: Example}
+%------------------------------------------slide58
+\begin{frame}{SVM Gaussian Kernel: Example}
 
 \begin{center}
 \includegraphics[width=0.7\textwidth]{pic/kernel6.png}
 \end{center}
 
 \end{frame}
-
-
-%------------------------------------------------slide
-
-
-%------------------------------------------------slide
-\begin{frame}{Some Common Tasks}
-        \begin{itemize}
-            \item \textbf{Clustering}: Grouping data points into clusters based on similarity.
-            \item \textbf{Dimensionality Reduction}: Reducing the number of features under consideration and keeping (perhaps approximately) the most informative features.
-            
-        \item \textbf{Anomaly Detection}: Identifying data points that deviate significantly from the norm (e.g., fraud detection).
-
-    \item \textbf{Generative Modeling}: Learning the distribution of data to generate new, similar instances.
-        \end{itemize}
-\end{frame}
-
-
-% \begin{frame}{References}
-%     \begin{itemize}
-%         \item \cite{M2006-mk}
-%         \item \cite{MITNeuroscienceLecture2014}
-%         \item \cite{SontagMLLecture2012}
-%         \item \cite{soleymaniMLCourse}
-        
-%     \end{itemize}
-% \end{frame}
-
+%------------------------------------------slide59
 \begin{frame}{Contributions}
 \begin{itemize}
 \item \textbf{This slide has been prepared thanks to:}
