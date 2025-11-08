@@ -23,6 +23,9 @@
 \usepackage{pgfplots}  % For plots
 \usepackage{amsmath}   % For equations
 \usepackage{array}     % For tables
+% in your preamble (once)
+\usepackage{booktabs,tabularx,makecell}
+\renewcommand\theadfont{\normalsize\bfseries}
 \pgfplotsset{compat=1.16}
 
 % \usetikzlibrary{positioning}
@@ -79,20 +82,6 @@
 % ============================ Introduction ============================ 
 \section{Introduction}
 
-\begin{frame}{Perceptron Reminder}
-	\begin{picture}(0,0)
-		\put(200,-150){\includegraphics[width=7cm]{pic/1/neuron.png}}
-	\end{picture}
-	The building block of each neural network is the perceptron:
-	\begin{itemize}
-		\item $\{x_1, x_2, \dots, x_k\}$ : input features
-		\item $\{w_1, w_2, \dots, w_k\}$ : feature weights
-		\item $b$ : bias term
-		\item $\sigma(\cdot)$ : activation function
-		\item $y$ : output of the neuron
-	\end{itemize}
-\end{frame}
-
 \begin{frame}{Why Neural Networks?}
 	\begin{itemize}
 		\item We can find explicit formulas for some problems (no machine learning)
@@ -125,8 +114,73 @@
 \end{frame}
 
 
+\begin{frame}{Modelling the Brain}
+    \centering
+    \includegraphics[width=7cm]{pic/1/brain_neuron.png}
+	\begin{itemize}
+		\item Building units are neurons.
+		\item \textbf{Dendrite:} Receives signals from other neurons neurons.
+		\item \textbf{Soma:} Processes the information
+        \item \textbf{Axon:} Transmits the output of this neuron
+        \item \textbf{Synapse:} Point of connection to other neurons
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{McCulloch-Pitts Neurons}
+    \centering
+	\includegraphics[width=10cm]{pic/1/MP_neuron.png}
+	\begin{equation*}
+	    y = 
+	    \begin{cases}
+            1 & \text{if } \sum_i {w_i x_i} - T \ge 0 \\
+            0 & \text{otherwise.}
+        \end{cases}
+	\end{equation*}
+\end{frame}
+
+
+\begin{frame}{Perceptron Reminder}
+    \begin{minipage}{0.5\textwidth}
+        The building block of each neural network is the perceptron:
+        \begin{itemize}
+            \item $\{x_1, x_2, \dots, x_k\}$ : input features
+            \item $\{w_1, w_2, \dots, w_k\}$ : feature weights
+            \item $b$ : bias term
+            \item $\sigma(\cdot)$ : activation function
+            \item $y$ : output of the neuron
+        \end{itemize}
+    \end{minipage}%
+    \begin{minipage}{0.5\textwidth}
+        \begin{figure}[htp]
+            \centering
+            \begin{subfigure}{\textwidth}
+                \includegraphics[width=6cm]{pic/1/neuron.png}
+            \end{subfigure}
+            
+            \skip
+            
+            \begin{subfigure}{\textwidth}
+                \includegraphics[width=4cm]{pic/1/perceptron_plot.png}
+            \end{subfigure}
+            
+            \caption{Main caption}
+        \end{figure}
+    \end{minipage}
+\end{frame}
+
+
+
 % ============================ Multi-Layer Perceptron (MLP) ============================ 
 \section{Multi-Layer Perceptron (MLP)}
+
+\begin{frame}{Example: Perceptron as a Boolean Gate}
+    \centering
+    \includegraphics[width=14cm]{pic/2/boolean_operator.png}
+	\begin{itemize}
+		\item A perceptron can model any simple binary Boolean gate.
+		\item MLPs are universal Boolean functions.
+	\end{itemize}
+\end{frame}
 
 \begin{frame}{Example: MLP for Complex Patterns}
 	\begin{itemize}
@@ -178,12 +232,66 @@
 
 
 \begin{frame}{Example: MLP for Complex Patterns Cont.}
-	\begin{figure}[htpb]
-		\begin{center}
-			\includegraphics[keepaspectratio, scale=0.25]{pic/2/ex6.png}
-		\end{center}
-	\end{figure}
+    \begin{figure}[!htb]
+        \minipage{0.5\textwidth}
+          \includegraphics[width=\linewidth]{pic/2/ex6.png}
+        \endminipage\hfill
+        \minipage{0.5\textwidth}
+          \includegraphics[width=\linewidth]{pic/2/ex7.png}
+        \endminipage
+    \end{figure}
 \end{frame}
+
+
+
+% in your frame
+\begin{frame}{Neural Networks for Region Classification}
+\footnotesize
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+
+\begin{table}
+  \centering
+  \begin{tabular}{%
+    >{\raggedright\arraybackslash}p{.22\linewidth}%
+    >{\raggedright\arraybackslash}p{.22\linewidth}%
+    >{\raggedright\arraybackslash}p{.34\linewidth}%
+    >{\centering\arraybackslash}p{.16\linewidth}%
+  }
+    \toprule
+    \thead{Layer Type} & \thead{Decision Region} & \thead{Interpretation} & \thead{Visualization} \\
+    \midrule
+    Single layer (perceptron) 
+      & Half-space 
+      & Linear separator defined by a hyperplane $w^\top x + b = 0$
+      & \raisebox{-0.5\height}{\includegraphics[height=0.9cm]{pic/1/perceptron_plot.png}} \\
+    Two layers (1 hidden) 
+      & Closed, convex regions 
+      & Intersections of half-spaces $\Rightarrow$ convex polytopes 
+      & \raisebox{-0.5\height}{\includegraphics[height=0.9cm]{pic/2/ex7.png}} \\
+    Three layers (2+ hidden) 
+      & Arbitrary (finite unions) 
+      & Union of polytopes; universal approximation of regions 
+      & \raisebox{-0.5\height}{\includegraphics[height=0.9cm]{pic/5/polytopes.png}} \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\end{frame}
+
+
+
+
+\begin{frame}{Example: Composing Neural Networks.}
+    \begin{figure}[!htb]
+        \minipage{0.5\textwidth}
+          \includegraphics[width=\linewidth]{pic/5/nn_ex1.png}
+        \endminipage\hfill
+        \minipage{0.5\textwidth}
+          \includegraphics[width=\linewidth]{pic/5/nn_ex2.png}
+        \endminipage
+    \end{figure}
+\end{frame}
+
 
 \begin{frame}{MLP Capacity}
 	\begin{columns}
@@ -206,20 +314,21 @@
 
 
 % ============================ Neural Networks ============================ 
+
+
+
 \section{Neural Networks}
 \begin{frame}{Single Hidden Layer Neural Network}
-	\minipage{.5\textwidth}
+	\minipage{.58\textwidth}
 	\begin{itemize}
-		\item Hidden layer pre-activation:
-		      $$a_i(x) = b^{(1)}_i + \sum_j W^{(1)}_{ij} \cdot x_j$$
-		\item Activated hidden layer:
-		      $$h(x) = \sigma^{(1)}(a(x))$$
-		\item Output layer:
-		      $$ o(x) = \sigma^{(2)}\left(b^{(2)} + W^{(2)}h^{(1)}(x) \right) $$
+		\item Hidden layer pre-activation: $$a_i(x) = b^{(1)}_i + \sum_j W^{(1)}_{ij} \cdot x_j$$
+		\item Weight between neuron $i$ and $j$ in layer $\ell$: \(W^{(\ell)}_{ij}\)
+		\item Activated hidden layer: $$h(x) = \sigma^{(1)}(a(\mathbb{x}))$$
+		\item Output layer: $$ o(\mathbb{x}) = \sigma^{(2)}\left(\mathbb{b}^{(2)} + \mathbb{W}^{(2)}h^{(1)}(\ma\mathbb{x}) \right) $$
 	\end{itemize}
 	\endminipage
 	\hfill
-	\minipage{.48\textwidth}
+	\minipage{.4\textwidth}
 	\begin{figure}[bh]
 		\includegraphics[width=\linewidth]{pic/2/single-hidden_nn.png}
 	\end{figure}
@@ -281,6 +390,91 @@
 		\end{column}
 	\end{columns}
 \end{frame}
+
+% ============================ Training Neural Networks ============================ 
+\section{Neural Networks as Universal Approximators}
+
+\begin{frame}{Universal Approximation Theorem}
+	\textbf{Key Concept}
+	\begin{itemize}
+		\item The Universal Approximation Theorem states that a feedforward neural network with:
+		\begin{itemize}
+			\item A single hidden layer
+			\item Sufficient number of hidden neurons
+			\item Appropriate activation functions (e.g., sigmoid)
+		\end{itemize}
+		Can approximate any continuous function on a \textbf{compact subset} of $\mathbb{R}^n$ to any desired accuracy.
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}{Understanding Compact Sets}
+	\textbf{What is a Compact Set?}
+	\begin{itemize}
+		\item In the context of the Universal Approximation Theorem, approximation is guaranteed on a \textbf{compact subset} of $\mathbb{R}^n$.
+		\item A set is compact if it is both:
+		\begin{itemize}
+			\item \textbf{Bounded}: Enclosed within a finite space.
+			\item \textbf{Closed}: Contains all its boundary points.
+		\end{itemize}
+		\item Compact sets ensure certain mathematical properties that enable reliable function approximation by the MLP within that region.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Breaking Down Complex Functions}
+	\begin{itemize}
+		\item Idea: Complex functions can be decomposed into multiple smaller parts, each represented by a simpler function.
+		\item By combining a series of simpler functions (like square pulses), the target function can be closely approximated.
+	\end{itemize}
+
+		\begin{figure}[h!]
+		\centering
+		\begin{minipage}{0.43\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{pic/5/approximator-1.png}
+			\label{fig:fig1}
+		\end{minipage} \hfill
+		%		\hspace{0.02\textwidth} % Space before the line
+		%		\vrule width 0.5pt % Thickness of the line
+		%		\hspace{0.02\textwidth} % Space after the line
+		\begin{minipage}{0.44\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{pic/5/approximator-2.png}
+			\label{fig:fig2}
+		\end{minipage}
+	\end{figure}
+	
+	\vfill
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+			\tiny Figure adapted from Niranjan Kumar, Illustrative Proof of Universal Approximation Theorem
+		};
+	\end{tikzpicture}
+	
+\end{frame}
+
+\begin{frame}{MLPs as Universal Approximators}
+	\begin{itemize}
+		\item By constructing a series of these \texttt{Square Pulse} functions, we can approximate any continuous function mapping from input to output.
+		\item A simple 3-unit MLP with a summing output unit can generate a square pulse.
+		\item Therefore, an MLP with enough units and the right configuration is a universal approximator!
+		
+	\end{itemize}
+	
+	 \begin{figure}
+		        \includegraphics[width=0.38\textwidth]{pic/5/Puls-Generator.png}
+		        \label{fig:puls}
+	\end{figure}
+
+	 \vfill
+	 \begin{tikzpicture}[remember picture,overlay]
+		        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
+			            \tiny Figure adapted from Dr. Mahdieh Soleymani Baghshah, Deep Learning Course
+			        };
+	  \end{tikzpicture}
+	
+\end{frame}
+
 
 % ============================ Training Neural Networks ============================ 
 \section{Training Neural Networks}
