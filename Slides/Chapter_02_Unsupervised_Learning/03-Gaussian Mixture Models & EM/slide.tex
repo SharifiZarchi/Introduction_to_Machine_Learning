@@ -1,0 +1,329 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Gaussian Mixture Models & EM Algorithm Slides
+% Sharif Beamer Template (final full version, 30 slides)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[serif, aspectratio=169]{beamer}
+\usepackage[T1]{fontenc}
+\usepackage{fourier}
+\usepackage{hyperref}
+\usepackage{latexsym,amsmath,amssymb,xcolor,multicol,booktabs,calligra}
+\usepackage{graphicx,pstricks,listings,stackengine}
+\usepackage{algorithm, algpseudocode, mathtools}
+\usepackage{tikz}
+
+\author{Ali Sharifi-Zarchi}
+\title{Gaussian Mixture Models and the EM Algorithm}
+\subtitle{Machine Learning (CE 40717) — Spring 2025}
+\institute{CE Department \\ Sharif University of Technology}
+\usepackage{SUTstyle}
+
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{RGB}{153,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+\definecolor{halfgray}{gray}{0.55}
+\DeclareMathOperator*{\argmax}{argmax}
+\DeclareMathOperator*{\argmin}{argmin}
+
+\lstset{
+  basicstyle=\ttfamily\small,
+  keywordstyle=\bfseries\color{deepblue},
+  emphstyle=\ttfamily\color{deepred},
+  stringstyle=\color{deepgreen},
+  numbers=left,
+  numberstyle=\tiny\color{halfgray},
+  frame=shadowbox,
+}
+
+\begin{document}
+
+% Title slide
+\begin{frame}
+  \titlepage
+  \vspace*{-0.6cm}
+  \centering\includegraphics[scale=0.25]{pic/sharif-main-logo.png}
+\end{frame}
+
+\begin{frame}
+  \tableofcontents[sectionstyle=show, subsectionstyle=show/shaded/hide]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Overview}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Mixture Models}
+  \[
+  \mathbb{P}(\mathbf{x}\mid\boldsymbol{\theta}) = 
+  \sum_{j=1}^{K} \pi_j \, \mathbb{P}(\mathbf{x}\mid z=j; \boldsymbol{\theta}_j),
+  \qquad 0\le\pi_j\le1,\ \sum_j \pi_j = 1
+  \]
+  Gaussian Mixture Model (GMM):
+  \[
+  \mathbb{P}(\mathbf{x}) = 
+  \sum_{j=1}^{K} \pi_j \, \mathcal{N}(\mathbf{x}\mid\boldsymbol{\mu}_j,\boldsymbol{\Sigma}_j),
+  \]
+  where
+  \[
+  \mathcal{N}(\mathbf{x}\mid\boldsymbol{\mu},\boldsymbol{\Sigma})
+  =\frac{1}{(2\pi)^{d/2}|\boldsymbol{\Sigma}|^{1/2}}
+  \exp\!\Big(-\tfrac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\top
+  \boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\Big).
+  \]
+\end{frame}
+
+\begin{frame}{Why GMMs?}
+  \begin{itemize}
+    \item Can model multi-modal densities beyond k-means.
+    \item Provide a probabilistic generative framework.
+    \item Parameters: 
+    \(\boldsymbol{\theta}=\{\pi_j,\boldsymbol{\mu}_j,\boldsymbol{\Sigma}_j\}_{j=1}^K\).
+    \item Maximum likelihood has no closed-form → use EM.
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{GMM Examples}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{1-D GMM Examples}
+  \centering
+  \begin{tabular}{cc}
+    \includegraphics[width=0.42\linewidth]{pic/GMM_1-D_Example(1).png} &
+    \includegraphics[width=0.42\linewidth]{pic/GMM_1-D_Example(2).png} \\
+    (1) & (2)
+  \end{tabular}
+\end{frame}
+
+\begin{frame}{2-D GMM Examples}
+  \centering
+  \begin{tabular}{cc}
+    \includegraphics[width=0.42\linewidth]{pic/GMM_2-D_Example(1).png} &
+    \includegraphics[width=0.42\linewidth]{pic/GMM_2-D_Example(2).png} \\
+    (1) & (2)
+  \end{tabular}
+\end{frame}
+
+\begin{frame}{EM \& GMM Examples (Set 1)}
+  \centering
+  \begin{tabular}{ccc}
+    \includegraphics[width=0.30\linewidth]{pic/EM_&_GMM_Example(1)(a).png} &
+    \includegraphics[width=0.30\linewidth]{pic/EM_&_GMM_Example(1)(b).png} &
+    \includegraphics[width=0.30\linewidth]{pic/EM_&_GMM_Example(1)(c).png} \\
+    (a) & (b) & (c)
+  \end{tabular}
+\end{frame}
+
+\begin{frame}{EM \& GMM Examples (Set 2)}
+  \centering
+  \begin{tabular}{ccc}
+    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example(2)(a).png} &
+    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example(2)(b).png} &
+    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example(2)(c).png} \\
+    (a) & (b) & (c) \\
+    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example(2)(d).png} &
+    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example(2)(e).png} &
+    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example(2)(f).png} \\
+    (d) & (e) & (f)
+  \end{tabular}
+\end{frame}
+
+\begin{frame}{EM \& GMM Iterations}
+  \centering
+  \begin{tabular}{cccc}
+    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example_Iteration1.png} &
+    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example_Iteration2.png} &
+    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example_Iteration5.png} &
+    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example_Iteration25.png} \\
+    Iter 1 & Iter 2 & Iter 5 & Iter 25
+  \end{tabular}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Learning and EM}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Maximum Likelihood for GMM}
+  Given data \(\mathcal{X}=\{\mathbf{x}^{(i)}\}_{i=1}^N\):
+  \[
+  \ell(\boldsymbol{\theta})=
+  \ln \mathbb{P}(\mathcal{X}\mid\boldsymbol{\theta})
+  =\sum_{i=1}^N \ln
+  \Big(\sum_{j=1}^K \pi_j\,
+  \mathcal{N}(\mathbf{x}^{(i)}\mid\boldsymbol{\mu}_j,\boldsymbol{\Sigma}_j)\Big).
+  \]
+  No closed form due to the inner summation inside the log.
+\end{frame}
+
+\begin{frame}{Complete-data Likelihood}
+  Introduce latent variables \(Z=\{z^{(i)}\}\):
+  \[
+  \mathbb{P}(\mathcal{X},Z\mid\boldsymbol{\theta})
+  =\prod_{i=1}^N\prod_{j=1}^K
+  \big[\pi_j\mathcal{N}(\mathbf{x}^{(i)}\mid\boldsymbol{\mu}_j,\boldsymbol{\Sigma}_j)\big]^{z_j^{(i)}}.
+  \]
+  Thus:
+  \[
+  \ln\mathbb{P}(\mathcal{X},Z\mid\boldsymbol{\theta})
+  =\sum_{i=1}^N\sum_{j=1}^K z_j^{(i)}
+  \Big(\ln\pi_j+\ln\mathcal{N}(\mathbf{x}^{(i)}\mid\boldsymbol{\mu}_j,\boldsymbol{\Sigma}_j)\Big).
+  \]
+\end{frame}
+
+\begin{frame}{E-step: Responsibilities}
+  \[
+  \gamma_j^{(i)}=
+  \mathbb{P}(z^{(i)}=j\mid\mathbf{x}^{(i)},\boldsymbol{\theta}^{(t)})
+  =\frac{\pi_j^{(t)}\mathcal{N}(\mathbf{x}^{(i)}\mid\boldsymbol{\mu}_j^{(t)},\boldsymbol{\Sigma}_j^{(t)})}
+  {\sum_{k=1}^K\pi_k^{(t)}\mathcal{N}(\mathbf{x}^{(i)}\mid\boldsymbol{\mu}_k^{(t)},\boldsymbol{\Sigma}_k^{(t)})}.
+  \]
+  Interpretation: soft assignment of each \(\mathbf{x}^{(i)}\) to component \(j\).
+\end{frame}
+
+\begin{frame}{M-step: Maximization of Expected Log-likelihood}
+  Define expected complete log-likelihood:
+  \[
+  Q(\boldsymbol{\theta};\boldsymbol{\theta}^{(t)})
+  =\mathbb{E}_{Z\mid\mathcal{X},\boldsymbol{\theta}^{(t)}}[\ln \mathbb{P}(\mathcal{X},Z\mid\boldsymbol{\theta})].
+  \]
+  Substitute expectations:
+  \[
+  Q(\boldsymbol{\theta};\boldsymbol{\theta}^{(t)})
+  =\sum_{i=1}^N\sum_{j=1}^K\gamma_j^{(i)}
+  \Big(\ln\pi_j+\ln\mathcal{N}(\mathbf{x}^{(i)}\mid\boldsymbol{\mu}_j,\boldsymbol{\Sigma}_j)\Big).
+  \]
+\end{frame}
+
+\begin{frame}{Update for \(\boldsymbol{\mu}_j\)}
+  Maximize \(Q\) w.r.t.\ \(\boldsymbol{\mu}_j\):
+  \[
+  \frac{\partial Q}{\partial \boldsymbol{\mu}_j}
+  =\sum_{i=1}^N\gamma_j^{(i)}\boldsymbol{\Sigma}_j^{-1}
+  (\mathbf{x}^{(i)}-\boldsymbol{\mu}_j)=0
+  \]
+  giving:
+  \[
+  \boldsymbol{\mu}_j^{\text{new}}=
+  \frac{1}{N_j}\sum_{i=1}^N\gamma_j^{(i)}\mathbf{x}^{(i)},
+  \qquad N_j=\sum_{i=1}^N\gamma_j^{(i)}.
+  \]
+\end{frame}
+
+\begin{frame}{Update for \(\boldsymbol{\Sigma}_j\)}
+  \[
+  \boldsymbol{\Sigma}_j^{\text{new}}
+  =\frac{1}{N_j}\sum_{i=1}^N\gamma_j^{(i)}
+  (\mathbf{x}^{(i)}-\boldsymbol{\mu}_j^{\text{new}})
+  (\mathbf{x}^{(i)}-\boldsymbol{\mu}_j^{\text{new}})^\top.
+  \]
+  (In practice add small \(\epsilon I\) for numerical stability.)
+\end{frame}
+
+\begin{frame}{Update for \(\pi_j\)}
+  Maximize under \(\sum_j\pi_j=1\):
+  \[
+  \pi_j^{\text{new}}=\frac{N_j}{N}.
+  \]
+  Using Lagrange multiplier ensures normalization.
+\end{frame}
+
+\begin{frame}{Algorithm Summary}
+  \begin{algorithm}[H]
+  \caption{EM for Gaussian Mixture Models}
+  \begin{algorithmic}[1]
+    \State Initialize \(\{\pi_j^{(0)},\boldsymbol{\mu}_j^{(0)},\boldsymbol{\Sigma}_j^{(0)}\}\)
+    \Repeat
+      \State \textbf{E-step:} Compute \(\gamma_j^{(i)}\)
+      \State \textbf{M-step:} Update parameters as above
+    \Until{log-likelihood convergence}
+  \end{algorithmic}
+  \end{algorithm}
+\end{frame}
+
+\begin{frame}{Variational View of EM}
+  \[
+  \ln \mathbb{P}(\mathcal{X}\mid\boldsymbol{\theta})
+  = F(\boldsymbol{\theta},Q)+
+  \mathrm{KL}(Q(Z)\,\|\,\mathbb{P}(Z\mid\mathcal{X},\boldsymbol{\theta})),
+  \]
+  where
+  \[
+  F(\boldsymbol{\theta},Q)
+  =\sum_Z Q(Z)\ln
+  \frac{\mathbb{P}(\mathcal{X},Z\mid\boldsymbol{\theta})}{Q(Z)}.
+  \]
+  EM maximizes \(F\) alternately over \(Q\) and \(\boldsymbol{\theta}\).
+\end{frame}
+
+\begin{frame}{EM Monotonicity}
+  \[
+  \ln \mathbb{P}(\mathcal{X}\mid\boldsymbol{\theta}^{(t+1)})
+  \ge F(\boldsymbol{\theta}^{(t+1)},Q)
+  \ge F(\boldsymbol{\theta}^{(t)},Q)
+  =\ln \mathbb{P}(\mathcal{X}\mid\boldsymbol{\theta}^{(t)}).
+  \]
+  Thus the likelihood never decreases.
+\end{frame}
+
+\begin{frame}{Practical Notes}
+  \begin{itemize}
+    \item Initialization via k-means.
+    \item Regularize \(\boldsymbol{\Sigma}_j \leftarrow \boldsymbol{\Sigma}_j+\epsilon I\).
+    \item Convergence: monitor \(\Delta\ell<10^{-6}\).
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Convergence and Comparison}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Convergence and Local Optima}
+  \begin{itemize}
+    \item EM converges to a stationary (local) optimum.
+    \item Run multiple initializations.
+  \end{itemize}
+  \centering
+  \begin{tabular}{cc}
+    \includegraphics[width=0.42\linewidth]{pic/concave.png} &
+    \includegraphics[width=0.42\linewidth]{pic/convex.png} \\
+    (Left) Concave function & (Right) Convex function
+  \end{tabular}
+\end{frame}
+
+\begin{frame}{k-means vs EM+GMM}
+  \begin{itemize}
+    \item k-means: hard assignments, equal variance clusters.
+    \item EM: soft probabilistic assignments.
+    \item EM generalizes k-means when covariances are isotropic.
+  \end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Summary}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Summary}
+  \begin{itemize}
+    \item GMM = flexible probabilistic mixture model.
+    \item EM = iterative ML method with guaranteed non-decrease.
+    \item Use careful initialization and covariance regularization.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{References}
+  \begin{itemize}
+    \item C. M. Bishop, \textit{Pattern Recognition and Machine Learning}, Ch. 9.
+    \item Lecture slides: Hamid R. Rabiee \& Zahra Dehghanian, Spring 2025.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Contributions}
+  \begin{itemize}
+    \item \textbf{This slide deck was prepared thanks to:}
+    \begin{itemize}
+      \item \href{https://github.com/soheilsayahvarg}{Soheil Sayah Varg}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\end{document}
