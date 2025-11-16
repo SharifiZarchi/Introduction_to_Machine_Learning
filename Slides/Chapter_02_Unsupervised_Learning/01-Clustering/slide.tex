@@ -111,96 +111,228 @@
 subsectionstyle=show/shaded/hide,
 subsubsectionstyle=show/shaded/hide]
 \end{frame}
+%--------------------------------------------------slide1
+\section{Clustering Overview}
+%--------------------------------------------------slide2
+\begin{frame}{Supervised vs Unsupervised Learning}
 
-\section{Unsupervised Learning Overview}
-\begin{frame}{Unsupervised Learning}
-    
-    \begin{itemize}
-        \item\textbf{Unsupervised Learning} involves analyzing unlabeled data to uncover hidden patterns or structures within the data
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Some Common Tasks}
-        \begin{itemize}
-            \item \textbf{Clustering}: Grouping data points into clusters based on similarity.
-            \item \textbf{Dimensionality Reduction}: Reducing the number of features under consideration and keeping (perhaps approximately) the most informative features.
-            
-        \item \textbf{Anomaly Detection}: Identifying data points that deviate significantly from the norm (e.g., fraud detection).
-
-    \item \textbf{Generative Modeling}: Learning the distribution of data to generate new, similar instances.
-        \end{itemize}
-\end{frame}
-
-\begin{frame}{Clustering}
-
-        \begin{itemize}
-        \item Clustering organizes data points into groups of similar objects.
-\item Data points in a cluster are more similar to each other than to those in other clusters.
-\item The notion of similarity depends on the task at hand (e.g., purchase behavior in market segmentation).
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Some Applications of Clustering}
 \begin{itemize}
-    \item Customer Segmentation (Marketing)
-    \item Image Segmentation and Object Detection (Computer Vision)
-    \item Anomaly Detection (Cybersecurity, Finance)
-    \item Genomics and Bioinformatics
-    \item Social Network Analysis and Community Detection
+
+\item \textbf{Supervised learning}:  
+Given $(\mathbf{x}_i, y_i), \; i = 1, \ldots, n$, learn a function  
+\[
+f : X \rightarrow Y.
+\]
+
+\begin{itemize}
+    \item Categorical $Y$: classification
+    \item Continuous $Y$: regression
+\end{itemize}
+
+\item \textbf{Unsupervised learning}:  
+Given only $(\mathbf{x}_i), \; i = 1, \ldots, n$, can we infer the underlying structure of $X$?
+\begin{itemize}
+\item Involves analyzing unlabeled data to uncover hidden patterns or structures within the data.
+\end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+%--------------------------------------------------slide3
+\begin{frame}{Supervised vs Unsupervised Learning}
+
+\begin{itemize}
+
+\item \textbf{Supervised Learning}
+    \begin{itemize}
+        \item \textit{Classification}: partition examples into groups according to pre-defined categories.
+        \item \textit{Regression}: assign values to feature vectors.
+        \item Requires labeled data for training.
+    \end{itemize}
+
+\item \textbf{Unsupervised Learning}
+    \begin{itemize}
+        \item \textit{Clustering}: partition examples into groups when no pre-defined categories/classes are available.
+        \item \textit{Novelty detection}: find changes in data.
+        \item \textit{Outlier detection}: find unusual events (e.g., hackers).
+        \item Requires only instances, with no labels.
+    \end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+%--------------------------------------------------slide4
+\begin{frame}{Some Common Tasks}
+    \begin{itemize}
+        \item \textbf{Clustering}: grouping data points into clusters based on similarity.
+        
+        \item \textbf{Dimensionality Reduction}: reducing the number of features under consideration and keeping (perhaps approximately) the most informative ones.
+        
+        \item \textbf{Anomaly Detection}: identifying data points that deviate significantly from the norm (e.g., fraud detection).
+        
+        \item \textbf{Generative Modeling}: learning the distribution of data to generate new, similar instances.
+    \end{itemize}
+\end{frame}
+
+%--------------------------------------------------slide5
+\begin{frame}{Clustering}
+ \begin{itemize}
+     \item Clustering organizes data points into groups of similar objects.
+     \item Data points within a cluster are more similar to each other than to those in other clusters.
+     \item The notion of similarity depends on the task at hand (e.g., purchase behavior in market segmentation).
+ \end{itemize}
+\end{frame}
+
+%--------------------------------------------------slide6
+\begin{frame}{Clustering}
+\begin{itemize}
+
+\item \textbf{Goal:} automatically segment data into groups of similar points.
+
+\item \textbf{Question:} when and why would we want to do this?
+
+\item \textbf{Useful for:}
+\begin{itemize}
+    \item Automatically organizing data.
+    \item Understanding hidden structure in data.
+    \item Representing high-dimensional data in a low-dimensional space.
+\end{itemize}
+
+\item \textbf{Some Applications of Clustering:}
+\begin{itemize}
+    \item Customer segmentation (marketing).
+    \item Image segmentation and object detection (computer vision).
+    \item Anomaly detection (cybersecurity, finance).
+    \item Genomics and bioinformatics.
+    \item Social network analysis and community detection.
+\end{itemize}
+
 \end{itemize}
 \end{frame}
 
+%--------------------------------------------------slide7
+\begin{frame}{Clustering Set-up}
 
-\begin{frame}{Clustering in Action: Music Recommendation Systems }
+\begin{itemize}
+
+\item Our data are  
+\[
+D = \{ \mathbf{x}_1, \ldots, \mathbf{x}_N \}.
+\]
+
+\item Each data point is $p$-dimensional, i.e.,  
+\[
+\mathbf{x}_n = \langle x_{n,1}, \ldots, x_{n,p} \rangle.
+\]
+
+\item Define a \textit{distance function} between data,  
+\[
+d(\mathbf{x}_n, \mathbf{x}_m).
+\]
+
+\item Goal: segment the data into $K$ groups:  
+\[
+\{ z_1, \ldots, z_N \} \quad \text{where } z_i \in \{1, \ldots, K\}.
+\]
+
+\end{itemize}
+
+\end{frame}
+
+%--------------------------------------------------slide8
+\begin{frame}{Clustering in Action: Music Recommendation Systems}
 \begin{itemize}
     \item Music recommendation systems cluster songs based on similarity.
-    % \item Fun little exercise to build a simple system at \href{https://machinelearninggeek.com/spotify-song-recommender-system-in-python/}{machinelearninggeek.com}, after finishing this chapter.
+    % \item Fun exercise: build a simple system at \href{https://machinelearninggeek.com/spotify-song-recommender-system-in-python/}{machinelearninggeek.com} after finishing this chapter.
 \end{itemize}
-  
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.3]{pic/figs/image-4.png}
-        {\scriptsize Adopted from \href{https://machinelearninggeek.com/spotify-song-recommender-system-in-python/}{machinelearninggeek.com}}
-        
-    \end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.3]{pic/figs/image-4.png} \\
+    {\scriptsize Adopted from \href{https://machinelearninggeek.com/spotify-song-recommender-system-in-python/}{machinelearninggeek.com}}
+\end{figure}
 \end{frame}
 
-
-\begin{frame}{Clustering in Action: Music Recommendation Systems }
+%--------------------------------------------------slide9
+\begin{frame}{Clustering in Action: Music Recommendation Systems}
 \begin{itemize}
     \item When you like a song, the system suggests others from the same cluster.
-    
 \end{itemize}
 
-    \begin{figure}
-        \includegraphics[scale=0.4]{pic/figs/Music Clustering2.png}
-        \centering
-    \end{figure}
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.4]{pic/figs/Music Clustering2.png}
+\end{figure}
 
-        
 \end{frame}
 
+%--------------------------------------------------slide10
 \begin{frame}{Clustering in Action: Gene Expression Clustering}
 \begin{itemize}
     \item Clustering can decipher hidden patterns in gene expression data, which can help in understanding disease mechanisms or genetic variations.
 \end{itemize}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.35]{pic/figs/Unsupervised-hierarchical-clustering-analysis-of-gene-expression.png}
-         {\scriptsize Adopted from \href{https://www.researchgate.net/publication/334433467_Plasma_exosomes_from_children_with_juvenile_dermatomyositis_are_taken_up_by_human_aortic_endothelial_cells_and_are_associated_with_altered_gene_expression_in_those_cells}{www.researchgate.net}}
-        
-    \end{figure}
-    
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.35]{pic/figs/Unsupervised-hierarchical-clustering-analysis-of-gene-expression.png}\\
+    {\scriptsize Adopted from \href{https://www.researchgate.net/publication/334433467_Plasma_exosomes_from_children_with_juvenile_dermatomyositis_are_taken_up_by_human_aortic_endothelial_cells_and_are_associated_with_altered_gene_expression_in_those_cells}{www.researchgate.net}}
+\end{figure}
+
 \end{frame}
 
+%--------------------------------------------------slide11
 \begin{frame}{Two Beginning Questions}
     \begin{itemize}
 
-\item How to create 'good' clusters?
-\item How many clusters do we need?
+        \item How do we create “good” clusters?
+        \item How many clusters do we need?
 
     \end{itemize}
 \end{frame}
+
+%--------------------------------------------------slide12
+\begin{frame}{Clustering Techniques}
+    \centering
+    \includegraphics[width=0.8\textwidth]{pic/clustering.png} 
+\end{frame}
+
+\begin{frame}{Clustering Techniques}
+
+\begin{itemize}
+
+\item \textbf{Partitional} algorithms typically determine all clusters at once, but can
+also be used as divisive algorithms in hierarchical clustering.
+
+\item \textbf{Hierarchical} algorithms find successive clusters using previously
+established clusters. These algorithms can be either 
+\textbf{agglomerative} (“bottom–up”) or 
+\textbf{divisive} (“top–down”):
+
+\begin{itemize}
+    \item \textbf{Agglomerative algorithms} begin with each element as a separate cluster
+    and merge them into successively larger clusters.
+    \item \textbf{Divisive algorithms} begin with the whole set and proceed to divide it
+    into successively smaller clusters.
+\end{itemize}
+
+\item \textbf{Bayesian} algorithms try to generate an \textit{a posteriori distribution}
+over the collection of all partitions of the data.
+
+\end{itemize}
+
+\end{frame}
+
+%--------------------------------------------------slide13
+\begin{frame}{Clustering Techniques}
+        \centering
+     \includegraphics[width=0.8\textwidth]{pic/clustering2.png} 
+\end{frame}
+
+
+
+
 
 
 % \begin{frame}{Analysing the task}
@@ -217,15 +349,113 @@ subsubsectionstyle=show/shaded/hide]
 % \end{itemize}
 % \end{frame}
 
-\section{K-Means}
-\begin{frame}{K-Means overview}
+%--------------------------------------------------slide13
+\section{Partitional Clustering}
+
+%--------------------------------------------------slide14
+\begin{frame}{Partitioning Algorithms: Basic Concept}
+
+\begin{itemize}
+
+\item Construct a partition of a set of $N$ objects into a set of K clusters:
+    \begin{itemize}
+        \item The number of clusters K is given in advance.
+        \item Each object belongs to \textbf{exactly one} cluster in hard clustering methods.
+    \end{itemize}
+
+\item K-means is the most popular partitioning algorithm.
+
+\end{itemize}
+
+\end{frame}
+
+%--------------------------------------------------slide15
+\begin{frame}{Objective Based Clustering}
+
+\begin{itemize}
+
+\item \textbf{Input:} a set of $N$ points, and a distance/dissimilarity measure.
+\item \textbf{Output:} a partition of the data.
+
+\vspace{0.4cm}
+
+\item \textbf{K-median:} find center points $\mathbf{c}_1, \mathbf{c}_2, \ldots, \mathbf{c}_K$ to minimize
+\[
+\sum_{i=1}^{N} \min_{j \in \{1,\ldots,K\}} d(\mathbf{x}^{(i)}, \mathbf{c}_j)
+\]
+
+\item \textbf{K-means:} find center points $\mathbf{c}_1, \mathbf{c}_2, \ldots, \mathbf{c}_K$ to minimize
+\[
+\sum_{i=1}^{N} \min_{j \in \{1,\ldots,K\}} d^2(\mathbf{x}^{(i)}, \mathbf{c}_j)
+\]
+
+\item \textbf{K-center:} find a partition that minimizes the maximum radius.
+
+\end{itemize}
+
+\end{frame}
+
+%--------------------------------------------------slide16
+\begin{frame}{K-Means Overview}
     \begin{itemize}
         \item The most widely used clustering algorithm.
-        \item Partitions data into $K$ distinct groups based on feature similarity
-        \item It works by \textbf{iteratively} assigning data points to the nearest centroid (mean of the group) and then recalculating the centroids based on the new group memberships
-        \item The process repeats until the assignments no longer change
+        \item Partitions data into $K$ distinct groups based on feature similarity.
+        \item It works by \textbf{iteratively} assigning data points to the nearest centroid (mean of the group) and then recalculating the centroids based on the new group memberships.
+        \item The K-means algorithm is a \textbf{heuristic}.
+        \item It requires initial centroids, and the choice is important.
+        \item The process repeats until the assignments no longer change.
     \end{itemize}
 \end{frame}
+
+%--------------------------------------------------slide17
+% K means in action
+\begin{frame}{K-Means in Action}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{kmeans_in_action_figures/original.png}
+    \end{figure}
+\end{frame}
+
+%--------------------------------------------------slide18
+\begin{frame}{K-Means in Action}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{kmeans_in_action_figures/kmeans_iter_1.png}
+    \end{figure}
+\end{frame}
+
+%--------------------------------------------------slide19
+\begin{frame}{K-Means in Action}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{kmeans_in_action_figures/kmeans_iter_2.png}
+    \end{figure}
+\end{frame}
+
+%--------------------------------------------------slide20
+\begin{frame}{K-Means in Action}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{kmeans_in_action_figures/kmeans_iter_3.png}
+    \end{figure}
+\end{frame}
+
+%--------------------------------------------------slide21
+\begin{frame}{K-Means in Action}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{kmeans_in_action_figures/kmeans_iter_4.png}
+    \end{figure}
+\end{frame}
+
+%--------------------------------------------------slide22
+\begin{frame}{K-Means in Action}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{kmeans_in_action_figures/kmeans_iter_5.png}
+    \end{figure}
+\end{frame}
+
 
 % \begin{frame}{K-Means overview}
 %     \begin{itemize}
@@ -235,162 +465,212 @@ subsubsectionstyle=show/shaded/hide]
 %     \end{itemize}
 % \end{frame}
 
-
-% K means in action
-\begin{frame}{K-Means in action}
-    \begin{figure}
-        \centering
-        \includegraphics[width=\textwidth]{kmeans_in_action_figures/original.png}
-    \end{figure}
-\end{frame}
-
-\begin{frame}{K-Means in action}
-    \begin{figure}
-        \centering
-        \includegraphics[width=\textwidth]{kmeans_in_action_figures/kmeans_iter_1.png}
-    \end{figure}
-\end{frame}
-\begin{frame}{K-Means in action (cont.)}
-    \begin{figure}
-        \centering
-        \includegraphics[width=\textwidth]{kmeans_in_action_figures/kmeans_iter_2.png}
-    \end{figure}
-\end{frame}
-
-\begin{frame}{K-Means in action (cont.)}
-    \begin{figure}
-        \centering
-        \includegraphics[width=\textwidth]{kmeans_in_action_figures/kmeans_iter_3.png}
-    \end{figure}
-\end{frame}
-\begin{frame}{K-Means in action (cont.)}
-    \begin{figure}
-        \centering
-        \includegraphics[width=\textwidth]{kmeans_in_action_figures/kmeans_iter_4.png}
-    \end{figure}
-\end{frame}
-\begin{frame}{K-Means in action (cont.)}
-    \begin{figure}
-        \centering
-        \includegraphics[width=\textwidth]{kmeans_in_action_figures/kmeans_iter_5.png}
-    \end{figure}
-\end{frame}
-
-\begin{frame}{Algorithm}
-    \begin{algorithm}[H]
-    \caption{K-means Clustering}\label{alg:KMeans}
-    \begin{algorithmic}[1]
-        \State \textbf{Input:} $K$ (number of clusters), $D = \{\boldsymbol{x}^{(1)}, \dots, \boldsymbol{x}^{(N)}\}$ (data points)
-        \State \textbf{Initialize:} Select $K$ random points as centroids $\{\boldsymbol{\mu}_1, \dots, \boldsymbol{\mu}_K\}$
-
-        \Repeat
-            \State
-            \For{each $1\leq i \leq N$}
-            Assign each point $\boldsymbol{x}^{(i)}$ to nearest centroid $f(\boldsymbol{x}^{(i)} ) = \arg \min_{j} \|\boldsymbol{x}^{(i)} - \boldsymbol{\mu}_j\|$
-            \State \EndFor
-            \State \For{each $1\leq j \leq K$}
-             \State set $C_j = \{x^{(i)}|f(x^{(i)})=j\}$
-             \State Update centroids $\boldsymbol{\mu}_j = \frac{1}{|C_j|} 
-             \sum_{\boldsymbol{x}^{(i)} \in C_j} \boldsymbol{x}^{(i)}$
-             \State \EndFor
-        \Until{Centroids do not change}
-    
-        \State \textbf{Output:} Final clusters $\{C_1, C_2, \dots, C_K\}$
-    \end{algorithmic}
-    \end{algorithm}
-\end{frame}
-
-\begin{frame}{Problem definition}
+%--------------------------------------------------slide23
+\begin{frame}{Problem Definition}
     \begin{itemize}
-        \item Formally: We have $X_{\text{train}} = \{ x^{(1)}, x^{(2)}, \dots, x^{(N)} \} \subseteq \mathbb{R}^d$
-        \item $K$ is the number of clusters.
+        \item Formally: we have 
+        \[
+        X_{\text{train}} = \{ \mathbf{x}^{(1)}, \mathbf{x}^{(2)}, \dots, \mathbf{x}^{(N)} \} \subseteq \mathbb{R}^d.
+        \]
+
+        \item K is the number of clusters.
+
         \item We are learning:
-        \begin{enumerate}
-            \item A function or mapping $f:\mathbb{R}^d\to \{1,2, \dots , K\}$ that assigns a cluster to each data point.
-            \item A set of \( K \) prototypes \(\mu = \{ \mu_1, \mu_2, \dots, \mu_K  \} \subseteq \mathbb{R}^d \) as the cluster representatives, called \textbf{centeroids}.
-        \end{enumerate}
-       
+        \begin{itemize}
+            \item A function or mapping 
+            \[
+            f: \mathbb{R}^d \to \{1, 2, \dots, K\}
+            \]
+            that assigns a cluster to each data point.
+
+            \item A set of K prototypes  
+            \[
+            \boldsymbol{\mu} = \{ \boldsymbol{\mu}_1, \boldsymbol{\mu}_2, \dots, \boldsymbol{\mu}_K \} \subseteq \mathbb{R}^d
+            \]
+            as the cluster representatives, called \textbf{centroids}.
+        \end{itemize}
     \end{itemize}
 \end{frame}
 
+%--------------------------------------------------slide24
+\begin{frame}{Algorithm}
+\begin{figure}
+        \centering
+        \includegraphics[width=\textwidth]{pic/algorithm.png}
+    \end{figure}
+\end{frame}
+
+%--------------------------------------------------slide25
 \begin{frame}{Objective Function}
 \begin{itemize}
 
     \item We want samples in the same cluster to be similar.
-    \item In K-Means, this is expressed as:
+    \item In K-means, this is expressed as:
+    \[
+    J = \sum_{j=1}^K \sum_{\mathbf{x}^{(i)} \in C_j} \lVert \mathbf{x}^{(i)} - \boldsymbol{\mu}_j \rVert^2
+    \]
 
-    $$
-    J = \sum_{j=1}^K \sum_{x^{(i)}\in C_j} || x^{(i)} -  \mu_j ||^2
-    $$
+    \item Choose $f$ and 
+    \[
+    \boldsymbol{\mu} = \{ \boldsymbol{\mu}_1, \boldsymbol{\mu}_2, \dots, \boldsymbol{\mu}_K \}
+    \]
+    to minimize this.
 
-\item Choose $f$ and $\mu = \{\mu_1,\mu_2,\dots,\mu_K\}$ to minimize this.
-        \item This problem is NP-hard. K-Means is a heuristic solution, which is NOT guaranteed to find optimal solution.
+    \item This problem is NP-hard. K-means is a heuristic solution, which is \textbf{not} guaranteed to find an optimal solution.
+
 \end{itemize}
 \end{frame}
 
-
+%--------------------------------------------------slide26
 \begin{frame}{K-Means Process Example}
+\begin{itemize}
+    \item Pick K random points as cluster centers (means).
+    \item Shown here for $K = 2$.
+\end{itemize}
 
 \begin{figure}
-        \centering
-        \includegraphics[width=\textwidth]{pic/figs/Clustering_K-means_7_1.png}
-        {\scriptsize Adopted from \href{https://mlbhanuyerra.github.io/2018-02-19-Clustering-K-means/}{mlbhanuyerra.github.io}}
-    \end{figure}
+    \centering
+    \includegraphics[width=0.45\textwidth]{pic/itex1.png}
+\end{figure}
 \end{frame}
 
+%--------------------------------------------------slide27
+\begin{frame}{K-Means Process Example}
+\begin{columns}
 
+    \column{0.5\textwidth}
+    \centering
+    \textbf{Assignment Step (E-step)}\\
+    \includegraphics[width=0.7\textwidth]{pic/itex2.png}\\[0.5em]
+    \textbf{Iterative Step 1:} assign data points to the closest cluster center.
+
+    \column{0.5\textwidth}
+    \centering
+    \textbf{Update Step (M-step)}\\
+    \includegraphics[width=0.7\textwidth]{pic/itex3.png}\\[0.5em]
+    \textbf{Iterative Step 2:} update the cluster center to the average of the assigned points.
+
+\end{columns}
+\end{frame}
+
+%--------------------------------------------------slide28
+\begin{frame}{K-Means Process Example}
+\begin{itemize}
+    \item Repeat until convergence.
+\end{itemize}
+
+\vspace{1em}
+
+\begin{columns}
+
+    \column{0.5\textwidth}
+    \centering
+    \textbf{Assignment Step (E-step)}\\
+    \includegraphics[width=0.7\textwidth]{pic/itex4.png}\\[0.5em]
+
+    \column{0.5\textwidth}
+    \centering
+    \textbf{Update Step (M-step)}\\
+    \includegraphics[width=0.7\textwidth]{pic/itex5.png}\\[0.5em]
+
+\end{columns}
+\end{frame}
+
+%--------------------------------------------------slide29
+\begin{frame}{K-Means Process Example}
+\begin{itemize}
+    \item Repeat until convergence.
+\end{itemize}
+
+\vspace{1em}
+
+\begin{columns}
+
+    \column{0.5\textwidth}
+    \centering
+    \textbf{Assignment Step (E-step)}\\
+    \includegraphics[width=0.7\textwidth]{pic/itex6.png}\\[0.5em]
+
+    \column{0.5\textwidth}
+    \centering
+    \textbf{Update Step (M-step)}\\
+    \includegraphics[width=0.7\textwidth]{pic/itex7.png}\\[0.5em]
+
+\end{columns}
+\end{frame}
+
+%--------------------------------------------------slide30
 \begin{frame}{Convergence}
     \begin{itemize}
-    \item How do we know K-Means will converge in a finite number of steps ?
-    \item First we show in each step $J$ will decrease, as long as we have not converged.
+        \item How do we know K-means will converge in a finite number of steps?
+        \item First, we show that in each step $J$ will decrease as long as we have not converged.
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Convergence (cont.)}
+%--------------------------------------------------slide31
+\begin{frame}{Convergence}
 \begin{itemize}
-\item We initially assigne each sample to the nearest centroid.
-$$ f(x) : = \textit{argmin}_j \; ||x - \mu_j||^2 $$.
 
-\item Keep each sample's assignment fixed until a closer centriod is found.
-\item Each time a sample is reassigned. the total distance between samples and their centroids decreases.
-\item The number of possible sample-to-centroid assignments is finite.
+    \item We initially assign each sample to the nearest centroid:
+    \[
+    f(\mathbf{x}) := \arg\min_j \; \lVert \mathbf{x} - \boldsymbol{\mu}_j \rVert^2.
+    \]
 
-\item The algorithm terminates when no sample changes its assigned centroid.
-            
-\end{itemize}
-    
-\end{frame}
+    \item Keep each sample's assignment fixed until a closer centroid is found.
 
-\begin{frame}{Convergence (cont.)}
-\begin{itemize}
-    \item In Updating step, with $f(x)$ fixed, $J$ is a quadratic function of $\mu_j$ (like SSE) and by taking derivative we can minimize it as:
-    $$
-        \frac{\partial J}{\partial \mu_j } = 0 \implies \sum_{x^{(i)} \in C_j} 2 \left(x^{(i)} - \mu_j \right) = 0
-    $$
-    \item This means we should \textbf{update} each $\mu_j$ as the mean of cluster $C_j$:
-    $$
-        \mu_j = \frac{\sum_{x^{(i)} \in C_j} x^{(i)}}{|C_j|}
-    $$
+    \item Each time a sample is reassigned, the total distance between samples and their centroids decreases.
+
+    \item The number of possible sample-to-centroid assignments is finite.
+
+    \item The algorithm terminates when no sample changes its assigned centroid.
+
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Convergence (cont.)}
+%--------------------------------------------------slide32
+\begin{frame}{Convergence}
+\begin{itemize}
+
+    \item In the updating step, with $f(\mathbf{x})$ fixed, $J$ is a quadratic function of $\boldsymbol{\mu}_j$ (like SSE), and by taking the derivative we can minimize it as:
+    \[
+        \frac{\partial J}{\partial \boldsymbol{\mu}_j } = 0 
+        \;\implies\;
+        \sum_{\mathbf{x}^{(i)} \in C_j} 2 \big(\mathbf{x}^{(i)} - \boldsymbol{\mu}_j \big) = 0.
+    \]
+
+    \item This means we should \textbf{update} each $\boldsymbol{\mu}_j$ as the mean of cluster $C_j$:
+    \[
+        \boldsymbol{\mu}_j = \frac{\sum_{\mathbf{x}^{(i)} \in C_j} \mathbf{x}^{(i)}}{|C_j|}.
+    \]
+
+\end{itemize}
+\end{frame}
+
+%--------------------------------------------------slide33
+\begin{frame}{Convergence}
     \begin{itemize}
         \item For each cluster, the mean of its samples minimizes squared distances.
-        \item For $C_j$ if $\mu'_j$ was the old centroid we have: $\sum_{x^{(i)} \in C_j} ||x^{(i)}-\mu'_j||^2 \geq \sum_{x^{(i)} \in C_j} ||x^{(i)}-\mu_j||$. So  $J_{\text{new}} \leq J_{\text{old}} $.
+        \item For $C_j$, if $\boldsymbol{\mu}'_j$ was the old centroid, we have:
+        \[
+        \sum_{\mathbf{x}^{(i)} \in C_j} \lVert \mathbf{x}^{(i)} - \boldsymbol{\mu}'_j \rVert^2
+        \;\geq\;
+        \sum_{\mathbf{x}^{(i)} \in C_j} \lVert \mathbf{x}^{(i)} - \boldsymbol{\mu}_j \rVert^2.
+        \]
+        So $J_{\text{new}} \leq J_{\text{old}}$.
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Convergence (cont.)}
+%--------------------------------------------------slide34
+\begin{frame}{Convergence}
     \begin{itemize}
-\item $J$ is non-negative, and there are a finite number of partitions so there is a minimum for $J$ and we can't decrease $J$ forever.
- \item  Therefore we must converge at some point.
-\item  The convergence properties of the K-means algorithm were studied by MacQueen (1967).
-
+        \item $J$ is non-negative, and there are a finite number of partitions, so there is a minimum for $J$ and we cannot decrease $J$ forever.
+        \item Therefore, we must converge at some point.
+        \item The convergence properties of the K-means algorithm were studied by MacQueen (1967).
     \end{itemize}
 \end{frame}
 
-\begin{frame}{K-Means Convergence (cont.)}
+%--------------------------------------------------slide35
+\begin{frame}{Convergence}
     \begin{figure}
         \centering
         \includegraphics[scale=0.45]{pic/figs/distortion.png}
@@ -403,60 +683,145 @@ $$ f(x) : = \textit{argmin}_j \; ||x - \mu_j||^2 $$.
 %     \item One can prove that k-means is equivalent to running EM on a particular Naive Bayes Model.  
 % \end{frame}
 
+
+
+%--------------------------------------------------slide36
+\begin{frame}{K-means Application: Compressing Images}
+
+\begin{center}
+    \includegraphics[width=0.4\linewidth]{pic/app0.png}
+\end{center}
+
+\begin{itemize}
+    \item Each pixel is associated with a red, green, and blue value.
+    \item A $1024 \times 1024$ image is a collection of $1048576$ values 
+    $\langle x_1, x_2, x_3 \rangle$, represented as a vector $\mathbf{x}$, which requires 3M of storage.
+    \item How can we use K-means to compress this image?
+\end{itemize}
+
+\end{frame}
+
+%--------------------------------------------------slide37
+\begin{frame}{Vector Quantization}
+
+\begin{center}
+    \includegraphics[width=0.4\linewidth]{pic/app1.png}
+\end{center}
+
+\begin{itemize}
+    \item Replace each pixel $\mathbf{x}_n$ with its assignment $\mathbf{m}_{z_n}$ (“paint by numbers”).
+    \item The K means are called the \textit{codebook}.
+    \item With $K = 100$, we need 7 bits per pixel plus $100 \times 3$ bytes $\approx 897$K.
+\end{itemize}
+
+\end{frame}
+
+%--------------------------------------------------slide38
+\begin{frame}{Vector Quantization}
+
+
+\begin{columns}[t]
+    \begin{column}{0.33\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{pic/app2.png}\\
+        \small {2 means}
+    \end{column}
+    \begin{column}{0.33\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{pic/app3.png}\\
+        \small {4 means}
+    \end{column}
+    \begin{column}{0.33\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{pic/app4.png}\\
+        \small {8 means}
+    \end{column}
+\end{columns}
+
+\vspace{0.5em}
+
+
+\begin{columns}[t]
+    \begin{column}{0.33\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{pic/app5.png}\\
+        \small {16 means}
+    \end{column}
+    \begin{column}{0.33\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{pic/app6.png}\\
+        \small {32 means}
+    \end{column}
+    \begin{column}{0.33\textwidth}
+        \centering
+        \includegraphics[width=0.8\linewidth]{pic/app7.png}\\
+        \small {64 means}
+    \end{column}
+\end{columns}
+
+\end{frame}
+
+%--------------------------------------------------slide39
+\section{Challenges in K-means}
+
+%--------------------------------------------------slide40
 \begin{frame}{Strengths}
     \begin{itemize}
-        \item Simple: easy to understand and to implement.
-        \item  Efficient: Time complexity: $O(tkn)$, 
-where
-\begin{itemize}
-    
-\item  $n$ is the number of data points, 
-\item $k$ is the number of clusters, and 
-\item $t$ is the number of iterations. 
-\end{itemize}
-% – Since both k and t are usually small. k-means is considered a linear algorithm. (personally not sure about this ???)
+        \item \textbf{Simple:} easy to understand and implement.
         
+        \item \textbf{Efficient:} time complexity $O(tKn)$, where
+        \begin{itemize}
+            \item $n$ is the number of data points,
+            \item $K$ is the number of clusters, and
+            \item $t$ is the number of iterations (it requires initial centroids, and the choice is important as it could affect $t$ in $O(tkn)$).
+        \end{itemize}
+
+        \item K-means is the most popular clustering algorithm.
+
+        \item Note that it terminates at a local optimum if SSE is used.  
+        The global optimum is hard to find due to complexity.
     \end{itemize}
 \end{frame}
 
-\section{Challenges in K-Means}
-
-
-\begin{frame}{Initialization}
-    \begin{itemize}
-    
-        \item K-Means always converges. What could go wrong ?
-        \item K-Means algorithm is a \textbf{heuristic}
-        \item It requires initial centroids, and
-the choice is important as it could
-affect the $t$ in $O(tkn)$.
-
-    \end{itemize}
-\end{frame}
-
+%--------------------------------------------------slide41
 \begin{frame}{Local Optimum}
     \begin{itemize}
-        \item The algorithm finds a local minimum but there is no guarantee to find global minimum.
+        \item The algorithm finds a local minimum, but there is no guarantee of finding the global minimum.
         \item Its result is highly affected by the initialization.
         \item Some suggestions are:
         \begin{itemize}
-            \item  Multiple runs with random initial centroids, then select the "best" result.
-            \item Initialization heuristics (K-Means++ , Furthest Traversal).
+            \item Multiple runs with random initial centroids, then select the “best” result.
+            \item Initialization heuristics (K-means++, Furthest Traversal).
             \item Initializing with the suggested results of another method.
         \end{itemize}
     \end{itemize}
+
+\vspace{1.5em}
+
+\begin{columns}
+    \column{0.33\textwidth}
+    \centering
+    \includegraphics[width=0.7\textwidth]{pic/local1.png}\\[0.5em]
+
+    \column{0.33\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{pic/local2.png}\\[0.5em]
+
+    \column{0.33\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{pic/local3.png}\\[0.5em]
+\end{columns}
+
 \end{frame}
 
+%--------------------------------------------------slide42
 \begin{frame}{Local Optimum}
- 
-        \begin{figure}
             \centering
             \includegraphics[scale=0.55]{pic/original_data.png}
-        \end{figure}
-    =
 \end{frame}
 
-\begin{frame}{Local optimum (cont.)}
+%--------------------------------------------------slide43
+\begin{frame}{Local Optimum}
     \begin{minipage}{0.5\textwidth}
         \begin{figure}
             \centering
@@ -479,212 +844,341 @@ affect the $t$ in $O(tkn)$.
     \end{minipage}
 \end{frame}
 
+%--------------------------------------------------slide44
+\begin{frame}{Weaknesses of K-means}
 
+\begin{itemize}
+
+    \item The algorithm is only applicable if the \textbf{mean} is defined.
+    \begin{itemize}
+        \item For categorical data, K-modes can be used --- the centroid is represented by the most frequent values.
+    \end{itemize}
+
+    \item The user needs to specify K.
+
+    \item The algorithm is sensitive to \textbf{outliers}.
+    \begin{itemize}
+        \item Outliers are data points that are very far away from other data points.
+        \item Outliers could be errors in data recording or some special data points with very different values.
+    \end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+%--------------------------------------------------slide45
 \begin{frame}{Definition of Mean}
     \begin{itemize}
-        \item We assume $x^{(i)} \in \mathbb{R}^d$, which is not always the case. K-Means requires a space where sample \textbf{mean} is defined.
+        \item We assume $\mathbf{x}^{(i)} \in \mathbb{R}^d$, which is not always the case. K-means requires a space where the sample \textbf{mean} is defined.
         \begin{itemize}
-            \item Categorical data. 
-            \item  A suggested solution: K-Mode - the centroid is the most frequent category (the mode) in each cluster.
-            \item Closest centroid is found by the Hamming Distance.
+            \item Categorical data.
+            \item A suggested solution: K-modes --- the centroid is the most frequent category (the mode) in each cluster.
+            \item The closest centroid is found using the Hamming distance.
         \end{itemize}
-
-
     \end{itemize}
 \end{frame}
 
+
+%--------------------------------------------------slide46
 \begin{frame}{How many clusters?}
     \begin{figure}
         \centering
-        \includegraphics[scale=0.5]{pic/how_many_clusters.png}
+        \includegraphics[scale=0.5]{pic/how_many_clusters.png} \\
         {\scriptsize Adopted from slides of Dr. Soleymani, Modern Information Retrieval Course, Sharif University of technology.}
     \end{figure}
 \end{frame}
 
+%--------------------------------------------------slide47
+\begin{frame}{How Many Clusters?}
 
-\begin{frame}{How many clusters? (cont.)}
+\begin{itemize}
+
+    \item The number of clusters K is given in advance in the K-means algorithm.
     \begin{itemize}
-        \item Number of clusters is usually given in advance in the problem of clustering. However; finding the right number of clusters is also a problem.
-        \item First we need to know how we can evaluate a clustering.
+        \item However, finding the “right” number of clusters is itself part of the problem.
     \end{itemize}
+
+    \item There is a trade-off between having better focus within each cluster and having too many clusters.
+
+    \item Hold-out validation / cross-validation on an auxiliary task (e.g., a supervised learning task).
+
+    \item Optimization problem: penalize having many clusters.
+    \begin{itemize}
+        \item Some criteria can be used to automatically estimate K.
+        \item Penalize the number of bits needed to describe the extra parameter.
+    \end{itemize}
+
+    \[
+    J'(C) = J(C) + |C| \times \log N
+    \]
+
+    \item First, we need to know how we can evaluate a clustering.
+
+\end{itemize}
 \end{frame}
 
-
+%--------------------------------------------------slide48
 \begin{frame}{Clustering Evaluation}
     \begin{itemize}
         \item Evaluating clusters involves two key aspects:
         \begin{itemize}
-            \item \textbf{Intra-cluster cohesion (compactness)}: How similar the data points are within a cluster.
-            \item Often measured by the within-cluster sum of squares (WCSS):
-            $$
-            WCSS = \sum_{i=1}^K \sum_{x \in C_i} ||x-\mu_i||^2
-            $$
+
+            \item \textbf{Intra-cluster cohesion (compactness)}: how similar the data points are within a cluster.
+            \begin{itemize}
+                \item Often measured by the within-cluster sum of squares (WCSS):
+                \[
+                WCSS = \sum_{i=1}^K \sum_{\mathbf{x} \in C_i} \lVert \mathbf{x} - \boldsymbol{\mu}_i \rVert^2
+                \]
+            \end{itemize}
+
+            \item \textbf{Inter-cluster separation (isolation)}: how different the data points are between clusters.
+
         \end{itemize}
     \end{itemize}
 \end{frame}
 
+%--------------------------------------------------slide49
+\begin{frame}{Inter-cluster Separation}
 
-\begin{frame}{Clustering Evaluation}
-    \begin{itemize}
-        \item \textbf{Inter-cluster separation (isolation)}: How different the data points are between clusters.
-        
-        \begin{itemize}
-          \item Single-link (Minimum Distance):
-            \item Measures the **minimum distance** between any two points from different clusters.
+\begin{columns}
 
-            \[
-            d_{\text{single}}(C_i, C_j) = \min_{x \in C_i, y \in C_j} d(x, y)
-            \]
-        
-        \item Complete-link (Maximum Distance):
-            \item Measures the maximum distance between any two points from different clusters.
-            \[
-            d_{\text{complete}}(C_i, C_j) = \max_{x \in C_i, y \in C_j} d(x, y)
-            \]
-        \end{itemize}
-    \end{itemize}
+    \column{0.5\textwidth}
+    \centering
+    \textbf{Single-link (Minimum Distance)}\\[0.25em]
+
+    \includegraphics[width=0.5\textwidth]{pic/link1.png}\\[0.5em]
+
+    Measures the minimum distance between any two points from different clusters.
+    \[
+        d_{\text{single}}(C_i, C_j)
+        =
+        \min_{\mathbf{x} \in C_i, \mathbf{y} \in C_j}
+        d(\mathbf{x}, \mathbf{y})
+    \]
+
+    \column{0.5\textwidth}
+    \centering
+    \textbf{Complete-link (Maximum Distance)}\\[0.25em]
+
+    \includegraphics[width=0.5\textwidth]{pic/link2.png}\\[0.5em]
+
+    Measures the maximum distance between any two points from different clusters.
+    \[
+        d_{\text{complete}}(C_i, C_j)
+        =
+        \max_{\mathbf{x} \in C_i, \mathbf{y} \in C_j}
+        d(\mathbf{x}, \mathbf{y})
+    \]
+
+\end{columns}
+
 \end{frame}
 
-\begin{frame}{Clustering Evaluation}
-    \begin{itemize}
-    \item \textbf{Inter-cluster separation (isolation)}: How different the data points are between clusters.
-        \begin{itemize}
-        \item Centroid (Ward’s Method):
-            \item Measures the distance between the centroids of two clusters.
-            \[
-            d_{\text{centroid}}(C_i, C_j) = d(\mu_i, \mu_j)
-            \]
-    
-        \item Average-link:
-            \item Measures the average distance between all pairs of points from different clusters.
-            \[
-            d_{\text{average}}(C_i, C_j) = \frac{1}{|C_i| \cdot |C_j|} \sum_{x \in C_i} \sum_{y \in C_j} d(x, y)
-            \]
-        \end{itemize}
-    \end{itemize}
+%--------------------------------------------------slide50
+\begin{frame}{Inter-cluster Separation}
+
+\begin{columns}
+
+    \column{0.5\textwidth}
+    \centering
+    \textbf{Centroid (Ward’s Method)}\\[0.4em]
+
+    \includegraphics[width=0.5\textwidth]{pic/link3.png}\\[0.5em]
+
+    Measures the distance between the centroids of two clusters.
+    \[
+        d_{\text{centroid}}(C_i, C_j)
+        =
+        d(\boldsymbol{\mu}_i, \boldsymbol{\mu}_j)
+    \]
+
+    \column{0.5\textwidth}
+    \centering
+    \textbf{Average-link}\\[0.4em]
+
+    \includegraphics[width=0.55\textwidth]{pic/link4.png}\\[0.5em]
+
+    Measures the average distance between all pairs of points from different clusters.
+    \[
+        d_{\text{average}}(C_i, C_j)
+        =
+        \frac{1}{|C_i| \cdot |C_j|}
+        \sum_{\mathbf{x} \in C_i}
+        \sum_{\mathbf{y} \in C_j}
+        d(\mathbf{x}, \mathbf{y})
+    \]
+
+\end{columns}
+
 \end{frame}
 
-
+%--------------------------------------------------slide51
 \begin{frame}{Elbow Method for Optimal K}
+
     \begin{itemize}
-        \item Finds the optimal number of clusters $K$ by minimizing the within-cluster sum of squares (WCSS).
-        \item Elbow Point:
+        \item Finds the optimal number of clusters K by minimizing the within-cluster sum of squares (WCSS).
+        \item Elbow point:
         \begin{itemize}
-            \item Plot WCSS versus $K$.
-            \item The point where the rate of decrease sharply slows down (resembles an "elbow") is considered the optimal $K$.
+            \item Plot WCSS versus K.
+            \item The point where the rate of decrease sharply slows down (resembling an “elbow”) is considered the optimal K.
         \end{itemize}
     \end{itemize}
+
     \begin{figure}
         \centering
-        \includegraphics[scale = 0.45]{pic/figs/elbow.jpg}
-         {\scriptsize Adopted from  \href{https://medium.com/@zalarushirajsinh07/the-elbow-method-finding-the-optimal-number-of-clusters-d297f5aeb189}{medium.com}}
-        
-        \label{fig:my_label}
+        \includegraphics[scale=0.45]{pic/figs/elbow.jpg}\\
+        {\scriptsize Adopted from 
+        \href{https://medium.com/@zalarushirajsinh07/the-elbow-method-finding-the-optimal-number-of-clusters-d297f5aeb189}{medium.com}}
     \end{figure}
+
 \end{frame}
 
+%--------------------------------------------------slide52
 \begin{frame}{Silhouette Method for Cluster Evaluation}
+
     \begin{itemize}
-        \item Silhouette Score for a single point $i$:
-        $$
-        S(i) = \frac{b(i)-a(i)}{max(a(i),b(i))}
-        $$
+
+        \item Silhouette score for a single point $i$:
+        \[
+            S(i) = \frac{b(i) - a(i)}{\max(a(i), b(i))}
+        \]
+
         \item where:
         \begin{itemize}
-            \item  $a(i)$ is the average distance between $i$ and all other points in the same cluster.
+            \item $a(i)$ is the average distance between $i$ and all other points in the same cluster.
             \item $b(i)$ is the average distance between $i$ and points in the nearest neighboring cluster.
         \end{itemize}
+
         \item Interpretation:
-\begin{itemize}
-    \item $ S(i) \in [-1, 1]$
-    \item $ S(i) \approx 1$ : Well-clustered.
-    \item  $S(i) \approx 0$ : On or near the decision boundary between clusters.
-    \item  $S(i) \approx -1$ : Misclustered.
-\end{itemize}
+        \begin{itemize}
+            \item $S(i) \in [-1, 1]$
+            \item $S(i) \approx 1$ : well-clustered.
+            \item $S(i) \approx 0$ : on or near the decision boundary between clusters.
+            \item $S(i) \approx -1$ : misclustered.
+        \end{itemize}
+
     \end{itemize}
+
 \end{frame}
 
-\begin{frame}{How many Clusters? (cont.)}
+%--------------------------------------------------slide53
+\begin{frame}{How Many Clusters?}
+
 \begin{itemize}
     \item There is a trade-off between having better focus within each cluster or having too many clusters.
-        \item  Don't want one-element clusters.
-        \item \textbf{Optimization problem:} penalize having too many clusters
-        \[
-        K^* = \ arg \ min_k \  J(k) + \lambda k 
-        \]
+    \item Don't want one-element clusters.
+    \item \textbf{Optimization problem:} penalize having too many clusters
+    \[
+        K^* = \arg\min_k \; \big( J(k) + \lambda k \big)
+    \]
 \end{itemize}
-    
+
 \end{frame}
 
+%--------------------------------------------------slide54
 \begin{frame}{Outliers}
-        \begin{itemize}
-    \item The algorithm is sensitive to outliers
-            \item Outliers are data points that are very far away from other data points. 
-\item Outliers could be errors in data
-recording or unique data points
-with significantly different
-values.
-% \item K-medoids  and DBSCAN are more robust to outliers.
-        \end{itemize}
+
+\begin{itemize}
+    \item The algorithm is sensitive to outliers.
+    \item Outliers are data points that are very far away from other data points.
+    \item Outliers could be errors in data recording or unique data points with significantly different values.
+    % \item K-medoids and DBSCAN are more robust to outliers.
+\end{itemize}
+
 \end{frame}
 
-\begin{frame}{Data Distribution}
+%--------------------------------------------------slide55
+\begin{frame}{Weaknesses of K-means: Problems with Outliers}
+
+    \centering
+    \includegraphics[width=0.7\textwidth]{pic/outlier1.png}\\
+    Undesirable clusters \\[1.5em]
+
+    \includegraphics[width=0.7\textwidth]{pic/outlier2.png}\\
+    Ideal clusters
+
+\end{frame}
+
+%--------------------------------------------------slide56
+\begin{frame}{Dealing with Outliers}
+
+\begin{itemize}
+
+    \item Remove data points that are much farther away from the centroids than other data points.
     \begin{itemize}
-        \item There is a problems with how k-means defines clusters.
-        \item  K-means assumes clusters are spherical and separated by equal variance, which limits its effectiveness on non-spherical or complex-shaped clusters.
+        \item To be safe, we may want to monitor these possible outliers over a few iterations and then decide whether to remove them.
+    \end{itemize}
+
+    \item Perform random sampling: by choosing a small subset of the data points, the chance of selecting an outlier is much smaller.
+    \begin{itemize}
+        \item Assign the rest of the data points to the clusters by distance or similarity comparison, or by classification.
+    \end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+%--------------------------------------------------slide57
+\begin{frame}{Sensitivity to Initial Seeds}
+
+    \centering
+    \includegraphics[width=\textwidth]{pic/initial.png}
+
+\end{frame}
+
+%--------------------------------------------------slide58
+\begin{frame}{Special Data Structures}
+
+\begin{itemize}
+    \item The K-means algorithm is not suitable for discovering clusters 
+    that are not hyper-ellipsoids (or hyper-spheres).
+\end{itemize}
+
+\vspace{0.5cm}
+
+\begin{columns}[c]
+
+    \column{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.6\linewidth]{pic/structure.png}\\[0.5em]
+    {Two natural clusters}
+
+    \column{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.6\linewidth]{pic/structure2.png}\\[0.5em]
+    {K-means clusters}
+
+\end{columns}
+
+\end{frame}
+
+%--------------------------------------------------slide59
+\begin{frame}{Data Distribution}
+
+\begin{itemize}
+    \item There is a problem with how K-means defines clusters.
+    \item K-means assumes clusters are spherical and separated with equal variance, which limits its effectiveness on non-spherical or complex-shaped clusters.
+    
     \begin{figure}
         \centering
         \includegraphics[scale=0.35]{pic/figs/kmeans_anti.png}
-        \caption{example when k-means wont work}
+        \caption{Example when K-means won't work}
     \end{figure}
 
-    \end{itemize}
+\end{itemize}
+
 \end{frame}
 
-
-\section{Other Clustering Algorithms}
-
-\begin{frame}{Hard vs Soft Clustering}
-    \begin{minipage}{0.55\textwidth}
-        \begin{itemize}
-        \item \textbf{Hard Clustering(Partitional)}: Each data point belongs to exactly one cluster
-        \begin{itemize}
-            \item More common and easier to use.
-        \end{itemize}
-        \item \textbf{Soft Clustering(Bayesian)}
-    \end{itemize}
-    \end{minipage}%
-    \begin{minipage}{0.40\textwidth}
-        \begin{figure}
-            \centering
-            \includegraphics[scale=0.5]{pic/hard_clustering.png}
-            {\scriptsize Figure adapted from Machine Learning and Pattern Recognition, Bishop}
-        \end{figure}
-    \end{minipage}
-    
+%--------------------------------------------------slide60
+\begin{frame}{Hierarchical Algorithm}
+\begin{center}
+    \includegraphics[width=0.8\linewidth]{pic/clustering3.png}
+\end{center}
 \end{frame}
 
-\begin{frame}{Hard vs Soft Clustering (cont.)}
-    \begin{minipage}{0.55\textwidth}
-        \begin{itemize}
-        \item \textbf{Hard Clustering(Partitional)}
-        \item \textbf{Soft Clustering(Bayesian)}: Each sample is assigned to different clusters with probabilities, rather than $\{0,1\}$.
-        \begin{itemize}
-            \item data point belongs to each cluster with a probability
-        \end{itemize}
-        
-    \end{itemize}
-    \end{minipage}%
-    \begin{minipage}{0.40\textwidth}
-        \begin{figure}
-            \centering
-            \includegraphics[scale=0.5]{pic/soft_clustering.png}
-            {\scriptsize Figure adapted from Machine Learning and Pattern Recognition, Bishop}
-        \end{figure}
-        
-    \end{minipage}
-    
-\end{frame}
+%--------------------------------------------------slide61
+\section{Hierarchical Clustering}
+
 
 
 % \begin{frame}{Hierarchical Algorithms}
@@ -703,66 +1197,182 @@ values.
 % \end{itemize}
 % \end{frame}
 
+%--------------------------------------------------slide62
 \begin{frame}{Hierarchical Clustering}
-    
+
     \begin{itemize}
-    \item \textbf{ Hierarchical} algorithms find successive clusters using previously established clusters. Two Types:
+        \item \textbf{Hierarchical} algorithms find successive clusters using previously established clusters. Two types:
         \begin{itemize}
-            
-        \item \textbf{Agglomerative (bottom-up)}: Start with individual points and merge clusters.
-        \item \textbf{Divisive (top-down)}: Start with all points and split clusters.
+            \item \textbf{Agglomerative (bottom-up)}: start with individual points and merge clusters.
+            \item \textbf{Divisive (top-down)}: start with all points and split clusters.
         \end{itemize}
-    \textbf{Result:} A hierarchy of clusters represented by a dendrogram.
+        \item \textbf{Result:} a hierarchy of clusters represented by a dendrogram.
     \end{itemize}
-    \begin{figure}
+
+\vspace{0.5cm}
+
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{pic/dendrogram.png}
+\end{center}
+
+\end{frame}
+
+%--------------------------------------------------slide63
+\begin{frame}{Dendrogram}
         \centering
         \includegraphics[scale=0.30]{pic/figs/Unsupervised-hierarchical-clustering-analysis-of-gene-expression.png}
-        \caption{Figure from \href{https://www.researchgate.net/publication/334433467_Plasma_exosomes_from_children_with_juvenile_dermatomyositis_are_taken_up_by_human_aortic_endothelial_cells_and_are_associated_with_altered_gene_expression_in_those_cells}{www.researchgate.net}}
-    \end{figure}
 \end{frame}
 
-\begin{frame}{Agglomerative Clustering Algorithm}
-    \begin{itemize}
-        \item Start with each point as its own cluster.
-        \item Merge the "closest" clusters.
-        \item Repeat until one cluster remains or desired number is reached.
-        \item Closest cluster can be determined using inter-cluster separation measures
-    \end{itemize}
-\end{frame}
+%--------------------------------------------------slide64
+\begin{frame}{Types of Hierarchical Clustering}
 
-\begin{frame}{Dendrogram and Cutting}
-    \begin{itemize}
-        \item A dendrogram shows the hierarchy of merges.
-        \item Cut the dendrogram at a desired level to form clusters.
-    \end{itemize}
-    \begin{figure}
-        \centering
-        \includegraphics[scale=0.30]{pic/figs/dendrogram.jpg}
-        {\scriptsize Adopted from \href{https://r-graph-gallery.com/29-basic-dendrogram.html}{r-graph-gallery.com}}
-       
-        \label{fig:dendrogram}
-    \end{figure}
-\end{frame}
-
-\begin{frame}{Hierarchical Algorithms}
 \begin{itemize}
+
+    \item \textbf{Agglomerative (bottom-up) clustering:}  
+    It builds the dendrogram (tree) from the bottom level.
+    \begin{itemize}
+        \item Merges the most similar (or nearest) pair of clusters.
+        \item Stops when all data points are merged into a single cluster (i.e., the root cluster).
+    \end{itemize}
+
+    \item \textbf{Divisive (top-down) clustering:}  
+    It starts with all data points in one cluster, the root.
+    \begin{itemize}
+        \item Splits the root into a set of child clusters; each child cluster is recursively divided further.
+        \item Stops when only singleton clusters of individual data points remain (i.e., each cluster has only a single point).
+    \end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+%--------------------------------------------------slide65
+\begin{frame}{Hierarchical Agglomerative Clustering (HAC)}
+
+\begin{itemize}
+
+    \item Start with each point as its own cluster.
+    \item Merge the “closest” clusters.
+    \item Repeat until one cluster remains or the desired number is reached.
+    \item The closest clusters can be determined using inter-cluster separation measures.
+
+    \item Basic algorithm:
+    \begin{itemize}
+        \item Start with all instances in their own cluster.
+        \item Until there is only one cluster:
+        \begin{itemize}
+            \item Among the current clusters, determine the two clusters, $c_i$ and $c_j$, that are closest.
+            \item Replace $c_i$ and $c_j$ with a single cluster $c_i \cup c_j$.
+        \end{itemize}
+    \end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+%--------------------------------------------------slide66
+\begin{frame}{Single-Link}
+
+    \centering
+    \includegraphics[width=0.75\textwidth]{pic/slink.png}\\[0.5em]
+    {Keep the maximum bridge length as small as possible.}
+
+\end{frame}
+
+%--------------------------------------------------slide67
+\begin{frame}{Complete Link}
+
+    \centering
+    \includegraphics[width=0.75\textwidth]{pic/clink.png}\\[0.5em]
+    Keep the maximum diameter as small as possible.
+
+\end{frame}
+
+%--------------------------------------------------slide68
+\begin{frame}{Dendrogram and Cutting}
+
+\begin{itemize}
+    \item A dendrogram shows the hierarchy of merges.
+    \item Cut the dendrogram at a desired level to form clusters.
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[scale=0.30]{pic/figs/dendrogram.jpg}\\
+    {\scriptsize Adopted from 
+    \href{https://r-graph-gallery.com/29-basic-dendrogram.html}{r-graph-gallery.com}}
+\end{figure}
+
+\end{frame}
+
+%--------------------------------------------------slide69
+\begin{frame}{Hierarchical Algorithms}
+
+\begin{itemize}
+
     \item Advantages:
-     \begin{itemize}
+    \begin{itemize}
         \item No need to specify the number of clusters.
         \item Produces a dendrogram for visualization.
         \item Works with arbitrary-shaped clusters.
     \end{itemize}
-    \item Disadvantages
+
+    \item Disadvantages:
     \begin{itemize}
         \item High computational cost.
         \item Sensitive to noise and outliers.
         \item Greedy: cannot undo merges.
     \end{itemize}
+
 \end{itemize}
-   
+
 \end{frame}
 
+%--------------------------------------------------slide70
+\section{Other Clustering Algorithms}
 
+%--------------------------------------------------slide71
+\begin{frame}{Hard vs Soft Clustering}
+    \begin{minipage}{0.55\textwidth}
+        \begin{itemize}
+            \item \textbf{Hard Clustering (Partitional)}: Each data point belongs to exactly one cluster
+            \begin{itemize}
+                \item More common and easier to use.
+            \end{itemize}
+
+            \item \textbf{Soft Clustering (Bayesian)}:
+        \end{itemize}
+    \end{minipage}%
+    \begin{minipage}{0.40\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[scale=0.5]{pic/hard_clustering.png}\\
+            {\scriptsize Figure adapted from Machine Learning and Pattern Recognition, Bishop}
+        \end{figure}
+    \end{minipage}
+\end{frame}
+
+%--------------------------------------------------slide72
+\begin{frame}{Hard vs Soft Clustering}
+    \begin{minipage}{0.55\textwidth}
+        \begin{itemize}
+            \item \textbf{Hard Clustering (Partitional)}
+            \item \textbf{Soft Clustering (Bayesian)}: Each sample is assigned to different clusters with probabilities, rather than $\{0,1\}$.
+            \begin{itemize}
+                \item A data point belongs to each cluster with a probability.
+            \end{itemize}
+        \end{itemize}
+    \end{minipage}%
+    \begin{minipage}{0.40\textwidth}
+        \begin{figure}
+            \centering
+            \includegraphics[scale=0.5]{pic/soft_clustering.png}\\
+            {\scriptsize Figure adapted from Machine Learning and Pattern Recognition, Bishop}
+        \end{figure}
+    \end{minipage}
+\end{frame}
+
+%--------------------------------------------------slide73
 \begin{frame}{DBSCAN}
     \textbf{DBSCAN (Density-Based Spatial Clustering of Applications with Noise):}
     \begin{itemize}
@@ -773,28 +1383,28 @@ values.
     
     \textbf{Parameters:}
     \begin{itemize}
-        \item $ \epsilon $ (epsilon): Maximum distance for neighbors.
-        \item \texttt{minPts}: Minimum points to form a dense region.
+        \item $\epsilon$ (epsilon): Maximum distance for neighbors.
+        \item \texttt{minPts}: Minimum number of points to form a dense region.
     \end{itemize}
 \end{frame}
 
+%--------------------------------------------------slide74
 \begin{frame}{Core Concepts in DBSCAN}
     \textbf{DBSCAN defines three types of points:}
     \begin{itemize}
-        \item \textbf{Core Point}: A point with at least \texttt{minPts} neighbors within distance $ \epsilon $.
-        \item \textbf{Border Point}: A point within $ \epsilon $ of a core point but with fewer than \texttt{minPts} neighbors.
+        \item \textbf{Core Point}: A point with at least \texttt{minPts} neighbors within distance $\epsilon$.
+        \item \textbf{Border Point}: A point within $\epsilon$ of a core point but with fewer than \texttt{minPts} neighbors.
         \item \textbf{Noise}: Points that are neither core points nor border points.
     \end{itemize}
     \begin{figure}
         \centering
-        \includegraphics[scale = 0.5]{pic/figs/dbscanpoints.jpg}
+        \includegraphics[scale = 0.4]{pic/figs/dbscanpoints.jpg} \\
         {\scriptsize Adopted from \href{https://ai.plainenglish.io/dbscan-density-based-clustering-aaebd76e2c8c}{ai.plainenglish.io}}
-        \label{fig:dbscan-points}
     \end{figure}
 \end{frame}
 
-
-\begin{frame}{Core Concepts in DBSCAN (cont.)}
+%--------------------------------------------------slide75
+\begin{frame}{Core Concepts in DBSCAN}
     
     \textbf{Definitions:}
     \begin{itemize}
@@ -802,31 +1412,33 @@ values.
         \[
         |\{ x_j : d(x_i, x_j) \leq \epsilon \}| \geq \texttt{minPts}
         \]
-        \item A point is a border point if it is within distance \( \epsilon \) of a core point, but not itself a core point.
+        \item A point is a border point if it is within distance \( \epsilon \) of a core point but is not itself a core point.
     \end{itemize}
 \end{frame}
 
+%--------------------------------------------------slide76
 \begin{frame}{DBSCAN Algorithm Steps}
     \textbf{Algorithm Steps:}
-    \begin{enumerate}
-        \item For each unvisited point $ x_i $:
+    \begin{itemize}
+        \item For each unvisited point \( x_i \):
         \begin{itemize}
-            \item Mark $ x_i $ as visited.
-            \item Find all points within distance $ \epsilon $ (neighborhood).
+            \item Mark \( x_i \) as visited.
+            \item Find all points within distance \( \epsilon \) (neighborhood).
         \end{itemize}
         
-        \item If $ x_i $ is a core point:
+        \item If \( x_i \) is a core point:
         \begin{itemize}
             \item Create a new cluster and expand it by recursively adding all reachable core and border points.
         \end{itemize}
         
-        \item If $x_i$ is not a core point:
+        \item If \( x_i \) is not a core point:
         \begin{itemize}
             \item Label it as noise if it does not belong to any cluster.
         \end{itemize}
-    \end{enumerate}
+    \end{itemize}
 \end{frame}
 
+%--------------------------------------------------slide77
 \begin{frame}{Advantages of DBSCAN}
     \begin{itemize}
         \item Can find clusters of arbitrary shape (non-spherical).
@@ -836,31 +1448,29 @@ values.
     \end{itemize}
     \begin{figure}
         \centering
-        \includegraphics[scale = 0.45]{pic/figs/dbscan.jpg}
+        \includegraphics[scale = 0.35]{pic/figs/dbscan.jpg} \\[0.5em]
         {\scriptsize Adopted from \href{https://mrinalyadav7.medium.com/dbscan-algorithm-c894701306d5}{mrinalyadav7.medium.com}}
-        \caption{DBSCAN vs K-Means.}
-        \label{fig:dbscan-kmeans}
     \end{figure}
 \end{frame}
 
+%--------------------------------------------------slide78
 \begin{frame}{Limitations of DBSCAN}
     \begin{itemize}
         \item DBSCAN struggles with datasets of varying densities.
-        \item Sensitive to the selection of parameters $ \epsilon $ and \texttt{minPts}.
+        \item Sensitive to the selection of parameters \( \epsilon \) and \texttt{minPts}.
         \item Does not perform well with high-dimensional data.
     \end{itemize}
 \end{frame}
 
-
+%--------------------------------------------------slide79
 \begin{frame}{Clustering Algorithms}
 \begin{itemize}
- \item Each algorithm is suited for different kinds of patterns and information in data.
+    \item Each algorithm is suited for different kinds of patterns and information in data.
 \end{itemize}
 \begin{figure}
     \centering
-    \includegraphics[width=\textwidth]{pic/figs/sphx_glr_plot_cluster_comparison_001.png}{\scriptsize Adopted from \href{https://scikit-learn.org/stable/auto_examples/cluster/plot_cluster_comparison.html}{scikit-learn.org}}
-    \caption{clustering algorithms in action.}
-    \label{fig:clustering algorithms}
+    \includegraphics[width=0.7\textwidth]{pic/figs/sphx_glr_plot_cluster_comparison_001.png} \\[0.5em]
+    {\scriptsize Adopted from \href{https://scikit-learn.org/stable/auto_examples/cluster/plot_cluster_comparison.html}{scikit-learn.org}}
 \end{figure}
 \end{frame}
 
@@ -880,8 +1490,8 @@ values.
 \item \textbf{This slide has been prepared thanks to:}
 \begin{itemize}
 \item \href{https://hoomanzolfaghari84.github.io/}{Hooman Zolfaghari}
-    % \setlength{\itemsep}{10pt} % Adjust the value to control the spacing
-    % \item \href{https://github.com/Mahan-Bayhaghi}{Mahan Bayhaghi}
+\item \href{https://github.com/Mahdi-Aghaei}{Mahdi Aghaei}
+
 \end{itemize}
 \end{itemize}
 
