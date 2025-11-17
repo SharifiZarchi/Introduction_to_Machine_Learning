@@ -135,6 +135,107 @@
 \section{Mixture Models}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+% -----------------------------------------------------
+% Multivariate Gaussian Intro
+% -----------------------------------------------------
+\begin{frame}{Multivariate Gaussian Distribution}
+A \textbf{multivariate Gaussian} (normal) distribution over 
+$\mathbf{x}\in\mathbb{R}^d$ is defined by a mean vector 
+$\boldsymbol{\mu}\in\mathbb{R}^d$ and a positive definite 
+covariance matrix $\boldsymbol{\Sigma}\in\mathbb{R}^{d\times d}$:
+\[
+\mathbf{x} \sim \mathcal{N}(\boldsymbol{\mu},\,\boldsymbol{\Sigma}).
+\]
+
+\bigskip
+
+\textbf{Density function:}
+\[
+p(\mathbf{x}) 
+=
+\frac{1}{(2\pi)^{d/2}\,|\boldsymbol{\Sigma}|^{1/2}}
+\exp\!\left(
+-\frac{1}{2}
+(\mathbf{x}-\boldsymbol{\mu})^\top 
+\boldsymbol{\Sigma}^{-1}
+(\mathbf{x}-\boldsymbol{\mu})
+\right).
+\]
+
+\bigskip
+
+\textbf{Key properties:}
+\begin{itemize}
+    \item Elliptical level sets defined by the quadratic form  
+    $(\mathbf{x}-\boldsymbol{\mu})^\top\boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})$.
+    \item $\boldsymbol{\Sigma}$ encodes variances and pairwise correlations.
+    \item Fully characterized by first and second moments.
+\end{itemize}
+
+\bigskip
+This distribution will serve as the building block for Gaussian mixture models.
+\end{frame}
+
+% -----------------------------------------------------
+% Covariance Matrix Interpretation
+% -----------------------------------------------------
+\begin{frame}{Variance--Covariance Matrix}
+For a multivariate Gaussian 
+$\mathcal{N}(\boldsymbol{\mu}, \boldsymbol{\Sigma})$,  
+the covariance matrix
+\[
+\boldsymbol{\Sigma}
+=
+\begin{bmatrix}
+\mathrm{Var}(x_1) & \mathrm{Cov}(x_1,x_2) & \cdots \\
+\mathrm{Cov}(x_2,x_1) & \mathrm{Var}(x_2) & \cdots \\
+\vdots & \vdots & \ddots
+\end{bmatrix}
+\]
+encodes how each dimension varies and how pairs of dimensions interact.
+
+\bigskip
+
+\textbf{Interpretation of entries:}
+\begin{itemize}
+    \item Diagonal entries:  
+    $\Sigma_{ii} = \mathrm{Var}(x_i)$  
+    — how spread out the distribution is along dimension \(i\).
+    
+    \item Off-diagonal entries:  
+    $\Sigma_{ij} = \mathrm{Cov}(x_i, x_j)$  
+    — how dimensions \(i\) and \(j\) move together.
+    
+    \item Positive covariance:  
+    \(x_i\) increases when \(x_j\) increases  
+    \(\Rightarrow\) elongated ellipse along the diagonal direction.
+    
+    \item Negative covariance:  
+    \(x_i\) increases when \(x_j\) decreases  
+    \(\Rightarrow\) ellipse tilted in the opposite direction.
+\end{itemize}
+
+\bigskip
+A \textbf{positive definite} $\boldsymbol{\Sigma}$ ensures a valid Gaussian with elliptical level sets.
+\end{frame}
+
+% -----------------------------------------------------
+% Plots
+% -----------------------------------------------------
+
+\begin{frame}{Multivariate Gaussian Distribution}
+\centering
+\includegraphics[width=0.65\linewidth]{pic/gaussians-3d.png}
+\end{frame}
+
+\begin{frame}{Multivariate Gaussian Distribution}
+\centering
+\includegraphics[width=0.65\linewidth]{pic/corr1.png}
+\includegraphics[width=0.65\linewidth]{pic/corr2.png}
+
+\end{frame}
+
 % -----------------------------------------------------
 % Definition of Mixture Model
 % -----------------------------------------------------
@@ -198,6 +299,28 @@ Parameters:
     \item \(\mathbf{\Sigma}_j\): covariance matrix of component \(j\).
     \item \(N\): number of samples; \(d\): dimension.
 \end{itemize}
+\end{frame}
+
+% -----------------------------------------------------
+% Plots
+% -----------------------------------------------------
+
+\begin{frame}{GMM}
+\centering
+\includegraphics[width=0.65\linewidth]{pic/mixture01.png}\par
+\includegraphics[width=0.65\linewidth]{pic/mixture02.png}\par
+\includegraphics[width=0.65\linewidth]{pic/mixture03.png}
+
+\vfill
+{\raggedright\tiny \textit{Source: Tilak Mudgal, “Gaussian Mixture Modeling (GMM),” Medium.}\par}
+\end{frame}
+
+\begin{frame}{Multivariate GMM}
+\centering
+\includegraphics[width=0.75\linewidth]{pic/mixture04.png}
+
+\vfill
+{\raggedright\tiny \textit{Source: Tilak Mudgal, “Gaussian Mixture Modeling (GMM),” Medium.}\par}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -691,7 +814,7 @@ Combine them:
 % -----------------------------------------------------
 % Set 1 (3 images)
 % -----------------------------------------------------
-\begin{frame}{EM \& GMM Example — Set 1 (3 Figures)}
+\begin{frame}{EM \& GMM Example}
 \centering
 \begin{tabular}{ccc}
 \includegraphics[width=0.30\linewidth]{pic/EM_&_GMM_Example(1)(a).png} &
@@ -710,7 +833,7 @@ Combine them:
 % -----------------------------------------------------
 % Set 2 (6 images)
 % -----------------------------------------------------
-\begin{frame}{EM \& GMM Example — Set 2 (6 Figures)}
+\begin{frame}{EM \& GMM Example}
 \centering
 \begin{tabular}{ccc}
 \includegraphics[width=0.15\linewidth]{pic/EM_&_GMM_Example(2)(a).png} &
