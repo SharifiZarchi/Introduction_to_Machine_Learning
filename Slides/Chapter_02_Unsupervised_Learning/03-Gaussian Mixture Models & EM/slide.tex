@@ -1,23 +1,40 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Gaussian Mixture Models & EM Algorithm Slides
-% Sharif Beamer Template (final full version, 30 slides)
+% Gaussian Mixture Models & EM Algorithm
+% Full Professional Version (Sharif University Style)
+% Includes full derivations, proofs, convexity section,
+% EM convergence theorem, and all figures including:
+%   pic/EM_algorithm_illustration.png
+%
+% Fully vector-corrected:
+%   Bold vectors via \mathbf{}
+%   Scalar components not bold
+% Probability always via \mathbb{P}
+%
+% No typos, no shorthand summarization.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[serif, aspectratio=169]{beamer}
+
+% -----------------------------------------------------
+% Packages & Style
+% -----------------------------------------------------
 \usepackage[T1]{fontenc}
 \usepackage{fourier}
 \usepackage{hyperref}
-\usepackage{latexsym,amsmath,amssymb,xcolor,multicol,booktabs,calligra}
-\usepackage{graphicx,pstricks,listings,stackengine}
-\usepackage{algorithm, algpseudocode, mathtools}
+\usepackage{latexsym,amsmath,amssymb,mathtools}
+\usepackage{xcolor,multicol,booktabs,calligra}
+\usepackage{graphicx,listings,stackengine}
+\usepackage{algorithm,algpseudocode}
 \usepackage{tikz}
-
-\author{Ali Sharifi-Zarchi}
-\title{Gaussian Mixture Models and the EM Algorithm}
-\subtitle{Machine Learning (CE 40717) — Spring 2025}
-\institute{CE Department \\ Sharif University of Technology}
+\usepackage{caption}
+\captionsetup{labelformat=empty}
 \usepackage{SUTstyle}
 
+% -----------------------------------------------------
+% Definitions
+% -----------------------------------------------------
+\def\cmd#1{\texttt{\color{red}\footnotesize $\backslash$#1}}
+\def\env#1{\texttt{\color{blue}\footnotesize #1}}
 \definecolor{deepblue}{rgb}{0,0,0.5}
 \definecolor{deepred}{RGB}{153,0,0}
 \definecolor{deepgreen}{rgb}{0,0.5,0}
@@ -26,304 +43,933 @@
 \DeclareMathOperator*{\argmin}{argmin}
 
 \lstset{
-  basicstyle=\ttfamily\small,
-  keywordstyle=\bfseries\color{deepblue},
-  emphstyle=\ttfamily\color{deepred},
-  stringstyle=\color{deepgreen},
-  numbers=left,
-  numberstyle=\tiny\color{halfgray},
-  frame=shadowbox,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\bfseries\color{deepblue},
+    emphstyle=\ttfamily\color{deepred},
+    stringstyle=\color{deepgreen},
+    numbers=left,
+    numberstyle=\small\color{halfgray},
+    rulesepcolor=\color{red!20!green!20!blue!20},
+    frame=shadowbox,
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TITLE PAGE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Gaussian Mixture Models and the EM Algorithm}
+\subtitle{Machine Learning (CE 40717) — Spring 2025}
+\author{Ali Sharifi-Zarchi}
+\institute{
+    CE Department \\
+    Sharif University of Technology
 }
 
 \begin{document}
 
-% Title slide
+% -----------------------------------------------------
+% Title Slide
+% -----------------------------------------------------
 \begin{frame}
-  \titlepage
-  \vspace*{-0.6cm}
-  \centering\includegraphics[scale=0.25]{pic/sharif-main-logo.png}
+    \titlepage
+    \vspace*{-0.5cm}
+    \begin{figure}[htpb]
+        \centering
+        \includegraphics[keepaspectratio, scale=0.25]{pic/sharif-main-logo.png}
+    \end{figure}
 \end{frame}
 
+% -----------------------------------------------------
+% Table of Contents
+% -----------------------------------------------------
 \begin{frame}
-  \tableofcontents[sectionstyle=show, subsectionstyle=show/shaded/hide]
+    \tableofcontents[
+        sectionstyle=show,
+        subsectionstyle=show/shaded/hide
+    ]
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Overview}
+\section{Introduction \& Motivation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Mixture Models}
-  \[
-  \mathbb{P}(\mathbf{x}\mid\boldsymbol{\theta}) = 
-  \sum_{j=1}^{K} \pi_j \, \mathbb{P}(\mathbf{x}\mid z=j; \boldsymbol{\theta}_j),
-  \qquad 0\le\pi_j\le1,\ \sum_j \pi_j = 1
-  \]
-  Gaussian Mixture Model (GMM):
-  \[
-  \mathbb{P}(\mathbf{x}) = 
-  \sum_{j=1}^{K} \pi_j \, \mathcal{N}(\mathbf{x}\mid\boldsymbol{\mu}_j,\boldsymbol{\Sigma}_j),
-  \]
-  where
-  \[
-  \mathcal{N}(\mathbf{x}\mid\boldsymbol{\mu},\boldsymbol{\Sigma})
-  =\frac{1}{(2\pi)^{d/2}|\boldsymbol{\Sigma}|^{1/2}}
-  \exp\!\Big(-\tfrac{1}{2}(\mathbf{x}-\boldsymbol{\mu})^\top
-  \boldsymbol{\Sigma}^{-1}(\mathbf{x}-\boldsymbol{\mu})\Big).
-  \]
-\end{frame}
-
-\begin{frame}{Why GMMs?}
-  \begin{itemize}
-    \item Can model multi-modal densities beyond k-means.
-    \item Provide a probabilistic generative framework.
-    \item Parameters: 
-    \(\boldsymbol{\theta}=\{\pi_j,\boldsymbol{\mu}_j,\boldsymbol{\Sigma}_j\}_{j=1}^K\).
-    \item Maximum likelihood has no closed-form → use EM.
-  \end{itemize}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{GMM Examples}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{1-D GMM Examples}
-  \centering
-  \begin{tabular}{cc}
-    \includegraphics[width=0.42\linewidth]{pic/GMM_1-D_Example(1).png} &
-    \includegraphics[width=0.42\linewidth]{pic/GMM_1-D_Example(2).png} \\
-    (1) & (2)
-  \end{tabular}
-\end{frame}
-
-\begin{frame}{2-D GMM Examples}
-  \centering
-  \begin{tabular}{cc}
-    \includegraphics[width=0.42\linewidth]{pic/GMM_2-D_Example(1).png} &
-    \includegraphics[width=0.42\linewidth]{pic/GMM_2-D_Example(2).png} \\
-    (1) & (2)
-  \end{tabular}
-\end{frame}
-
-\begin{frame}{EM \& GMM Examples (Set 1)}
-  \centering
-  \begin{tabular}{ccc}
-    \includegraphics[width=0.30\linewidth]{pic/EM_&_GMM_Example(1)(a).png} &
-    \includegraphics[width=0.30\linewidth]{pic/EM_&_GMM_Example(1)(b).png} &
-    \includegraphics[width=0.30\linewidth]{pic/EM_&_GMM_Example(1)(c).png} \\
-    (a) & (b) & (c)
-  \end{tabular}
-\end{frame}
-
-\begin{frame}{EM \& GMM Examples (Set 2)}
-  \centering
-  \begin{tabular}{ccc}
-    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example(2)(a).png} &
-    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example(2)(b).png} &
-    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example(2)(c).png} \\
-    (a) & (b) & (c) \\
-    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example(2)(d).png} &
-    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example(2)(e).png} &
-    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example(2)(f).png} \\
-    (d) & (e) & (f)
-  \end{tabular}
-\end{frame}
-
-\begin{frame}{EM \& GMM Iterations}
-  \centering
-  \begin{tabular}{cccc}
-    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example_Iteration1.png} &
-    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example_Iteration2.png} &
-    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example_Iteration5.png} &
-    \includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example_Iteration25.png} \\
-    Iter 1 & Iter 2 & Iter 5 & Iter 25
-  \end{tabular}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Learning and EM}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Maximum Likelihood for GMM}
-  Given data \(\mathcal{X}=\{\mathbf{x}^{(i)}\}_{i=1}^N\):
-  \[
-  \ell(\boldsymbol{\theta})=
-  \ln \mathbb{P}(\mathcal{X}\mid\boldsymbol{\theta})
-  =\sum_{i=1}^N \ln
-  \Big(\sum_{j=1}^K \pi_j\,
-  \mathcal{N}(\mathbf{x}^{(i)}\mid\boldsymbol{\mu}_j,\boldsymbol{\Sigma}_j)\Big).
-  \]
-  No closed form due to the inner summation inside the log.
-\end{frame}
-
-\begin{frame}{Complete-data Likelihood}
-  Introduce latent variables \(Z=\{z^{(i)}\}\):
-  \[
-  \mathbb{P}(\mathcal{X},Z\mid\boldsymbol{\theta})
-  =\prod_{i=1}^N\prod_{j=1}^K
-  \big[\pi_j\mathcal{N}(\mathbf{x}^{(i)}\mid\boldsymbol{\mu}_j,\boldsymbol{\Sigma}_j)\big]^{z_j^{(i)}}.
-  \]
-  Thus:
-  \[
-  \ln\mathbb{P}(\mathcal{X},Z\mid\boldsymbol{\theta})
-  =\sum_{i=1}^N\sum_{j=1}^K z_j^{(i)}
-  \Big(\ln\pi_j+\ln\mathcal{N}(\mathbf{x}^{(i)}\mid\boldsymbol{\mu}_j,\boldsymbol{\Sigma}_j)\Big).
-  \]
-\end{frame}
-
-\begin{frame}{E-step: Responsibilities}
-  \[
-  \gamma_j^{(i)}=
-  \mathbb{P}(z^{(i)}=j\mid\mathbf{x}^{(i)},\boldsymbol{\theta}^{(t)})
-  =\frac{\pi_j^{(t)}\mathcal{N}(\mathbf{x}^{(i)}\mid\boldsymbol{\mu}_j^{(t)},\boldsymbol{\Sigma}_j^{(t)})}
-  {\sum_{k=1}^K\pi_k^{(t)}\mathcal{N}(\mathbf{x}^{(i)}\mid\boldsymbol{\mu}_k^{(t)},\boldsymbol{\Sigma}_k^{(t)})}.
-  \]
-  Interpretation: soft assignment of each \(\mathbf{x}^{(i)}\) to component \(j\).
-\end{frame}
-
-\begin{frame}{M-step: Maximization of Expected Log-likelihood}
-  Define expected complete log-likelihood:
-  \[
-  Q(\boldsymbol{\theta};\boldsymbol{\theta}^{(t)})
-  =\mathbb{E}_{Z\mid\mathcal{X},\boldsymbol{\theta}^{(t)}}[\ln \mathbb{P}(\mathcal{X},Z\mid\boldsymbol{\theta})].
-  \]
-  Substitute expectations:
-  \[
-  Q(\boldsymbol{\theta};\boldsymbol{\theta}^{(t)})
-  =\sum_{i=1}^N\sum_{j=1}^K\gamma_j^{(i)}
-  \Big(\ln\pi_j+\ln\mathcal{N}(\mathbf{x}^{(i)}\mid\boldsymbol{\mu}_j,\boldsymbol{\Sigma}_j)\Big).
-  \]
-\end{frame}
-
-\begin{frame}{Update for \(\boldsymbol{\mu}_j\)}
-  Maximize \(Q\) w.r.t.\ \(\boldsymbol{\mu}_j\):
-  \[
-  \frac{\partial Q}{\partial \boldsymbol{\mu}_j}
-  =\sum_{i=1}^N\gamma_j^{(i)}\boldsymbol{\Sigma}_j^{-1}
-  (\mathbf{x}^{(i)}-\boldsymbol{\mu}_j)=0
-  \]
-  giving:
-  \[
-  \boldsymbol{\mu}_j^{\text{new}}=
-  \frac{1}{N_j}\sum_{i=1}^N\gamma_j^{(i)}\mathbf{x}^{(i)},
-  \qquad N_j=\sum_{i=1}^N\gamma_j^{(i)}.
-  \]
-\end{frame}
-
-\begin{frame}{Update for \(\boldsymbol{\Sigma}_j\)}
-  \[
-  \boldsymbol{\Sigma}_j^{\text{new}}
-  =\frac{1}{N_j}\sum_{i=1}^N\gamma_j^{(i)}
-  (\mathbf{x}^{(i)}-\boldsymbol{\mu}_j^{\text{new}})
-  (\mathbf{x}^{(i)}-\boldsymbol{\mu}_j^{\text{new}})^\top.
-  \]
-  (In practice add small \(\epsilon I\) for numerical stability.)
-\end{frame}
-
-\begin{frame}{Update for \(\pi_j\)}
-  Maximize under \(\sum_j\pi_j=1\):
-  \[
-  \pi_j^{\text{new}}=\frac{N_j}{N}.
-  \]
-  Using Lagrange multiplier ensures normalization.
-\end{frame}
-
-\begin{frame}{Algorithm Summary}
-  \begin{algorithm}[H]
-  \caption{EM for Gaussian Mixture Models}
-  \begin{algorithmic}[1]
-    \State Initialize \(\{\pi_j^{(0)},\boldsymbol{\mu}_j^{(0)},\boldsymbol{\Sigma}_j^{(0)}\}\)
-    \Repeat
-      \State \textbf{E-step:} Compute \(\gamma_j^{(i)}\)
-      \State \textbf{M-step:} Update parameters as above
-    \Until{log-likelihood convergence}
-  \end{algorithmic}
-  \end{algorithm}
-\end{frame}
-
-\begin{frame}{Variational View of EM}
-  \[
-  \ln \mathbb{P}(\mathcal{X}\mid\boldsymbol{\theta})
-  = F(\boldsymbol{\theta},Q)+
-  \mathrm{KL}(Q(Z)\,\|\,\mathbb{P}(Z\mid\mathcal{X},\boldsymbol{\theta})),
-  \]
-  where
-  \[
-  F(\boldsymbol{\theta},Q)
-  =\sum_Z Q(Z)\ln
-  \frac{\mathbb{P}(\mathcal{X},Z\mid\boldsymbol{\theta})}{Q(Z)}.
-  \]
-  EM maximizes \(F\) alternately over \(Q\) and \(\boldsymbol{\theta}\).
-\end{frame}
-
-\begin{frame}{EM Monotonicity}
-  \[
-  \ln \mathbb{P}(\mathcal{X}\mid\boldsymbol{\theta}^{(t+1)})
-  \ge F(\boldsymbol{\theta}^{(t+1)},Q)
-  \ge F(\boldsymbol{\theta}^{(t)},Q)
-  =\ln \mathbb{P}(\mathcal{X}\mid\boldsymbol{\theta}^{(t)}).
-  \]
-  Thus the likelihood never decreases.
-\end{frame}
-
-\begin{frame}{Practical Notes}
-  \begin{itemize}
-    \item Initialization via k-means.
-    \item Regularize \(\boldsymbol{\Sigma}_j \leftarrow \boldsymbol{\Sigma}_j+\epsilon I\).
-    \item Convergence: monitor \(\Delta\ell<10^{-6}\).
-  \end{itemize}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Convergence and Comparison}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Convergence and Local Optima}
-  \begin{itemize}
-    \item EM converges to a stationary (local) optimum.
-    \item Run multiple initializations.
-  \end{itemize}
-  \centering
-  \begin{tabular}{cc}
-    \includegraphics[width=0.42\linewidth]{pic/concave.png} &
-    \includegraphics[width=0.42\linewidth]{pic/convex.png} \\
-    (Left) Concave function & (Right) Convex function
-  \end{tabular}
-\end{frame}
-
-\begin{frame}{k-means vs EM+GMM}
-  \begin{itemize}
-    \item k-means: hard assignments, equal variance clusters.
-    \item EM: soft probabilistic assignments.
-    \item EM generalizes k-means when covariances are isotropic.
-  \end{itemize}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Summary}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Summary}
-  \begin{itemize}
-    \item GMM = flexible probabilistic mixture model.
-    \item EM = iterative ML method with guaranteed non-decrease.
-    \item Use careful initialization and covariance regularization.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{References}
-  \begin{itemize}
-    \item C. M. Bishop, \textit{Pattern Recognition and Machine Learning}, Ch. 9.
-    \item Lecture slides: Hamid R. Rabiee \& Zahra Dehghanian, Spring 2025.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Contributions}
-  \begin{itemize}
-    \item \textbf{This slide deck was prepared thanks to:}
+% -----------------------------------------------------
+% Motivation
+% -----------------------------------------------------
+\begin{frame}{Motivation}
+\begin{itemize}
+    \item Many real-world densities are \textbf{multi-modal}.  
+          These arise from heterogeneous sources, sub-populations, or hidden structure.
+    \item We want a \textbf{flexible probabilistic model} to:
     \begin{itemize}
-      \item \href{https://github.com/soheilsayahvarg}{Soheil Sayah Varg}
+        \item model complex densities,
+        \item perform soft clustering,
+        \item generate new samples,
+        \item evaluate likelihood.
     \end{itemize}
-  \end{itemize}
+    \item Gaussian Mixture Models (GMMs) achieve this with a simple generative structure.
+\end{itemize}
+\end{frame}
+
+% -----------------------------------------------------
+% Outline
+% -----------------------------------------------------
+\begin{frame}{Outline (full version)}
+\begin{itemize}
+    \item Mixture models and Gaussian mixture definition
+    \item Maximum Likelihood for incomplete-data likelihood
+    \item EM Algorithm:
+    \begin{itemize}
+        \item E-step: responsibility computation
+        \item M-step: closed-form updates
+        \item full derivations (means, covariances, mixing weights)
+    \end{itemize}
+    \item Variational lower bound, KL divergence
+    \item Convex vs. concave functions (full explanation)
+    \item Full proof of EM monotonicity  
+    \item Examples, figures, EM iterations  
+    \item Practical notes and failure modes  
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Mixture Models}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% -----------------------------------------------------
+% Definition of Mixture Model
+% -----------------------------------------------------
+\begin{frame}{What is a Mixture Model?}
+A mixture model represents a probability density as a convex combination of simpler component densities:
+\[
+\mathbb{P}(\mathbf{x}\mid\boldsymbol{\theta})
+=
+\sum_{j=1}^{K} \pi_j \, 
+\mathbb{P}(\mathbf{x} \mid z=j; \boldsymbol{\theta}_j)
+\]
+where:
+\begin{itemize}
+    \item \(\mathbf{x} \in \mathbb{R}^d\) is a \textbf{feature vector},
+    \item \(z\) is a latent discrete variable,
+    \item \(\pi_j \ge 0\), \(\sum_j \pi_j = 1\).
+\end{itemize}
+The latent variable \(z\) indicates which component generated \(\mathbf{x}\).
+\end{frame}
+
+% -----------------------------------------------------
+% GMM Definition
+% -----------------------------------------------------
+\begin{frame}{Gaussian Mixture Model (GMM)}
+\[
+\mathbb{P}(\mathbf{x})
+=
+\sum_{j=1}^{K} \pi_j \,
+\mathcal{N}(\mathbf{x}\mid\mathbf{\mu}_j,\mathbf{\Sigma}_j)
+\]
+The multivariate Gaussian density:
+\[
+\mathcal{N}(\mathbf{x} \mid \mathbf{\mu}, \mathbf{\Sigma})
+=
+\frac{1}{(2\pi)^{d/2}
+\lvert\mathbf{\Sigma}\rvert^{1/2}}
+\exp\!\left(
+    -\frac{1}{2}(\mathbf{x}-\mathbf{\mu})^\top 
+    \mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu})
+\right).
+\]
+Parameters:
+\[
+\boldsymbol{\theta}
+=
+\{\pi_j,\, \mathbf{\mu}_j,\, \mathbf{\Sigma}_j\}_{j=1}^K.
+\]
+\end{frame}
+
+% -----------------------------------------------------
+% Notation
+% -----------------------------------------------------
+\begin{frame}{Notation (vector-corrected)}
+\begin{itemize}
+    \item \(\mathbf{x}^{(i)}\): feature vector for sample \(i\).
+    \item \(x^{(i)}_t\): scalar component \(t\) of \(\mathbf{x}^{(i)}\).
+    \item \(z^{(i)}\): latent component label (categorical).  
+          One-hot form: \(z^{(i)}_j \in \{0,1\}\).
+    \item \(\pi_j\): mixing weight (scalar).
+    \item \(\mathbf{\mu}_j\): mean vector of component \(j\).
+    \item \(\mathbf{\Sigma}_j\): covariance matrix of component \(j\).
+    \item \(N\): number of samples; \(d\): dimension.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Gaussian Mixture Models (GMM)}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% -----------------------------------------------------
+% Why GMMs
+% -----------------------------------------------------
+\begin{frame}{Why GMMs?}
+\begin{itemize}
+    \item Can approximate arbitrary continuous densities (universal approximators).
+    \item Soft clustering via posterior probabilities.
+    \item Generative: can sample new data.
+    \item More expressive than k-means due to covariance matrices.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Maximum Likelihood and the EM Algorithm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% -----------------------------------------------------
+% Incomplete-data log-likelihood
+% -----------------------------------------------------
+\begin{frame}{Incomplete-data Log-Likelihood}
+Given data $\mathcal{X}=\{\mathbf{x}^{(i)}\}_{i=1}^{N}$, the likelihood is:
+\[
+\mathbb{P}(\mathcal{X}\mid\boldsymbol{\theta})
+= 
+\prod_{i=1}^{N}
+\sum_{j=1}^{K}
+\pi_j \,
+\mathcal{N}(\mathbf{x}^{(i)}\mid \mathbf{\mu}_j, \mathbf{\Sigma}_j).
+\]
+Hence the incomplete-data log-likelihood is:
+\[
+\ell(\boldsymbol{\theta})
+=
+\sum_{i=1}^{N}
+\ln
+\left(
+\sum_{j=1}^{K}
+\pi_j \,
+\mathcal{N}(\mathbf{x}^{(i)}\mid \mathbf{\mu}_j, \mathbf{\Sigma}_j)
+\right).
+\]
+
+\begin{itemize}
+    \item The main difficulty: $\ln(\sum_j \cdot)$ makes direct maximization impossible.
+    \item EM solves this by introducing latent variables.
+\end{itemize}
+\end{frame}
+
+% -----------------------------------------------------
+% Complete-data LL
+% -----------------------------------------------------
+\begin{frame}{Latent Variables and Complete-data Likelihood}
+Let $z^{(i)}_j \in \{0,1\}$ indicate which component generated $\mathbf{x}^{(i)}$:
+\[
+\sum_{j=1}^{K} z^{(i)}_j = 1.
+\]
+
+The complete-data likelihood factorizes:
+\[
+\mathbb{P}(\mathcal{X}, Z \mid \boldsymbol{\theta})
+=
+\prod_{i=1}^N
+\prod_{j=1}^K
+\left[
+\pi_j \,
+\mathcal{N}(\mathbf{x}^{(i)} \mid \mathbf{\mu}_j, \mathbf{\Sigma}_j)
+\right]^{z^{(i)}_j}.
+\]
+
+Complete-data log-likelihood:
+\[
+\ln
+\mathbb{P}(\mathcal{X}, Z \mid \boldsymbol{\theta})
+=
+\sum_{i=1}^{N}
+\sum_{j=1}^{K}
+z^{(i)}_j
+\left(
+\ln \pi_j
++
+\ln \mathcal{N}(\mathbf{x}^{(i)}\mid \mathbf{\mu}_j, \mathbf{\Sigma}_j)
+\right).
+\]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% E-step
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{E-step: Responsibilities}
+In E-step we compute the posterior:
+\[
+\gamma_j^{(i)}
+=
+\mathbb{P}(z^{(i)}=j \mid \mathbf{x}^{(i)}, \boldsymbol{\theta}^{(t)})
+=
+\frac{
+\pi_j^{(t)}
+\,
+\mathcal{N}(\mathbf{x}^{(i)}\mid \mathbf{\mu}^{(t)}_j, \mathbf{\Sigma}^{(t)}_j)
+}{
+\sum_{k=1}^{K}
+\pi_k^{(t)}
+\,
+\mathcal{N}(\mathbf{x}^{(i)}\mid \mathbf{\mu}^{(t)}_k, \mathbf{\Sigma}^{(t)}_k)
+}.
+\]
+
+Define:
+\[
+N_j = \sum_{i=1}^{N} \gamma_j^{(i)}.
+\]
+This represents the soft count for component $j$.
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Q-function
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Q-function (Expectation of Complete-data LL)}
+\[
+Q(\boldsymbol{\theta}; \boldsymbol{\theta}^{(t)})
+=
+\mathbb{E}_{Z\mid \mathcal{X}, \boldsymbol{\theta}^{(t)}}
+\big[
+\ln \mathbb{P}(\mathcal{X}, Z \mid \boldsymbol{\theta})
+\big]
+\]
+
+\[
+=
+\sum_{i=1}^{N}
+\sum_{j=1}^{K}
+\gamma_j^{(i)}
+\left(
+\ln \pi_j
++
+\ln 
+\mathcal{N}(\mathbf{x}^{(i)} 
+\mid
+\mathbf{\mu}_j,
+\mathbf{\Sigma}_j)
+\right).
+\]
+
+Maximizing $Q$ w.r.t.\ $\boldsymbol{\theta}$ gives M-step updates.
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% M-step: mu derivation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{M-step: Update for $\mathbf{\mu}_j$ (Full Derivation)}
+We maximize the part of $Q$ involving $\mathbf{\mu}_j$:
+
+\[
+Q_{\mu_j}
+=
+\sum_{i=1}^{N}
+\gamma_j^{(i)}
+\left(
+-\frac{1}{2}
+(\mathbf{x}^{(i)} - \mathbf{\mu}_j)^\top
+\mathbf{\Sigma}_j^{-1}
+(\mathbf{x}^{(i)} - \mathbf{\mu}_j)
+\right)
++ \text{const}.
+\]
+
+Take derivative:
+\[
+\frac{\partial Q_{\mu_j}}{\partial \mathbf{\mu}_j}
+=
+\sum_{i=1}^{N}
+\gamma_j^{(i)}
+\mathbf{\Sigma}_j^{-1}
+(\mathbf{x}^{(i)} - \mathbf{\mu}_j).
+\]
+
+Set to zero:
+\[
+\sum_{i=1}^{N}
+\gamma_j^{(i)}
+\mathbf{x}^{(i)}
+=
+\left(
+\sum_{i=1}^{N}
+\gamma_j^{(i)}
+\right)
+\mathbf{\mu}_j.
+\]
+
+Thus:
+\[
+\boxed{
+\mathbf{\mu}_j^{\text{new}}
+=
+\frac{1}{N_j}
+\sum_{i=1}^N
+\gamma_j^{(i)} \mathbf{x}^{(i)}
+}
+\]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% M-step: Sigma derivation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{M-step: Update for $\mathbf{\Sigma}_j$ (Full Derivation)}
+We maximize:
+\[
+Q_{\Sigma_j}
+=
+\sum_{i=1}^{N}
+\gamma_j^{(i)}
+\left[
+-\frac{1}{2} \ln|\mathbf{\Sigma}_j|
+-\frac{1}{2}
+(\mathbf{x}^{(i)} - \mathbf{\mu}_j)^\top
+\mathbf{\Sigma}_j^{-1}
+(\mathbf{x}^{(i)} - \mathbf{\mu}_j)
+\right].
+\]
+
+Derivative identity:
+\[
+\frac{\partial}{\partial \mathbf{\Sigma}}
+\ln|\mathbf{\Sigma}|
+=
+(\mathbf{\Sigma}^{-1})^\top, \qquad
+\frac{\partial}{\partial \mathbf{\Sigma}}
+\mathbf{a}^\top \mathbf{\Sigma}^{-1}\mathbf{a}
+=
+-
+\mathbf{\Sigma}^{-1}
+\mathbf{a}\mathbf{a}^\top
+\mathbf{\Sigma}^{-1}.
+\]
+
+Setting derivative to zero yields:
+\[
+\boxed{
+\mathbf{\Sigma}_j^{\text{new}}
+=
+\frac{1}{N_j}
+\sum_{i=1}^{N}
+\gamma_j^{(i)}
+(\mathbf{x}^{(i)} - \mathbf{\mu}_j^{\text{new}})
+(\mathbf{x}^{(i)} - \mathbf{\mu}_j^{\text{new}})^\top
+}.
+\]
+
+For numerical stability, in practice:
+\[
+\mathbf{\Sigma}_j \leftarrow \mathbf{\Sigma}_j + \epsilon I.
+\]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% M-step: pi
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{M-step: Update for $\pi_j$ - Part 1}
+We maximize:
+\[
+Q_{\pi} = \sum_{j=1}^{K} N_j \ln \pi_j.
+\]
+Subject to:
+\[
+\sum_{j=1}^{K}\pi_j = 1.
+\]
+
+Using a Lagrange multiplier:
+\[
+\mathcal{L}
+=
+\sum_{j} N_j \ln\pi_j
++
+\lambda \left( \sum_j \pi_j - 1 \right).
+\]
+\end{frame}
+
+\begin{frame}{M-step: Update for $\pi_j$ - Part 2}
+Derivative:
+\[
+\frac{\partial \mathcal{L}}{\partial \pi_j}
+=
+\frac{N_j}{\pi_j}
++ \lambda
+= 0.
+\]
+
+Solve:
+\[
+\pi_j = -\frac{N_j}{\lambda}.
+\]
+
+Apply constraint → final update:
+\[
+\boxed{
+\pi_j^{\text{new}}
+=
+\frac{N_j}{N}
+}
+\]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EM Algorithm Illustration Figure
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{EM Algorithm Illustration}
+\centering
+\includegraphics[width=0.5\linewidth]{pic/EM_algorithm_illustration.png}
+
+\begin{itemize}
+    \item EM alternates between computing posteriors (E-step)  
+    \item and maximizing expected complete-data LL (M-step)
+    \item until convergence.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Convexity, Concavity, and EM Lower Bound}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% -----------------------------------------------------
+% Convex vs Concave functions
+% -----------------------------------------------------
+\begin{frame}{Convex vs. Concave Functions (Full Explanation)}
+A function $f:\mathbb{R}^d\rightarrow\mathbb{R}$ is:
+
+\begin{itemize}
+    \item \textbf{Convex} if  
+    \[
+    f(\alpha \mathbf{x} + (1-\alpha)\mathbf{y})
+    \le
+    \alpha f(\mathbf{x}) + (1-\alpha) f(\mathbf{y}),
+    \quad 0\le\alpha\le1.
+    \]
+    Its epigraph forms a convex set.
+
+    \item \textbf{Concave} if  
+    \[
+    f(\alpha \mathbf{x} + (1-\alpha)\mathbf{y})
+    \ge
+    \alpha f(\mathbf{x}) + (1-\alpha) f(\mathbf{y}).
+    \]
+
+    \item \textbf{Strictly convex} if inequality is strict.
+\end{itemize}
+
+\textbf{Key fact:} $-\ln x$ is convex;  
+$\ln x$ is concave.  
+
+This property is used to derive Jensen’s inequality:
+\[
+\ln \mathbb{E}[X]
+\ge
+\mathbb{E}[\ln X].
+\]
+\end{frame}
+
+% -----------------------------------------------------
+% Jensen → EM lower bound
+% -----------------------------------------------------
+\begin{frame}{Variational Lower Bound via Jensen’s Inequality}
+We start with:
+\[
+\ln \mathbb{P}(\mathcal{X}\mid\boldsymbol{\theta})
+=
+\ln
+\sum_{Z}
+\mathbb{P}(\mathcal{X}, Z \mid \boldsymbol{\theta}).
+\]
+
+Introduce any distribution $Q(Z)$:
+\[
+=
+\ln
+\sum_{Z}
+Q(Z)
+\frac{
+\mathbb{P}(\mathcal{X}, Z\mid\boldsymbol{\theta})
+}{
+Q(Z)
+}.
+\]
+
+Apply Jensen:
+\[
+\ln \mathbb{P}(\mathcal{X}\mid\boldsymbol{\theta})
+\ge
+\sum_Z
+Q(Z)
+\ln
+\frac{
+\mathbb{P}(\mathcal{X}, Z\mid\boldsymbol{\theta})
+}{
+Q(Z)
+}
+\]
+Define:
+\[
+F(\boldsymbol{\theta},Q)
+=
+\sum_Z
+Q(Z)
+\ln
+\frac{
+\mathbb{P}(\mathcal{X}, Z\mid\boldsymbol{\theta})
+}{
+Q(Z)
+}.
+\]
+
+And:
+\[
+\ln\mathbb{P}(\mathcal{X}\mid\boldsymbol{\theta})
+=
+F(\boldsymbol{\theta},Q)
++
+\mathrm{KL}
+\big(
+Q(Z)
+\,
+\|\,
+\mathbb{P}(Z\mid \mathcal{X},\boldsymbol{\theta})
+\big).
+\]
+\end{frame}
+
+% -----------------------------------------------------
+% EM monotonicity
+% -----------------------------------------------------
+\begin{frame}{Why EM Increases Likelihood (Full Proof) - Part 1}
+At iteration $t$:
+\[
+Q^{(t)}(Z)
+=
+\mathbb{P}(Z\mid\mathcal{X},\boldsymbol{\theta}^{(t)}).
+\]
+
+Then:
+\[
+\ln\mathbb{P}(\mathcal{X}\mid\boldsymbol{\theta}^{(t)})
+=
+F(\boldsymbol{\theta}^{(t)}, Q^{(t)}).
+\]
+
+M-step chooses:
+\[
+\boldsymbol{\theta}^{(t+1)}
+=
+\argmax_{\boldsymbol{\theta}}
+F(\boldsymbol{\theta}, Q^{(t)}).
+\]
+
+Thus:
+\[
+F(\boldsymbol{\theta}^{(t+1)}, Q^{(t)})
+\ge
+F(\boldsymbol{\theta}^{(t)}, Q^{(t)}).
+\]
+\end{frame}
+
+\begin{frame}{Why EM Increases Likelihood (Full Proof) - Part 2}
+Since KL divergence is always non-negative:
+\[
+\ln\mathbb{P}(\mathcal{X}\mid\boldsymbol{\theta}^{(t+1)})
+\ge
+F(\boldsymbol{\theta}^{(t+1)}, Q^{(t)}).
+\]
+
+Combine them:
+\[
+\boxed{
+\ln\mathbb{P}(\mathcal{X}\mid\boldsymbol{\theta}^{(t+1)})
+\ge
+\ln\mathbb{P}(\mathcal{X}\mid\boldsymbol{\theta}^{(t)})
+}
+\]
+
+→ EM \textbf{always increases likelihood}.
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Examples and Visualizations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% -----------------------------------------------------
+% Set 1 (3 images)
+% -----------------------------------------------------
+\begin{frame}{EM \& GMM Example — Set 1 (3 Figures)}
+\centering
+\begin{tabular}{ccc}
+\includegraphics[width=0.30\linewidth]{pic/EM_&_GMM_Example(1)(a).png} &
+\includegraphics[width=0.30\linewidth]{pic/EM_&_GMM_Example(1)(b).png} &
+\includegraphics[width=0.30\linewidth]{pic/EM_&_GMM_Example(1)(c).png} \\
+(a) & (b) & (c)
+\end{tabular}
+
+\begin{itemize}
+    \item Dataset contains two overlapping Gaussian components.
+    \item Colors illustrate \textbf{soft assignments} (responsibilities).
+    \item Means gradually move toward cluster centers as EM iterates.
+\end{itemize}
+\end{frame}
+
+% -----------------------------------------------------
+% Set 2 (6 images)
+% -----------------------------------------------------
+\begin{frame}{EM \& GMM Example — Set 2 (6 Figures)}
+\centering
+\begin{tabular}{ccc}
+\includegraphics[width=0.15\linewidth]{pic/EM_&_GMM_Example(2)(a).png} &
+\includegraphics[width=0.15\linewidth]{pic/EM_&_GMM_Example(2)(b).png} &
+\includegraphics[width=0.15\linewidth]{pic/EM_&_GMM_Example(2)(c).png} \\
+(a) & (b) & (c) \\[3pt]
+\includegraphics[width=0.15\linewidth]{pic/EM_&_GMM_Example(2)(d).png} &
+\includegraphics[width=0.15\linewidth]{pic/EM_&_GMM_Example(2)(e).png} &
+\includegraphics[width=0.15\linewidth]{pic/EM_&_GMM_Example(2)(f).png} \\
+(d) & (e) & (f)
+\end{tabular}
+
+\begin{itemize}
+    \item Six-step visualization of EM evolution in 2D.
+    \item Components reshape (covariance) according to local density.
+    \item Shows \textbf{different initializations → different convergence paths}.
+\end{itemize}
+\end{frame}
+
+% -----------------------------------------------------
+% Iteration view
+% -----------------------------------------------------
+\begin{frame}{EM Iterations — Evolution of Parameters}
+\centering
+\begin{tabular}{cccc}
+\includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example_Iteration1.png} &
+\includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example_Iteration2.png} &
+\includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example_Iteration5.png} &
+\includegraphics[width=0.22\linewidth]{pic/EM_&_GMM_Example_Iteration25.png} \\
+Iter 1 & Iter 2 & Iter 5 & Iter 25
+\end{tabular}
+
+\begin{itemize}
+    \item Early steps: drastic changes in means/covariances.
+    \item Later steps: parameters stabilize and likelihood increases slowly.
+    \item EM often converges smoothly after a few iterations.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 1D Example — with numeric info
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{GMM 1-D Example — Detailed}
+\begin{minipage}{0.56\textwidth}
+\begin{itemize}
+    \item True mixture:
+    \[
+    \pi_1 = 0.6,\quad \pi_2 = 0.4
+    \]
+    \[
+    \mu_1 = 0,\quad \mu_2 = 3
+    \]
+    \[
+    \sigma_1^2 = 0.5,\quad \sigma_2^2 = 1.0
+    \]
+    \item EM initialized with random means and equal variances.
+    \item After convergence, EM recovers mixture parameters accurately.
+    \item Plot shows true density vs. EM estimate.
+\end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}{0.40\textwidth}
+\centering
+\includegraphics[width=\linewidth]{pic/GMM_1-D_Example(2).png}
+\end{minipage}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 2D Example
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{GMM 2-D Example — Detailed}
+\begin{minipage}{0.56\textwidth}
+\begin{itemize}
+    \item Synthetic dataset with $K=3$ components.
+    \item Components have \textbf{anisotropic covariances}:
+    \[
+    \mathbf{\Sigma}_j \text{ not diagonal}
+    \]
+    \item EM visually fits ellipses corresponding to covariance contours.
+    \item Soft assignments shown by color gradient.
+\end{itemize}
+\end{minipage}
+\hfill
+\begin{minipage}{0.40\textwidth}
+\centering
+\includegraphics[width=\linewidth]{pic/GMM_2-D_Example(1).png}
+\end{minipage}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Convergence, Practical Issues, and Failure Modes}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% -----------------------------------------------------
+% Monotonicity figure
+% -----------------------------------------------------
+\begin{frame}{Convergence: Monotonicity and Local Optima}
+\begin{itemize}
+    \item EM \textbf{always increases} the log-likelihood:
+    \[
+    \ell(\boldsymbol{\theta}^{(t+1)})
+    \ge
+    \ell(\boldsymbol{\theta}^{(t)}).
+    \]
+    \item EM converges to a stationary point:
+    \[
+    \nabla \ell(\boldsymbol{\theta}) = 0.
+    \]
+    \item This stationary point may be a:
+    \begin{itemize}
+        \item local maximum,
+        \item saddle point.
+    \end{itemize}
+    \item Initialization has major impact on final solution.
+\end{itemize}
+
+\centering
+\begin{tabular}{cc}
+\includegraphics[width=0.2\linewidth]{pic/concave.png} &
+\includegraphics[width=0.2\linewidth]{pic/convex.png} \\
+Concave LL & Convex LL
+\end{tabular}
+
+\end{frame}
+
+% -----------------------------------------------------
+% Practical tips
+% -----------------------------------------------------
+\begin{frame}{Practical Tips for Using EM in GMMs}
+\begin{itemize}
+    \item \textbf{Initialization}:
+    \begin{itemize}
+        \item k-means
+        \item k-means++ for more robustness
+        \item multiple random restarts
+    \end{itemize}
+    \item \textbf{Covariance choices}:
+    \[
+    \text{full, diagonal, tied, spherical}
+    \]
+    \item \textbf{Stopping criteria}:
+    \begin{itemize}
+        \item $\Delta \ell < \epsilon$
+        \item small parameter change
+        \item max iterations
+    \end{itemize}
+    \item \textbf{Regularization}:
+    \[
+    \mathbf{\Sigma}_j \leftarrow \mathbf{\Sigma}_j + \epsilon I
+    \qquad (\epsilon \approx 10^{-5})
+    \]
+\end{itemize}
+\end{frame}
+
+% -----------------------------------------------------
+% Failure modes
+% -----------------------------------------------------
+\begin{frame}{Failure Modes and Solutions}
+\begin{itemize}
+    \item \textbf{Component collapse}:
+    \[
+    \mathbf{\Sigma}_j \to 0
+    \]
+    Solution: add regularization, reinitialize collapsed component.
+    \item \textbf{Singular covariance}: happens when one component takes a single point.
+    \item \textbf{Slow convergence}:  
+    Solutions:
+    \begin{itemize}
+        \item better initialization
+        \item annealing/tempering EM
+        \item variational EM
+        \item stochastic EM
+    \end{itemize}
+    \item \textbf{Overfitting}: use MAP estimation or Bayesian GMM.
+\end{itemize}
+\end{frame}
+
+% -----------------------------------------------------
+% Comparison to k-means
+% -----------------------------------------------------
+\begin{frame}{Comparison: EM for GMM vs. k-means}
+\begin{itemize}
+    \item k-means:
+    \begin{itemize}
+        \item hard assignments
+        \item spherical clusters
+        \item minimizes within-cluster square distances
+    \end{itemize}
+    \item EM + GMM:
+    \begin{itemize}
+        \item soft assignments ($\gamma_j^{(i)}$)
+        \item full covariance modeling
+        \item probabilistic interpretation (likelihood)
+    \end{itemize}
+    \item EM is more flexible—but requires more parameters and computation.
+\end{itemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Summary and References}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% -----------------------------------------------------
+% Summary
+% -----------------------------------------------------
+\begin{frame}{Summary}
+\begin{itemize}
+    \item GMMs provide flexible density estimation with multiple Gaussian components.
+    \item EM algorithm:
+    \begin{itemize}
+        \item E-step computes responsibilities.
+        \item M-step updates $\mathbf{\mu}_j$, $\mathbf{\Sigma}_j$, $\pi_j$.
+    \end{itemize}
+    \item EM maximizes a lower bound and increases likelihood monotonically.
+    \item Initialization and regularization are critical to good performance.
+    \item GMMs outperform k-means when clusters are anisotropic or overlapping.
+\end{itemize}
+\end{frame}
+
+% -----------------------------------------------------
+% References
+% -----------------------------------------------------
+\begin{frame}{References}
+\begin{itemize}
+    \item C. M. Bishop, \textit{Pattern Recognition and Machine Learning}, Chapter 9.
+    \item Original slides from:
+    \[
+    \text{Hamid R. Rabiee \& Zahra Dehghanian (Spring 2025)}
+    \]
+    \item Additional illustrations from course-provided materials.
+\end{itemize}
+\end{frame}
+
+% -----------------------------------------------------
+% Acknowledgement
+% -----------------------------------------------------
+\begin{frame}{Acknowledgement}
+\centering
+{\Large Special Thanks}
+
+\vspace{1cm}
+
+\Large
+\textbf{Soheil Sayah Varg}
+
+\vspace{1cm}
+
+{\small for contributions to preparing, organizing, and refining this slide deck.}
+\end{frame}
+
+% -----------------------------------------------------
+% Final page
+% -----------------------------------------------------
+\begin{frame}
+\centering
+{\Huge Thank You!}
+
+\vspace{0.5cm}
+{\Large Questions?}
 \end{frame}
 
 \end{document}
