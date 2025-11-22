@@ -412,7 +412,7 @@ over the collection of all partitions of the data.
 \begin{frame}{K-Means in Action}
     \begin{figure}
         \centering
-        \includegraphics[width=0.6\textwidth]{kmeans_in_action_figures/original.png}
+        \includegraphics[width=0.6\textwidth]{pic/kmeans_in_action_figures/kmeans_initial_data.png}
     \end{figure}
 \end{frame}
 
@@ -420,7 +420,7 @@ over the collection of all partitions of the data.
 \begin{frame}{K-Means in Action}
     \begin{figure}
         \centering
-        \includegraphics[width=0.6\textwidth]{kmeans_in_action_figures/kmeans_iter_1.png}
+        \includegraphics[width=0.6\textwidth]{pic/kmeans_in_action_figures/kmeans_assignment_iter_1.png}
     \end{figure}
 \end{frame}
 
@@ -428,7 +428,7 @@ over the collection of all partitions of the data.
 \begin{frame}{K-Means in Action}
     \begin{figure}
         \centering
-        \includegraphics[width=0.6\textwidth]{kmeans_in_action_figures/kmeans_iter_2.png}
+        \includegraphics[width=0.6\textwidth]{pic/kmeans_in_action_figures/kmeans_update_iter_1.png}
     \end{figure}
 \end{frame}
 
@@ -436,7 +436,7 @@ over the collection of all partitions of the data.
 \begin{frame}{K-Means in Action}
     \begin{figure}
         \centering
-        \includegraphics[width=0.6\textwidth]{kmeans_in_action_figures/kmeans_iter_3.png}
+        \includegraphics[width=0.6\textwidth]{pic/kmeans_in_action_figures/kmeans_assignment_iter_2.png}
     \end{figure}
 \end{frame}
 
@@ -444,7 +444,7 @@ over the collection of all partitions of the data.
 \begin{frame}{K-Means in Action}
     \begin{figure}
         \centering
-        \includegraphics[width=0.6\textwidth]{kmeans_in_action_figures/kmeans_iter_4.png}
+        \includegraphics[width=0.6\textwidth]{pic/kmeans_in_action_figures/kmeans_update_iter_2.png}
     \end{figure}
 \end{frame}
 
@@ -452,11 +452,44 @@ over the collection of all partitions of the data.
 \begin{frame}{K-Means in Action}
     \begin{figure}
         \centering
-        \includegraphics[width=0.6\textwidth]{kmeans_in_action_figures/kmeans_iter_5.png}
+        \includegraphics[width=0.6\textwidth]{pic/kmeans_in_action_figures/kmeans_assignment_iter_3.png}
     \end{figure}
 \end{frame}
 
+\begin{frame}{K-Means in Action}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{pic/kmeans_in_action_figures/kmeans_update_iter_3.png}
+    \end{figure}
+\end{frame}
 
+\begin{frame}{K-Means in Action}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{pic/kmeans_in_action_figures/kmeans_assignment_iter_4.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{K-Means in Action}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{pic/kmeans_in_action_figures/kmeans_update_iter_4.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{K-Means in Action}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{pic/kmeans_in_action_figures/kmeans_assignment_iter_5.png}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{K-Means in Action}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.6\textwidth]{pic/kmeans_in_action_figures/kmeans_update_iter_5.png}
+    \end{figure}
+\end{frame}
 % \begin{frame}{K-Means overview}
 %     \begin{itemize}
 %       \item K-Means assumes we know there are $K$ clusters, or we want $K$ clusters.
@@ -1392,9 +1425,9 @@ over the collection of all partitions of the data.
 \begin{frame}{Core Concepts in DBSCAN}
     \textbf{DBSCAN defines three types of points:}
     \begin{itemize}
-        \item \textbf{Core Point}: A point with at least \texttt{minPts} neighbors within distance $\epsilon$.
-        \item \textbf{Border Point}: A point within $\epsilon$ of a core point but with fewer than \texttt{minPts} neighbors.
-        \item \textbf{Noise}: Points that are neither core points nor border points.
+        \item \textbf{Core Point}: Has at least \texttt{minPts} points (including itself) within distance $\epsilon$.
+        \item \textbf{Border Point}: Not a core point, but within distance $\epsilon$ of a core point.
+        \item \textbf{Noise (Outlier)}: Neither core nor border.
     \end{itemize}
     \begin{figure}
         \centering
@@ -1417,25 +1450,51 @@ over the collection of all partitions of the data.
 \end{frame}
 
 %--------------------------------------------------slide76
-\begin{frame}{DBSCAN Algorithm Steps}
-    \textbf{Algorithm Steps:}
+\begin{frame}{DBSCAN Algorithm (Main Procedure)}
+
+\textbf{Main DBSCAN Loop}
+
+\begin{enumerate}
+    \item Mark all points as unvisited.
+    \item For each point $x_i$:
     \begin{itemize}
-        \item For each unvisited point \( x_i \):
-        \begin{itemize}
-            \item Mark \( x_i \) as visited.
-            \item Find all points within distance \( \epsilon \) (neighborhood).
-        \end{itemize}
-        
-        \item If \( x_i \) is a core point:
-        \begin{itemize}
-            \item Create a new cluster and expand it by recursively adding all reachable core and border points.
-        \end{itemize}
-        
-        \item If \( x_i \) is not a core point:
-        \begin{itemize}
-            \item Label it as noise if it does not belong to any cluster.
-        \end{itemize}
+        \item If $x_i$ is visited, continue.
+        \item Mark $x_i$ as visited and compute $N_\epsilon(x_i)$.
+        \item If $|N_\epsilon(x_i)| < \texttt{minPts}$:
+              temporarily label $x_i$ as noise.
+        \item Else:
+              create a new cluster $C$ and
+              add $x_i$ to it.
+              Then call \textbf{ExpandCluster($x_i$, $N_\epsilon(x_i)$, $C$)}.
     \end{itemize}
+\end{enumerate}
+
+\end{frame}
+
+%--------------------------------------------------slide76'
+
+
+\begin{frame}{DBSCAN: Cluster Expansion}
+
+\textbf{ExpandCluster(seed, neighbors, C)}
+
+\begin{itemize}
+    \item Initialize a queue with all points in \textit{neighbors}.
+    \item While the queue is not empty:
+    \begin{itemize}
+        \item Pop a point $x_j$ from the queue.
+        \item If $x_j$ is unvisited:
+            \begin{itemize}
+                \item Mark $x_j$ as visited.
+                \item Compute $N_\epsilon(x_j)$.
+                \item If $|N_\epsilon(x_j)| \ge \texttt{minPts}$:
+                      append all of $N_\epsilon(x_j)$ to the queue.
+            \end{itemize}
+        \item If $x_j$ is not yet assigned to any cluster:
+              add $x_j$ to cluster $C$.
+    \end{itemize}
+\end{itemize}
+
 \end{frame}
 
 %--------------------------------------------------slide77
