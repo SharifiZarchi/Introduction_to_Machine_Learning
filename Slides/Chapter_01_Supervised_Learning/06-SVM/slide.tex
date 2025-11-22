@@ -494,39 +494,85 @@ Taking derivatives:
 %------------------------------------------slide21
 \begin{frame}{Substituting into the Lagrangian}
 
-Using the optimality conditions:
+Using the KKT optimality conditions:
 \[
 \mathbf{w} = \sum_{n=1}^{N} \alpha_n y_n \mathbf{x}_n,
-\quad \text{and} \quad 
+\qquad
 \sum_{n=1}^{N} \alpha_n y_n = 0,
 \]
-we substitute these into the Lagrangian:
+we substitute these into the primal Lagrangian:
 \[
-\mathcal{L}(\mathbf{w}, b, \boldsymbol{\alpha}) 
-= \frac{1}{2} \, \mathbf{w}^\top \mathbf{w} 
-- \sum_{n=1}^{N} \alpha_n \big( y_n (\mathbf{w}^\top \mathbf{x}_n + b) - 1 \big).
+\mathcal{L}(\mathbf{w}, b, \boldsymbol{\alpha})
+=
+\frac{1}{2}\,\mathbf{w}^\top\mathbf{w}
+-
+\left(
+\sum_{n=1}^{N} \alpha_n y_n \mathbf{w}^\top \mathbf{x}_n
++
+\sum_{n=1}^{N} \alpha_n y_n b
+-
+\sum_{n=1}^{N} \alpha_n
+\right).
 \]
 
-\vspace{0.5em}
+\vspace{1em}
 
-This yields the dual objective function:
+Now insert the optimal value of \(\mathbf{w}\):
 \[
-\mathcal{L}(\boldsymbol{\alpha}) 
-= \sum_{n=1}^{N} \alpha_n 
-- \frac{1}{2} 
-\sum_{n=1}^{N} \sum_{m=1}^{N} 
-y_n y_m \alpha_n \alpha_m \, \mathbf{x}_n^\top \mathbf{x}_m.
+\mathcal{L}(\mathbf{w}, b, \boldsymbol{\alpha})
+=
+\frac{1}{2}\,\mathbf{w}^\top\mathbf{w}
+-
+\left(
+\mathbf{w}^\top\mathbf{w}
++
+0
+-
+\sum_{n=1}^{N} \alpha_n
+\right).
+\]
+\end{frame}
+\begin{frame}{Substituting into the Lagrangian}
+Simplifying:
+\[
+\mathcal{L}(\boldsymbol{\alpha})
+=
+\frac{1}{2}\,\mathbf{w}^\top\mathbf{w}
+-
+\mathbf{w}^\top\mathbf{w}
++
+\sum_{n=1}^{N} \alpha_n.
 \]
 
-\vspace{0.5em}
+\vspace{1em}
 
-Maximize with respect to $\boldsymbol{\alpha}$, subject to \quad 
-$\alpha_n \ge 0 \quad \text{for } n = 1, \ldots, N,
-\quad \text{and} \quad 
-\sum_{n=1}^{N} \alpha_n y_n = 0.
-$
+Thus the dual becomes:
+\[
+\mathcal{L}(\boldsymbol{\alpha})
+=
+\sum_{n=1}^{N} \alpha_n
+-
+\frac{1}{2}\,\mathbf{w}^\top\mathbf{w},
+\qquad
+\mathbf{w}
+=
+\sum_{n=1}^{N} \alpha_n y_n \mathbf{x}_n.
+\]
+
+\[
+\mathcal{L}(\boldsymbol{\alpha})
+=
+\sum_{n=1}^{N} \alpha_n
+-
+\frac{1}{2}
+\sum_{n=1}^{N}
+\sum_{m=1}^{N}
+\alpha_n \alpha_m y_n y_m \,
+\mathbf{x}_n^\top \mathbf{x}_m.
+\]
 
 \end{frame}
+
 
 %------------------------------------------slide22
 \begin{frame}{The Solution: Quadratic Programming}
