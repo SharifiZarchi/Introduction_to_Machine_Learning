@@ -360,7 +360,7 @@ subsubsectionstyle=show/shaded/hide]
 
     \vspace{0.5em}
 
-    \href{https://isl.stanford.edu/~cover/papers/transIT/0021cove.pdf}{\small \texttt{isl.stanford.edu/~cover/papers/transIT/0021cove.pdf}}
+    \href{https://isl.stanford.edu/~cover/papers/transIT/0021cove.pdf}{\small\texttt{isl.stanford.edu/\string~cover/papers/transIT/0021cove.pdf}}
 \end{frame}
 
 %------------------------------------------------slide17
@@ -688,19 +688,18 @@ What is the computational complexity of the kNN algorithm?
 \begin{itemize}
     \item The basic kNN algorithm stores all training examples. Suppose we have $n$ examples, each with $d$ features.
     \begin{itemize}
-        \item $O(d)$ to compute the distance to a single example.
-        \item $O(nd)$ to find the nearest neighbor among all samples.
-        \item $O(knd)$ to find the $k$ closest examples.
-        \item Thus, the total computational complexity is $O(knd)$.
+        \item Computing the distance to a single example takes $O(d)$ time.
+        \item Computing distances to all $n$ examples takes $O(nd)$ time.
+        \item Selecting the $k$ nearest can be done in $O(n \log k)$ time using a \textbf{max-heap of size $k$}.
+        \item Therefore, the total time complexity of kNN classification is:
+        \[
+            O(nd + n \log k).
+        \]
+        \item For fixed small $k$, this is effectively $O(nd)$.
     \end{itemize}
 
-    \item This becomes prohibitively expensive when the number of samples is large.
-    \item However, kNN requires a large dataset to perform well.
+    \item This becomes prohibitively expensive when the number of samples and dimensions are both large.
 \end{itemize}
-
-\vspace{1em}
-
-How can we make this process more efficient?
 
 \end{frame}
 
@@ -917,34 +916,21 @@ d(\mathbf{x}, \mathbf{x}') = \sqrt{(x_1 - x'_1)^2 + \cdots + (x_d - x'_d)^2}.
 %------------------------------------------------slide43
 \begin{frame}{Distance Measures}
 
+\textbf{Cosine Distance (Angle-Based Similarity)}
 \begin{itemize}
-    \item \textbf{Cosine Distance (Angle-Based Similarity)}
+    \item Measures the angle between vectors; scale-invariant.
+    \item Often used for text or high-dimensional sparse data.
+    \item Note: \textbf{Not a true metric} (triangle inequality may fail).
 \end{itemize}
 
-\begin{align*}
-    d(\mathbf{x}, \mathbf{x}') 
-    &= 1 - \text{cosine similarity}(\mathbf{x}, \mathbf{x}') \\[0.5em]
-    \text{where} \quad 
-    \text{cosine similarity}(\mathbf{x}, \mathbf{x}') 
-    &= \frac{\mathbf{x} \cdot \mathbf{x}'}{\|\mathbf{x}\|_2 \, \|\mathbf{x}'\|_2} 
-    = \frac{\sum_{i=1}^d x_i x'_i}{
-        \sqrt{\sum_{i=1}^d x_i^2} \,
-        \sqrt{\sum_{i=1}^d (x'_i)^2}
-    }.
-\end{align*}
+\[
+d(\mathbf{x}, \mathbf{x}') = 1 - 
+\frac{\mathbf{x} \cdot \mathbf{x}'}{\|\mathbf{x}\|_2 \, \|\mathbf{x}'\|_2}
+\]
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.5\textwidth]{pic/cosine.png}
-\end{figure}
-
-
-
-\begin{tikzpicture}[remember picture,overlay]
-    \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-        \scriptsize Figure adapted from https://medium.com/@milana.shxanukova15/cosine-distance-and-cosine-similarity-a5da0e4d9ded
-    };
-\end{tikzpicture}
+\begin{center}
+    \includegraphics[width=0.42\textwidth]{pic/cosine.png}
+\end{center}
 
 \end{frame}
 
