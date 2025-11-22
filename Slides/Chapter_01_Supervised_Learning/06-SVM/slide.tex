@@ -1263,7 +1263,7 @@ This corresponds to an inner product in the feature space:
     \item Gaussian or Radial Basis Function (RBF) kernel:
     \[
         K(\mathbf{x}, \mathbf{x}') 
-        = \exp\!\left(-\frac{\|\mathbf{x} - \mathbf{x}'\|^2}{\gamma}\right)
+        = \exp\!\left(-\gamma \|\mathbf{x} - \mathbf{x}'\|^2\right)
     \]
 
     \vspace{0.7em}
@@ -1306,7 +1306,7 @@ This corresponds to an inner product in the feature space:
     \item Gaussian (RBF) kernel:
     \[
         K(\mathbf{x}, \mathbf{x}') = 
-        \exp\!\left(-\frac{\|\mathbf{x} - \mathbf{x}'\|^{2}}{\gamma}\right)
+        \exp\!\left(-\gamma\|\mathbf{x} - \mathbf{x}'\|^{2}\right)
     \]
     
     \vspace{0.5em}
@@ -1366,8 +1366,8 @@ y_{N}y_{1}K(\mathbf{x}_{N}, \mathbf{x}_{1}) & \cdots & y_{N}y_{N}K(\mathbf{x}_{N
 \begin{itemize}
     \item Considers a Gaussian function centered around each training point:
     \[
-        b + \sum_{\alpha_i > 0} \alpha_i y_i
-        \exp\!\left(-\frac{\|\mathbf{x} - \mathbf{x_i} \|^2}{\sigma}\right) = 0
+        b + \sum_{\alpha_i > 0} \alpha_i y^{(i)}
+        \exp\left(-\gamma \|\mathbf{x} - \mathbf{x_i} \|^2\right) = 0
     \]
     
     \vspace{0.5em}
@@ -1435,7 +1435,7 @@ f(\mathbf{x})
 + \sum_{\alpha_i > 0} 
 \alpha_i y^{(i)} 
 \exp\!\left(
-    -\frac{\|\mathbf{x} - \mathbf{x}^{(i)}\|^2}{2\sigma^2}
+    -\gamma\|\mathbf{x} - \mathbf{x}^{(i)}\|^2
 \right)
 \]
 
