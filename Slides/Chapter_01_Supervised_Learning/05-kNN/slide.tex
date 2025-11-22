@@ -436,7 +436,7 @@ As $n \rightarrow \infty$, the 1-NN error is no more than twice the uncertainty 
     
     \item An error occurs only when their labels differ, with probability
     \[
-    2\,\mathbb{P}(y^* \mid \mathbf{x}_t)\big(1 - \mathbb{P}(y^* \mid \mathbf{x}_t)\big) = 2\,\epsilon_{\text{BayesOpt}}.
+    2\,\mathbb{P}(y^* \mid \mathbf{x}_t)\big(1 - \mathbb{P}(y^* \mid \mathbf{x}_t)\big) \leq 2\,\epsilon_{\text{BayesOpt}}.
     \]
     
     \item Thus, the 1-NN error is \textbf{at most twice} the Bayes optimal uncertainty.
