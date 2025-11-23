@@ -73,324 +73,408 @@ subsectionstyle=show/shaded/hide,
 subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
-\section{Introduction}
+%-------------------------------------slide3
+\section{Motivation}
+%-------------------------------------slide4
+\begin{frame}{Clustering vs Dimensionality Reduction}
 
-\begin{frame}{High Dimensional Data}
+\begin{itemize}
+    \item \textbf{Clustering}
     \begin{itemize}
-        \item High dimensions has many features.
-        \item EEG signals from the brain, recorded with 56 channels and 3000 time points per trial.
-
-        \begin{figure}[htpb]
-            \begin{center}
-                \includegraphics[keepaspectratio, scale=0.4]{pic/brain.JPG}
-            \end{center}
-        \end{figure}
+        \item A method for summarizing a complex real-valued data point using a single categorical variable.
     \end{itemize}
+
+    \item \textbf{Dimensionality Reduction}
+    \begin{itemize}
+        \item A different approach for simplifying complex, high-dimensional data.
+        \item Represents each data point with a lower-dimensional real-valued vector.
+        \item In dimensionality reduction:
+        \begin{itemize}
+            \item Given data points in \(d\) dimensions,
+            \item Transform them into data points in \(r < d\) dimensions,
+            \item With minimal loss of information.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+
 \end{frame}
 
-\begin{frame}{High Dimensional Data}
+%-------------------------------------slide5
+\begin{frame}{Dimensionality Reduction}
+
+\begin{itemize}
+    \item \textbf{Goal:} Represent high-dimensional data using fewer dimensions, for example:
     \begin{itemize}
-        \item Social media
-        \begin{figure}[htpb]
-            \begin{center}
-      \includegraphics[keepaspectratio, scale=0.4]{pic/social.png}
-             \caption{\href{https://redeemedlifecounseling.com/why-we-share-everything-on-social-media/}{Figure reference}}
-            \end{center}
-        \end{figure}
+        \item \textit{Compression}: reduced storage requirements and faster retrieval
+        \item \textit{Visualization}: enabling 2D plotting
     \end{itemize}
+
+    \vspace{0.3cm}
+
+    \item \textbf{A good dimensionality reduction method can be defined in different ways}
+    \begin{itemize}
+        \item Ability to reproduce the original data
+        \item Preserving discriminative features
+        \item Preserving neighborhood structure
+    \end{itemize}
+\end{itemize}
+
 \end{frame}
 
-\begin{frame}{High Dimensional Data}
-    \begin{itemize}
-        \item Customer purchase data
-        \begin{figure}[htpb]
-            \begin{center}
-                \includegraphics[keepaspectratio, scale=0.4]{pic/customer_data.JPG}
-            \end{center}
-        \end{figure}
-    \end{itemize}
+%-------------------------------------slide6
+\begin{frame}{Data Compression}
+
+\begin{columns}
+
+\begin{column}{0.55\textwidth}
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{pic/data.png}
+\end{center}
+\end{column}
+
+\begin{column}{0.45\textwidth}
+
+\textbf{Reducing data from 2D to 1D}
+
+\vspace{0.3cm}
+
+\[
+\mathbf{x}^{(1)} \;\longrightarrow\; z^{(1)}
+\]
+
+\[
+\mathbf{x}^{(2)} \;\longrightarrow\; z^{(2)}
+\]
+
+\[
+\vdots
+\]
+
+\[
+\mathbf{x}^{(m)} \;\longrightarrow\; z^{(m)}
+\]
+
+\end{column}
+
+\end{columns}
+
 \end{frame}
 
+%-------------------------------------slide7
+\begin{frame}{Data Compression}
 
+\begin{center}
+\textbf{Reduce data from 3D to 2D}
+\end{center}
+
+\vspace{0.4cm}
+
+\begin{center}
+\includegraphics[width=\textwidth]{pic/3to2.png}
+\end{center}
+
+\end{frame}
+
+%-------------------------------------slide8
+\begin{frame}{High-Dimensional Data}
+
+\begin{itemize}
+    \item High-dimensional data contains many features.
+    \item Example: EEG signals recorded from the brain using 56 channels and 3000 time points per trial.
+
+    \begin{figure}[htpb]
+        \begin{center}
+            \includegraphics[keepaspectratio, scale=0.4]{pic/brain.JPG}
+        \end{center}
+    \end{figure}
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide9
+\begin{frame}{High-Dimensional Data}
+
+\begin{itemize}
+    \item Social media generates high-dimensional data.
+
+    \begin{figure}
+        \begin{center}
+            \includegraphics[keepaspectratio, scale=0.4]{pic/socialmedia.png} \\
+    {\scriptsize Adopted from \href{https://machinelearninggeek.com/spotify-song-recommender-system-in-python/}{machinelearninggeek.com}}
+        \end{center}
+    \end{figure}
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide10
+\begin{frame}{High-Dimensional Data}
+
+\begin{itemize}
+    \item Customer purchase data.
+
+    \begin{figure}[htpb]
+        \begin{center}
+            \includegraphics[keepaspectratio, scale=0.4]{pic/customer_data.JPG}
+        \end{center}
+    \end{figure}
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide11
+\begin{frame}{Curse of Dimensionality}
+
+\textbf{Why are more features bad?}
+
+\begin{itemize}
+    \item Redundant features (e.g., not all words are useful for classifying a document) introduce more noise than signal.
+    \item High-dimensional data is difficult to interpret and visualize.
+    \item Storing and processing high-dimensional data is computationally expensive.
+    \item The complexity of the decision rule tends to grow with the number of features. As the VC dimension increases, learning complex rules becomes statistically more challenging.
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide12
 \begin{frame}{Dimensionality Reduction Benefits}
+
+\begin{itemize}
+    \item \textbf{Visualization}
     \begin{itemize}
-        \item \textbf{Visualization}
-            \begin{itemize}
-                \item Project high dimensional data into 2D or 3D.
-            \end{itemize}
-        \item \textbf{Helps avoid overfitting}
-            \begin{itemize}
-                \item Reducing noise by reducing features.
-                \item Improves accuracy by reducing noise.
-            \end{itemize}
-        \item \textbf{More efficient use of resources}
-            \begin{itemize}
-                \item Time, Memory, CPU
-            \end{itemize}
+        \item Project high-dimensional data into 2D or 3D space.
     \end{itemize}
+
+    \item \textbf{Helps avoid overfitting}
+    \begin{itemize}
+        \item Reduces noise by removing irrelevant features.
+        \item Can improve accuracy by eliminating noisy dimensions.
+    \end{itemize}
+
+    \item \textbf{More efficient use of resources}
+    \begin{itemize}
+        \item Saves time, memory, and computational power.
+    \end{itemize}
+\end{itemize}
+
 \end{frame}
 
+%-------------------------------------slide13
 \begin{frame}{Dimensionality Reduction Techniques}
-    \begin{itemize}
-        \item \textbf{Feature Selection}
-            \begin{itemize}
-                \item Select a subset from a given feature set.
-            \end{itemize}
 
-         \item \textbf{Feature Extraction}
-            \begin{itemize}
-                \item A linear or non-linear transform from the original feature space to a lower dimension space.
-            \end{itemize}
-            \begin{figure}[htpb]
-                \begin{center}
-                    \includegraphics[keepaspectratio, scale=0.20]{pic/FS-FE.png}
-                    \caption{\href{https://link.springer.com/article/10.1007/s00500-019-04628-6}{Figure reference}}
-                \end{center}
-            \end{figure}
+\begin{itemize}
+    \item \textbf{Feature Selection}
+    \begin{itemize}
+        \item Select a subset of the original feature set.
     \end{itemize}
+
+    \item \textbf{Feature Extraction}
+    \begin{itemize}
+        \item Apply a linear or nonlinear transformation to map the original feature space into a lower-dimensional space.
+    \end{itemize}
+
+    \begin{figure}
+        \begin{center}
+            \includegraphics[keepaspectratio, scale=0.20]{pic/FS-FE.png} \\
+    {\scriptsize Adopted from \href{https://link.springer.com/article/10.1007/s00500-019-04628-6}{www.link.springer.com}}
+        \end{center}
+    \end{figure}
+\end{itemize}
+
 \end{frame}
 
-\begin{frame}{Dimensionality Reduction Purpose}
-    \begin{itemize}
-        \item Maximize retention of  \textbf{important information} while reducing dimensionality.
-        
-        \item What is \textbf{important information}?
-    \end{itemize}
+%-------------------------------------slide14
+\begin{frame}{Which Projection Is Better?}
+
+\begin{itemize}
+    \item Maximize the retention of \textbf{important information} while reducing dimensionality.
+    \item But what counts as \textbf{important information}?
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{pic/projection.png}
+\end{center}
+
 \end{frame}
 
+%-------------------------------------slide15
 \begin{frame}{Purpose: Variance of Data}
-    \begin{itemize}
-        \item Maximize retention of  \textbf{important information} while reducing dimensionality.
-        \item \textbf{Information:} Variance of projected data
-        \begin{figure}[htpb]
-                \begin{center}
-                    \includegraphics[keepaspectratio, scale=0.5]{pic/dim_red_var.JPG}
-                    \caption{\href{https://bookdown.org/tpinto_home/Unsupervised-learning/principal-components-analysis.html}{Figure reference}}
-                \end{center}
-        \end{figure}
-    \end{itemize}
+
+\begin{itemize}
+    \item Maximize the retention of \textbf{important information} while reducing dimensionality.
+    \item \textbf{Information}: variance of the projected data.
+
+    \begin{figure}
+        \begin{center}
+            \includegraphics[keepaspectratio, scale=0.5]{pic/dim_red_var.JPG} \\
+    {\scriptsize Adopted from \href{https://bookdown.org/tpinto_home/Unsupervised-learning/principal-components-analysis.html}{www.bookdown.org}}
+
+        \end{center}
+    \end{figure}
+\end{itemize}
 
 \end{frame}
 
+%-------------------------------------slide16
+\begin{frame}{PCA and Manifolds}
+
+\begin{itemize}
+    \item \textbf{Linear Projection}
+    \begin{itemize}
+        \item PCA: Principal Component Analysis
+        \item Reduces dimensionality while preserving the variance of the data.
+    \end{itemize}
+
+    \vspace{0.35cm}
+
+    \item \textbf{Embedding / Manifold Learning}
+    \begin{itemize}
+        \item Techniques such as MDS (multidimensional scaling), IsoMap, t-SNE, and UMAP
+        \item Aim to preserve point-to-point distances and/or local neighborhood structure.
+    \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide17
 \begin{frame}{Purpose: Local Geometric Neighborhood}
-    \begin{itemize}
-        \item \textbf{Information:} Preserve local geometric neighborhood.
-        \begin{figure}[htpb]
-                \begin{center}
-                    \includegraphics[keepaspectratio, scale=0.5]{pic/local_relation.PNG}
-                  \caption{\href{https://www.reneshbedre.com/blog/tsne.html}{Figure reference}}
-                \end{center}
-        \end{figure}
-    \end{itemize}
+
+\begin{itemize}
+    \item \textbf{Information}: preserve the local geometric neighborhood.
+
+    \begin{figure}
+        \begin{center}
+            \includegraphics[keepaspectratio, scale=0.5]{pic/local_relation.PNG} \\
+    {\scriptsize Adopted from \href{https://www.reneshbedre.com/blog/tsne.html}{www.reneshbedre.com}}
+        \end{center}
+    \end{figure}
+\end{itemize}
+
 \end{frame}
 
+%-------------------------------------slide18
 \begin{frame}{Purpose: Local and Global Geometric Neighborhood}
-    \begin{itemize}
-        \item \textbf{Information:} Preserve both local and global geometric neighborhood.
-        \begin{figure}[htpb]
-                \begin{center}
-                    \includegraphics[keepaspectratio, scale=0.45]{pic/global_relation.PNG}
-                  \caption{\href{https://pair-code.github.io/understanding-umap/}{Figure reference}}
-                \end{center}
-        \end{figure}
-    \end{itemize}
-\end{frame}
 
-\section{Principal Component Analysis (PCA)}
+\begin{itemize}
+    \item \textbf{Information}: preserve both local and global geometric neighborhoods.
 
-\begin{frame}{Idea}
-    \begin{itemize}
-        \item Given data points in a d-dimensional space, project them into a lower dimensional space while preserving as much information as possible:
-        \begin{itemize}
-            \item Find the best planar approximation of 3D data.
-            \item Find the best 12-D approximation of 104-D data.
-        \end{itemize}
-        \item In particular, choose projection that minimizes the squared error in reconstructing the original data.
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Principal Components Idea}
-    \begin{itemize}
-        \item 2D Gaussian dataset:
-         \begin{figure}[htpb]
-            \begin{center}
-                \includegraphics[keepaspectratio, scale=0.6]{pic/pcaData.JPG}
-            \end{center}
-        \end{figure}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Principal Components Idea}
-    \begin{itemize}
-        \item First PCA axis:
-         \begin{figure}[htpb]
-            \begin{center}
-                \includegraphics[keepaspectratio, scale=1]{pic/pcaData1.JPG}
-            \end{center}
-        \end{figure}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Principal Components Idea}
-    \begin{itemize}
-        \item First and second PCA axes:
-         \begin{figure}[htpb]
-            \begin{center}
-                \includegraphics[keepaspectratio, scale=1]{pic/pcaData2.JPG}
-            \end{center}
-        \end{figure}
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Random vs. Principal Projection}
-    \begin{itemize}
-        \item Random direction versus principal component:
-        \begin{figure}[htpb]
-            \begin{center}
-                \includegraphics[keepaspectratio, scale=0.8]{pic/pcaVSrandom.JPG}
-            \end{center}
-        \end{figure}
-    \end{itemize}
-\end{frame}
-
-
-\begin{frame}{Definition}
-    \begin{itemize}
-        \item \textbf{Goal}: reducing the dimensionality of the data while preserving important aspects of the data.
-        \item Suppose $\mathbf{X} = \begin{pmatrix} \mathbf{X}_1^T \\ \vdots \\ \mathbf{X}_N^T \end{pmatrix}_{N \times d} = \begin{pmatrix}  
-\overset{\displaystyle F_1}x_{11} & \overset{\displaystyle F_2}x_{12} & \hdots & \overset{\displaystyle F_d}x_{1d} \\
-x_{21} & x_{22} & \hdots & x_{2d} \\
-\vdots \\
-x_{N1} & x_{N2} & \hdots & x_{Nd} \\
-\end{pmatrix} $
-        \item $\mathbf{X}_{N \times d} \xrightarrow{\text{PCA}} \tilde{\mathbf{X}}_{N \times k} \quad \text{with} \quad k \leq d$
-        \item \textbf{Assumption}: Data is mean-centered, which is: $\mu_x = \frac{1}{N} \sum_{i=1}^{N}X_i = 0_{d \times 1}$
-    \end{itemize}
-\end{frame}
-
-\begin{frame}{Interpretations}
-    Orthogonal projection of the data onto a \textbf{lower-dimensional} linear \textbf{subspace} that:
-    \begin{itemize}
-        \item \textbf{Interpretation 1.} Maximizes variance of projected data.
-        \item \textbf{Interpretation 2.} Minimizes the sum of squared distances to the subspace.
-    \end{itemize}
-    \begin{figure}[htpb]
+    \begin{figure}
         \begin{center}
-            \includegraphics[keepaspectratio, scale=0.4]{pic/pca.png}
+            \includegraphics[keepaspectratio, scale=0.45]{pic/global_relation.PNG}\\
+    {\scriptsize Adopted from \href{https://pair-code.github.io/understanding-umap/}{www.pair-code.github.io}}
         \end{center}
     \end{figure}
+\end{itemize}
+
 \end{frame}
 
-\begin{frame}{Equivalence of the Interpretations}
-    \begin{itemize}
-        \item Minimizing the sum of square distances to the subspace is \textbf{equivalent} to maximizing the sum of squares of the projections on that subspace.
-    \end{itemize}
-    \begin{figure}[htpb]
-        \begin{center}
-            \includegraphics[keepaspectratio, scale=0.55]{pic/var_vs_rec2.JPG}
-        \end{center}
-    \end{figure}
-\end{frame}
-
-\begin{frame}{Equivalence of the Interpretations}
-
-    \textbf{Principal Components (PCs)}: A set of \textbf{orthonormal} vectors $(\nu = [\nu_1, \nu_2, ...,\nu_k])$ (where each $\nu_i$ is $d\times 1$) generated by PCA, which fulfill both of the interpretations.\\[0.4cm]
-    
-    Interpretation 1. Maximizes variance of projected data\\[0.3cm]
-    \begin{itemize}
-        \item Projection of data points on $\nu_1$
-        $$\Pi = \Pi_{\nu_1} \{ X_{1}, \dots, X_{N} \} = \{ \nu_1^T X_{1}, \dots, \nu_1^T X_{N} \}$$
-        \item Note that $\text{Var}(X) = \mathbb{E}[X^2] - \mathbb{E}[X]^2$
-        $$\mathbb{E}[X] = 0 \rightarrow \text{Var}(\Pi) = \frac{1}{N} \left( \sum_{i=1}^{N} (\nu_1^T X_i)^2 \right)$$
-    \end{itemize}
-    
-\end{frame}
-
-\begin{frame}{Pre-processing}
-    \begin{itemize}
-        \item \textbf{Mean-center the data.}
-            \begin{itemize}
-                \item \textbf{Zero}ing out the \textbf{mean} of each feature.\\
-            \end{itemize}
-            
-        \item \textbf{Scaling to normalize each feature to have variance 1 (an arbitrary step).}
-            \begin{itemize}
-                \item Might affect results.
-                \item It helps when unit of measurements of features are different and some features may be ignored without normalization.
-            \end{itemize}
-    \end{itemize}
-\end{frame}
-
+%-------------------------------------slide19
 \begin{frame}{Background}
+
+\begin{itemize}
+    \item Before jumping into the PCA algorithm, we should be familiar with the following concepts:
     \begin{itemize}
-        \item Before jumping to PCA algorithm, we should be familiar with followings:
-        \begin{itemize}
-            \item What are eigenvalues and eigenvectors?
-            \item Sample covariance matrix
-            \item Lagrangian multiplier
-        \end{itemize}
+        \item Eigenvalues and eigenvectors
+        \item Sample covariance matrix
+        \item Lagrange multipliers
     \end{itemize}
+\end{itemize}
+
 \end{frame}
 
-\subsection{Background}
+%-------------------------------------slide20
+\section{Background}
 
-\subsubsection{Eigenvalues and Eigenvectors}
+%-------------------------------------slide21
+\begin{frame}{What Are Eigenvalues and Eigenvectors?}
 
-\begin{frame}{What are Eigenvalues and Eigenvectors?}
+\begin{itemize}
+    \item \textbf{Eigenvector}: A non-zero vector that is scaled only by a scalar factor when a linear transformation is applied.
+    \item \textbf{Eigenvalue}: The scalar factor by which an eigenvector is scaled.
+    \item \textbf{Equation} for an $n \times n$ matrix:
+    \[
+        A\mathbf{v} = \lambda \mathbf{v}
+    \]
+    \item Where:
     \begin{itemize}
-        \item \textbf{Eigenvector:} A non-zero vector that  multiplies only by a scalar factor when a linear transformation is applied.
-        \item \textbf{Eigenvalue:} The scalar factor by which the eigenvector is scaled.
-        \item \textbf{Equation} for a $n \times n$ matrix:
-        $$Av = \lambda v$$
-        \item Where
-        \begin{itemize}
-            \item $A$: A square matrix
-            \item $v$: Eigenvector
-            \item $\lambda$: Eigenvalue
-        \end{itemize}
+        \item $A$: A square matrix
+        \item $\mathbf{v}$: Eigenvector
+        \item $\lambda$: Eigenvalue
     \end{itemize}
+\end{itemize}
+
 \end{frame}
 
+%-------------------------------------slide22
 \begin{frame}{Geometrical Interpretation}
-    \begin{itemize}
 
-        \item Eigenvectors point in the same direction (or opposite) after the transformation.
-        \begin{itemize}
-            \item Eigenvectors do not change direction under a transformation.
-        \end{itemize}
-        \item Eigenvalues represent how much the vector is stretched or compressed.
-        \begin{itemize}
-            \item Eigenvalues tell us how much the vector is scaled.
-        \end{itemize}
+\begin{itemize}
+    \item Eigenvectors point in the same (or opposite) direction after the transformation.
+    \begin{itemize}
+        \item Eigenvectors do not change direction under a linear transformation.
     \end{itemize}
-    \begin{minipage}{0.4\textwidth}
-         $$A = \begin{pmatrix}  
-1 & \frac{1}{3}  \\
-\frac{4}{3} & 1 \\
-\end{pmatrix}$$
-    \end{minipage}
-    \begin{minipage}{0.55\textwidth}
-        \begin{figure}[htpb]
-            \begin{center} \includegraphics[keepaspectratio, scale=0.3]{pic/eigenvetor-eigenvalue-idea.png} \caption{\href{https://mathformachines.com/posts/eigenvalues-and-singular-values/}{Figure reference}}
-            \end{center}
-        \end{figure}
-    \end{minipage}
+
+    \item Eigenvalues represent how much the vector is stretched or compressed.
+    \begin{itemize}
+        \item Eigenvalues indicate the scaling applied to the vector.
+    \end{itemize}
+\end{itemize}
+
+\begin{minipage}{0.4\textwidth}
+\[
+A = 
+\begin{pmatrix}
+1 & \tfrac{1}{3} \\
+\tfrac{4}{3} & 1 \\
+\end{pmatrix}
+\]
+\end{minipage}
+\begin{minipage}{0.55\textwidth}
+    \begin{figure}
+        \begin{center}
+            \includegraphics[keepaspectratio, scale=0.3]{pic/eigenvetor-eigenvalue-idea.png} \\
+    {\scriptsize Adopted from \href{https://mathformachines.com/posts/eigenvalues-and-singular-values/}{www.mathformachines.com}}
+        \end{center}
+    \end{figure}
+\end{minipage}
+
 \end{frame}
 
+%-------------------------------------slide23
 \begin{frame}{How to Find Eigenvalues and Eigenvectors?}
-    \begin{itemize}
-        \item We know that
-        $$Av = \lambda v$$
-        \item So
-        $$Av - \lambda v  = 0$$
-        $$(A - \lambda I)v = 0$$
-        \item $v$ can not be zero, so:
-        $$det(A - \lambda I) = 0$$
-        \item Solve for $\lambda$
-        \item Substitute $\lambda$ back into the equation $Av = \lambda v$ to find $v$.
-    \end{itemize}
+
+\begin{itemize}
+    \item We know that
+    \[
+        A\mathbf{v} = \lambda \mathbf{v}
+    \]
+
+    \item So,
+    \[
+        A\mathbf{v} - \lambda \mathbf{v} = \mathbf{0}
+    \]
+
+    \[
+        (A - \lambda I)\mathbf{v} = \mathbf{0}
+    \]
+
+    \item Since \(\mathbf{v}\) cannot be the zero vector, we must have:
+    \[
+        \det(A - \lambda I) = 0
+    \]
+
+    \item Solve for \(\lambda\).
+
+    \item Substitute the obtained values of \(\lambda\) back into the equation 
+    \[
+        A\mathbf{v} = \lambda \mathbf{v}
+    \]
+    to find the corresponding eigenvectors \(\mathbf{v}\).
+\end{itemize}
+
 \end{frame}
 
+%-------------------------------------slide24
 \begin{frame}{Numerical Example}
     \begin{itemize}
         \item Assume $A = \begin{pmatrix}  
@@ -401,7 +485,8 @@ x_{N1} & x_{N2} & \hdots & x_{Nd} \\
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Numerical Example (Continued)}
+%-------------------------------------slide25
+\begin{frame}{Numerical Example}
     \begin{itemize}
         \item Assume $A = \begin{pmatrix}  
 4 & -5  \\
@@ -415,7 +500,8 @@ x_{N1} & x_{N2} & \hdots & x_{Nd} \\
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Numerical Example (Continued)}
+%-------------------------------------slide26
+\begin{frame}{Numerical Example}
     \begin{itemize}
         \item Assume $A = \begin{pmatrix}  
 4 & -5  \\
@@ -468,6 +554,7 @@ $
     \end{itemize}
 \end{frame}
 
+%-------------------------------------slide27
 \begin{frame}{Visualization}
     \begin{itemize}
         \item $Av = \lambda v$
@@ -479,58 +566,76 @@ $
     \end{itemize}
 \end{frame}
 
-\subsubsection{Sample Covariance Matrix}
+%-------------------------------------slide28
+\begin{frame}{What Is Covariance?}
 
-\begin{frame}{What is Covariance?}
-    \begin{itemize}
-        \item Covariance is a measure of how much two random features vary together.
-        \item $ \text{Cov}(X, Y) = \mathbb{E}[(X - \mathbb{E}[X])(Y - \mathbb{E}[Y])] = \mathbb{E}[(Y - \mathbb{E}[Y]) (X - \mathbb{E}[X])] = \text{Cov}(Y, X)$
-        \item So covariance is symmetric.
-        \item Such as heights and weights of individuals.
+\begin{itemize}
+    \item Covariance measures how much two random variables vary together.
+    
+    \item 
+    \[
+        \operatorname{Cov}(X, Y) 
+        = \mathbb{E}\!\left[(X - \mathbb{E}[X])(Y - \mathbb{E}[Y])\right]
+        = \mathbb{E}\!\left[(Y - \mathbb{E}[Y])(X - \mathbb{E}[X])\right]
+        = \operatorname{Cov}(Y, X)
+    \]
+    
+    \item Therefore, covariance is symmetric.
+    
+    \item Example: height and weight of individuals.
+\end{itemize}
 
-    \end{itemize}
 \end{frame}
 
-\begin{frame}{What is a Covariance Matrix?}
-    \begin{itemize}         
-        \item A \textbf{covariance matrix} generalizes the concept of covariance to multiple features.
-        
-\item For a random vector $\mathbf{F} = [F_1, F_2, \dots, F_d]$:
+%-------------------------------------slide29
+\begin{frame}{What Is a Covariance Matrix?}
 
-$$
-\Sigma = 
-\begin{pmatrix}
-\text{Var}(F_1) & \text{Cov}(F_1, F_2) & \cdots & \text{Cov}(F_1, F_d) \\
-\text{Cov}(F_2, F_1) & \text{Var}(F_2) & \cdots & \text{Cov}(F_2, F_d) \\
-\vdots & \vdots & \ddots & \vdots \\
-\text{Cov}(F_d, F_1) & \text{Cov}(F_d, F_2) & \cdots & \text{Var}(F_d)
-\end{pmatrix}
-$$
+\begin{itemize}
+    \item A \textbf{covariance matrix} generalizes the concept of covariance to multiple features.
+    
+    \item For a random vector \(\mathbf{F} = [\,F_1, F_2, \dots, F_d\,]\):
+    
+    \[
+    \Sigma =
+    \begin{pmatrix}
+        \operatorname{Var}(F_1) & \operatorname{Cov}(F_1, F_2) & \cdots & \operatorname{Cov}(F_1, F_d) \\
+        \operatorname{Cov}(F_2, F_1) & \operatorname{Var}(F_2) & \cdots & \operatorname{Cov}(F_2, F_d) \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \operatorname{Cov}(F_d, F_1) & \operatorname{Cov}(F_d, F_2) & \cdots & \operatorname{Var}(F_d)
+    \end{pmatrix}
+    \]
+    
+    \item The diagonal elements represent variances, and the off-diagonal elements represent covariances.
+\end{itemize}
 
-\item The diagonal elements are the variances, and off-diagonal elements are covariances.
-    \end{itemize}
 \end{frame}
 
-
+%-------------------------------------slide30
 \begin{frame}{Covariance Matrix Example}
-    \begin{itemize}         
-        \item Suppose there is two feature covariance matrix:
-$$
-\Sigma = 
-\begin{pmatrix}
-a & b  \\
-c & d 
-\end{pmatrix} = \begin{pmatrix}
-a & b   \\
-b & d 
-\end{pmatrix}
-$$
 
-        \item Why $b = c $?
-        \item What is the relation between $a$, $b$, and $d $?
-    \end{itemize}
+\begin{itemize}
+    \item Suppose we have a covariance matrix for two features:
+    
+    \[
+    \Sigma =
+    \begin{pmatrix}
+        a & b \\
+        c & d
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        a & b \\
+        b & d
+    \end{pmatrix}
+    \]
+
+    \item Why is \(b = c\)?
+    \item What is the relationship between \(a\), \(b\), and \(d\)?
+\end{itemize}
+
 \end{frame}
 
+%-------------------------------------slide31
 \begin{frame}{Covariance Matrix Example}
     \begin{itemize}         
         \item If $\Sigma = 
@@ -546,7 +651,7 @@ a & 0  \\
     \end{itemize}
 \end{frame}
 
-
+%-------------------------------------slide32
 \begin{frame}{Covariance Matrix Example}
     \begin{itemize}         
         \item If $\Sigma = 
@@ -562,6 +667,7 @@ a & 0  \\
     \end{itemize}
 \end{frame}
 
+%-------------------------------------slide33
 \begin{frame}{Covariance Matrix Example}
     \begin{itemize}         
         \item If $\Sigma = 
@@ -577,7 +683,7 @@ b & d
     \end{itemize}
 \end{frame}
 
-
+%-------------------------------------slide34
 \begin{frame}{Covariance Matrix Example}
     \begin{itemize}         
         \item If $\Sigma = 
@@ -593,197 +699,534 @@ b & d
     \end{itemize}
 \end{frame}
 
-
+%-------------------------------------slide35
 \begin{frame}{Sample Covariance Matrix}
-    \begin{itemize}         
-        \item In practice, we estimate covariance from sample data.
-        \item \textbf{Sample Covariance Matrix}: Given $N$ samples of $d$ features, the sample covariance matrix $\Sigma$ is:
-        $$
-        \Sigma_{d\times d} = \frac{1}{N-1} \sum_{i=1}^{N} (X_i - \bar{X})(X_i - \bar{X})^T
-        $$
-        \item Where $X_i$  is the i-th sample, and $\bar{X}_{d \times 1}$
-  is the mean of the samples.
-    \end{itemize}
+
+\begin{itemize}
+    \item In practice, we estimate the covariance from sample data.
+
+    \item \textbf{Sample Covariance Matrix}:  
+    Given \(N\) samples of \(d\) features, the sample covariance matrix \(\Sigma\) is:
+    \[
+        \Sigma_{d \times d} = \frac{1}{N - 1} \sum_{i=1}^{N} 
+        (\mathbf{x}^{(i)} - \bar{\mathbf{x}})\,(\mathbf{x}^{(i)} - \bar{\mathbf{x}})^{\top}
+    \]
+
+    \item Here, \(\mathbf{x}^{(i)}\) is the \(i\)-th sample vector, and  
+    \(\bar{\mathbf{x}} \in \mathbb{R}^{d \times 1}\) is the sample mean vector.
+\end{itemize}
+
 \end{frame}
 
+%-------------------------------------slide36
 \begin{frame}{Example Calculation of Sample Covariance Matrix}
-    \begin{itemize}         
-        \item Suppose we have the following three samples each one having two features F$_1$ and F$_2$:
+
+\begin{itemize}
+    \item Suppose we have three samples, each with two features \(F_1\) and \(F_2\):
+
 \begin{center}
-     \begin{tabular}{|c|c|c|}
-        \hline
-        \textbf{Sample} & \textbf{F$_1$} & \textbf{F$_2$} \\
-        \hline
-        $X_1$ & 3 & 3 \\
-        \hline
-        $X_2$ & 4 & 7 \\
-        \hline
-        $X_3$ & 5 & 8 \\
-        \hline
-        $\bar{X}$ & 4 & 6 \\
-        \hline
-        \end{tabular}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Sample} & \textbf{F$_1$} & \textbf{F$_2$} \\
+\hline
+\(\mathbf{x}^{(1)}\) & 3 & 3 \\
+\hline
+\(\mathbf{x}^{(2)}\) & 4 & 7 \\
+\hline
+\(\mathbf{x}^{(3)}\) & 5 & 8 \\
+\hline
+\(\bar{\mathbf{x}}\) & 4 & 6 \\
+\hline
+\end{tabular}
 \end{center}
-     
-     $$\Sigma =  \frac{1}{N-1} \sum_{i=1}^{N} (X_i - \bar{X})(X_i - \bar{X})^T =  \frac{1}{2} (\begin{pmatrix}
-1 & 3  \\
-3 & 9 
-\end{pmatrix}  + \begin{pmatrix}
-0 & 0  \\
-0 & 1 
-\end{pmatrix} + \begin{pmatrix}
-1 & 2  \\
-2 & 4 
-\end{pmatrix}) =  \begin{pmatrix}
-1 & 2.5  \\
-2.5 & 7 
-\end{pmatrix} $$
-    \end{itemize}
+
+\[
+\Sigma 
+= \frac{1}{N-1}\sum_{i=1}^{N} 
+(\mathbf{x}^{(i)} - \bar{\mathbf{x}})
+(\mathbf{x}^{(i)} - \bar{\mathbf{x}})^{\top}
+\]
+
+\[
+\Sigma 
+= \frac{1}{2}
+\left(
+\begin{pmatrix}
+1 & 3 \\
+3 & 9
+\end{pmatrix}
++
+\begin{pmatrix}
+0 & 0 \\
+0 & 1
+\end{pmatrix}
++
+\begin{pmatrix}
+1 & 2 \\
+2 & 4
+\end{pmatrix}
+\right)
+=
+\begin{pmatrix}
+1 & 2.5 \\
+2.5 & 7
+\end{pmatrix}
+\]
+
+\end{itemize}
+
 \end{frame}
 
-\subsubsection{Lagrangian multiplier}
 
+%-------------------------------------slide37
 \begin{frame}{Lagrange Multiplier: Geometrical Interpretation}
+
+\begin{itemize}
+    \item We want to maximize \(f(x)\) subject to the constraint \(g(x) = 0\).
+
+    \item The optimal point occurs where the gradient of \(f(x)\) is proportional to the gradient of \(g(x)\); 
+    that is, the two gradients are aligned (or point in opposite directions).
+
+    \begin{figure}[htpb]
+        \begin{center}
+            \includegraphics[keepaspectratio, scale=0.4]{pic/lagrange3d.png} \\
+    {\scriptsize Adopted from \href{https://www.khanacademy.org/math/multivariable-calculus/applications-of-multivariable-derivatives/constrained-optimization/a/lagrange-multipliers-examples}{www.khanacademy.org}}
+        \end{center}
+    \end{figure}
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide38
+\begin{frame}{Lagrange Multiplier Method}
+
+\begin{itemize}
+    \item Combine the objective function and the constraint using the Lagrangian:
+    \[
+        \mathcal{L}(x, \lambda) = f(x) + \lambda\, g(x)
+    \]
+
+    \item Solve the system of equations:
+    \[
+        \nabla \mathcal{L}(x, \lambda) = 0
+    \]
+
+    \item Where:
     \begin{itemize}
-        \item We want to maximize $f(x)$ subject to $g(x) = 0$.
-        \item The optimal point occurs where the gradient of $f(x)$ is proportional to the gradient of $g(x)$ (i.e., they are aligned or in opposite directions). 
-     \begin{figure}[htpb]
+        \item \(\mathcal{L}\): the Lagrangian
+        \item \(\lambda\): the Lagrange multiplier
+        \item \(g(x)\): the equality constraint
+        \item \(f(x)\): the objective function
+    \end{itemize}
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide39
+\begin{frame}{Example Problem}
+
+\begin{itemize}
+
+    \item \textbf{Maximize:}
+    \[
+        f(x_1, x_2) = x_1 + x_2
+    \]
+
+    \item \textbf{Subject to:}
+    \[
+        x_1^2 + x_2^2 = 1
+    \]
+
+    \item \textbf{Lagrangian:}
+    \[
+        \mathcal{L}(x_1, x_2, \lambda)
+        = x_1 + x_2 - \lambda \left(x_1^2 + x_2^2 - 1\right)
+    \]
+
+    \item \textbf{Partial derivatives:}
+    \[
+    \begin{cases}
+        \dfrac{\partial \mathcal{L}}{\partial x_1}
+            = 1 - 2\lambda x_1 = 0 \\[6pt]
+        \dfrac{\partial \mathcal{L}}{\partial x_2}
+            = 1 - 2\lambda x_2 = 0 \\[6pt]
+        \dfrac{\partial \mathcal{L}}{\partial \lambda}
+            = -(x_1^2 + x_2^2 - 1) = 0
+    \end{cases}
+    \]
+
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide40
+\begin{frame}{Example Problem}
+
+\begin{itemize}
+
+    \item Solving the system:
+    \[
+    \begin{cases}
+        \lambda x_1 = \dfrac{1}{2} \\
+        \lambda x_2 = \dfrac{1}{2} \\
+        x_1^2 + x_2^2 = 1
+    \end{cases}
+    \]
+
+    \item Since \(\lambda x_1 = \lambda x_2\), it follows that \(x_1 = x_2\).
+
+    \item Substitute \(x_1 = x_2\) into the constraint:
+    \[
+        2x_1^2 = 1 \;\;\Longrightarrow\;\;
+        x_1 = \pm \dfrac{1}{\sqrt{2}}
+    \]
+
+    \item Optimal solution:
+    \[
+        x_1 = x_2 = \dfrac{1}{\sqrt{2}},
+        \qquad
+        f_{\max} = x_1 + x_2 = \sqrt{2}
+    \]
+
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide41
+\begin{frame}{Generalization to Multiple Constraints}
+
+\begin{itemize}
+    \item The Lagrange multiplier method can be extended to problems with multiple constraints.
+
+    \item For constraints
+    \[
+        g_1(x) = 0,\quad g_2(x) = 0,\; \dots,\; g_m(x) = 0,
+    \]
+    the Lagrangian becomes:
+    \[
+        \mathcal{L}(x, \lambda_1, \lambda_2, \dots, \lambda_m)
+        = f(x) - \lambda_1 g_1(x) - \lambda_2 g_2(x) - \dots - \lambda_m g_m(x).
+    \]
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide42
+\section{Principal Component Analysis (PCA)}
+
+%-------------------------------------slide43
+\begin{frame}{Idea}
+
+\begin{itemize}
+    \item Given data points in a \(d\)-dimensional space, we want to project them into a lower-dimensional space while preserving as much information as possible:
+    \begin{itemize}
+        \item Find the best planar approximation of 3D data.
+        \item Find the best 12D approximation of 104D data.
+    \end{itemize}
+
+    \item In particular, we choose a projection that \textbf{minimizes the squared reconstruction error} of the original data.
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide44
+\begin{frame}{Principal Components Idea}
+    \begin{itemize}
+        \item 2D Gaussian dataset:
+         \begin{figure}[htpb]
             \begin{center}
-         \includegraphics[keepaspectratio, scale=0.4]{pic/lagrange3d.png}
-         \caption{\href{https://www.khanacademy.org/math/multivariable-calculus/applications-of-multivariable-derivatives/constrained-optimization/a/lagrange-multipliers-examples}{Figure reference}}
+                \includegraphics[keepaspectratio, scale=0.6]{pic/pcaData.JPG}
             \end{center}
         \end{figure}
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Lagrange Multiplier Method}
+%-------------------------------------slide45
+\begin{frame}{Principal Components Idea}
     \begin{itemize}
-        \item Combine the objective function and the constraint using the Lagrange function:
-        $$\mathcal{L}(x, \lambda) = f(x) + \lambda g(x)$$
-        \item Solve the system of equations:
-        $$\nabla \mathcal{L}(x, \lambda) = 0$$
-        \item Where:
-        \begin{itemize}
-            \item $\mathcal{L}$ is  lagrangian
-            \item $\lambda$ is lagrange multiplier
-            \item $g(x)$ is equality constraint
-            \item $f(x)$ is function
-        \end{itemize}
+        \item First PCA axis:
+         \begin{figure}[htpb]
+            \begin{center}
+                \includegraphics[keepaspectratio, scale=1]{pic/pcaData1.JPG}
+            \end{center}
+        \end{figure}
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Example Problem}
-\begin{itemize}
-    \item \text{Maximize:}
-        \[
- \quad f(x_1, x_2) = x_1 + x_2
-\]
-    \item Subject to:
-    \[
-x_1^2 + x_2^2 = 1
-\]
-    \item Lagrangian:
-    \[
-L(x_1, x_2, \lambda) = x_1 + x_2 - \lambda (x_1^2 + x_2^2 - 1)
-\]
-    \item Partial derivatives:
-    \[
-\begin{cases}
-\frac{\partial L}{\partial x_1} = 1 - 2\lambda x_1 = 0 \\
-\frac{\partial L}{\partial x_2} = 1 - 2\lambda x_2 = 0 \\
-\frac{\partial L}{\partial \lambda} = -(x_1^2 + x_2^2 - 1) = 0
-\end{cases}
-\]
-\end{itemize}
-\end{frame}
-
-\begin{frame}{Example Problem (Continued)}
-\begin{itemize}
-    \item Solving:
-\[
-\begin{cases}
-\lambda x_1 = \dfrac{1}{2} \\
-\lambda x_2 = \dfrac{1}{2} \\
-x_1^2 + x_2^2 = 1
-\end{cases}
-\]
-    \item Since \(\lambda x_1 = \lambda x_2\), then \(x_1 = x_2\).
-    \item Substitute \(x_1 = x_2\) into the constraint:
-    \[
-2x_1^2 = 1 \implies x_1 = \pm \dfrac{1}{\sqrt{2}}
-\]
-    \item Optimal solution:
-\[
-x_1 = x_2 = \dfrac{1}{\sqrt{2}}, \quad f_{\text{max}} = x_1 + x_2 = \sqrt{2}
-\]
-\end{itemize}
-
-\end{frame}
-
-\begin{frame}{Generalization to Multiple Constraints}
+%-------------------------------------slide46
+\begin{frame}{Principal Components Idea}
     \begin{itemize}
-    \item The Lagrange multiplier method can be extended to cases with more than one constraint.
-    \item For constraints $g_1(x) = 0, g_2(x) = 0, \dots, g_m(x) = 0$, the Lagrangian becomes:
+        \item First and second PCA axes:
+         \begin{figure}[htpb]
+            \begin{center}
+                \includegraphics[keepaspectratio, scale=1]{pic/pcaData2.JPG}
+            \end{center}
+        \end{figure}
+    \end{itemize}
+\end{frame}
+
+%-------------------------------------slide47
+\begin{frame}{Definition}
+
+\begin{itemize}
+
+    \item \textbf{Goal}: reducing the dimensionality of the data while preserving important aspects of the dataset.
+
+    \item Suppose the data matrix is
     \[
-    \mathcal{L}(x, \lambda_1, \lambda_2, \dots) = f(x) - \lambda_1 g_1(x) - \lambda_2 g_2(x) - \dots
+        \mathbf{X}
+        =
+        \begin{pmatrix}
+            \mathbf{x}^{(1)\top} \\
+            \vdots \\
+            \mathbf{x}^{(N)\top}
+        \end{pmatrix}_{N \times d}
+        =
+        \begin{pmatrix}
+            \overset{F_1}{x_{11}} & \overset{F_2}{x_{12}} & \cdots & \overset{F_d}{x_{1d}} \\
+            x_{21} & x_{22} & \cdots & x_{2d} \\
+            \vdots & \vdots & \ddots & \vdots \\
+            x_{N1} & x_{N2} & \cdots & x_{Nd}
+        \end{pmatrix}
     \]
-    \end{itemize}
+
+    \item PCA transforms the data as:
+    \[
+        \mathbf{X}_{N \times d}
+        \xrightarrow{\text{PCA}}
+        \tilde{\mathbf{X}}_{N \times k},
+        \qquad k \leq d
+    \]
+
+    \item \textbf{Assumption}: the data is mean-centered:
+    \[
+        \boldsymbol{\mu}_x
+        = 
+        \frac{1}{N}\sum_{i=1}^{N}\mathbf{x}^{(i)}
+        = \mathbf{0}_{d \times 1}
+    \]
+
+\end{itemize}
+
 \end{frame}
 
-\subsection{Sample Covariance Matrix Algorithm}
+%-------------------------------------slide48
+\begin{frame}{Interpretations}
 
+Orthogonal projection of the data onto a \textbf{lower-dimensional} linear \textbf{subspace} that:
+
+\begin{itemize}
+    \item \textbf{Interpretation 1:} Maximizes the variance of the projected data.
+    \item \textbf{Interpretation 2:} Minimizes the sum of squared distances to the subspace.
+\end{itemize}
+
+\begin{figure}[htpb]
+    \begin{center}
+        \includegraphics[keepaspectratio, scale=0.4]{pic/pca.png}
+    \end{center}
+\end{figure}
+
+\end{frame}
+
+%-------------------------------------slide49
+\begin{frame}{Least Squares Error Interpretation}
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+
+\begin{itemize}
+    \item Principal components (PCs) are linear least-squares fits to the samples, with each PC orthogonal to all previously computed ones.
+    \begin{itemize}
+        \item The first PC is the minimum-distance (least-squares) fit to a vector in the original feature space.
+        \item The second PC is the minimum-distance fit constrained to lie in the plane perpendicular to the first PC.
+    \end{itemize}
+\end{itemize}
+
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\begin{center}
+\begin{figure}[htpb]
+    \begin{center}
+        \includegraphics[keepaspectratio, scale=0.8]{pic/pcaVSrandom.JPG}
+    \end{center}
+\end{figure}
+\end{center}
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+%-------------------------------------slide50
+\begin{frame}{Equivalence of the Interpretations}
+
+\begin{itemize}
+    \item Minimizing the sum of squared distances to the subspace is \textbf{equivalent} to maximizing the sum of squared projections onto that subspace.
+\end{itemize}
+
+\begin{figure}[htpb]
+    \begin{center}
+        \includegraphics[keepaspectratio, scale=0.55]{pic/var_vs_rec2.JPG}
+    \end{center}
+\end{figure}
+
+\end{frame}
+
+%-------------------------------------slide51
+\begin{frame}{Equivalence of the Interpretations}
+
+\textbf{Principal Components (PCs)}:  
+A set of \textbf{orthonormal} vectors  
+\[
+\boldsymbol{\nu} = [\,\boldsymbol{\nu}_1,\, \boldsymbol{\nu}_2,\, \dots,\, \boldsymbol{\nu}_k\,]
+\]
+(where each \(\boldsymbol{\nu}_i \in \mathbb{R}^{d \times 1}\)), generated by PCA, that satisfy both interpretations. 
+\\[0.4cm]
+
+\textbf{Interpretation 1.} Maximizes the variance of the projected data  
+\\[0.3cm]
+
+\begin{itemize}
+    \item Projection of data points onto \(\boldsymbol{\nu}_1\):
+    \[
+        \Pi 
+        = \Pi_{\boldsymbol{\nu}_1}\{\mathbf{x}^{(1)}, \dots, \mathbf{x}^{(N)}\}
+        = \{
+            \boldsymbol{\nu}_1^{\top}\mathbf{x}^{(1)},\;
+            \dots,\;
+            \boldsymbol{\nu}_1^{\top}\mathbf{x}^{(N)}
+        \}
+    \]
+
+    \item Note that for a random variable \(X\):
+    \[
+        \operatorname{Var}(X) = \mathbb{E}[X^2] - \mathbb{E}[X]^2
+    \]
+
+    \item Since the data are mean-centered (\(\mathbb{E}[X] = 0\)):
+    \[
+        \operatorname{Var}(\Pi)
+        = \frac{1}{N}
+        \sum_{i=1}^{N}
+        \left( \boldsymbol{\nu}_1^{\top}\mathbf{x}^{(i)} \right)^{2}
+    \]
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide52
+\begin{frame}{Pre-processing}
+
+\begin{itemize}
+
+    \item \textbf{Mean-center the data}
+    \begin{itemize}
+        \item Set the mean of each feature to \textbf{zero}.
+    \end{itemize}
+
+    \item \textbf{Scale the features so that each has variance 1 (optional normalization step)}
+    \begin{itemize}
+        \item This may affect the results.
+        \item It is helpful when the units of measurement differ across features, preventing some features from being unintentionally ignored.
+    \end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide53
 \begin{frame}{Step 1: Expression for Variance}
-    \begin{itemize}
-        \item The variance of the projected data onto the direction \( v \) is:
-        \[
-        \text{Var}(Xv) = \frac{1}{n} \sum_{i=1}^{n} (x_i^\top v)^2
-        \]
-        \item This can be rewritten as:
-        \[
-        \text{Var}(Xv) = \frac{1}{n} \|Xv\|^2 = \frac{1}{n} v^\top X^\top X v = v^\top \Sigma v
-        \]
-    \end{itemize}
+
+\begin{itemize}
+
+    \item The variance of the projected data onto the direction \(\mathbf{v}\) is:
+    \[
+        \operatorname{Var}(\mathbf{X}\mathbf{v})
+        = \frac{1}{n}\sum_{i=1}^{n} 
+        \left( \mathbf{x}^{(i)\top}\mathbf{v} \right)^{2}
+    \]
+
+    \item This can be rewritten as:
+    \[
+        \operatorname{Var}(\mathbf{X}\mathbf{v})
+        = \frac{1}{n}\|\mathbf{X}\mathbf{v}\|^{2}
+        = \frac{1}{n}\,\mathbf{v}^{\top}\mathbf{X}^{\top}\mathbf{X}\mathbf{v}
+        = \mathbf{v}^{\top}\Sigma\,\mathbf{v}
+    \]
+
+\end{itemize}
+
 \end{frame}
 
+%-------------------------------------slide54
 \begin{frame}{Step 2: Maximization Problem}
-    \begin{itemize}
-        \item We aim to maximize the variance \( v^\top \Sigma v \) under the constraint that \( \|v\| = 1 \).
-        \item This leads to the following optimization problem:
-        \[
-        \max_{v} \ v^\top \Sigma v \quad \text{subject to} \quad \|v\| = 1
-        \]
-    \end{itemize}
+
+\begin{itemize}
+    \item We aim to maximize the variance \(\mathbf{v}^{\top}\Sigma\,\mathbf{v}\) under the constraint \(\|\mathbf{v}\| = 1\).
+
+    \item This leads to the following optimization problem:
+    \[
+        \max_{\mathbf{v}} \ \mathbf{v}^{\top}\Sigma\,\mathbf{v}
+        \quad \text{subject to} \quad
+        \|\mathbf{v}\| = 1
+    \]
+\end{itemize}
+
 \end{frame}
 
+%-------------------------------------slide55
 \begin{frame}{Step 3: Use of Lagrange Multipliers}
-    \begin{itemize}
-        \item We introduce a Lagrange multiplier \( \lambda \) and define the Lagrangian:
-        \[
-        L(v, \lambda) = v^\top \Sigma v - \lambda (v^\top v - 1)
-        \]
-        \item Taking the derivative with respect to \( v \) and setting it to 0:
-        \[
-        \frac{\partial L}{\partial v} = 2 \Sigma v - 2 \lambda v = 0
-        \]
-        \item This simplifies to:
-        \[
-        \Sigma v = \lambda v
-        \]
-        \item We find all $(v_1, \lambda_1)$, $(v_2, \lambda_2)$, $\cdots$, $(v_k, \lambda_k)$ as the $k$ eigenvectors of $\Sigma$ having largest eigenvalues: $\lambda_1 \geq \lambda_2 \geq \cdots \geq \lambda_k$ 
-    \end{itemize}
+
+\begin{itemize}
+
+    \item We introduce a Lagrange multiplier \(\lambda\) and define the Lagrangian:
+    \[
+        \mathcal{L}(\mathbf{v}, \lambda)
+        = \mathbf{v}^{\top}\Sigma\,\mathbf{v}
+        - \lambda\,(\mathbf{v}^{\top}\mathbf{v} - 1)
+    \]
+
+    \item Taking the derivative with respect to \(\mathbf{v}\) and setting it to zero:
+    \[
+        \frac{\partial \mathcal{L}}{\partial \mathbf{v}}
+        = 2\,\Sigma\,\mathbf{v} - 2\lambda\,\mathbf{v} = 0
+    \]
+
+    \item This simplifies to:
+    \[
+        \Sigma\,\mathbf{v} = \lambda\,\mathbf{v}
+    \]
+
+    \item We find all pairs \((\mathbf{v}_1, \lambda_1)\), \((\mathbf{v}_2, \lambda_2)\), \(\dots\), \((\mathbf{v}_k, \lambda_k)\)
+    as the \(k\) eigenvectors of \(\Sigma\) associated with the largest eigenvalues:
+    \[
+        \lambda_1 \ge \lambda_2 \ge \cdots \ge \lambda_k
+    \]
+
+\end{itemize}
+
 \end{frame}
 
+%-------------------------------------slide56
 \begin{frame}{Step 4: Interpretation}
-    \begin{itemize}
-        \item The variance \( v^\top \Sigma v \) is maximized when \( v \) is the eigenvector corresponding to the largest eigenvalue of \( \Sigma \).
-        \item The eigenvalue \( \lambda \) represents the variance in the direction of the eigenvector \( v \).
-        \item Conclusion: Eigenvectors of the covariance matrix maximize the variance of the projected data.
-    \end{itemize}
+
+\begin{itemize}
+    \item The variance \(\mathbf{v}^{\top}\Sigma\,\mathbf{v}\) is maximized when \(\mathbf{v}\) is the eigenvector corresponding to the largest eigenvalue of \(\Sigma\).
+
+    \item The eigenvalue \(\lambda\) represents the variance in the direction of the eigenvector \(\mathbf{v}\).
+
+    \item \textbf{Conclusion}:  
+    Eigenvectors of the covariance matrix maximize the variance of the projected data.
+\end{itemize}
+
 \end{frame}
 
-\begin{frame}{Sample Covariance Matrix}
+%-------------------------------------slide57
+\begin{frame}{PCA Algorithm}
     \begin{algorithm}[H]
-    \caption{Sample Covariance Matrix}\label{alg:Sample Covariance Matrix}
+    \caption{Principal Component Analysis (PCA)}\label{Principal Component Analysis (PCA)}
     \begin{algorithmic}[1]
         \State \textbf{Input:} $X \in \mathbb{R}^{N \times d}$ (data matrix with $N$ data points and $d$ dimensions)
         \State Compute the mean of each feature:  $\bar{x} = \frac{1}{N} \sum_{i=1}^{N} x_i$
@@ -797,204 +1240,1231 @@ x_1 = x_2 = \dfrac{1}{\sqrt{2}}, \quad f_{\text{max}} = x_1 + x_2 = \sqrt{2}
     \end{algorithm}
 \end{frame}
 
-\section{Choosing the Number of Principal Components}
+%-------------------------------------slide58
+\begin{frame}{Numerical Example}
 
-\begin{frame}{Number of Principal Components}
+\begin{itemize}
+
+    \item We consider a small dataset with \(N = 3\) samples and \(d = 2\) features:
+    \[
+        \mathbf{X} =
+        \begin{bmatrix}
+            2 & 0 \\
+            0 & 2 \\
+            3 & 3
+        \end{bmatrix}.
+    \]
+
+    \item Each row represents a data point in \(\mathbb{R}^{2}\).
+
+    \item \textbf{Goal}: apply PCA using the sample covariance matrix  
+    and compute the principal components and the transformed data.
+    
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide59
+\begin{frame}{Step 1: Mean-Center the Data}
+
+\begin{itemize}
+
+    \item Compute the mean of each feature:
+    \[
+        \bar{\mathbf{x}}
+        = \frac{1}{3}
+        \begin{bmatrix}
+            2 + 0 + 3 \\
+            0 + 2 + 3
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            \tfrac{5}{3} \\
+            \tfrac{5}{3}
+        \end{bmatrix}.
+    \]
+
+    \item Subtract the mean from each sample:
+    \[
+        \tilde{\mathbf{X}}
+        = \mathbf{X} - \mathbf{1}\,\bar{\mathbf{x}}^{\top}
+        =
+        \begin{bmatrix}
+            \tfrac{1}{3} & -\tfrac{5}{3} \\
+            -\tfrac{5}{3} & \tfrac{1}{3} \\
+            \tfrac{4}{3} & \tfrac{4}{3}
+        \end{bmatrix}.
+    \]
+
+    \item Now the mean of each column of \(\tilde{\mathbf{X}}\) is zero.
+
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide60
+\begin{frame}{Step 2: Sample Covariance Matrix}
+
+\begin{itemize}
+
+    \item With \(N = 3\), the sample covariance matrix is
+    \[
+        \Sigma
+        = \frac{1}{N-1}\,\tilde{\mathbf{X}}^{\top}\tilde{\mathbf{X}}
+        = \frac{1}{2}\,\tilde{\mathbf{X}}^{\top}\tilde{\mathbf{X}}.
+    \]
+
+    \item Compute:
+    \[
+        \tilde{\mathbf{X}}^{\top}\tilde{\mathbf{X}}
+        =
+        \begin{bmatrix}
+            \tfrac{14}{3} & \tfrac{2}{3} \\
+            \tfrac{2}{3}  & \tfrac{14}{3}
+        \end{bmatrix}
+        \quad\Rightarrow\quad
+        \Sigma
+        =
+        \begin{bmatrix}
+            \tfrac{7}{3} & \tfrac{1}{3} \\
+            \tfrac{1}{3} & \tfrac{7}{3}
+        \end{bmatrix}.
+    \]
+
+    \item Diagonal entries are variances of each feature;  
+          off-diagonal entries are covariances.
+
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide61
+\begin{frame}{Step 3: Eigenvalues and Eigenvectors of $\Sigma$}
+
+\begin{itemize}
+
+    \item Solve the eigenvalue problem:
+    \[
+        \Sigma\,\mathbf{v} = \lambda\,\mathbf{v},
+        \qquad
+        \Sigma =
+        \begin{bmatrix}
+            \tfrac{7}{3} & \tfrac{1}{3} \\
+            \tfrac{1}{3} & \tfrac{7}{3}
+        \end{bmatrix}.
+    \]
+
+    \item Characteristic equation:
+    \[
+        \det(\Sigma - \lambda I) = 0
+        \;\Rightarrow\;
+        \lambda_1 = \frac{8}{3},\quad
+        \lambda_2 = 2.
+    \]
+
+    \item Corresponding eigenvectors (before normalization) can be chosen as
+    \[
+        \mathbf{v}_1 =
+        \begin{bmatrix}
+            1 \\[2pt] 1
+        \end{bmatrix},
+        \qquad
+        \mathbf{v}_2 =
+        \begin{bmatrix}
+            -1 \\[2pt] 1
+        \end{bmatrix}.
+    \]
+
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide62
+\begin{frame}{Step 3: Normalize Eigenvectors}
+
+\begin{itemize}
+
+    \item We normalize the eigenvectors to have unit norm:
+    \[
+        \|\mathbf{v}_1\| = \sqrt{1^2 + 1^2} = \sqrt{2},
+        \qquad
+        \|\mathbf{v}_2\| = \sqrt{(-1)^2 + 1^2} = \sqrt{2}.
+    \]
+
+    \item Orthonormal eigenvectors:
+    \[
+        \mathbf{u}_1 = \frac{1}{\sqrt{2}}
+        \begin{bmatrix}
+            1 \\ 1
+        \end{bmatrix},
+        \qquad
+        \mathbf{u}_2 = \frac{1}{\sqrt{2}}
+        \begin{bmatrix}
+            -1 \\ 1
+        \end{bmatrix}.
+    \]
+
+    \item \(\mathbf{u}_1\) is the first principal component (corresponding to the largest eigenvalue),  
+          and \(\mathbf{u}_2\) is the second.
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide63
+\begin{frame}{Step 4: Projection Matrix}
+
+\begin{itemize}
+
+    \item Collect the principal directions in
+    \[
+        W = [\,\mathbf{u}_1\;\; \mathbf{u}_2\,]
+        = \frac{1}{\sqrt{2}}
+        \begin{bmatrix}
+            1 & -1 \\
+            1 &  1
+        \end{bmatrix}.
+    \]
+
+    \item This matrix defines the orthogonal projection from the original
+          coordinates to the principal component coordinates.
+
+    \item If we want to reduce to \(k = 1\) dimension, we keep only \(\mathbf{u}_1\)
+          (the first column of \(W\)).
+
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide64
+\begin{frame}{Step 5: Transform the Data}
+
+\begin{itemize}
+
+    \item The transformed (PCA) coordinates are obtained by
+    \[
+        Z = \tilde{\mathbf{X}}\, W.
+    \]
+
+    \item Using the orthonormal eigenvectors, we obtain approximately
+    \[
+        Z \approx
+        \begin{bmatrix}
+            -0.94 & -1.41 \\
+            -0.94 & \phantom{-}1.41 \\
+            \phantom{-}1.89 & \phantom{-}0.00
+        \end{bmatrix}.
+    \]
+
+    \item Interpretation:
     \begin{itemize}
-        \item For $d$ original dimensions, the sample covariance matrix is $d \times d$, and has up to $d$ eigenvectors. So we can have up to $d$ principal components.
-        \item Can ignore the components of lesser significance.
-        \begin{figure}[htpb]
-            \begin{center}
-                \includegraphics[keepaspectratio, scale=0.6]{pic/var.JPG}
-            \end{center}
-        \end{figure}
-        \item We lose some information, but if the eigenvalues are small, we don’t lose much.
+        \item Column 1: scores along the first principal component \(\mathbf{u}_1\).
+        \item Column 2: scores along the second principal component \(\mathbf{u}_2\).
     \end{itemize}
+
+\end{itemize}
+
 \end{frame}
 
-\begin{frame}{Number of Principal Components}
-    \begin{minipage}{0.4\textwidth}
-         \begin{itemize}
-            \item Select the desired variance ratio and select the principal components.
+%-------------------------------------slide65
+\begin{frame}{Getting the Eigenvalues: Two Approaches}
+
+\begin{itemize}
+    \item Direct eigenvalue decomposition of the covariance matrix:
+\end{itemize}
+
+\[
+    S \;=\; \frac{1}{N}\sum_{n=1}^{N} \mathbf{x}_{n}\,\mathbf{x}_{n}^{\top}
+    \;=\; \frac{1}{N}\, X\,X^{\top}.
+\]
+
+\begin{itemize}
+    \item Singular Value Decomposition (SVD).
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide66
+\begin{frame}{Algorithms for PCA}
+
+\textbf{How do we find principal components (i.e., eigenvectors)?}
+
+\begin{itemize}
+
+    \item \textbf{Power iteration (covered earlier)}
+    \begin{itemize}
+        \item Finds each principal component one at a time, in decreasing order of eigenvalues.
+    \end{itemize}
+
+    \item \textbf{Singular Value Decomposition (SVD)}
+    \begin{itemize}
+        \item Finds all principal components at once.
+        \item Two options:
+        \begin{itemize}
+            \item Option A: run SVD on \(X^{\top}X\)
+            \item Option B: run SVD directly on \(X\)  
+                  \textit{(It is not immediately obvious why Option B should work.)}
         \end{itemize}
-         $$\min_k \frac{\sum_{i=1}^{k} \lambda_i}{\sum_{i=1}^{d} \lambda_i} >= 0.9$$
-    \end{minipage}
-    \begin{minipage}{0.55\textwidth}
-        \begin{figure}[htpb]
-            \begin{center}
-                \includegraphics[keepaspectratio, scale=0.4]{pic/PCA_var.JPG}
-            \end{center}
-        \end{figure}
-    \end{minipage}
+    \end{itemize}
+
+\end{itemize}
+
 \end{frame}
 
+%-------------------------------------slide67
+\begin{frame}{Singular Value Decomposition (SVD)}
+
+SVD (singular value decomposition) is a factorization of a matrix \(A\) into:
+\[
+A  
+= 
+\underbrace{U}_{D \times D}\,
+\underbrace{\Sigma}_{D \times N}\,
+\underbrace{V^{\top}}_{N \times N}
+\]
+
+\[
+\frac{1}{N} A A^{\top}
+= \frac{1}{N}\,
+U\,\Sigma\,
+\underbrace{V^{\top}V}_{=\, I_{N}}\,
+\Sigma^{\top} U^{\top}
+= \frac{1}{N}\, U\, \Sigma \Sigma^{\top} U^{\top}.
+\]
+
+where:
+\begin{itemize}
+    \item The columns of \(U\) are the eigenvectors of \(A A^{\top}\).
+    \item The columns of \(V\) are the eigenvectors of \(A^{\top} A\).
+    \item \(\Sigma\) is a diagonal (scaling) matrix of singular values,
+          which are the square roots of the eigenvalues of both
+          \(A A^{\top}\) and \(A^{\top} A\).
+\end{itemize}
+
+\begin{center}
+    \includegraphics[width=0.4\textwidth]{pic/svd1.png}
+\end{center}
+
+\end{frame}
+
+%-------------------------------------slide68
+\begin{frame}{Generating Principal Components}
+
+\begin{itemize}
+
+    \item Subtract the mean  
+    \[
+        \bar{\mathbf{x}} = \frac{1}{N} \sum_{n=1}^{N} \mathbf{x}^{(n)}
+    \]
+    from each data point to create zero-centered data.
+
+    \item Create the matrix \(X\) with one row vector per zero-centered data point.
+
+    \item Solve the SVD:
+    \[
+        X = U\,\Sigma\,V^{\top}.
+    \]
+
+    \item Output the principal components: the columns of \(V\)
+          (equivalently, the rows of \(V^{\top}\)):
+    \[
+        V = [\,\mathbf{v}_1\;\; \mathbf{v}_2\;\; \cdots\;\; \mathbf{v}_d\,].
+    \]
+
+    \begin{itemize}
+        \item The eigenvectors \(\mathbf{v}_k\) in \(V\) are ordered from largest to smallest eigenvalues.
+        \item \(\Sigma\) is diagonal, and \(\sigma_k^{2}\) gives the eigenvalue corresponding to \(\mathbf{v}_k\).
+    \end{itemize}
+
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide69
+\begin{frame}{Subset of Patients: Smoothness and Radius}
+
+Let’s start with a subset of 6 patients and focus on only two of their features:
+\textbf{smoothness} and \textbf{radius}.
+
+\begin{center}
+    \includegraphics[width=0.6\linewidth]{pic/PCA1.png}
+\end{center}
+
+\end{frame}
+
+%-------------------------------------slide70
+\begin{frame}{Dataset Center: Mean of Each Feature}
+
+Determine the “center’’ of the dataset --- the mean value of each feature.
+
+\begin{center}
+    \includegraphics[width=0.6\linewidth]{pic/PCA2.png}
+\end{center}
+
+\end{frame}
+
+%-------------------------------------slide71
+\begin{frame}{Shifting the Dataset to Zero Mean}
+
+We shift the dataset so that its “center’’ (the mean value) is moved to the origin \((0,0)\).
+The transformed dataset therefore has zero mean.
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{pic/PCA31.png}
+\end{center}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{pic/PCA32.png}
+\end{center}
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+%-------------------------------------slide72
+\begin{frame}{Fitting a Straight Line to the Dataset}
+
+\begin{center}
+
+    \includegraphics[width=0.55\linewidth]{pic/PCA4.png}
+
+\end{center}
+
+\end{frame}
+
+%-------------------------------------slide73
+\begin{frame}{Projection onto a Proposed Line}
+
+Let’s propose the red line shown below.  
+To quantify how good the fit is, PCA projects the data onto this line.  
+The best-fit line is the one that minimizes the distances from the points to the line (shown in green).
+
+\begin{center}
+    \includegraphics[width=0.45\linewidth]{pic/PCA5.png}
+\end{center}
+
+\end{frame}
+
+%-------------------------------------slide75
+\begin{frame}{Maximizing the Spread of Projected Points}
+
+Alternatively, PCA can be viewed as maximizing the distances  
+from the projected points to the origin (indicated in orange).
+
+\begin{center}
+    \includegraphics[width=0.5\linewidth]{pic/PCA6.png}
+\end{center}
+
+\end{frame}
+
+%-------------------------------------slide76
+\begin{frame}{Why Are They the Same?}
+
+Why are these two interpretations equivalent?  
+Consider what happens to the vectors below when we change the fitted curve.
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{pic/PCA71.png}
+\end{center}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{pic/PCA72.png}
+\end{center}
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+%-------------------------------------slide77
+\begin{frame}{Variance of the Dataset}
+
+Let’s talk about the variance of the dataset. \\
+The covariance matrix is computed as:
+\[
+    \Sigma = \frac{1}{n-1}\, A^{\top} A.
+\]
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{pic/PCA81.png}
+\end{center}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\begin{center}
+    \includegraphics[width=0.7\textwidth]{pic/PCA82.png} \\
+    \vspace{1.5em}
+    \includegraphics[width=0.7\textwidth]{pic/PCA83.png}
+\end{center}
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+%-------------------------------------slide78
+\begin{frame}{Covariance, Eigenvalues, and Maximum Variance}
+
+We begin with the centered data matrix \(A\) and compute the covariance matrix:
+\[
+    \Sigma = \frac{1}{n-1}\, A^{\top} A .
+\]
+
+\medskip
+
+Diagonalization of the covariance matrix gives:
+\[
+    A^{\top} A = X D X^{\top},
+\]
+where  
+\quad \(X\) contains the eigenvectors of \(A^{\top}A\),  
+\quad \(D\) contains the eigenvalues of \(A^{\top}A\).
+
+\medskip
+
+From the singular value decomposition (SVD):
+\[
+    A = U\,\Sigma\,V^{\top}.
+\]
+
+\medskip
+
+Maximum variance corresponds to the largest singular value of \(\Sigma\),  
+and the \textbf{direction of maximum variance} is given by  
+the corresponding column of \(V\).
+
+\end{frame}
+
+%-------------------------------------slide79
+\begin{frame}{Covariance, Eigenvalues, and Maximum Variance}
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pic/PCA9.png}
+\end{center}
+\end{column}
+
+
+\begin{column}{0.5\textwidth}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pic/PCA82.png} \\
+\vspace{1.5em}
+\includegraphics[width=0.8\textwidth]{pic/PCA83.png} 
+\end{center}
+
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+%-------------------------------------slide80
+\begin{frame}{Principal Components from SVD}
+
+\begin{center}
+    \includegraphics[width=0.6\linewidth]{pic/PCA10.png}
+\end{center}
+
+\end{frame}
+
+%-------------------------------------slide81
+\begin{frame}{Transformed Dataset in the PCA Coordinate System}
+
+The transformed dataset is obtained by projecting the centered data
+onto the principal components:
+\[
+    A^{*} = A V = U\,\Sigma .
+\]
+
+\begin{columns}
+
+\begin{column}{0.5\textwidth}
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{pic/PCA111.png}
+\end{center}
+\end{column}
+
+\begin{column}{0.5\textwidth}
+\begin{center}
+    \includegraphics[width=0.8\textwidth]{pic/PCA112.png}
+\end{center}
+\end{column}
+
+\end{columns}
+
+\end{frame}
+
+%-------------------------------------slide82
+\begin{frame}{Original Features in the PCA Coordinate System}
+
+\begin{center}
+    \includegraphics[width=0.75\linewidth]{pic/PCA12.png}
+\end{center}
+
+\end{frame}
+
+%-------------------------------------slide83
+\begin{frame}{Number of Principal Components}
+
+\begin{itemize}
+
+    \item For \(d\) original dimensions, the sample covariance matrix is \(d \times d\) and therefore has up to \(d\) eigenvectors.  
+          Thus, we can obtain up to \(d\) principal components.
+
+    \item Components with smaller eigenvalues can be ignored.
+
+    \begin{figure}[htpb]
+        \begin{center}
+            \includegraphics[keepaspectratio, scale=0.6]{pic/var.JPG}
+        \end{center}
+    \end{figure}
+
+    \item We lose some information when dropping components, but if their eigenvalues are small, the loss is negligible.
+
+\end{itemize}
+
+\end{frame}
+
+%-------------------------------------slide84
+\begin{frame}{Number of Principal Components}
+
+\begin{minipage}{0.4\textwidth}
+
+\begin{itemize}
+    \item Select the desired variance ratio, and choose the smallest number of principal components that achieves it.
+\end{itemize}
+
+\[
+    \min\, k 
+    \quad \text{s.t.} \quad
+    \frac{\sum_{i=1}^{k} \lambda_i}{\sum_{i=1}^{d} \lambda_i} \;\ge\; 0.9
+\]
+
+\end{minipage}
+\begin{minipage}{0.55\textwidth}
+
+\begin{figure}[htpb]
+    \begin{center}
+        \includegraphics[keepaspectratio, scale=0.4]{pic/PCA_var.JPG}
+    \end{center}
+\end{figure}
+
+\end{minipage}
+
+\end{frame}
+
+%-------------------------------------slide85
+\section{Kernel PCA}
+
+%-------------------------------------slide86
+\begin{frame}{Nonlinear PCA}
+
+\begin{center}
+\begin{columns}
+
+\begin{column}{0.45\textwidth}
+\begin{center}
+    \includegraphics[width=0.9\textwidth]{pic/sol1.png}
+\end{center}
+\centering Broken solution
+\end{column}
+
+\begin{column}{0.45\textwidth}
+\begin{center}
+    \includegraphics[width=0.9\textwidth]{pic/sol2.png}
+\end{center}
+\centering Desired solution
+\end{column}
+
+\end{columns}
+\end{center}
+
+\begin{center}
+\textbf{Idea: Use kernels}
+\end{center}
+
+\vspace{0.3cm}
+
+\begin{center}
+\begin{tabular}{|c|}
+\hline
+Linear dimensionality reduction in $\phi(\mathbf{x})$ space \\[4pt]
+$\Updownarrow$ \\[4pt]
+Nonlinear dimensionality reduction in $\mathbf{x}$ space \\
+\hline
+\end{tabular}
+\end{center}
+
+\end{frame}
+
+%-------------------------------------slide87
+\begin{frame}{PCA: Beyond Linearity}
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{pic/KPCA1.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{PCA: Beyond Linearity}
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{pic/KPCA2.png}
+\end{center}
+\end{frame}
+
+\begin{frame}{PCA: Beyond Linearity}
+\begin{center}
+    \includegraphics[width=0.5\textwidth]{pic/KPCA3.png}
+\end{center}
+\end{frame}
+
+%-------------------------------------slide88
+\begin{frame}{PCA: Beyond Linearity}
+
+\begin{center}
+\includegraphics[width=0.5\textwidth]{pic/KPCA4.png}
+\end{center}
+
+\end{frame}
+
+%-------------------------------------slide89
+\begin{frame}{Projection: Linear PCA}
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{pic/KPCA5.png}
+\end{center}
+
+\end{frame}
+
+%-------------------------------------slide90
+\begin{frame}{Projection: Kernel PCA}
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{pic/KPCA6.png}
+\end{center}
+
+\end{frame}
+
+%-------------------------------------slide91
+\begin{frame}{Kernel PCA}
+
+\begin{center}
+\includegraphics[width=0.5\textwidth]{pic/KPCA7.png}
+\end{center}
+
+\end{frame}
+
+%-------------------------------------slide92
+\begin{frame}{Kernel PCA}
+
+Suppose our original data is, for example, \(\mathbf{x} \in \mathbb{R}^{2}\).
+
+\vspace{0.3cm}
+
+We can perform a degree-2 polynomial basis expansion as:
+\[
+\phi(\mathbf{x})
+=
+\begin{bmatrix}
+1,\; \sqrt{2}\,x_1,\; \sqrt{2}\,x_2,\; x_1^{2},\; x_2^{2},\; \sqrt{2}\,x_1 x_2
+\end{bmatrix}^{\top}
+\]
+
+\vspace{0.4cm}
+
+Recall that we can compute the inner products  
+\(\phi(\mathbf{x}) \cdot \phi(\mathbf{x}')\)  
+efficiently using the \textbf{kernel trick}:
+
+\[
+\phi(\mathbf{x}) \cdot \phi(\mathbf{x}')
+=
+1
++ 2 x_1 x'_1
++ 2 x_2 x'_2
++ x_1^{2} (x'_1)^{2}
++ x_2^{2} (x'_2)^{2}
++ 2 x_1 x_2 x'_1 x'_2
+\]
+
+\[
+= \left( 1 + x_1 x'_1 + x_2 x'_2 \right)^{2}
+= \left(1 + \mathbf{x} \cdot \mathbf{x}' \right)^{2}
+=: \kappa(\mathbf{x}, \mathbf{x}')
+\]
+
+\end{frame}
+
+%-------------------------------------slide93
+\begin{frame}{Kernel PCA}
+
+Suppose we use the feature map
+\[
+    \phi : \mathbb{R}^{D} \rightarrow \mathbb{R}^{M}.
+\]
+
+Let \(\phi(X)\) be the \(N \times M\) matrix.
+
+\vspace{0.4cm}
+
+We want to find the singular vectors of \(\phi(X)\)  
+(i.e., the eigenvectors of \(\phi(X)^{\top}\phi(X)\)).
+
+\vspace{0.4cm}
+
+However, in general \(M \gg N\) (in fact, \(M\) may even be infinite for some kernels).
+
+\vspace{0.4cm}
+
+Instead, we will find the eigenvectors of
+\[
+    \phi(X)\, \phi(X)^{\top},
+\]
+the kernel matrix.
+
+\end{frame}
+
+%-------------------------------------slide94
+\begin{frame}{Kernel PCA}
+
+Recall that the kernel matrix is:
+\[
+K 
+= 
+\phi(X)\,\phi(X)^{\top}
+=
+\begin{bmatrix}
+\kappa(\mathbf{x}_1,\mathbf{x}_1) & \kappa(\mathbf{x}_1,\mathbf{x}_2) & \cdots & \kappa(\mathbf{x}_1,\mathbf{x}_N) \\
+\kappa(\mathbf{x}_2,\mathbf{x}_1) & \kappa(\mathbf{x}_2,\mathbf{x}_2) & \cdots & \kappa(\mathbf{x}_2,\mathbf{x}_N) \\
+\vdots & \vdots & \ddots & \vdots \\
+\kappa(\mathbf{x}_N,\mathbf{x}_1) & \kappa(\mathbf{x}_N,\mathbf{x}_2) & \cdots & \kappa(\mathbf{x}_N,\mathbf{x}_N)
+\end{bmatrix}
+\]
+
+Let \(\mathbf{u} \in \mathbb{R}^{N}\) be an eigenvector of \(K\)  
+(the left singular vector of \(\phi(X)\)).
+
+\vspace{0.3cm}
+
+The corresponding principal component \(\mathbf{v} \in \mathbb{R}^{M}\) is
+\[
+\mathbf{v} = \sigma^{-1}\, \phi(X)^{\top}\,\mathbf{u}.
+\]
+
+\vspace{0.3cm}
+
+\end{frame}
+
+%-------------------------------------slide95
+\begin{frame}{Kernel PCA}
+
+We will not express \(\mathbf{v}\) explicitly.  
+Instead, for a new datapoint \(\mathbf{x}_{\text{new}}\) we compute its projection onto the principal component using the kernel function:
+
+\[
+\phi(\mathbf{x}_{\text{new}})^{\top}\mathbf{v}
+=
+\sigma^{-1}
+\phi(\mathbf{x}_{\text{new}})^{\top}
+\phi(X)^{\top}
+\mathbf{u}
+=
+\sigma^{-1}
+\big[
+\kappa(\mathbf{x}_{\text{new}}, \mathbf{x}_1),\;
+\kappa(\mathbf{x}_{\text{new}}, \mathbf{x}_2),\;
+\ldots,\;
+\kappa(\mathbf{x}_{\text{new}}, \mathbf{x}_N)
+\big]
+\mathbf{u}.
+\]
+
+\vspace{0.3cm}
+
+Thus, to compute projections onto principal components,  
+\textbf{we do not need to store the principal components explicitly!}
+
+\end{frame}
+
+%-------------------------------------slide96
+\begin{frame}{Kernel PCA}
+
+For PCA, we assume that the data matrix \(X\) is centered, i.e.,
+\[
+\sum_{i} \mathbf{x}_{i} = \mathbf{0}.
+\]
+
+However, this is not true for the matrix \(\phi(X)\).
+
+\vspace{0.3cm}
+
+Instead, we consider the centered feature map:
+\[
+\tilde{\phi}(\mathbf{x}_{i})
+=
+\phi(\mathbf{x}_{i})
+-
+\frac{1}{N}
+\sum_{k=1}^{N}
+\phi(\mathbf{x}_{k}).
+\]
+
+\vspace{0.4cm}
+
+The corresponding matrix \(\tilde{K}\) has entries
+\[
+\tilde{K}_{ij}
+=
+\kappa(\mathbf{x}_{i}, \mathbf{x}_{j})
+-
+\frac{1}{N}
+\sum_{\ell=1}^{N}
+\kappa(\mathbf{x}_{i}, \mathbf{x}_{\ell})
+-
+\frac{1}{N}
+\sum_{\ell=1}^{N}
+\kappa(\mathbf{x}_{j}, \mathbf{x}_{\ell})
++
+\frac{1}{N^{2}}
+\sum_{k=1}^{N}
+\sum_{\ell=1}^{N}
+\kappa(\mathbf{x}_{\ell}, \mathbf{x}_{k}).
+\]
+
+\vspace{0.4cm}
+
+\end{frame}
+
+%-------------------------------------slide97
+\begin{frame}{Kernel PCA}
+
+Succinctly, if \(O\) is the matrix with every entry \(1/N\),  
+i.e. \(O = \mathbf{1}\mathbf{1}^{\top} / N\), then
+\[
+\tilde{K}
+=
+K
+-
+O K
+-
+K O
++
+O K O.
+\]
+
+\vspace{0.4cm}
+
+To perform kernel PCA, we need to find the eigenvectors of \(\tilde{K}\).
+
+\end{frame}
+
+%-------------------------------------slide98
+\begin{frame}{Projection: PCA vs Kernel PCA}
+
+\begin{center}
+\includegraphics[width=0.9\textwidth]{pic/KPCA8.png}
+\end{center}
+
+\end{frame}
+
+%-------------------------------------slide99
+\begin{frame}{Kernel PCA Algorithm}
+
+\textbf{Recover basis:}  
+Compute 
+\[
+K = \Phi(X)^{\top}\Phi(X)
+\]
+using the kernel matrix.  
+Let \(V\) be the matrix of eigenvectors of \(\Phi(X)^{\top}\Phi(X)\) corresponding to the top \(d\) eigenvalues.  
+Let \(\Sigma\) be the diagonal matrix of the square roots of the top \(d\) eigenvalues.
+
+\vspace{0.35cm}
+
+\textbf{Encode training data:}  
+\[
+Y = U^{\top}\Phi(X)
+= \Sigma\,V^{\top}
+\]
+where \(Y\) is a \(d \times t\) matrix of encodings of the original data.  
+This is possible because computing \(Y\) does not require explicit evaluation of \(\Phi(X)\).
+
+\vspace{0.35cm}
+
+\end{frame}
+
+%-------------------------------------slide100
+\begin{frame}{Kernel PCA Algorithm}
+
+\textbf{Reconstruct training data:}  
+\[
+\hat{X} = U Y
+= U \Sigma V^{\top}
+= \Phi(X)\, V \Sigma^{-1}\Sigma V^{\top}
+= \Phi(X)\, V V^{\top}.
+\]
+
+But \(\Phi(X)\) is unknown, so reconstruction \textbf{cannot be done}.
+
+\vspace{0.35cm}
+
+\textbf{Encode test example:}  
+\[
+\mathbf{y}
+= U^{\top}\Phi(\mathbf{x})
+= \Sigma^{-1}V^{\top}\Phi(X)^{\top}\Phi(\mathbf{x})
+= \Sigma^{-1}V^{\top}\Phi(X)^{\top}\Phi(\mathbf{x}).
+\]
+
+This works because  
+\[
+\Phi(X)^{\top}\Phi(\mathbf{x}) = K(X,\mathbf{x}).
+\]
+
+\vspace{0.35cm}
+
+\textbf{Reconstruct test example:}  
+\[
+\hat{\mathbf{x}}
+= U \mathbf{y}
+= U U^{\top}\Phi(\mathbf{x})
+=
+\Phi(X)\, V \Sigma^{-2} V^{\top}\Phi(X)^{\top}\Phi(\mathbf{x})
+=
+\Phi(X)\, V \Sigma^{-2} V^{\top}K(X,\mathbf{x}).
+\]
+
+Since \(\Phi(\mathbf{x})\) is unknown, reconstruction \textbf{cannot be done}.
+
+\end{frame}
+
+%-------------------------------------slide101
 \section{Applications}
 
+%-------------------------------------slide102
 \begin{frame}{Image Compression}
-      \begin{itemize}
-          \item Divide the original $372 \times 492$ image into patches.
+
 \begin{itemize}
-    \item Each patch is an instance containing $12 \times 12$ pixels on a grid.
+    \item Divide the original \(372 \times 492\) image into patches.
+    \begin{itemize}
+        \item Each patch is an instance containing \(12 \times 12\) pixels on a grid.
+    \end{itemize}
+
+    \item Treat each patch as a 144-dimensional vector.
 \end{itemize}
-            \item Consider each as a 144-D vector.
-      \end{itemize}
-        \begin{figure}[htpb]
-            \begin{center}
-                \includegraphics[width=8cm, height=5cm]{pic/original.JPG}
-            \end{center}
-        \end{figure}
+
+\begin{figure}[htpb]
+    \begin{center}
+        \includegraphics[width=8cm, height=5cm]{pic/original.JPG}
+    \end{center}
+\end{figure}
+
 \end{frame}
 
+%-------------------------------------slide103
 \begin{frame}{Image Compression}
-      \begin{itemize}
-          \item 144D to 60D
-      \end{itemize}
-        \begin{figure}[htpb]
-            \begin{center}
-                \includegraphics[width=8cm, height=5cm]{pic/60d.JPG}
-            \end{center}
-        \end{figure}
+
+\begin{itemize}
+    \item Reducing the representation from 144 dimensions to 60 dimensions.
+\end{itemize}
+
+\begin{figure}[htpb]
+    \begin{center}
+        \includegraphics[width=8cm, height=5cm]{pic/60d.JPG}
+    \end{center}
+\end{figure}
+
 \end{frame}
 
+%-------------------------------------slide104
 \begin{frame}{Image Compression}
-      \begin{itemize}
-          \item 144D to 16D
-      \end{itemize}
-        \begin{figure}[htpb]
-            \begin{center}
-                \includegraphics[width=8cm, height=5cm]{pic/16d.JPG}
-            \end{center}
-        \end{figure}
+
+\begin{itemize}
+    \item Reducing the representation from 144 dimensions to 16 dimensions.
+\end{itemize}
+
+\begin{figure}[htpb]
+    \begin{center}
+        \includegraphics[width=8cm, height=5cm]{pic/16d.JPG}
+    \end{center}
+\end{figure}
+
 \end{frame}
 
-
+%-------------------------------------slide105
 \begin{frame}{Image Compression}
-      \begin{itemize}
-          \item The 16 most important eigenvectors
-      \end{itemize}
-        \begin{figure}[htpb]
-            \begin{center}
-                \includegraphics[width=8cm, height=5cm]{pic/16_most.JPG}
-            \end{center}
-        \end{figure}
+
+\begin{itemize}
+    \item The 16 most important eigenvectors.
+\end{itemize}
+
+\begin{figure}[htpb]
+    \begin{center}
+        \includegraphics[width=8cm, height=5cm]{pic/16_most.JPG}
+    \end{center}
+\end{figure}
+
 \end{frame}
 
-
+%-------------------------------------slide106
 \begin{frame}{Image Compression}
-      \begin{itemize}
-          \item 144D to 3D
-      \end{itemize}
-        \begin{figure}[htpb]
-            \begin{center}
-                \includegraphics[width=8cm, height=5cm]{pic/3d.JPG}
-            \end{center}
-        \end{figure}
+
+\begin{itemize}
+    \item Reducing the representation from 144 dimensions to 3 dimensions.
+\end{itemize}
+
+\begin{figure}[htpb]
+    \begin{center}
+        \includegraphics[width=8cm, height=5cm]{pic/3d.JPG}
+    \end{center}
+\end{figure}
+
 \end{frame}
 
-
+%-------------------------------------slide107
 \begin{frame}{Image Compression}
-      \begin{itemize}
-          \item The 3 most important eigenvectors
-      \end{itemize}
-        \begin{figure}[htpb]
-            \begin{center}
-                \includegraphics[width=8cm, height=5cm]{pic/3_most.JPG}
-            \end{center}
-        \end{figure}
+
+\begin{itemize}
+    \item The 3 most important eigenvectors.
+\end{itemize}
+
+\begin{figure}[htpb]
+    \begin{center}
+        \includegraphics[width=8cm, height=5cm]{pic/3_most.JPG}
+    \end{center}
+\end{figure}
+
 \end{frame}
 
-
+%-------------------------------------slide108
 \begin{frame}{Image Compression}
-      \begin{itemize}
-          \item $L^2$ error and PCA dimensions
-      \end{itemize}
-        \begin{figure}[htpb]
-            \begin{center}
-                \includegraphics[width=8cm, height=5cm]{pic/error.JPG}
-            \end{center}
-        \end{figure}
+
+\begin{itemize}
+    \item \(L^2\) error versus PCA dimensions.
+\end{itemize}
+
+\begin{figure}[htpb]
+    \begin{center}
+        \includegraphics[width=8cm, height=5cm]{pic/error.JPG}
+    \end{center}
+\end{figure}
+
 \end{frame}
 
+%-------------------------------------slide109
 \section{Shortcomings and Other Methods}
 
+%-------------------------------------slide110
 \begin{frame}{Class Labels}
-    \begin{itemize}
-        \item PCA doesn’t recognize about class labels.
-        \item Alternative solution: Linear Discriminant Analysis (LDA)
-        \begin{figure}[htpb]
-            \begin{center}
-                \includegraphics[width=8cm, height=5cm]{pic/labels.JPG}
-            \end{center}
-        \end{figure}
-    \end{itemize}
+
+\begin{itemize}
+    \item PCA does not take class labels into account.
+    \item An alternative solution: Linear Discriminant Analysis (LDA)
+    \begin{figure}[htpb]
+        \begin{center}
+            \includegraphics[width=8cm, height=5cm]{pic/labels.JPG}
+        \end{center}
+    \end{figure}
+\end{itemize}
+
 \end{frame}
 
-
+%-------------------------------------slide111
 \begin{frame}{Non-Linear}
-    \begin{itemize}
-        \item PCA cannot capture non-Linear structure.
-        \item Alternative solution: Kernel PCA
-        \begin{figure}[htpb]
-            \begin{center}
-                \includegraphics[width=8cm, height=5cm]{pic/nolinear.JPG}
-            \end{center}
-        \end{figure}
-    \end{itemize}
+
+\begin{itemize}
+    \item PCA cannot capture non-linear structure.
+    \item An alternative solution: Kernel PCA
+    \begin{figure}[htpb]
+        \begin{center}
+            \includegraphics[width=8cm, height=5cm]{pic/nolinear.JPG}
+        \end{center}
+    \end{figure}
+\end{itemize}
+
 \end{frame}
 
-
+%-------------------------------------slide112
 \begin{frame}{Other Methods}
+
+\begin{itemize}
+
+    \item \textbf{t-SNE:}
     \begin{itemize}
-        \item \textbf{t-SNE}:
-        \begin{itemize}
-            \item Non-linear method focusing on preserving local structure.
-            \item Often shows well-separated clusters, making it useful for visualization.
-            \item Computationally intensive; slower on large datasets.
-        \end{itemize}
-        \item \textbf{UMAP:}
-        \begin{itemize}
-            \item Non-linear method that preserves both local and some global structure.
-            \item Generally faster than t-SNE and scales better to large datasets.
-            \item Can capture more complex structures in the data.
-        \end{itemize}
+        \item A non-linear method focusing on preserving local structure.
+        \item Often produces well-separated clusters, making it useful for visualization.
+        \item Computationally intensive and relatively slow on large datasets.
     \end{itemize}
+
+    \item \textbf{UMAP:}
+    \begin{itemize}
+        \item A non-linear method that preserves both local and some global structure.
+        \item Generally faster than t-SNE and scales better to large datasets.
+        \item Can capture more complex structures in the data.
+    \end{itemize}
+
+\end{itemize}
+
 \end{frame}
 
+%-------------------------------------slide112
 \begin{frame}{PCA vs t-SNE vs UMAP}
-         \begin{figure}[htpb]
+         \begin{figure}
             \begin{center}
-                \includegraphics[width=12cm, height=6cm]{pic/tsne_vs_umap_pca.PNG}
-                \caption{\href{https://mbernste.github.io/posts/dim_reduc/}{Figure reference}}
+                \includegraphics[width=12cm, height=6cm]{pic/tsne_vs_umap_pca.PNG} \\
+    {\scriptsize Adopted from \href{https://mbernste.github.io/posts/dim_reduc/}{www.mbernste.github.io}}
             \end{center}
         \end{figure}
 \end{frame}
 
+%-------------------------------------slide113
 \section{Conclusion}
 
+%-------------------------------------slide114
 \begin{frame}{Conclusion}
+
+\begin{itemize}
+
+    \item PCA
     \begin{itemize}
-        \item PCA 
-        \begin{itemize}
-            \item Finds orthonormal basis for data
-            \item Sorts principal components in order of importance
-            \item Discards low significance principal components
-        \end{itemize}
-        \item Applications
-        \begin{itemize}
-            \item Get compact description
-            \item Remove noise
-            \item Improve classification (hopefully)
-            \item More efficient use of resources
-            \item Statistical
-        \end{itemize}
-        \item Not magic
-        \begin{itemize}
-            \item  Doesn’t recognize class labels
-            \item Can only capture linear variation
-        \end{itemize}
+        \item Finds an orthonormal basis for the data.
+        \item Orders principal components by importance.
+        \item Discards low-significance principal components.
     \end{itemize}
+
+    \item Applications
+    \begin{itemize}
+        \item Obtain a compact representation.
+        \item Remove noise.
+        \item Improve classification (hopefully).
+        \item Use computational resources more efficiently.
+        \item Statistical analysis.
+    \end{itemize}
+
+    \item Not magic
+    \begin{itemize}
+        \item Does not use class labels.
+        \item Can capture only linear variation.
+    \end{itemize}
+
+\end{itemize}
+
 \end{frame}
 
+
+%-------------------------------------slide115
 \section{References}
 
 \begin{frame}{Contributions}
@@ -1004,6 +2474,7 @@ x_1 = x_2 = \dfrac{1}{\sqrt{2}}, \quad f_{\text{max}} = x_1 + x_2 = \sqrt{2}
         \begin{itemize}
             \itemsep1em
             \item \href{https://github.com/MohammadMow/}{Mohammad Mowlavi}
+            \item \href{https://github.com/Mahdi-Aghaei}{Mahdi Aghaei}
         \end{itemize}
     \end{itemize}
 \end{frame}
