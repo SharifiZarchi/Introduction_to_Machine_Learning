@@ -166,26 +166,6 @@
 \end{frame}
 
 
-\begin{frame}{Optimal Learning Rate}
-    \textbf{Example Problem}:
-    \begin{itemize}
-        \item Initial weight: \( w_0 = 2 \)
-        \item Learning rate: \( \eta = 0.1 \)
-        \item Loss function: \( L(w) = (y - wx)^2 \) \\
-        \textbf{Example}: For \( x = 3 \), \( y = 10 \), and \( w_0 = 2 \),
-
-    \end{itemize}
-    
-    \textbf{Gradient Calculation}:
-    \[
-    \frac{\partial L}{\partial w} = -2x(y - wx)
-    \]
-    
-    \[
-    \frac{\partial L}{\partial w} = -24, \quad w_{\text{new}} = 4.4
-    \]
-\end{frame}
-
 \begin{frame}{Gradient Descent: Formula and Process}
     \textbf{Weight Update Formula}:
     \[
@@ -325,6 +305,34 @@
     
     \vspace{10pt}
     This means we multiply the gradient of the outer function by the gradient of the inner function.
+\end{frame}
+
+
+\begin{frame}{Why Study Computational Gates?}
+
+\begin{itemize}
+    \item These simple gates (add, multiply, copy, max) are the 
+    \textbf{fundamental building blocks} of all neural network computations.
+    
+    \item Any forward pass in a neural network can be decomposed into 
+    combinations of these basic operations.
+    
+    \item Understanding each gate’s backward rule shows 
+    \textbf{how gradients flow} through a model during backpropagation.
+    
+    \item These gates illustrate how gradients are:
+    \begin{itemize}
+        \item \textbf{Distributed} (add gate)
+        \item \textbf{Scaled} (multiply gate)
+        \item \textbf{Accumulated} (copy gate)
+        \item \textbf{Routed} (max gate)
+    \end{itemize}
+    
+    \item Mastering these rules builds intuition for 
+    \textbf{how learning happens}, why gradients change, 
+    and how models optimize their parameters.
+\end{itemize}
+
 \end{frame}
 
 
@@ -1349,7 +1357,7 @@
                     grid=major, xmin=-6, xmax=5, ymin=-2, ymax=4,
                     title={\textbf{Leaky ReLU}},
                 ]
-                \addplot[color=red, thick, domain=-6:6] {max(0.01*x, x)};
+                \addplot[color=red, thick, domain=-6:6] {max(0.1*x, x)};
                 \end{axis}
             \end{tikzpicture}
             \end{center}
