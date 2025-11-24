@@ -281,16 +281,28 @@
 
 
 
-\begin{frame}{Example: Composing Neural Networks.}
-    \begin{figure}[!htb]
-        \minipage{0.5\textwidth}
-          \includegraphics[width=\linewidth]{pic/5/nn_ex1.png}
-        \endminipage\hfill
-        \minipage{0.5\textwidth}
-          \includegraphics[width=\linewidth]{pic/5/nn_ex2.png}
-        \endminipage
-    \end{figure}
+\begin{frame}{Example: Composing Neural Networks}
+\begin{columns}[T]
+    %---------------- LEFT ----------------%
+    \begin{column}{0.45\textwidth}
+        \begin{itemize}
+            \item Each layer forms a simple piecewise-linear function (ReLU units).
+            \item Network 1 maps $x \rightarrow y$; Network 2 maps $y \rightarrow y'$.
+            \item Composing layers increases the number of linear regions.
+            \item The full MLP produces a more complex nonlinear function than either layer alone.
+        \end{itemize}
+    \end{column}
+
+    %---------------- RIGHT ----------------%
+    \begin{column}{0.55\textwidth}
+        \centering
+        \includegraphics[width=\linewidth,height=0.38\textheight,keepaspectratio]{pic/5/nn_ex1.png}\\[0.2cm]
+        \includegraphics[width=\linewidth,height=0.38\textheight,keepaspectratio]{pic/5/nn_ex2.png}
+    \end{column}
+\end{columns}
 \end{frame}
+
+
 
 
 \begin{frame}{MLP Capacity}
@@ -323,8 +335,8 @@
 	\begin{itemize}
 		\item Hidden layer pre-activation: $$a_i(x) = b^{(1)}_i + \sum_j W^{(1)}_{ij} \cdot x_j$$
 		\item Weight between neuron $i$ and $j$ in layer $\ell$: \(W^{(\ell)}_{ij}\)
-		\item Activated hidden layer: $$h(x) = \sigma^{(1)}(a(\mathbb{x}))$$
-		\item Output layer: $$ o(\mathbb{x}) = \sigma^{(2)}\left(\mathbb{b}^{(2)} + \mathbb{W}^{(2)}h^{(1)}(\ma\mathbb{x}) \right) $$
+		\item Activated hidden layer: $$h^{(1)}(x) = \sigma^{(1)}(a(\mathbf{x}))$$
+		\item Output layer: $$ o(\mathbf{x}) = \sigma^{(2)}\left(\mathbf{b}^{(2)} + \mathbf{W}^{(2)}h^{(1)}(\ma\mathbf{x}) \right) $$
 	\end{itemize}
 	\endminipage
 	\hfill
@@ -341,8 +353,8 @@
 	\begin{itemize}
 		\item Let $h^0_i = x_i$ for $i \in \{1, 2, \ldots, n  \}$
 		\item For $\ell \in \{0, 1, \ldots, L \}$:
-		      $$a^{(\ell+1)}_j = b^{(\ell)}_j + \sum_i W^{(\ell)}_{ij}\cdot h^{(\ell)}_i$$
-		      $$h^{(\ell+1)}_j = \sigma^{(\ell+1)}(a^{(\ell+1)}_j)$$
+		      $$a^{(\ell)}_j = b^{(\ell)}_j + \sum_i W^{(\ell)}_{ij}\cdot h^{(\ell)}_i$$
+		      $$h^{(\ell)}_j = \sigma^{(\ell)}(a^{(\ell)}_j)$$
 		      
 		\item Learnable parameters:
 		      $$b^{(\ell)}_j, W^{(\ell)}_{ij}$$
