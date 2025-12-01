@@ -408,7 +408,158 @@
 		\includegraphics[keepaspectratio, scale=0.5]{pic/pconv4.png}
 	\end{frame}
 	
-	
+	\section{Normalization}
+	\begin{frame}
+    \frametitle{Normalization}
+    \begin{itemize}
+        \item \textbf{Goal:} Stabilize and accelerate neural network training by normalizing activations.
+        \textit{(typically after the linear/convolution layer and before activation.)}
+        \item \textbf{Key Idea:} Reduce internal covariate shift by normalizing feature statistics.
+        \item \textbf{Types of Normalization:}
+        \begin{itemize}
+            \item Batch Normalization
+            \item Layer Normalization
+            \item Instance Normalization
+            \item Group Normalization
+        \end{itemize}
+        \item Each method differs by \textit{which dimensions} are normalized and how mean ($\mu$) and variance ($\sigma$) are computed.
+    \end{itemize}
+    \end{frame}
+    
+    \begin{frame}
+    \frametitle{Batch Normalization: Training vs Test Time}
+    
+    \textbf{Training:}
+    \[
+    \mu_j = \frac{1}{N} \sum_{i=1}^N x_{i,j}, \quad
+    \sigma_j^2 = \frac{1}{N} \sum_{i=1}^N (x_{i,j} - \mu_j)^2
+    \]
+    \[
+    \hat{x}_{i,j} = \frac{x_{i,j} - \mu_j}{\sqrt{\sigma_j^2 + \epsilon}}, \quad
+    y_{i,j} = \gamma_j \hat{x}_{i,j} + \beta_j
+    \]
+    
+    \textbf{Inference:}
+    \begin{itemize}
+        \item Use running averages of $\mu_j$ and $\sigma_j^2$ instead of batch statistics.
+        \item This ensures stable predictions even with batch size = 1.
+    \end{itemize}
+    
+    \textbf{Learnable parameters:}
+    \[
+    \gamma_j \ (\text{scale}), \quad \beta_j \ (\text{shift})
+    \]
+    \end{frame}
+    
+    \begin{frame}
+        \frametitle{Batch Normalization}
+        \begin{columns}[T]
+            \column{0.48\textwidth}
+            \centering
+            \textbf{Batch Normalization for fully-connected networks}
+            \[
+            \begin{aligned}
+            \mathbf{x} &: N \times D \\
+            \mu, \sigma &: 1 \times D \\
+            \gamma, \beta &: 1 \times D \\
+            \mathbf{y} &= \gamma \frac{\mathbf{x} - \mu}{\sigma} + \beta
+            \end{aligned}
+            \]
+            
+            \column{0.48\textwidth}
+            \centering
+            \textbf{Batch Normalization for convolutional networks}
+            \[
+            \begin{aligned}
+            \mathbf{x} &: N \times C \times H \times W \\
+            \mu, \sigma &: 1 \times C \times 1 \times 1 \\
+            \gamma, \beta &: 1 \times C \times 1 \times 1 \\
+            \mathbf{y} &= \gamma \frac{\mathbf{x} - \mu}{\sigma} + \beta
+            \end{aligned}
+            \]
+        \end{columns}
+    \end{frame}
+
+    \begin{frame}
+        \frametitle{Layer Normalization}
+        \begin{columns}[T]
+            \column{0.48\textwidth}
+            \centering
+            \textbf{Layer Normalization for fully-connected networks}\\
+            \textit{Same behavior at train and test.}\\
+            \textit{Can be used in recurrent networks.}
+            \[
+            \begin{aligned}
+            \mathbf{x} &: N \times D \\
+            \mu, \sigma &: N \times 1 \\
+            \gamma, \beta &: 1 \times D \\
+            \mathbf{y} &= \gamma \frac{\mathbf{x} - \mu}{\sigma} + \beta
+            \end{aligned}
+            \]
+            
+            \column{0.48\textwidth}
+            \centering
+            \textbf{Layer Normalization for convolutional networks}\\
+            \textit{Applies normalization over all channels and spatial locations per sample.}\\
+            \[
+            \begin{aligned}
+            \mathbf{x} &: N \times C \times H \times W \\
+            \mu, \sigma &: N \times 1 \times 1 \times 1 \\
+            \gamma, \beta &: 1 \times C \times 1 \times 1 \\
+            \mathbf{y} &= \gamma \frac{\mathbf{x} - \mu}{\sigma} + \beta
+            \end{aligned}
+            \]
+        \end{columns}
+    \end{frame}
+    
+    \begin{frame}
+        \frametitle{Instance Normalization}
+        \begin{center}
+            \textbf{Instance Normalization for Convolutional Networks} \\
+            Same behavior at train and test
+        \end{center}
+        \vspace{0.3cm}
+        \[
+        \begin{aligned}
+        \mathbf{x} &: N \times C \times H \times W \\
+        \mu, \sigma &: N \times C \times 1 \times 1 \\
+        \gamma, \beta &: 1 \times C \times 1 \times 1 \\
+        \mathbf{y} &= \gamma \frac{\mathbf{x} - \mu}{\sigma} + \beta
+    \end{aligned}
+        \]
+    \end{frame}
+    
+    \begin{frame}
+    \frametitle{Group Normalization}
+    
+    \begin{center}
+        \textbf{Group Normalization for Convolutional Networks} \\
+        Normalizes channels in groups per sample \\
+        Same behavior at train and test
+    \end{center}
+    
+    \vspace{0.3cm}
+    
+    \[
+    \begin{aligned}
+    \mathbf{x} &: N \times C \times H \times W \\
+    G &: \text{number of groups} \\
+    \mu, \sigma &: N \times G \times 1 \times 1 \\
+    \gamma, \beta &: 1 \times C \times 1 \times 1 \\
+    \mathbf{y} &= \gamma \frac{\mathbf{x} - \mu}{\sigma} + \beta
+    \end{aligned}
+    \]
+    
+    \end{frame}
+    
+    \begin{frame}{Comparison of Normalization Strategies}
+    \centering
+    \includegraphics[
+        width=\linewidth,
+        height=0.85\textheight,
+        keepaspectratio
+    ]{pic/normalizations.jpg}
+    \end{frame}
 	
 	\section{Receptive field \& inductive bias}
 	
