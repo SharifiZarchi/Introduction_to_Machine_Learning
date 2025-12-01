@@ -140,20 +140,26 @@ subsubsectionstyle=show/shaded/hide]
     \begin{itemize}
         \item \textbf{Definition:} 
             \begin{itemize}
-                \item Inductive bias refers to \textbf{assumptions} embedded in the neural network's design to help it generalize to new, unseen data.
+                \item Inductive bias refers to \textbf{assumptions} embedded in the model's design to help it generalize to new, unseen data.
             \end{itemize}
         \item \textbf{Why it Matters:} 
             \begin{itemize}
-            \item Translation invariance can hurt CNN performance when object position matters—a phenomenon known as the Picasso effect, where object parts are \textbf{present but misarranged}.
-                \item Without inductive bias, networks would require \textbf{enormous data} to generalize effectively.
-                \item In deep learning, architectural choices like convolutional layers (for spatial data) and recurrent layers (for sequential data) embody inductive biases.
+                \item Classical ML methods rely on explicit assumptions:
+                    \begin{itemize}
+                        \item \textbf{Linear models}: assume linear relationships between features and outputs.
+                        \item \textbf{k-NN}: assumes nearby points in feature space share similar labels.
+                        \item \textbf{Decision trees}: assume data can be separated via axis-aligned splits.
+                    \end{itemize}
+                \item Without inductive bias, models would require \textbf{enormous data} to generalize effectively.
+                \item Model choices (e.g., linearity, smoothness, locality) embody inductive biases in classical ML.
             \end{itemize}
         \item \textbf{Classical Example:} 
             \begin{itemize}
-                \item \textit{Occam's Razor}: Favoring simpler hypotheses (e.g., shallow networks) is an inductive bias that often aids generalization.
+                \item \textit{Occam's Razor}: Favoring simpler hypotheses (e.g., smaller trees, fewer parameters) is an inductive bias that often aids generalization.
             \end{itemize}
     \end{itemize}
 \end{frame}
+
 
 
 \begin{frame}{Visualizing Inductive Bias}
@@ -202,19 +208,45 @@ A drawing of how inductive biases can affect models' preferences to converge to 
     \begin{itemize}
         \item \textbf{Bias Shifting During Training:}
             \begin{itemize}
-                \item Neural networks can adapt inductive bias as they learn, \textbf{dynamically adjusting} feature extraction layers.
+                \item Neural networks can adapt inductive bias as they learn, \textbf{dynamically adjusting} feature extraction or attention patterns.
             \end{itemize}
+
         \item \textbf{Implications in Transfer Learning:}
             \begin{itemize}
-                \item Pre-trained networks on large datasets (e.g., ImageNet) carry learned inductive biases that can be \textbf{fine-tuned for specific applications}.
+                \item Pre-trained models on large datasets (e.g, ImageNet) carry learned inductive biases that can be \textbf{fine-tuned for specific tasks}.
             \end{itemize}
-        \item \textbf{Example in Practice:}
+
+        \item \textbf{Example in Practice (Classical ML):}
             \begin{itemize}
-                \item Transfer learning in medical imaging, where pre-trained CNNs learn \textbf{domain-specific biases with limited labeled data}.
+                \item \textbf{Kernel SVMs:} Switching from a linear kernel to an RBF kernel changes the \textbf{inductive bias} to favor more complex, nonlinear relationships.
             \end{itemize}
     \end{itemize}
 \end{frame}
 
+
+\begin{frame}{Adaptive Inductive Bias in Neural Networks (Future Topics)}
+    \begin{itemize}
+        \item \textbf{Neural Networks:}
+            \begin{itemize}
+                \item During fine-tuning, neural networks modify their learned representations,
+                      shifting from \textbf{generic features} to \textbf{task-specific patterns}.
+                \item Earlier layers often stay stable (retaining broad biases), while deeper layers adapt more strongly.
+            \end{itemize}
+
+        \item \textbf{Convolutional Neural Networks (CNNs):}
+            \begin{itemize}
+                \item Pre-trained CNNs adjust their \textbf{spatial feature detectors} to new domains 
+                      (e.g., from natural images to medical imaging).
+            \end{itemize}
+
+        \item \textbf{Large Language Models (LLMs):}
+            \begin{itemize}
+                \item Fine-tuning shifts the model’s \textbf{attention bias} toward patterns in the target dataset
+                      (e.g., legal text, medical notes, or code).
+                \item Instruction tuning further changes the bias toward producing \textbf{helpful, structured outputs}.
+            \end{itemize}
+    \end{itemize}
+\end{frame}
 
 
 
@@ -748,6 +780,7 @@ J_\lambda(w) = \underbrace{J(w)}_{{\substack{\vphantom{\text{Prevent the model}}
 	\begin{itemize}
  		\item Faezeh Sarlakifar
 		\item Sogand Salehi
+		\item Sina Daneshgar
 	\end{itemize}
 	    
 \end{frame}
