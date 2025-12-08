@@ -81,7 +81,7 @@
 		\newline
 		\begin{itemize}
 			\item Pixel values range from 0 to 255.
-			\item It is not possible to represent all the colors in a picture using only a single channel of numbers from 0 to 255.
+			\item It is not possible to represent all colors in a picture using only a single channel with numbers ranging from 0 to 255.
 			\item Thus, we represent them using \textbf{three channels}.
 		\end{itemize}
 		\centering
@@ -173,7 +173,7 @@
 	\end{frame}
 	\begin{frame}{Pooling}
 		\begin{itemize}
-			\item Convolution and activation layers are often followed by pooling layers intermittently.
+			\item Convolution and activation layers are often followed by pooling layers at intervals.
 			
 			\begin{itemize}
 				\item Pooling layers often alternate with convolution layers, although this is not mandatory.
@@ -427,7 +427,7 @@
     \end{frame}
     
     \begin{frame}
-    \frametitle{Batch Normalization: Training vs Test Time}
+    \frametitle{Batch Normalization: Training Time vs. Test Time}
     
     \textbf{Training:}
     \[
@@ -452,104 +452,106 @@
     \end{frame}
     
     \begin{frame}
-        \frametitle{Batch Normalization}
-        \begin{columns}[T]
-            \column{0.48\textwidth}
-            \centering
-            \textbf{Batch Normalization for fully-connected networks}
-            \[
-            \begin{aligned}
-            \mathbf{x} &: N \times D \\
-            \mu, \sigma &: 1 \times D \\
-            \gamma, \beta &: 1 \times D \\
-            \mathbf{y} &= \gamma \frac{\mathbf{x} - \mu}{\sigma} + \beta
-            \end{aligned}
-            \]
-            
-            \column{0.48\textwidth}
-            \centering
-            \textbf{Batch Normalization for convolutional networks}
-            \[
-            \begin{aligned}
-            \mathbf{x} &: N \times C \times H \times W \\
-            \mu, \sigma &: 1 \times C \times 1 \times 1 \\
-            \gamma, \beta &: 1 \times C \times 1 \times 1 \\
-            \mathbf{y} &= \gamma \frac{\mathbf{x} - \mu}{\sigma} + \beta
-            \end{aligned}
-            \]
-        \end{columns}
-    \end{frame}
-
-    \begin{frame}
-        \frametitle{Layer Normalization}
-        \begin{columns}[T]
-            \column{0.48\textwidth}
-            \centering
-            \textbf{Layer Normalization for fully-connected networks}\\
-            \textit{Same behavior at train and test.}\\
-            \textit{Can be used in recurrent networks.}
-            \[
-            \begin{aligned}
-            \mathbf{x} &: N \times D \\
-            \mu, \sigma &: N \times 1 \\
-            \gamma, \beta &: 1 \times D \\
-            \mathbf{y} &= \gamma \frac{\mathbf{x} - \mu}{\sigma} + \beta
-            \end{aligned}
-            \]
-            
-            \column{0.48\textwidth}
-            \centering
-            \textbf{Layer Normalization for convolutional networks}\\
-            \textit{Applies normalization over all channels and spatial locations per sample.}\\
-            \[
-            \begin{aligned}
-            \mathbf{x} &: N \times C \times H \times W \\
-            \mu, \sigma &: N \times 1 \times 1 \times 1 \\
-            \gamma, \beta &: 1 \times C \times 1 \times 1 \\
-            \mathbf{y} &= \gamma \frac{\mathbf{x} - \mu}{\sigma} + \beta
-            \end{aligned}
-            \]
-        \end{columns}
-    \end{frame}
-    
-    \begin{frame}
-        \frametitle{Instance Normalization}
-        \begin{center}
-            \textbf{Instance Normalization for Convolutional Networks} \\
-            Same behavior at train and test
-        \end{center}
-        \vspace{0.3cm}
+    \frametitle{Batch Normalization}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \centering
+        \textbf{Batch Normalization for fully-connected networks}
+        \[
+        \begin{aligned}
+        \mathbf{x} &: N \times D \\
+        \boldsymbol{\mu}, \boldsymbol{\sigma} &: 1 \times D \\
+        \boldsymbol{\gamma}, \boldsymbol{\beta} &: 1 \times D \\
+        \mathbf{y} &= \boldsymbol{\gamma} \frac{\mathbf{x} - \boldsymbol{\mu}}{\boldsymbol{\sigma}} + \boldsymbol{\beta}
+        \end{aligned}
+        \]
+        
+        \column{0.48\textwidth}
+        \centering
+        \textbf{Batch Normalization for convolutional networks}
         \[
         \begin{aligned}
         \mathbf{x} &: N \times C \times H \times W \\
-        \mu, \sigma &: N \times C \times 1 \times 1 \\
-        \gamma, \beta &: 1 \times C \times 1 \times 1 \\
-        \mathbf{y} &= \gamma \frac{\mathbf{x} - \mu}{\sigma} + \beta
-    \end{aligned}
+        \boldsymbol{\mu}, \boldsymbol{\sigma} &: 1 \times C \times 1 \times 1 \\
+        \boldsymbol{\gamma}, \boldsymbol{\beta} &: 1 \times C \times 1 \times 1 \\
+        \mathbf{y} &= \boldsymbol{\gamma} \frac{\mathbf{x} - \boldsymbol{\mu}}{\boldsymbol{\sigma}} + \boldsymbol{\beta}
+        \end{aligned}
         \]
-    \end{frame}
+    \end{columns}
+\end{frame}
+
+
+\begin{frame}
+    \frametitle{Layer Normalization}
+    \begin{columns}[T]
+        \column{0.48\textwidth}
+        \centering
+        \textbf{Layer Normalization for fully-connected networks}\\
+        \textit{Same behavior at train and test.}\\
+        \textit{Can be used in recurrent networks.}
+        \[
+        \begin{aligned}
+        \mathbf{x} &: N \times D \\
+        \boldsymbol{\mu}, \boldsymbol{\sigma} &: N \times 1 \\
+        \boldsymbol{\gamma}, \boldsymbol{\beta} &: 1 \times D \\
+        \mathbf{y} &= \boldsymbol{\gamma} \frac{\mathbf{x} - \boldsymbol{\mu}}{\boldsymbol{\sigma}} + \boldsymbol{\beta}
+        \end{aligned}
+        \]
+        
+        \column{0.48\textwidth}
+        \centering
+        \textbf{Layer Normalization for convolutional networks}\\
+        \textit{Applies normalization over all channels and spatial locations per sample.}\\
+        \[
+        \begin{aligned}
+        \mathbf{x} &: N \times C \times H \times W \\
+        \boldsymbol{\mu}, \boldsymbol{\sigma} &: N \times 1 \times 1 \times 1 \\
+        \boldsymbol{\gamma}, \boldsymbol{\beta} &: 1 \times C \times 1 \times 1 \\
+        \mathbf{y} &= \boldsymbol{\gamma} \frac{\mathbf{x} - \boldsymbol{\mu}}{\boldsymbol{\sigma}} + \boldsymbol{\beta}
+        \end{aligned}
+        \]
+    \end{columns}
+\end{frame}
+
+    
+\begin{frame}
+    \frametitle{Instance Normalization}
+    \begin{center}
+        \textbf{Instance Normalization for Convolutional Networks} \\
+        Same behavior at train and test
+    \end{center}
+    \vspace{0.3cm}
+    \[
+    \begin{aligned}
+    \mathbf{x} &: N \times C \times H \times W \\
+    \boldsymbol{\mu}, \boldsymbol{\sigma} &: N \times C \times 1 \times 1 \\
+    \boldsymbol{\gamma}, \boldsymbol{\beta} &: 1 \times C \times 1 \times 1 \\
+    \mathbf{y} &= \boldsymbol{\gamma} \frac{\mathbf{x} - \boldsymbol{\mu}}{\boldsymbol{\sigma}} + \boldsymbol{\beta}
+    \end{aligned}
+    \]
+\end{frame}
+
     
     \begin{frame}
     \frametitle{Group Normalization}
-    
+
     \begin{center}
         \textbf{Group Normalization for Convolutional Networks} \\
         Normalizes channels in groups per sample \\
         Same behavior at train and test
     \end{center}
-    
+
     \vspace{0.3cm}
-    
+
     \[
     \begin{aligned}
     \mathbf{x} &: N \times C \times H \times W \\
     G &: \text{number of groups} \\
-    \mu, \sigma &: N \times G \times 1 \times 1 \\
-    \gamma, \beta &: 1 \times C \times 1 \times 1 \\
-    \mathbf{y} &= \gamma \frac{\mathbf{x} - \mu}{\sigma} + \beta
+    \boldsymbol{\mu}, \boldsymbol{\sigma} &: N \times G \times 1 \times 1 \\
+    \boldsymbol{\gamma}, \boldsymbol{\beta} &: 1 \times C \times 1 \times 1 \\
+    \mathbf{y} &= \boldsymbol{\gamma} \frac{\mathbf{x} - \boldsymbol{\mu}}{\boldsymbol{\sigma}} + \boldsymbol{\beta}
     \end{aligned}
     \]
-    
     \end{frame}
     
     \begin{frame}{Comparison of Normalization Strategies}
@@ -608,7 +610,7 @@
 		\end{minipage}
 		\bigskip
 		\begin{flushleft}
-			Both options achieve a receptive field of 7. However, using \textbf{multiple smaller filters} reduces the number of \textbf{parameters}, introduces more \textbf{nonlinearity}, and generally leads to a \textbf{more efficient}, expressive model.
+			Both configurations achieve a receptive field of 7. However, using \textbf{multiple smaller filters} reduces the number of \textbf{parameters}, introduces more \textbf{nonlinearity}, and generally leads to a \textbf{more efficient}, expressive model.
 		\end{flushleft}
 	\end{frame}	
 	\begin{frame}{Question}
