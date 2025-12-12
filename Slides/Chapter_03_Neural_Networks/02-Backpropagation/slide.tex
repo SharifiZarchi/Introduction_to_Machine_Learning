@@ -731,10 +731,10 @@
             \vspace{-0.4cm}
             \textbf{Now we need to calculate \(\frac{\partial L}{\partial z_j^{[l]}}\)}
             \[
-            \frac{\partial L}{\partial z_i^{[l-1]}} = \frac{\partial L}{a_i^{[l-1]}} \frac{a_i^{[l-1]}}{z_i^{[l-1]}}
+            \frac{\partial L}{\partial z_i^{[l-1]}} = \frac{\partial L}{\partial a_i^{[l-1]}} \frac{\partial a_i^{[l-1]}}{\partial z_i^{[l-1]}}
             \]
             \[
-            = \frac{a_i^{[l-1]}}{z_i^{[l-1]}} \mathlarger{\mathlarger{\sum}}_{j=0}^{d[l]} w_{ji}^{[l]} \frac{\partial L}{\partial z_j^{[l]}}
+            = \frac{\partial a_i^{[l-1]}}{\partial z_i^{[l-1]}} \mathlarger{\mathlarger{\sum}}_{j=0}^{d[l]} w_{ji}^{[l]} \frac{\partial L}{\partial z_j^{[l]}}
             \]
         \end{column}
 
