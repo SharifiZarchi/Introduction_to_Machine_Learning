@@ -506,12 +506,12 @@ subsubsectionstyle=show/shaded/hide]
         
     \end{columns}
         \vspace{0.2cm}
-       \scriptsize{There are many possible “attributes,”\& most images don’t have most of the attributes.}
+      \scriptsize{There are many possible “attributes,”\& most images don’t have most of the attributes.}
 
 \end{frame}
 
 
-\begin{frame}{AE's: Sparese Autoencoder (Big Picture)}
+\begin{frame}{AE's: Sparse Autoencoder (Big Picture)}
     \begin{center}
         \includegraphics[width=\textwidth]{pic/SAE big picture.png}
     \end{center}
@@ -746,7 +746,7 @@ subsubsectionstyle=show/shaded/hide]
         \mathtt{away\ all\ information}
         \end{array}
         \end{array}\rightarrow \mathtt{\begin{array}{ c }
-        \mathtt{encoders\ keep\ only\ }\\
+        \mathtt{encoder\ keep\ only\ }\\
         \mathtt{good\ information}
         \end{array}}\\
         \end{gather*}
@@ -908,6 +908,33 @@ subsubsectionstyle=show/shaded/hide]
     
 \end{frame}
 
+\begin{frame}{what is KL-Divergence}
+    \small 
+    
+    \textbf{1. Definition}
+    \begin{itemize}
+        \item KL Divergence measures how one probability distribution $P$ differs from a reference distribution $Q$.
+        \item It quantifies the distance between two distributions (asymmetric metric).
+    \end{itemize}
+    
+    \vspace{0.1cm} % فاصله بین بخش‌ها
+    
+    \textbf{2. Formula For two continuous distributions $P$ and $Q$:}
+    \[
+        D_{KL}(P||Q) = \int_{-\infty}^{\infty} p(x) \log \left( \frac{p(x)}{q(x)} \right) dx
+    \]
+    
+    \vspace{0.1cm}
+    
+    \textbf{3. Role in Variational Autoencoders (VAEs)}
+    \begin{itemize}
+        \item Encoder Output: Produces distribution $q_{\phi}(z|x)$ for latent codes.
+        \item Target: Match the prior $p(z)$, usually Standard Normal $\mathcal{N}(0, I)$.
+        \item Regularization: KL term forces the latent distribution to stay close to this prior.
+    \end{itemize}
+\end{frame}
+
+
 
 
 \begin{frame}{AE's: Variational Autoencoder (Details)}
@@ -992,14 +1019,11 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 
-\begin{frame}{AE other Applications: Fake Lough}
+\begin{frame}{AE other Applications: Fake Laugh}
       \begin{center}
-        \includegraphics[width=0.8\textwidth]{pic/AE other app Fake Lough.png} 
+        \includegraphics[width=0.8\textwidth]{pic/AE-other-app-Fake-Lough.png} 
     \end{center}
 \end{frame}
-
-
-
 
 
 
