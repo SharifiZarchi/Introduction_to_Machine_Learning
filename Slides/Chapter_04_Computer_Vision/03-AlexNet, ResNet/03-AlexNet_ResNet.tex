@@ -312,96 +312,94 @@ subsubsectionstyle=show/shaded/hide]
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Challenge Of Making CNNs Deeper}
+\begin{frame}{Challenge of Making CNNs Deeper}
 	\begin{itemize}
-		\item \textbf{Fact:} Deeper models have minotore representation power (more parameters) than shallower models.
-		\item But \textbf{56-layer model performs worse} on both training and test error and it's not caused by overfitting!
-		\item \textbf{Hypothesis:} The issue is related to optimization, deeper models are harder to optimize.	
+		\item \textbf{Fact:} Deeper models have \textbf{greater representational power} (i.e., more parameters) than shallower models.
+		\item However, a \textbf{56-layer model performs worse} on both training and test error than a shallower model, and this is \textbf{not due to overfitting}.
+		\item \textbf{Hypothesis:} The difficulty is related to optimization: deeper models are harder to train.
 	\end{itemize}
-	\vspace{-0.5cm}
+	\vspace{-0.4cm}
 	\centering
-	\includegraphics[keepaspectratio, scale=0.23]{pic/vanish}
+	\includegraphics[keepaspectratio, scale=0.23]{pic/vanish.png}
 \end{frame}
 
 
-\begin{frame}{Vanishing Gradient}
+\begin{frame}{Why Deep Networks Are Hard to Train}
+\begin{itemize}
+	\item Increasing depth increases a network's \textbf{representational power}.
+	\item However, simply stacking more layers often leads to:
 	\begin{itemize}
-		\item Consider a deep neural network without residual blocks
-		If we have the error signal $\bar{h}^{(T)}$. We then alternate between the following two backprop rules:
-		\begin{align}
-			\bar{h}^{(t)} &= \bar{z^{(t+1)}}\, w, \\	
-			\bar{z^{(t)}} &= \bar{h}^{(t)}\, \phi'\!\bigl(z^{(t)}\bigr).
-		\end{align}
-
-
-		\item If we iterate the rules, we get:
-		\begin{align}
-			\bar{h}^{(1)}
-	  		&= w^{T-1}\,\phi'\!\bigl(z^{(2)}\bigr)\cdots \phi'\!\bigl(z^{(T)}\bigr)\,\bar{h}^{(T)} \\
-			  &= \frac{\partial h^{(T)}}{\partial h^{(1)}}\,\bar{h}^{(T)}.
-		\end{align}
-				
-		
+		\item slow or stalled training,
+		\item poor training accuracy,
+		\item worse performance than shallower networks.
 	\end{itemize}
-	\vspace{-0.5cm}
+	\item This issue is primarily an \textbf{optimization problem}, not overfitting.
+	\item A key difficulty is unstable \textbf{gradient propagation} in deep networks.
+\end{itemize}
 \end{frame}
 
 
+\begin{frame}{Backpropagation Through a Single Layer}
+\begin{itemize}
+	\item Consider a deep network without skip connections.
+	Let
+	\[
+		z^{(t)} = w\, a^{(t-1)}, \qquad
+		a^{(t)} = \phi\!\bigl(z^{(t)}\bigr).
+	\]
 
-
-\begin{frame}{Vanishing Gradient}
-	\begin{itemize}
-
-
-		\item Hence, $\bar{h}^{(1)}$ is a linear function of $\bar{h}^{(T)}$; the coefficient is the partial derivative $\dfrac{\partial h^{(T)}}{\partial h^{(1)}}$. If we make the simplifying assumption that the activation functions are linear, we get:
-		
-		\begin{equation}
-			\frac{\partial h^{(T)}}{\partial h^{(1)}} = w^{T-1},
-		\end{equation}
-
-
-		\item which can clearly explode or vanish unless $w$ is very close to $1$. For instance, if $w=1.1$ and $T=50$, then $\partial h^{(T)}/\partial h^{(1)} \approx 117.4$, whereas if $w=0.9$ and $T = 50$, we get $\partial h^{(T)} / \partial h^{(1)} = 0.00515$.  
-
-
-	\end{itemize}
-	\vspace{-0.5cm}
-\end{frame}
-
-
-\begin{frame}{Jacobian}
-	\begin{itemize}
-	
-	\item More generally, in the multivariate case,
+	\item Using the chain rule, the gradient propagates as
 	\begin{equation}
-		\frac{\partial \mathbf{h}^{(T)}}{\partial \mathbf{h}^{(1)}} =
-		\frac{\partial \mathbf{h}^{(T)}}{\partial \mathbf{h}^{(T-1)}} 
-		\cdots
-		\frac{\partial \mathbf{h}^{(2)}}{\partial \mathbf{h}^{(1)}}.
+		\frac{\partial L}{\partial a^{(t-1)}} =
+		\frac{\partial L}{\partial a^{(t)}}
+		\cdot w
+		\cdot \phi'\!\bigl(z^{(t)}\bigr).
 	\end{equation}
 
-	\item This quantity is called the \textit{Jacobian}.  
-	In the case of linear activation functions,
-		\[
-		\frac{\partial \mathbf{h}^{(t+1)}}{\partial \mathbf{h}^{(t)}} = \mathbf{W},
-		\]
-	so
-	\begin{equation}
-		\frac{\partial \mathbf{h}^{(T)}}{\partial \mathbf{h}^{(1)}} = \mathbf{W}^{T-1}.
-	\end{equation}
-
-	\item This will explode if the largest eigenvalue of $\mathbf{W}$ is larger than $1$,  and vanish if the largest eigenvalue is smaller than $1$.
-
-
-
-	\end{itemize}
-	\vspace{-0.5cm}
+	\item Each layer \textbf{scales} the gradient by
+	\( w \, \phi'(z^{(t)}) \).
+\end{itemize}
 \end{frame}
 
 
+\begin{frame}{Gradient Propagation Across Many Layers}
+\begin{itemize}
+	\item Repeating this process across \( T \) layers yields
+	\begin{equation}
+		\frac{\partial L}{\partial a^{(1)}} =
+		\left(
+		\prod_{t=2}^{T}
+		w \, \phi'\!\bigl(z^{(t)}\bigr)
+		\right)
+		\frac{\partial L}{\partial a^{(T)}}.
+	\end{equation}
+
+	\item The gradient becomes a \textbf{product of many terms}.
+	\item Even small deviations from \( 1 \) are amplified exponentially with depth.
+\end{itemize}
+\end{frame}
 
 
+\begin{frame}{Vanishing and Exploding Gradients}
+\begin{itemize}
+	\item \textbf{Vanishing gradients:}
+	\begin{itemize}
+		\item If \( |w\,\phi'(z)| < 1 \) on average,
+		\item gradients shrink exponentially as depth increases,
+		\item early layers learn very slowly.
+	\end{itemize}
 
+	\item \textbf{Exploding gradients:}
+	\begin{itemize}
+		\item If \( |w\,\phi'(z)| > 1 \) on average,
+		\item gradients grow exponentially,
+		\item training becomes unstable.
+	\end{itemize}
 
+	\item In the multivariate case, this behavior is governed by the
+	Jacobian of the network.
+\end{itemize}
+\end{frame}
 
 
 \begin{frame}{Residual Block}
