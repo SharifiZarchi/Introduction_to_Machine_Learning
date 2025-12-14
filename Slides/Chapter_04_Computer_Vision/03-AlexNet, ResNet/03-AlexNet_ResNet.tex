@@ -312,17 +312,6 @@ subsubsectionstyle=show/shaded/hide]
 	\end{figure}
 \end{frame}
 
-\begin{frame}{Challenge of Making CNNs Deeper}
-	\begin{itemize}
-		\item \textbf{Fact:} Deeper models have \textbf{greater representational power} (i.e., more parameters) than shallower models.
-		\item However, a \textbf{56-layer model performs worse} on both training and test error than a shallower model, and this is \textbf{not due to overfitting}.
-		\item \textbf{Hypothesis:} The difficulty is related to optimization: deeper models are harder to train.
-	\end{itemize}
-	\vspace{-0.4cm}
-	\centering
-	\includegraphics[keepaspectratio, scale=0.23]{pic/vanish.png}
-\end{frame}
-
 
 \begin{frame}{Why Deep Networks Are Hard to Train}
 \begin{itemize}
@@ -336,6 +325,7 @@ subsubsectionstyle=show/shaded/hide]
 	\item This issue is primarily an \textbf{optimization problem}, not overfitting.
 	\item A key difficulty is unstable \textbf{gradient propagation} in deep networks.
 \end{itemize}
+\includegraphics[keepaspectratio, scale=0.23]{pic/vanish.png}
 \end{frame}
 
 
