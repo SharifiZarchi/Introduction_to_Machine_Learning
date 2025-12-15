@@ -755,243 +755,243 @@ subsubsectionstyle=show/shaded/hide]
 
 
 
-\begin{frame}{Can The Decoder Of AE Be Used For Data Generation?}
-    \small
-    \begin{itemize}
-        \item Autoencoders are effective data compressors but up to now do not yet show \textbf{data generation capabilities}.
-        \item We already trained an AE on MNIST; then we use \textbf{random vectors} as input to the Decoder to generate new data.
-        \begin{itemize}
-            \item Is the \textbf{size} of the bottleneck affecting the \textbf{quality} of the generated sample?
-        \end{itemize}
-    \end{itemize}
+% \begin{frame}{Can The Decoder Of AE Be Used For Data Generation?}
+%     \small
+%     \begin{itemize}
+%         \item Autoencoders are effective data compressors but up to now do not yet show \textbf{data generation capabilities}.
+%         \item We already trained an AE on MNIST; then we use \textbf{random vectors} as input to the Decoder to generate new data.
+%         \begin{itemize}
+%             \item Is the \textbf{size} of the bottleneck affecting the \textbf{quality} of the generated sample?
+%         \end{itemize}
+%     \end{itemize}
     
     
-    % Unified image at the bottom
-    \begin{center}
-        \includegraphics[width=0.9\textwidth]{pic/AE for data generation1.png}
-    \end{center}
-\end{frame}
+%     % Unified image at the bottom
+%     \begin{center}
+%         \includegraphics[width=0.9\textwidth]{pic/AE for data generation1.png}
+%     \end{center}
+% \end{frame}
 
 
-\begin{frame}{Can The Decoder Of AE Be Used For Data Generation?}
-    Is \textbf{\textcolor{deepred}{any random vector}} we feed into decoder networks results in a valid output?
-    \vspace{0.5cm}
+% \begin{frame}{Can The Decoder Of AE Be Used For Data Generation?}
+%     Is \textbf{\textcolor{deepred}{any random vector}} we feed into decoder networks results in a valid output?
+%     \vspace{0.5cm}
     
-    % Unified image at the bottom
-    \begin{center}
-        \includegraphics[width=\textwidth]{pic/AE for data generation2.png}
-    \end{center}
-\end{frame}
+%     % Unified image at the bottom
+%     \begin{center}
+%         \includegraphics[width=\textwidth]{pic/AE for data generation2.png}
+%     \end{center}
+% \end{frame}
 
 
-\begin{frame}{Can The Decoder Of AE Be Used For Data Generation?}
-     \begin{itemize}
-            \item \textbf{\textcolor{deepblue}{Latent Variation:}} Varying \textbf{\textit{z}} generates outputs along a learned manifold.
-            \item \textbf{\textcolor{deepblue}{Manifold Constraint:}} Data lies within patterns learned from training.
-            \item \textbf{\textcolor{deepblue}{Generation:}} Outputs follow the training data distribution.
-        \end{itemize}
+% \begin{frame}{Can The Decoder Of AE Be Used For Data Generation?}
+%      \begin{itemize}
+%             \item \textbf{\textcolor{deepblue}{Latent Variation:}} Varying \textbf{\textit{z}} generates outputs along a learned manifold.
+%             \item \textbf{\textcolor{deepblue}{Manifold Constraint:}} Data lies within patterns learned from training.
+%             \item \textbf{\textcolor{deepblue}{Generation:}} Outputs follow the training data distribution.
+%         \end{itemize}
         
-    \vspace{0.5cm}
+%     \vspace{0.5cm}
     
-    % Unified image at the bottom
-    \begin{center}
-        \includegraphics[width=\textwidth]{pic/AE for data generation3.png}
-    \end{center}
-\end{frame}
+%     % Unified image at the bottom
+%     \begin{center}
+%         \includegraphics[width=\textwidth]{pic/AE for data generation3.png}
+%     \end{center}
+% \end{frame}
 
 
-\begin{frame}{Latent Space Properties}
-    \begin{itemize}
-        \item For the generation purpose, we need the latent space to show the following properties:
-        \begin{itemize}
-            \item \textbf{Continuity:} Similar points in the latent space will be similar after decoding.
-            \item \textbf{Completeness:} Samples of the latent space lead to meaningful content after decoding.
-        \end{itemize}
-    \end{itemize}
-\end{frame}
+% \begin{frame}{Latent Space Properties}
+%     \begin{itemize}
+%         \item For the generation purpose, we need the latent space to show the following properties:
+%         \begin{itemize}
+%             \item \textbf{Continuity:} Similar points in the latent space will be similar after decoding.
+%             \item \textbf{Completeness:} Samples of the latent space lead to meaningful content after decoding.
+%         \end{itemize}
+%     \end{itemize}
+% \end{frame}
 
-\begin{frame}{Latent Space Properties: Continuity}
-      \begin{center}
-        \includegraphics[width=\textwidth]{pic/Latent space property-Continuity.png} 
-    \end{center}
-\end{frame}
-
-
-\begin{frame}{Latent Space Properties: Completeness}
-      \begin{center}
-        \includegraphics[width=\textwidth]{pic/Latent space property-Completeness.png} 
-    \end{center}
-\end{frame}
-
-\begin{frame}{AE Latent Space - MNIST}
-    \begin{center}
-        % Unified image
-        \includegraphics[width=0.9\textwidth]{pic/AE Latent space - MNIST.png}
-        {\color{deepred}\textbf{\\ What is the problem?}}
-    \end{center}
-\end{frame}
-
-\begin{frame}{Latent Variable}
-    \begin{itemize}
-        \item We define a simple distribution on the latent space, i.e., \( p(z) \) and a decoder network \( p_\theta(\mathbf{x} | \mathbf{z}) \) to map the latent variable to the data space.
-    \end{itemize}
-
-    \vspace{0.1cm}
-
-    \begin{equation*}
-        p(\mathbf{x}) = \int p(\mathbf{x} | \mathbf{z}) p(\mathbf{z}) \, d\mathbf{z}
-    \end{equation*}
-
-    \begin{center}
-        \includegraphics[width=0.8\textwidth]{pic/latent variable.png}
-    \end{center}
-\end{frame}
+% \begin{frame}{Latent Space Properties: Continuity}
+%       \begin{center}
+%         \includegraphics[width=\textwidth]{pic/Latent space property-Continuity.png} 
+%     \end{center}
+% \end{frame}
 
 
-\begin{frame}{AE’s: Variational Autoencoder (Intuition)}
-    \begin{center}
-        \small The key change that they added was that instead of having an encoder that maps points in X to points in Z, VAE’s map points in X to distributions in Z. This allows a point in X to be indirectly mapped to several close neighbour points in Z.
-    \end{center}
+% \begin{frame}{Latent Space Properties: Completeness}
+%       \begin{center}
+%         \includegraphics[width=\textwidth]{pic/Latent space property-Completeness.png} 
+%     \end{center}
+% \end{frame}
+
+% \begin{frame}{AE Latent Space - MNIST}
+%     \begin{center}
+%         % Unified image
+%         \includegraphics[width=0.9\textwidth]{pic/AE Latent space - MNIST.png}
+%         {\color{deepred}\textbf{\\ What is the problem?}}
+%     \end{center}
+% \end{frame}
+
+% \begin{frame}{Latent Variable}
+%     \begin{itemize}
+%         \item We define a simple distribution on the latent space, i.e., \( p(z) \) and a decoder network \( p_\theta(\mathbf{x} | \mathbf{z}) \) to map the latent variable to the data space.
+%     \end{itemize}
+
+%     \vspace{0.1cm}
+
+%     \begin{equation*}
+%         p(\mathbf{x}) = \int p(\mathbf{x} | \mathbf{z}) p(\mathbf{z}) \, d\mathbf{z}
+%     \end{equation*}
+
+%     \begin{center}
+%         \includegraphics[width=0.8\textwidth]{pic/latent variable.png}
+%     \end{center}
+% \end{frame}
 
 
-    \vspace{1.0cm}
+% \begin{frame}{AE’s: Variational Autoencoder (Intuition)}
+%     \begin{center}
+%         \small The key change that they added was that instead of having an encoder that maps points in X to points in Z, VAE’s map points in X to distributions in Z. This allows a point in X to be indirectly mapped to several close neighbour points in Z.
+%     \end{center}
 
-    \scriptsize
+
+%     \vspace{1.0cm}
+
+%     \scriptsize
 
     
-        \begin{equation*}
-        \mathbf{Simple\ AE} \ \Biggl\{\text{\ \begin{array}{ c }
-        \text{input}\\
-        \mathit{x}
-        \end{array} \ } \ \ \xrightarrow{\text{\textcolor[rgb]{0.82,0.01,0.11}{Encoding}}\textcolor[rgb]{0.82,0.01,0.11}{\ }} \ \ \text{\ \begin{array}{ c }
-        \text{latent\ representation}\\
-        \mathit{\ z=e( x)}
-        \end{array} \ } \ \ \ \xrightarrow{\text{\textcolor[rgb]{0.29,0.56,0.89}{Decoding}}} \ \text{\ \ \ \begin{array}{ c }
-        \text{input\ reconstruction} \ \\
-        \mathit{d( z)}
-        \end{array}}\Biggr\}
-        \end{equation*}
+%         \begin{equation*}
+%         \mathbf{Simple\ AE} \ \Biggl\{\text{\ \begin{array}{ c }
+%         \text{input}\\
+%         \mathit{x}
+%         \end{array} \ } \ \ \xrightarrow{\text{\textcolor[rgb]{0.82,0.01,0.11}{Encoding}}\textcolor[rgb]{0.82,0.01,0.11}{\ }} \ \ \text{\ \begin{array}{ c }
+%         \text{latent\ representation}\\
+%         \mathit{\ z=e( x)}
+%         \end{array} \ } \ \ \ \xrightarrow{\text{\textcolor[rgb]{0.29,0.56,0.89}{Decoding}}} \ \text{\ \ \ \begin{array}{ c }
+%         \text{input\ reconstruction} \ \\
+%         \mathit{d( z)}
+%         \end{array}}\Biggr\}
+%         \end{equation*}
     
-    \vspace{0.1cm}
-    \hrule
-    \vspace{0.1cm}
+%     \vspace{0.1cm}
+%     \hrule
+%     \vspace{0.1cm}
 
-        \begin{gather*}
-        \mathbf{Variational\ AE}\ \Biggl\{\ \begin{array}{c}
-        \text{input} \\
-        \mathit{x}
-        \end{array} \ \xrightarrow{\text{\textcolor[rgb]{0.82,0.01,0.11}{Encoding}}} \ \begin{array}{c}
-        \text{latent distribution} \\
-        p(z|x)
-        \end{array} \ \xrightarrow{\text{\textcolor[rgb]{0.25,0.46,0.02}{Sampling}}} \ \begin{array}{c}
-        \text{sampled latent} \\
-        \text{representation} \\
-        z \sim p(z|x)
-        \end{array} \ \xrightarrow{\text{\textcolor[rgb]{0.29,0.56,0.89}{Decoding}}} \ \begin{array}{c}
-        \text{input reconstruction} \\
-        d(z)
-        \end{array} \ \Biggr\}
-        \end{gather*}
+%         \begin{gather*}
+%         \mathbf{Variational\ AE}\ \Biggl\{\ \begin{array}{c}
+%         \text{input} \\
+%         \mathit{x}
+%         \end{array} \ \xrightarrow{\text{\textcolor[rgb]{0.82,0.01,0.11}{Encoding}}} \ \begin{array}{c}
+%         \text{latent distribution} \\
+%         p(z|x)
+%         \end{array} \ \xrightarrow{\text{\textcolor[rgb]{0.25,0.46,0.02}{Sampling}}} \ \begin{array}{c}
+%         \text{sampled latent} \\
+%         \text{representation} \\
+%         z \sim p(z|x)
+%         \end{array} \ \xrightarrow{\text{\textcolor[rgb]{0.29,0.56,0.89}{Decoding}}} \ \begin{array}{c}
+%         \text{input reconstruction} \\
+%         d(z)
+%         \end{array} \ \Biggr\}
+%         \end{gather*}
         
     
-\end{frame}
+% \end{frame}
 
 
-\begin{frame}{AE’s: Variational Autoencoder (Big Picture)}
-    \begin{center}
-        \small The key change that they added was that instead of having an encoder that maps points in X to points in Z, VAE’s map points in X to distributions in Z. This allows a point in X to be indirectly mapped to several close neighbour points in Z.
+% \begin{frame}{AE’s: Variational Autoencoder (Big Picture)}
+%     \begin{center}
+%         \small The key change that they added was that instead of having an encoder that maps points in X to points in Z, VAE’s map points in X to distributions in Z. This allows a point in X to be indirectly mapped to several close neighbour points in Z.
 
-        \includegraphics[width=0.9\textwidth]{pic/VAE big picture.png}
+%         \includegraphics[width=0.9\textwidth]{pic/VAE big picture.png}
 
-    \end{center}
+%     \end{center}
   
     
-\end{frame}
+% \end{frame}
 
-\begin{frame}{what is KL-Divergence}
-    \small 
+% \begin{frame}{what is KL-Divergence}
+%     \small 
     
-    \textbf{1. Definition}
-    \begin{itemize}
-        \item KL Divergence measures how one probability distribution $P$ differs from a reference distribution $Q$.
-        \item It quantifies the distance between two distributions (asymmetric metric).
-    \end{itemize}
+%     \textbf{1. Definition}
+%     \begin{itemize}
+%         \item KL Divergence measures how one probability distribution $P$ differs from a reference distribution $Q$.
+%         \item It quantifies the distance between two distributions (asymmetric metric).
+%     \end{itemize}
     
-    \vspace{0.1cm} % فاصله بین بخش‌ها
+%     \vspace{0.1cm} % فاصله بین بخش‌ها
     
-    \textbf{2. Formula For two continuous distributions $P$ and $Q$:}
-    \[
-        D_{KL}(P||Q) = \int_{-\infty}^{\infty} p(x) \log \left( \frac{p(x)}{q(x)} \right) dx
-    \]
+%     \textbf{2. Formula For two continuous distributions $P$ and $Q$:}
+%     \[
+%         D_{KL}(P||Q) = \int_{-\infty}^{\infty} p(x) \log \left( \frac{p(x)}{q(x)} \right) dx
+%     \]
     
-    \vspace{0.1cm}
+%     \vspace{0.1cm}
     
-    \textbf{3. Role in Variational Autoencoders (VAEs)}
-    \begin{itemize}
-        \item Encoder Output: Produces distribution $q_{\phi}(z|x)$ for latent codes.
-        \item Target: Match the prior $p(z)$, usually Standard Normal $\mathcal{N}(0, I)$.
-        \item Regularization: KL term forces the latent distribution to stay close to this prior.
-    \end{itemize}
-\end{frame}
+%     \textbf{3. Role in Variational Autoencoders (VAEs)}
+%     \begin{itemize}
+%         \item Encoder Output: Produces distribution $q_{\phi}(z|x)$ for latent codes.
+%         \item Target: Match the prior $p(z)$, usually Standard Normal $\mathcal{N}(0, I)$.
+%         \item Regularization: KL term forces the latent distribution to stay close to this prior.
+%     \end{itemize}
+% \end{frame}
 
 
 
 
-\begin{frame}{AE's: Variational Autoencoder (Details)}
-    \begin{center}
-        \includegraphics[width=0.9\textwidth]{pic/VAE details1.png}
-    \end{center}
-    \scriptsize
-    \begin{equation*}
-        \textbf{VAE loss: } \mathcal{L}(x, \theta, \phi) = 
-        \underbrace{
-            \| x^{(i)} - \hat{x}^{(i)} \|^2
-        }_{\substack{
-            \text{\textcolor[rgb]{0.29,0.56,0.89}{reconstruction loss}} \\ 
-            \\
-            \\
-            \downarrow\\
-            \\
-            f_{\theta}(z) = f_{\theta} \big( \mu_{\phi}(x^{(i)}) + \epsilon \sigma_{\phi}(x^{(i)}) \big)
-        }}
-        + 
-        \underbrace{
-            KL\left( q_{\phi}(z | x^{(i)}) \parallel \mathcal{N}(0, I) \right)
-        }_{\substack{
-            \text{\textcolor[rgb]{0.82,0.01,0.11}{regularization term}} \\ 
-            \\
-            \downarrow\\
-            \\
-            \text{Common choice of prior on} \\
-            \text{the latent distribution.}
-        }}
-    \end{equation*}
+% \begin{frame}{AE's: Variational Autoencoder (Details)}
+%     \begin{center}
+%         \includegraphics[width=0.9\textwidth]{pic/VAE details1.png}
+%     \end{center}
+%     \scriptsize
+%     \begin{equation*}
+%         \textbf{VAE loss: } \mathcal{L}(x, \theta, \phi) = 
+%         \underbrace{
+%             \| x^{(i)} - \hat{x}^{(i)} \|^2
+%         }_{\substack{
+%             \text{\textcolor[rgb]{0.29,0.56,0.89}{reconstruction loss}} \\ 
+%             \\
+%             \\
+%             \downarrow\\
+%             \\
+%             f_{\theta}(z) = f_{\theta} \big( \mu_{\phi}(x^{(i)}) + \epsilon \sigma_{\phi}(x^{(i)}) \big)
+%         }}
+%         + 
+%         \underbrace{
+%             KL\left( q_{\phi}(z | x^{(i)}) \parallel \mathcal{N}(0, I) \right)
+%         }_{\substack{
+%             \text{\textcolor[rgb]{0.82,0.01,0.11}{regularization term}} \\ 
+%             \\
+%             \downarrow\\
+%             \\
+%             \text{Common choice of prior on} \\
+%             \text{the latent distribution.}
+%         }}
+%     \end{equation*}
 
-\end{frame}
+% \end{frame}
 
-\begin{frame}{AE's: Variational Autoencoder (Details)}
-    \begin{itemize}
-        \item Encourage encodings to be evenly distributed around the center of the latent space
-        \item Penalize the network when it tries to memorize data
-    \end{itemize}
+% \begin{frame}{AE's: Variational Autoencoder (Details)}
+%     \begin{itemize}
+%         \item Encourage encodings to be evenly distributed around the center of the latent space
+%         \item Penalize the network when it tries to memorize data
+%     \end{itemize}
     
-    \begin{center}
-        \includegraphics[width=0.8\textwidth]{pic/VAE details2.png}
+%     \begin{center}
+%         \includegraphics[width=0.8\textwidth]{pic/VAE details2.png}
         
-            \vfill
-    \hspace*{-1\textwidth}{\scriptsize Image: \href{https://github.com/Shakib-IO/Variational_Autoencoder_MNIST_Dataset}{Source}}
+%             \vfill
+%     \hspace*{-1\textwidth}{\scriptsize Image: \href{https://github.com/Shakib-IO/Variational_Autoencoder_MNIST_Dataset}{Source}}
 
 
-    \end{center}
-\end{frame}
+%     \end{center}
+% \end{frame}
 
-\begin{frame}{AE's: Variational Autoencoder (Details)}
-    \begin{center}
-        \includegraphics[width=0.95\textwidth]{pic/VAE details3.png}
-    \end{center}
-    The VAE objectives arranges data on a compact manifold (we can sample from) in a continuous smooth way.
+% \begin{frame}{AE's: Variational Autoencoder (Details)}
+%     \begin{center}
+%         \includegraphics[width=0.95\textwidth]{pic/VAE details3.png}
+%     \end{center}
+%     The VAE objectives arranges data on a compact manifold (we can sample from) in a continuous smooth way.
 
-\end{frame}
+% \end{frame}
 
 
 \begin{frame}{AE other Applications: Anomaly Detection}
