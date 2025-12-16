@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  16 DEC 2025 16:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  16 DEC 2025 16:29
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1353,7 +1353,7 @@ LaTeX Font Info:    Redeclaring math accent \widetilde on input line 52.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
  (./03-AlexNet_ResNet.nav)
-<pic/sharif-main-logo.png, id=155, 200.75pt x 200.75pt>
+<pic/sharif-main-logo.png, id=183, 200.75pt x 200.75pt>
 File: pic/sharif-main-logo.png Graphic file (type png)
 <use pic/sharif-main-logo.png>
 Package pdftex.def Info: pic/sharif-main-logo.png  used on input line 62.
@@ -1388,7 +1388,7 @@ Non-PDF special ignored!
 [3
 
 ]
-<pic/mlp.png, id=705, 501.875pt x 372.39125pt>
+<pic/mlp.png, id=733, 501.875pt x 372.39125pt>
 File: pic/mlp.png Graphic file (type png)
 <use pic/mlp.png>
 Package pdftex.def Info: pic/mlp.png  used on input line 86.
@@ -1446,7 +1446,7 @@ LaTeX Font Info:    Font shape `U/futm/m/n' will be
 [4
 
  <./pic/mlp.png>]
-<pic/depth_sep_relu.png, id=868, 484.9317pt x 369.2997pt>
+<pic/depth_sep_relu.png, id=895, 484.9317pt x 369.2997pt>
 File: pic/depth_sep_relu.png Graphic file (type png)
 <use pic/depth_sep_relu.png>
 Package pdftex.def Info: pic/depth_sep_relu.png  used on input line 129.
@@ -1461,7 +1461,7 @@ Overfull \hbox (3.21684pt too wide) in paragraph at lines 129--129
 [5
 
  <./pic/depth_sep_relu.png>]
-<pic/saw.png, id=1029, 608.5134pt x 494.3268pt>
+<pic/saw.png, id=1056, 608.5134pt x 494.3268pt>
 File: pic/saw.png Graphic file (type png)
 <use pic/saw.png>
 Package pdftex.def Info: pic/saw.png  used on input line 143.
@@ -1471,7 +1471,7 @@ Overfull \hbox (40.29164pt too wide) in paragraph at lines 143--143
 [][]  
  []
 
-<pic/2h.png, id=1030, 6245.3325pt x 2563.5775pt>
+<pic/2h.png, id=1057, 6245.3325pt x 2563.5775pt>
 File: pic/2h.png Graphic file (type png)
 <use pic/2h.png>
 Package pdftex.def Info: pic/2h.png  used on input line 143.
@@ -1485,7 +1485,7 @@ Package pdftex.def Info: pic/2h.png  used on input line 143.
 [7
 
 ]
-<pic/alexnet.png, id=1356, 846.16125pt x 278.03876pt>
+<pic/alexnet.png, id=1382, 846.16125pt x 278.03876pt>
 File: pic/alexnet.png Graphic file (type png)
 <use pic/alexnet.png>
 Package pdftex.def Info: pic/alexnet.png  used on input line 167.
@@ -1500,7 +1500,7 @@ Overfull \hbox (25.6073pt too wide) in paragraph at lines 167--167
 [8
 
  <./pic/alexnet.png>]
-<pic/alexnet_annot.png, id=1515, 1110.1475pt x 549.05125pt>
+<pic/alexnet_annot.png, id=1541, 1110.1475pt x 549.05125pt>
 File: pic/alexnet_annot.png Graphic file (type png)
 <use pic/alexnet_annot.png>
 Package pdftex.def Info: pic/alexnet_annot.png  used on input line 187.
@@ -1510,7 +1510,7 @@ Package pdftex.def Info: pic/alexnet_annot.png  used on input line 187.
 [9
 
  <./pic/alexnet_annot.png>]
-<pic/dropout.png, id=1674, 1501.61pt x 622.325pt>
+<pic/dropout.png, id=1700, 1501.61pt x 622.325pt>
 File: pic/dropout.png Graphic file (type png)
 <use pic/dropout.png>
 Package pdftex.def Info: pic/dropout.png  used on input line 211.
@@ -1534,7 +1534,7 @@ LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
 (Font)              scaled to size 8.27998pt on input line 238.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
 (Font)              scaled to size 8.27998pt on input line 238.
-<pic/ReLU.png, id=1832, 415.5525pt x 422.57875pt>
+<pic/ReLU.png, id=1858, 415.5525pt x 422.57875pt>
 File: pic/ReLU.png Graphic file (type png)
 <use pic/ReLU.png>
 Package pdftex.def Info: pic/ReLU.png  used on input line 238.
@@ -1544,7 +1544,7 @@ Package pdftex.def Info: pic/ReLU.png  used on input line 238.
 [11
 
  <./pic/ReLU.png>]
-<pic/relu_faster.png, id=1991, 979.66pt x 491.8375pt>
+<pic/relu_faster.png, id=2017, 979.66pt x 491.8375pt>
 File: pic/relu_faster.png Graphic file (type png)
 <use pic/relu_faster.png>
 Package pdftex.def Info: pic/relu_faster.png  used on input line 250.
@@ -1566,7 +1566,7 @@ Package pdftex.def Info: pic/relu_faster.png  used on input line 250.
 [15
 
 ]
-<pic/resnet-chart.png, id=2629, 1323.94624pt x 696.6025pt>
+<pic/resnet-chart.png, id=2655, 1323.94624pt x 696.6025pt>
 File: pic/resnet-chart.png Graphic file (type png)
 <use pic/resnet-chart.png>
 Package pdftex.def Info: pic/resnet-chart.png  used on input line 299.
@@ -1576,7 +1576,7 @@ Package pdftex.def Info: pic/resnet-chart.png  used on input line 299.
 [16
 
  <./pic/resnet-chart.png>]
-<pic/plain.png, id=2788, 1938.24126pt x 755.82375pt>
+<pic/plain.png, id=2813, 1938.24126pt x 755.82375pt>
 File: pic/plain.png Graphic file (type png)
 <use pic/plain.png>
 Package pdftex.def Info: pic/plain.png  used on input line 313.
@@ -1590,7 +1590,7 @@ Overfull \vbox (1.87086pt too high) detected at line 313
 [17
 
  <./pic/plain.png>]
-<pic/vanish.png, id=2946, 840.13875pt x 522.95375pt>
+<pic/vanish.png, id=2971, 840.13875pt x 522.95375pt>
 File: pic/vanish.png Graphic file (type png)
 <use pic/vanish.png>
 Package pdftex.def Info: pic/vanish.png  used on input line 324.
@@ -1616,7 +1616,7 @@ Package pdftex.def Info: pic/vanish.png  used on input line 324.
 [22
 
 ]
-<pic/resBlock2.png, id=3737, 1049.9225pt x 536.0025pt>
+<pic/resBlock2.png, id=3762, 1049.9225pt x 536.0025pt>
 File: pic/resBlock2.png Graphic file (type png)
 <use pic/resBlock2.png>
 Package pdftex.def Info: pic/resBlock2.png  used on input line 451.
@@ -1626,7 +1626,7 @@ Package pdftex.def Info: pic/resBlock2.png  used on input line 451.
 [23
 
  <./pic/resBlock2.png>]
-<pic/resBlock3.png, id=3896, 475.7775pt x 521.95pt>
+<pic/resBlock3.png, id=3921, 475.7775pt x 521.95pt>
 File: pic/resBlock3.png Graphic file (type png)
 <use pic/resBlock3.png>
 Package pdftex.def Info: pic/resBlock3.png  used on input line 476.
@@ -1641,7 +1641,7 @@ Overfull \hbox (0.47057pt too wide) in paragraph at lines 476--476
 [24
 
  <./pic/resBlock3.png>]
-<pic/res_arch.png, id=4054, 919.435pt x 766.865pt>
+<pic/res_arch.png, id=4080, 919.435pt x 766.865pt>
 File: pic/res_arch.png Graphic file (type png)
 <use pic/res_arch.png>
 Package pdftex.def Info: pic/res_arch.png  used on input line 491.
@@ -1656,7 +1656,7 @@ Overfull \hbox (60.01254pt too wide) in paragraph at lines 491--491
 [25
 
  <./pic/res_arch.png>]
-<pic/res_arch3.png, id=4214, 776.9025pt x 541.02126pt>
+<pic/res_arch3.png, id=4240, 776.9025pt x 541.02126pt>
 File: pic/res_arch3.png Graphic file (type png)
 <use pic/res_arch3.png>
 Package pdftex.def Info: pic/res_arch3.png  used on input line 507.
@@ -1671,7 +1671,7 @@ Overfull \hbox (67.50269pt too wide) in paragraph at lines 507--507
 [26
 
  <./pic/res_arch3.png>]
-<pic/resBlock.png, id=4373, 661.47125pt x 848.16875pt>
+<pic/resBlock.png, id=4398, 661.47125pt x 848.16875pt>
 File: pic/resBlock.png Graphic file (type png)
 <use pic/resBlock.png>
 Package pdftex.def Info: pic/resBlock.png  used on input line 523.
@@ -1686,7 +1686,7 @@ Overfull \hbox (9.8714pt too wide) in paragraph at lines 523--523
 [27
 
  <./pic/resBlock.png>]
-<pic/ResNetExp.png, id=4532, 1810.765pt x 585.18625pt>
+<pic/ResNetExp.png, id=4557, 1810.765pt x 585.18625pt>
 File: pic/ResNetExp.png Graphic file (type png)
 <use pic/ResNetExp.png>
 Package pdftex.def Info: pic/ResNetExp.png  used on input line 536.
@@ -1708,7 +1708,7 @@ Package pdftex.def Info: pic/ResNetExp.png  used on input line 536.
 [31
 
 ]
-<pic/normaliz.png, id=5171, 1297.84875pt x 566.115pt>
+<pic/normaliz.png, id=5195, 1297.84875pt x 566.115pt>
 File: pic/normaliz.png Graphic file (type png)
 <use pic/normaliz.png>
 Package pdftex.def Info: pic/normaliz.png  used on input line 580.
@@ -1726,7 +1726,7 @@ Overfull \vbox (3.31168pt too high) detected at line 580
 [33
 
 ]
-<pic/zigzag.png, id=5487, 501.875pt x 543.02875pt>
+<pic/zigzag.png, id=5511, 501.875pt x 543.02875pt>
 File: pic/zigzag.png Graphic file (type png)
 <use pic/zigzag.png>
 Package pdftex.def Info: pic/zigzag.png  used on input line 618.
@@ -1741,7 +1741,7 @@ Overfull \hbox (8.29988pt too wide) in paragraph at lines 618--618
 [34
 
  <./pic/zigzag.png>]
-<pic/poorcond.png, id=5646, 733.74126pt x 767.86874pt>
+<pic/poorcond.png, id=5670, 733.74126pt x 767.86874pt>
 File: pic/poorcond.png Graphic file (type png)
 <use pic/poorcond.png>
 Package pdftex.def Info: pic/poorcond.png  used on input line 644.
@@ -1756,7 +1756,7 @@ Overfull \hbox (41.17108pt too wide) in paragraph at lines 644--644
 [35
 
  <./pic/poorcond.png>]
-<pic/whiten.png, id=5804, 1040.88875pt x 445.665pt>
+<pic/whiten.png, id=5829, 1040.88875pt x 445.665pt>
 File: pic/whiten.png Graphic file (type png)
 <use pic/whiten.png>
 Package pdftex.def Info: pic/whiten.png  used on input line 656.
@@ -1770,7 +1770,7 @@ Package pdftex.def Info: pic/whiten.png  used on input line 656.
 [37
 
 ]
-<pic/cnnaug.png, id=6129, 874.26625pt x 461.725pt>
+<pic/cnnaug.png, id=6152, 874.26625pt x 461.725pt>
 File: pic/cnnaug.png Graphic file (type png)
 <use pic/cnnaug.png>
 Package pdftex.def Info: pic/cnnaug.png  used on input line 685.
@@ -1785,7 +1785,7 @@ Overfull \hbox (102.5291pt too wide) in paragraph at lines 685--685
 [38
 
  <./pic/cnnaug.png>]
-<pic/jitter.png, id=6288, 795.97375pt x 526.96875pt>
+<pic/jitter.png, id=6311, 795.97375pt x 526.96875pt>
 File: pic/jitter.png Graphic file (type png)
 <use pic/jitter.png>
 Package pdftex.def Info: pic/jitter.png  used on input line 709.
@@ -1800,7 +1800,7 @@ Overfull \hbox (4.39824pt too wide) in paragraph at lines 709--709
 [39
 
  <./pic/jitter.png>]
-<pic/crop.png, id=6453, 448.67625pt x 509.905pt>
+<pic/crop.png, id=6476, 448.67625pt x 509.905pt>
 File: pic/crop.png Graphic file (type png)
 <use pic/crop.png>
 Package pdftex.def Info: pic/crop.png  used on input line 730.
@@ -1810,7 +1810,7 @@ Package pdftex.def Info: pic/crop.png  used on input line 730.
 [40
 
  <./pic/crop.png>]
-<pic/cutout.png, id=6612, 645.41125pt x 997.7275pt>
+<pic/cutout.png, id=6635, 645.41125pt x 997.7275pt>
 File: pic/cutout.png Graphic file (type png)
 <use pic/cutout.png>
 Package pdftex.def Info: pic/cutout.png  used on input line 748.
@@ -1828,7 +1828,7 @@ File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
 LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `T1/cmtt/m/n' tried instead on input line 5.
-<pic/Albumentations.png, id=6837, 3011.25pt x 673.51625pt>
+<pic/Albumentations.png, id=6860, 3011.25pt x 673.51625pt>
 File: pic/Albumentations.png Graphic file (type png)
 <use pic/Albumentations.png>
 Package pdftex.def Info: pic/Albumentations.png  used on input line 11.
@@ -1839,7 +1839,7 @@ Package pdftex.def Info: pic/Albumentations.png  used on input line 11.
 
 {/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc} <
 ./pic/Albumentations.png>]
-<pic/Albu_example.png, id=7000, 1104.125pt x 512.91624pt>
+<pic/Albu_example.png, id=7023, 1104.125pt x 512.91624pt>
 File: pic/Albu_example.png Graphic file (type png)
 <use pic/Albu_example.png>
 Package pdftex.def Info: pic/Albu_example.png  used on input line 794.
@@ -1853,7 +1853,7 @@ Package pdftex.def Info: pic/Albu_example.png  used on input line 794.
 [44
 
 ]
-<pic/TL_motiv.png, id=7327, 1277.77374pt x 446.66875pt>
+<pic/TL_motiv.png, id=7349, 1277.77374pt x 446.66875pt>
 File: pic/TL_motiv.png Graphic file (type png)
 <use pic/TL_motiv.png>
 Package pdftex.def Info: pic/TL_motiv.png  used on input line 808.
@@ -1863,7 +1863,7 @@ Package pdftex.def Info: pic/TL_motiv.png  used on input line 808.
 [45
 
  <./pic/TL_motiv.png>]
-<pic/TL_idea.png, id=7486, 1459.4525pt x 518.93875pt>
+<pic/TL_idea.png, id=7508, 1459.4525pt x 518.93875pt>
 File: pic/TL_idea.png Graphic file (type png)
 <use pic/TL_idea.png>
 Package pdftex.def Info: pic/TL_idea.png  used on input line 819.
@@ -1873,7 +1873,7 @@ Package pdftex.def Info: pic/TL_idea.png  used on input line 819.
 [46
 
  <./pic/TL_idea.png>]
-<pic/TL_alexnet.png, id=7645, 1732.4725pt x 696.6025pt>
+<pic/TL_alexnet.png, id=7667, 1732.4725pt x 696.6025pt>
 File: pic/TL_alexnet.png Graphic file (type png)
 <use pic/TL_alexnet.png>
 Package pdftex.def Info: pic/TL_alexnet.png  used on input line 828.
@@ -1888,7 +1888,7 @@ Overfull \hbox (0.1217pt too wide) in paragraph at lines 828--828
 [47
 
  <./pic/TL_alexnet.png>]
-<pic/TL_cnn.png, id=7803, 1476.51625pt x 666.49pt>
+<pic/TL_cnn.png, id=7826, 1476.51625pt x 666.49pt>
 File: pic/TL_cnn.png Graphic file (type png)
 <use pic/TL_cnn.png>
 Package pdftex.def Info: pic/TL_cnn.png  used on input line 837.
@@ -1898,7 +1898,7 @@ Package pdftex.def Info: pic/TL_cnn.png  used on input line 837.
 [48
 
  <./pic/TL_cnn.png>]
-<pic/TL_cnn2.png, id=7962, 1493.58pt x 670.505pt>
+<pic/TL_cnn2.png, id=7985, 1493.58pt x 670.505pt>
 File: pic/TL_cnn2.png Graphic file (type png)
 <use pic/TL_cnn2.png>
 Package pdftex.def Info: pic/TL_cnn2.png  used on input line 845.
@@ -1908,7 +1908,7 @@ Package pdftex.def Info: pic/TL_cnn2.png  used on input line 845.
 [49
 
  <./pic/TL_cnn2.png>]
-<pic/TL_cnn3.png, id=8122, 1493.58pt x 726.715pt>
+<pic/TL_cnn3.png, id=8144, 1493.58pt x 726.715pt>
 File: pic/TL_cnn3.png Graphic file (type png)
 <use pic/TL_cnn3.png>
 Package pdftex.def Info: pic/TL_cnn3.png  used on input line 853.
@@ -1918,7 +1918,7 @@ Package pdftex.def Info: pic/TL_cnn3.png  used on input line 853.
 [50
 
  <./pic/TL_cnn3.png>]
-<pic/TL_domain_change.png, id=8281, 1413.28pt x 501.875pt>
+<pic/TL_domain_change.png, id=8303, 1413.28pt x 501.875pt>
 File: pic/TL_domain_change.png Graphic file (type png)
 <use pic/TL_domain_change.png>
 Package pdftex.def Info: pic/TL_domain_change.png  used on input line 861.
@@ -1928,7 +1928,7 @@ Package pdftex.def Info: pic/TL_domain_change.png  used on input line 861.
 [51
 
  <./pic/TL_domain_change.png>]
-<pic/sem.png, id=8440, 955.57pt x 519.9425pt>
+<pic/sem.png, id=8462, 955.57pt x 519.9425pt>
 File: pic/sem.png Graphic file (type png)
 <use pic/sem.png>
 Package pdftex.def Info: pic/sem.png  used on input line 870.
@@ -1938,7 +1938,7 @@ Package pdftex.def Info: pic/sem.png  used on input line 870.
 [52
 
  <./pic/sem.png>]
-<pic/TL_examples.png, id=8599, 1427.3325pt x 500.87125pt>
+<pic/TL_examples.png, id=8621, 1427.3325pt x 500.87125pt>
 File: pic/TL_examples.png Graphic file (type png)
 <use pic/TL_examples.png>
 Package pdftex.def Info: pic/TL_examples.png  used on input line 878.
@@ -1953,7 +1953,7 @@ Overfull \hbox (300.20473pt too wide) in paragraph at lines 878--878
 [53
 
  <./pic/TL_examples.png (PNG copy)>]
-<pic/TL_examples2.png, id=8757, 1511.6475pt x 575.14874pt>
+<pic/TL_examples2.png, id=8779, 1511.6475pt x 575.14874pt>
 File: pic/TL_examples2.png Graphic file (type png)
 <use pic/TL_examples2.png>
 Package pdftex.def Info: pic/TL_examples2.png  used on input line 888.
@@ -1968,7 +1968,7 @@ Overfull \hbox (381.46104pt too wide) in paragraph at lines 888--888
 [54
 
  <./pic/TL_examples2.png>]
-<pic/rethinking_imagenet.png, id=8916, 553.06625pt x 456.70625pt>
+<pic/rethinking_imagenet.png, id=8938, 553.06625pt x 456.70625pt>
 File: pic/rethinking_imagenet.png Graphic file (type png)
 <use pic/rethinking_imagenet.png>
 Package pdftex.def Info: pic/rethinking_imagenet.png  used on input line 902.
@@ -2032,21 +2032,14 @@ No file 03-AlexNet_ResNet.bbl.
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
-
-
-Package rerunfilecheck Warning: File `03-AlexNet_ResNet.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `03-AlexNet_ResNet.out':
-(rerunfilecheck)             Before: D41D8CD98F00B204E9800998ECF8427E;0
-(rerunfilecheck)             After:  3B0FEFF42174509A618B9D0D5C86217F;781.
+Package rerunfilecheck Info: File `03-AlexNet_ResNet.out' has not changed.
+(rerunfilecheck)             Checksum: 3B0FEFF42174509A618B9D0D5C86217F;781.
  ) 
 Here is how much of TeX's memory you used:
- 29285 strings out of 473190
- 543824 string characters out of 5715801
- 1234430 words of memory out of 5000000
- 51758 multiletter control sequences out of 15000+600000
+ 29293 strings out of 473190
+ 543910 string characters out of 5715801
+ 1234428 words of memory out of 5000000
+ 51766 multiletter control sequences out of 15000+600000
  691155 words of font info for 170 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  101i,20n,117p,416b,1508s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -2062,10 +2055,10 @@ sr/local/texlive/2025/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/loca
 l/texlive/2025/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texl
 ive/2025/texmf-dist/fonts/type1/public/cm-super/sfss1000.pfb></usr/local/texliv
 e/2025/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on 03-AlexNet_ResNet.pdf (60 pages, 9673983 bytes).
+Output written on 03-AlexNet_ResNet.pdf (60 pages, 9673981 bytes).
 PDF statistics:
- 9888 PDF objects out of 10688 (max. 8388607)
- 5562 compressed objects within 56 object streams
+ 9910 PDF objects out of 10688 (max. 8388607)
+ 5584 compressed objects within 56 object streams
  128 named destinations out of 1000 (max. 500000)
- 273 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 329 words of extra memory for PDF output out of 10000 (max. 10000000)
 
