@@ -137,7 +137,7 @@ subsubsectionstyle=show/shaded/hide]
 		\item So $m^{(n)}(x)$ would have $2^n$ “teeth”
 		\item We can represent this function with $3n+1$ \newline nodes 
 		\item A shallow network requires many nodes to \newline achieve this
-		\item Depth increases the number of oscillations \newline multiplicatively whereas width can only do so \newline additively.
+		\item Depth increases the number of oscillations \newline multiplicatively, whereas width can only do so \newline additively.
 	\end{itemize}
 	\hspace{1.3cm}\includegraphics[keepaspectratio, width=6cm]{pic/2h}
 \end{frame}
@@ -224,7 +224,7 @@ subsubsectionstyle=show/shaded/hide]
 			\item An annoyance:
 			\setbeamertemplate{itemize subsubitem}{$\star$}
 			\begin{itemize}
-				\item Hint: "what is the gradient when x < 0?"
+				\item Hint: "What is the gradient when x < 0?"
 			\end{itemize}
 		\end{itemize}
 	\end{itemize}
@@ -275,7 +275,7 @@ subsubsectionstyle=show/shaded/hide]
 			\item Made a large difference in convergence
 		\end{itemize}
 		\item Dropout probability 0.5 (in FC layers only)
-		\item Augmentations: translation, horizontal flip, altering the intensities of the RGB channels
+		\item Augmentations: translation, horizontal flip, and altering the intensities of the RGB channels
 		\item SGD with momentum of 0.9 and a mini-batch size of 128
 		\item L2 weight decay 5e-4 ($l=l_{data} + \lambda||w||^2$)
 		\item Learning rate: 0.01, decreased by 10 every time validation accuracy plateaus
@@ -451,7 +451,7 @@ subsubsectionstyle=show/shaded/hide]
 	\textbf{Architecture:}
 	\begin{itemize}
 		\item Stack of residual blocks
-		\item Doubling the filter count while halving \newline spatial dimensions (via stride-2) at regular \newline intervals in the network Reduce the \newline activation volume by half.
+		\item Doubling the filter count while halving \newline spatial dimensions (via stride-2) at regular \newline intervals in the network. Reduce the \newline activation volume by half.
 		
 
 		\item One FC layer at the end to output classes
@@ -484,7 +484,7 @@ subsubsectionstyle=show/shaded/hide]
 	\begin{itemize}
 		\item Very deep networks using residual connections
 		\item ResNet \textbf{introduces} the concept of skip connections \newline (or residual connections) that allow the gradient to \newline be directly backpropagated to earlier layers.
-		\item \textbf{Skip connections helps overcoming gradient vanishing} \newline problem, where the accuracy saturates and then \newline degrades rapidly as the network depth increases.
+		\item \textbf{Skip connections help overcome gradient vanishing} \newline problem, where the accuracy saturates and then \newline degrades rapidly as the network depth increases.
 		\item 152-layer model for ImageNet
 		\item ILSVRC’15 classification winner (3.57 \% top 5 error)
 		\item Swept all classification and detection competitions \newline in ILSVRC’15 and COCO’15!
@@ -525,7 +525,7 @@ subsubsectionstyle=show/shaded/hide]
 			\item Limited only by GPU \& memory!
 			\item Showed diminishing returns as networks got bigger (increasing the depth or size of the network doesn't proportionally improve its performance)
 		\end{itemize}
-		\item After ResNet: CNNs were better than the human metric and focus shifted to other topics:
+		\item After ResNet: CNNs were better than the human metric, and focus shifted to other topics:
 		\setbeamertemplate{itemize subitem}{$\star$}
 		\begin{itemize}
 			\item Efficient Networks: \textbf{MobileNet, ShuffleNet}
@@ -538,7 +538,7 @@ subsubsectionstyle=show/shaded/hide]
 
 \begin{frame}{Normalizing The Data}
 	\begin{itemize}
-		\item Assume $X_{n \times d}$ is data matrix, with each sample  is represented in a row
+		\item Assume $X_{n \times d}$ is a data matrix, with each sample represented in a row
 		\item $i$ is the index of dimension (\ $i = 1, \dots d$\ )
 	\end{itemize}
 	\begin{figure}[htpb]
@@ -553,11 +553,11 @@ subsubsectionstyle=show/shaded/hide]
 		\item Example: consider CIFAR-10 example with $[32,32,3]$ images
 		\item 3 different approaches:
 		\begin{enumerate}
-		\item Subtract the mean image (e.g. AlexNet)
+		\item Subtract the mean image (e.g., AlexNet)
 			\begin{itemize}
 				\item mean image = $[32,32,3]$ array
 			\end{itemize}
-		\item Subtract per-channel mean (e.g. VGGNet)
+		\item Subtract per-channel mean (e.g., VGGNet)
 			\begin{itemize}
 				\item mean along each channel = 3 numbers
 			\end{itemize}		
