@@ -561,7 +561,7 @@ subsubsectionstyle=show/shaded/hide]
 			\begin{itemize}
 				\item mean along each channel = 3 numbers
 			\end{itemize}		
-		\item Subtract per-channel mean and divide by per-channel std (e.g. ResNet)
+		\item Subtract per-channel mean and divide by per-channel std (e.g., ResNet)
 		\end{enumerate}
 	\end{itemize}
 \end{frame}
@@ -765,7 +765,7 @@ import albumentations as A
 \section{Transfer Learning}
 \begin{frame}{Motivation}
 	\begin{itemize}
-		\item You need a lot of a data if you want to train/use CNNs
+		\item You need a lot of data if you want to train/use CNNs
 		\item Suppose you want to build an app to recognize flowers…
 	\end{itemize}
 	\begin{figure}[htpb]
@@ -778,7 +778,7 @@ import albumentations as A
 
 \begin{frame}{Transfer Learning}
 	\begin{enumerate}
-		\item Pretrain on a large dataset (e.g. ImageNet)
+		\item Pretrain on a large dataset (e.g., ImageNet)
 		\item Fine-tune it on a small target dataset (e.g. Flowers)
 	\end{enumerate}
 
@@ -872,12 +872,12 @@ import albumentations as A
 
 \begin{frame}{Takehome Message}
 	\begin{itemize}
-		\item Have some dataset of interest but it has fewer than $\texttildelow$ 1M images?
+		\item Have some dataset of interest, but it has fewer than $\texttildelow$ 1M images?
 		\begin{enumerate}
 			\item Find a very large dataset that has similar data, train a big ConvNet there
 			\item Transfer learn to your dataset
 		\end{enumerate}
-		\item Deep learning frameworks offer a "Model Zoo" of pretrained models so you don't need to train your own
+		\item Deep learning frameworks offer a "Model Zoo" of pretrained models, so you don't need to train your own
 		\begin{itemize}
 			\item \textbf{Pytorch:} \href{https://github.com/pytorch/vision}{\color{blue} https://github.com/pytorch/vision}
 			\item \textbf{TensorFlow:} \href{https://github.com/tensorflow/models}{\color{blue} https://github.com/tensorflow/models}
