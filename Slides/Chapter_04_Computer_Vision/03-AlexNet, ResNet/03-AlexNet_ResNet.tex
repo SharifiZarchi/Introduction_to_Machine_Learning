@@ -323,35 +323,34 @@ subsubsectionstyle=show/shaded/hide]
 	\includegraphics[keepaspectratio, scale=0.23]{pic/vanish}
 \end{frame}
 
+
 \begin{frame}{Notation and Setup}
 \footnotesize
 
 \begin{itemize}
     \item Consider a \textbf{deep feedforward neural network} with $T$ layers and \textbf{no residual connections}.
-   
-    \[
-        h^{(t)} \in \mathbb{R}^d
-    \]
-    Let this denote the \textbf{hidden activation} at layer $t$.
+    
+    \item We analyze a \textbf{scalar (1D) network} for simplicity.
     
     \[
-        z^{(t)} = W h^{(t-1)}
+        h^{(t)} \in \mathbb{R}
     \]
-    and this be the \textbf{pre-activation} at layer $t$, where
+    denotes the \textbf{hidden activation} at layer $t$.
+    
     \[
-        W \in \mathbb{R}^{d \times d}
+        z^{(t)} = w h^{(t-1)}, \qquad w \in \mathbb{R},
     \]
-    is the (shared) weight matrix.
+    where $w$ is the (shared) scalar weight.
     
     \[
         h^{(t)} = \phi\!\left(z^{(t)}\right),
     \]
-    The activation function is that with element-wise derivative $\phi'(z^{(t)})$.
+    with derivative $\phi'(z^{(t)})$.
     
     \[
         \bar{h}^{(t)} \triangleq \frac{\partial \mathcal{L}}{\partial h^{(t)}}
     \]
-    And this denotes the \textbf{backpropagated error signal} at layer $t$.
+    denotes the \textbf{backpropagated error signal} at layer $t$.
 \end{itemize}
 
 \end{frame}
@@ -362,7 +361,7 @@ subsubsectionstyle=show/shaded/hide]
 		\item Now consider a deep neural network without residual blocks
 		If we have the error signal $\bar{h}^{(T)}$. We then alternate between the following two backprop rules:
 		\begin{align}
-			\bar{h}^{(t)} &= \bar{z^{(t+1)}}\, w, \\	
+			\bar h^{(t)} = W^\top \bar z^{(t+1)}.\\	
 			\bar{z^{(t)}} &= \bar{h}^{(t)}\, \phi'\!\bigl(z^{(t)}\bigr).
 		\end{align}
 
