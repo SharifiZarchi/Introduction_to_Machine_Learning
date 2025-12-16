@@ -314,9 +314,9 @@ subsubsectionstyle=show/shaded/hide]
 
 \begin{frame}{Challenge Of Making CNNs Deeper}
 	\begin{itemize}
-		\item \textbf{Fact:} Deeper models have minotore representation power (more parameters) than shallower models.
-		\item But \textbf{56-layer model performs worse} on both training and test error and it's not caused by overfitting!
-		\item \textbf{Hypothesis:} The issue is related to optimization, deeper models are harder to optimize.	
+		\item \textbf{Fact:} Deeper models have more representation power (more parameters) than shallower models.
+		\item But \textbf{56-layer model performs worse} on both training and test error, and it's not caused by overfitting!
+		\item \textbf{Hypothesis:} The issue is related to optimization; deeper models are harder to optimize.	
 	\end{itemize}
 	\vspace{-0.5cm}
 	\centering
@@ -464,7 +464,7 @@ subsubsectionstyle=show/shaded/hide]
 		\item For deeper networks (ResNet- 50+), use \newline ``bottleneck'' layer instead, to improve \newline efficiency.
 		\item Bottleneck uses 1x1 convolution to:
 		 \begin{itemize}
-		 	\item Reduce number of paramters
+		 	\item Reduce number of parameters
 		 	\item Enable interaction between channels, \newline creating new feature representations at \newline each spatial location
 		 	\item Allow more layers to be added without \newline a significant increase in computational \newline cost or overfitting risk.
 		 \end{itemize}
