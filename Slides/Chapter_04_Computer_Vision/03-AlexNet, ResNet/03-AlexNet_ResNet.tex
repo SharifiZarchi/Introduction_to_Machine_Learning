@@ -323,6 +323,38 @@ subsubsectionstyle=show/shaded/hide]
 	\includegraphics[keepaspectratio, scale=0.23]{pic/vanish}
 \end{frame}
 
+\begin{frame}{Notation and Setup}
+\small
+\begin{itemize}
+    \item Consider a \textbf{deep feedforward neural network} with $T$ layers and \textbf{no residual connections}.
+   
+    \[
+        h^{(t)} \in \mathbb{R}^d
+    \]
+    Let this denote the \textbf{hidden activation} at layer $t$.
+    
+    \[
+        z^{(t)} = W h^{(t-1)}
+    \]
+    and this be the \textbf{pre-activation} at layer $t$, where
+    \[
+        W \in \mathbb{R}^{d \times d}
+    \]
+    is the (shared) weight matrix.
+    
+    \[
+        h^{(t)} = \phi\!\left(z^{(t)}\right),
+    \]
+    The activation function is that with element-wise derivative $\phi'(z^{(t)})$.
+    
+    \[
+        \bar{h}^{(t)} \triangleq \frac{\partial \mathcal{L}}{\partial h^{(t)}}
+    \]
+    And this denotes the \textbf{backpropagated error signal} at layer $t$.
+\end{itemize}
+
+\end{frame}
+
 
 \begin{frame}{Vanishing Gradient}
 	\begin{itemize}
