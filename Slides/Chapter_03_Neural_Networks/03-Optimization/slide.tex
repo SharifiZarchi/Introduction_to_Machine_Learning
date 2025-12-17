@@ -571,9 +571,9 @@ subsubsectionstyle=show/shaded/hide]
     \item \textbf{Example:}
     \end{itemize}
         \[
-        f(\theta_1, \theta_2) = \theta_1^2 + 2 \theta_1 \theta_2 + \theta_2^2
+        f(\theta_1, \theta_2) = \theta_1^2 + 2\theta_2^2
         \]
-        % \item **Gradient** \( \nabla f \):
+        % Gradient:
         \[
         \nabla f = 
         \begin{bmatrix}
@@ -581,16 +581,12 @@ subsubsectionstyle=show/shaded/hide]
             \frac{\partial f}{\partial \theta_2}
         \end{bmatrix} =
         \begin{bmatrix}
-            2\theta_1 + 2\theta_2 \\
-            2\theta_1 + 2\theta_2
-        \end{bmatrix} =
-        \begin{bmatrix}
-            2(\theta_1 + \theta_2) \\
-            2(\theta_1 + \theta_2)
+            2\theta_1 \\
+            4\theta_2
         \end{bmatrix}
         \]
 
-        % \item Hessian Matrix \( H(\theta) \):
+        % Hessian Matrix (invertible):
         \[
         H(\theta) = 
         \begin{bmatrix}
@@ -598,11 +594,20 @@ subsubsectionstyle=show/shaded/hide]
             \frac{\partial^2 f}{\partial \theta_2 \partial \theta_1} & \frac{\partial^2 f}{\partial \theta_2^2}
         \end{bmatrix} =
         \begin{bmatrix}
-            2 & 2 \\
-            2 & 2
+            2 & 0 \\
+            0 & 4
         \end{bmatrix}
         \]
-        % \item Using Newton's method, the update rule for \( \theta \) would be:
+        
+        \[
+        H^{-1} = 
+        \begin{bmatrix}
+            1/2 & 0 \\
+            0 & 1/4
+        \end{bmatrix}
+        \]
+        
+        % Newton's update rule:
         \[
         \theta_{t+1} = \theta_t - H^{-1} \nabla f(\theta_t)
         \]
