@@ -33,7 +33,7 @@
 
 \author{Ali Sharifi-Zarchi}
 \title{Machine Learning (CE 40717)}
-\subtitle{Fall 2024}
+\subtitle{Fall 2025}
 \institute{
     CE Department \\
     Sharif University of Technology
@@ -153,15 +153,17 @@
     \begin{minipage}{0.5\textwidth}
         \begin{figure}[htp]
             \centering
-            \begin{subfigure}{\textwidth}
+            % Use minipage blocks instead of the undefined `subfigure` environment
+            \minipage{0.9\textwidth}
+                \centering
                 \includegraphics[width=6cm]{pic/1/neuron.png}
-            \end{subfigure}
-            
-            \skip
-            
-            \begin{subfigure}{\textwidth}
+            \endminipage
+            \\
+            \vspace{0.2cm}
+            \minipage{0.9\textwidth}
+                \centering
                 \includegraphics[width=4cm]{pic/1/perceptron_plot.png}
-            \end{subfigure}
+            \endminipage
             
             \caption{Main caption}
         \end{figure}
@@ -336,7 +338,7 @@
 		\item Hidden layer pre-activation: $$a_i(x) = b^{(1)}_i + \sum_j W^{(1)}_{ij} \cdot x_j$$
 		\item Weight between neuron $i$ and $j$ in layer $\ell$: \(W^{(\ell)}_{ij}\)
 		\item Activated hidden layer: $$h^{(1)}(x) = \sigma^{(1)}(a(\mathbf{x}))$$
-		\item Output layer: $$ o(\mathbf{x}) = \sigma^{(2)}\left(\mathbf{b}^{(2)} + \mathbf{W}^{(2)}h^{(1)}(\ma\mathbf{x}) \right) $$
+		\item Output layer: $$ o(\mathbf{x}) = \sigma^{(2)}\left(\mathbf{b}^{(2)} + \mathbf{W}^{(2)}h^{(1)}(\mathbf{x}) \right) $$
 	\end{itemize}
 	\endminipage
 	\hfill
@@ -551,6 +553,8 @@
 	\begin{itemize}
 		\item Sogand Salehi
 		\item Erfan Sobhaei
+		\item Diba Hadi Esfangereh
+		\item Sina Daneshgar
 	\end{itemize}
 	    
 \end{frame}
