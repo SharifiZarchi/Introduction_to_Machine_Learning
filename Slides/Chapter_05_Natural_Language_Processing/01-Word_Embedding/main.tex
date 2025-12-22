@@ -32,7 +32,7 @@
 
 \author{Ali Sharifi-Zarchi}
 \title{Machine Learning (CE 40717)}
-\subtitle{Fall 2024}
+\subtitle{Fall 2025}
 \institute{
     CE Department \\
     Sharif University of Technology
@@ -201,19 +201,6 @@ subsubsectionstyle=show/shaded/hide]
 	{\tiny \textcolor{gray}{Figure adapted from chatgpt.org/}}
 \end{frame}
 
-%% Slide 10: Text Generation
-%\begin{frame}{Text Generation}
-%	\begin{figure}
-%		\centering
-%		\includegraphics[width=0.6\textwidth]{pic/text_generation_image.png}
-%	\end{figure}
-%	\begin{itemize}
-%		\item Generates text content, such as stories or articles, from scratch.
-%	\end{itemize}
-%	\vspace{1.6cm}
-%	\hspace{-1.0cm}
-%	{\tiny \textcolor{gray}{Figure adapted from www.mdpi.com/2079-9292/9/3/483}}
-%\end{frame}
 
 % Slide 11: Transition to Word Representation
 \begin{frame}{The Importance of Word Representation}
@@ -302,140 +289,6 @@ subsubsectionstyle=show/shaded/hide]
 
 
 
-%\begin{frame}{Conclusion: Why Move Beyond One-Hot?}
-%	\begin{itemize}
-%		\item While one-hot encoding is a simple and effective method for certain applications, it fails to capture word meanings or relationships.
-%		\item More advanced methods, such as word embeddings, address these limitations by representing words in a dense, meaningful vector space.
-%	\end{itemize}
-%\end{frame}
-
-
-%\begin{frame}{Word Embedding and Semantic Analysis}
-%    \begin{itemize}
-%        \item \textbf{Word Embedding:} Represents words as dense vectors in a continuous space, allowing similar words to be mapped close to each other.
-%        \item \textbf{Semantic Analysis:} By capturing the context of words, word embeddings enable better performance in tasks like sentiment analysis.
-%    \end{itemize}
-%\end{frame}
-
-%\begin{frame}{Sentiment Analysis with Word Embeddings}
-%    \begin{itemize}
-%        \item Sentiment analysis determines the sentiment (e.g., positive or negative) expressed in text.
-%        \item Word embeddings capture word context, helping models understand phrases like "not bad" as positive, improving sentiment analysis accuracy.
-%    \end{itemize}
-%\end{frame}
-
-%\begin{frame}{Sentiment Analysis Pipeline}
-%    
-%    \begin{figure}
-%        \centering
-%        \includegraphics[width=0.6\textwidth]{pic/5.png}
-%        \caption*{Sentiment analysis process using word representations}
-%    \end{figure}
-%    \begin{itemize}
-%        \item The process typically involves extracting features (word embeddings), feeding them into a classifier, and predicting the sentiment of the input text.
-%    \end{itemize}
-%    \vspace{1.6cm}
-%    \hspace{-1.0cm}
-%    {\tiny \textcolor{gray}{Figure adapted from www.mdpi.com/2079-9292/9/3/483}}
-%\end{frame}
-%
-
-%
-%
-%
-%
-%\section{Latent Semantic Indexing (LSI)}
-%
-%\begin{frame}{What is Latent Semantic Indexing (LSI)?}
-%    \begin{itemize}
-%        \item LSI is a technique that decomposes the document-term matrix into a lower-dimensional space.
-%        \item By reducing the dimensionality of this matrix, LSI preserves the most significant information while eliminating noise.
-%        \item This decomposition helps capture semantic relationships between words and documents, making it valuable for understanding underlying patterns.
-%    \end{itemize}
-%\end{frame}
-%
-%\begin{frame}{How Does LSI Work?}
-%    \begin{itemize}
-%        \item LSI utilizes Singular Value Decomposition (SVD) to factorize the document-term matrix into three matrices:
-%        \begin{itemize}
-%            \item \( U \): A matrix where each column represents a word in the new, reduced-dimensional space.
-%            \item \( \Sigma \): A diagonal matrix of singular values that ranks the importance of each dimension.
-%            \item \( V^\top \): A matrix where each row represents a document in the reduced space.
-%        \end{itemize}
-%        \item By keeping only the top \( k \) singular values, we reduce the matrix to a \( k \)-dimensional space.
-%    \end{itemize}
-%\end{frame}
-%
-%\begin{frame}{LSI Example: Document-Term Matrix Decomposition}
-%    \begin{figure}
-%        \centering
-%        \includegraphics[width=0.4\textwidth]{pic/6.png}
-%        \caption*{Original Document-Term Matrix}
-%    \end{figure}
-%    \begin{itemize}
-%        \item Here is an example of a document-term matrix (Figure 1) where each cell represents the frequency of a term in a document.
-%        \item LSI applies SVD to decompose this matrix, creating a lower-dimensional representation while retaining essential information.
-%    \end{itemize}
-%\end{frame}
-%
-%\begin{frame}{LSI Example: Reduced Representation with \( k=2 \)}
-%    \begin{figure}
-%        \centering
-%        \includegraphics[width=0.35\textwidth]{pic/7.png}
-%        \caption*{Decomposed Document-Term Matrix with \( k=2 \)}
-%    \end{figure}
-%    \begin{itemize}
-%        \item After applying SVD, we retain only the top 2 singular values (Figure 2).
-%        \item Similar terms and documents are now mapped close to each other in this reduced space, capturing underlying semantic relationships.
-%        \item This transformation helps to reveal latent semantic structures that are less apparent in the original matrix.
-%    \end{itemize}
-%\end{frame}
-%
-%\begin{frame}{Dimensionality Reduction with LSI}
-%    \begin{itemize}
-%        \item In the reduced space, documents and terms that are similar are located closer together.
-%        \item This helps in capturing latent semantic structures, which are not explicitly present in the original high-dimensional space.
-%    \end{itemize}
-%    \begin{figure}
-%        \centering
-%        \includegraphics[width=0.4\textwidth]{pic/2.png}
-%        \caption*{Visualization of reduced dimensional space}
-%    \end{figure}
-%\end{frame}
-%
-%\begin{frame}{LSI Example}
-%    \begin{figure}
-%        \centering
-%        \includegraphics[width=0.5\textwidth]{pic/1.png}
-%        \caption*{Example of LSI on a term-document matrix}
-%    \end{figure}
-%    \begin{itemize}
-%        \item After applying SVD, similar terms are mapped close to each other in the reduced space.
-%        \item This helps capture synonymy and semantic relatedness between terms.
-%    \end{itemize}
-%\end{frame}
-%
-%\begin{frame}{Benefits of LSI}
-%    \begin{itemize}
-%        \item \textbf{Noise Reduction}: LSI removes the noise caused by variations in word usage by mapping similar words to the same dimension.
-%        \item \textbf{Synonymy}: It helps address synonymy by grouping semantically related words together in the reduced space.
-%        \item \textbf{Efficiency}: Reducing the dimensionality speeds up information retrieval processes and improves the performance of downstream tasks.
-%    \end{itemize}
-%\end{frame}
-%
-%\begin{frame}{Limitations of LSI}
-%    \begin{itemize}
-%        \item \textbf{Computational Cost}: The SVD operation can be computationally expensive, especially for large datasets.
-%        \item \textbf{New Words}: It is hard to incorporate new words or documents once the model is trained.
-%        \item \textbf{Order Ignorance}: LSI does not consider the order of words in documents, which may lead to the loss of important context.
-%    \end{itemize}
-%\end{frame}
-%
-%
-
-
-
-
 
 \section{Word2Vec}
 
@@ -455,7 +308,7 @@ subsubsectionstyle=show/shaded/hide]
 %	\end{itemize}
 %	\vspace{1.6cm}
 	\hspace{-1.0cm}
-	{\tiny \textcolor{gray}{Figure adapted from classes.engr.oregonstate.edu/eecs/fall2023/ai534-400/unit4/word_embeddings.html}}
+	{\tiny \textcolor{gray}{Figure adapted from classes.engr.oregonstate.edu/eecs/fall2023/ai534-400/unit4/word\_embeddings.html}}
 \end{frame}
 
 
@@ -472,7 +325,7 @@ subsubsectionstyle=show/shaded/hide]
 	\end{figure}
 	\vspace{0.4cm}
 	\hspace{-1.0cm}
-	{\tiny \textcolor{gray}{Figure adapted from machinelearningcoban.com/tabml_book/ch_embedding/word2vec.html}}
+	{\tiny \textcolor{gray}{Figure adapted from machinelearningcoban.com/tabml\_book/ch\_embedding/word2vec.html}}
 \end{frame}
 
 \begin{frame}{Expected Outcome of Word2Vec}
@@ -482,7 +335,7 @@ subsubsectionstyle=show/shaded/hide]
 		\item This proximity allows for various NLP tasks, such as:
 		\begin{itemize}
 			\item \textbf{Synonym detection:} Identifying words with similar meanings.
-			\item \textbf{Analogy tasks:} Solving analogies by vector arithmetic (e.g., “king” - “man” + “woman” ≈ “queen”).
+			\item \textbf{Analogy tasks:} Solving analogies by vector arithmetic (e.g., “king” - “man” + “woman” $\approx$ “queen”).
 			\item \textbf{Clustering of concepts:} Grouping related concepts together in the embedding space.
 		\end{itemize}
 		\item By representing words in this way, Word2Vec enables models to make use of semantic relationships between words.
@@ -502,15 +355,6 @@ subsubsectionstyle=show/shaded/hide]
 	{\tiny \textcolor{gray}{Figure adapted from medium.com/@manansuri/a-dummys-guide-to-word2vec-456444f3c673}}
 \end{frame}
 
-
-%
-%\begin{frame}{What is Word2Vec?}
-%    \begin{itemize}
-%        \item Word2Vec is a framework for learning word embeddings by predicting the surrounding words in a context window.
-%        \item It represents words as continuous vectors in a dense vector space, where semantically similar words are close to each other.
-%        \item Word2Vec captures the context of a word by using its surrounding words to represent its meaning.
-%    \end{itemize}
-%\end{frame}
 
 \begin{frame}{Word2Vec: Contextual Word Representation}
     \begin{itemize}
@@ -615,7 +459,7 @@ subsubsectionstyle=show/shaded/hide]
         \item The objective of Skip-gram is to maximize the likelihood of predicting context words \(w_o\) given a center word \(w_c\).
         \item The probability of a context word \(w_o\) given a center word \(w_c\) is defined as:
         \[
-        P(w_o | w_c) = \frac{\exp(v_{w_o} \cdot v_{w_c})}{\sum_x \exp(v_x \cdot v_{w_c})}
+        P(w_o | w_c) = \frac{\exp(v_{w_o}^T v_{w_c})}{\sum_x \exp(v_x^T v_{w_c})}
         \]
         \item \(v_{w_o}\) and \(v_{w_c}\) are the word vectors for the context and center words, respectively.
     \end{itemize}
@@ -625,71 +469,51 @@ subsubsectionstyle=show/shaded/hide]
     \begin{itemize}
         \item The goal is to minimize the negative log-likelihood over the entire training corpus:
         \[
-        J(\theta) = -\frac{1}{C} \sum_{c=1}^{C} \sum_{-m \leq j \leq m, j \neq 0} \log P(w_{c+j} | w_c)
+        J(\theta) = -\frac{1}{T} \sum_{t=1}^{T} \sum_{-m \leq j \leq m, j \neq 0} \log P(w_{t+j} | w_t)
         \]
-        \item Here, \(T\) is the total number of words, and \(m\) is the window size.
+        \item Here, \(T\) is the total number of words in the corpus, and \(m\) is the window size.
         \item Skip-gram adjusts the word embeddings to maximize the probability of observing the context words around the center word.
     \end{itemize}
 \end{frame}
 
 
-%\begin{frame}{Skip-gram: Gradient Calculation}
-%    \begin{itemize}
-%        \item To update the word vectors during training, we calculate the gradient of the objective function.
-%        \item The gradient with respect to the word vector \(v_{w_c}\) is:
-%        \[
-%        \frac{\partial \log P(w_o | w_c)}{\partial v_{w_c}} = v_{w_o} - \sum_x P(w_x | w_c) v_x
-%        \]
-%    \end{itemize}
-%\end{frame}
-
-
-
 \begin{frame}{Skip-gram: Gradient Calculation}
     \begin{itemize}
-        \item The detailed steps for the gradient calculation are:
+        \item The detailed steps for the gradient calculation (derivative of the log-likelihood):
         \[
         \frac{\partial \log P(w_o | w_c)}{\partial v_{w_c}} = \frac{\partial}{\partial v_{w_c}} \log \frac{e^{v_{w_o}^T v_{w_c}}}{\sum_x e^{v_x^T v_{w_c}}}
         \]
         \[
-        = \frac{\partial}{\partial v_{w_c}} \left( \log e^{v_{w_o}^T v_{w_c}} - \log \sum_x e^{v_x^T v_{w_c}} \right)
+        = \frac{\partial}{\partial v_{w_c}} \left( v_{w_o}^T v_{w_c} - \log \sum_x e^{v_x^T v_{w_c}} \right)
         \]
         \[
-        = v_{w_o} - \frac{1}{\sum_x e^{v_x^T v_{w_c}}} \sum_x v_x e^{v_x^T v_{w_c}}
+        = v_{w_o} - \frac{1}{\sum_x e^{v_x^T v_{w_c}}} \sum_x e^{v_x^T v_{w_c}} v_x
         \]
         \[
         = v_{w_o} - \sum_x P(w_x | w_c) v_x
         \]
-        \item The update rule for \(v_{w_c}\) is:
+        \item The update rule for \(v_{w_c}\) (Gradient Ascent):
         \[
         v_{w_c} \leftarrow v_{w_c} + \eta \left( v_{w_o} - \sum_x P(w_x | w_c) v_x \right)
         \]
-        \item Here, \(\eta\) is the learning rate.
     \end{itemize}
 \end{frame}
 
 
-%\begin{frame}{Skip-gram Example}
-%    \begin{itemize}
-%        \item Consider the sentence: "The quick brown fox jumps over the lazy dog."
-%        \item If the center word is "jumps", the model predicts context words such as "quick", "brown", "fox", "over", and "the".
-%        \item The model iteratively adjusts word vectors to predict these context words, learning a meaningful representation for "jumps."
-%    \end{itemize}
-%\end{frame}
-
 \begin{frame}{Skip-gram Example with Gradient Calculation}
 	\begin{itemize}
 		\item Consider the sentence: "Cats chase mice in the dark night."
-		\item If the center word is "chase", the model predicts context words such as "cats", "mice", "in", "the", and "dark".
-		\item Skip-gram calculates the probability of a context word \(w_o\) given the center word \(w_c\)
-		\item Example:
+		\item If the center word is $w_c = \text{"chase"}$, we predict context word $w_o = \text{"cats"}$.
+		\item We calculate vectors to minimize the error between Observed (1) and Predicted probability ($P$).
+		\item Example (simplified):
 		\begin{itemize}
-			\item Word vectors: \(v_{chase} = [0.1, 0.2]\), \(v_{cats} = [0.3, 0.4]\), \(v_{mice} = [0.2, 0.5]\).
-			\item For \(w_o = "cats"\): Compute dot product \(v_{w_o}^T v_{w_c} = (0.3)(0.1) + (0.4)(0.2) = 0.11\).
-			\item Softmax denominator: \(\exp(0.11) + \exp((0.2)(0.1) + (0.5)(0.2)) = 1.116 + 1.148 = 2.264\).
-			\item Probability: \(P("cats" | "chase") = \frac{1.116}{2.264} \approx 0.493\).
+			\item Word vectors: \(v_{chase} = [0.1, 0.2]\), \(v_{cats} = [0.3, 0.4]\).
+			\item Compute dot product: \(v_{cats}^T v_{chase} = 0.11\).
+			\item Assume Softmax denominator sum is $2.264$.
+			\item Probability: \(P(\text{"cats"} | \text{"chase"}) = \frac{\exp(0.11)}{2.264} \approx 0.493\).
 		\end{itemize}
-		\item Gradient for \(v_{chase}\): \(\nabla v_{w_c} = \sum_{w} \left(P(w | w_o) - y_w\right)v_w\), where \(y_w = 1\) if \(w = w_c\), else 0.
+		\item Update Rule component: \(\text{Error} = (1 - 0.493) = 0.507\).
+        \item We move \(v_{chase}\) closer to \(v_{cats}\) proportional to this error.
 	\end{itemize}
 \end{frame}
 
@@ -702,7 +526,7 @@ subsubsectionstyle=show/shaded/hide]
 		\begin{algorithmic}
 			\fontsize{6pt}{7.2}\selectfont
 			\Require Corpus $D$, window size $w$, embedding dimension $d$, learning rate $\alpha$, number of epochs $n$
-			\State Initialize word embeddings $W$ and $C$ randomly, where $W$ maps words to embeddings and $C$ maps context words to embeddings
+			\State Initialize word embeddings $W$ and $C$ randomly
 			
 			\For{each epoch in $1$ to $n$}
 			\For{each sentence $S$ in $D$}
@@ -714,8 +538,8 @@ subsubsectionstyle=show/shaded/hide]
 			\[
 			P(c|w_t) = \frac{\exp(\text{score})}{\sum_{c' \in \text{vocab}} \exp(W(w_t) \cdot C(c'))}
 			\]
-			\State Calculate loss $L = -\log P(c|w_t)$
-			\State Update $W(w_t)$ and $C(c)$ using gradient descent with learning rate \(\eta\)
+			\State Calculate error $E = 1 - P(c|w_t)$ (for positive sample)
+			\State Update $W(w_t)$ and $C(c)$ using gradient descent with rate \(\eta\)
 			\EndFor
 			\EndFor
 			\EndFor
@@ -724,35 +548,6 @@ subsubsectionstyle=show/shaded/hide]
 		\end{algorithmic}
 	\end{algorithm}
 \end{frame}
-
-
-
-
-%\begin{frame}{CBOW vs. Skip-gram}
-%    \begin{figure}
-%        \centering
-%        \includegraphics[width=0.7\textwidth]{pic/skip_vs_cbow.png}
-%        \caption*{Difference between CBOW and Skip-gram}
-%    \end{figure}
-%    \vspace{0.6cm}
-%    \hspace{-1.0cm}
-%    {\tiny \textcolor{gray}{Figure adapted from researchgate.net/figure/llustration-of-the-Skip-gram-and-Continuous-Bag-of-Word-CBOW-models_fig1_281812760}}
-%\end{frame}
-
-
-
-
-%\begin{frame}{Skip-gram as a Neural Network}
-%    \begin{itemize}
-%        \item The Skip-gram model functions as a two-layer neural network. 
-%        \item The input layer consists of a one-hot encoded target word vector, while the hidden layer is a dense embedding layer that learns the word representation.
-%        \item The output layer uses softmax to calculate the probability distribution over all words in the vocabulary, given the context.
-%        \item The Skip-gram model iteratively adjusts weights to maximize the likelihood of predicting the correct context words, ultimately learning meaningful word embeddings.
-%    \end{itemize}
-%\end{frame}
-
-
-
 
 \begin{frame}{Why Do We Need Negative Sampling?}
     \begin{itemize}
@@ -856,14 +651,6 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 
-
-
-
-
-
-
-
-
 \section{References}
 
 \begin{frame}{Contribution}
@@ -871,13 +658,14 @@ subsubsectionstyle=show/shaded/hide]
 		\item \textbf{These slides were prepared with contribution from:}
 		\begin{itemize}
 			\item Omid Daliran
+			\item Armin Geramirad
 		\end{itemize}
 	\end{itemize}
 \end{frame}
 
 
 
-\begin{frame}{Refrences}[allowframebreaks]
+\begin{frame}{References}
     \bibliography{ref}
     \bibliographystyle{ieeetr}
     \nocite{*}
