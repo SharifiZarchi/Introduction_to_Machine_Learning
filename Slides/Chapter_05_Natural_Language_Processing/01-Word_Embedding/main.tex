@@ -419,20 +419,6 @@ subsubsectionstyle=show/shaded/hide]
     {\tiny \textcolor{gray}{Figure adapted from tensorflow.org/text/tutorials/word2vec}}
 \end{frame}
 
-\begin{frame}{Skip-gram as a Neural Network}
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.8\textwidth]{pic/skip_nn.png}
-		\caption*{Skip-gram Model as Neural Network}
-	\end{figure}
-	\vspace{1.0cm}
-	\hspace{-1.0cm}
-	{\tiny \textcolor{gray}{Figure adapted from towardsdatascience.com/word2vec-explained-49c52b4ccb71}}
-\end{frame}
-
-
-
-
 \begin{frame}{CBOW vs. Skip-gram}
 	\begin{itemize}
 		\item CBOW and Skip-gram are the two primary architectures for Word2Vec.
@@ -453,129 +439,210 @@ subsubsectionstyle=show/shaded/hide]
 	\hspace{-1.0cm}
 	{\tiny \textcolor{gray}{Figure adapted from kavita-ganesan.com/comparison-between-cbow-skipgram-subword/}}
 \end{frame}
-
 \begin{frame}{Skip-gram: Objective Function}
     \begin{itemize}
-        \item The objective of Skip-gram is to maximize the likelihood of predicting context words \(w_o\) given a center word \(w_c\).
-        \item The probability of a context word \(w_o\) given a center word \(w_c\) is defined as:
+        \item The Skip-gram model learns word representations by predicting context words \(w_o\) given a center word \(w_c\).
+        \item Each word has two embeddings:
+        \begin{itemize}
+            \item \textbf{Input (center) embedding}: \(\mathbf{v}_w\)
+            \item \textbf{Output (context) embedding}: \(\mathbf{u}_w\)
+        \end{itemize}
+        \item The conditional probability of a context word is:
         \[
-        P(w_o | w_c) = \frac{\exp(v_{w_o}^T v_{w_c})}{\sum_x \exp(v_x^T v_{w_c})}
+        P(w_o \mid w_c) =
+        \frac{\exp(\mathbf{u}_{w_o}^\top \mathbf{v}_{w_c})}
+        {\sum_{x \in V} \exp(\mathbf{u}_x^\top \mathbf{v}_{w_c})}
         \]
-        \item \(v_{w_o}\) and \(v_{w_c}\) are the word vectors for the context and center words, respectively.
+        \item Intuition: words that co-occur should have large dot products.
     \end{itemize}
+\end{frame}
+
+\begin{frame}{Skip-gram as a 2-Layer Neural Network}
+    \begin{itemize}
+        \item Word2Vec is a shallow neural network:
+        \[
+        \text{one-hot}(w_c)
+        \;\rightarrow\;
+        \mathbf{W}_{\text{in}}
+        \;\rightarrow\;
+        \mathbf{h}
+        \;\rightarrow\;
+        \mathbf{W}_{\text{out}}
+        \;\rightarrow\;
+        \text{softmax}
+        \]
+        \item Weight matrices:
+        \[
+        \mathbf{W}_{\text{in}} \in \mathbb{R}^{|V| \times d},
+        \quad
+        \mathbf{W}_{\text{out}} \in \mathbb{R}^{d \times |V|}
+        \]
+        \item Because the input is one-hot:
+        \[
+        \mathbf{h} = \mathbf{W}_{\text{in}}^\top \mathbf{x} = \mathbf{v}_{w_c}
+        \]
+        \item \textbf{Key point:}
+        \begin{itemize}
+            \item \(\mathbf{v}_w\) = row of \(\mathbf{W}_{\text{in}}\)
+            \item \(\mathbf{u}_w\) = column of \(\mathbf{W}_{\text{out}}\)
+        \end{itemize}
+        \item Updating embeddings = updating network weights.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Skip-gram as a Neural Network}
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\textwidth]{pic/skip_nn.png}
+		\caption*{Skip-gram Model as Neural Network}
+	\end{figure}
+	\vspace{1.0cm}
+	\hspace{-1.0cm}
+	{\tiny \textcolor{gray}{Figure adapted from towardsdatascience.com/word2vec-explained-49c52b4ccb71}}
 \end{frame}
 
 \begin{frame}{Skip-gram: Loss Function}
     \begin{itemize}
-        \item The goal is to minimize the negative log-likelihood over the entire training corpus:
+        \item Training maximizes likelihood of observed center--context pairs.
+        \item Equivalent objective (negative log-likelihood):
         \[
-        J(\theta) = -\frac{1}{T} \sum_{t=1}^{T} \sum_{-m \leq j \leq m, j \neq 0} \log P(w_{t+j} | w_t)
+        J(\theta)
+        = -\frac{1}{T}
+        \sum_{t=1}^{T}
+        \sum_{\substack{-m \leq j \leq m \\ j \neq 0}}
+        \log P(w_{t+j} \mid w_t)
         \]
-        \item Here, \(T\) is the total number of words in the corpus, and \(m\) is the window size.
-        \item Skip-gram adjusts the word embeddings to maximize the probability of observing the context words around the center word.
+        \item \(T\): corpus size, \quad \(m\): window size.
     \end{itemize}
 \end{frame}
-
 
 \begin{frame}{Skip-gram: Gradient Calculation}
     \begin{itemize}
-        \item The detailed steps for the gradient calculation (derivative of the log-likelihood):
+        \item For one training pair \((w_c, w_o)\):
         \[
-        \frac{\partial \log P(w_o | w_c)}{\partial v_{w_c}} = \frac{\partial}{\partial v_{w_c}} \log \frac{e^{v_{w_o}^T v_{w_c}}}{\sum_x e^{v_x^T v_{w_c}}}
+        \log P(w_o \mid w_c)
+        =
+        \mathbf{u}_{w_o}^\top \mathbf{v}_{w_c}
+        - \log \sum_x \exp(\mathbf{u}_x^\top \mathbf{v}_{w_c})
         \]
+        \item Gradient w.r.t. center embedding:
         \[
-        = \frac{\partial}{\partial v_{w_c}} \left( v_{w_o}^T v_{w_c} - \log \sum_x e^{v_x^T v_{w_c}} \right)
+        \frac{\partial \log P(w_o \mid w_c)}{\partial \mathbf{v}_{w_c}}
+        =
+        \mathbf{u}_{w_o}
+        -
+        \sum_x P(w_x \mid w_c)\, \mathbf{u}_x
         \]
+        \item Same result as backprop through \(\mathbf{W}_{\text{in}}\).
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Skip-gram: Gradient Update (Intuition)}
+    \begin{itemize}
+        \item Gradient ascent update:
         \[
-        = v_{w_o} - \frac{1}{\sum_x e^{v_x^T v_{w_c}}} \sum_x e^{v_x^T v_{w_c}} v_x
+        \mathbf{v}_{w_c}
+        \leftarrow
+        \mathbf{v}_{w_c}
+        + \eta
+        \left(
+        \mathbf{u}_{w_o}
+        -
+        \sum_x P(w_x \mid w_c)\, \mathbf{u}_x
+        \right)
         \]
-        \[
-        = v_{w_o} - \sum_x P(w_x | w_c) v_x
-        \]
-        \item The update rule for \(v_{w_c}\) (Gradient Ascent):
-        \[
-        v_{w_c} \leftarrow v_{w_c} + \eta \left( v_{w_o} - \sum_x P(w_x | w_c) v_x \right)
-        \]
+        \item Interpretation:
+        \begin{itemize}
+            \item Pull center word toward true context word
+            \item Push it away from other words
+        \end{itemize}
+        \item Output embeddings \(\mathbf{u}_x\) are updated analogously.
     \end{itemize}
 \end{frame}
 
 
-\begin{frame}{Skip-gram Example with Gradient Calculation}
-	\begin{itemize}
-		\item Consider the sentence: "Cats chase mice in the dark night."
-		\item If the center word is $w_c = \text{"chase"}$, we predict context word $w_o = \text{"cats"}$.
-		\item We calculate vectors to minimize the error between Observed (1) and Predicted probability ($P$).
-		\item Example (simplified):
-		\begin{itemize}
-			\item Word vectors: \(v_{chase} = [0.1, 0.2]\), \(v_{cats} = [0.3, 0.4]\).
-			\item Compute dot product: \(v_{cats}^T v_{chase} = 0.11\).
-			\item Assume Softmax denominator sum is $2.264$.
-			\item Probability: \(P(\text{"cats"} | \text{"chase"}) = \frac{\exp(0.11)}{2.264} \approx 0.493\).
-		\end{itemize}
-		\item Update Rule component: \(\text{Error} = (1 - 0.493) = 0.507\).
-        \item We move \(v_{chase}\) closer to \(v_{cats}\) proportional to this error.
-	\end{itemize}
+\begin{frame}{Skip-gram Example with Gradient Intuition}
+    \begin{itemize}
+        \item Sentence: ``Cats chase mice in the dark night.''
+        \item Center word: \(w_c = \text{``chase''}\)
+        \item Context word: \(w_o = \text{``cats''}\)
+        \item Example embeddings (2D for illustration):
+        \[
+        \mathbf{v}_{\text{chase}} = [0.1, 0.2],
+        \quad
+        \mathbf{u}_{\text{cats}} = [0.3, 0.4]
+        \]
+        \item Dot product:
+        \[
+        \mathbf{u}_{\text{cats}}^\top \mathbf{v}_{\text{chase}} = 0.11
+        \]
+        \item If \(P(\text{cats} \mid \text{chase}) = 0.493\), the error is:
+        \[
+        1 - 0.493 = 0.507
+        \]
+        \item The update moves \(\mathbf{v}_{\text{chase}}\) closer to \(\mathbf{u}_{\text{cats}}\).
+    \end{itemize}
 \end{frame}
 
-
-
-
-\begin{frame}{Skip-Gram Pseudocode}
-	\begin{algorithm}[H]
-		\caption{Skip-Gram Model}
-		\begin{algorithmic}
-			\fontsize{6pt}{7.2}\selectfont
-			\Require Corpus $D$, window size $w$, embedding dimension $d$, learning rate $\alpha$, number of epochs $n$
-			\State Initialize word embeddings $W$ and $C$ randomly
-			
-			\For{each epoch in $1$ to $n$}
-			\For{each sentence $S$ in $D$}
-			\For{each word $w_t$ in $S$}
-			\State Extract context words within window size $w$ around $w_t$
-			\For{each context word $c$ of $w_t$}
-			\State Compute dot product $\text{score} = W(w_t) \cdot C(c)$
-			\State Compute probability $P(c|w_t)$ using softmax: 
-			\[
-			P(c|w_t) = \frac{\exp(\text{score})}{\sum_{c' \in \text{vocab}} \exp(W(w_t) \cdot C(c'))}
-			\]
-			\State Calculate error $E = 1 - P(c|w_t)$ (for positive sample)
-			\State Update $W(w_t)$ and $C(c)$ using gradient descent with rate \(\eta\)
-			\EndFor
-			\EndFor
-			\EndFor
-			\EndFor
-			\State \Return Word embeddings $W$
-		\end{algorithmic}
-	\end{algorithm}
+\begin{frame}{Skip-gram Pseudocode}
+    \begin{algorithm}[H]
+        \caption{Skip-gram Model}
+        \begin{algorithmic}
+            \fontsize{6pt}{7.2}\selectfont
+            \Require Corpus $D$, window size $w$, embedding dimension $d$, learning rate $\eta$, epochs $n$
+            \State Initialize input embeddings $\mathbf{V}$ and output embeddings $\mathbf{U}$ randomly
+            \For{epoch $= 1$ to $n$}
+                \For{each sentence $S$ in $D$}
+                    \For{each center word $w_c$ in $S$}
+                        \For{each context word $w_o$ within window $w$}
+                            \State Compute score $\mathbf{u}_{w_o}^\top \mathbf{v}_{w_c}$
+                            \State Compute $P(w_o \mid w_c)$ using softmax
+                            \State Update $\mathbf{v}_{w_c}$ and $\mathbf{u}_{w_o}$ using gradients
+                        \EndFor
+                    \EndFor
+                \EndFor
+            \EndFor
+            \State \Return input embeddings $\mathbf{V}$
+        \end{algorithmic}
+    \end{algorithm}
 \end{frame}
 
 \begin{frame}{Why Do We Need Negative Sampling?}
     \begin{itemize}
-        \item The softmax function normalizes over all words in the vocabulary \(V\), which can be very large (millions of words).
-        \item This makes the calculation of \(\sum_{w \in V} \exp(v_w \cdot v_{w_c})\) expensive, as it requires summing over all words in the vocabulary.
-        \item \textbf{Solution}: Use \textbf{Negative Sampling} to only update a few randomly chosen "negative" words instead of the entire vocabulary.
+        \item The softmax denominator sums over the entire vocabulary \(V\).
+        \item For large vocabularies, this is computationally expensive.
+        \item \textbf{Key idea}: update only a few words instead of all words.
+        \item \textbf{Negative sampling} provides an efficient approximation.
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Skip-gram: Negative Sampling}
     \begin{itemize}
-        \item \textbf{Negative sampling} involves sampling \(k\) "negative" words that do not appear in the context of the target word for each positive pair (center word and context word).
-        \item Instead of maximizing the probability of all words in the vocabulary, we only maximize the probability of the context words and minimize the probability of the negative sampled words.
-        \item Example: If the center word is "cat", and the context word is "cute", we sample negative words like "computer", "sky", and "table" to minimize their probability in this context.
+        \item For each positive pair \((w_c, w_o)\), sample \(k\) negative words.
+        \item The objective becomes binary classification:
+        \begin{itemize}
+            \item Maximize similarity for true context words
+            \item Minimize similarity for randomly sampled words
+        \end{itemize}
+        \item Example:
+        \begin{itemize}
+            \item Center word: ``cat''
+            \item Positive context: ``cute''
+            \item Negative samples: ``table'', ``sky'', ``computer''
+        \end{itemize}
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Skip-gram: Negative Sampling}
-	\begin{figure}
-		\centering
-		\includegraphics[width=0.8\textwidth]{pic/skip_negative.png}
-		\caption*{Negative sampling}
-	\end{figure}
-	\vspace{0.1cm}
-	\hspace{-1.0cm}
-	{\tiny \textcolor{gray}{Figure adapted from amitness.com/posts/fasttext-embeddings}}
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.8\textwidth]{pic/skip_negative.png}
+        \caption*{Negative sampling}
+    \end{figure}
+    \vspace{0.1cm}
+    {\tiny \textcolor{gray}{Figure adapted from amitness.com/posts/fasttext-embeddings}}
 \end{frame}
-
 
 
 
