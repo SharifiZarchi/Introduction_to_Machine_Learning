@@ -179,7 +179,7 @@ subsubsectionstyle=show/shaded/hide]
 \begin{itemize}
     \item \textbf{Given:}
     \begin{itemize}
-        \item Training data $\{(\mathbf{x}^{(1)}, \mathbf{y}^{(1)}), \dots, (\mathbf{x}^{(n)}, y^{(n)})\}$ are stored directly (no model parameters are learned).
+        \item Training data $\{(\mathbf{x}^{(1)}, y^{(1)}), \dots, (\mathbf{x}^{(n)}, y^{(n)})\}$ are stored directly (no model parameters are learned).
     \end{itemize}
 
     \item \textbf{To classify a new sample} $\mathbf{x}$:
@@ -863,7 +863,7 @@ d(\mathbf{x}, \mathbf{x}') = \sqrt{(x_1 - x'_1)^2 + \cdots + (x_d - x'_d)^2}.
     \begin{center}
         \textbf{$L_1$ (Manhattan) Distance:} \\[0.3em]
         \[
-        d_1(\mathbf{I}_1, \mathbf{I}_2) = \sum_p \left| \mathbf{I}_1^p - \mathbf{I}_2^p \right|.
+        d_1(\mathbf{I}_1, \mathbf{I}_2) = \sum_i \left| \mathbf{I}_1^{(i)} - \mathbf{I}_1^{(i)} \right|.
         \]
     \end{center}
 
@@ -872,7 +872,7 @@ d(\mathbf{x}, \mathbf{x}') = \sqrt{(x_1 - x'_1)^2 + \cdots + (x_d - x'_d)^2}.
         \textbf{$L_2$ (Euclidean) Distance:} \\[0.3em]
         \[
         d_2(\mathbf{I}_1, \mathbf{I}_2) = 
-        \left( \sum_p (\mathbf{I}_1^p - \mathbf{I}_2^p)^2 \right)^{\frac{1}{2}}.
+        \left( \sum_i (\mathbf{I}_1^{(i)} - \mathbf{I}_1^{(i)})^2 \right)^{\frac{1}{2}}.
         \]
     \end{center}
 \end{columns}
@@ -893,7 +893,7 @@ d(\mathbf{x}, \mathbf{x}') = \sqrt{(x_1 - x'_1)^2 + \cdots + (x_d - x'_d)^2}.
     \begin{center}
         \textbf{$L_1$ (Manhattan) Distance:} \\[0.3em]
         \[
-        d_1(\mathbf{I}_1, \mathbf{I}_2) = \sum_p \left| \mathbf{I}_1^p - \mathbf{I}_2^p \right|.
+        d_1(\mathbf{I}_1, \mathbf{I}_2) = \sum_i \left| \mathbf{I}_1^{(i)} - \mathbf{I}_2^{(i)} \right|.
         \]
         \vspace{0.5em}
         \includegraphics[width=0.63\textwidth]{pic/l1.png}
@@ -904,7 +904,7 @@ d(\mathbf{x}, \mathbf{x}') = \sqrt{(x_1 - x'_1)^2 + \cdots + (x_d - x'_d)^2}.
         \textbf{$L_2$ (Euclidean) Distance:} \\[0.3em]
         \[
         d_2(\mathbf{I}_1, \mathbf{I}_2) =
-        \left( \sum_p (\mathbf{I}_1^p - \mathbf{I}_2^p)^2 \right)^{\frac{1}{2}}.
+        \left( \sum_i (\mathbf{I}_1^{(i)} - \mathbf{I}_2^{(i)})^2 \right)^{\frac{1}{2}}.
         \]
         \vspace{0.5em}
         \includegraphics[width=0.65\textwidth]{pic/l2.png}
@@ -914,7 +914,7 @@ d(\mathbf{x}, \mathbf{x}') = \sqrt{(x_1 - x'_1)^2 + \cdots + (x_d - x'_d)^2}.
 \end{frame}
 
 %------------------------------------------------slide43
-\begin{frame}{Distance Measures}
+\begin{frame}{Cosine Distance}
 
 \textbf{Cosine Distance (Angle-Based Similarity)}
 \begin{itemize}

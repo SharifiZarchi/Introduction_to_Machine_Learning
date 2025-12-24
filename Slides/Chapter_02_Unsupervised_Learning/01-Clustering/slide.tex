@@ -724,11 +724,12 @@ over the collection of all partitions of the data.
     \begin{itemize}
         \item \textbf{Simple:} easy to understand and implement.
         
-        \item \textbf{Efficient:} time complexity $O(tKn)$, where
+        \item \textbf{Efficient:} time complexity $O(tKnd)$, where
         \begin{itemize}
             \item $n$ is the number of data points,
-            \item $K$ is the number of clusters, and
-            \item $t$ is the number of iterations (it requires initial centroids, and the choice is important as it could affect $t$ in $O(tkn)$).
+            \item $K$ is the number of clusters,
+            \item $t$ is the number of iterations (it requires initial centroids, and the choice is important as it could affect $t$ in $O(tKn)$), and
+	     \item $d$ is the number of features.
         \end{itemize}
 
         \item K-means is the most popular clustering algorithm.
