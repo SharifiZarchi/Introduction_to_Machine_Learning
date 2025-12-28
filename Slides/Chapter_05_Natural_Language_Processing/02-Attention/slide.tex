@@ -277,6 +277,42 @@ subsubsectionstyle=show/shaded/hide]
 	\end{align*}
 \end{frame}
 
+\begin{frame}{Backpropagation Through Time (BPTT)}
+\begin{itemize}
+    \item To train an RNN, the network is \textbf{unrolled in time} and standard backpropagation is applied.
+    \item Since parameters are \textbf{shared across time steps}, gradients accumulate over the sequence.
+\end{itemize}
+
+\vspace{-10pt}
+
+\begin{align*}
+    \mathcal{L} &= \sum_{t=1}^{T} \mathcal{L}_t(y_t, \hat{y}_t)
+\end{align*}
+
+\vspace{-10pt}
+
+\begin{align*}
+    \delta_t &= \frac{\partial \mathcal{L}}{\partial h_t} \\
+    \delta_t &= 
+    \frac{\partial \mathcal{L}_t}{\partial h_t}
+    + \delta_{t+1} W_{hh}^\top \odot f'(W_{hh} h_{t-1} + W_{xh} x_t + b)
+\end{align*}
+
+\vspace{-5pt}
+
+\begin{align*}
+    \frac{\partial \mathcal{L}}{\partial W_{hh}} &= \sum_{t=1}^{T} \delta_t h_{t-1}^\top \\
+    \frac{\partial \mathcal{L}}{\partial W_{xh}} &= \sum_{t=1}^{T} \delta_t x_t^\top \\
+    \frac{\partial \mathcal{L}}{\partial W_{hy}} &= \sum_{t=1}^{T} \frac{\partial \mathcal{L}_t}{\partial y_t} h_t^\top
+\end{align*}
+
+\vspace{-5pt}
+\begin{itemize}
+    \item Gradients propagate \textbf{backward through time}, which can lead to vanishing or exploding gradients.
+\end{itemize}
+\end{frame}
+
+
 \begin{frame}{Challenges of RNNs}
 		While improved versions of vanilla RNNs attempt to resolve some issues, in many cases they still struggle with:
 		\begin{itemize}
