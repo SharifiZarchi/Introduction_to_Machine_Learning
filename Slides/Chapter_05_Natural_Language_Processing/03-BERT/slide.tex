@@ -22,7 +22,7 @@
 
 \author{Ali Sharifi-Zarchi}
 \title{Machine Learning (CE 40717)}
-\subtitle{Fall 2024}
+\subtitle{Fall 2025}
 \institute{
     CE Department \\
     Sharif University of Technology
@@ -99,14 +99,14 @@ subsubsectionstyle=show/shaded/hide]
     \end{figure}
 \end{frame}
 
-\begin{frame}{Transformer block}
+\begin{frame}{Transformer Block}
     \begin{columns}
         \column{.55\textwidth}
         \begin{itemize}
             \item Each block has two "sublayers"
             \begin{itemize}
                 \item[]  1.Multihead attention
-                \item[] 2.Feed-forward Neural Network (with ReLU)
+                \item[] 2.Feed-Forward Neural Network (with ReLU)
             \end{itemize}
             \item Residual: x + Sublayer(x)
             \item Layer Normalization changes input to have mean 0 and variance 1
@@ -164,8 +164,8 @@ subsubsectionstyle=show/shaded/hide]
     \large
     \textbf{Pros:}
     \begin{itemize}
-        \item[] {\color[rgb]{0,0.5,0}+ Much easier to parallelize}
-        \item[] {\color[rgb]{0,0.5,0}+ Much better long-range connections}
+        \item[] {\color[rgb]{0,0.5,0}+ Much easier to parallelize than RNNs}
+        \item[] {\color[rgb]{0,0.5,0}+ Much better at modeling long-range dependencies}
         \item[] {\color[rgb]{0,0.5,0}+ In practice, can make it much deeper (more layers) than RNN}
     \end{itemize}
     
@@ -173,7 +173,7 @@ subsubsectionstyle=show/shaded/hide]
     
     \textbf{Cons:}
     \begin{itemize}
-        \item[] {\color{red}- Attention computations are technically$O(n^2)$}
+        \item[] {\color{red}- Attention computations are technically $O(n^2)$}
         \item[] {\color{red}- Somewhat more complex to implement (positional encodings, etc.)}
     \end{itemize}
 \end{frame}
@@ -216,7 +216,7 @@ subsubsectionstyle=show/shaded/hide]
         \vspace{0.2cm}
         
         \textcolor{green!50!black}{
-        Why? Because both left and right contexts are important to understand the meaning of words.}
+        This is because both left and right contexts are important to understand the meaning of words.}
         
         \vspace{0.2cm}
         
@@ -372,7 +372,7 @@ subsubsectionstyle=show/shaded/hide]
 
 \begin{frame}{Masked Language Modeling (MLM)}
     \begin{itemize}
-        \item \textbf{Q:} Why we can’t do language modeling with bidirectional models?
+        \item \textbf{Q:} Why can’t we do language modeling with bidirectional models?
     \end{itemize}
     
     \begin{figure}[h]
@@ -518,7 +518,7 @@ subsubsectionstyle=show/shaded/hide]
         % Placeholder for the second image
         \includegraphics[width=0.7\textwidth]{Figures/Fintuning.png}
     \end{figure}
-    For token-level prediction tasks, add linear classifier on top of hidden representations
+    For token-level prediction tasks, add a linear classifier on top of the hidden representations
     \textcolor{green}{Q: How many new parameters?}
 \end{frame}
 
@@ -531,7 +531,7 @@ subsubsectionstyle=show/shaded/hide]
         % Placeholder for the second image
         \includegraphics[width=0.7\textwidth]{Figures/finetuning1.png}
     \end{figure}
-    For sentence pair tasks, use [SEP] to separate the two segments with segment embeddings and add a linear classifier on top of [CLS] representation.
+    For sentence pair tasks, use [SEP] to separate the two segments with segment embeddings and add a linear classifier on top of the [CLS] representations
 \end{frame}
 
 \begin{frame}{Finetuning Paradigm in NLP}
@@ -609,7 +609,7 @@ subsubsectionstyle=show/shaded/hide]
     \vspace{0.3cm}
     \begin{itemize}
         \item Transformer Decoder with 12 layers.
-        \item Byte Pair Encoding (BPE) with 40,000 merges. merges.
+        \item Byte Pair Encoding (BPE) with 40,000 merges. 
         \item Trained on BooksCorpus: over 7000 unique books.
         \begin{itemize}
             \item Contains long spans of contiguous text, for learning long-distance dependencies.
@@ -686,21 +686,21 @@ subsubsectionstyle=show/shaded/hide]
         \item Asgari, E. "Natural language processing." Sharif University of Technology.
 
         \item Soleymani, M. "Machine learning." Sharif University of Technology.
-        \item Radford, A., Wu, J., Child, R., Luan, D., Amodei, D., & Sutskever, I. (2019). "Language Models are Unsupervised Multitask Learners." OpenAI Blog. Retrieved from https://openai.com/research/language-unsupervised
+        \item Radford, A., Wu, J., Child, R., Luan, D., Amodei, D., \& Sutskever, I. (2019). "Language Models are Unsupervised Multitask Learners." OpenAI Blog. Retrieved from https://openai.com/research/language-unsupervised
 
-        \item Brown, T. B., Mann, B., Ryder, N., Subbiah, M., Kaplan, J., Dhariwal, P., ... & Amodei, D. (2020). "Language Models are Few-Shot Learners." \textit{arXiv preprint arXiv:2005.14165}.
+        \item Brown, T. B., Mann, B., Ryder, N., Subbiah, M., Kaplan, J., Dhariwal, P., ... \& Amodei, D. (2020). "Language Models are Few-Shot Learners." \textit{arXiv preprint arXiv:2005.14165}.
 
-        \item Liu, Y., Ott, M., Goyal, N., Du, J., Joshi, M., Chen, D., ... & Stoyanov, V. (2019). "RoBERTa: A Robustly Optimized BERT Pre-training Approach." \textit{arXiv preprint arXiv:1907.11692}.
+        \item Liu, Y., Ott, M., Goyal, N., Du, J., Joshi, M., Chen, D., ... \& Stoyanov, V. (2019). "RoBERTa: A Robustly Optimized BERT Pre-training Approach." \textit{arXiv preprint arXiv:1907.11692}.
 
-        \item Lan, Z., Chen, M., Goodman, S., Gimpel, K., Sharma, P., & Soricut, R. (2020). "ALBERT: A Lite BERT for Self-supervised Learning of Language Representations." In \textit{Proceedings of the International Conference on Learning Representations (ICLR)}.
+        \item Lan, Z., Chen, M., Goodman, S., Gimpel, K., Sharma, P., \& Soricut, R. (2020). "ALBERT: A Lite BERT for Self-supervised Learning of Language Representations." In \textit{Proceedings of the International Conference on Learning Representations (ICLR)}.
 
-        \item Joshi, M., Chen, D., Liu, Y., Weld, D. S., Zettlemoyer, L., & Levy, O. (2020). "SpanBERT: Improving Pre-training by Representing and Predicting Spans." \textit{Transactions of the Association for Computational Linguistics}, vol. 8, pp. 64-77.
+        \item Joshi, M., Chen, D., Liu, Y., Weld, D. S., Zettlemoyer, L., \& Levy, O. (2020). "SpanBERT: Improving Pre-training by Representing and Predicting Spans." \textit{Transactions of the Association for Computational Linguistics}, vol. 8, pp. 64-77.
 
-        \item Wettig, A., Baykal, C., Ruder, S., & Søgaard, A. (2022). "Should All Tokens be Masked? A Pilot Study of Masked Language Model Performance on Diagnostic Classifiers." \textit{Proceedings of the AAAI Conference on Artificial Intelligence}, vol. 36, no. 10, pp. 10993-11001.
+        \item Wettig, A., Baykal, C., Ruder, S., \& Søgaard, A. (2022). "Should All Tokens be Masked? A Pilot Study of Masked Language Model Performance on Diagnostic Classifiers." \textit{Proceedings of the AAAI Conference on Artificial Intelligence}, vol. 36, no. 10, pp. 10993-11001.
 
-        \item Tjong Kim Sang, E. F., & De Meulder, F. (2003). "Introduction to the CoNLL-2003 Shared Task: Language-Independent Named Entity Recognition." In \textit{Proceedings of the 7th Conference on Natural Language Learning at HLT-NAACL 2003}.
+        \item Tjong Kim Sang, E. F., \& De Meulder, F. (2003). "Introduction to the CoNLL-2003 Shared Task: Language-Independent Named Entity Recognition." In \textit{Proceedings of the 7th Conference on Natural Language Learning at HLT-NAACL 2003}.
 
-        \item Radford, A., Narasimhan, K., Salimans, T., & Sutskever, I. (2018). "Improving Language Understanding by Generative Pre-Training." Retrieved from https://www.cs.ubc.ca/~amuham01/LING530/papers/radford2018improving.pdf
+        \item Radford, A., Narasimhan, K., Salimans, T., \& Sutskever, I. (2018). "Improving Language Understanding by Generative Pre-Training." Retrieved from https://www.cs.ubc.ca/~amuham01/LING530/papers/radford2018improving.pdf
         
     \end{itemize}
 \end{frame}
