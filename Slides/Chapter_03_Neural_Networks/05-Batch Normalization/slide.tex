@@ -23,16 +23,13 @@
 \usepackage{subfigure}
 \usetikzlibrary{positioning, arrows.meta}
 
-\author{Ali Sharifi-Zarchi}
-\title{Machine Learning (CE 40477)}
-\subtitle{Fall 2024}
-\institute{
-    CE Department \\
-    Sharif University of Technology
-}
-%\date{\small \today}
-% \usepackage{UoWstyle}
 \usepackage{SUTstyle}
+
+\SUTtopic{\textbf{Batch Normalization Fundamentals}}
+\title{\SUTcourse}
+\subtitle{\SUTseason}
+\institute{\SUTaffiliation}
+\date{}
 
 % defs
 \def\cmd#1{\texttt{\color{red}\footnotesize $\backslash$#1}}
@@ -376,9 +373,6 @@ subsubsectionstyle=show/shaded/hide]
 			\includegraphics[width=\linewidth]{pic/ModelAccuracy.png}
 			\label{fig:model_accuracy}
 		\end{minipage} \hfill
-%		\hspace{0.02\textwidth} % Space before the line
-%		\vrule width 0.5pt % Thickness of the line
-%		\hspace{0.02\textwidth} % Space after the line
 		\begin{minipage}{0.5\textwidth}
 			\centering
 			\includegraphics[width=\linewidth]{pic/val_loss.png}
@@ -413,28 +407,15 @@ subsubsectionstyle=show/shaded/hide]
     
 \end{frame}
 
-%\begin{frame}{Effect of Batch Normalization on Gradients}
-%        \begin{figure}
-%        \includegraphics[width=0.55\textwidth]{pic/Smooth.png}
-%        % \caption{Gradients with Batch Norm are smoother. \href{https://ketanhdoshi.github.io/Batch-Norm-Why/}{\textcolor{orange}{\textbf{Source}}}}
-%        \label{fig:Smooth}
-%    \end{figure}
-%
-%    \vfill
-%    \begin{tikzpicture}[remember picture,overlay]
-%        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-%            \tiny Figure adapted from Ketan Doshi. Batch Normalization: A Comprehensive Blog
-%        };
-%    \end{tikzpicture}
-%\end{frame}
-
 \begin{frame}
     \frametitle{Effect of Batch Normalization on Gradients}
 
-    The main benefit of batch normalization is that it reduces the dependency of gradient on the scale of input and parameters:
+    The main benefit of batch normalization is that it reduces the dependency of gradient on the scale of input and parameters.
+
+    \textbf{Note:} For simplicity, we assume $\mu_{\mathcal{B}}$ and $\sigma_{\mathcal{B}}$ are constant here to illustrate the scaling effect (in reality, they depend on the batch inputs):
 
     \begin{equation}
-        \frac{\partial \mathcal{L}}{\partial x} = \frac{\partial \mathcal{L}}{\partial y} \cdot \frac{\partial y}{\partial \hat{x}} \cdot \frac{\partial \hat{x}}{\partial x}
+        \frac{\partial \mathcal{L}}{\partial x} \approx \frac{\partial \mathcal{L}}{\partial y} \cdot \frac{\partial y}{\partial \hat{x}} \cdot \frac{\partial \hat{x}}{\partial x}
     \end{equation}
 
     Where:
@@ -445,29 +426,10 @@ subsubsectionstyle=show/shaded/hide]
 
     Thus, the gradient becomes:
     \begin{equation}
-        \frac{\partial \mathcal{L}}{\partial x} = \frac{\gamma}{\sqrt{\sigma_{\mathcal{B}}^2 + \epsilon}} \cdot \frac{\partial \mathcal{L}}{\partial y}
+        \frac{\partial \mathcal{L}}{\partial x} \approx \frac{\gamma}{\sqrt{\sigma_{\mathcal{B}}^2 + \epsilon}} \cdot \frac{\partial \mathcal{L}}{\partial y}
     \end{equation}
 \end{frame}
 
-
-
-
-
-%\begin{frame}
-%    \frametitle{Loss Landscape is not Smooth in Typical Neural Networks}
-%    \begin{figure}
-%        \includegraphics[width=0.45\textwidth]{pic/Landscape-1.png}
-%        % \caption{A neural network loss-landscape. \href{https://arxiv.org/pdf/1712.09913.pdf}{\textcolor{orange}{\textbf{Source}}}}
-%        \label{fig:Loss_Landscape}
-%    \end{figure}
-%
-%        \vfill
-%    \begin{tikzpicture}[remember picture,overlay]
-%        \node[anchor=south west, xshift=0.1cm, yshift=0.22cm] at (current page.south west) {
-%            \tiny Figure adapted from Hao Li et al. Visualizing the Loss Landscape of Neural Nets, https://arxiv.org/pdf/1712.09913.pdf
-%        };
-%    \end{tikzpicture}
-%\end{frame}
 
 \begin{frame}
     \frametitle{How Batch Normalization Smooths the Loss Landscape}
@@ -484,6 +446,7 @@ subsubsectionstyle=show/shaded/hide]
         \item Makes the optimization process less likely to be trapped in local minima or saddle points.
     \end{itemize}
 \end{frame}
+
 
 \section{Batch Normalization in Practice}
 

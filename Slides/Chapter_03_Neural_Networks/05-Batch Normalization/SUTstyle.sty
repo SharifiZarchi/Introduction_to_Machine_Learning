@@ -11,6 +11,10 @@
 \newcommand{\frameofframes}{/}
 \newcommand{\setframeofframes}[1]{\renewcommand{\frameofframes}{#1}}
 
+\xdefinecolor{LightGrey}{RGB}{228,228,228}
+\xdefinecolor{UoW}{RGB}{0,22,65} 
+\xdefinecolor{SUT}{RGB}{45,50,145}
+
 % \setbeamercolor{section in foot}{fg=white, bg=UoW}
 \setbeamercolor{section in foot}{fg=white, bg=SUT}
 % \setbeamercolor{subsection in foot}{fg=UoW, bg=LightGrey}
@@ -29,7 +33,7 @@
     \usebeamerfont{title in head/foot}\insertshorttitle
   \end{beamercolorbox}%
   \begin{beamercolorbox}[wd=.3\paperwidth,ht=2.25ex,dp=1ex,right]{section in foot}%
-    \today \hspace*{12ex} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+    \hspace*{12ex} \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
   \end{beamercolorbox}}%
   \vskip0pt%
 }
@@ -40,9 +44,6 @@
 
 %\useoutertheme{default}
 %\useinnertheme[shadow=true]{rounded}
-\xdefinecolor{LightGrey}{RGB}{228,228,228}
-\xdefinecolor{UoW}{RGB}{0,22,65} 
-\xdefinecolor{SUT}{RGB}{45,50,145}
 %\setbeamercolor{footline}{bg=UoW}
 \setbeamercolor{footline}{bg=SUT}
 % \setbeamercolor{frametitle}{bg=UoW,fg=white}
@@ -61,6 +62,11 @@
 %\setbeamercolor*{sidebar}{use=structure,bg=structure.fg}
 \setbeamercolor{titlelike}{parent=palette primary}
 
+\setbeamercolor{section in toc}{fg=SUT}
+\setbeamercolor{subsection in toc}{fg=SUT}
+\setbeamercolor{section in toc shaded}{fg=SUT!40}
+\setbeamercolor{subsection in toc shaded}{fg=SUT!40}
+
 %% try
 % \setbeamercolor{block title}{bg=UoW,fg=white}
 \setbeamercolor{block title}{bg=SUT,fg=white}
@@ -73,7 +79,7 @@
 \setbeamercolor{palette sidebar tertiary}{use=normal text,fg=normal text.fg}
 %\setbeamercolor{palette sidebar quaternary}{fg=white}
 \setbeamercolor{section in sidebar}{fg=brown}
-\setbeamercolor{section in sidebar shaded}{fg=grey}
+\setbeamercolor{section in sidebar shaded}{fg=SUT!40}
 \setbeamercolor{separation line}{}
 % \setbeamercolor{sidebar}{bg=UoW}
 \setbeamercolor{sidebar}{bg=SUT}
@@ -81,7 +87,7 @@
 % \setbeamercolor{structure}{fg=UoW}
 \setbeamercolor{structure}{fg=SUT}
 \setbeamercolor{subsection in sidebar}{fg=brown}
-\setbeamercolor{subsection in sidebar shaded}{fg=grey}
+\setbeamercolor{subsection in sidebar shaded}{fg=SUT!40}
 \AtBeginSection[]{
 	\begin{frame}
 		\tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
@@ -91,6 +97,21 @@
 	\begin{frame}
 		\tableofcontents[sectionstyle=show/shaded,subsectionstyle=show/shaded/hide,subsubsectionstyle=show/shaded/hide]
 	\end{frame}
+}
+
+\newcommand{\SUTauthor}{Ali Sharifi-Zarchi}
+\newcommand{\SUTtopic}[1]{\author[\SUTauthor]{#1}}
+\newcommand{\SUTcourse}{Machine Learning (CE 40477)}
+\newcommand{\SUTaffiliation}{
+    Computer Engineering Department \\
+    Sharif University of Technology
+}
+
+\newcommand{\SUTseason}{%
+  \ifnum\month<2 Fall \the\numexpr\year-1\relax%
+  \else\ifnum\month<9 Spring \the\year%
+  \else Fall \the\year%
+  \fi\fi%
 }
 
 \mode
