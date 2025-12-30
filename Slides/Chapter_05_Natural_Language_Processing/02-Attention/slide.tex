@@ -278,39 +278,80 @@ subsubsectionstyle=show/shaded/hide]
 \end{frame}
 
 \begin{frame}{Backpropagation Through Time (BPTT)}
+
 \begin{itemize}
-    \item To train an RNN, the network is \textbf{unrolled in time} and standard backpropagation is applied.
-    \item Since parameters are \textbf{shared across time steps}, gradients accumulate over the sequence.
+    \item A recurrent neural network is trained by \textbf{unrolling it in time}.
+    \item The same parameters are \textbf{shared at every time step}.
 \end{itemize}
 
-\vspace{-10pt}
+\vspace{5pt}
 
+\textbf{RNN dynamics:}
 \begin{align*}
-    \mathcal{L} &= \sum_{t=1}^{T} \mathcal{L}_t(y_t, \hat{y}_t)
-\end{align*}
-
-\vspace{-10pt}
-
-\begin{align*}
-    \delta_t &= \frac{\partial \mathcal{L}}{\partial h_t} \\
-    \delta_t &= 
-    \frac{\partial \mathcal{L}_t}{\partial h_t}
-    + \delta_{t+1} W_{hh}^\top \odot f'(W_{hh} h_{t-1} + W_{xh} x_t + b)
+    a_t &= W_{hh} h_{t-1} + W_{xh} x_t + b \\
+    h_t &= f(a_t), \quad \hat{y}_t = g(W_{hy} h_t)
 \end{align*}
 
 \vspace{-5pt}
 
+\textbf{Sequence loss:}
 \begin{align*}
-    \frac{\partial \mathcal{L}}{\partial W_{hh}} &= \sum_{t=1}^{T} \delta_t h_{t-1}^\top \\
-    \frac{\partial \mathcal{L}}{\partial W_{xh}} &= \sum_{t=1}^{T} \delta_t x_t^\top \\
-    \frac{\partial \mathcal{L}}{\partial W_{hy}} &= \sum_{t=1}^{T} \frac{\partial \mathcal{L}_t}{\partial y_t} h_t^\top
+    \mathcal{L} = \sum_{t=1}^{T} \mathcal{L}_t(y_t, \hat{y}_t)
 \end{align*}
 
-\vspace{-5pt}
-\begin{itemize}
-    \item Gradients propagate \textbf{backward through time}, which can lead to vanishing or exploding gradients.
-\end{itemize}
 \end{frame}
+\begin{frame}{Backpropagation Through Time (BPTT)}
+
+\textbf{Hidden state gradient:}
+\begin{align*}
+    \delta_t = \frac{\partial \mathcal{L}}{\partial h_t}
+\end{align*}
+
+\vspace{-10pt}
+
+\textbf{Gradient recursion (chain rule):}
+\begin{align*}
+    \delta_t
+    &=
+    \underbrace{\frac{\partial \mathcal{L}_t}{\partial h_t}}_{\text{loss at time } t}
+    +
+    \underbrace{\delta_{t+1}
+    W_{hh}^\top
+    \odot f'(a_t)}_{\text{effect on future states}}
+\end{align*}
+
+\vspace{5pt}
+
+\begin{itemize}
+    \item Each hidden state affects both the current output and all future hidden states.
+    \item Gradients therefore propagate \textbf{backward through time}.
+\end{itemize}
+
+\end{frame}
+\begin{frame}{Backpropagation Through Time (BPTT)}
+
+\textbf{Gradients for shared parameters:}
+
+\begin{align*}
+    \frac{\partial \mathcal{L}}{\partial W_{hh}}
+    &= \sum_{t=1}^{T} \delta_t h_{t-1}^\top \\
+    \frac{\partial \mathcal{L}}{\partial W_{xh}}
+    &= \sum_{t=1}^{T} \delta_t x_t^\top \\
+    \frac{\partial \mathcal{L}}{\partial W_{hy}}
+    &= \sum_{t=1}^{T}
+    \frac{\partial \mathcal{L}_t}{\partial y_t} h_t^\top
+\end{align*}
+
+\vspace{5pt}
+
+\begin{itemize}
+    \item Parameters are reused at every time step.
+    \item Total gradients are the \textbf{sum of contributions across time}.
+    \item Repeated multiplication by $W_{hh}$ can cause \textbf{vanishing or exploding gradients}.
+\end{itemize}
+
+\end{frame}
+
 
 
 \begin{frame}{Challenges of RNNs}
@@ -382,11 +423,7 @@ subsubsectionstyle=show/shaded/hide]
     \end{minipage}
 \end{figure}
 \vfill
-\begin{tikzpicture}[remember picture,overlay]
-	\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-		\tiny Figure adapted from Chris Manning, Lecture Slides, Stanford University
-	};
-\end{tikzpicture}
+{\tiny {Figure adapted from Chris Manning, Lecture Slides, Stanford University}}
 \end{frame}
 
 \begin{frame}{Attention Mechanism}
@@ -422,11 +459,7 @@ subsubsectionstyle=show/shaded/hide]
 	\]
 	\vspace{4pt}
 	\vfill
-	\begin{tikzpicture}[remember picture,overlay]
-		\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-			\tiny Figure adapted from Ashish Vaswani et al. Attention is All You Need paper
-		};
-	\end{tikzpicture}
+{\tiny {Figure adapted from Ashish Vaswani et al. Attention is All You Need paper}}
 \end{frame}
 
 \begin{frame}{Scaled Dot-Product Attention}
@@ -481,11 +514,7 @@ subsubsectionstyle=show/shaded/hide]
 	\end{columns}
 \vspace{5pt}
 \vfill
-\begin{tikzpicture}[remember picture,overlay]
-	\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-		\tiny Figure adapted from Fei-Fei Li, Jiajun Wu, and Ruohan Gao Lecture Slides, Stanford University
-	};
-\end{tikzpicture}
+{\tiny{Figure adapted from Fei-Fei Li, Jiajun Wu, and Ruohan Gao Lecture Slides, Stanford University}}
 \end{frame}
 
 \begin{frame}{Self-Attention Layer}
@@ -531,11 +560,7 @@ subsubsectionstyle=show/shaded/hide]
 		\end{columns}
 \vspace{3pt}
 \vfill
-\begin{tikzpicture}[remember picture,overlay]
-	\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-		\tiny Figure adapted from Fei-Fei Li, Jiajun Wu, and Ruohan Gao Lecture Slides, Stanford University
-	};
-\end{tikzpicture}
+{\tiny{Figure adapted from Fei-Fei Li, Jiajun Wu, and Ruohan Gao Lecture Slides, Stanford University}}
 \end{frame}
 
 \begin{frame}{Self-Attention Layer}
@@ -571,11 +596,7 @@ subsubsectionstyle=show/shaded/hide]
 	\end{columns}
 \vspace{3pt}
 \vfill
-\begin{tikzpicture}[remember picture,overlay]
-	\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-		\tiny Figure adapted from Fei-Fei Li, Jiajun Wu, and Ruohan Gao Lecture Slides, Stanford University
-	};
-\end{tikzpicture}
+{\tiny{Figure adapted from Fei-Fei Li, Jiajun Wu, and Ruohan Gao Lecture Slides, Stanford University}}
 \end{frame}
 
 \begin{frame}{Self-Attention: Core Theorem}
@@ -706,11 +727,7 @@ subsubsectionstyle=show/shaded/hide]
 	\end{columns}
 \vspace{5pt}
 \vfill
-\begin{tikzpicture}[remember picture,overlay]
-	\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-		\tiny Figure adapted from Soran Ghaderi, Transformers-in-action-attention-is-all-you-need, TowardsDataScience blog
-	};
-\end{tikzpicture}
+{\tiny{Figure adapted from Soran Ghaderi, Transformers-in-action-attention-is-all-you-need, TowardsDataScience blog}}
 \end{frame}
 
 \begin{frame}{Self-Attention vs RNN}
@@ -739,11 +756,7 @@ subsubsectionstyle=show/shaded/hide]
 	\end{columns}
 	\vspace{6 pt}
 	\vfill
-	\begin{tikzpicture}[remember picture,overlay]
-		\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-			\tiny Figure adapted from Attention Mechanisms and Transformers D2L.ai Course
-		};
-	\end{tikzpicture}
+{\tiny{Figure adapted from Attention Mechanisms and Transformers D2L.ai Course}}
 \end{frame}
 
 \section{Positional Encoding}
@@ -787,11 +800,7 @@ subsubsectionstyle=show/shaded/hide]
 	\end{figure}
 	\vspace{5pt}
 	\vfill
-	\begin{tikzpicture}[remember picture,overlay]
-		\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-			\tiny Figure adapted from Mehreen Saeed, 'A Gentle Introduction to Positional Encoding in Transformer Models,' Machine-Learning Mastery blog
-		};
-	\end{tikzpicture}
+{\tiny{Figure adapted from Mehreen Saeed, 'A Gentle Introduction to Positional Encoding in Transformer Models,' Machine-Learning Mastery blog}}
 \end{frame}
 
 \begin{frame}{Incorporating Positional Encoding in Self-Attention}
@@ -824,11 +833,8 @@ subsubsectionstyle=show/shaded/hide]
 	\end{figure}
 	\vspace{5pt}
 	\vfill
-\begin{tikzpicture}[remember picture,overlay]
-	\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-		\tiny Figure adapted from Kemal Erdem, Understanding Positional Encoding in Transformers, erdem.pl blog
-	};
-\end{tikzpicture}
+{\tiny{Figure adapted from Kemal Erdem, Understanding Positional Encoding in Transformers, erdem.pl blog}}
+
 \end{frame}
 
 \begin{frame}{Positional Encoding}
@@ -839,11 +845,8 @@ subsubsectionstyle=show/shaded/hide]
 	\end{figure}
 	\vspace{5pt}
 	\vfill
-	\begin{tikzpicture}[remember picture,overlay]
-		\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-			\tiny Figure adapted from Kemal Erdem, Understanding Positional Encoding in Transformers, erdem.pl blog
-		};
-	\end{tikzpicture}
+{\tiny{Figure adapted from Kemal Erdem, Understanding Positional Encoding in Transformers, erdem.pl blog}}
+
 \end{frame}
 
 \begin{frame}{Positional Encoding}
@@ -854,11 +857,7 @@ subsubsectionstyle=show/shaded/hide]
 	\end{figure}
 	\vspace{5pt}
 	\vfill
-	\begin{tikzpicture}[remember picture,overlay]
-		\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-			\tiny Figure adapted from Kemal Erdem, Understanding Positional Encoding in Transformers, erdem.pl blog
-		};
-	\end{tikzpicture}
+{\tiny{Figure adapted from Kemal Erdem, Understanding Positional Encoding in Transformers, erdem.pl blog}}
 \end{frame}
 
 \begin{frame}{Positional Encoding}
@@ -886,11 +885,7 @@ subsubsectionstyle=show/shaded/hide]
 	\vspace{2pt}
 	
 	\vfill
-	\begin{tikzpicture}[remember picture,overlay]
-		\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-			\tiny Figure adapted from Ashish Vaswani et al. Attention is All You Need paper | Kucedra : The 7 headed dragon, MythLok 
-		};
-	\end{tikzpicture}
+	{\tiny{Figure adapted from Ashish Vaswani et al. Attention is All You Need paper | Kucedra : The 7 headed dragon, MythLok }}
 \end{frame}
 
 \begin{frame}{Multi-Head Attention}
@@ -912,11 +907,7 @@ subsubsectionstyle=show/shaded/hide]
     	\label{fig:multihead_attention-3}
     \end{figure}
     \vfill
-    \begin{tikzpicture}[remember picture,overlay]
-    	\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-    		\tiny Figure adapted from Attention Mechanisms and Transformers D2L.ai Course
-    	};
-    \end{tikzpicture}
+	{\tiny{Figure adapted from Attention Mechanisms and Transformers D2L.ai Course}}
 \end{frame}
 
 \begin{frame}{Multi-Head Attention}
@@ -930,11 +921,7 @@ subsubsectionstyle=show/shaded/hide]
 		\label{fig:multihead_attention-3-3-3}
 	\end{figure}
 	\vfill
-	\begin{tikzpicture}[remember picture,overlay]
-		\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-			\tiny Figure adapted from Damien Benveniste, 'The Multi-head Attention Mechanism Explained,' The AIEdge Newsletter
-		};
-	\end{tikzpicture}
+	{\tiny{Figure adapted from Damien Benveniste, 'The Multi-head Attention Mechanism Explained,' The AIEdge Newsletter}}
 \end{frame}
 
 
@@ -949,11 +936,7 @@ subsubsectionstyle=show/shaded/hide]
 		\label{fig:multihead_attention-3-3-4}
 	\end{figure}
 	\vfill
-	\begin{tikzpicture}[remember picture,overlay]
-		\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-			\tiny Figure adapted from Damien Benveniste, 'The Multi-head Attention Mechanism Explained,' The AIEdge Newsletter
-		};
-	\end{tikzpicture}
+	{\tiny{Figure adapted from Damien Benveniste, 'The Multi-head Attention Mechanism Explained,' The AIEdge Newsletter}}
 \end{frame}
 
 
@@ -1015,11 +998,7 @@ subsubsectionstyle=show/shaded/hide]
 \end{columns}
 
 	\vfill
-	\begin{tikzpicture}[remember picture,overlay]
-		\node[anchor=south west, xshift=0.15cm, yshift=0.22cm] at (current page.south west) {
-			\tiny Figure adapted from Ashish Vaswani et al. Attention is All You Need paper
-		};
-	\end{tikzpicture}
+{\tiny{Figure adapted from Ashish Vaswani et al. Attention is All You Need paper}}
 \end{frame}
 
 \begin{frame}{Multi-Head Attention Benefits}
