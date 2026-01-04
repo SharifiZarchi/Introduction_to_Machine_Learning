@@ -1,6 +1,6 @@
 # Machine Learning Course  
 
-Welcome to the "Machine Learning" course of [Department of Computer Engineering](https://ce.sharif.edu), [Sharif University of Technology](https://www.sharif.edu). 
+Welcome to the "Machine Learning" course at [Department of Computer Engineering](https://ce.sharif.edu), [Sharif University of Technology](https://www.sharif.edu). 
 
 You can access [slides](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/tree/main/Slides), [Jupyter notebooks](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/tree/main/Jupyter_Notebooks), and [exercises](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/tree/main/Exercises). 
 
