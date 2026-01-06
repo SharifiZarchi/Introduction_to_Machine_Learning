@@ -209,7 +209,7 @@ subsubsectionstyle=show/shaded/hide]
     \Large{Why is this interesting? Look at data scaling}
     \begin{itemize}
         \item
-            \large{Loss and dataset size is linear on a log-log plot}\\
+            \large{Loss and dataset size are linear on a log-log plot}\\
             \vspace{0.1cm}
         \item 
             \large{This is “power-law scaling”}
@@ -302,7 +302,7 @@ subsubsectionstyle=show/shaded/hide]
         \item
             \large{Emergent abilities:}
                 \begin{outline}
-                    \1 not present in smaller models but is present in larger models
+                    \1 not present in smaller models, but is present in larger models
                     \1 Do LLMs like GPT3 have these ?
                 \end{outline}   
             \vspace{0.1cm}
@@ -311,7 +311,7 @@ subsubsectionstyle=show/shaded/hide]
             \begin{outline}
                 \1 GPT-3 trained on text can do arithmetic problems like addition and subtraction
                 \1 Different abilities “emerge” at different scales
-                \1 Model scale is not the only contributor to emergence – for 14 BIG-Bench tasks, LaMDA 137B and GPT-3 175B models perform at near-random, but PaLM 62B achieves above-random performanceb
+                \1 Model scale is not the only contributor to emergence – for 14 BIG-Bench tasks, LaMDA 137B and GPT-3 175B models perform at near-random, but PaLM 62B achieves above-random performance
                 \1 Problems LLMs can’t solve today may be emergent for future LLMs
             \end{outline}
     \end{itemize}
@@ -324,7 +324,7 @@ subsubsectionstyle=show/shaded/hide]
         \item  
             \large{Encoder-only (BERT)}
             \begin{outline}
-                \1 Pre-training : Masked Language Modeling (MLM)
+                \1 Pre-training: Masked Language Modeling (MLM)
                 \1 Great for classification tasks, but hard to do generation
             \end{outline}
             \vspace{0.3cm}
@@ -339,7 +339,7 @@ subsubsectionstyle=show/shaded/hide]
         \item 
             \large{Encoder-decoder (T0/T5)}
             \begin{outline}
-                \1 Pre-training : Masked Span Prediction
+                \1 Pre-training: Masked Span Prediction
                 \1 Good for tasks like MT, summarization 
             \end{outline}
     \end{itemize}
@@ -355,7 +355,7 @@ subsubsectionstyle=show/shaded/hide]
     \end{figure*}
     \begin{itemize}
         \item Causal decoder -- each token attends to the previous tokens only. 
-        \item In both non-causal decoder and encoder-decoder, attention is allowed to be bidirectional on any conditioning information.
+        \item In both the non-causal decoder and the encoder-decoder, attention is allowed to be bidirectional on any conditioning information.
         \item For the encoder-decoder, that conditioning is fed into the encoder part of the model. 
     \end{itemize}
 \end{frame}
@@ -370,7 +370,7 @@ subsubsectionstyle=show/shaded/hide]
                 \1 LayerNorm -> RMSNorm for stability
                 \1 Activation: ReLU -> SwiGLU(x)
                 \1 Position Embedding: Absolute/Relative -> RoPE (Rotary PE)
-                \1 Long contexts : Multi-head attention -> Grouped-query attention
+                \1 Long contexts: Multi-head attention -> Grouped-query attention
             \end{outline}  
     \end{itemize}
     \hspace{2.5cm}
@@ -393,7 +393,7 @@ subsubsectionstyle=show/shaded/hide]
 \begin{frame}{Training of Decoder-only LLMs – Llama 2}
     \begin{itemize}
         \item Auto-regressive Pre-training - Train to predict the next token on very large scale corpora ( ~3 trillion tokens)
-        \item Instruction Fine-tuning/ Supervised Fine-tuning (SFT) - Fine-tune the pretrained model with pairs of (instruction+input,output) with large dataset and then with small high-quality dataset
+        \item Instruction Fine-tuning/ Supervised Fine-tuning (SFT) - Fine-tune the pretrained model with pairs of (instruction+input, output) with a large dataset and then with a small high-quality dataset
         \item Safety / RLHF - Design a reward model based on human feedback and use
         policy gradient methods with the trained reward model to update LLM parameters so that outputs align with human values
     \end{itemize}
@@ -475,7 +475,7 @@ subsubsectionstyle=show/shaded/hide]
                     \begin{outline}
                         \1 (a) illustrates vanilla fine-tuning, which requires updating the entire model, resulting in a new model for each task.
                         \vspace{0.2cm}
-                        \1 (b) PEFT instead learns a small subset of model parameters for each task with a fixed base LLM. The same base model can be re-used during inference for different tasks.
+                        \1 (b) PEFT instead learns a small subset of model parameters for each task with a fixed base LLM. The same base model can be reused during inference for different tasks.
                     \end{outline}
                     \vspace{0.3cm}
             \end{itemize}
@@ -498,11 +498,11 @@ subsubsectionstyle=show/shaded/hide]
             \begin{itemize}
                 \item  
                     \textbf{PEFT Baseline Efficiency:}
-                     Freeze parameters except top K layers, reducing computation and memory usage.
+                     Freeze parameters except the top K layers, reducing computation and memory usage.
                     \vspace{0.3cm}
                 \item  
                     \textbf{Flexible Application:}
-                      Can be applied to most deep neural networks for efficient fine-tuning.
+                      It can be applied to most deep neural networks for efficient fine-tuning.
                     \vspace{0.3cm}
             \end{itemize}
         \end{column}
@@ -527,7 +527,7 @@ subsubsectionstyle=show/shaded/hide]
             \begin{itemize}
                 \item  
                     \textbf{Adapters: }
-                     New modules inserted between layers of a pre-trained model, with the original model weights fixed.
+                     New modules are inserted between layers of a pre-trained model, with the original model weights fixed.
                     \vspace{0.3cm}
                 \item  
                     \textbf{Training Efficiency: }
@@ -583,13 +583,13 @@ subsubsectionstyle=show/shaded/hide]
             \begin{itemize}
                 \item  
                     \textbf{Compacters: }
-                     are an extension of adapters which aim to make the technique even more efficient.
+                     They are an extension of adapters, which aim to make the technique even more efficient.
                     \vspace{0.1cm}
                 \item  
                      Adapters are standard fully connected layers.
                      \vspace{0.2cm}
                     \begin{outline}
-                        \1 Linear project to lower dimension followed by nonlinearity, followed by projection back up to original dimension.
+                        \1 Linear project to lower dimension, followed by nonlinearity, followed by projection back up to original dimension.
                         \vspace{0.1cm}
                         \1 \(y = \boldsymbol{W_2} GELU(\boldsymbol{W_1x} + \boldsymbol{b_1}) + \boldsymbol{b_2}\)
                     \end{outline}
@@ -612,7 +612,7 @@ subsubsectionstyle=show/shaded/hide]
     \begin{figure}
         \centering
         \includegraphics[width=0.6\textwidth, height=0.65\textheight]{pic/compacter.png}
-        \caption{The compacter replaces the linear down and up projection of the bottleneck adapter with a phm layer. The phm layer obtains its weights by computing the kronecker product of two smaller matrices.}
+        \caption{The compacter replaces the linear down and up projection of the bottleneck adapter with a phm layer. The PHM layer obtains its weights by computing the Kronecker product of two smaller matrices.}
     \end{figure}
 \end{frame}
 \end{comment}
