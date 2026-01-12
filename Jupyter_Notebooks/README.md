@@ -3,29 +3,29 @@ This is an overview of notebooks from all chapters.
 ----
 
 # [Chapter 1: Supervised Learning](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/tree/main/Jupyter_Notebooks/Chapter_01_Supervised_Learning)
-In this chapter we over the basics of Supervised Learning, where we train models using labeled data.
+In this chapter we go over the basics of Supervised Learning, where we train models using labeled data.
 To learn more about notebooks from this chapter check out [here](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_01_Supervised_Learning/README.md).
 
 ## [1. Linear Regression](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_01_Supervised_Learning/01-Linear%20Regression/01-Linear_Regression.ipynb)
-In this notebook we solve the problem of Regression from scratch using only numpy. We also experiment wih Polynomial Regression and use sklearn to solve real-world problems.
+In this notebook we solve the problem of Regression from scratch using only numpy. We also experiment with Polynomial Regression and use sklearn to solve real-world problems.
 
 ## [2. Linear Classification](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_01_Supervised_Learning/02-Linear%20Classification/02-Linear_Classification.ipynb)
 In this notebook we use Regression to solve binary classification problems and understand their limitations.
 
 ## [3. Logistic Regression](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_01_Supervised_Learning/03-Logistic%20Regression/03-Logistic_Regression.ipynb)
-In this notebook we learn about Logistic Regression and repurpose Regeression to classify data from small datasets.
+In this notebook we learn about Logistic Regression and repurpose Regression to classify data from small datasets.
 
 ## [4. K-Nearest Neighbors](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_01_Supervised_Learning/04-kNN/04-kNN.ipynb)
-In this notebook we use implement the kNN algorithm from scratch and use it for classification. 
+In this notebook we implement the kNN algorithm from scratch and use it for classification. 
 
 ## [5. Ensemble Learning](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_01_Supervised_Learning/05-Ensemble%20Learning/05-Ensemble_Learning.ipynb)
-In this notebook we use implement the Decision Tree Classifiers from scratch and explore how ensembling different models improve classification. 
+In this notebook we implement the Decision Tree Classifiers from scratch and explore how ensembling different models improve classification. 
 We also work with Random Forests and XGBoost and compare their results.
 
 ----
 
 # [Chapter 2: Unsupervised Learning](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/tree/main/Jupyter_Notebooks/Chapter_02_Unsupervised_Learning)
-In this chapter we over the basics of Unsupervised Learning, where we train models using unlabeled data.
+In this chapter we go over the basics of Unsupervised Learning, where we train models using unlabeled data.
 To learn more about notebooks from this chapter check out [here](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_02_Unsupervised_Learning/README.md).
 
 ## [1. Clustering](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_02_Unsupervised_Learning/Clustering.ipynb)
@@ -37,7 +37,7 @@ In this notebook we go over different Dimensionality Reduction algorithms such a
 ----
 
 # [Chapter 3: Neural Networks](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/tree/main/Jupyter_Notebooks/Chapter_03_Neural_Networks)
-In this chapter we over the basics of Neural Networks, which are the building blocks of modern Deep Learning.
+In this chapter we go over the basics of Neural Networks, which are the building blocks of modern Deep Learning.
 To learn more about notebooks from this chapter check out [here](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_03_Neural_Networks/README.md).
 
 ## [1. Neural Networks from Scratch](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_03_Neural_Networks/NNs_from_scratch.ipynb)
@@ -60,8 +60,8 @@ We try to get better results using different optimizers, bigger networks, batch 
 
 ----
 
-# [Chapter 4: Compuer Vision](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_04_Compuer_Vision)
-In this chapter we over the basics of Computer Vision, exploring how neural networks can be modified to solve different problems in Computer Vision.
+# [Chapter 4: Computer Vision](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_04_Compuer_Vision)
+In this chapter we go over the basics of Computer Vision, exploring how neural networks can be modified to solve different problems in Computer Vision.
 To learn more about notebooks from this chapter check out [here](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_04_Compuer_Vision/README.md).
 
 ## [1. Convolutional Neural Networks from Scratch](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_04_Computer_Vision/CNNs_from_scratch.ipynb)
@@ -86,7 +86,7 @@ In this notebook we introduce the U-Net architecture and investigate its use cas
 ----
 
 # [Chapter 5: Natural Language Processing](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_05_Natural_Language_Processing)
-In this chapter we over the basics of Natural Language Processing, exploring how neural networks can be modified to solve different problems in NLP.
+In this chapter we go over the basics of Natural Language Processing, exploring how neural networks can be modified to solve different problems in NLP.
 To learn more about notebooks from this chapter check out [here](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_05_Natural_Language_Processing/README.md).
 
 ## [1. Word Embeddings](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_05_Natural_Language_Processing/01-Word%20Embedding/Word%20Embedding.ipynb)
@@ -98,7 +98,7 @@ In this notebook, we are going to implement the Attention layers from scratch us
 ----
 
 # [Chapter 6: Contrastive Learning](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/tree/main/Jupyter_Notebooks/Chapter_06_Contrastive_Learning)
-In this chapter we over the basics of Contrastive Learning, exploring how models trained on images and languages can be used together to enhance the performance of our models.
+In this chapter we go over the basics of Contrastive Learning, exploring how models trained on images and languages can be used together to enhance the performance of our models.
 To learn more about notebooks from this chapter check out [here](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_06_Contrastive_Learning/README.md).
 
 ## [1. Vision Transformers](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_06_Contrastive_Learning/ViT.ipynb)
