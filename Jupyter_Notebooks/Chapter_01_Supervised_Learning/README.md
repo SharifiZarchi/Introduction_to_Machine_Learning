@@ -2,7 +2,7 @@ You should work your way through the notebooks in the following order:
 
 
 # [1. Linear Regression](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_01_Supervised_Learning/01-Linear%20Regression/01-Linear_Regression.ipynb)
-In this notebook we solve the problem of Regression from scratch using only numpy. We also experiment wih Polynomial Regression and use sklearn to solve real-world problems.
+In this notebook we solve the problem of Regression from scratch using only numpy. We also experiment with Polynomial Regression and use sklearn to solve real-world problems.
 
 **Warning!** If you want to run this notebook online, make sure you run the following code to download the dataset:
 ```
@@ -40,7 +40,7 @@ In this notebook we use Regression to solve binary classification problems and u
 
 
 # [3. Logistic Regression](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_01_Supervised_Learning/03-Logistic%20Regression/03-Logistic_Regression.ipynb)
-In this notebook we learn about Logistic Regression and repurpose Regeression to classify data from small datasets.
+In this notebook we learn about Logistic Regression and repurpose Regression to classify data from small datasets.
 
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_01_Supervised_Learning/03-Logistic%20Regression/03-Logistic_Regression.ipynb)
@@ -49,7 +49,7 @@ In this notebook we learn about Logistic Regression and repurpose Regeression to
 
 
 # [4. K-Nearest Neighbors](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_01_Supervised_Learning/04-kNN/04-kNN.ipynb)
-In this notebook we use implement the kNN algorithm from scratch and use it for classification. 
+In this notebook we implement the kNN algorithm from scratch and use it for classification. 
 
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_01_Supervised_Learning/04-kNN/04-kNN.ipynb)
@@ -58,7 +58,7 @@ In this notebook we use implement the kNN algorithm from scratch and use it for 
 
 
 # [5. Ensemble Learning](https://github.com/SharifiZarchi/Introduction_to_Machine_Learning/blob/main/Jupyter_Notebooks/Chapter_01_Supervised_Learning/05-Ensemble%20Learning/05-Ensemble_Learning.ipynb)
-In this notebook we use implement the Decision Tree Classifiers from scratch and explore how ensembling different models improve classification. 
+In this notebook we implement the Decision Tree Classifiers from scratch and explore how ensembling different models improve classification. 
 We also work with Random Forests and XGBoost and compare their results.
 
 
